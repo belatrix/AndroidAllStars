@@ -18,17 +18,17 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars;
+package com.belatrixsf.allstars.ui.common;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.content.Context;
 
-public class MainActivity extends AppCompatActivity {
+/**
+ * @author Pedro Carrillo
+ */
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
+public interface BaseView {
+
+    void setProgressIndicator(boolean active);
+    Context getContext();
 
 }

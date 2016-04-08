@@ -18,17 +18,27 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars;
+package com.belatrixsf.allstars.ui.example;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+import com.belatrixsf.allstars.R;
+import com.belatrixsf.allstars.ui.common.BaseActivity;
+
+/**
+ * @author PedroCarrillo
+ */
+public class ExampleActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_example);
     }
 
 }

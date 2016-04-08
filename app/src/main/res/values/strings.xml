@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">android-all-stars</string>
+    <string name="title_activity_example">ExampleActivity</string>
 </resources>

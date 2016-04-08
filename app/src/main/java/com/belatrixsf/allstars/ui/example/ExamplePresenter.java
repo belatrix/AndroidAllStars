@@ -18,17 +18,28 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars;
+package com.belatrixsf.allstars.ui.example;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+/**
+ * @author PedroCarrillo
+ */
+public class ExamplePresenter implements ExampleContractor.ExamplePresenter<ExampleContractor.ExampleView>{
 
-public class MainActivity extends AppCompatActivity {
+    private ExampleContractor.ExampleView exampleView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public void getBooks() {
+        //This is in charge of calling your Repository Layer and send the response to the view.
+        exampleView.showBooks();
     }
 
+    @Override
+    public void detachView() {
+        this.exampleView = null;
+    }
+
+    @Override
+    public void attachView(ExampleContractor.ExampleView view) {
+        this.exampleView = view;
+    }
 }

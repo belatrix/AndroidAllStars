@@ -18,17 +18,27 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars;
+package com.belatrixsf.allstars.ui.example;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import com.belatrixsf.allstars.ui.common.BasePresenter;
+import com.belatrixsf.allstars.ui.common.BaseView;
 
-public class MainActivity extends AppCompatActivity {
+/**
+ * @author PedroCarrillo
+ */
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+public interface ExampleContractor {
+
+    interface ExamplePresenter<View> extends BasePresenter<View> {
+
+        void getBooks();
+
+    }
+
+    interface ExampleView extends BaseView {
+
+        void showBooks();
+
     }
 
 }
