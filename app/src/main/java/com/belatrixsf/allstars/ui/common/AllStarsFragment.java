@@ -18,27 +18,42 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.example;
+package com.belatrixsf.allstars.ui.common;
 
-import com.belatrixsf.allstars.ui.common.BasePresenter;
-import com.belatrixsf.allstars.ui.common.BaseView;
+import android.app.Fragment;
+import android.content.Context;
 
 /**
  * @author PedroCarrillo
+ * @author gyosida
+ *
+ * AllStarsFragment will implement the AllStarsView interface and manage
+ * common fragment stuff to avoid boilerplate code
  */
+public class AllStarsFragment extends Fragment implements AllStarsView {
 
-public interface ExampleContractor {
+    protected FragmentListener fragmentListener;
 
-    interface ExamplePresenter<View> extends BasePresenter<View> {
-
-        void getBooks();
-
+    @Override
+    public void setProgressIndicator(boolean active) {
+        //TODO: implement this.
     }
 
-    interface ExampleView extends BaseView {
+    @Override
+    public void showError(String message) {
+        //TODO: implement this.
+    }
 
-        void showBooks();
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        fragmentListener = (FragmentListener)context;
+    }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        fragmentListener = null;
     }
 
 }

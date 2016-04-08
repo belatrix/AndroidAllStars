@@ -18,22 +18,18 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.example;
+package com.belatrixsf.allstars.ui.common;
 
-import android.os.Bundle;
-
-import com.belatrixsf.allstars.R;
-import com.belatrixsf.allstars.ui.common.AllStarsActivity;
+import android.content.Context;
 
 /**
- * @author PedroCarrillo
+ * @author Pedro Carrillo
  */
-public class ExampleActivity extends AllStarsActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_example);
-    }
+public interface AllStarsView {
+
+    void setProgressIndicator(boolean active);
+    void showError(String message);
+    Context getContext();
 
 }

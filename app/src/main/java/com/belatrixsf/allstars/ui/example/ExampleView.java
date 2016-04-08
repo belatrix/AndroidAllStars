@@ -18,17 +18,15 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.common;
+package com.belatrixsf.allstars.ui.example;
 
-import android.content.Context;
+import com.belatrixsf.allstars.ui.common.AllStarsView;
 
 /**
- * @author Pedro Carrillo
+ * @author gyosida
  */
+public interface ExampleView extends AllStarsView {
 
-public interface BaseView {
-
-    void setProgressIndicator(boolean active);
-    Context getContext();
+    void showBooks();
 
 }
