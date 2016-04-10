@@ -20,12 +20,16 @@
 */
 package com.belatrixsf.allstars.ui.common;
 
-/**
- * @author Pedro Carrillo
- */
-public interface BasePresenter<V>  {
+import android.app.Fragment;
 
-    void attachView(V view);
-    void detachView();
+/**
+ * Created by PedroCarrillo on 4/8/16.
+ */
+public interface FragmentListener {
+
+    void replaceFragment(Fragment fragment, boolean addToBackStack);
+    void replaceFragment(int containerId, Fragment fragment, boolean addToBackStack);
+    void closeActivity();
+    void setTitle();
 
 }

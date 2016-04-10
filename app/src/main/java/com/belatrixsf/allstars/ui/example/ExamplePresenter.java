@@ -20,26 +20,21 @@
 */
 package com.belatrixsf.allstars.ui.example;
 
+import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
+
 /**
  * @author PedroCarrillo
+ * @author gyosida
  */
-public class ExamplePresenter implements ExampleContractor.ExamplePresenter<ExampleContractor.ExampleView>{
+public class ExamplePresenter extends AllStarsPresenter<ExampleView> {
 
-    private ExampleContractor.ExampleView exampleView;
+    public ExamplePresenter(ExampleView view) {
+        this.view = view;
+    }
 
-    @Override
     public void getBooks() {
-        //This is in charge of calling your Repository Layer and send the response to the view.
-        exampleView.showBooks();
+        // will get the books from the model layer and use the showBooks() method from the view reference
+        view.showBooks();
     }
 
-    @Override
-    public void detachView() {
-        this.exampleView = null;
-    }
-
-    @Override
-    public void attachView(ExampleContractor.ExampleView view) {
-        this.exampleView = view;
-    }
 }

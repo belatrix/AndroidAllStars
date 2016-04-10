@@ -21,50 +21,30 @@
 package com.belatrixsf.allstars.ui.common;
 
 import android.app.Fragment;
-import android.content.Context;
-import android.os.Bundle;
-import android.view.View;
-
-import com.belatrixsf.allstars.listeners.FragmentListener;
+import android.support.v7.app.AppCompatActivity;
 
 /**
  * @author PedroCarrillo
- *
- * This class will be in charge of attaching the view to the presenter and avoiding boiler plate code.
- * Also will contain the basic methods for BaseView
  */
-public class BaseFragment<T extends BasePresenter> extends Fragment implements BaseView {
-
-    protected T mPresenter;
-    protected FragmentListener fragmentListener;
+public class AllStarsActivity extends AppCompatActivity implements FragmentListener {
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        if (mPresenter != null) mPresenter.attachView(this);
+    public void replaceFragment(int containerId, Fragment fragment, boolean addToBackStack) {
+
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (mPresenter != null) mPresenter.detachView();
+    public void replaceFragment(Fragment fragment, boolean addToBackStack) {
+
     }
 
     @Override
-    public void setProgressIndicator(boolean active) {
-        //TODO: implement this.
+    public void closeActivity() {
+        finish();
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        fragmentListener = (FragmentListener)context;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        fragmentListener = null;
+    public void setTitle() {
     }
 
 }
