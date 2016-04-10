@@ -20,15 +20,53 @@
 */
 package com.belatrixsf.allstars;
 
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.belatrixsf.allstars.ui.account.AccountFragment;
+import com.belatrixsf.allstars.ui.common.AllStarsActivity;
+
+public class MainActivity extends AllStarsActivity {
+
+    TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        setupViews();
     }
+
+    private void setupViews() {
+        setupTabs();
+    }
+
+    private void setupTabs() {
+        tabLayout.addTab(tabLayout.newTab().setText("Account").setTag("account"));
+        tabLayout.addTab(tabLayout.newTab().setText("Ranking").setTag("ranking"));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getTag().toString().equalsIgnoreCase("account")) {
+                    replaceFragment(AccountFragment.newInstance(), false);
+                } else if (tab.getTag().toString().equalsIgnoreCase("account")){
+
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
+
 
 }

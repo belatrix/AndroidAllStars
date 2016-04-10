@@ -9,19 +9,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
-        </activity>
-        <activity
-            android:name=".ui.example.ExampleActivity"
-            android:label="@string/title_activity_example"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name=".ui.account.AccountPlaceholderActivity"
-            android:label="@string/title_activity_example">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.example.ExampleActivity"
+            android:label="@string/title_activity_example"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 

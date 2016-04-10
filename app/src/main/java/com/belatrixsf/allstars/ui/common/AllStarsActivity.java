@@ -21,7 +21,10 @@
 package com.belatrixsf.allstars.ui.common;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+
+import com.belatrixsf.allstars.R;
 
 /**
  * @author PedroCarrillo
@@ -29,13 +32,17 @@ import android.support.v7.app.AppCompatActivity;
 public class AllStarsActivity extends AppCompatActivity implements FragmentListener {
 
     @Override
-    public void replaceFragment(int containerId, Fragment fragment, boolean addToBackStack) {
-
+    public void replaceFragment(Fragment fragment, boolean addToBackStack) {
+        replaceFragment(R.id.main_content, fragment, addToBackStack);
     }
 
     @Override
-    public void replaceFragment(Fragment fragment, boolean addToBackStack) {
-
+    public void replaceFragment(int containerId, Fragment fragment, boolean addToBackStack) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        String tag = fragment.getClass().getSimpleName();
+        transaction.replace(containerId, fragment, tag);
+        if(addToBackStack) transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     @Override
