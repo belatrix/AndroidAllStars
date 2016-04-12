@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">@color/belatrix</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimaryDark">#F57C00</color>
+    <color name="colorAccent">@android:color/black</color>
 
     <color name="belatrix">#ff8f0e</color>
     <color name="divider">#C0C7CA</color>

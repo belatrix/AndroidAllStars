@@ -8,11 +8,13 @@ public class Category {
     private String id;
     private String name;
     private int weight;
+    private int value;
 
-    public Category(String id, String name, int weight) {
+    public Category(String id, String name, int weight, int value) {
         this.id = id;
         this.name = name;
         this.weight = weight;
+        this.value = value;
     }
 
     public String getId() {
@@ -38,4 +40,13 @@ public class Category {
     public void setWeight(int weight) {
         this.weight = weight;
     }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.belatrixsf.allstars.ui.account;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import com.belatrixsf.allstars.adapters.AccountCategoriesAdapter;
 import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
+import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,14 +41,15 @@ public class AccountFragment extends AllStarsFragment implements RecyclerOnItemC
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         List<Category> categoryList = new ArrayList<>();
-        categoryList.add(new Category("1", "leaders", 0));
-        categoryList.add(new Category("1", "marketing", 0));
-        categoryList.add(new Category("1", "coworkers", 0));
-        categoryList.add(new Category("1", "etc", 0));
-        categoryList.add(new Category("1", "ac", 0));
-        categoryList.add(new Category("1", "test", 0));
+        categoryList.add(new Category("1", "Co-workers", 0, 200));
+        categoryList.add(new Category("1", "Lideres", 0, 100));
+        categoryList.add(new Category("1", "Marketing", 0, 2));
+        categoryList.add(new Category("1", "Recruitment", 0, 4));
+        categoryList.add(new Category("1", "Interviews", 0, 3));
+        categoryList.add(new Category("1", "Social help", 0, 2));
         AccountCategoriesAdapter accountCategoriesAdapter = new AccountCategoriesAdapter(categoryList, this);
         rvRecommendations.setAdapter(accountCategoriesAdapter);
+        rvRecommendations.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getContext(), android.R.drawable.divider_horizontal_bright)));
         rvRecommendations.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
