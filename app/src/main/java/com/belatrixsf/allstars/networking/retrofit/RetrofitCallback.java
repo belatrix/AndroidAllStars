@@ -18,17 +18,47 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars;
+package com.belatrixsf.allstars.networking.retrofit;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.util.Log;
 
-public class MainActivity extends AppCompatActivity {
+import com.belatrixsf.allstars.utils.AllStarsCallback;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+import java.io.IOException;
+
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
+
+/**
+ * Created by gyosida on 4/12/16.
+ */
+public class RetrofitCallback<T> implements Callback<T> {
+
+    private AllStarsCallback<T> callback;
+
+    public RetrofitCallback(AllStarsCallback callback) {
+        this.callback = callback;
     }
 
+    @Override
+    public void onResponse(Response<T> response, Retrofit retrofit) {
+        if (response.isSuccess()) {
+            callback.onSuccess(response.body());
+        } else {
+            //TODO handle service error
+//            ServiceError serviceError = new ServiceError();
+            try {
+                Log.d("RetrofitCallback", "onResponse: " + response.errorBody().string());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void onFailure(Throwable t) {
+        //TODO handle IOException
+        Log.d("RetrofitCallback", "onFailure: ");
+    }
 }

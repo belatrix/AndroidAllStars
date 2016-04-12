@@ -18,33 +18,24 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.common;
+package com.belatrixsf.allstars.networking.retrofit.responses;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
- * @author gyosida
- *
- * AllStarsPresenter is the base clase for every presenter created
- * on the project, will hold the reference to the view and any common
- * interaction with it
+ * Created by gyosida on 4/11/16.
  */
-public class AllStarsPresenter<T extends AllStarsView> {
+public class AuthenticationResponse {
 
-    protected T view;
+    @SerializedName("user_id")
+    private int employeeId;
+    private String token;
 
-    protected AllStarsPresenter(T view) {
-        this.view = view;
+    public int getEmployeeId() {
+        return employeeId;
     }
 
-    protected String getString(int resId) {
-        return view.getContext().getString(resId);
+    public String getToken() {
+        return token;
     }
-
-    protected void showError(int resId) {
-        showError(getString(resId));
-    }
-
-    protected void showError(String message) {
-        view.showError(message);
-    }
-
 }

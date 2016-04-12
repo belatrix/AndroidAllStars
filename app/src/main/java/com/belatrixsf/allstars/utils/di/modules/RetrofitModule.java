@@ -18,33 +18,23 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.common;
+package com.belatrixsf.allstars.utils.di.modules;
+
+import com.belatrixsf.allstars.networking.retrofit.RetrofitFactory;
+import com.belatrixsf.allstars.networking.retrofit.api.EmployeeAPI;
+
+import dagger.Module;
+import dagger.Provides;
 
 /**
- * @author gyosida
- *
- * AllStarsPresenter is the base clase for every presenter created
- * on the project, will hold the reference to the view and any common
- * interaction with it
+ * Created by gyosida on 4/12/16.
  */
-public class AllStarsPresenter<T extends AllStarsView> {
+@Module
+public class RetrofitModule {
 
-    protected T view;
-
-    protected AllStarsPresenter(T view) {
-        this.view = view;
-    }
-
-    protected String getString(int resId) {
-        return view.getContext().getString(resId);
-    }
-
-    protected void showError(int resId) {
-        showError(getString(resId));
-    }
-
-    protected void showError(String message) {
-        view.showError(message);
+    @Provides
+    public EmployeeAPI providesUserAPI() {
+        return RetrofitFactory.get().create(EmployeeAPI.class);
     }
 
 }

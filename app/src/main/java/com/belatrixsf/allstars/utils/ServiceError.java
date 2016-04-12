@@ -18,33 +18,26 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.common;
+package com.belatrixsf.allstars.utils;
 
 /**
- * @author gyosida
- *
- * AllStarsPresenter is the base clase for every presenter created
- * on the project, will hold the reference to the view and any common
- * interaction with it
+ * Created by gyosida on 4/12/16.
  */
-public class AllStarsPresenter<T extends AllStarsView> {
+public class ServiceError {
 
-    protected T view;
+    private int responseCode;
+    private String errorMessage;
 
-    protected AllStarsPresenter(T view) {
-        this.view = view;
+    public ServiceError(int responseCode, String errorMessage) {
+        this.responseCode = responseCode;
+        this.errorMessage = errorMessage;
+    }
+    
+    public int getResponseCode() {
+        return responseCode;
     }
 
-    protected String getString(int resId) {
-        return view.getContext().getString(resId);
+    public String getErrorMessage() {
+        return errorMessage;
     }
-
-    protected void showError(int resId) {
-        showError(getString(resId));
-    }
-
-    protected void showError(String message) {
-        view.showError(message);
-    }
-
 }

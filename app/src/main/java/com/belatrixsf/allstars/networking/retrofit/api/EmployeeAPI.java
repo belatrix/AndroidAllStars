@@ -18,33 +18,29 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.common;
+package com.belatrixsf.allstars.networking.retrofit.api;
+
+import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.networking.retrofit.requests.AuthenticationRequest;
+import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
+
+import retrofit.Call;
+import retrofit.http.Body;
+import retrofit.http.GET;
+import retrofit.http.Headers;
+import retrofit.http.POST;
+import retrofit.http.Path;
 
 /**
- * @author gyosida
- *
- * AllStarsPresenter is the base clase for every presenter created
- * on the project, will hold the reference to the view and any common
- * interaction with it
+ * Created by gyosida on 4/11/16.
  */
-public class AllStarsPresenter<T extends AllStarsView> {
+public interface EmployeeAPI {
 
-    protected T view;
+    @Headers("Content-Type : application/json")
+    @POST(ServerPaths.EMPLOYEE_AUTHENTICATE)
+    Call<AuthenticationResponse> authenticate(@Body AuthenticationRequest request);
 
-    protected AllStarsPresenter(T view) {
-        this.view = view;
-    }
-
-    protected String getString(int resId) {
-        return view.getContext().getString(resId);
-    }
-
-    protected void showError(int resId) {
-        showError(getString(resId));
-    }
-
-    protected void showError(String message) {
-        view.showError(message);
-    }
+    @GET(ServerPaths.EMPLOYEE_BY_ID)
+    Call<Employee> getEmployee(@Path(ServerPaths.EMPLOYEE_ID) int employeeId);
 
 }

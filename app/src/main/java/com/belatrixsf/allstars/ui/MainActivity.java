@@ -18,33 +18,19 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.common;
+package com.belatrixsf.allstars.ui;
 
-/**
- * @author gyosida
- *
- * AllStarsPresenter is the base clase for every presenter created
- * on the project, will hold the reference to the view and any common
- * interaction with it
- */
-public class AllStarsPresenter<T extends AllStarsView> {
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 
-    protected T view;
+import com.belatrixsf.allstars.R;
 
-    protected AllStarsPresenter(T view) {
-        this.view = view;
-    }
+public class MainActivity extends AppCompatActivity {
 
-    protected String getString(int resId) {
-        return view.getContext().getString(resId);
-    }
-
-    protected void showError(int resId) {
-        showError(getString(resId));
-    }
-
-    protected void showError(String message) {
-        view.showError(message);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
     }
 
 }

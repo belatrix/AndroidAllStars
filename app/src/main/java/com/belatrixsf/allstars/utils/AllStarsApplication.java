@@ -18,33 +18,36 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.common;
+package com.belatrixsf.allstars.utils;
+
+import android.app.Application;
+import android.content.Context;
+
+import com.belatrixsf.allstars.utils.di.components.ApplicationComponent;
+import com.belatrixsf.allstars.utils.di.components.DaggerApplicationComponent;
+
 
 /**
- * @author gyosida
- *
- * AllStarsPresenter is the base clase for every presenter created
- * on the project, will hold the reference to the view and any common
- * interaction with it
+ * Created by gyosida on 4/12/16.
  */
-public class AllStarsPresenter<T extends AllStarsView> {
+public class AllStarsApplication extends Application {
 
-    protected T view;
+    private ApplicationComponent applicationComponent;
+    private static Context context;
 
-    protected AllStarsPresenter(T view) {
-        this.view = view;
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        context = this;
+        applicationComponent = DaggerApplicationComponent.create();
     }
 
-    protected String getString(int resId) {
-        return view.getContext().getString(resId);
+    public ApplicationComponent getApplicationComponent() {
+        return applicationComponent;
     }
 
-    protected void showError(int resId) {
-        showError(getString(resId));
-    }
-
-    protected void showError(String message) {
-        view.showError(message);
+    public static Context getContext() {
+        return context;
     }
 
 }
