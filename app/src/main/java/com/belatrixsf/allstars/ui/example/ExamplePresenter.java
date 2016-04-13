@@ -29,7 +29,7 @@ import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 public class ExamplePresenter extends AllStarsPresenter<ExampleView> {
 
     public ExamplePresenter(ExampleView view) {
-        this.view = view;
+        super(view);
     }
 
     public void getBooks() {

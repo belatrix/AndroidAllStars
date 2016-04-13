@@ -22,6 +22,12 @@ package com.belatrixsf.allstars.ui.common;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.os.Bundle;
+import android.view.View;
+
+import com.belatrixsf.allstars.utils.AllStarsApplication;
+
+import butterknife.ButterKnife;
 
 /**
  * @author PedroCarrillo
@@ -30,9 +36,17 @@ import android.content.Context;
  * AllStarsFragment will implement the AllStarsView interface and manage
  * common fragment stuff to avoid boilerplate code
  */
-public class AllStarsFragment extends Fragment implements AllStarsView {
+public abstract class AllStarsFragment extends Fragment implements AllStarsView {
 
+    protected static final String TAG = AllStarsFragment.class.getName();
     protected FragmentListener fragmentListener;
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this, view);
+        initDependencies((AllStarsApplication) getActivity().getApplication());
+    }
 
     @Override
     public void setProgressIndicator(boolean active) {
@@ -55,5 +69,7 @@ public class AllStarsFragment extends Fragment implements AllStarsView {
         super.onDetach();
         fragmentListener = null;
     }
+
+    protected abstract void initDependencies(AllStarsApplication allStarsApplication);
 
 }

@@ -30,6 +30,7 @@ import android.view.ViewGroup;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
+import com.belatrixsf.allstars.utils.AllStarsApplication;
 
 /**
  * Created by PedroCarrillo on 4/8/16.
@@ -68,5 +69,10 @@ public class ExampleFragment extends AllStarsFragment implements ExampleView {
     public void showBooks() {
         Snackbar.make(getView(), "show books called", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
+    }
+
+    @Override
+    protected void initDependencies(AllStarsApplication allStarsApplication) {
+
     }
 }
