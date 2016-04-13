@@ -49,8 +49,11 @@ public class AccountFragment extends AllStarsFragment implements RecyclerOnItemC
         categoryList.add(new Category("1", "Social help", 0, 2));
         AccountCategoriesAdapter accountCategoriesAdapter = new AccountCategoriesAdapter(categoryList, this);
         rvRecommendations.setAdapter(accountCategoriesAdapter);
-        rvRecommendations.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getContext(), android.R.drawable.divider_horizontal_bright)));
-        rvRecommendations.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvRecommendations.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setAutoMeasureEnabled(true);
+        rvRecommendations.setNestedScrollingEnabled(false);
+        rvRecommendations.setLayoutManager(linearLayoutManager);
     }
 
     @Override
