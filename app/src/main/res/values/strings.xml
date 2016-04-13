@@ -2,4 +2,16 @@
     <string name="app_name">android-all-stars</string>
     <string name="title_activity_example">ExampleActivity</string>
     <string name="categories">Categories</string>
+
+    <!-- Hint -->
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+
+    <!-- Button -->
+    <string name="button_sign_in">Sign In</string>
+
+    <!-- Title -->
+    <string name="title_belatrix">Belatrix</string>
+    <string name="title_activity_login">LoginActivity</string>
+
 </resources>

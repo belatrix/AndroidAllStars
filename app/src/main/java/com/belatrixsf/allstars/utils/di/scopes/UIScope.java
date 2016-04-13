@@ -18,33 +18,18 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.common;
+package com.belatrixsf.allstars.utils.di.scopes;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import javax.inject.Scope;
 
 /**
- * @author gyosida
- *
- * AllStarsPresenter is the base clase for every presenter created
- * on the project, will hold the reference to the view and any common
- * interaction with it
+ * Created by gyosida on 4/12/16.
  */
-public class AllStarsPresenter<T extends AllStarsView> {
-
-    protected T view;
-
-    protected AllStarsPresenter(T view) {
-        this.view = view;
-    }
-
-    protected String getString(int resId) {
-        return view.getContext().getString(resId);
-    }
-
-    protected void showError(int resId) {
-        showError(getString(resId));
-    }
-
-    protected void showError(String message) {
-        view.showError(message);
-    }
-
+@Scope
+@Retention(RetentionPolicy.RUNTIME)
+public @interface UIScope {
 }

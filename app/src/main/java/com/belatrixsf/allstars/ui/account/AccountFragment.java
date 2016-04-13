@@ -14,6 +14,7 @@ import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
+import com.belatrixsf.allstars.utils.AllStarsApplication;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +59,11 @@ public class AccountFragment extends AllStarsFragment implements RecyclerOnItemC
 
     @Override
     public void onClick(View v) {
+
+    }
+
+    @Override
+    protected void initDependencies(AllStarsApplication allStarsApplication) {
 
     }
 }

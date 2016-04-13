@@ -20,60 +20,42 @@
 */
 package com.belatrixsf.allstars.entities;
 
-import java.util.List;
+import com.google.gson.annotations.SerializedName;
 
 /**
- * @author PedroCarrillo
+ * Created by gyosida on 4/12/16.
  */
 public class Employee {
 
-    private String skypeId;
-    private String role;
-    private String userName;
+    private Integer pk;
+    private String username;
     private String email;
+    @SerializedName("first_name")
     private String firstName;
+    @SerializedName("last_name")
     private String lastName;
-    private int lastMonthScore;
-    private int currentMonthScore;
-    private int level;
     private String avatar;
-    private List<Category> categoryList;
+    private String role;
+    @SerializedName("skype_id")
+    private String skypeId;
+    @SerializedName("last_month_score")
+    private Integer lastMonthScore;
+    @SerializedName("current_month_score")
+    private Integer currentMonthScore;
+    private Integer level;
+    private Integer score;
+    @SerializedName("is_active")
+    private boolean active;
+    @SerializedName("last_login")
+    private String lastLogin;
 
-    public Employee(String skypeId, String role, String userName, String email, String firstName, String lastName, int lastMonthScore, int currentMonthScore, int level, String avatar) {
-        this.skypeId = skypeId;
-        this.role = role;
-        this.userName = userName;
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.lastMonthScore = lastMonthScore;
-        this.currentMonthScore = currentMonthScore;
-        this.level = level;
-        this.avatar = avatar;
+
+    public Integer getPk() {
+        return pk;
     }
 
-    public String getSkypeId() {
-        return skypeId;
-    }
-
-    public void setSkypeId(String skypeId) {
-        this.skypeId = skypeId;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public String getUsername() {
+        return username;
     }
 
     public String getEmail() {
@@ -130,14 +112,6 @@ public class Employee {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
-    }
-
-    public List<Category> getCategoryList() {
-        return categoryList;
-    }
-
-    public void setCategoryList(List<Category> categoryList) {
-        this.categoryList = categoryList;
     }
 
 }

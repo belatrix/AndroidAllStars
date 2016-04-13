@@ -2,8 +2,10 @@
 <resources>
     <color name="colorPrimary">@color/belatrix</color>
     <color name="colorPrimaryDark">#F57C00</color>
-    <color name="colorAccent">@android:color/black</color>
+    <color name="colorAccent">#1B67BD</color>
 
-    <color name="belatrix">#ff8f0e</color>
     <color name="divider">#C0C7CA</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="belatrix">#FF8F03</color>
 </resources>

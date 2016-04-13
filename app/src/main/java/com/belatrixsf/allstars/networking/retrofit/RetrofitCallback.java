@@ -18,33 +18,47 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.common;
+package com.belatrixsf.allstars.networking.retrofit;
+
+import android.util.Log;
+
+import com.belatrixsf.allstars.utils.AllStarsCallback;
+
+import java.io.IOException;
+
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 /**
- * @author gyosida
- *
- * AllStarsPresenter is the base clase for every presenter created
- * on the project, will hold the reference to the view and any common
- * interaction with it
+ * Created by gyosida on 4/12/16.
  */
-public class AllStarsPresenter<T extends AllStarsView> {
+public class RetrofitCallback<T> implements Callback<T> {
 
-    protected T view;
+    private AllStarsCallback<T> callback;
 
-    protected AllStarsPresenter(T view) {
-        this.view = view;
+    public RetrofitCallback(AllStarsCallback callback) {
+        this.callback = callback;
     }
 
-    protected String getString(int resId) {
-        return view.getContext().getString(resId);
+    @Override
+    public void onResponse(Response<T> response, Retrofit retrofit) {
+        if (response.isSuccess()) {
+            callback.onSuccess(response.body());
+        } else {
+            //TODO handle service error
+//            ServiceError serviceError = new ServiceError();
+            try {
+                Log.d("RetrofitCallback", "onResponse: " + response.errorBody().string());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
-    protected void showError(int resId) {
-        showError(getString(resId));
+    @Override
+    public void onFailure(Throwable t) {
+        //TODO handle IOException
+        Log.d("RetrofitCallback", "onFailure: ");
     }
-
-    protected void showError(String message) {
-        view.showError(message);
-    }
-
 }
