@@ -44,7 +44,9 @@ public class MainActivity extends AllStarsActivity {
     }
 
     private void setupTabs() {
-        tabLayout.addTab(tabLayout.newTab().setText("Account").setTag("account"));
+        TabLayout.Tab accountTab = tabLayout.newTab().setText("Account").setTag("account");
+        accountTab.select();
+        tabLayout.addTab(accountTab);
         tabLayout.addTab(tabLayout.newTab().setText("Ranking").setTag("ranking"));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

@@ -23,7 +23,6 @@ package com.belatrixsf.allstars.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +49,6 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -71,6 +69,7 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
     public void goHome() {
         Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
+        fragmentListener.closeActivity();
     }
 
     @OnClick(R.id.submit)

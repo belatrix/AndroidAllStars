@@ -11,50 +11,37 @@ import android.view.ViewGroup;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.AccountCategoriesAdapter;
 import com.belatrixsf.allstars.entities.Category;
+import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
+import com.belatrixsf.allstars.utils.di.components.ApplicationComponent;
+import com.belatrixsf.allstars.utils.di.components.DaggerAccountComponent;
+import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModule;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+
 /**
  * Created by pedrocarrillo on 4/9/16.
  */
-public class AccountFragment extends AllStarsFragment implements RecyclerOnItemClickListener{
+public class AccountFragment extends AllStarsFragment implements AccountView, RecyclerOnItemClickListener{
 
-    private RecyclerView rvRecommendations;
+    private AccountPresenter accountPresenter;
+
+    @Bind(R.id.rv_account_recommendations) RecyclerView recommendationRecyclerView;
 
     public static AccountFragment newInstance() {
         return new AccountFragment();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_account, container, false);
-        rvRecommendations = (RecyclerView)rootView.findViewById(R.id.rv_account_recommendations);
-        return rootView;
-    }
-
-    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        List<Category> categoryList = new ArrayList<>();
-        categoryList.add(new Category("1", "Co-workers", 0, 200));
-        categoryList.add(new Category("1", "Lideres", 0, 100));
-        categoryList.add(new Category("1", "Marketing", 0, 2));
-        categoryList.add(new Category("1", "Recruitment", 0, 4));
-        categoryList.add(new Category("1", "Interviews", 0, 3));
-        categoryList.add(new Category("1", "Social help", 0, 2));
-        AccountCategoriesAdapter accountCategoriesAdapter = new AccountCategoriesAdapter(categoryList, this);
-        rvRecommendations.setAdapter(accountCategoriesAdapter);
-        rvRecommendations.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setAutoMeasureEnabled(true);
-        rvRecommendations.setNestedScrollingEnabled(false);
-        rvRecommendations.setLayoutManager(linearLayoutManager);
+        accountPresenter.onAccountCreated();
     }
 
     @Override
@@ -64,6 +51,32 @@ public class AccountFragment extends AllStarsFragment implements RecyclerOnItemC
 
     @Override
     protected void initDependencies(AllStarsApplication allStarsApplication) {
+        accountPresenter = DaggerAccountComponent.builder()
+                .applicationComponent(allStarsApplication.getApplicationComponent())
+                .accountPresenterModule(new AccountPresenterModule(this))
+                .build()
+                .accountPresenter();
+    }
+
+    @Override
+    public void goCategoryDetail(Category category) {
 
     }
+
+    @Override
+    public void loadEmployeeData(Employee employee) {
+        setupCategories(employee);
+    }
+
+    private void setupCategories(Employee employee) {
+        AccountCategoriesAdapter accountCategoriesAdapter = new AccountCategoriesAdapter(employee.getCategoryList(), this);
+        recommendationRecyclerView.setAdapter(accountCategoriesAdapter);
+        recommendationRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setAutoMeasureEnabled(true);
+        recommendationRecyclerView.setNestedScrollingEnabled(false);
+        recommendationRecyclerView.setLayoutManager(linearLayoutManager);
+    }
+
+
 }

@@ -22,6 +22,9 @@ package com.belatrixsf.allstars.entities;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by gyosida on 4/12/16.
  */
@@ -49,6 +52,7 @@ public class Employee {
     @SerializedName("last_login")
     private String lastLogin;
 
+    private transient List<Category> categoryList;
 
     public Integer getPk() {
         return pk;
@@ -62,56 +66,61 @@ public class Employee {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getFirstName() {
         return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public int getLastMonthScore() {
-        return lastMonthScore;
-    }
-
-    public void setLastMonthScore(int lastMonthScore) {
-        this.lastMonthScore = lastMonthScore;
-    }
-
-    public int getCurrentMonthScore() {
-        return currentMonthScore;
-    }
-
-    public void setCurrentMonthScore(int currentMonthScore) {
-        this.currentMonthScore = currentMonthScore;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
     public String getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
+    public String getRole() {
+        return role;
+    }
+
+    public String getSkypeId() {
+        return skypeId;
+    }
+
+    public Integer getLastMonthScore() {
+        return lastMonthScore;
+    }
+
+    public Integer getCurrentMonthScore() {
+        return currentMonthScore;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public String getLastLogin() {
+        return lastLogin;
+    }
+
+    public List<Category> getCategoryList() {
+        if (categoryList == null) {
+            categoryList = new ArrayList<>();
+            categoryList.add(new Category("1", "Co-workers", 0, 200));
+            categoryList.add(new Category("1", "Lideres", 0, 100));
+            categoryList.add(new Category("1", "Marketing", 0, 2));
+            categoryList.add(new Category("1", "Recruitment", 0, 4));
+            categoryList.add(new Category("1", "Interviews", 0, 3));
+            categoryList.add(new Category("1", "Social help", 0, 2));
+        }
+        return categoryList;
     }
 
 }

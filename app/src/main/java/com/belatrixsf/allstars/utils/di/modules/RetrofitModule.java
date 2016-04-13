@@ -47,7 +47,7 @@ public class RetrofitModule {
     @Provides
     public Retrofit providesRetrofit() {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient();
         client.interceptors().add(loggingInterceptor);
         client.interceptors().add(new Interceptor() {
