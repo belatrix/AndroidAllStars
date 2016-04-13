@@ -32,7 +32,7 @@ public class ServiceError {
         this.responseCode = responseCode;
         this.errorMessage = errorMessage;
     }
-    
+
     public int getResponseCode() {
         return responseCode;
     }

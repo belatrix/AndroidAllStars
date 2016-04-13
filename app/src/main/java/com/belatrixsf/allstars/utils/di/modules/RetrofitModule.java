@@ -20,11 +20,22 @@
 */
 package com.belatrixsf.allstars.utils.di.modules;
 
-import com.belatrixsf.allstars.networking.retrofit.RetrofitFactory;
+import com.belatrixsf.allstars.managers.PreferencesManager;
 import com.belatrixsf.allstars.networking.retrofit.api.EmployeeAPI;
+import com.squareup.okhttp.Interceptor;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+import com.squareup.okhttp.logging.HttpLoggingInterceptor;
+
+import java.io.IOException;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import retrofit.GsonConverterFactory;
+import retrofit.Retrofit;
 
 /**
  * Created by gyosida on 4/12/16.
@@ -32,9 +43,34 @@ import dagger.Provides;
 @Module
 public class RetrofitModule {
 
+    @Singleton
     @Provides
-    public EmployeeAPI providesUserAPI() {
-        return RetrofitFactory.get().create(EmployeeAPI.class);
+    public Retrofit providesRetrofit() {
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        OkHttpClient client = new OkHttpClient();
+        client.interceptors().add(loggingInterceptor);
+        client.interceptors().add(new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                String token = PreferencesManager.get().getToken();
+                if (token != null) {
+                    Request request = chain.request().newBuilder().addHeader("Authorization", token).build();
+                    return chain.proceed(request);
+                }
+                return chain.proceed(chain.request());
+            }
+        });
+        return new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("https://allstars-belatrix.herokuapp.com:443/api/")
+                .client(client)
+                .build();
+    }
+
+    @Provides
+    public EmployeeAPI providesUserAPI(Retrofit retrofit) {
+        return retrofit.create(EmployeeAPI.class);
     }
 
 }

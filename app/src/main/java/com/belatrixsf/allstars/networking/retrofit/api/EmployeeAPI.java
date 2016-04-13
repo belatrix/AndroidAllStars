@@ -27,7 +27,6 @@ import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationRespo
 import retrofit.Call;
 import retrofit.http.Body;
 import retrofit.http.GET;
-import retrofit.http.Headers;
 import retrofit.http.POST;
 import retrofit.http.Path;
 
@@ -36,7 +35,6 @@ import retrofit.http.Path;
  */
 public interface EmployeeAPI {
 
-    @Headers("Content-Type : application/json")
     @POST(ServerPaths.EMPLOYEE_AUTHENTICATE)
     Call<AuthenticationResponse> authenticate(@Body AuthenticationRequest request);
 
