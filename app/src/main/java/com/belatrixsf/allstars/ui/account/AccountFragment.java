@@ -1,6 +1,7 @@
 package com.belatrixsf.allstars.ui.account;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -39,14 +40,20 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        accountPresenter.onAccountCreated();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_account, container, false);
     }
 
     @Override
     public void onClick(View v) {
 
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
@@ -56,6 +63,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
                 .accountPresenterModule(new AccountPresenterModule(this))
                 .build()
                 .accountPresenter();
+        accountPresenter.onAccountCreated();
     }
 
     @Override
