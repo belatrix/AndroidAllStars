@@ -10,6 +10,6 @@ import com.belatrixsf.allstars.ui.common.AllStarsView;
 public interface AccountView extends AllStarsView {
 
     void goCategoryDetail(Category category);
-    void loadEmployeeData(Employee employee);
+    void showEmployeeData(Employee employee);
 
 }

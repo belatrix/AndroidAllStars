@@ -1,4 +1,4 @@
-package com.belatrixsf.allstars.ui.account;
+package com.belatrixsf.allstars.ui;
 
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.managers.EmployeeManager;
@@ -9,15 +9,15 @@ import com.belatrixsf.allstars.utils.ServiceError;
 import javax.inject.Inject;
 
 /**
- * Created by PedroCarrillo on 4/13/16.
+ * Created by PedroCarrillo on 4/14/16.
  */
-public class AccountPresenter extends AllStarsPresenter<AccountView> {
+public class MainPresenter extends AllStarsPresenter<MainView> {
 
     private EmployeeManager employeeManager;
     private Employee employee;
 
     @Inject
-    public AccountPresenter(AccountView view, EmployeeManager employeeManager) {
+    public MainPresenter(MainView view, EmployeeManager employeeManager) {
         super(view);
         this.employeeManager = employeeManager;
     }
@@ -26,7 +26,7 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
         employeeManager.getLoggedInEmployee(new AllStarsCallback<Employee>() {
             @Override
             public void onSuccess(Employee employee) {
-                AccountPresenter.this.employee = employee;
+                MainPresenter.this.employee = employee;
                 view.showEmployeeData(employee);
             }
 
@@ -37,8 +37,5 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
         });
     }
 
-    public void onCategoryClicked(int position) {
-        view.goCategoryDetail(employee.getCategoryList().get(position));
-    }
 
 }

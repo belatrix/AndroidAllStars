@@ -2,6 +2,7 @@
 <android.support.v4.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -40,14 +41,15 @@
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
                         android:textColor="@color/divider"
-                        android:text="Skype Id"/>
+                        android:text="@string/skype_id"/>
 
                     <TextView
+                        android:id="@+id/tv_skype_id"
                         android:layout_height="match_parent"
                         android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
                         android:textColor="@android:color/black"
-                        android:text="pter9"/>
+                        tools:text="pter9"/>
 
                 </LinearLayout>
                 <View
@@ -68,14 +70,15 @@
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
                         android:textColor="@color/divider"
-                        android:text="Score"/>
+                        android:text="@string/title_score"/>
 
                     <TextView
+                        android:id="@+id/tv_score"
                         android:layout_height="match_parent"
                         android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
                         android:textColor="@android:color/black"
-                        android:text="1233"/>
+                        tools:text="1233"/>
 
                 </LinearLayout>
                 <View
@@ -96,14 +99,15 @@
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
                         android:textColor="@color/divider"
-                        android:text="Level"/>
+                        android:text="@string/title_level"/>
 
                     <TextView
+                        android:id="@+id/tv_level"
                         android:layout_height="match_parent"
                         android:layout_marginTop="10dp"
                         android:textColor="@android:color/black"
                         android:layout_width="wrap_content"
-                        android:text="9000+"/>
+                        tools:text="9000+"/>
 
                 </LinearLayout>
 

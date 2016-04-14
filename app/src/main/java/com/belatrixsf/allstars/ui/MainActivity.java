@@ -22,20 +22,28 @@ package com.belatrixsf.allstars.ui;
 
 import android.support.design.widget.TabLayout;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
-import com.belatrixsf.allstars.ui.account.AccountFragment;
+import com.belatrixsf.allstars.adapters.MainNavigationViewPagerAdapter;
 import com.belatrixsf.allstars.ui.common.AllStarsActivity;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AllStarsActivity {
 
-    TabLayout tabLayout;
+    @Bind(R.id.tab_layout) TabLayout tabLayout;
+    @Bind(R.id.main_view_pager) ViewPager mainViewPager;
+    @Bind(R.id.tv_name) TextView nameTextView;
+    @Bind(R.id.tv_role) TextView roleTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        ButterKnife.bind(this);
         setupViews();
     }
 
@@ -44,30 +52,9 @@ public class MainActivity extends AllStarsActivity {
     }
 
     private void setupTabs() {
-        TabLayout.Tab accountTab = tabLayout.newTab().setText("Account").setTag("account");
-        accountTab.select();
-        tabLayout.addTab(accountTab);
-        tabLayout.addTab(tabLayout.newTab().setText("Ranking").setTag("ranking"));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                if (tab.getTag().toString().equalsIgnoreCase("account")) {
-                    replaceFragment(AccountFragment.newInstance(), false);
-                } else if (tab.getTag().toString().equalsIgnoreCase("account")){
-
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+        MainNavigationViewPagerAdapter mainNavigationViewPagerAdapter = new MainNavigationViewPagerAdapter(getFragmentManager());
+        mainViewPager.setAdapter(mainNavigationViewPagerAdapter);
+        tabLayout.setupWithViewPager(mainViewPager);
     }
 
 

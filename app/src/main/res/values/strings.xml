@@ -13,5 +13,8 @@
     <!-- Title -->
     <string name="title_belatrix">Belatrix</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="skype_id">Skype Id</string>
+    <string name="title_score">Score</string>
+    <string name="title_level">Level</string>
 
 </resources>

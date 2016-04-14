@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.AccountCategoriesAdapter;
@@ -34,6 +35,9 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     private AccountPresenter accountPresenter;
 
     @Bind(R.id.rv_account_recommendations) RecyclerView recommendationRecyclerView;
+    @Bind(R.id.tv_skype_id) TextView skypeTextView;
+    @Bind(R.id.tv_level) TextView levelTextView;
+    @Bind(R.id.tv_score) TextView scoreTextView;
 
     public static AccountFragment newInstance() {
         return new AccountFragment();
@@ -72,8 +76,21 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     }
 
     @Override
-    public void loadEmployeeData(Employee employee) {
+    public void showEmployeeData(Employee employee) {
+        setupEmployeeData(employee);
         setupCategories(employee);
+    }
+
+    private void setupEmployeeData(Employee employee) {
+        if (employee.getScore() != null) {
+            scoreTextView.setText(employee.getScore());
+        }
+        if (employee.getSkypeId() != null) {
+            skypeTextView.setText(employee.getSkypeId());
+        }
+        if (employee.getLevel() != null) {
+            levelTextView.setText(employee.getLevel());
+        }
     }
 
     private void setupCategories(Employee employee) {
