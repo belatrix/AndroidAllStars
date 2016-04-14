@@ -28,7 +28,11 @@ import android.content.Context;
 
 public interface AllStarsView {
 
-    void setProgressIndicator(boolean active);
+    void showProgressIndicator();
+    void hideProgressIndicator();
+    void showProgressDialog();
+    void showProgressDialog(String message);
+    void dismissProgressDialog();
     void showError(String message);
     Context getContext();
 

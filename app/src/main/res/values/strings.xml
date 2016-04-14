@@ -2,6 +2,10 @@
     <string name="app_name">android-all-stars</string>
     <string name="title_activity_example">ExampleActivity</string>
 
+    <!-- Dialogs -->
+    <string name="dialog_title_error">Oops something went wrong!</string>
+    <string name="dialog_message_loading">Loading&#8230;</string>
+
     <!-- Hint -->
     <string name="hint_username">Username</string>
     <string name="hint_password">Password</string>
@@ -11,6 +15,6 @@
 
     <!-- Title -->
     <string name="title_belatrix">Belatrix</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_login">Login Activity</string>
 
 </resources>

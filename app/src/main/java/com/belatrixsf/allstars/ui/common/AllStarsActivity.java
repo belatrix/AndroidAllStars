@@ -20,13 +20,22 @@
 */
 package com.belatrixsf.allstars.ui.common;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
+
+import com.belatrixsf.allstars.R;
+import com.belatrixsf.allstars.utils.Dialogs;
 
 /**
  * @author PedroCarrillo
  */
 public class AllStarsActivity extends AppCompatActivity implements FragmentListener {
+
+    private AlertDialog errorAlertDialog;
+    private ProgressDialog progressDialog;
+
 
     @Override
     public void replaceFragment(int containerId, Fragment fragment, boolean addToBackStack) {
@@ -39,12 +48,60 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
     }
 
     @Override
+    public void showError(String message) {
+        if (errorAlertDialog == null) {
+            errorAlertDialog = Dialogs.createErrorDialog(this, null);
+        }
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
+        if (!errorAlertDialog.isShowing()) {
+            errorAlertDialog.setMessage(message);
+            errorAlertDialog.show();
+        }
+    }
+
+    @Override
+    public void showProgressIndicator() {
+
+    }
+
+    @Override
+    public void hideProgressIndicator() {
+
+    }
+
+    @Override
+    public void showProgressDialog() {
+        showProgressDialog(getString(R.string.dialog_message_loading));
+    }
+
+    @Override
+    public void showProgressDialog(String message) {
+        if (progressDialog == null) {
+            progressDialog = Dialogs.createProgressDialog(this, null);
+        }
+        if (!progressDialog.isShowing()) {
+            progressDialog.setMessage(message);
+            progressDialog.show();
+        }
+    }
+
+    @Override
+    public void hideProgressDialog() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
+    }
+
+    @Override
     public void closeActivity() {
         finish();
     }
 
     @Override
     public void setTitle() {
+
     }
 
 }
