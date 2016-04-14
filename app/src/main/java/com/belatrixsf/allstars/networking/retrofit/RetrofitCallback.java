@@ -23,12 +23,15 @@ package com.belatrixsf.allstars.networking.retrofit;
 import android.util.Log;
 
 import com.belatrixsf.allstars.utils.AllStarsCallback;
+import com.belatrixsf.allstars.utils.ServiceError;
 
 import java.io.IOException;
 
 import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
+
+import static com.belatrixsf.allstars.utils.ServiceError.*;
 
 /**
  * Created by gyosida on 4/12/16.
@@ -46,19 +49,23 @@ public class RetrofitCallback<T> implements Callback<T> {
         if (response.isSuccess()) {
             callback.onSuccess(response.body());
         } else {
-            //TODO handle service error
-//            ServiceError serviceError = new ServiceError();
+            // TODO Send correct error message. Now only sending generic error til server is ready
+            ServiceError serviceError = new ServiceError(UNKNOWN, "Be sure everything is fine.");
             try {
-                Log.d("RetrofitCallback", "onResponse: " + response.errorBody().string());
+                if (response.errorBody() != null) {
+                    Log.d("RetrofitCallback", "onResponse: " + response.errorBody().string());
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            callback.onFailure(serviceError);
         }
     }
 
     @Override
     public void onFailure(Throwable t) {
-        //TODO handle IOException
-        Log.d("RetrofitCallback", "onFailure: ");
+        // TODO handle exception
+        Log.d("RetrofitCallback", "onFailure: " + t.getMessage());
+        callback.onFailure(new ServiceError(UNKNOWN, "Unknown error"));
     }
 }
