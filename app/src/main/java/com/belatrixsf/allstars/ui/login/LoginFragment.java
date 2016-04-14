@@ -22,6 +22,7 @@ package com.belatrixsf.allstars.ui.login;
 
 
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,6 +55,18 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_login, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        passwordEditText.setTransformationMethod(new PasswordTransformationMethod());
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        loginPresenter = null;
     }
 
     @Override
