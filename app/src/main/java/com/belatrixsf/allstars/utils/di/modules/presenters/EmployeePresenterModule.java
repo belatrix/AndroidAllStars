@@ -18,42 +18,29 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.login;
+package com.belatrixsf.allstars.utils.di.modules.presenters;
 
-import com.belatrixsf.allstars.managers.EmployeeManager;
-import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
-import com.belatrixsf.allstars.utils.AllStarsCallback;
-import com.belatrixsf.allstars.utils.ServiceError;
 
-import javax.inject.Inject;
+import com.belatrixsf.allstars.ui.home.EmployeeView;
+
+import dagger.Module;
+import dagger.Provides;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by PedroCarrillo on 4/15/16.
  */
-public class LoginPresenter extends AllStarsPresenter<LoginView> {
+@Module
+public class EmployeePresenterModule {
 
-    private EmployeeManager employeeManager;
+    private EmployeeView view;
 
-    @Inject
-    public LoginPresenter(LoginView view, EmployeeManager employeeManager) {
-        super(view);
-        this.employeeManager = employeeManager;
+    public EmployeePresenterModule(EmployeeView view) {
+        this.view = view;
     }
 
-    public void login(String username, String password) {
-        view.showProgressDialog();
-        employeeManager.login(username, password, new AllStarsCallback<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                view.dismissProgressDialog();
-                view.goHome();
-            }
-
-            @Override
-            public void onFailure(ServiceError serviceError) {
-                showError(serviceError.getErrorMessage());
-            }
-        });
+    @Provides
+    public EmployeeView providesView() {
+        return view;
     }
 
 }

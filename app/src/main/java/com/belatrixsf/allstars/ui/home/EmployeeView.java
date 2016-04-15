@@ -18,42 +18,18 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.login;
+package com.belatrixsf.allstars.ui.home;
 
-import com.belatrixsf.allstars.managers.EmployeeManager;
-import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
-import com.belatrixsf.allstars.utils.AllStarsCallback;
-import com.belatrixsf.allstars.utils.ServiceError;
-
-import javax.inject.Inject;
+import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.ui.common.AllStarsView;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by PedroCarrillo on 4/15/16.
  */
-public class LoginPresenter extends AllStarsPresenter<LoginView> {
+public interface EmployeeView extends AllStarsView {
 
-    private EmployeeManager employeeManager;
-
-    @Inject
-    public LoginPresenter(LoginView view, EmployeeManager employeeManager) {
-        super(view);
-        this.employeeManager = employeeManager;
-    }
-
-    public void login(String username, String password) {
-        view.showProgressDialog();
-        employeeManager.login(username, password, new AllStarsCallback<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                view.dismissProgressDialog();
-                view.goHome();
-            }
-
-            @Override
-            public void onFailure(ServiceError serviceError) {
-                showError(serviceError.getErrorMessage());
-            }
-        });
-    }
+    void showEmployeeName(String employeName);
+    void showRole(String role);
+    void showProfilePicture(String profilePicture);
 
 }

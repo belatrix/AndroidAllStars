@@ -9,11 +9,11 @@
 
     <include layout="@layout/main_toolbar"/>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/main_view_pager"
+    <FrameLayout
+        android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-    </android.support.v4.view.ViewPager>
+    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

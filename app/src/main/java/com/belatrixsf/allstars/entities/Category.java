@@ -18,42 +18,55 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.login;
-
-import com.belatrixsf.allstars.managers.EmployeeManager;
-import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
-import com.belatrixsf.allstars.utils.AllStarsCallback;
-import com.belatrixsf.allstars.utils.ServiceError;
-
-import javax.inject.Inject;
+package com.belatrixsf.allstars.entities;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by PedroCarrillo on 4/8/16.
  */
-public class LoginPresenter extends AllStarsPresenter<LoginView> {
+public class Category {
 
-    private EmployeeManager employeeManager;
+    private String id;
+    private String name;
+    private int weight;
+    private int value;
 
-    @Inject
-    public LoginPresenter(LoginView view, EmployeeManager employeeManager) {
-        super(view);
-        this.employeeManager = employeeManager;
+    public Category(String id, String name, int weight, int value) {
+        this.id = id;
+        this.name = name;
+        this.weight = weight;
+        this.value = value;
     }
 
-    public void login(String username, String password) {
-        view.showProgressDialog();
-        employeeManager.login(username, password, new AllStarsCallback<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                view.dismissProgressDialog();
-                view.goHome();
-            }
+    public String getId() {
+        return id;
+    }
 
-            @Override
-            public void onFailure(ServiceError serviceError) {
-                showError(serviceError.getErrorMessage());
-            }
-        });
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 
 }

@@ -22,6 +22,9 @@ package com.belatrixsf.allstars.entities;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by gyosida on 4/12/16.
  */
@@ -35,7 +38,7 @@ public class Employee {
     @SerializedName("last_name")
     private String lastName;
     private String avatar;
-    private String role;
+    private Role role;
     @SerializedName("skype_id")
     private String skypeId;
     @SerializedName("last_month_score")
@@ -49,6 +52,7 @@ public class Employee {
     @SerializedName("last_login")
     private String lastLogin;
 
+    private List<Category> categories;
 
     public Integer getPk() {
         return pk;
@@ -74,7 +78,7 @@ public class Employee {
         return avatar;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
@@ -105,4 +109,15 @@ public class Employee {
     public String getLastLogin() {
         return lastLogin;
     }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public String getFullName() {
+        StringBuilder stringBuilder = new StringBuilder(firstName);
+        stringBuilder.append(" ").append(lastName);
+        return stringBuilder.toString();
+    }
+
 }

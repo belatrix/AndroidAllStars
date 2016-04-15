@@ -18,42 +18,22 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.login;
+package com.belatrixsf.allstars.ui.account;
 
-import com.belatrixsf.allstars.managers.EmployeeManager;
-import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
-import com.belatrixsf.allstars.utils.AllStarsCallback;
-import com.belatrixsf.allstars.utils.ServiceError;
+import com.belatrixsf.allstars.entities.Category;
+import com.belatrixsf.allstars.ui.common.AllStarsView;
 
-import javax.inject.Inject;
+import java.util.List;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by PedroCarrillo on 4/13/16.
  */
-public class LoginPresenter extends AllStarsPresenter<LoginView> {
+public interface AccountView extends AllStarsView {
 
-    private EmployeeManager employeeManager;
-
-    @Inject
-    public LoginPresenter(LoginView view, EmployeeManager employeeManager) {
-        super(view);
-        this.employeeManager = employeeManager;
-    }
-
-    public void login(String username, String password) {
-        view.showProgressDialog();
-        employeeManager.login(username, password, new AllStarsCallback<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                view.dismissProgressDialog();
-                view.goHome();
-            }
-
-            @Override
-            public void onFailure(ServiceError serviceError) {
-                showError(serviceError.getErrorMessage());
-            }
-        });
-    }
+    void goCategoryDetail(Category category);
+    void showSkypeId(String skypeId);
+    void showScore(String score);
+    void showCategories(List<Category> categories);
+    void showLevel(String level);
 
 }

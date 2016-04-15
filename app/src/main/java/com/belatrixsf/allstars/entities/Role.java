@@ -18,42 +18,21 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.login;
-
-import com.belatrixsf.allstars.managers.EmployeeManager;
-import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
-import com.belatrixsf.allstars.utils.AllStarsCallback;
-import com.belatrixsf.allstars.utils.ServiceError;
-
-import javax.inject.Inject;
+package com.belatrixsf.allstars.entities;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by PedroCarrillo on 4/15/16.
  */
-public class LoginPresenter extends AllStarsPresenter<LoginView> {
+public class Role {
 
-    private EmployeeManager employeeManager;
+    private int id;
+    private String name;
 
-    @Inject
-    public LoginPresenter(LoginView view, EmployeeManager employeeManager) {
-        super(view);
-        this.employeeManager = employeeManager;
+    public int getId() {
+        return id;
     }
 
-    public void login(String username, String password) {
-        view.showProgressDialog();
-        employeeManager.login(username, password, new AllStarsCallback<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                view.dismissProgressDialog();
-                view.goHome();
-            }
-
-            @Override
-            public void onFailure(ServiceError serviceError) {
-                showError(serviceError.getErrorMessage());
-            }
-        });
+    public String getName() {
+        return name;
     }
-
 }

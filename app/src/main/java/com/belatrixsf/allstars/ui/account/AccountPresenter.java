@@ -18,35 +18,37 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.login;
+package com.belatrixsf.allstars.ui.account;
 
+import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
+import com.belatrixsf.allstars.ui.home.EmployeePresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
 
 import javax.inject.Inject;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by PedroCarrillo on 4/13/16.
  */
-public class LoginPresenter extends AllStarsPresenter<LoginView> {
+public class AccountPresenter extends AllStarsPresenter<AccountView> {
 
-    private EmployeeManager employeeManager;
+    protected EmployeeManager employeeManager;
+    protected Employee employee;
 
     @Inject
-    public LoginPresenter(LoginView view, EmployeeManager employeeManager) {
+    public AccountPresenter(AccountView view, EmployeeManager employeeManager) {
         super(view);
         this.employeeManager = employeeManager;
     }
 
-    public void login(String username, String password) {
-        view.showProgressDialog();
-        employeeManager.login(username, password, new AllStarsCallback<Void>() {
+    public void loadEmployeeAccount() {
+        employeeManager.getLoggedInEmployee(new AllStarsCallback<Employee>() {
             @Override
-            public void onSuccess(Void aVoid) {
-                view.dismissProgressDialog();
-                view.goHome();
+            public void onSuccess(Employee employee) {
+                AccountPresenter.this.employee = employee;
+                showEmployeeData();
             }
 
             @Override
@@ -54,6 +56,25 @@ public class LoginPresenter extends AllStarsPresenter<LoginView> {
                 showError(serviceError.getErrorMessage());
             }
         });
+    }
+
+    private void showEmployeeData() {
+        if (employee.getLevel() != null) {
+            view.showLevel(String.valueOf(employee.getLevel()));
+        }
+        if (employee.getScore() != null) {
+            view.showScore(String.valueOf(employee.getScore()));
+        }
+        if (employee.getSkypeId() != null) {
+            view.showSkypeId(String.valueOf(employee.getSkypeId()));
+        }
+        if (employee.getCategories() != null) {
+            view.showCategories(employee.getCategories());
+        }
+    }
+
+    public void onCategoryClicked(int position) {
+        view.goCategoryDetail(employee.getCategories().get(position));
     }
 
 }

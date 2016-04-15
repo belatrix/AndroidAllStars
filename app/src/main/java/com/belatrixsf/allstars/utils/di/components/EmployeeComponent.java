@@ -18,42 +18,25 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.login;
+package com.belatrixsf.allstars.utils.di.components;
 
-import com.belatrixsf.allstars.managers.EmployeeManager;
-import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
-import com.belatrixsf.allstars.utils.AllStarsCallback;
-import com.belatrixsf.allstars.utils.ServiceError;
+import com.belatrixsf.allstars.ui.home.EmployeePresenter;
+import com.belatrixsf.allstars.ui.home.EmployeeView;
+import com.belatrixsf.allstars.utils.di.modules.presenters.EmployeePresenterModule;
+import com.belatrixsf.allstars.utils.di.scopes.UIScope;
 
-import javax.inject.Inject;
+import dagger.Component;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by PedroCarrillo on 4/15/16.
  */
-public class LoginPresenter extends AllStarsPresenter<LoginView> {
+@UIScope
+@Component(
+        dependencies = ApplicationComponent.class,
+        modules = EmployeePresenterModule.class
+)
+public interface EmployeeComponent {
 
-    private EmployeeManager employeeManager;
-
-    @Inject
-    public LoginPresenter(LoginView view, EmployeeManager employeeManager) {
-        super(view);
-        this.employeeManager = employeeManager;
-    }
-
-    public void login(String username, String password) {
-        view.showProgressDialog();
-        employeeManager.login(username, password, new AllStarsCallback<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                view.dismissProgressDialog();
-                view.goHome();
-            }
-
-            @Override
-            public void onFailure(ServiceError serviceError) {
-                showError(serviceError.getErrorMessage());
-            }
-        });
-    }
+    EmployeePresenter employeePresenter();
 
 }

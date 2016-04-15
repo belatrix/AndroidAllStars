@@ -20,22 +20,84 @@
 */
 package com.belatrixsf.allstars.ui.common;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+
+import com.belatrixsf.allstars.R;
+import android.app.ProgressDialog;
+
+import com.belatrixsf.allstars.utils.Dialogs;
 
 /**
  * @author PedroCarrillo
  */
 public class AllStarsActivity extends AppCompatActivity implements FragmentListener {
 
+    private AlertDialog errorAlertDialog;
+    private ProgressDialog progressDialog;
+
+
+    @Override
+    public void replaceFragment(Fragment fragment, boolean addToBackStack) {
+        replaceFragment(R.id.main_content, fragment, addToBackStack);
+    }
+
     @Override
     public void replaceFragment(int containerId, Fragment fragment, boolean addToBackStack) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        String tag = fragment.getClass().getSimpleName();
+        transaction.replace(containerId, fragment, tag);
+        if(addToBackStack) transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    @Override
+    public void showError(String message) {
+        if (errorAlertDialog == null) {
+            errorAlertDialog = Dialogs.createErrorDialog(this, null);
+        }
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
+        if (!errorAlertDialog.isShowing()) {
+            errorAlertDialog.setMessage(message);
+            errorAlertDialog.show();
+        }
+    }
+
+    @Override
+    public void showProgressIndicator() {
 
     }
 
     @Override
-    public void replaceFragment(Fragment fragment, boolean addToBackStack) {
+    public void hideProgressIndicator() {
 
+    }
+
+    @Override
+    public void showProgressDialog() {
+        showProgressDialog(getString(R.string.dialog_message_loading));
+    }
+
+    @Override
+    public void showProgressDialog(String message) {
+        if (progressDialog == null) {
+            progressDialog = Dialogs.createProgressDialog(this, null);
+        }
+        if (!progressDialog.isShowing()) {
+            progressDialog.setMessage(message);
+            progressDialog.show();
+        }
+    }
+
+    @Override
+    public void dismissProgressDialog() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
     }
 
     @Override
@@ -45,6 +107,7 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
 
     @Override
     public void setTitle() {
+
     }
 
 }

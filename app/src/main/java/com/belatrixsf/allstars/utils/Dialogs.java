@@ -18,42 +18,35 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.login;
+package com.belatrixsf.allstars.utils;
 
-import com.belatrixsf.allstars.managers.EmployeeManager;
-import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
-import com.belatrixsf.allstars.utils.AllStarsCallback;
-import com.belatrixsf.allstars.utils.ServiceError;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 
-import javax.inject.Inject;
+import com.belatrixsf.allstars.R;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by gyosida on 4/14/16.
  */
-public class LoginPresenter extends AllStarsPresenter<LoginView> {
+public class Dialogs {
 
-    private EmployeeManager employeeManager;
-
-    @Inject
-    public LoginPresenter(LoginView view, EmployeeManager employeeManager) {
-        super(view);
-        this.employeeManager = employeeManager;
+    public static AlertDialog createErrorDialog(Activity activity, String message) {
+        return createSimpleDialog(activity, AllStarsApplication.getContext().getString(R.string.dialog_title_error), message);
     }
 
-    public void login(String username, String password) {
-        view.showProgressDialog();
-        employeeManager.login(username, password, new AllStarsCallback<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                view.dismissProgressDialog();
-                view.goHome();
-            }
-
-            @Override
-            public void onFailure(ServiceError serviceError) {
-                showError(serviceError.getErrorMessage());
-            }
-        });
+    public static AlertDialog createSimpleDialog(Activity activity, String title, String message) {
+        return new AlertDialog.Builder(activity)
+                .setTitle(title)
+                .setMessage(message)
+                .create();
     }
 
+    public static ProgressDialog createProgressDialog(Activity activity, String message) {
+        ProgressDialog progressDialog = new ProgressDialog(activity);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage(message);
+        progressDialog.setCancelable(false);
+        return progressDialog;
+    }
 }
