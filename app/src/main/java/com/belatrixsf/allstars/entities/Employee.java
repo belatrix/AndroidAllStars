@@ -38,7 +38,7 @@ public class Employee {
     @SerializedName("last_name")
     private String lastName;
     private String avatar;
-    private String role;
+    private Role role;
     @SerializedName("skype_id")
     private String skypeId;
     @SerializedName("last_month_score")
@@ -52,7 +52,7 @@ public class Employee {
     @SerializedName("last_login")
     private String lastLogin;
 
-    private transient List<Category> categoryList;
+    private List<Category> categories;
 
     public Integer getPk() {
         return pk;
@@ -78,7 +78,7 @@ public class Employee {
         return avatar;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
@@ -110,17 +110,14 @@ public class Employee {
         return lastLogin;
     }
 
-    public List<Category> getCategoryList() {
-        if (categoryList == null) {
-            categoryList = new ArrayList<>();
-            categoryList.add(new Category("1", "Co-workers", 0, 200));
-            categoryList.add(new Category("1", "Lideres", 0, 100));
-            categoryList.add(new Category("1", "Marketing", 0, 2));
-            categoryList.add(new Category("1", "Recruitment", 0, 4));
-            categoryList.add(new Category("1", "Interviews", 0, 3));
-            categoryList.add(new Category("1", "Social help", 0, 2));
-        }
-        return categoryList;
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public String getFullName() {
+        StringBuilder stringBuilder = new StringBuilder(firstName);
+        stringBuilder.append(" ").append(lastName);
+        return stringBuilder.toString();
     }
 
 }

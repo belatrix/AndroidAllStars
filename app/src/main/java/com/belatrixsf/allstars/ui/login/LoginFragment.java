@@ -29,8 +29,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.belatrixsf.allstars.R;
-import com.belatrixsf.allstars.ui.MainActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
+import com.belatrixsf.allstars.ui.home.MainActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.components.DaggerLoginComponent;
 import com.belatrixsf.allstars.utils.di.modules.presenters.LoginPresenterModule;

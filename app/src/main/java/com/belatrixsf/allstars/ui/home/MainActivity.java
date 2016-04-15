@@ -18,32 +18,44 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui;
+package com.belatrixsf.allstars.ui.home;
 
-import android.support.design.widget.TabLayout;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.MainNavigationViewPagerAdapter;
 import com.belatrixsf.allstars.ui.common.AllStarsActivity;
+import com.belatrixsf.allstars.utils.AllStarsApplication;
+import com.belatrixsf.allstars.utils.di.components.DaggerEmployeeComponent;
+import com.belatrixsf.allstars.utils.di.modules.presenters.EmployeePresenterModule;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AllStarsActivity {
+public class MainActivity extends AllStarsActivity implements EmployeeView {
+
+    private EmployeePresenter employeePresenter;
 
     @Bind(R.id.tab_layout) TabLayout tabLayout;
     @Bind(R.id.main_view_pager) ViewPager mainViewPager;
-    @Bind(R.id.tv_name) TextView nameTextView;
-    @Bind(R.id.tv_role) TextView roleTextView;
+    @Bind(R.id.profile_name) TextView nameTextView;
+    @Bind(R.id.profile_role) TextView roleTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        employeePresenter = DaggerEmployeeComponent.builder()
+                .employeePresenterModule(new EmployeePresenterModule(this))
+                .applicationComponent(((AllStarsApplication)getApplication()).getApplicationComponent())
+                .build()
+                .employeePresenter();
+        employeePresenter.loadEmployeeAccount();
         setupViews();
     }
 
@@ -57,5 +69,23 @@ public class MainActivity extends AllStarsActivity {
         tabLayout.setupWithViewPager(mainViewPager);
     }
 
+    @Override
+    public void showEmployeeName(String employeName) {
+        nameTextView.setText(employeName);
+    }
 
+    @Override
+    public void showRole(String role) {
+        roleTextView.setText(role);
+    }
+
+    @Override
+    public void showProfilePicture(String profilePicture) {
+
+    }
+
+    @Override
+    public Context getContext() {
+        return null;
+    }
 }

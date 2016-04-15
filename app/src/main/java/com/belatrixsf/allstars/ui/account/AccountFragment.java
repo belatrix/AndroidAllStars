@@ -1,7 +1,26 @@
+/* The MIT License (MIT)
+* Copyright (c) 2016 BELATRIX
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software.
+
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*/
 package com.belatrixsf.allstars.ui.account;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,11 +37,9 @@ import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
-import com.belatrixsf.allstars.utils.di.components.ApplicationComponent;
 import com.belatrixsf.allstars.utils.di.components.DaggerAccountComponent;
 import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModule;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -35,9 +52,9 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     private AccountPresenter accountPresenter;
 
     @Bind(R.id.rv_account_recommendations) RecyclerView recommendationRecyclerView;
-    @Bind(R.id.tv_skype_id) TextView skypeTextView;
-    @Bind(R.id.tv_level) TextView levelTextView;
-    @Bind(R.id.tv_score) TextView scoreTextView;
+    @Bind(R.id.skype_id) TextView skypeTextView;
+    @Bind(R.id.level) TextView levelTextView;
+    @Bind(R.id.score) TextView scoreTextView;
 
     public static AccountFragment newInstance() {
         return new AccountFragment();
@@ -67,7 +84,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
                 .accountPresenterModule(new AccountPresenterModule(this))
                 .build()
                 .accountPresenter();
-        accountPresenter.onAccountCreated();
+        accountPresenter.loadEmployeeAccount();
     }
 
     @Override
@@ -76,25 +93,18 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     }
 
     @Override
-    public void showEmployeeData(Employee employee) {
-        setupEmployeeData(employee);
-        setupCategories(employee);
+    public void showSkypeId(String skypeId) {
+        skypeTextView.setText(String.valueOf(skypeId));
     }
 
-    private void setupEmployeeData(Employee employee) {
-        if (employee.getScore() != null) {
-            scoreTextView.setText(employee.getScore());
-        }
-        if (employee.getSkypeId() != null) {
-            skypeTextView.setText(employee.getSkypeId());
-        }
-        if (employee.getLevel() != null) {
-            levelTextView.setText(employee.getLevel());
-        }
+    @Override
+    public void showScore(String score) {
+        scoreTextView.setText(String.valueOf(score));
     }
 
-    private void setupCategories(Employee employee) {
-        AccountCategoriesAdapter accountCategoriesAdapter = new AccountCategoriesAdapter(employee.getCategoryList(), this);
+    @Override
+    public void showCategories(List<Category> categories) {
+        AccountCategoriesAdapter accountCategoriesAdapter = new AccountCategoriesAdapter(categories, this);
         recommendationRecyclerView.setAdapter(accountCategoriesAdapter);
         recommendationRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -102,6 +112,12 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
         recommendationRecyclerView.setNestedScrollingEnabled(false);
         recommendationRecyclerView.setLayoutManager(linearLayoutManager);
     }
+
+    @Override
+    public void showLevel(String level) {
+        levelTextView.setText(String.valueOf(level));
+    }
+
 
 
 }

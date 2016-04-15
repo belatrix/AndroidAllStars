@@ -44,7 +44,7 @@
                         android:text="@string/skype_id"/>
 
                     <TextView
-                        android:id="@+id/tv_skype_id"
+                        android:id="@+id/skype_id"
                         android:layout_height="match_parent"
                         android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
@@ -73,7 +73,7 @@
                         android:text="@string/title_score"/>
 
                     <TextView
-                        android:id="@+id/tv_score"
+                        android:id="@+id/score"
                         android:layout_height="match_parent"
                         android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
@@ -87,6 +87,7 @@
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
                     android:background="@color/divider"/>
+
                 <LinearLayout
                     android:layout_weight="4"
                     android:layout_width="0dp"
@@ -102,7 +103,7 @@
                         android:text="@string/title_level"/>
 
                     <TextView
-                        android:id="@+id/tv_level"
+                        android:id="@+id/level"
                         android:layout_height="match_parent"
                         android:layout_marginTop="10dp"
                         android:textColor="@android:color/black"

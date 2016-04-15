@@ -18,27 +18,26 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.account;
+package com.belatrixsf.allstars.ui.home;
 
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
-import com.belatrixsf.allstars.ui.home.EmployeePresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
 
 import javax.inject.Inject;
 
 /**
- * Created by PedroCarrillo on 4/13/16.
+ * Created by PedroCarrillo on 4/15/16.
  */
-public class AccountPresenter extends AllStarsPresenter<AccountView> {
+public class EmployeePresenter extends AllStarsPresenter<EmployeeView> {
 
     protected EmployeeManager employeeManager;
     protected Employee employee;
 
     @Inject
-    public AccountPresenter(AccountView view, EmployeeManager employeeManager) {
+    public EmployeePresenter(EmployeeView view, EmployeeManager employeeManager) {
         super(view);
         this.employeeManager = employeeManager;
     }
@@ -47,7 +46,7 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
         employeeManager.getLoggedInEmployee(new AllStarsCallback<Employee>() {
             @Override
             public void onSuccess(Employee employee) {
-                AccountPresenter.this.employee = employee;
+                EmployeePresenter.this.employee = employee;
                 showEmployeeData();
             }
 
@@ -59,22 +58,12 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
     }
 
     private void showEmployeeData() {
-        if (employee.getLevel() != null) {
-            view.showLevel(String.valueOf(employee.getLevel()));
+        if (employee.getFirstName() != null || employee.getLastName() != null) {
+            view.showEmployeeName(employee.getFullName());
         }
-        if (employee.getScore() != null) {
-            view.showScore(String.valueOf(employee.getScore()));
+        if (employee.getRole() != null) {
+            view.showRole(employee.getRole().getName());
         }
-        if (employee.getSkypeId() != null) {
-            view.showSkypeId(String.valueOf(employee.getSkypeId()));
-        }
-        if (employee.getCategories() != null) {
-            view.showCategories(employee.getCategories());
-        }
-    }
-
-    public void onCategoryClicked(int position) {
-        view.goCategoryDetail(employee.getCategories().get(position));
     }
 
 }

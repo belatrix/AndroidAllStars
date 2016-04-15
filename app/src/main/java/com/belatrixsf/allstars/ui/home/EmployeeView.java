@@ -18,15 +18,18 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.common;
+package com.belatrixsf.allstars.ui.home;
 
-import android.view.View;
+import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.ui.common.AllStarsView;
 
 /**
- * Created by pedrocarrillo on 4/9/16.
+ * Created by PedroCarrillo on 4/15/16.
  */
-public interface RecyclerOnItemClickListener {
+public interface EmployeeView extends AllStarsView {
 
-    void onClick(View v);
+    void showEmployeeName(String employeName);
+    void showRole(String role);
+    void showProfilePicture(String profilePicture);
 
 }

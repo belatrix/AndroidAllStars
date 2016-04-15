@@ -18,15 +18,21 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.common;
-
-import android.view.View;
+package com.belatrixsf.allstars.entities;
 
 /**
- * Created by pedrocarrillo on 4/9/16.
+ * Created by PedroCarrillo on 4/15/16.
  */
-public interface RecyclerOnItemClickListener {
+public class Role {
 
-    void onClick(View v);
+    private int id;
+    private String name;
 
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

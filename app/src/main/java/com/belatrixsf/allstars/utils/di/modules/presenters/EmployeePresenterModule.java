@@ -18,15 +18,29 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.common;
+package com.belatrixsf.allstars.utils.di.modules.presenters;
 
-import android.view.View;
+
+import com.belatrixsf.allstars.ui.home.EmployeeView;
+
+import dagger.Module;
+import dagger.Provides;
 
 /**
- * Created by pedrocarrillo on 4/9/16.
+ * Created by PedroCarrillo on 4/15/16.
  */
-public interface RecyclerOnItemClickListener {
+@Module
+public class EmployeePresenterModule {
 
-    void onClick(View v);
+    private EmployeeView view;
+
+    public EmployeePresenterModule(EmployeeView view) {
+        this.view = view;
+    }
+
+    @Provides
+    public EmployeeView providesView() {
+        return view;
+    }
 
 }
