@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">android-all-stars</string>
+    <string name="app_name">All Stars Belatrix</string>
     <string name="title_activity_example">ExampleActivity</string>
+    <string name="categories">Categories</string>
 
     <!-- Dialogs -->
     <string name="dialog_title_error">Oops something went wrong!</string>
@@ -15,6 +16,11 @@
 
     <!-- Title -->
     <string name="title_belatrix">Belatrix</string>
-    <string name="title_activity_login">Login Activity</string>
+    <string name="title_activity_login">LoginActivity</string>
+
+    <!--Account-->
+    <string name="title_skype_id">Skype Id</string>
+    <string name="title_score">Score</string>
+    <string name="title_level">Level</string>
 
 </resources>

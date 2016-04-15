@@ -18,24 +18,18 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.common;
+package com.belatrixsf.allstars.ui.home;
 
-import android.app.Fragment;
+import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.ui.common.AllStarsView;
 
 /**
- * Created by PedroCarrillo on 4/8/16.
+ * Created by PedroCarrillo on 4/15/16.
  */
-public interface FragmentListener {
+public interface EmployeeView extends AllStarsView {
 
-    void replaceFragment(Fragment fragment, boolean addToBackStack);
-    void replaceFragment(int containerId, Fragment fragment, boolean addToBackStack);
-    void showError(String message);
-    void showProgressIndicator();
-    void hideProgressIndicator();
-    void showProgressDialog();
-    void showProgressDialog(String message);
-    void dismissProgressDialog();
-    void closeActivity();
-    void setTitle();
+    void showEmployeeName(String employeName);
+    void showRole(String role);
+    void showProfilePicture(String profilePicture);
 
 }

@@ -18,24 +18,25 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.common;
+package com.belatrixsf.allstars.utils.di.components;
 
-import android.app.Fragment;
+import com.belatrixsf.allstars.ui.home.EmployeePresenter;
+import com.belatrixsf.allstars.ui.home.EmployeeView;
+import com.belatrixsf.allstars.utils.di.modules.presenters.EmployeePresenterModule;
+import com.belatrixsf.allstars.utils.di.scopes.UIScope;
+
+import dagger.Component;
 
 /**
- * Created by PedroCarrillo on 4/8/16.
+ * Created by PedroCarrillo on 4/15/16.
  */
-public interface FragmentListener {
+@UIScope
+@Component(
+        dependencies = ApplicationComponent.class,
+        modules = EmployeePresenterModule.class
+)
+public interface EmployeeComponent {
 
-    void replaceFragment(Fragment fragment, boolean addToBackStack);
-    void replaceFragment(int containerId, Fragment fragment, boolean addToBackStack);
-    void showError(String message);
-    void showProgressIndicator();
-    void hideProgressIndicator();
-    void showProgressDialog();
-    void showProgressDialog(String message);
-    void dismissProgressDialog();
-    void closeActivity();
-    void setTitle();
+    EmployeePresenter employeePresenter();
 
 }

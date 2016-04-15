@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#F57C00</color>
     <color name="colorAccent">#1B67BD</color>
 
+    <color name="divider">#C0C7CA</color>
+
     <color name="white">#FFFFFF</color>
     <color name="belatrix">#FF8F03</color>
 </resources>

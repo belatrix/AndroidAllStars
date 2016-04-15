@@ -18,19 +18,15 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui;
+package com.belatrixsf.allstars.ui.common;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.view.View;
 
-import com.belatrixsf.allstars.R;
+/**
+ * Created by pedrocarrillo on 4/9/16.
+ */
+public interface RecyclerOnItemClickListener {
 
-public class MainActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
+    void onClick(View v);
 
 }

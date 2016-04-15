@@ -18,24 +18,22 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.common;
+package com.belatrixsf.allstars.ui.account;
 
-import android.app.Fragment;
+import com.belatrixsf.allstars.entities.Category;
+import com.belatrixsf.allstars.ui.common.AllStarsView;
+
+import java.util.List;
 
 /**
- * Created by PedroCarrillo on 4/8/16.
+ * Created by PedroCarrillo on 4/13/16.
  */
-public interface FragmentListener {
+public interface AccountView extends AllStarsView {
 
-    void replaceFragment(Fragment fragment, boolean addToBackStack);
-    void replaceFragment(int containerId, Fragment fragment, boolean addToBackStack);
-    void showError(String message);
-    void showProgressIndicator();
-    void hideProgressIndicator();
-    void showProgressDialog();
-    void showProgressDialog(String message);
-    void dismissProgressDialog();
-    void closeActivity();
-    void setTitle();
+    void goCategoryDetail(Category category);
+    void showSkypeId(String skypeId);
+    void showScore(String score);
+    void showCategories(List<Category> categories);
+    void showLevel(String level);
 
 }

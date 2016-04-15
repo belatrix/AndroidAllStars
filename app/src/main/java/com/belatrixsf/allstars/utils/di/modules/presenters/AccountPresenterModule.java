@@ -18,24 +18,29 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.common;
+package com.belatrixsf.allstars.utils.di.modules.presenters;
 
-import android.app.Fragment;
+import com.belatrixsf.allstars.ui.account.AccountView;
+import com.belatrixsf.allstars.ui.login.LoginView;
+
+import dagger.Module;
+import dagger.Provides;
 
 /**
- * Created by PedroCarrillo on 4/8/16.
+ * Created by PedroCarrillo on 4/13/16.
  */
-public interface FragmentListener {
+@Module
+public class AccountPresenterModule {
 
-    void replaceFragment(Fragment fragment, boolean addToBackStack);
-    void replaceFragment(int containerId, Fragment fragment, boolean addToBackStack);
-    void showError(String message);
-    void showProgressIndicator();
-    void hideProgressIndicator();
-    void showProgressDialog();
-    void showProgressDialog(String message);
-    void dismissProgressDialog();
-    void closeActivity();
-    void setTitle();
+    private AccountView view;
+
+    public AccountPresenterModule(AccountView view) {
+        this.view = view;
+    }
+
+    @Provides
+    public AccountView providesView() {
+        return view;
+    }
 
 }

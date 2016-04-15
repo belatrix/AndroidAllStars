@@ -18,24 +18,21 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.common;
-
-import android.app.Fragment;
+package com.belatrixsf.allstars.entities;
 
 /**
- * Created by PedroCarrillo on 4/8/16.
+ * Created by PedroCarrillo on 4/15/16.
  */
-public interface FragmentListener {
+public class Role {
 
-    void replaceFragment(Fragment fragment, boolean addToBackStack);
-    void replaceFragment(int containerId, Fragment fragment, boolean addToBackStack);
-    void showError(String message);
-    void showProgressIndicator();
-    void hideProgressIndicator();
-    void showProgressDialog();
-    void showProgressDialog(String message);
-    void dismissProgressDialog();
-    void closeActivity();
-    void setTitle();
+    private int id;
+    private String name;
 
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
