@@ -26,6 +26,8 @@ import com.belatrixsf.allstars.services.EmployeeService;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -37,6 +39,7 @@ public class EmployeeManager {
 
     private EmployeeService employeeService;
     private Employee employee;
+    private List<Employee> employeeList;
 
     @Inject
     public EmployeeManager(EmployeeService employeeService) {
@@ -88,6 +91,21 @@ public class EmployeeManager {
         } else {
             callback.onSuccess(employee);
         }
+    }
+
+    public void getEmployeeList(final AllStarsCallback<List<Employee>> callback) {
+        employeeService.getEmployeeList(new AllStarsCallback<List<Employee>>() {
+            @Override
+            public void onSuccess(List<Employee> employees) {
+                EmployeeManager.this.employeeList = employees;
+                callback.onSuccess(employees);
+            }
+
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                callback.onFailure(serviceError);
+            }
+        });
     }
 
 }

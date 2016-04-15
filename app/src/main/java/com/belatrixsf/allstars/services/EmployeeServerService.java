@@ -27,6 +27,8 @@ import com.belatrixsf.allstars.networking.retrofit.requests.AuthenticationReques
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 
+import java.util.List;
+
 
 /**
  * Created by gyosida on 4/12/16.
@@ -48,5 +50,10 @@ public class EmployeeServerService implements EmployeeService {
     @Override
     public void getEmployee(int employeeId, AllStarsCallback<Employee> callback) {
         employeeAPI.getEmployee(employeeId).enqueue(new RetrofitCallback<Employee>(callback));
+    }
+
+    @Override
+    public void getEmployeeList(AllStarsCallback<List<Employee>> callback) {
+        employeeAPI.getEmployeeList().enqueue(new RetrofitCallback<List<Employee>>(callback));
     }
 }

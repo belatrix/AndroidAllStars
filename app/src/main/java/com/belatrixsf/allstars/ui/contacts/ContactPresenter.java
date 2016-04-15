@@ -18,21 +18,43 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.services;
+package com.belatrixsf.allstars.ui.contacts;
 
 import com.belatrixsf.allstars.entities.Employee;
-import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
+import com.belatrixsf.allstars.managers.EmployeeManager;
+import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
+import com.belatrixsf.allstars.utils.ServiceError;
 
 import java.util.List;
 
-/**
- * Created by gyosida on 4/12/16.
- */
-public interface EmployeeService {
+import javax.inject.Inject;
 
-    void authenticate(String username, String password, AllStarsCallback<AuthenticationResponse> callback);
-    void getEmployee(int employeeId, AllStarsCallback<Employee> callback);
-    void getEmployeeList(AllStarsCallback<List<Employee>> callback);
+/**
+ * Created by icerrate on 15/04/2016.
+ */
+public class ContactPresenter extends AllStarsPresenter<ContactView> {
+
+    private EmployeeManager employeeManager;
+
+    @Inject
+    public ContactPresenter(ContactView view, EmployeeManager employeeManager) {
+        super(view);
+        this.employeeManager = employeeManager;
+    }
+
+    public void getEmployeeList() {
+        employeeManager.getEmployeeList(new AllStarsCallback<List<Employee>>() {
+            @Override
+            public void onSuccess(List<Employee> employeeList) {
+                view.showEmployees(employeeList);
+            }
+
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                showError(serviceError.getErrorMessage());
+            }
+        });
+    }
 
 }

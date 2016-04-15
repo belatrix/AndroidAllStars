@@ -25,6 +25,7 @@ import android.app.FragmentManager;
 import android.support.v13.app.FragmentPagerAdapter;
 
 import com.belatrixsf.allstars.ui.account.AccountFragment;
+import com.belatrixsf.allstars.ui.contacts.ContactFragment;
 
 /**
  * Created by PedroCarrillo on 4/14/16.
@@ -45,7 +46,7 @@ public class MainNavigationViewPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 return AccountFragment.newInstance();
             case 2:
-                return AccountFragment.newInstance();
+                return ContactFragment.newInstance();
             default:
                 return AccountFragment.newInstance();
         }

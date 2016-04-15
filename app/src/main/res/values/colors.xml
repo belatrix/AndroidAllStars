@@ -10,4 +10,9 @@
     <color name="belatrix">#FF8F03</color>
     <color name="darkAccent">#105CB3</color>
     <color name="softBlack">#333333</color>
+
+    <color name="grey">#9E9E9E</color>
+
+    <color name="recycler_view_normal">#ffffff</color>
+    <color name="recycler_view_press">#20424242</color>
 </resources>

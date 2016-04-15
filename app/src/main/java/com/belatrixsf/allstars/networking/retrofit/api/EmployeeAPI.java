@@ -24,6 +24,8 @@ import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.networking.retrofit.requests.AuthenticationRequest;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
 
+import java.util.List;
+
 import retrofit.Call;
 import retrofit.http.Body;
 import retrofit.http.GET;
@@ -40,5 +42,8 @@ public interface EmployeeAPI {
 
     @GET(ServerPaths.EMPLOYEE_BY_ID)
     Call<Employee> getEmployee(@Path(ServerPaths.EMPLOYEE_ID) int employeeId);
+
+    @GET(ServerPaths.EMPLOYEE_LIST)
+    Call<List<Employee>> getEmployeeList();
 
 }
