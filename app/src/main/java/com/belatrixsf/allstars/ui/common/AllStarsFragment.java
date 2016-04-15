@@ -91,7 +91,7 @@ public abstract class AllStarsFragment extends Fragment implements AllStarsView 
 
     @Override
     public void dismissProgressDialog() {
-
+        fragmentListener.dismissProgressDialog();
     }
 
     @Override
