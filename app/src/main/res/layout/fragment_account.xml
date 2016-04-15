@@ -41,7 +41,7 @@
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
                         android:textColor="@color/divider"
-                        android:text="@string/skype_id"/>
+                        android:text="@string/title_skype_id"/>
 
                     <TextView
                         android:id="@+id/skype_id"

@@ -20,6 +20,8 @@
 */
 package com.belatrixsf.allstars.ui.common;
 
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -41,6 +43,19 @@ public abstract class AllStarsFragment extends Fragment implements AllStarsView 
     protected static final String TAG = AllStarsFragment.class.getName();
     protected FragmentListener fragmentListener;
 
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        fragmentListener = (FragmentListener) context;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        fragmentListener = (FragmentListener) activity;
+    }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -49,25 +64,39 @@ public abstract class AllStarsFragment extends Fragment implements AllStarsView 
     }
 
     @Override
-    public void setProgressIndicator(boolean active) {
-        //TODO: implement this.
+    public void onDetach() {
+        super.onDetach();
+        fragmentListener = null;
+    }
+
+    @Override
+    public void showProgressIndicator() {
+        fragmentListener.showProgressIndicator();
+    }
+
+    @Override
+    public void hideProgressIndicator() {
+        fragmentListener.hideProgressIndicator();
+    }
+
+    @Override
+    public void showProgressDialog() {
+        fragmentListener.showProgressDialog();
+    }
+
+    @Override
+    public void showProgressDialog(String message) {
+        fragmentListener.showProgressDialog(message);
+    }
+
+    @Override
+    public void dismissProgressDialog() {
+
     }
 
     @Override
     public void showError(String message) {
-        //TODO: implement this.
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        fragmentListener = (FragmentListener)context;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        fragmentListener = null;
+        fragmentListener.showError(message);
     }
 
     protected abstract void initDependencies(AllStarsApplication allStarsApplication);

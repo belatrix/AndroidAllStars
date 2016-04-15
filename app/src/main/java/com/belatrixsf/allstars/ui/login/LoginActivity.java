@@ -21,7 +21,6 @@
 package com.belatrixsf.allstars.ui.login;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.ui.common.AllStarsActivity;
 

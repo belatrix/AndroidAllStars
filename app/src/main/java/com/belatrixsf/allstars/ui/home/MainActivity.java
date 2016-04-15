@@ -86,6 +86,7 @@ public class MainActivity extends AllStarsActivity implements EmployeeView {
 
     @Override
     public Context getContext() {
-        return null;
+        return this;
     }
+
 }
