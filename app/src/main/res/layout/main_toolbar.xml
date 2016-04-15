@@ -9,12 +9,12 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_25_10"
+        android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         app:popupTheme="@style/AppTheme.PopupOverlay"
         app:layout_scrollFlags="scroll|enterAlways">
 
-        <include layout="@layout/account_detail_header"/>
+        <!--<include layout="@layout/account_detail_header"/>-->
 
     </android.support.v7.widget.Toolbar>
 

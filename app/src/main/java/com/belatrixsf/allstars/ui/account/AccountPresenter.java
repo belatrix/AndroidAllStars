@@ -23,7 +23,6 @@ package com.belatrixsf.allstars.ui.account;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
-import com.belatrixsf.allstars.ui.home.EmployeePresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
 
@@ -67,6 +66,12 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
         }
         if (employee.getSkypeId() != null) {
             view.showSkypeId(String.valueOf(employee.getSkypeId()));
+        }
+        if (employee.getFirstName() != null || employee.getLastName() != null) {
+            view.showEmployeeName(employee.getFullName());
+        }
+        if (employee.getRole() != null) {
+            view.showRole(employee.getRole().getName());
         }
         if (employee.getCategories() != null) {
             view.showCategories(employee.getCategories());

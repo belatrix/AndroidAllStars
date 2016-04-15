@@ -55,6 +55,8 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     @Bind(R.id.skype_id) TextView skypeTextView;
     @Bind(R.id.level) TextView levelTextView;
     @Bind(R.id.score) TextView scoreTextView;
+    @Bind(R.id.profile_name) TextView nameTextView;
+    @Bind(R.id.profile_role) TextView roleTextView;
 
     public static AccountFragment newInstance() {
         return new AccountFragment();
@@ -118,6 +120,18 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
         levelTextView.setText(String.valueOf(level));
     }
 
+    @Override
+    public void showEmployeeName(String employeName) {
+        nameTextView.setText(employeName);
+    }
 
+    @Override
+    public void showRole(String role) {
+        roleTextView.setText(role);
+    }
 
+    @Override
+    public void showProfilePicture(String profilePicture) {
+
+    }
 }

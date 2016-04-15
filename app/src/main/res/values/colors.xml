@@ -3,8 +3,10 @@
     <color name="colorPrimary">@color/belatrix</color>
     <color name="colorPrimaryDark">#F57C00</color>
     <color name="colorAccent">#1B67BD</color>
+    <color name="colorPrimaryLight">#fcae4e</color>
 
-    <color name="divider">#C0C7CA</color>
+    <color name="subTitle">#C0C7CA</color>
+    <color name="divider">#E6ECEF</color>
 
     <color name="white">#FFFFFF</color>
     <color name="belatrix">#FF8F03</color>
