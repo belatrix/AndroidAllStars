@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
-            android:layout_marginTop="@dimen/dimen_5_1"
+            android:layout_marginTop="@dimen/dimen_1_5"
             style="@android:style/TextAppearance.Large"
             tools:text="Pedro Carrillo" />
 
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
-            android:layout_marginTop="@dimen/dimen_5_1"
+            android:layout_marginTop="@dimen/dimen_1_5"
             tools:text="Senior Android Developer" />
 
     </LinearLayout>

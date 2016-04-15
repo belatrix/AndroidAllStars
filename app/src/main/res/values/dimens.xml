@@ -4,9 +4,8 @@
     <dimen name="left_divider_margin">65dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-
+    <dimen name="dimen_1_5">5dp</dimen>
     <dimen name="dimen_8">8dp</dimen>
-    <dimen name="dimen_5_1">5dp</dimen>
     <dimen name="dimen_2_5">10dp</dimen>
     <dimen name="dimen_3_5">15dp</dimen>
     <dimen name="dimen_5_5">25dp</dimen>
