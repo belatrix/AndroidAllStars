@@ -23,10 +23,13 @@ package com.belatrixsf.allstars.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.belatrixsf.allstars.R;
@@ -43,6 +46,7 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
 
     @Bind(R.id.username) EditText usernameEditText;
     @Bind(R.id.password) EditText passwordEditText;
+    @Bind(R.id.sign_in) Button signInButton;
 
     private LoginPresenter loginPresenter;
 
@@ -60,7 +64,16 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initViews();
+        if (savedInstanceState == null) {
+            loginPresenter.init();
+        }
+    }
+
+    private void initViews() {
         passwordEditText.setTransformationMethod(new PasswordTransformationMethod());
+        usernameEditText.addTextChangedListener(formFieldWatcher);
+        passwordEditText.addTextChangedListener(formFieldWatcher);
     }
 
     @Override
@@ -85,10 +98,37 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
         fragmentListener.closeActivity();
     }
 
-    @OnClick(R.id.submit)
+    @Override
+    public void enableLogin(boolean enable) {
+        signInButton.setEnabled(enable);
+    }
+
+    @OnClick(R.id.sign_in)
     public void submitClicked() {
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
         loginPresenter.login(username, password);
     }
+
+    private TextWatcher formFieldWatcher = new TextWatcher() {
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            String username = usernameEditText.getText().toString();
+            String password = passwordEditText.getText().toString();
+            loginPresenter.checkIfInputsAreValid(username, password);
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+
+    };
+
 }

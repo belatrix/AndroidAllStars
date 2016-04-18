@@ -21,6 +21,7 @@
 package com.belatrixsf.allstars.ui.contacts;
 
 
+import android.animation.LayoutTransition;
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
@@ -28,8 +29,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.EmployeeListAdapter;
@@ -64,7 +68,7 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Se
         View v = inflater.inflate(R.layout.fragment_contact, container, false);
 
         SearchView searchView = (SearchView) v.findViewById(R.id.search);
-        // Sets searchable configuration defined in searchable.xml for this SearchView
+
         SearchManager searchManager =
                 (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         searchView.setOnQueryTextListener(this);
@@ -100,6 +104,17 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Se
         EmployeeListAdapter employeeListAdapter = new EmployeeListAdapter(getActivity(), employees);
         employeeRecyclerView.setAdapter(employeeListAdapter);
         employeeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+
+        int searchBarId = searchView.getContext().getResources().getIdentifier("android:id/search_bar", null, null);
+        LinearLayout searchBar = (LinearLayout) searchView.findViewById(searchBarId);
+        searchBar.setLayoutTransition(new LayoutTransition());
+
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override

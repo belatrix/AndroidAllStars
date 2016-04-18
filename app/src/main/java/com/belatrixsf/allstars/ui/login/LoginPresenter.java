@@ -40,6 +40,14 @@ public class LoginPresenter extends AllStarsPresenter<LoginView> {
         this.employeeManager = employeeManager;
     }
 
+    public void checkIfInputsAreValid(String username, String password) {
+        view.enableLogin(username != null && password != null && !username.isEmpty() && !password.isEmpty());
+    }
+
+    public void init() {
+        view.enableLogin(false);
+    }
+
     public void login(String username, String password) {
         view.showProgressDialog();
         employeeManager.login(username, password, new AllStarsCallback<Void>() {
@@ -55,5 +63,4 @@ public class LoginPresenter extends AllStarsPresenter<LoginView> {
             }
         });
     }
-
 }
