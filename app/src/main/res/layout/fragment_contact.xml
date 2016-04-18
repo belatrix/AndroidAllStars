@@ -7,28 +7,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:background="@color/belatrix"
-            android:padding="@dimen/dimen_1_5"
-            android:layout_height="@dimen/dimen_10_5">
-
-            <EditText
-                android:id="@+id/search_term"
-                android:layout_width="match_parent"
-                style="@style/SearchEditText"
-                android:layout_toLeftOf="@+id/search"
-                android:layout_alignParentLeft="true"
-                android:layout_height="@dimen/dimen_8_5" />
-
-            <ImageButton
-                android:id="@+id/search"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/ic_search"/>
-
-        </RelativeLayout>
+        <include
+            layout="@layout/search_toolbar"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_employees"

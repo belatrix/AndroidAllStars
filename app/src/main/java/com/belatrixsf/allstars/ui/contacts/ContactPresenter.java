@@ -56,11 +56,17 @@ public class ContactPresenter extends AllStarsPresenter<ContactView> {
         });
     }
 
-    public void searchEmployee(String searchTerm) {
+    public void onSearchTermChange(String newSearchTerm){
+
+    }
+
+    public void submitSearchTerm(String searchTerm){
         if (!searchTerm.isEmpty()) {
+            view.showProgressDialog();
             employeeManager.getEmployeeSearchList(searchTerm, new AllStarsCallback<SearchEmployeeResponse>() {
                 @Override
                 public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
+                    view.dismissProgressDialog();
                     view.showEmployees(searchEmployeeResponse.getEmployeeList());
                 }
 
@@ -73,5 +79,4 @@ public class ContactPresenter extends AllStarsPresenter<ContactView> {
             showError(getString(R.string.empty_search_term));
         }
     }
-
 }

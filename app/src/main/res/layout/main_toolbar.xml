@@ -29,5 +29,4 @@
         app:tabGravity="fill"
         app:tabIndicatorColor="@android:color/white"/>
 
-
 </android.support.design.widget.AppBarLayout>

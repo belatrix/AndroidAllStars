@@ -20,7 +20,6 @@
 */
 package com.belatrixsf.allstars.ui.common;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
@@ -42,7 +41,6 @@ public abstract class AllStarsFragment extends Fragment implements AllStarsView 
 
     protected static final String TAG = AllStarsFragment.class.getName();
     protected FragmentListener fragmentListener;
-
 
     @Override
     public void onAttach(Context context) {
@@ -97,6 +95,11 @@ public abstract class AllStarsFragment extends Fragment implements AllStarsView 
     @Override
     public void showError(String message) {
         fragmentListener.showError(message);
+    }
+
+    @Override
+    public Context getContext() {
+        return getActivity();
     }
 
     protected abstract void initDependencies(AllStarsApplication allStarsApplication);

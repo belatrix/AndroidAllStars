@@ -57,6 +57,7 @@ public class MainActivity extends AllStarsActivity implements EmployeeView {
                 .employeePresenter();
         employeePresenter.loadEmployeeAccount();
         setupViews();
+
     }
 
     private void setupViews() {
@@ -88,5 +89,4 @@ public class MainActivity extends AllStarsActivity implements EmployeeView {
     public Context getContext() {
         return this;
     }
-
 }

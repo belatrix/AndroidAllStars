@@ -23,11 +23,11 @@ package com.belatrixsf.allstars.ui.common;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 
 import com.belatrixsf.allstars.R;
-import android.app.ProgressDialog;
-
 import com.belatrixsf.allstars.utils.Dialogs;
 
 /**
@@ -37,7 +37,8 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
 
     private AlertDialog errorAlertDialog;
     private ProgressDialog progressDialog;
-
+    private SearchView searchView;
+    private SearchView.OnQueryTextListener searchViewListener;
 
     @Override
     public void replaceFragment(Fragment fragment, boolean addToBackStack) {
@@ -110,4 +111,23 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
 
     }
 
+    @Override
+    public void setSearchView(SearchView searchView) {
+        this.searchView = searchView;
+    }
+
+    @Override
+    public SearchView getSearchView() {
+        return this.searchView;
+    }
+
+    @Override
+    public void setSearchViewListener(SearchView.OnQueryTextListener queryTextListener) {
+        this.searchViewListener = queryTextListener;
+    }
+
+    @Override
+    public SearchView.OnQueryTextListener getSearchViewListener() {
+        return this.searchViewListener;
+    }
 }
