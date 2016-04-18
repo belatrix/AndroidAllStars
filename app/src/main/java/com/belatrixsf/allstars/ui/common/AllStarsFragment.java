@@ -63,6 +63,12 @@ public abstract class AllStarsFragment extends Fragment implements AllStarsView 
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
         fragmentListener = null;
