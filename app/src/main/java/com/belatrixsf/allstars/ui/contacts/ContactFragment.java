@@ -27,6 +27,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.EmployeeListAdapter;
@@ -39,6 +41,7 @@ import com.belatrixsf.allstars.utils.di.modules.presenters.ContactPresenterModul
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Created by icerrate on 15/04/2016.
@@ -49,6 +52,10 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
 
     @Bind(R.id.rv_employees)
     RecyclerView employeeRecyclerView;
+    @Bind(R.id.search)
+    ImageButton searchImageButton;
+    @Bind(R.id.search_term)
+    EditText searchTermEditText;
 
     public static ContactFragment newInstance() {
         return new ContactFragment();
@@ -77,5 +84,11 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
         EmployeeListAdapter employeeListAdapter = new EmployeeListAdapter(getActivity(), employees);
         employeeRecyclerView.setAdapter(employeeListAdapter);
         employeeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    }
+
+    @OnClick(R.id.search)
+    public void searchClicked() {
+        String searchTerm = searchTermEditText.getText().toString();
+        contactPresenter.searchEmployee(searchTerm);
     }
 }

@@ -20,13 +20,12 @@
 */
 package com.belatrixsf.allstars.ui.contacts;
 
-import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.managers.EmployeeManager;
+import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -44,10 +43,10 @@ public class ContactPresenter extends AllStarsPresenter<ContactView> {
     }
 
     public void getEmployeeList() {
-        employeeManager.getEmployeeList(new AllStarsCallback<List<Employee>>() {
+        employeeManager.getEmployeeList(new AllStarsCallback<SearchEmployeeResponse>() {
             @Override
-            public void onSuccess(List<Employee> employeeList) {
-                view.showEmployees(employeeList);
+            public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
+                view.showEmployees(searchEmployeeResponse.getEmployeeList());
             }
 
             @Override
@@ -55,6 +54,24 @@ public class ContactPresenter extends AllStarsPresenter<ContactView> {
                 showError(serviceError.getErrorMessage());
             }
         });
+    }
+
+    public void searchEmployee(String searchTerm) {
+        if (!searchTerm.isEmpty()) {
+            employeeManager.getEmployeeSearchList(searchTerm, new AllStarsCallback<SearchEmployeeResponse>() {
+                @Override
+                public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
+                    view.showEmployees(searchEmployeeResponse.getEmployeeList());
+                }
+
+                @Override
+                public void onFailure(ServiceError serviceError) {
+                    showError(serviceError.getErrorMessage());
+                }
+            });
+        }else{
+            showError(getString(R.string.empty_search_term));
+        }
     }
 
 }

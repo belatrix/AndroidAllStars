@@ -14,7 +14,7 @@
             android:layout_height="@dimen/dimen_10_5">
 
             <EditText
-                android:id="@+id/search_employee"
+                android:id="@+id/search_term"
                 android:layout_width="match_parent"
                 style="@style/SearchEditText"
                 android:layout_toLeftOf="@+id/search"

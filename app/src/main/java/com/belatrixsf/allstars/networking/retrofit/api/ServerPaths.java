@@ -27,8 +27,11 @@ public interface ServerPaths {
 
     String EMPLOYEE = "employee";
     String EMPLOYEE_ID = "employee_id";
+    String SEARCH_TERM = "search_term";
+
     String EMPLOYEE_AUTHENTICATE = EMPLOYEE + "/authenticate/";
     String EMPLOYEE_LIST = EMPLOYEE + "/list";
+    String EMPLOYEE_SEARCH_TERM = EMPLOYEE + "/search/{" + SEARCH_TERM + "}";
     String EMPLOYEE_BY_ID = EMPLOYEE + "/{" + EMPLOYEE_ID + "}";
 
 }

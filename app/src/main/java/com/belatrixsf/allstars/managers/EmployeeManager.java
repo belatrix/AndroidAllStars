@@ -22,6 +22,7 @@ package com.belatrixsf.allstars.managers;
 
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
+import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
 import com.belatrixsf.allstars.services.EmployeeService;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
@@ -93,12 +94,27 @@ public class EmployeeManager {
         }
     }
 
-    public void getEmployeeList(final AllStarsCallback<List<Employee>> callback) {
-        employeeService.getEmployeeList(new AllStarsCallback<List<Employee>>() {
+    public void getEmployeeList(final AllStarsCallback<SearchEmployeeResponse> callback) {
+        employeeService.getEmployeeList(new AllStarsCallback<SearchEmployeeResponse>() {
             @Override
-            public void onSuccess(List<Employee> employees) {
-                EmployeeManager.this.employeeList = employees;
-                callback.onSuccess(employees);
+            public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
+                EmployeeManager.this.employeeList = searchEmployeeResponse.getEmployeeList();
+                callback.onSuccess(searchEmployeeResponse);
+            }
+
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                callback.onFailure(serviceError);
+            }
+        });
+    }
+
+    public void getEmployeeSearchList(final String searchTerm, final AllStarsCallback<SearchEmployeeResponse> callback) {
+        employeeService.getEmployeeSearchList(searchTerm, new AllStarsCallback<SearchEmployeeResponse>() {
+            @Override
+            public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
+                EmployeeManager.this.employeeList = searchEmployeeResponse.getEmployeeList();
+                callback.onSuccess(searchEmployeeResponse);
             }
 
             @Override

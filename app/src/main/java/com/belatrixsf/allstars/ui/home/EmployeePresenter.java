@@ -61,8 +61,9 @@ public class EmployeePresenter extends AllStarsPresenter<EmployeeView> {
         if (employee.getFirstName() != null || employee.getLastName() != null) {
             view.showEmployeeName(employee.getFullName());
         }
-        if (employee.getRole() != null) {
-            view.showRole(employee.getRole().getName());
+        if ((Integer) employee.getRole() != null) {
+            //view.showRole(employee.getRole().getName());
+            view.showRole(employee.getRole() + "");
         }
     }
 

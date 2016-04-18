@@ -22,7 +22,6 @@ package com.belatrixsf.allstars.entities;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,7 +37,7 @@ public class Employee {
     @SerializedName("last_name")
     private String lastName;
     private String avatar;
-    private Role role;
+    private int role;
     @SerializedName("skype_id")
     private String skypeId;
     @SerializedName("last_month_score")
@@ -78,7 +77,7 @@ public class Employee {
         return avatar;
     }
 
-    public Role getRole() {
+    public int getRole() {
         return role;
     }
 
