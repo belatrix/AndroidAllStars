@@ -2,8 +2,13 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:drawable="@color/lightAccent"
+        android:state_enabled="false"/>
+
+    <item
         android:drawable="@color/darkAccent"
-        android:state_pressed="true"/>
+        android:state_pressed="true"
+        android:state_enabled="true"/>
 
     <item
         android:drawable="@color/colorAccent"/>
