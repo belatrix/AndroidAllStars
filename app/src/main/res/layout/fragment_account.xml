@@ -12,13 +12,15 @@
 
         <LinearLayout
             android:orientation="vertical"
+            android:background="@android:color/white"
+            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:background="@android:color/white"
+                android:background="@color/white"
                 android:orientation="vertical">
 
                 <View
@@ -165,8 +167,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             app:layout_anchor="@+id/belatrix_placeholder"
-            app:layout_anchorGravity="bottom|center"
-            android:background="@mipmap/ic_launcher"/>
+            app:layout_anchorGravity="bottom|center"/>
 
     </android.support.design.widget.CoordinatorLayout>
 
