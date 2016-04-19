@@ -19,7 +19,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="@dimen/dimen_20_10"
                 android:background="@color/white"
                 android:orientation="vertical">
 
@@ -56,10 +56,7 @@
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/divider"/>
+            <View style="@style/horizontalDivider"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -85,7 +82,7 @@
                     <TextView
                         android:id="@+id/skype_id"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/dimen_2_5"
                         android:layout_width="wrap_content"
                         android:gravity="center"
                         android:textColor="@android:color/black"
@@ -93,9 +90,7 @@
 
                 </LinearLayout>
                 <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/divider"/>
+                    style="@style/verticalDivider" />
                 <LinearLayout
                     android:layout_weight="4"
                     android:layout_width="0dp"
@@ -113,7 +108,7 @@
                     <TextView
                         android:id="@+id/score"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/dimen_2_5"
                         android:layout_width="wrap_content"
                         android:textColor="@android:color/black"
                         android:gravity="center"
@@ -122,9 +117,7 @@
                 </LinearLayout>
 
                 <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/divider"/>
+                    style="@style/verticalDivider" />
 
                 <LinearLayout
                     android:layout_weight="4"
@@ -153,10 +146,7 @@
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/divider"/>
+            <View style="@style/horizontalDivider"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_account_recommendations"
@@ -168,7 +158,7 @@
         <ImageView
             android:id="@+id/profile_picture"
             android:layout_width="@dimen/dimen_10_8"
-            android:layout_height="80dp"
+            android:layout_height="@dimen/dimen_10_8"
             app:layout_anchor="@+id/belatrix_placeholder"
             app:layout_anchorGravity="bottom|center"/>
 

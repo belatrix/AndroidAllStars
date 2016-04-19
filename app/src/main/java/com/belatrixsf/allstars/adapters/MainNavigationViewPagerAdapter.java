@@ -25,8 +25,6 @@ import android.app.FragmentManager;
 import android.support.v13.app.FragmentPagerAdapter;
 
 import com.belatrixsf.allstars.ui.account.AccountFragment;
-import com.belatrixsf.allstars.ui.example.ExampleFragment;
-import com.belatrixsf.allstars.ui.login.LoginFragment;
 
 /**
  * Created by PedroCarrillo on 4/14/16.

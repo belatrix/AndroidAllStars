@@ -135,8 +135,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
 
     @Override
     public void showProfilePicture(final String profilePicture) {
-        int width = getActivity().getResources().getDimensionPixelSize(R.dimen.dimen_10_8);
-        int height = getActivity().getResources().getDimensionPixelSize(R.dimen.dimen_10_8);
-        Glide.with(getActivity()).load(profilePicture).centerCrop().override(width, height).transform(new CircleTransform(getActivity())).into(pictureImageView);
+        int size = getActivity().getResources().getDimensionPixelSize(R.dimen.dimen_10_8);
+        Glide.with(getActivity()).load(profilePicture).override(size,size).centerCrop().transform(new CircleTransform(getActivity())).into(pictureImageView);
     }
 }
