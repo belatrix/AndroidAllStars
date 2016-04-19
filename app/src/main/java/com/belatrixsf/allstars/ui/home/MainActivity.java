@@ -23,6 +23,7 @@ package com.belatrixsf.allstars.ui.home;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.MainNavigationViewPagerAdapter;
@@ -33,6 +34,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AllStarsActivity {
 
+    @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.tab_layout) TabLayout tabLayout;
     @Bind(R.id.main_view_pager) ViewPager mainViewPager;
 
@@ -41,6 +43,7 @@ public class MainActivity extends AllStarsActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
         setupViews();
     }
 

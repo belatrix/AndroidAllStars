@@ -9,19 +9,25 @@ import android.graphics.Paint;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 
+import java.lang.ref.WeakReference;
+
 /**
  * Created by pedrocarrillo on 4/16/16.
  */
 public class CircleTransform extends BitmapTransformation {
+
+    private WeakReference<Context> contextWeakReference;
+
     public CircleTransform(Context context) {
         super(context);
+        contextWeakReference = new WeakReference<>(context);
     }
 
     @Override protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
         return circleCrop(pool, toTransform);
     }
 
-    private static Bitmap circleCrop(BitmapPool pool, Bitmap source) {
+    private Bitmap circleCrop(BitmapPool pool, Bitmap source) {
         if (source == null) return null;
 
         int size = Math.min(source.getWidth(), source.getHeight());
@@ -41,7 +47,17 @@ public class CircleTransform extends BitmapTransformation {
         paint.setShader(new BitmapShader(squared, BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP));
         paint.setAntiAlias(true);
         float r = size / 2f;
+
         canvas.drawCircle(r, r, r, paint);
+
+        //border code
+        int borderwidth = 2;
+        paint.setShader(null);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(contextWeakReference.get().getResources().getColor(android.R.color.white));
+        paint.setStrokeWidth(borderwidth);
+
+        canvas.drawCircle(r, r, r - borderwidth, paint);
         return result;
     }
 

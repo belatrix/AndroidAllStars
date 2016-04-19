@@ -111,6 +111,19 @@ public class Employee {
     }
 
     public List<Category> getCategories() {
+        if (categories == null) {
+            categories = new ArrayList<>();
+        }
+        categories.add(new Category("1", " a1", 2, 2));
+        categories.add(new Category("2", " a2", 2, 2));
+        categories.add(new Category("3", " a3", 2, 2));
+        categories.add(new Category(" a", " a4", 2, 2));
+        categories.add(new Category(" a", " a5", 2, 2));
+        categories.add(new Category(" a", " a6", 2, 2));
+        categories.add(new Category(" a", " a7", 2, 2));
+        categories.add(new Category(" a", " a8", 2, 2));
+        categories.add(new Category(" a", " a9", 2, 2));
+        categories.add(new Category(" a", " a20", 2, 2));
         return categories;
     }
 

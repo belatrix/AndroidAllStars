@@ -76,6 +76,10 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
         if (employee.getCategories() != null) {
             view.showCategories(employee.getCategories());
         }
+        if (employee.getAvatar() != null) {
+            view.showProfilePicture(employee.getAvatar());
+        }
+        view.showProfilePicture("s");
     }
 
     public void onCategoryClicked(int position) {
