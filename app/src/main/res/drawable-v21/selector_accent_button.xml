@@ -2,6 +2,10 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:drawable="@color/lightAccent"
+        android:state_enabled="false"/>
+
+    <item
         android:drawable="@drawable/ripple_accent"/>
 
 </selector>

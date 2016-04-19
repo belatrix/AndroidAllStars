@@ -20,7 +20,6 @@
 */
 package com.belatrixsf.allstars.ui.common;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
@@ -64,6 +63,12 @@ public abstract class AllStarsFragment extends Fragment implements AllStarsView 
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
         fragmentListener = null;
@@ -91,12 +96,17 @@ public abstract class AllStarsFragment extends Fragment implements AllStarsView 
 
     @Override
     public void dismissProgressDialog() {
-
+        fragmentListener.dismissProgressDialog();
     }
 
     @Override
     public void showError(String message) {
         fragmentListener.showError(message);
+    }
+
+    @Override
+    public Context getContext() {
+        return getActivity();
     }
 
     protected abstract void initDependencies(AllStarsApplication allStarsApplication);
