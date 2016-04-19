@@ -36,4 +36,8 @@ public interface AccountView extends AllStarsView {
     void showCategories(List<Category> categories);
     void showLevel(String level);
 
+    void showEmployeeName(String employeName);
+    void showRole(String role);
+    void showProfilePicture(String profilePicture);
+
 }

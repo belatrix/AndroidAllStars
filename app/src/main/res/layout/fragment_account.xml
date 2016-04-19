@@ -6,27 +6,63 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <android.support.v7.widget.CardView
+        <LinearLayout
+            android:orientation="vertical"
+            android:background="@android:color/white"
+            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-            app:cardBackgroundColor="@android:color/white"
-            app:cardCornerRadius="2dp"
-            app:cardPreventCornerOverlap="false"
-            app:cardUseCompatPadding="true"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin">
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_20_10"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <View
+                    android:id="@+id/belatrix_placeholder"
+                    android:layout_width="match_parent"
+                    android:background="@color/colorPrimaryLight"
+                    android:layout_height="0dp"
+                    android:layout_weight=".4"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".6"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/profile_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_1_5"
+                        style="@android:style/TextAppearance.Large"
+                        tools:text="Pedro Carrillo" />
+
+                    <TextView
+                        android:id="@+id/profile_role"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_1_5"
+                        tools:text="Senior Android Developer" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View style="@style/horizontalDivider"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:background="@android:color/white"
+                android:orientation="horizontal"
                 android:weightSum="12">
 
                 <LinearLayout
@@ -40,24 +76,21 @@
                     <TextView
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
-                        android:textColor="@color/divider"
+                        android:textColor="@color/subTitle"
                         android:text="@string/title_skype_id"/>
 
                     <TextView
                         android:id="@+id/skype_id"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/dimen_2_5"
                         android:layout_width="wrap_content"
+                        android:gravity="center"
                         android:textColor="@android:color/black"
                         tools:text="pter9"/>
 
                 </LinearLayout>
                 <View
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/divider"/>
+                    style="@style/verticalDivider" />
                 <LinearLayout
                     android:layout_weight="4"
                     android:layout_width="0dp"
@@ -69,24 +102,22 @@
                     <TextView
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
-                        android:textColor="@color/divider"
+                        android:textColor="@color/subTitle"
                         android:text="@string/title_score"/>
 
                     <TextView
                         android:id="@+id/score"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/dimen_2_5"
                         android:layout_width="wrap_content"
                         android:textColor="@android:color/black"
+                        android:gravity="center"
                         tools:text="1233"/>
 
                 </LinearLayout>
+
                 <View
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/divider"/>
+                    style="@style/verticalDivider" />
 
                 <LinearLayout
                     android:layout_weight="4"
@@ -99,7 +130,7 @@
                     <TextView
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
-                        android:textColor="@color/divider"
+                        android:textColor="@color/subTitle"
                         android:text="@string/title_level"/>
 
                     <TextView
@@ -108,30 +139,29 @@
                         android:layout_marginTop="10dp"
                         android:textColor="@android:color/black"
                         android:layout_width="wrap_content"
+                        android:gravity="center"
                         tools:text="9000+"/>
 
                 </LinearLayout>
 
             </LinearLayout>
-        </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="@android:color/white"
-            app:cardCornerRadius="2dp"
-            app:cardPreventCornerOverlap="false"
-            app:cardUseCompatPadding="true"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin">
+            <View style="@style/horizontalDivider"/>
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_account_recommendations"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#F5F5F5"/>
-        </android.support.v7.widget.CardView>
-    </LinearLayout>
+                android:layout_height="match_parent"/>
 
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/profile_picture"
+            android:layout_width="@dimen/dimen_10_8"
+            android:layout_height="@dimen/dimen_10_8"
+            app:layout_anchor="@+id/belatrix_placeholder"
+            app:layout_anchorGravity="bottom|center"/>
+
+    </android.support.design.widget.CoordinatorLayout>
 
 </android.support.v4.widget.NestedScrollView>

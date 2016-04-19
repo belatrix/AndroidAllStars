@@ -38,7 +38,7 @@ public class Employee {
     @SerializedName("last_name")
     private String lastName;
     private String avatar;
-    private Role role;
+    private Integer role;
     @SerializedName("skype_id")
     private String skypeId;
     @SerializedName("last_month_score")
@@ -75,10 +75,13 @@ public class Employee {
     }
 
     public String getAvatar() {
+        if (avatar == null) {
+            avatar = "https://pbs.twimg.com/profile_images/616076655547682816/6gMRtQyY.jpg";
+        }
         return avatar;
     }
 
-    public Role getRole() {
+    public Integer getRole() {
         return role;
     }
 

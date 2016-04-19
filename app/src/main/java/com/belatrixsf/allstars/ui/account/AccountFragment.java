@@ -27,18 +27,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.AccountCategoriesAdapter;
 import com.belatrixsf.allstars.entities.Category;
-import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
+import com.belatrixsf.allstars.ui.common.views.CircleTransform;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.components.DaggerAccountComponent;
 import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModule;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -55,6 +57,9 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     @Bind(R.id.skype_id) TextView skypeTextView;
     @Bind(R.id.level) TextView levelTextView;
     @Bind(R.id.score) TextView scoreTextView;
+    @Bind(R.id.profile_name) TextView nameTextView;
+    @Bind(R.id.profile_role) TextView roleTextView;
+    @Bind(R.id.profile_picture) ImageView pictureImageView;
 
     public static AccountFragment newInstance() {
         return new AccountFragment();
@@ -118,6 +123,19 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
         levelTextView.setText(String.valueOf(level));
     }
 
+    @Override
+    public void showEmployeeName(String employeName) {
+        nameTextView.setText(employeName);
+    }
 
+    @Override
+    public void showRole(String role) {
+        roleTextView.setText(role);
+    }
 
+    @Override
+    public void showProfilePicture(final String profilePicture) {
+        int size = getActivity().getResources().getDimensionPixelSize(R.dimen.dimen_10_8);
+        Glide.with(getActivity()).load(profilePicture).override(size,size).centerCrop().transform(new CircleTransform(getActivity())).into(pictureImageView);
+    }
 }
