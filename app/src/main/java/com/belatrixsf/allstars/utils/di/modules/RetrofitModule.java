@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.allstars.utils.di.modules;
 
+import com.belatrixsf.allstars.BuildConfig;
 import com.belatrixsf.allstars.managers.PreferencesManager;
 import com.belatrixsf.allstars.networking.retrofit.api.EmployeeAPI;
 import com.squareup.okhttp.Interceptor;
@@ -63,7 +64,7 @@ public class RetrofitModule {
         });
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("https://allstars-belatrix.herokuapp.com:443/api/")
+                .baseUrl(BuildConfig.BASE_URL)
                 .client(client)
                 .build();
     }

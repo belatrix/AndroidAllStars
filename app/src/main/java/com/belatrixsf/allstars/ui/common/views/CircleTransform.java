@@ -23,7 +23,8 @@ public class CircleTransform extends BitmapTransformation {
         contextWeakReference = new WeakReference<>(context);
     }
 
-    @Override protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
+    @Override
+    protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
         return circleCrop(pool, toTransform);
     }
 
@@ -49,19 +50,11 @@ public class CircleTransform extends BitmapTransformation {
         float r = size / 2f;
 
         canvas.drawCircle(r, r, r, paint);
-
-        //border code
-        int borderwidth = 2;
-        paint.setShader(null);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setColor(contextWeakReference.get().getResources().getColor(android.R.color.white));
-        paint.setStrokeWidth(borderwidth);
-
-        canvas.drawCircle(r, r, r - borderwidth, paint);
         return result;
     }
 
-    @Override public String getId() {
+    @Override
+    public String getId() {
         return getClass().getName();
     }
 

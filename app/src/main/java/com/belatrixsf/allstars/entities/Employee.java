@@ -38,7 +38,7 @@ public class Employee {
     @SerializedName("last_name")
     private String lastName;
     private String avatar;
-    private Role role;
+    private Integer role;
     @SerializedName("skype_id")
     private String skypeId;
     @SerializedName("last_month_score")
@@ -75,10 +75,13 @@ public class Employee {
     }
 
     public String getAvatar() {
+        if (avatar == null) {
+            avatar = "https://pbs.twimg.com/profile_images/616076655547682816/6gMRtQyY.jpg";
+        }
         return avatar;
     }
 
-    public Role getRole() {
+    public Integer getRole() {
         return role;
     }
 
@@ -111,19 +114,6 @@ public class Employee {
     }
 
     public List<Category> getCategories() {
-        if (categories == null) {
-            categories = new ArrayList<>();
-        }
-        categories.add(new Category("1", " a1", 2, 2));
-        categories.add(new Category("2", " a2", 2, 2));
-        categories.add(new Category("3", " a3", 2, 2));
-        categories.add(new Category(" a", " a4", 2, 2));
-        categories.add(new Category(" a", " a5", 2, 2));
-        categories.add(new Category(" a", " a6", 2, 2));
-        categories.add(new Category(" a", " a7", 2, 2));
-        categories.add(new Category(" a", " a8", 2, 2));
-        categories.add(new Category(" a", " a9", 2, 2));
-        categories.add(new Category(" a", " a20", 2, 2));
         return categories;
     }
 

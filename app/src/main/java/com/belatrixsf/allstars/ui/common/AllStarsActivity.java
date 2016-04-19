@@ -27,6 +27,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.belatrixsf.allstars.R;
 import android.app.ProgressDialog;
+import android.support.v7.widget.Toolbar;
 
 import com.belatrixsf.allstars.utils.Dialogs;
 
@@ -110,4 +111,9 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
 
     }
 
+    @Override
+    public void setToolbar(Toolbar toolbar) {
+        setSupportActionBar(toolbar);
+    }
+    
 }

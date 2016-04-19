@@ -20,11 +20,8 @@
 */
 package com.belatrixsf.allstars.ui.account;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -36,7 +33,6 @@ import android.widget.TextView;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.AccountCategoriesAdapter;
 import com.belatrixsf.allstars.entities.Category;
-import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.allstars.ui.common.views.CircleTransform;
@@ -45,7 +41,6 @@ import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.components.DaggerAccountComponent;
 import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModule;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
 import java.util.List;
 
@@ -140,6 +135,8 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
 
     @Override
     public void showProfilePicture(final String profilePicture) {
-        Glide.with(getActivity()).load("https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAI4AAAAJDFhOGE2YmRkLWI3YmEtNDE0My04NjIwLTEyODY5ZjQ0ZjZlZQ.jpg").transform(new CircleTransform(getActivity())).into(pictureImageView);
+        int width = getActivity().getResources().getDimensionPixelSize(R.dimen.dimen_10_8);
+        int height = getActivity().getResources().getDimensionPixelSize(R.dimen.dimen_10_8);
+        Glide.with(getActivity()).load(profilePicture).centerCrop().override(width, height).transform(new CircleTransform(getActivity())).into(pictureImageView);
     }
 }

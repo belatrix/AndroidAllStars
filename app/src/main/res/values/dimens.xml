@@ -19,5 +19,6 @@
     <dimen name="text_20">20sp</dimen>
 
     <dimen name="corner_radius">4dp</dimen>
+    <dimen name="dimen_10_8">80dp</dimen>
 
 </resources>

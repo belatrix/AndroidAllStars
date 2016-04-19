@@ -45,9 +45,9 @@ public class MainNavigationViewPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return AccountFragment.newInstance();
             case 1:
-                return new ExampleFragment();
+                return AccountFragment.newInstance();
             case 2:
-                return new LoginFragment();
+                return AccountFragment.newInstance();
             default:
                 return AccountFragment.newInstance();
         }

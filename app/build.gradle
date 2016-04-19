@@ -13,11 +13,19 @@ android {
         versionName "1.0"
     }
     buildTypes {
+        def Properties serverProps = new Properties()
+        serverProps.load(new FileInputStream(file('../server.properties')))
+
+        debug {
+            buildConfigField "String", "BASE_URL", serverProps["baseDevelopUrl"]
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", serverProps["baseReleaseUrl"]
         }
     }
+
 }
 
 def supportLibrariesVersion = "23.3.0"
