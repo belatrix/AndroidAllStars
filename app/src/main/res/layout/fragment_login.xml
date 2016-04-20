@@ -71,7 +71,7 @@
         <Button
             android:id="@+id/log_in"
             android:layout_marginTop="@dimen/dimen_10_5"
-            android:text="@string/button_sign_in"
+            android:text="@string/button_log_in"
             style="@style/Button.Accent"/>
 
     </LinearLayout>
