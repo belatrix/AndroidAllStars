@@ -57,7 +57,7 @@ public class ContactPresenter extends AllStarsPresenter<ContactView> {
     }
 
     public void onSearchTermChange(String newSearchTerm){
-
+        //SearchTerm changed
     }
 
     public void submitSearchTerm(String searchTerm){

@@ -39,9 +39,18 @@ public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapte
 
     @Override
     public void onBindViewHolder(EmployeeViewHolder holder, int position) {
+        Employee emp = employeeList.get(position);
+
+        String letter = "Z";
+        if (null != emp.getFullName() && !"".equals(emp.getFullName())){
+            letter = emp.getFullName().charAt(0)+"";
+        }
+
+        holder.firstLetter.setText(letter);
+
         //holder.photo.setImageResource();
 
-        holder.fullName.setText(employeeList.get(position).getFullName());
+        holder.fullName.setText(emp.getFullName());
         holder.level.setText(String.valueOf(employeeList.get(position).getLevel()));
     }
 
@@ -52,6 +61,7 @@ public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapte
 
     static class EmployeeViewHolder extends RecyclerView.ViewHolder{
 
+        @Bind(R.id.first_letter) public TextView firstLetter;
         @Bind(R.id.photo) public ImageView photo;
         @Bind(R.id.full_name) public TextView fullName;
         @Bind(R.id.level) public TextView level;

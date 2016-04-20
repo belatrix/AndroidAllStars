@@ -1,49 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ItemListStyle"
     android:layout_width="match_parent"
     android:layout_height="@dimen/dimen_9_10"
-    android:orientation="horizontal"
     android:gravity="center_vertical"
-    style="@style/ItemListStyle"
+    android:orientation="horizontal"
     android:padding="@dimen/dimen_16">
 
+    <TextView
+        android:id="@+id/first_letter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dimen_8"
+        android:text="A"
+        android:textSize="@dimen/text_20" />
+
+    <ImageView
+        android:id="@+id/photo"
+        android:layout_width="@dimen/dimen_9_5"
+        android:layout_height="@dimen/dimen_9_5"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dimen_9_5"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_user" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/photo"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/dimen_16">
+
         <TextView
-            android:id="@+id/first_letter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="A"
-            android:textSize="@dimen/text_20" />
-
-        <ImageView
-            android:id="@+id/photo"
-            android:layout_width="@dimen/dimen_9_5"
-            android:layout_height="@dimen/dimen_9_5"
-            android:layout_marginLeft="@dimen/dimen_8_5"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_user" />
-
-        <LinearLayout
+            android:id="@+id/full_name"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/dimen_16">
+            android:layout_height="wrap_content"
+            android:text="@string/title_full_name"
+            android:textSize="@dimen/text_16" />
 
-            <TextView
-                android:id="@+id/full_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/title_full_name"
-                android:textSize="@dimen/text_16" />
+        <TextView
+            android:id="@+id/level"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title_category"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/text_14" />
 
-            <TextView
-                android:id="@+id/level"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/title_category"
-                android:textColor="@color/grey"
-                android:textSize="@dimen/text_14" />
+    </LinearLayout>
 
-        </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

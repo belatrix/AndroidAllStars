@@ -188,6 +188,7 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     if (s.length()>0){
                         closeImageButton.setVisibility(View.VISIBLE);
+                        contactPresenter.onSearchTermChange(s.toString());
                     }else{
                         closeImageButton.setVisibility(View.INVISIBLE);
                     }
@@ -204,6 +205,7 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
                 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                     if (actionId == EditorInfo.IME_ACTION_SEARCH){
                         contactPresenter.submitSearchTerm(v.getText().toString());
+                        mode.finish();
                     }
                     return false;
                 }
@@ -222,12 +224,14 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
         // may be called multiple times if the mode is invalidated.
         @Override
         public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            Log.e("ContactFragment", "AAA");
             return false; // Return false if nothing is done
         }
 
         // Called when the user selects a contextual menu item
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            Log.e("ContactFragment", "BBB");
             return  false;
         }
 

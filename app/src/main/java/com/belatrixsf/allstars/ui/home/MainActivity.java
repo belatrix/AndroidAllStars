@@ -96,9 +96,10 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
         Log.e("MainActivity", "Finish ActionMode");
 
         AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
-        params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS_COLLAPSED);
+        params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
 
         appBarLayout.setExpanded(true, true);
+
 
         super.onSupportActionModeFinished(mode);
     }
