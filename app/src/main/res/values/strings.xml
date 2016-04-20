@@ -14,11 +14,14 @@
     <string name="hint_password">Password</string>
 
     <!-- Button -->
-    <string name="button_sign_in">Sign In</string>
+    <string name="button_sign_in">Log In</string>
 
     <!-- Title -->
     <string name="title_belatrix">Belatrix</string>
     <string name="title_activity_login">LoginActivity</string>
+
+    <!-- Login -->
+    <string name="title_login">Belatrix All Stars</string>
 
     <!--Account-->
     <string name="title_skype_id">Skype Id</string>

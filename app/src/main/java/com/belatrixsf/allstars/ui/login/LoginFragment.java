@@ -46,7 +46,7 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
 
     @Bind(R.id.username) EditText usernameEditText;
     @Bind(R.id.password) EditText passwordEditText;
-    @Bind(R.id.sign_in) Button signInButton;
+    @Bind(R.id.log_in) Button signInButton;
 
     private LoginPresenter loginPresenter;
 
@@ -103,8 +103,8 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
         signInButton.setEnabled(enable);
     }
 
-    @OnClick(R.id.sign_in)
-    public void submitClicked() {
+    @OnClick(R.id.log_in)
+    public void loginClicked() {
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
         loginPresenter.login(username, password);

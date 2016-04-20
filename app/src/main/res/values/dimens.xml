@@ -19,6 +19,7 @@
 
     <dimen name="text_16">16sp</dimen>
     <dimen name="text_20">20sp</dimen>
+    <dimen name="text_28">28sp</dimen>
 
     <dimen name="corner_radius">4dp</dimen>
 
