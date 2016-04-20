@@ -46,7 +46,7 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
 
     @Bind(R.id.username) EditText usernameEditText;
     @Bind(R.id.password) EditText passwordEditText;
-    @Bind(R.id.log_in) Button signInButton;
+    @Bind(R.id.log_in) Button logInButton;
 
     private LoginPresenter loginPresenter;
 
@@ -100,7 +100,7 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
 
     @Override
     public void enableLogin(boolean enable) {
-        signInButton.setEnabled(enable);
+        logInButton.setEnabled(enable);
     }
 
     @OnClick(R.id.log_in)
