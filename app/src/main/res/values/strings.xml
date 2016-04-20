@@ -14,7 +14,7 @@
     <string name="hint_password">Password</string>
 
     <!-- Button -->
-    <string name="button_sign_in">Log In</string>
+    <string name="button_log_in">Log In</string>
 
     <!-- Title -->
     <string name="title_belatrix">Belatrix</string>
