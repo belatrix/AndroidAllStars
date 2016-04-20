@@ -6,6 +6,11 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:actionModeBackground">@color/white</item>
+        <item name="android:actionModeCloseDrawable">@drawable/ic_arrow_back</item>
+        <item name="android:actionModeSplitBackground">@color/colorPrimary</item>
+        <item name="android:actionModeCloseButtonStyle">@color/colorPrimary</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -19,15 +24,6 @@
         <item name="android:paddingLeft">@dimen/dimen_2_5</item>
         <item name="android:paddingRight">@dimen/dimen_2_5</item>
         <item name="android:background">@drawable/background_edittext</item>
-        <item name="android:singleLine">true</item>
-    </style>
-
-    <style name="SearchEditText">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/dimen_8_5</item>
-        <item name="android:paddingLeft">@dimen/dimen_1_5</item>
-        <item name="android:paddingRight">@dimen/dimen_1_5</item>
-        <item name="android:background">@drawable/background_search_edittext</item>
         <item name="android:singleLine">true</item>
     </style>
 
@@ -51,9 +47,18 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="SearchViewTheme" >
-        <item name="colorControlActivated">@color/colorAccent</item>
-        <item name="colorControlNormal">@color/white</item>
+    <style name="Divider">
+        <item name="android:background">@color/divider</item>
+    </style>
+
+    <style name="horizontalDivider" parent="Divider">
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="verticalDivider" parent="Divider">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
     </style>
 
 </resources>

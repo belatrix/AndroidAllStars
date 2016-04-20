@@ -2,6 +2,8 @@
     <string name="app_name">All Stars Belatrix</string>
     <string name="title_activity_example">ExampleActivity</string>
     <string name="categories">Categories</string>
+    <string name="no_data">No data found</string>
+    <string name="no_data_option">-</string>
 
     <!-- Dialogs -->
     <string name="dialog_title_error">Oops something went wrong!</string>
@@ -31,6 +33,6 @@
 
     <!--Actions-->
     <string name="action_search">Search</string>
-    <string name="hint_search">Search</string>
+    <string name="hint_search">Search Term</string>
 
 </resources>

@@ -20,44 +20,38 @@
 */
 package com.belatrixsf.allstars.ui.home;
 
-import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.widget.TextView;
+import android.support.v7.view.ActionMode;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.MainNavigationViewPagerAdapter;
 import com.belatrixsf.allstars.ui.common.AllStarsActivity;
-import com.belatrixsf.allstars.utils.AllStarsApplication;
-import com.belatrixsf.allstars.utils.di.components.DaggerEmployeeComponent;
-import com.belatrixsf.allstars.utils.di.modules.presenters.EmployeePresenterModule;
+import com.belatrixsf.allstars.ui.contacts.ContactFragmentListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AllStarsActivity implements EmployeeView {
+public class MainActivity extends AllStarsActivity implements ContactFragmentListener {
 
-    private EmployeePresenter employeePresenter;
-
+    @Bind(R.id.app_bar_layout) AppBarLayout appBarLayout;
+    @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.tab_layout) TabLayout tabLayout;
     @Bind(R.id.main_view_pager) ViewPager mainViewPager;
-    @Bind(R.id.profile_name) TextView nameTextView;
-    @Bind(R.id.profile_role) TextView roleTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        employeePresenter = DaggerEmployeeComponent.builder()
-                .employeePresenterModule(new EmployeePresenterModule(this))
-                .applicationComponent(((AllStarsApplication)getApplication()).getApplicationComponent())
-                .build()
-                .employeePresenter();
-        employeePresenter.loadEmployeeAccount();
+        setSupportActionBar(toolbar);
         setupViews();
-
     }
 
     private void setupViews() {
@@ -71,22 +65,40 @@ public class MainActivity extends AllStarsActivity implements EmployeeView {
     }
 
     @Override
-    public void showEmployeeName(String employeName) {
-        nameTextView.setText(employeName);
+    public void setActionMode(ActionMode.Callback callback) {
+        startSupportActionMode(callback);
     }
 
     @Override
-    public void showRole(String role) {
-        roleTextView.setText(role);
+    public void onSupportActionModeStarted(@NonNull ActionMode mode) {
+        Log.e("MainActivity", "Start ActionMode");
+        appBarLayout.setExpanded(false, true);
+        /*AppBarLayout.LayoutParams params;
+        params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
+        params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL);*/
+        appBarLayout.postOnAnimation(new Runnable() {
+            @Override
+            public void run() {
+                tabLayout.setVisibility(View.GONE);
+            }
+        });
+
+        super.onSupportActionModeStarted(mode);
     }
 
     @Override
-    public void showProfilePicture(String profilePicture) {
+    public void onSupportActionModeFinished(@NonNull ActionMode mode) {
+        Log.e("MainActivity", "Finish ActionMode");
+        appBarLayout.setExpanded(true, true);
 
-    }
+        appBarLayout.postOnAnimation(new Runnable() {
+            @Override
+            public void run() {
+                tabLayout.setVisibility(View.VISIBLE);
+            }
+        });
 
-    @Override
-    public Context getContext() {
-        return this;
+
+        super.onSupportActionModeFinished(mode);
     }
 }

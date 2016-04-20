@@ -18,25 +18,16 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils.di.components;
+package com.belatrixsf.allstars.ui.contacts;
 
-import com.belatrixsf.allstars.ui.home.EmployeePresenter;
-import com.belatrixsf.allstars.ui.home.EmployeeView;
-import com.belatrixsf.allstars.utils.di.modules.presenters.EmployeePresenterModule;
-import com.belatrixsf.allstars.utils.di.scopes.UIScope;
 
-import dagger.Component;
+import android.support.v7.view.ActionMode;
 
 /**
- * Created by PedroCarrillo on 4/15/16.
+ * Created by icerrate on 19/04/2016.
  */
-@UIScope
-@Component(
-        dependencies = ApplicationComponent.class,
-        modules = EmployeePresenterModule.class
-)
-public interface EmployeeComponent {
+public interface ContactFragmentListener {
 
-    EmployeePresenter employeePresenter();
+    void setActionMode(ActionMode.Callback callback);
 
 }

@@ -20,10 +20,10 @@
 */
 package com.belatrixsf.allstars.ui.account;
 
+import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
-import com.belatrixsf.allstars.ui.home.EmployeePresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
 
@@ -67,9 +67,24 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
         }
         if (employee.getSkypeId() != null) {
             view.showSkypeId(String.valueOf(employee.getSkypeId()));
+        } else {
+            view.showSkypeId(getString(R.string.no_data_option));
+        }
+        if (employee.getFirstName() != null || employee.getLastName() != null || !employee.getFullName().isEmpty()) {
+            view.showEmployeeName(employee.getFullName());
+        } else {
+            view.showEmployeeName(getString(R.string.no_data));
+        }
+        if (employee.getRole() != null) {
+            view.showRole(String.valueOf(employee.getRole()));
+        } else {
+            view.showRole(getString(R.string.no_data));
         }
         if (employee.getCategories() != null) {
             view.showCategories(employee.getCategories());
+        }
+        if (employee.getAvatar() != null) {
+            view.showProfilePicture(employee.getAvatar());
         }
     }
 

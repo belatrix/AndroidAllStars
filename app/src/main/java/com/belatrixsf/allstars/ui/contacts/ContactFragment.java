@@ -21,19 +21,28 @@
 package com.belatrixsf.allstars.ui.contacts;
 
 
-import android.animation.LayoutTransition;
-import android.app.SearchManager;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.EmployeeListAdapter;
@@ -50,12 +59,14 @@ import butterknife.Bind;
 /**
  * Created by icerrate on 15/04/2016.
  */
-public class ContactFragment extends AllStarsFragment implements ContactView, SearchView.OnQueryTextListener {
+public class ContactFragment extends AllStarsFragment implements ContactView {
 
     private ContactPresenter contactPresenter;
+    private ContactFragmentListener contactFragmentListener;
 
     @Bind(R.id.rv_employees) RecyclerView employeeRecyclerView;
-    @Bind(R.id.search) SearchView searchView;
+
+    private SearchView mSearchView;
 
     public static ContactFragment newInstance() {
         return new ContactFragment();
@@ -67,13 +78,6 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Se
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_contact, container, false);
 
-        SearchView searchView = (SearchView) v.findViewById(R.id.search);
-
-        SearchManager searchManager =
-                (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        searchView.setOnQueryTextListener(this);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-
         return v;
     }
 
@@ -84,9 +88,15 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Se
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        fragmentListener.setSearchView(searchView);
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        contactFragmentListener = (ContactFragmentListener) activity;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        contactFragmentListener = (ContactFragmentListener) context;
     }
 
     @Override
@@ -108,24 +118,125 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Se
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        inflater.inflate(R.menu.search_menu, menu);
 
-        int searchBarId = searchView.getContext().getResources().getIdentifier("android:id/search_bar", null, null);
-        LinearLayout searchBar = (LinearLayout) searchView.findViewById(searchBarId);
-        searchBar.setLayoutTransition(new LayoutTransition());
+        /*// Get the SearchView and set the searchable configuration
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        // Assumes current activity is the searchable activity
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String queryText) {
+                Log.e("ContactFragment", "Submit");
+                contactPresenter.submitSearchTerm(queryText);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newQuery) {
+                Log.e("ContactFragment", "Change");
+                contactPresenter.onSearchTermChange(newQuery);
+                return false;
+            }
+        });*/
+
 
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
-    public boolean onQueryTextSubmit(String searchTerm) {
-        contactPresenter.submitSearchTerm(searchTerm);
-        return false;
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                //ActionMode
+                Log.e("ContactFragment", "ActionMode");
+                contactFragmentListener.setActionMode(actionModeCallback);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
-    @Override
-    public boolean onQueryTextChange(String newSearchTerm) {
-        contactPresenter.onSearchTermChange(newSearchTerm);
-        return false;
-    }
+    private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
+
+        // Called when the action mode is created; startActionMode() was called
+        @Override
+        public boolean onCreateActionMode(final ActionMode mode, Menu menu) {
+            LayoutInflater inflater = getActivity().getLayoutInflater();
+            View dialogView = inflater.inflate(R.layout.item_action_mode, null);
+
+            final EditText searchTermEditText = (EditText) dialogView.findViewById(R.id.search_term);
+            final ImageButton closeImageButton = (ImageButton) dialogView.findViewById(R.id.close);
+
+            closeImageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    searchTermEditText.setText("");
+                    searchTermEditText.requestFocus();
+                }
+            });
+
+
+            searchTermEditText.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (count>0){
+                        closeImageButton.setVisibility(View.VISIBLE);
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+
+            searchTermEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_SEARCH){
+                        contactPresenter.submitSearchTerm(v.getText().toString());
+                    }
+                    return false;
+                }
+            });
+
+            mode.setCustomView(dialogView);
+
+            searchTermEditText.setFocusableInTouchMode(true);
+            searchTermEditText.requestFocus();
+
+            return true;
+        }
+
+        // Called each time the action mode is shown. Always called after onCreateActionMode, but
+        // may be called multiple times if the mode is invalidated.
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false; // Return false if nothing is donek
+        }
+
+        // Called when the user selects a contextual menu item
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            return  false;
+        }
+
+        // Called when the user exits the action mode
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+        }
+    };
+
 }

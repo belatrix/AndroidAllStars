@@ -21,7 +21,6 @@
 package com.belatrixsf.allstars.ui.common;
 
 import android.app.Fragment;
-import android.support.v7.widget.SearchView;
 
 /**
  * Created by PedroCarrillo on 4/8/16.
@@ -38,9 +37,5 @@ public interface FragmentListener {
     void dismissProgressDialog();
     void closeActivity();
     void setTitle();
-    void setSearchView(SearchView searchView);
-    SearchView getSearchView();
-    void setSearchViewListener(SearchView.OnQueryTextListener queryTextListener);
-    SearchView.OnQueryTextListener getSearchViewListener();
 
 }
