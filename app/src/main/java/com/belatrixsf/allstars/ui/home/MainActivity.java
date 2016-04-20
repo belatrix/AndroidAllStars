@@ -21,6 +21,7 @@
 package com.belatrixsf.allstars.ui.home;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
@@ -28,7 +29,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.MainNavigationViewPagerAdapter;
@@ -70,18 +70,23 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
     }
 
     @Override
+    public AppBarLayout getAppBarLayout() {
+        return appBarLayout;
+    }
+
+    @Override
     public void onSupportActionModeStarted(@NonNull ActionMode mode) {
         Log.e("MainActivity", "Start ActionMode");
+
         appBarLayout.setExpanded(false, true);
-        /*AppBarLayout.LayoutParams params;
-        params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
-        params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL);*/
-        appBarLayout.postOnAnimation(new Runnable() {
+
+        new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
-                tabLayout.setVisibility(View.GONE);
+                AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
+                params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
             }
-        });
+        }, 300);
 
         super.onSupportActionModeStarted(mode);
     }
@@ -89,16 +94,13 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
     @Override
     public void onSupportActionModeFinished(@NonNull ActionMode mode) {
         Log.e("MainActivity", "Finish ActionMode");
+
+        AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
+        params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS_COLLAPSED);
+
         appBarLayout.setExpanded(true, true);
-
-        appBarLayout.postOnAnimation(new Runnable() {
-            @Override
-            public void run() {
-                tabLayout.setVisibility(View.VISIBLE);
-            }
-        });
-
 
         super.onSupportActionModeFinished(mode);
     }
+
 }

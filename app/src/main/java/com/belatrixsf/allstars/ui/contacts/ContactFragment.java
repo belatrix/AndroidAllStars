@@ -27,7 +27,6 @@ import android.os.Bundle;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -65,8 +64,6 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
     private ContactFragmentListener contactFragmentListener;
 
     @Bind(R.id.rv_employees) RecyclerView employeeRecyclerView;
-
-    private SearchView mSearchView;
 
     public static ContactFragment newInstance() {
         return new ContactFragment();
@@ -167,10 +164,10 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
         @Override
         public boolean onCreateActionMode(final ActionMode mode, Menu menu) {
             LayoutInflater inflater = getActivity().getLayoutInflater();
-            View dialogView = inflater.inflate(R.layout.item_action_mode, null);
+            View customView = inflater.inflate(R.layout.item_action_mode, null);
 
-            final EditText searchTermEditText = (EditText) dialogView.findViewById(R.id.search_term);
-            final ImageButton closeImageButton = (ImageButton) dialogView.findViewById(R.id.close);
+            final EditText searchTermEditText = (EditText) customView.findViewById(R.id.search_term);
+            final ImageButton closeImageButton = (ImageButton) customView.findViewById(R.id.close);
 
             closeImageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -189,8 +186,10 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if (count>0){
+                    if (s.length()>0){
                         closeImageButton.setVisibility(View.VISIBLE);
+                    }else{
+                        closeImageButton.setVisibility(View.INVISIBLE);
                     }
                 }
 
@@ -210,10 +209,11 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
                 }
             });
 
-            mode.setCustomView(dialogView);
+            mode.setCustomView(customView);
 
-            searchTermEditText.setFocusableInTouchMode(true);
             searchTermEditText.requestFocus();
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(searchTermEditText, InputMethodManager.SHOW_IMPLICIT);
 
             return true;
         }
@@ -222,7 +222,7 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
         // may be called multiple times if the mode is invalidated.
         @Override
         public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            return false; // Return false if nothing is donek
+            return false; // Return false if nothing is done
         }
 
         // Called when the user selects a contextual menu item

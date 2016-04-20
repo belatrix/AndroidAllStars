@@ -21,6 +21,7 @@
 package com.belatrixsf.allstars.ui.contacts;
 
 
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.view.ActionMode;
 
 /**
@@ -29,5 +30,6 @@ import android.support.v7.view.ActionMode;
 public interface ContactFragmentListener {
 
     void setActionMode(ActionMode.Callback callback);
+    AppBarLayout getAppBarLayout();
 
 }
