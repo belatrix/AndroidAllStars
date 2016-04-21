@@ -29,7 +29,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -123,7 +122,6 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
         switch (item.getItemId()) {
             case R.id.action_search:
                 //ActionMode
-                Log.e("ContactFragment", "ActionMode");
                 contactFragmentListener.setActionMode(actionModeCallback);
                 return true;
             default:
@@ -200,14 +198,12 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
         // may be called multiple times if the mode is invalidated.
         @Override
         public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            Log.e("ContactFragment", "AAA");
             return false; // Return false if nothing is done
         }
 
         // Called when the user selects a contextual menu item
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-            Log.e("ContactFragment", "BBB");
             return  false;
         }
 

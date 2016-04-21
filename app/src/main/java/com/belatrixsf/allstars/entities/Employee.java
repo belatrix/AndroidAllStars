@@ -118,7 +118,7 @@ public class Employee {
 
     public String getFullName() {
         StringBuilder stringBuilder = new StringBuilder(firstName);
-        if (lastName != null && !lastLogin.isEmpty()){
+        if (lastName != null && !lastName.isEmpty()){
             stringBuilder.append(" ").append(lastName);
         }
         return stringBuilder.toString();

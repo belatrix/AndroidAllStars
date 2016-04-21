@@ -28,7 +28,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.View;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.MainNavigationViewPagerAdapter;
@@ -76,8 +76,6 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
 
     @Override
     public void onSupportActionModeStarted(@NonNull ActionMode mode) {
-        Log.e("MainActivity", "Start ActionMode");
-
         appBarLayout.setExpanded(false, true);
 
         new Handler().postDelayed(new Runnable(){
@@ -85,6 +83,8 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
             public void run() {
                 AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
                 params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
+
+                toolbar.setVisibility(View.GONE);
             }
         }, 300);
 
@@ -93,13 +93,17 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
 
     @Override
     public void onSupportActionModeFinished(@NonNull ActionMode mode) {
-        Log.e("MainActivity", "Finish ActionMode");
-
         AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
         params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
 
         appBarLayout.setExpanded(true, true);
 
+        new Handler().postDelayed(new Runnable(){
+            @Override
+            public void run() {
+                toolbar.setVisibility(View.VISIBLE);
+            }
+        }, 300);
 
         super.onSupportActionModeFinished(mode);
     }
