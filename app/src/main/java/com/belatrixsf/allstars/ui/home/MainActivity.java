@@ -21,19 +21,26 @@
 package com.belatrixsf.allstars.ui.home;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.MainNavigationViewPagerAdapter;
 import com.belatrixsf.allstars.ui.common.AllStarsActivity;
+import com.belatrixsf.allstars.ui.contacts.ContactFragmentListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AllStarsActivity {
+public class MainActivity extends AllStarsActivity implements ContactFragmentListener {
 
+    @Bind(R.id.app_bar_layout) AppBarLayout appBarLayout;
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.tab_layout) TabLayout tabLayout;
     @Bind(R.id.main_view_pager) ViewPager mainViewPager;
@@ -55,6 +62,50 @@ public class MainActivity extends AllStarsActivity {
         MainNavigationViewPagerAdapter mainNavigationViewPagerAdapter = new MainNavigationViewPagerAdapter(getFragmentManager());
         mainViewPager.setAdapter(mainNavigationViewPagerAdapter);
         tabLayout.setupWithViewPager(mainViewPager);
+    }
+
+    @Override
+    public void setActionMode(ActionMode.Callback callback) {
+        startSupportActionMode(callback);
+    }
+
+    @Override
+    public AppBarLayout getAppBarLayout() {
+        return appBarLayout;
+    }
+
+    @Override
+    public void onSupportActionModeStarted(@NonNull ActionMode mode) {
+        appBarLayout.setExpanded(false, true);
+
+        new Handler().postDelayed(new Runnable(){
+            @Override
+            public void run() {
+                AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
+                params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
+
+                toolbar.setVisibility(View.GONE);
+            }
+        }, 300);
+
+        super.onSupportActionModeStarted(mode);
+    }
+
+    @Override
+    public void onSupportActionModeFinished(@NonNull ActionMode mode) {
+        AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
+        params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
+
+        appBarLayout.setExpanded(true, true);
+
+        new Handler().postDelayed(new Runnable(){
+            @Override
+            public void run() {
+                toolbar.setVisibility(View.VISIBLE);
+            }
+        }, 300);
+
+        super.onSupportActionModeFinished(mode);
     }
 
 }

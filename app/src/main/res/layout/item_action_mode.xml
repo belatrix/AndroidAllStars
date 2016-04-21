@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize">
+
+    <EditText
+        android:id="@+id/search_term"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/close"
+        android:background="@color/white"
+        android:hint="@string/hint_search"
+        android:imeOptions="actionSearch"
+        android:inputType="textNoSuggestions" />
+
+    <ImageButton
+        android:id="@+id/close"
+        android:layout_width="?attr/actionBarSize"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@color/white"
+        android:src="@drawable/ic_close"
+        android:visibility="invisible" />
+
+</RelativeLayout>

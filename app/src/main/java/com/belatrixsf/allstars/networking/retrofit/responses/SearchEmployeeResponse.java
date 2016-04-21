@@ -18,21 +18,37 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.services;
+package com.belatrixsf.allstars.networking.retrofit.responses;
 
 import com.belatrixsf.allstars.entities.Employee;
-import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
-import com.belatrixsf.allstars.utils.AllStarsCallback;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by gyosida on 4/11/16.
  */
-public interface EmployeeService {
+public class SearchEmployeeResponse {
 
-    void authenticate(String username, String password, AllStarsCallback<AuthenticationResponse> callback);
-    void getEmployee(int employeeId, AllStarsCallback<Employee> callback);
-    void getEmployeeList(AllStarsCallback<SearchEmployeeResponse> callback);
-    void getEmployeeSearchList(String searchTerm, AllStarsCallback<SearchEmployeeResponse> callback);
+    private int count;
+    private String next;
+    private String previous;
+    @SerializedName("results")
+    private List<Employee> employeeList;
 
+    public int getCount() {
+        return count;
+    }
+
+    public String getNext() {
+        return next;
+    }
+
+    public String getPrevious() {
+        return previous;
+    }
+
+    public List<Employee> getEmployeeList() {
+        return employeeList;
+    }
 }

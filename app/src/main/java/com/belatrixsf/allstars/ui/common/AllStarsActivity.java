@@ -23,12 +23,10 @@ package com.belatrixsf.allstars.ui.common;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import com.belatrixsf.allstars.R;
-import android.app.ProgressDialog;
-import android.support.v7.widget.Toolbar;
-
 import com.belatrixsf.allstars.utils.Dialogs;
 
 /**
@@ -38,7 +36,6 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
 
     private AlertDialog errorAlertDialog;
     private ProgressDialog progressDialog;
-
 
     @Override
     public void replaceFragment(Fragment fragment, boolean addToBackStack) {
@@ -109,11 +106,6 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
     @Override
     public void setTitle() {
 
-    }
-
-    @Override
-    public void setToolbar(Toolbar toolbar) {
-        setSupportActionBar(toolbar);
     }
     
 }

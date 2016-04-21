@@ -42,7 +42,6 @@ public abstract class AllStarsFragment extends Fragment implements AllStarsView 
     protected static final String TAG = AllStarsFragment.class.getName();
     protected FragmentListener fragmentListener;
 
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

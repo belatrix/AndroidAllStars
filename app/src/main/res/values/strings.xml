@@ -25,7 +25,17 @@
 
     <!--Account-->
     <string name="title_skype_id">Skype Id</string>
+    <string name="title_full_name">Full Name</string>
+    <string name="title_category">Category</string>
     <string name="title_score">Score</string>
     <string name="title_level">Level</string>
+
+    <!--Messages-->
+    <string name="empty_search_term">Must write something</string>
+
+
+    <!--Actions-->
+    <string name="action_search">Search</string>
+    <string name="hint_search">Search Term</string>
 
 </resources>

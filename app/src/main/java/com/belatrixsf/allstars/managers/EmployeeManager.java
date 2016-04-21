@@ -22,9 +22,12 @@ package com.belatrixsf.allstars.managers;
 
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
+import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
 import com.belatrixsf.allstars.services.EmployeeService;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
+
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -37,6 +40,7 @@ public class EmployeeManager {
 
     private EmployeeService employeeService;
     private Employee employee;
+    private List<Employee> employeeList;
 
     @Inject
     public EmployeeManager(EmployeeService employeeService) {
@@ -88,6 +92,36 @@ public class EmployeeManager {
         } else {
             callback.onSuccess(employee);
         }
+    }
+
+    public void getEmployeeList(final AllStarsCallback<SearchEmployeeResponse> callback) {
+        employeeService.getEmployeeList(new AllStarsCallback<SearchEmployeeResponse>() {
+            @Override
+            public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
+                EmployeeManager.this.employeeList = searchEmployeeResponse.getEmployeeList();
+                callback.onSuccess(searchEmployeeResponse);
+            }
+
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                callback.onFailure(serviceError);
+            }
+        });
+    }
+
+    public void getEmployeeSearchList(final String searchTerm, final AllStarsCallback<SearchEmployeeResponse> callback) {
+        employeeService.getEmployeeSearchList(searchTerm, new AllStarsCallback<SearchEmployeeResponse>() {
+            @Override
+            public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
+                EmployeeManager.this.employeeList = searchEmployeeResponse.getEmployeeList();
+                callback.onSuccess(searchEmployeeResponse);
+            }
+
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                callback.onFailure(serviceError);
+            }
+        });
     }
 
 }
