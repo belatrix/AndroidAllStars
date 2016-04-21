@@ -22,7 +22,6 @@ package com.belatrixsf.allstars.entities;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -119,7 +118,9 @@ public class Employee {
 
     public String getFullName() {
         StringBuilder stringBuilder = new StringBuilder(firstName);
-        stringBuilder.append(" ").append(lastName);
+        if (lastName != null && !lastLogin.isEmpty()){
+            stringBuilder.append(" ").append(lastName);
+        }
         return stringBuilder.toString();
     }
 

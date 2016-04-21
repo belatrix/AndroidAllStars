@@ -73,9 +73,7 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_contact, container, false);
-
-        return v;
+        return inflater.inflate(R.layout.fragment_contact, container, false);
     }
 
     @Override
@@ -116,31 +114,6 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.search_menu, menu);
-
-        /*// Get the SearchView and set the searchable configuration
-        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        // Assumes current activity is the searchable activity
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-        searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
-            @Override
-            public boolean onQueryTextSubmit(String queryText) {
-                Log.e("ContactFragment", "Submit");
-                contactPresenter.submitSearchTerm(queryText);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newQuery) {
-                Log.e("ContactFragment", "Change");
-                contactPresenter.onSearchTermChange(newQuery);
-                return false;
-            }
-        });*/
-
-
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -214,8 +187,11 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
             mode.setCustomView(customView);
 
             searchTermEditText.requestFocus();
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(searchTermEditText, InputMethodManager.SHOW_IMPLICIT);
+
+            if (getActivity() != null) {
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(searchTermEditText, InputMethodManager.SHOW_IMPLICIT);
+            }
 
             return true;
         }
@@ -238,8 +214,10 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
         // Called when the user exits the action mode
         @Override
         public void onDestroyActionMode(ActionMode mode) {
-            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            if (getActivity() != null) {
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            }
         }
     };
 

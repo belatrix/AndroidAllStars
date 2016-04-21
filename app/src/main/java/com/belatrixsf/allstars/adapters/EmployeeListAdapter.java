@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import butterknife.Bind;
@@ -22,11 +23,11 @@ import butterknife.ButterKnife;
 public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapter.EmployeeViewHolder> {
 
     private List<Employee> employeeList;
-    private Context context;
+    private WeakReference<Context> context;
 
     public EmployeeListAdapter(Context context, List<Employee> employeeList) {
         this.employeeList = employeeList;
-        this.context = context;
+        this.context = new WeakReference<>(context);
     }
 
     @Override
@@ -41,9 +42,12 @@ public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapte
     public void onBindViewHolder(EmployeeViewHolder holder, int position) {
         Employee emp = employeeList.get(position);
 
-        String letter = "Z";
-        if (null != emp.getFullName() && !"".equals(emp.getFullName())){
-            letter = emp.getFullName().charAt(0)+"";
+        String fullName = emp.getFullName();
+        String letter;
+        if (null != fullName && !fullName.isEmpty()){
+            letter = String.valueOf(fullName.charAt(0));
+        }else{
+            letter = "#";
         }
 
         holder.firstLetter.setText(letter);
