@@ -5,7 +5,7 @@
     android:layout_height="@dimen/dimen_9_10"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:padding="@dimen/dimen_16">
+    android:padding="@dimen/activity_horizontal_margin">
 
     <TextView
         android:id="@+id/first_letter"
@@ -32,7 +32,7 @@
         android:layout_toRightOf="@+id/photo"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/dimen_16">
+        android:paddingLeft="@dimen/activity_horizontal_margin">
 
         <TextView
             android:id="@+id/full_name"
