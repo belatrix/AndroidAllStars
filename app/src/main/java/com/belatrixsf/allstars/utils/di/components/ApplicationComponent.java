@@ -21,6 +21,7 @@
 package com.belatrixsf.allstars.utils.di.components;
 
 import com.belatrixsf.allstars.managers.EmployeeManager;
+import com.belatrixsf.allstars.services.EmployeeService;
 import com.belatrixsf.allstars.utils.di.modules.RetrofitModule;
 import com.belatrixsf.allstars.utils.di.modules.ServicesModule;
 
@@ -41,5 +42,6 @@ import dagger.Component;
 public interface ApplicationComponent {
 
     EmployeeManager employeeManager();
+    EmployeeService employeeService();
 
 }

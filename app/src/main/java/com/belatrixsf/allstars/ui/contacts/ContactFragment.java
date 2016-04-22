@@ -62,6 +62,9 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
     private ContactPresenter contactPresenter;
     private ContactFragmentListener contactFragmentListener;
 
+    private EmployeeListAdapter employeeListAdapter;
+    private List<Employee> employeeList;
+
     @Bind(R.id.rv_employees) RecyclerView employeeRecyclerView;
 
     public static ContactFragment newInstance() {
@@ -84,13 +87,21 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        contactFragmentListener = (ContactFragmentListener) activity;
+        try {
+            contactFragmentListener = (ContactFragmentListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement ContactFragmentListener");
+        }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        contactFragmentListener = (ContactFragmentListener) context;
+        try {
+            contactFragmentListener = (ContactFragmentListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement ContactFragmentListener");
+        }
     }
 
     @Override
@@ -100,14 +111,25 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
                 .contactPresenterModule(new ContactPresenterModule(this))
                 .build()
                 .contactPresenter();
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         contactPresenter.getEmployeeList();
     }
 
     @Override
     public void showEmployees(List<Employee> employees) {
-        EmployeeListAdapter employeeListAdapter = new EmployeeListAdapter(getActivity(), employees);
-        employeeRecyclerView.setAdapter(employeeListAdapter);
-        employeeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        employeeList = employees;
+
+        if (employeeListAdapter != null){
+            employeeListAdapter.notifyDataSetChanged();
+        }else{
+            employeeListAdapter = new EmployeeListAdapter(getActivity(), employeeList);
+            employeeRecyclerView.setAdapter(employeeListAdapter);
+            employeeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        }
     }
 
     @Override
@@ -138,9 +160,9 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
             View customView = inflater.inflate(R.layout.item_action_mode, null);
 
             final EditText searchTermEditText = (EditText) customView.findViewById(R.id.search_term);
-            final ImageButton closeImageButton = (ImageButton) customView.findViewById(R.id.close);
+            final ImageButton cleanImageButton = (ImageButton) customView.findViewById(R.id.clean);
 
-            closeImageButton.setOnClickListener(new View.OnClickListener() {
+            cleanImageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     searchTermEditText.setText("");
@@ -158,10 +180,10 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     if (s.length()>0){
-                        closeImageButton.setVisibility(View.VISIBLE);
+                        cleanImageButton.setVisibility(View.VISIBLE);
                         contactPresenter.onSearchTermChange(s.toString());
                     }else{
-                        closeImageButton.setVisibility(View.INVISIBLE);
+                        cleanImageButton.setVisibility(View.INVISIBLE);
                     }
                 }
 
