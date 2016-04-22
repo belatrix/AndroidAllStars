@@ -37,7 +37,7 @@ public class Employee {
     @SerializedName("last_name")
     private String lastName;
     private String avatar;
-    private Integer role;
+    private Role role;
     @SerializedName("skype_id")
     private String skypeId;
     @SerializedName("last_month_score")
@@ -50,7 +50,6 @@ public class Employee {
     private boolean active;
     @SerializedName("last_login")
     private String lastLogin;
-
     private List<Category> categories;
 
     public Integer getPk() {
@@ -80,7 +79,7 @@ public class Employee {
         return avatar;
     }
 
-    public Integer getRole() {
+    public Role getRole() {
         return role;
     }
 
