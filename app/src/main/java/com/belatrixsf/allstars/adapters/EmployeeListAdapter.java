@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
 
-import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -23,39 +23,39 @@ import butterknife.ButterKnife;
 public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapter.EmployeeViewHolder> {
 
     private List<Employee> employeeList;
-    private WeakReference<Context> context;
+    private Context context;
+    private String lastFirstLetter;
+
+    public EmployeeListAdapter(Context context) {
+        this(context, new ArrayList<Employee>());
+    }
 
     public EmployeeListAdapter(Context context, List<Employee> employeeList) {
         this.employeeList = employeeList;
-        this.context = new WeakReference<>(context);
+        this.context = context;
     }
 
     @Override
     public EmployeeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_contact, parent, false);
-        EmployeeViewHolder rcv = new EmployeeViewHolder(layoutView);
-        return rcv;
+        return new EmployeeViewHolder(layoutView);
     }
 
     @Override
     public void onBindViewHolder(EmployeeViewHolder holder, int position) {
         Employee employee = employeeList.get(position);
-
         String fullName = employee.getFullName();
-        String letter;
-        if (null != fullName && !fullName.isEmpty()){
-            letter = String.valueOf(fullName.charAt(0)).toUpperCase();
-        }else{
-            letter = "#";
-        }
+        String currentFirstLetter = ( fullName != null && !fullName.isEmpty() ) ? String.valueOf(fullName.charAt(0)).toUpperCase() : "#";
+        String showLetter;
 
-        holder.firstLetter.setText(letter);
+        if ( lastFirstLetter == null ) showLetter = currentFirstLetter;
+        else showLetter = ( lastFirstLetter.equalsIgnoreCase(currentFirstLetter) ) ? "" : currentFirstLetter;
 
-        //holder.photo.setImageResource();
-
+        holder.firstLetter.setText(showLetter);
         holder.fullName.setText(employee.getFullName());
         holder.level.setText(String.valueOf(employee.getLevel()));
+
+        lastFirstLetter = currentFirstLetter;
     }
 
     @Override
@@ -64,7 +64,8 @@ public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapte
     }
 
     public void updateData(List<Employee> employees){
-        employeeList = employees;
+        employeeList.clear();
+        employeeList.addAll(employees);
         notifyDataSetChanged();
     }
 

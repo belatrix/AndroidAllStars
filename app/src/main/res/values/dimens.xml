@@ -13,6 +13,7 @@
     <dimen name="dimen_8_5">40dp</dimen>
     <dimen name="dimen_9_5">45dp</dimen>
     <dimen name="dimen_10_5">50dp</dimen>
+    <dimen name="dimen_10_7">70dp</dimen>
     <dimen name="dimen_10_8">80dp</dimen>
     <dimen name="dimen_9_10">90dp</dimen>
     <dimen name="dimen_20_10">200dp</dimen>
