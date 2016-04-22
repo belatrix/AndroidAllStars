@@ -58,23 +58,34 @@ import butterknife.Bind;
  */
 public class ContactFragment extends AllStarsFragment implements ContactView {
 
+    @Bind(R.id.rv_employees) RecyclerView employeeRecyclerView;
+
     private ContactPresenter contactPresenter;
     private ContactFragmentListener contactFragmentListener;
-
     private EmployeeListAdapter employeeListAdapter;
-    private List<Employee> employeeList;
-
-    @Bind(R.id.rv_employees) RecyclerView employeeRecyclerView;
 
     public static ContactFragment newInstance() {
         return new ContactFragment();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_contact, container, false);
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        castOrThrowException(activity);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        castOrThrowException(context);
+    }
+
+    private void castOrThrowException(Context context) {
+        try {
+            contactFragmentListener = (ContactFragmentListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement ContactFragmentListener");
+        }
     }
 
     @Override
@@ -84,23 +95,9 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            contactFragmentListener = (ContactFragmentListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement ContactFragmentListener");
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            contactFragmentListener = (ContactFragmentListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement ContactFragmentListener");
-        }
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_contact, container, false);
     }
 
     @Override
@@ -113,21 +110,19 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initViews();
         contactPresenter.getEmployeeList();
+    }
+
+    private void initViews() {
+        employeeListAdapter = new EmployeeListAdapter(getActivity());
+        employeeRecyclerView.setAdapter(employeeListAdapter);
+        employeeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
     @Override
     public void showEmployees(List<Employee> employees) {
-        employeeList = employees;
-
-        if (employeeListAdapter != null){
-            employeeRecyclerView.setAdapter(employeeListAdapter);
-            employeeListAdapter.updateData(employeeList);
-        }else{
-            employeeListAdapter = new EmployeeListAdapter(getActivity(), employeeList);
-            employeeRecyclerView.setAdapter(employeeListAdapter);
-            employeeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        }
+        employeeListAdapter.updateData(employees);
     }
 
     @Override
@@ -229,7 +224,7 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
         // Called when the user exits the action mode
         @Override
         public void onDestroyActionMode(ActionMode mode) {
-            if (getActivity() != null) {
+            if (getActivity() != null && getView() != null) {
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             }
