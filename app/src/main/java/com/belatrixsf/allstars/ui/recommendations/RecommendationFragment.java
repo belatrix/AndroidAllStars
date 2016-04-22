@@ -21,37 +21,20 @@
 package com.belatrixsf.allstars.ui.recommendations;
 
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
-import com.belatrixsf.allstars.adapters.EmployeeListAdapter;
-import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.adapters.RecommendationListAdapter;
+import com.belatrixsf.allstars.entities.Recommendation;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
-import com.belatrixsf.allstars.ui.contacts.ContactFragmentListener;
-import com.belatrixsf.allstars.ui.contacts.ContactPresenter;
-import com.belatrixsf.allstars.ui.contacts.ContactView;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
-import com.belatrixsf.allstars.utils.di.components.DaggerContactComponent;
-import com.belatrixsf.allstars.utils.di.modules.presenters.ContactPresenterModule;
+import com.belatrixsf.allstars.utils.di.components.DaggerRecommendationComponent;
+import com.belatrixsf.allstars.utils.di.modules.presenters.RecommendationPresenterModule;
 
 import java.util.List;
 
@@ -60,12 +43,11 @@ import butterknife.Bind;
 /**
  * Created by icerrate on 21/04/2016.
  */
-public class RecommendationFragment extends AllStarsFragment implements ContactView {
+public class RecommendationFragment extends AllStarsFragment implements RecommendationView {
 
-    private ContactPresenter contactPresenter;
-    private ContactFragmentListener contactFragmentListener;
+    private RecommendationPresenter recommendationPresenter;
 
-    @Bind(R.id.rv_employees) RecyclerView employeeRecyclerView;
+    @Bind(R.id.rv_recommendations) RecyclerView recommendationRecyclerView;
 
     public static RecommendationFragment newInstance() {
         return new RecommendationFragment();
@@ -75,149 +57,28 @@ public class RecommendationFragment extends AllStarsFragment implements ContactV
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_contact, container, false);
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        contactFragmentListener = (ContactFragmentListener) activity;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        contactFragmentListener = (ContactFragmentListener) context;
+        return inflater.inflate(R.layout.fragment_recommendation, container, false);
     }
 
     @Override
     protected void initDependencies(AllStarsApplication allStarsApplication) {
-        contactPresenter = DaggerContactComponent.builder()
+        recommendationPresenter = DaggerRecommendationComponent.builder()
                 .applicationComponent(allStarsApplication.getApplicationComponent())
-                .contactPresenterModule(new ContactPresenterModule(this))
+                .recommendationPresenterModule(new RecommendationPresenterModule(this))
                 .build()
-                .contactPresenter();
-        contactPresenter.getEmployeeList();
+                .recommendationPresenter();
     }
 
     @Override
-    public void showEmployees(List<Employee> employees) {
-        EmployeeListAdapter employeeListAdapter = new EmployeeListAdapter(getActivity(), employees);
-        employeeRecyclerView.setAdapter(employeeListAdapter);
-        employeeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        recommendationPresenter.getRecommendationList();
+        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.search_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
+    public void showRecommendations(List<Recommendation> recommendations) {
+        RecommendationListAdapter recommendationListAdapter = new RecommendationListAdapter(getActivity(), recommendations);
+        recommendationRecyclerView.setAdapter(recommendationListAdapter);
+        recommendationRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.action_search:
-                //ActionMode
-                contactFragmentListener.setActionMode(actionModeCallback);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
-
-        // Called when the action mode is created; startActionMode() was called
-        @Override
-        public boolean onCreateActionMode(final ActionMode mode, Menu menu) {
-            LayoutInflater inflater = getActivity().getLayoutInflater();
-            View customView = inflater.inflate(R.layout.item_action_mode, null);
-
-            final EditText searchTermEditText = (EditText) customView.findViewById(R.id.search_term);
-            final ImageButton closeImageButton = (ImageButton) customView.findViewById(R.id.close);
-
-            closeImageButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    searchTermEditText.setText("");
-                    searchTermEditText.requestFocus();
-                }
-            });
-
-
-            searchTermEditText.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if (s.length()>0){
-                        closeImageButton.setVisibility(View.VISIBLE);
-                        contactPresenter.onSearchTermChange(s.toString());
-                    }else{
-                        closeImageButton.setVisibility(View.INVISIBLE);
-                    }
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-            });
-
-            searchTermEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                @Override
-                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                    if (actionId == EditorInfo.IME_ACTION_SEARCH){
-                        contactPresenter.submitSearchTerm(v.getText().toString());
-                        mode.finish();
-                    }
-                    return false;
-                }
-            });
-
-            mode.setCustomView(customView);
-
-            searchTermEditText.requestFocus();
-
-            if (getActivity() != null) {
-                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(searchTermEditText, InputMethodManager.SHOW_IMPLICIT);
-            }
-
-            return true;
-        }
-
-        // Called each time the action mode is shown. Always called after onCreateActionMode, but
-        // may be called multiple times if the mode is invalidated.
-        @Override
-        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            return false; // Return false if nothing is done
-        }
-
-        // Called when the user selects a contextual menu item
-        @Override
-        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-            return  false;
-        }
-
-        // Called when the user exits the action mode
-        @Override
-        public void onDestroyActionMode(ActionMode mode) {
-            if (getActivity() != null) {
-                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-            }
-        }
-    };
-
 }

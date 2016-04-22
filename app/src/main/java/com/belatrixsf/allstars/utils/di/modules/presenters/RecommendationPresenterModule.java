@@ -20,7 +20,7 @@
 */
 package com.belatrixsf.allstars.utils.di.modules.presenters;
 
-import com.belatrixsf.allstars.ui.contacts.ContactView;
+import com.belatrixsf.allstars.ui.recommendations.RecommendationView;
 
 import dagger.Module;
 import dagger.Provides;
@@ -31,14 +31,14 @@ import dagger.Provides;
 @Module
 public class RecommendationPresenterModule {
 
-    private ContactView view;
+    private RecommendationView view;
 
-    public RecommendationPresenterModule(ContactView view) {
+    public RecommendationPresenterModule(RecommendationView view) {
         this.view = view;
     }
 
     @Provides
-    public ContactView providesView() {
+    public RecommendationView providesView() {
         return view;
     }
 

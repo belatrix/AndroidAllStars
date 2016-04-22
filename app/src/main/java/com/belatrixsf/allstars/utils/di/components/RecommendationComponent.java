@@ -20,8 +20,8 @@
 */
 package com.belatrixsf.allstars.utils.di.components;
 
-import com.belatrixsf.allstars.ui.contacts.ContactPresenter;
-import com.belatrixsf.allstars.utils.di.modules.presenters.ContactPresenterModule;
+import com.belatrixsf.allstars.ui.recommendations.RecommendationPresenter;
+import com.belatrixsf.allstars.utils.di.modules.presenters.RecommendationPresenterModule;
 import com.belatrixsf.allstars.utils.di.scopes.UIScope;
 
 import dagger.Component;
@@ -32,10 +32,10 @@ import dagger.Component;
 @UIScope
 @Component(
         dependencies = ApplicationComponent.class,
-        modules = ContactPresenterModule.class
+        modules = RecommendationPresenterModule.class
 )
 public interface RecommendationComponent {
 
-    ContactPresenter contactPresenter();
+    RecommendationPresenter recommendationPresenter();
 
 }

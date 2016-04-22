@@ -26,6 +26,7 @@ package com.belatrixsf.allstars.networking.retrofit.api;
 public interface ServerPaths {
 
     String EMPLOYEE = "employee";
+    String RECOMMENDATION = "recommendation";
     String EMPLOYEE_ID = "employee_id";
     String SEARCH_TERM = "search_term";
 
@@ -33,5 +34,7 @@ public interface ServerPaths {
     String EMPLOYEE_LIST = EMPLOYEE + "/list";
     String EMPLOYEE_SEARCH_TERM = EMPLOYEE + "/search/{" + SEARCH_TERM + "}";
     String EMPLOYEE_BY_ID = EMPLOYEE + "/{" + EMPLOYEE_ID + "}";
+
+    String RECOMMENDATION_LIST = RECOMMENDATION + "/list";
 
 }

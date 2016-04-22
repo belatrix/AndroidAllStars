@@ -22,106 +22,25 @@ package com.belatrixsf.allstars.entities;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 /**
- * Created by gyosida on 4/12/16.
+ * Created by icerrate on 21/04/2016.
  */
 public class Recommendation {
 
     private Integer pk;
-    private String username;
-    private String email;
-    @SerializedName("first_name")
-    private String firstName;
-    @SerializedName("last_name")
-    private String lastName;
-    private String avatar;
-    private Integer role;
-    @SerializedName("skype_id")
-    private String skypeId;
-    @SerializedName("last_month_score")
-    private Integer lastMonthScore;
-    @SerializedName("current_month_score")
-    private Integer currentMonthScore;
-    private Integer level;
-    private Integer score;
-    @SerializedName("is_active")
-    private boolean active;
-    @SerializedName("last_login")
-    private String lastLogin;
-
-    private List<Category> categories;
+    @SerializedName("from")
+    private String senderUserId;
+    private String message;
 
     public Integer getPk() {
         return pk;
     }
 
-    public String getUsername() {
-        return username;
+    public String getSenderUserId() {
+        return senderUserId;
     }
 
-    public String getEmail() {
-        return email;
+    public String getMessage() {
+        return message;
     }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getAvatar() {
-        if (avatar == null) {
-            avatar = "https://pbs.twimg.com/profile_images/616076655547682816/6gMRtQyY.jpg";
-        }
-        return avatar;
-    }
-
-    public Integer getRole() {
-        return role;
-    }
-
-    public String getSkypeId() {
-        return skypeId;
-    }
-
-    public Integer getLastMonthScore() {
-        return lastMonthScore;
-    }
-
-    public Integer getCurrentMonthScore() {
-        return currentMonthScore;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public Integer getScore() {
-        return score;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public String getLastLogin() {
-        return lastLogin;
-    }
-
-    public List<Category> getCategories() {
-        return categories;
-    }
-
-    public String getFullName() {
-        StringBuilder stringBuilder = new StringBuilder(firstName);
-        if (lastName != null && !lastName.isEmpty()){
-            stringBuilder.append(" ").append(lastName);
-        }
-        return stringBuilder.toString();
-    }
-
 }

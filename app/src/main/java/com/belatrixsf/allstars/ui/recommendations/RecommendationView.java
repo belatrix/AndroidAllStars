@@ -20,7 +20,7 @@
 */
 package com.belatrixsf.allstars.ui.recommendations;
 
-import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.entities.Recommendation;
 import com.belatrixsf.allstars.ui.common.AllStarsView;
 
 import java.util.List;
@@ -30,6 +30,6 @@ import java.util.List;
  */
 public interface RecommendationView extends AllStarsView {
 
-    void showEmployees(List<Employee> employees);
+    void showRecommendations(List<Recommendation> recommendations);
 
 }

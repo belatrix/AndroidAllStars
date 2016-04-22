@@ -20,11 +20,9 @@
 */
 package com.belatrixsf.allstars.ui.recommendations;
 
-import com.belatrixsf.allstars.R;
-import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
-import com.belatrixsf.allstars.services.EmployeeService;
+import com.belatrixsf.allstars.managers.EmployeeManager;
+import com.belatrixsf.allstars.networking.retrofit.responses.RecommendationResponse;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
-import com.belatrixsf.allstars.ui.contacts.ContactView;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
 
@@ -33,22 +31,21 @@ import javax.inject.Inject;
 /**
  * Created by icerrate on 15/04/2016.
  */
-public class RecommendationPresenter extends AllStarsPresenter<ContactView> {
+public class RecommendationPresenter extends AllStarsPresenter<RecommendationView> {
 
-    //private EmployeeManager employeeManager;
-    private EmployeeService employeeService;
+    private EmployeeManager employeeManager;
 
     @Inject
-    public RecommendationPresenter(ContactView view, EmployeeService employeeService) {
+    public RecommendationPresenter(RecommendationView view, EmployeeManager employeeManager) {
         super(view);
-        this.employeeService = employeeService;
+        this.employeeManager = employeeManager;
     }
 
-    public void getEmployeeList() {
-        employeeService.getEmployeeList(new AllStarsCallback<SearchEmployeeResponse>() {
+    public void getRecommendationList() {
+        employeeManager.getRecommendationList(new AllStarsCallback<RecommendationResponse>() {
             @Override
-            public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
-                view.showEmployees(searchEmployeeResponse.getEmployeeList());
+            public void onSuccess(RecommendationResponse recommendationResponse) {
+                view.showRecommendations(recommendationResponse.getRecommendationList());
             }
 
             @Override
@@ -56,29 +53,5 @@ public class RecommendationPresenter extends AllStarsPresenter<ContactView> {
                 showError(serviceError.getErrorMessage());
             }
         });
-    }
-
-    public void onSearchTermChange(String newSearchTerm){
-        //SearchTerm changed
-    }
-
-    public void submitSearchTerm(String searchTerm){
-        if (!searchTerm.isEmpty()) {
-            view.showProgressDialog();
-            employeeService.getEmployeeSearchList(searchTerm, new AllStarsCallback<SearchEmployeeResponse>() {
-                @Override
-                public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
-                    view.dismissProgressDialog();
-                    view.showEmployees(searchEmployeeResponse.getEmployeeList());
-                }
-
-                @Override
-                public void onFailure(ServiceError serviceError) {
-                    showError(serviceError.getErrorMessage());
-                }
-            });
-        }else{
-            showError(getString(R.string.empty_search_term));
-        }
     }
 }
