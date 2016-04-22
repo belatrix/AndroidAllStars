@@ -76,7 +76,7 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
             view.showEmployeeName(getString(R.string.no_data));
         }
         if (employee.getRole() != null) {
-            view.showRole(String.valueOf(employee.getRole()));
+            view.showRole(employee.getRole().getName());
         } else {
             view.showRole(getString(R.string.no_data));
         }
