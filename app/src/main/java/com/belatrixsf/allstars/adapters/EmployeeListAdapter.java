@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ import butterknife.ButterKnife;
 public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapter.EmployeeViewHolder> {
 
     private List<Employee> employeeList;
-    private Context context;
+    private WeakReference<Context> context;
     private String lastFirstLetter;
 
     public EmployeeListAdapter(Context context) {
@@ -32,7 +33,7 @@ public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapte
 
     public EmployeeListAdapter(Context context, List<Employee> employeeList) {
         this.employeeList = employeeList;
-        this.context = context;
+        this.context = new WeakReference<>(context);
     }
 
     @Override
