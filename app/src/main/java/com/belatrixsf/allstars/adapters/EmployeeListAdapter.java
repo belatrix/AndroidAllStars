@@ -45,7 +45,7 @@ public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapte
         String fullName = employee.getFullName();
         String letter;
         if (null != fullName && !fullName.isEmpty()){
-            letter = String.valueOf(fullName.charAt(0));
+            letter = String.valueOf(fullName.charAt(0)).toUpperCase();
         }else{
             letter = "#";
         }
@@ -61,6 +61,11 @@ public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapte
     @Override
     public int getItemCount() {
         return this.employeeList.size();
+    }
+
+    public void updateData(List<Employee> employees){
+        employeeList = employees;
+        notifyDataSetChanged();
     }
 
     static class EmployeeViewHolder extends RecyclerView.ViewHolder{

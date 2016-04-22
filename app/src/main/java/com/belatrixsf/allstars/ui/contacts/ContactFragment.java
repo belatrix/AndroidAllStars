@@ -124,7 +124,8 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
         employeeList = employees;
 
         if (employeeListAdapter != null){
-            employeeListAdapter.notifyDataSetChanged();
+            employeeRecyclerView.setAdapter(employeeListAdapter);
+            employeeListAdapter.updateData(employeeList);
         }else{
             employeeListAdapter = new EmployeeListAdapter(getActivity(), employeeList);
             employeeRecyclerView.setAdapter(employeeListAdapter);
@@ -169,7 +170,6 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
                     searchTermEditText.requestFocus();
                 }
             });
-
 
             searchTermEditText.addTextChangedListener(new TextWatcher() {
                 @Override
