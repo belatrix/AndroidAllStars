@@ -24,6 +24,7 @@ import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.services.EmployeeService;
 import com.belatrixsf.allstars.utils.di.modules.RetrofitModule;
 import com.belatrixsf.allstars.utils.di.modules.ServicesModule;
+import com.belatrixsf.allstars.utils.di.modules.presenters.ContactPresenterModule;
 
 import javax.inject.Singleton;
 
@@ -42,6 +43,6 @@ import dagger.Component;
 public interface ApplicationComponent {
 
     EmployeeManager employeeManager();
-    EmployeeService employeeService();
+    ContactComponent contactComponent(ContactPresenterModule contactPresenterModule);
 
 }

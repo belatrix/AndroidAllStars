@@ -24,14 +24,13 @@ import com.belatrixsf.allstars.ui.contacts.ContactPresenter;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactPresenterModule;
 import com.belatrixsf.allstars.utils.di.scopes.UIScope;
 
-import dagger.Component;
+import dagger.Subcomponent;
 
 /**
  * Created by icerrate on 15/04/2016.
  */
 @UIScope
-@Component(
-        dependencies = ApplicationComponent.class,
+@Subcomponent(
         modules = ContactPresenterModule.class
 )
 public interface ContactComponent {

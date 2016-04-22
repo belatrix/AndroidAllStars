@@ -47,7 +47,6 @@ import com.belatrixsf.allstars.adapters.EmployeeListAdapter;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
-import com.belatrixsf.allstars.utils.di.components.DaggerContactComponent;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactPresenterModule;
 
 import java.util.List;
@@ -106,10 +105,8 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
 
     @Override
     protected void initDependencies(AllStarsApplication allStarsApplication) {
-        contactPresenter = DaggerContactComponent.builder()
-                .applicationComponent(allStarsApplication.getApplicationComponent())
-                .contactPresenterModule(new ContactPresenterModule(this))
-                .build()
+        contactPresenter = allStarsApplication.getApplicationComponent()
+                .contactComponent(new ContactPresenterModule(this))
                 .contactPresenter();
     }
 
