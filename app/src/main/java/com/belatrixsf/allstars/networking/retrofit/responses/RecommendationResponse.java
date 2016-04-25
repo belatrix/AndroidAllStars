@@ -18,23 +18,37 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils.di.components;
+package com.belatrixsf.allstars.networking.retrofit.responses;
 
-import com.belatrixsf.allstars.ui.contacts.ContactPresenter;
-import com.belatrixsf.allstars.utils.di.modules.presenters.ContactPresenterModule;
-import com.belatrixsf.allstars.utils.di.scopes.UIScope;
+import com.belatrixsf.allstars.entities.Employee;
+import com.google.gson.annotations.SerializedName;
 
-import dagger.Subcomponent;
+import java.util.List;
 
 /**
- * Created by icerrate on 15/04/2016.
+ * Created by gyosida on 4/11/16.
  */
-@UIScope
-@Subcomponent(
-        modules = ContactPresenterModule.class
-)
-public interface ContactComponent {
+public class RecommendationResponse {
 
-    ContactPresenter contactPresenter();
+    private int count;
+    private String next;
+    private String previous;
+    @SerializedName("results")
+    private List<Employee> employeeList;
 
+    public int getCount() {
+        return count;
+    }
+
+    public String getNext() {
+        return next;
+    }
+
+    public String getPrevious() {
+        return previous;
+    }
+
+    public List<Employee> getEmployeeList() {
+        return employeeList;
+    }
 }

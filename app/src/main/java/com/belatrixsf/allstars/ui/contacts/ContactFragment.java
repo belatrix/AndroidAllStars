@@ -47,7 +47,6 @@ import com.belatrixsf.allstars.adapters.EmployeeListAdapter;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
-import com.belatrixsf.allstars.utils.di.components.DaggerContactComponent;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactPresenterModule;
 
 import java.util.List;
@@ -59,20 +58,37 @@ import butterknife.Bind;
  */
 public class ContactFragment extends AllStarsFragment implements ContactView {
 
+    @Bind(R.id.employees) RecyclerView employeeRecyclerView;
+
     private ContactPresenter contactPresenter;
     private ContactFragmentListener contactFragmentListener;
+    private EmployeeListAdapter employeeListAdapter;
 
-    @Bind(R.id.rv_employees) RecyclerView employeeRecyclerView;
+    private EditText searchTermEditText;
+    private ImageButton cleanImageButton;
 
     public static ContactFragment newInstance() {
         return new ContactFragment();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_contact, container, false);
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        castOrThrowException(activity);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        castOrThrowException(context);
+    }
+
+    private void castOrThrowException(Context context) {
+        try {
+            contactFragmentListener = (ContactFragmentListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement ContactFragmentListener");
+        }
     }
 
     @Override
@@ -82,32 +98,34 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        contactFragmentListener = (ContactFragmentListener) activity;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        contactFragmentListener = (ContactFragmentListener) context;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_contact, container, false);
     }
 
     @Override
     protected void initDependencies(AllStarsApplication allStarsApplication) {
-        contactPresenter = DaggerContactComponent.builder()
-                .applicationComponent(allStarsApplication.getApplicationComponent())
-                .contactPresenterModule(new ContactPresenterModule(this))
-                .build()
+        contactPresenter = allStarsApplication.getApplicationComponent()
+                .contactComponent(new ContactPresenterModule(this))
                 .contactPresenter();
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initViews();
         contactPresenter.getEmployeeList();
+    }
+
+    private void initViews() {
+        employeeListAdapter = new EmployeeListAdapter(getActivity());
+        employeeRecyclerView.setAdapter(employeeListAdapter);
+        employeeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
     @Override
     public void showEmployees(List<Employee> employees) {
-        EmployeeListAdapter employeeListAdapter = new EmployeeListAdapter(getActivity(), employees);
-        employeeRecyclerView.setAdapter(employeeListAdapter);
-        employeeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        employeeListAdapter.updateData(employees);
     }
 
     @Override
@@ -137,17 +155,16 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
             LayoutInflater inflater = getActivity().getLayoutInflater();
             View customView = inflater.inflate(R.layout.item_action_mode, null);
 
-            final EditText searchTermEditText = (EditText) customView.findViewById(R.id.search_term);
-            final ImageButton closeImageButton = (ImageButton) customView.findViewById(R.id.close);
+            searchTermEditText = (EditText) customView.findViewById(R.id.search_term);
+            cleanImageButton = (ImageButton) customView.findViewById(R.id.clean);
 
-            closeImageButton.setOnClickListener(new View.OnClickListener() {
+            cleanImageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     searchTermEditText.setText("");
                     searchTermEditText.requestFocus();
                 }
             });
-
 
             searchTermEditText.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -157,12 +174,7 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if (s.length()>0){
-                        closeImageButton.setVisibility(View.VISIBLE);
-                        contactPresenter.onSearchTermChange(s.toString());
-                    }else{
-                        closeImageButton.setVisibility(View.INVISIBLE);
-                    }
+                    contactPresenter.onSearchTermChange(s.toString());
                 }
 
                 @Override
@@ -210,11 +222,22 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
         // Called when the user exits the action mode
         @Override
         public void onDestroyActionMode(ActionMode mode) {
-            if (getActivity() != null) {
+            if (getActivity() != null && getView() != null) {
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                if (imm != null){
+                    imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                }
             }
         }
     };
 
+    @Override
+    public void showCleanButton() {
+        cleanImageButton.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideCleanButton() {
+        cleanImageButton.setVisibility(View.INVISIBLE);
+    }
 }

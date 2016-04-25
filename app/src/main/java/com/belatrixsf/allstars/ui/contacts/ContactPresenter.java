@@ -21,8 +21,8 @@
 package com.belatrixsf.allstars.ui.contacts;
 
 import com.belatrixsf.allstars.R;
-import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
+import com.belatrixsf.allstars.services.EmployeeService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
@@ -34,16 +34,16 @@ import javax.inject.Inject;
  */
 public class ContactPresenter extends AllStarsPresenter<ContactView> {
 
-    private EmployeeManager employeeManager;
+    private EmployeeService employeeService;
 
     @Inject
-    public ContactPresenter(ContactView view, EmployeeManager employeeManager) {
+    public ContactPresenter(ContactView view, EmployeeService employeeService) {
         super(view);
-        this.employeeManager = employeeManager;
+        this.employeeService = employeeService;
     }
 
     public void getEmployeeList() {
-        employeeManager.getEmployeeList(new AllStarsCallback<SearchEmployeeResponse>() {
+        employeeService.getEmployeeList(new AllStarsCallback<SearchEmployeeResponse>() {
             @Override
             public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
                 view.showEmployees(searchEmployeeResponse.getEmployeeList());
@@ -57,13 +57,17 @@ public class ContactPresenter extends AllStarsPresenter<ContactView> {
     }
 
     public void onSearchTermChange(String newSearchTerm){
-        //SearchTerm changed
+        if (newSearchTerm.length()>0){
+            view.showCleanButton();
+        }else{
+            view.hideCleanButton();
+        }
     }
 
     public void submitSearchTerm(String searchTerm){
         if (!searchTerm.isEmpty()) {
             view.showProgressDialog();
-            employeeManager.getEmployeeSearchList(searchTerm, new AllStarsCallback<SearchEmployeeResponse>() {
+            employeeService.getEmployeeSearchList(searchTerm, new AllStarsCallback<SearchEmployeeResponse>() {
                 @Override
                 public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
                     view.dismissProgressDialog();

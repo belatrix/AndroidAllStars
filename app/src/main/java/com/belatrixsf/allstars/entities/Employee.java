@@ -36,7 +36,6 @@ public class Employee {
     private String firstName;
     @SerializedName("last_name")
     private String lastName;
-    private String avatar;
     private Role role;
     @SerializedName("skype_id")
     private String skypeId;
@@ -46,11 +45,12 @@ public class Employee {
     private Integer currentMonthScore;
     private Integer level;
     private Integer score;
+    private List<Category> categories;
     @SerializedName("is_active")
     private boolean active;
     @SerializedName("last_login")
     private String lastLogin;
-    private List<Category> categories;
+    private String avatar;
 
     public Integer getPk() {
         return pk;
@@ -70,13 +70,6 @@ public class Employee {
 
     public String getLastName() {
         return lastName;
-    }
-
-    public String getAvatar() {
-        if (avatar == null) {
-            avatar = "https://pbs.twimg.com/profile_images/616076655547682816/6gMRtQyY.jpg";
-        }
-        return avatar;
     }
 
     public Role getRole() {
@@ -103,6 +96,10 @@ public class Employee {
         return score;
     }
 
+    public List<Category> getCategories() {
+        return categories;
+    }
+
     public boolean isActive() {
         return active;
     }
@@ -111,8 +108,11 @@ public class Employee {
         return lastLogin;
     }
 
-    public List<Category> getCategories() {
-        return categories;
+    public String getAvatar() {
+        if (avatar == null) {
+            avatar = "https://pbs.twimg.com/profile_images/616076655547682816/6gMRtQyY.jpg";
+        }
+        return avatar;
     }
 
     public String getFullName() {

@@ -53,7 +53,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
 
     private AccountPresenter accountPresenter;
 
-    @Bind(R.id.rv_account_recommendations) RecyclerView recommendationRecyclerView;
+    @Bind(R.id.account_recommendations) RecyclerView recommendationRecyclerView;
     @Bind(R.id.skype_id) TextView skypeTextView;
     @Bind(R.id.level) TextView levelTextView;
     @Bind(R.id.score) TextView scoreTextView;
@@ -80,6 +80,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        accountPresenter.loadEmployeeAccount();
     }
 
     @Override
@@ -89,7 +90,6 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
                 .accountPresenterModule(new AccountPresenterModule(this))
                 .build()
                 .accountPresenter();
-        accountPresenter.loadEmployeeAccount();
     }
 
     @Override
