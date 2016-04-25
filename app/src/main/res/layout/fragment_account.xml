@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="vertical"
-            android:background="@android:color/white"
-            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -26,14 +25,14 @@
                 <View
                     android:id="@+id/belatrix_placeholder"
                     android:layout_width="match_parent"
-                    android:background="@color/colorPrimaryLight"
                     android:layout_height="0dp"
-                    android:layout_weight=".4"/>
+                    android:layout_weight=".2"
+                    android:background="@color/colorPrimaryLight" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight=".6"
+                    android:layout_weight=".3"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -42,8 +41,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_1_5"
-                        style="@android:style/TextAppearance.Large"
-                        tools:text="Pedro Carrillo" />
+                        tools:text="Pedro Carrillo"
+                        style="@android:style/TextAppearance.Large" />
 
                     <TextView
                         android:id="@+id/profile_role"
@@ -56,102 +55,101 @@
 
             </LinearLayout>
 
-            <View style="@style/horizontalDivider"/>
+            <View style="@style/horizontalDivider" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:orientation="horizontal"
-                android:weightSum="12">
+                android:background="@color/white"
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_weight="4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight=".1"
+                    android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="@dimen/dimen_8"
-                    android:gravity="center">
+                    android:padding="@dimen/dimen_8">
 
                     <TextView
-                        android:layout_height="match_parent"
                         android:layout_width="wrap_content"
-                        android:textColor="@color/subTitle"
-                        android:text="@string/title_skype_id"/>
+                        android:layout_height="match_parent"
+                        android:text="@string/title_skype_id"
+                        android:textColor="@color/subTitle" />
 
                     <TextView
                         android:id="@+id/skype_id"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginTop="@dimen/dimen_2_5"
-                        android:layout_width="wrap_content"
                         android:gravity="center"
                         android:textColor="@android:color/black"
-                        tools:text="pter9"/>
+                        tools:text="pter9" />
 
                 </LinearLayout>
-                <View
-                    style="@style/verticalDivider" />
+
+                <View style="@style/verticalDivider" />
+
                 <LinearLayout
-                    android:layout_weight="4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight=".1"
+                    android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="@dimen/dimen_8"
-                    android:gravity="center">
+                    android:padding="@dimen/dimen_8">
 
                     <TextView
-                        android:layout_height="match_parent"
                         android:layout_width="wrap_content"
-                        android:textColor="@color/subTitle"
-                        android:text="@string/title_score"/>
+                        android:layout_height="match_parent"
+                        android:text="@string/title_score"
+                        android:textColor="@color/subTitle" />
 
                     <TextView
                         android:id="@+id/score"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginTop="@dimen/dimen_2_5"
-                        android:layout_width="wrap_content"
-                        android:textColor="@android:color/black"
                         android:gravity="center"
-                        tools:text="1233"/>
+                        android:textColor="@android:color/black"
+                        tools:text="1233" />
 
                 </LinearLayout>
 
-                <View
-                    style="@style/verticalDivider" />
+                <View style="@style/verticalDivider" />
 
                 <LinearLayout
-                    android:layout_weight="4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight=".1"
+                    android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="@dimen/dimen_8"
-                    android:gravity="center">
+                    android:padding="@dimen/dimen_8">
 
                     <TextView
-                        android:layout_height="match_parent"
                         android:layout_width="wrap_content"
-                        android:textColor="@color/subTitle"
-                        android:text="@string/title_level"/>
+                        android:layout_height="match_parent"
+                        android:text="@string/title_level"
+                        android:textColor="@color/subTitle" />
 
                     <TextView
                         android:id="@+id/level"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginTop="10dp"
-                        android:textColor="@android:color/black"
-                        android:layout_width="wrap_content"
                         android:gravity="center"
-                        tools:text="9000+"/>
+                        android:textColor="@android:color/black"
+                        tools:text="9000+" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
-            <View style="@style/horizontalDivider"/>
+            <View style="@style/horizontalDivider" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_account_recommendations"
+                android:id="@+id/account_recommendations"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
 
         </LinearLayout>
 
@@ -160,7 +158,7 @@
             android:layout_width="@dimen/dimen_10_8"
             android:layout_height="@dimen/dimen_10_8"
             app:layout_anchor="@+id/belatrix_placeholder"
-            app:layout_anchorGravity="bottom|center"/>
+            app:layout_anchorGravity="bottom|center" />
 
     </android.support.design.widget.CoordinatorLayout>
 

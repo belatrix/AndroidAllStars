@@ -55,8 +55,8 @@ public class AccountCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         AccountCategoriesViewHolder accountCategoriesViewHolder = (AccountCategoriesViewHolder) holder;
         final Category category = categories.get(position);
-        accountCategoriesViewHolder.tvTitle.setText(category.getName());
-        accountCategoriesViewHolder.tvValue.setText(String.valueOf(category.getValue()));
+        accountCategoriesViewHolder.titleTextView.setText(category.getName());
+        accountCategoriesViewHolder.valueTextView.setText(String.valueOf(category.getValue()));
     }
 
     @Override
@@ -66,20 +66,22 @@ public class AccountCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.
 
     public class AccountCategoriesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView tvTitle;
-        private TextView tvValue;
+        private TextView titleTextView;
+        private TextView valueTextView;
         private RecyclerOnItemClickListener recyclerOnItemClickListener;
 
         public AccountCategoriesViewHolder(View itemView, RecyclerOnItemClickListener recyclerOnItemClickListener) {
             super(itemView);
-            this.tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
-            this.tvValue = (TextView) itemView.findViewById(R.id.tv_value);
+            this.titleTextView = (TextView) itemView.findViewById(R.id.title);
+            this.valueTextView = (TextView) itemView.findViewById(R.id.value);
             this.recyclerOnItemClickListener = recyclerOnItemClickListener;
         }
 
         @Override
         public void onClick(View v) {
-            if (recyclerOnItemClickListener != null) recyclerOnItemClickListener.onClick(this.itemView);
+            if (recyclerOnItemClickListener != null){
+                recyclerOnItemClickListener.onClick(this.itemView);
+            }
         }
 
     }
