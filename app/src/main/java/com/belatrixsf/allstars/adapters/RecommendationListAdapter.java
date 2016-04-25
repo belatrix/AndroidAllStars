@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Recommendation;
+import com.belatrixsf.allstars.utils.Constants;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -63,7 +64,9 @@ public class RecommendationListAdapter extends RecyclerView.Adapter<Recommendati
         Recommendation recommendation = recommendationList.get(position);
 
         holder.messageTextView.setText(recommendation.getMessage());
-        holder.userIdTextView.setText(recommendation.getFromUser());
+        holder.userTextView.setText(recommendation.getFromUser());
+        holder.dateTextView.setText(recommendation.getDate());
+        holder.categoryTextView.setText(recommendation.getCategory() + Constants.COMMA_SYMBOL + recommendation.getSubcategory());
     }
 
     @Override
@@ -79,7 +82,9 @@ public class RecommendationListAdapter extends RecyclerView.Adapter<Recommendati
 
     static class RecommendationViewHolder extends RecyclerView.ViewHolder{
         @Bind(R.id.message) public TextView messageTextView;
-        @Bind(R.id.user) public TextView userIdTextView;
+        @Bind(R.id.user) public TextView userTextView;
+        @Bind(R.id.date) public TextView dateTextView;
+        @Bind(R.id.category) public TextView categoryTextView;
 
         public RecommendationViewHolder(View view) {
             super(view);
