@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.utils.Constants;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -22,10 +23,6 @@ import butterknife.ButterKnife;
  * Created by icerrate on 15/04/2016.
  */
 public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapter.EmployeeViewHolder> {
-
-    static final String EMPTY_STRING = "";
-    static final String NUMERIC_SYMBOL = "#";
-    static final int CAP_POSITION = 0;
 
     private List<Employee> employeeList;
     private WeakReference<Context> context;
@@ -50,13 +47,13 @@ public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapte
     public void onBindViewHolder(EmployeeViewHolder holder, int position) {
         Employee employee = employeeList.get(position);
         String fullName = employee.getFullName();
-        String currentFirstLetter = (fullName != null && !fullName.isEmpty()) ? String.valueOf(fullName.charAt(CAP_POSITION)).toUpperCase() : NUMERIC_SYMBOL;
+        String currentFirstLetter = (fullName != null && !fullName.isEmpty()) ? String.valueOf(fullName.charAt(Constants.CAP_POSITION)).toUpperCase() : Constants.NUMERIC_SYMBOL;
         String showLetter;
         if (lastFirstLetter == null){
             showLetter = currentFirstLetter;
         }
         else{
-            showLetter = (lastFirstLetter.equalsIgnoreCase(currentFirstLetter)) ? EMPTY_STRING : currentFirstLetter;
+            showLetter = (lastFirstLetter.equalsIgnoreCase(currentFirstLetter)) ? Constants.EMPTY_STRING : currentFirstLetter;
         }
         holder.firstLetter.setText(showLetter);
         holder.fullName.setText(employee.getFullName());
