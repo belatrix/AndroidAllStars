@@ -50,7 +50,7 @@ public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapte
     public void onBindViewHolder(EmployeeViewHolder holder, int position) {
         Employee employee = employeeList.get(position);
         String fullName = employee.getFullName();
-        String currentFirstLetter = ( fullName != null && !fullName.isEmpty() ) ? String.valueOf(fullName.charAt(CAP_POSITION)).toUpperCase() : NUMERIC_SYMBOL;
+        String currentFirstLetter = (fullName != null && !fullName.isEmpty()) ? String.valueOf(fullName.charAt(CAP_POSITION)).toUpperCase() : NUMERIC_SYMBOL;
         String showLetter;
         if (lastFirstLetter == null){
             showLetter = currentFirstLetter;
