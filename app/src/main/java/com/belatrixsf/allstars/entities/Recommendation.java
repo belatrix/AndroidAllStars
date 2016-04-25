@@ -6,10 +6,8 @@
 * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 * copies of the Software, and to permit persons to whom the Software is
 * furnished to do so, subject to the following conditions:
-
 * The above copyright notice and this permission notice shall be included in all
 * copies or substantial portions of the Software.
-
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -18,23 +16,51 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.services;
+package com.belatrixsf.allstars.entities;
 
-import com.belatrixsf.allstars.entities.Employee;
-import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.RecommendationResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
-import com.belatrixsf.allstars.utils.AllStarsCallback;
+import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by icerrate on 25/04/2016.
  */
-public interface EmployeeService {
+public class Recommendation {
 
-    void authenticate(String username, String password, AllStarsCallback<AuthenticationResponse> callback);
-    void getEmployee(int employeeId, AllStarsCallback<Employee> callback);
-    void getEmployeeList(AllStarsCallback<SearchEmployeeResponse> callback);
-    void getEmployeeSearchList(String searchTerm, AllStarsCallback<SearchEmployeeResponse> callback);
-    void getRecommendationList(int employeeId, AllStarsCallback<RecommendationResponse> callback);
+    private Integer pk;
+    private String date;
+    @SerializedName("text")
+    private String message;
+    @SerializedName("from_user")
+    private String fromUser;
+    @SerializedName("to_user")
+    private String toUser;
+    private String category;
+    private String subcategory;
 
+    public Integer getPk() {
+        return pk;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public String getFromUser() {
+        return fromUser;
+    }
+
+    public String getToUser() {
+        return toUser;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getSubcategory() {
+        return subcategory;
+    }
 }

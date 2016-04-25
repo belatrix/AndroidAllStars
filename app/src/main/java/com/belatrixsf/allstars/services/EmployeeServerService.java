@@ -25,10 +25,9 @@ import com.belatrixsf.allstars.networking.retrofit.RetrofitCallback;
 import com.belatrixsf.allstars.networking.retrofit.api.EmployeeAPI;
 import com.belatrixsf.allstars.networking.retrofit.requests.AuthenticationRequest;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
+import com.belatrixsf.allstars.networking.retrofit.responses.RecommendationResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
-
-import java.util.List;
 
 
 /**
@@ -62,5 +61,10 @@ public class EmployeeServerService implements EmployeeService {
     public void getEmployeeSearchList(String searchTerm, AllStarsCallback<SearchEmployeeResponse> callback) {
         employeeAPI.getEmployeeSearchList(searchTerm).enqueue(new RetrofitCallback<SearchEmployeeResponse>(callback));
 
+    }
+
+    @Override
+    public void getRecommendationList(int employeeId, AllStarsCallback<RecommendationResponse> callback) {
+        employeeAPI.getRecommendationList(employeeId).enqueue(new RetrofitCallback<RecommendationResponse>(callback));
     }
 }

@@ -20,13 +20,13 @@
 */
 package com.belatrixsf.allstars.networking.retrofit.responses;
 
-import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.entities.Recommendation;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 /**
- * Created by gyosida on 4/11/16.
+ * Created by icerrate on 25/04/2016.
  */
 public class RecommendationResponse {
 
@@ -34,7 +34,7 @@ public class RecommendationResponse {
     private String next;
     private String previous;
     @SerializedName("results")
-    private List<Employee> employeeList;
+    private List<Recommendation> recommendationList;
 
     public int getCount() {
         return count;
@@ -48,7 +48,7 @@ public class RecommendationResponse {
         return previous;
     }
 
-    public List<Employee> getEmployeeList() {
-        return employeeList;
+    public List<Recommendation> getRecommendationList() {
+        return recommendationList;
     }
 }
