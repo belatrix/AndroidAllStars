@@ -20,10 +20,12 @@
 */
 package com.belatrixsf.allstars.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.view.ActionMode;
@@ -34,6 +36,7 @@ import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.MainNavigationViewPagerAdapter;
 import com.belatrixsf.allstars.ui.common.AllStarsActivity;
 import com.belatrixsf.allstars.ui.contacts.ContactFragmentListener;
+import com.belatrixsf.allstars.ui.recommendation.RecommendationActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -44,6 +47,7 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.tab_layout) TabLayout tabLayout;
     @Bind(R.id.main_view_pager) ViewPager mainViewPager;
+    @Bind(R.id.start_recommendation) FloatingActionButton startRecommendationButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +59,18 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
     }
 
     private void setupViews() {
+        setupActionButton();
         setupTabs();
+    }
+
+    private void setupActionButton() {
+        startRecommendationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RecommendationActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setupTabs() {

@@ -36,6 +36,10 @@
             android:label="@string/title_activity_example"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name=".ui.recommendation.RecommendationActivity"
+            android:label="@string/recommendation_string">
+        </activity>
     </application>
 
 </manifest>
