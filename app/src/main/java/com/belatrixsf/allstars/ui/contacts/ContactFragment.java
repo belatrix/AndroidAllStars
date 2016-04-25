@@ -58,11 +58,14 @@ import butterknife.Bind;
  */
 public class ContactFragment extends AllStarsFragment implements ContactView {
 
-    @Bind(R.id.rv_employees) RecyclerView employeeRecyclerView;
+    @Bind(R.id.employees) RecyclerView employeeRecyclerView;
 
     private ContactPresenter contactPresenter;
     private ContactFragmentListener contactFragmentListener;
     private EmployeeListAdapter employeeListAdapter;
+
+    private EditText searchTermEditText;
+    private ImageButton cleanImageButton;
 
     public static ContactFragment newInstance() {
         return new ContactFragment();
@@ -152,8 +155,8 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
             LayoutInflater inflater = getActivity().getLayoutInflater();
             View customView = inflater.inflate(R.layout.item_action_mode, null);
 
-            final EditText searchTermEditText = (EditText) customView.findViewById(R.id.search_term);
-            final ImageButton cleanImageButton = (ImageButton) customView.findViewById(R.id.clean);
+            searchTermEditText = (EditText) customView.findViewById(R.id.search_term);
+            cleanImageButton = (ImageButton) customView.findViewById(R.id.clean);
 
             cleanImageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -171,12 +174,7 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if (s.length()>0){
-                        cleanImageButton.setVisibility(View.VISIBLE);
-                        contactPresenter.onSearchTermChange(s.toString());
-                    }else{
-                        cleanImageButton.setVisibility(View.INVISIBLE);
-                    }
+                    contactPresenter.onSearchTermChange(s.toString());
                 }
 
                 @Override
@@ -226,9 +224,20 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
         public void onDestroyActionMode(ActionMode mode) {
             if (getActivity() != null && getView() != null) {
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                if (imm != null){
+                    imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                }
             }
         }
     };
 
+    @Override
+    public void showCleanButton() {
+        cleanImageButton.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideCleanButton() {
+        cleanImageButton.setVisibility(View.INVISIBLE);
+    }
 }

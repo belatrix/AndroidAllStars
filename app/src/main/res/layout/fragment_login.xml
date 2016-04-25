@@ -41,12 +41,12 @@
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/username"
-                style="@style/EditText"
                 android:drawableLeft="@drawable/ic_person_outline"
                 android:drawablePadding="@dimen/dimen_3_5"
                 android:hint="@string/hint_username"
                 android:imeOptions="actionNext"
-                android:paddingLeft="0dp" />
+                android:paddingLeft="0dp"
+                style="@style/EditText"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -58,21 +58,21 @@
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/password"
-                style="@style/EditText"
                 android:drawableLeft="@drawable/ic_lock_outline"
                 android:drawablePadding="@dimen/dimen_3_5"
                 android:hint="@string/hint_password"
                 android:imeOptions="actionDone"
                 android:inputType="textVisiblePassword"
-                android:paddingLeft="0dp" />
+                android:paddingLeft="0dp"
+                style="@style/EditText" />
 
         </android.support.design.widget.TextInputLayout>
 
         <Button
             android:id="@+id/log_in"
-            style="@style/Button.Accent"
             android:layout_marginTop="@dimen/dimen_10_5"
-            android:text="@string/button_log_in" />
+            android:text="@string/button_log_in"
+            style="@style/Button.Accent"/>
 
     </LinearLayout>
 

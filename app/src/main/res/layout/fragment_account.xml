@@ -12,7 +12,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
+            android:background="@color/white"
             android:focusableInTouchMode="true"
             android:orientation="vertical">
 
@@ -26,23 +26,23 @@
                     android:id="@+id/belatrix_placeholder"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight=".4"
+                    android:layout_weight=".2"
                     android:background="@color/colorPrimaryLight" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight=".6"
+                    android:layout_weight=".3"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/profile_name"
-                        style="@android:style/TextAppearance.Large"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_1_5"
-                        tools:text="Pedro Carrillo" />
+                        tools:text="Pedro Carrillo"
+                        style="@android:style/TextAppearance.Large" />
 
                     <TextView
                         android:id="@+id/profile_role"
@@ -60,14 +60,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:orientation="horizontal"
-                android:weightSum="12">
+                android:background="@color/white"
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
+                    android:layout_weight=".1"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="@dimen/dimen_8">
@@ -94,7 +93,7 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
+                    android:layout_weight=".1"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="@dimen/dimen_8">
@@ -121,7 +120,7 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
+                    android:layout_weight=".1"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="@dimen/dimen_8">
@@ -148,7 +147,7 @@
             <View style="@style/horizontalDivider" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_account_recommendations"
+                android:id="@+id/account_recommendations"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 

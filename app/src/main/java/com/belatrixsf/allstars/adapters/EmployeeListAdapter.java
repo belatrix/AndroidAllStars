@@ -23,6 +23,10 @@ import butterknife.ButterKnife;
  */
 public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapter.EmployeeViewHolder> {
 
+    static final String EMPTY_STRING = "";
+    static final String NUMERIC_SYMBOL = "#";
+    static final int CAP_POSITION = 0;
+
     private List<Employee> employeeList;
     private WeakReference<Context> context;
     private String lastFirstLetter;
@@ -46,12 +50,14 @@ public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapte
     public void onBindViewHolder(EmployeeViewHolder holder, int position) {
         Employee employee = employeeList.get(position);
         String fullName = employee.getFullName();
-        String currentFirstLetter = ( fullName != null && !fullName.isEmpty() ) ? String.valueOf(fullName.charAt(0)).toUpperCase() : "#";
+        String currentFirstLetter = ( fullName != null && !fullName.isEmpty() ) ? String.valueOf(fullName.charAt(CAP_POSITION)).toUpperCase() : NUMERIC_SYMBOL;
         String showLetter;
-
-        if ( lastFirstLetter == null ) showLetter = currentFirstLetter;
-        else showLetter = ( lastFirstLetter.equalsIgnoreCase(currentFirstLetter) ) ? "" : currentFirstLetter;
-
+        if (lastFirstLetter == null){
+            showLetter = currentFirstLetter;
+        }
+        else{
+            showLetter = (lastFirstLetter.equalsIgnoreCase(currentFirstLetter)) ? EMPTY_STRING : currentFirstLetter;
+        }
         holder.firstLetter.setText(showLetter);
         holder.fullName.setText(employee.getFullName());
         holder.level.setText(String.valueOf(employee.getLevel()));
@@ -71,7 +77,6 @@ public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapte
     }
 
     static class EmployeeViewHolder extends RecyclerView.ViewHolder{
-
         @Bind(R.id.first_letter) public TextView firstLetter;
         @Bind(R.id.photo) public ImageView photo;
         @Bind(R.id.full_name) public TextView fullName;

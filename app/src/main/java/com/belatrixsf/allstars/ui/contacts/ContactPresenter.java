@@ -57,7 +57,11 @@ public class ContactPresenter extends AllStarsPresenter<ContactView> {
     }
 
     public void onSearchTermChange(String newSearchTerm){
-        //SearchTerm changed
+        if (newSearchTerm.length()>0){
+            view.showCleanButton();
+        }else{
+            view.hideCleanButton();
+        }
     }
 
     public void submitSearchTerm(String searchTerm){

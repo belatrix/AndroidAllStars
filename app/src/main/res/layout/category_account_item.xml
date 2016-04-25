@@ -7,34 +7,34 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="@color/white"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="@dimen/activity_horizontal_margin">
 
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <TextView
-            android:id="@+id/tv_value"
-            style="@style/TextAppearance.AppCompat.Subhead"
+            android:id="@+id/value"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_weight="1"
-            android:textColor="@color/belatrix" />
+            android:textColor="@color/belatrix"
+            style="@style/TextAppearance.AppCompat.Subhead"/>
 
         <ImageView
-            android:id="@+id/v"
+            android:id="@+id/arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_chevron_right"
-            android:tint="@color/divider" />
+            android:tint="@color/divider"/>
 
     </LinearLayout>
 
