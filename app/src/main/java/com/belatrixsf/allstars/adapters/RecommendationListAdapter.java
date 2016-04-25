@@ -79,7 +79,7 @@ public class RecommendationListAdapter extends RecyclerView.Adapter<Recommendati
 
     static class RecommendationViewHolder extends RecyclerView.ViewHolder{
         @Bind(R.id.message) public TextView messageTextView;
-        @Bind(R.id.user_id) public TextView userIdTextView;
+        @Bind(R.id.user) public TextView userIdTextView;
 
         public RecommendationViewHolder(View view) {
             super(view);
