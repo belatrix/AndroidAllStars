@@ -51,6 +51,14 @@
                         android:layout_marginTop="@dimen/dimen_1_5"
                         tools:text="Senior Android Developer" />
 
+                    <TextView
+                        android:id="@+id/skype_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_1_5"
+                        android:text="@string/skype_id_content"
+                        tools:text="fake skype id" />
+
                 </LinearLayout>
 
             </LinearLayout>
@@ -74,17 +82,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="@string/title_skype_id"
+                        android:text="@string/title_current_month_score"
                         android:textColor="@color/subTitle" />
 
                     <TextView
-                        android:id="@+id/skype_id"
+                        android:id="@+id/current_month_score"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginTop="@dimen/dimen_2_5"
                         android:gravity="center"
                         android:textColor="@android:color/black"
-                        tools:text="pter9" />
+                        tools:text="122" />
 
                 </LinearLayout>
 

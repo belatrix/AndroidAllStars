@@ -46,6 +46,7 @@ import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.EmployeeListAdapter;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
+import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactPresenterModule;
 
@@ -56,7 +57,7 @@ import butterknife.Bind;
 /**
  * Created by icerrate on 15/04/2016.
  */
-public class ContactFragment extends AllStarsFragment implements ContactView {
+public class ContactFragment extends AllStarsFragment implements ContactView, RecyclerOnItemClickListener {
 
     @Bind(R.id.employees) RecyclerView employeeRecyclerView;
 
@@ -230,6 +231,14 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
             }
         }
     };
+
+    @Override
+    public void onClick(View v) {
+        if (v.getTag()!= null) {
+            Employee employee = (Employee)v.getTag();
+            
+        }
+    }
 
     @Override
     public void showCleanButton() {

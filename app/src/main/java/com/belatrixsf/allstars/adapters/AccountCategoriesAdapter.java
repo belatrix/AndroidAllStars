@@ -35,10 +35,13 @@ import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Created by pedrocarrillo on 4/9/16.
  */
-public class AccountCategoriesAdapter extends LoadMoreBaseAdapter<SubCategory, RecyclerView.ViewHolder> {
+    public class AccountCategoriesAdapter extends LoadMoreBaseAdapter<SubCategory, RecyclerView.ViewHolder> {
 
     public static final int TYPE_SUB_CATEGORY = 1;
 
@@ -63,6 +66,7 @@ public class AccountCategoriesAdapter extends LoadMoreBaseAdapter<SubCategory, R
     public void onBindDataViewHolder(RecyclerView.ViewHolder holder, int position) {
         AccountSubCategoriesViewHolder accountSubCategoriesViewHolder = (AccountSubCategoriesViewHolder) holder;
         final SubCategory subCategory = data.get(position);
+        holder.itemView.setTag(subCategory);
         accountSubCategoriesViewHolder.titleTextView.setText(subCategory.getName());
         accountSubCategoriesViewHolder.valueTextView.setText(String.valueOf(subCategory.getNumStars()));
     }
@@ -72,14 +76,15 @@ public class AccountCategoriesAdapter extends LoadMoreBaseAdapter<SubCategory, R
         return TYPE_SUB_CATEGORY;
     }
 
-    public class AccountSubCategoriesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class AccountSubCategoriesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView titleTextView;
-        private TextView valueTextView;
+        @Bind(R.id.title) public TextView titleTextView;
+        @Bind(R.id.value) public TextView valueTextView;
         private RecyclerOnItemClickListener recyclerOnItemClickListener;
 
         public AccountSubCategoriesViewHolder(View itemView, RecyclerOnItemClickListener recyclerOnItemClickListener) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
             this.titleTextView = (TextView) itemView.findViewById(R.id.title);
             this.valueTextView = (TextView) itemView.findViewById(R.id.value);
             this.recyclerOnItemClickListener = recyclerOnItemClickListener;

@@ -1,6 +1,5 @@
 package com.belatrixsf.allstars.ui.common;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.belatrixsf.allstars.R;
-import com.belatrixsf.allstars.entities.SubCategory;
 
 import java.util.List;
 

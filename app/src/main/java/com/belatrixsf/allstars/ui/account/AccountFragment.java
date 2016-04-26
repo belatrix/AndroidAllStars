@@ -49,7 +49,7 @@ import butterknife.Bind;
 /**
  * Created by pedrocarrillo on 4/9/16.
  */
-public class AccountFragment extends AllStarsFragment implements AccountView, RecyclerOnItemClickListener{
+public class AccountFragment extends AllStarsFragment implements AccountView, RecyclerOnItemClickListener {
 
     public static final String USER_ID_KEY = "_user_id";
 
@@ -67,7 +67,9 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
 
     public static AccountFragment newInstance(Integer userId) {
         Bundle bundle = new Bundle();
-        bundle.putInt(USER_ID_KEY, userId);
+        if (userId != null) {
+            bundle.putInt(USER_ID_KEY, userId);
+        }
         AccountFragment accountFragment = new AccountFragment();
         accountFragment.setArguments(bundle);
         return accountFragment;
@@ -90,7 +92,9 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
         super.onViewCreated(view, savedInstanceState);
         setupViews();
         if (getArguments() != null) {
-            Integer userId = getArguments().getInt(USER_ID_KEY);
+            if (getArguments().containsKey(USER_ID_KEY)) {
+                Integer userId = getArguments().getInt(USER_ID_KEY);
+            }
         }
         accountPresenter.loadEmployeeAccount();
     }
@@ -154,7 +158,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
 
     @Override
     public void showProfilePicture(final String profilePicture) {
-        int size = getActivity().getResources().getDimensionPixelSize(R.dimen.dimen_10_8);
-        Glide.with(getActivity()).load(profilePicture).override(size,size).centerCrop().transform(new CircleTransform(getActivity())).into(pictureImageView);
+        int size = getActivity().getResources().getDimensionPixelSize(R.dimen.dimen_15_10);
+        Glide.with(getActivity()).load(profilePicture).override(size, size).centerCrop().transform(new CircleTransform(getActivity())).into(pictureImageView);
     }
 }

@@ -129,3 +129,7 @@ fabric.properties
 hs_err_pid*
 
 .idea/
+
+server.properties
+
+server.properties
