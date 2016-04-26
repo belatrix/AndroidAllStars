@@ -51,19 +51,26 @@ import butterknife.Bind;
  */
 public class AccountFragment extends AllStarsFragment implements AccountView, RecyclerOnItemClickListener{
 
+    public static final String USER_ID_KEY = "_user_id";
+
     private AccountPresenter accountPresenter;
     private AccountCategoriesAdapter accountCategoriesAdapter;
 
     @Bind(R.id.account_recommendations) RecyclerView recommendationRecyclerView;
-    @Bind(R.id.skype_id) TextView skypeTextView;
+    @Bind(R.id.skype_id) TextView skypeIdTextView;
+    @Bind(R.id.current_month_score) TextView currentMonthScoreTextView;
     @Bind(R.id.level) TextView levelTextView;
     @Bind(R.id.score) TextView scoreTextView;
     @Bind(R.id.profile_name) TextView nameTextView;
     @Bind(R.id.profile_role) TextView roleTextView;
     @Bind(R.id.profile_picture) ImageView pictureImageView;
 
-    public static AccountFragment newInstance() {
-        return new AccountFragment();
+    public static AccountFragment newInstance(Integer userId) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(USER_ID_KEY, userId);
+        AccountFragment accountFragment = new AccountFragment();
+        accountFragment.setArguments(bundle);
+        return accountFragment;
     }
 
     @Override
@@ -82,6 +89,9 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setupViews();
+        if (getArguments() != null) {
+            Integer userId = getArguments().getInt(USER_ID_KEY);
+        }
         accountPresenter.loadEmployeeAccount();
     }
 
@@ -108,8 +118,8 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     }
 
     @Override
-    public void showSkypeId(String skypeId) {
-        skypeTextView.setText(String.valueOf(skypeId));
+    public void showCurrentMonthScore(String currentMonthScore) {
+        currentMonthScoreTextView.setText(String.valueOf(currentMonthScore));
     }
 
     @Override
@@ -135,6 +145,11 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     @Override
     public void showRole(String role) {
         roleTextView.setText(role);
+    }
+
+    @Override
+    public void showSkypeId(String skypeID) {
+        skypeIdTextView.setText(skypeID);
     }
 
     @Override
