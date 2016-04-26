@@ -23,6 +23,8 @@ package com.belatrixsf.allstars.ui.account;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.managers.EmployeeManager;
+import com.belatrixsf.allstars.networking.retrofit.responses.StarSubCategoryResponse;
+import com.belatrixsf.allstars.services.StarService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
@@ -36,11 +38,13 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
 
     protected EmployeeManager employeeManager;
     protected Employee employee;
+    protected StarService starService;
 
     @Inject
-    public AccountPresenter(AccountView view, EmployeeManager employeeManager) {
+    public AccountPresenter(AccountView view, EmployeeManager employeeManager, StarService starService) {
         super(view);
         this.employeeManager = employeeManager;
+        this.starService = starService;
     }
 
     public void loadEmployeeAccount() {
@@ -48,7 +52,22 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
             @Override
             public void onSuccess(Employee employee) {
                 AccountPresenter.this.employee = employee;
+                loadSubCategoriesStar();
                 showEmployeeData();
+            }
+
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                showError(serviceError.getErrorMessage());
+            }
+        });
+    }
+
+    private void loadSubCategoriesStar() {
+        starService.getEmployeeSubCategoriesStars(employee.getPk(), new AllStarsCallback<StarSubCategoryResponse>() {
+            @Override
+            public void onSuccess(StarSubCategoryResponse starSubCategoryResponse) {
+                view.showSubCategories(starSubCategoryResponse.getSubCategories());
             }
 
             @Override
@@ -79,9 +98,6 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
             view.showRole(employee.getRole().getName());
         } else {
             view.showRole(getString(R.string.no_data));
-        }
-        if (employee.getCategories() != null) {
-            view.showCategories(employee.getCategories());
         }
         if (employee.getAvatar() != null) {
             view.showProfilePicture(employee.getAvatar());

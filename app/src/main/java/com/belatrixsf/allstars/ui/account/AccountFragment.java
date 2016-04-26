@@ -33,12 +33,12 @@ import android.widget.TextView;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.AccountCategoriesAdapter;
 import com.belatrixsf.allstars.entities.Category;
+import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.allstars.ui.common.views.CircleTransform;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
-import com.belatrixsf.allstars.utils.di.components.DaggerAccountComponent;
 import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModule;
 import com.bumptech.glide.Glide;
 
@@ -52,6 +52,7 @@ import butterknife.Bind;
 public class AccountFragment extends AllStarsFragment implements AccountView, RecyclerOnItemClickListener{
 
     private AccountPresenter accountPresenter;
+    private AccountCategoriesAdapter accountCategoriesAdapter;
 
     @Bind(R.id.account_recommendations) RecyclerView recommendationRecyclerView;
     @Bind(R.id.skype_id) TextView skypeTextView;
@@ -80,15 +81,24 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setupViews();
         accountPresenter.loadEmployeeAccount();
+    }
+
+    private void setupViews() {
+        accountCategoriesAdapter = new AccountCategoriesAdapter(this);
+        recommendationRecyclerView.setAdapter(accountCategoriesAdapter);
+        recommendationRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setAutoMeasureEnabled(true);
+        recommendationRecyclerView.setNestedScrollingEnabled(false);
+        recommendationRecyclerView.setLayoutManager(linearLayoutManager);
     }
 
     @Override
     protected void initDependencies(AllStarsApplication allStarsApplication) {
-        accountPresenter = DaggerAccountComponent.builder()
-                .applicationComponent(allStarsApplication.getApplicationComponent())
-                .accountPresenterModule(new AccountPresenterModule(this))
-                .build()
+        accountPresenter = allStarsApplication.getApplicationComponent()
+                .accountComponent(new AccountPresenterModule(this))
                 .accountPresenter();
     }
 
@@ -108,14 +118,8 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     }
 
     @Override
-    public void showCategories(List<Category> categories) {
-        AccountCategoriesAdapter accountCategoriesAdapter = new AccountCategoriesAdapter(categories, this);
-        recommendationRecyclerView.setAdapter(accountCategoriesAdapter);
-        recommendationRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setAutoMeasureEnabled(true);
-        recommendationRecyclerView.setNestedScrollingEnabled(false);
-        recommendationRecyclerView.setLayoutManager(linearLayoutManager);
+    public void showSubCategories(List<SubCategory> subCategories) {
+        accountCategoriesAdapter.updateData(subCategories);
     }
 
     @Override

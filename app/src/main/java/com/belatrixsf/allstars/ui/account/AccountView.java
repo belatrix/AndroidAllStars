@@ -21,6 +21,7 @@
 package com.belatrixsf.allstars.ui.account;
 
 import com.belatrixsf.allstars.entities.Category;
+import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.ui.common.AllStarsView;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public interface AccountView extends AllStarsView {
     void goCategoryDetail(Category category);
     void showSkypeId(String skypeId);
     void showScore(String score);
-    void showCategories(List<Category> categories);
+    void showSubCategories(List<SubCategory> subCategories);
     void showLevel(String level);
 
     void showEmployeeName(String employeName);
