@@ -65,7 +65,7 @@ public class RecommendationFragment extends AllStarsFragment {
             public void onClick(View v) {
                 if (aBoolean) {
                     aBoolean = false;
-                    commentSelectionView.setData("Test");
+                    categorySelectionView.setData("Test");
                     categorySelectionView.showData();
                 } else {
                     aBoolean = true;
