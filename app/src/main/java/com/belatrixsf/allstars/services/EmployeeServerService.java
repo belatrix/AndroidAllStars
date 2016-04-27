@@ -60,7 +60,6 @@ public class EmployeeServerService implements EmployeeService {
     @Override
     public void getEmployeeSearchList(String searchTerm, AllStarsCallback<SearchEmployeeResponse> callback) {
         employeeAPI.getEmployeeSearchList(searchTerm).enqueue(new RetrofitCallback<SearchEmployeeResponse>(callback));
-
     }
 
     @Override

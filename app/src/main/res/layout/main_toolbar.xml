@@ -14,8 +14,6 @@
         app:layout_scrollFlags="scroll|enterAlways"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-        <!--<include layout="@layout/account_detail_header"/>-->
-
     </android.support.v7.widget.Toolbar>
 
     <android.support.design.widget.TabLayout
