@@ -1,28 +1,31 @@
 package com.belatrixsf.allstars.ui.common.views;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapShader;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
-import android.support.v4.content.ContextCompat;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 
 import com.belatrixsf.allstars.R;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
-
-import java.lang.ref.WeakReference;
 
 /**
  * Created by pedrocarrillo on 4/16/16.
  */
 public class CircleTransform extends BitmapTransformation {
 
-    private WeakReference<Context> contextWeakReference;
+    private final int marginSize;
+    private final int strokeWidth;
 
     public CircleTransform(Context context) {
         super(context);
-        contextWeakReference = new WeakReference<>(context);
+        Resources resources = context.getResources();
+        marginSize = resources.getDimensionPixelSize(R.dimen.picture_margin_size);
+        strokeWidth = resources.getDimensionPixelSize(R.dimen.picture_stroke_width);
     }
 
     @Override
@@ -32,36 +35,29 @@ public class CircleTransform extends BitmapTransformation {
 
     private Bitmap circleCrop(BitmapPool pool, Bitmap source) {
         if (source == null) return null;
-
         int size = Math.min(source.getWidth(), source.getHeight());
-        int x = (source.getWidth() - size) / 2;
-        int y = (source.getHeight() - size) / 2;
-
-        // TODO this could be acquired from the pool too
-        int m = 200;
-        Bitmap squared = Bitmap.createBitmap(source, x, y, size, size);
-
-        Bitmap result = pool.get(size+m, size+m, Bitmap.Config.ARGB_8888);
-        if (result == null) {
-            result = Bitmap.createBitmap(size+m, size+m, Bitmap.Config.ARGB_8888);
+        int radius = Math.min(size / 2, size / 2);
+        int outputSize = size + marginSize;
+        int halfMargin = marginSize / 2;
+        Bitmap output = pool.get(outputSize, outputSize, Bitmap.Config.ARGB_8888);
+        if (output == null) {
+            output = Bitmap.createBitmap(outputSize, outputSize, Bitmap.Config.ARGB_8888);
         }
-        float r = size / 2f;
-
-        Canvas canvas = new Canvas(result);
         Paint paint = new Paint();
+        paint.setAntiAlias(true);
 
-        paint.setShader(null);
-        paint.setStrokeWidth(100);
-        paint.setColor(ContextCompat.getColor(contextWeakReference.get(), R.color.belatrix));
-        canvas.drawCircle(r, r, r*2, paint);
+        Canvas canvas = new Canvas(output);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawCircle(radius + halfMargin, radius + halfMargin, radius, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(source, halfMargin, halfMargin, paint);
 
-//        paint.setShader(new BitmapShader(squared, BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP));
-//        paint.setAntiAlias(true);
-
-
-//        canvas.drawCircle(r, r, r, paint);
-
-        return result;
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(Color.WHITE);
+        paint.setStrokeWidth(strokeWidth);
+        canvas.drawCircle(radius + halfMargin, radius + halfMargin, radius, paint);
+        return output;
     }
 
     @Override

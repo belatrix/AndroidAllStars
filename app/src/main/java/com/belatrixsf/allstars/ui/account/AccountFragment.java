@@ -49,17 +49,24 @@ import butterknife.Bind;
 /**
  * Created by pedrocarrillo on 4/9/16.
  */
-public class AccountFragment extends AllStarsFragment implements AccountView, RecyclerOnItemClickListener{
+public class AccountFragment extends AllStarsFragment implements AccountView, RecyclerOnItemClickListener {
 
     private AccountPresenter accountPresenter;
 
-    @Bind(R.id.account_recommendations) RecyclerView recommendationRecyclerView;
-    @Bind(R.id.skype_id) TextView skypeTextView;
-    @Bind(R.id.level) TextView levelTextView;
-    @Bind(R.id.score) TextView scoreTextView;
-    @Bind(R.id.profile_name) TextView nameTextView;
-    @Bind(R.id.profile_role) TextView roleTextView;
-    @Bind(R.id.profile_picture) ImageView pictureImageView;
+    @Bind(R.id.account_recommendations)
+    RecyclerView recommendationRecyclerView;
+    @Bind(R.id.skype_id)
+    TextView skypeTextView;
+    @Bind(R.id.level)
+    TextView levelTextView;
+    @Bind(R.id.score)
+    TextView scoreTextView;
+    @Bind(R.id.profile_name)
+    TextView nameTextView;
+    @Bind(R.id.profile_role)
+    TextView roleTextView;
+    @Bind(R.id.profile_picture)
+    ImageView pictureImageView;
 
     public static AccountFragment newInstance() {
         return new AccountFragment();
@@ -135,7 +142,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
 
     @Override
     public void showProfilePicture(final String profilePicture) {
-        int size = getActivity().getResources().getDimensionPixelSize(R.dimen.dimen_10_8);
-        Glide.with(getActivity()).load(profilePicture).override(size,size).centerCrop().transform(new CircleTransform(getActivity())).into(pictureImageView);
+        int size = getActivity().getResources().getDimensionPixelSize(R.dimen.dimen_15_10);
+        Glide.with(getActivity()).load(profilePicture).override(size, size).centerCrop().transform(new CircleTransform(getActivity())).into(pictureImageView);
     }
 }

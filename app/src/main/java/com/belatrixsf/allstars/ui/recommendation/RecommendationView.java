@@ -18,32 +18,18 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils.di.components;
+package com.belatrixsf.allstars.ui.recommendation;
 
-import com.belatrixsf.allstars.managers.EmployeeManager;
-import com.belatrixsf.allstars.utils.di.modules.RetrofitModule;
-import com.belatrixsf.allstars.utils.di.modules.ServicesModule;
-import com.belatrixsf.allstars.utils.di.modules.presenters.ContactPresenterModule;
-import com.belatrixsf.allstars.utils.di.modules.presenters.RecommendationPresenterModule;
+import com.belatrixsf.allstars.entities.Recommendation;
+import com.belatrixsf.allstars.ui.common.AllStarsView;
 
-import javax.inject.Singleton;
-
-import dagger.Component;
+import java.util.List;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by icerrate on 25/04/2016.
  */
-@Singleton
-@Component(
-        modules = {
-                RetrofitModule.class,
-                ServicesModule.class
-        }
-)
-public interface ApplicationComponent {
+public interface RecommendationView extends AllStarsView {
 
-    EmployeeManager employeeManager();
-    ContactComponent contactComponent(ContactPresenterModule contactPresenterModule);
-    RecommendationComponent recommendationComponent(RecommendationPresenterModule recommendationPresenterModule);
+    void showRecommendations(List<Recommendation> recommendations);
 
 }

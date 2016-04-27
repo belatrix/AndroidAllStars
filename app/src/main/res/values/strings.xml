@@ -33,6 +33,13 @@
     <!--Messages-->
     <string name="empty_search_term">Must write something</string>
 
+    <!--Recommendation-->
+    <string name="title_user">User</string>
+    <string name="title_message">Message</string>
+    <string name="title_content_from">From:</string>
+    <string name="title_content_message">Message:</string>
+    <string name="title_content_category">Category:</string>
+    <string name="title_content_date">Date:</string>
 
     <!--Actions-->
     <string name="action_search">Search</string>
