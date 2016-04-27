@@ -58,12 +58,6 @@ public class RecommendationListAdapter extends RecyclerView.Adapter<Recommendati
     @Override
     public void onBindViewHolder(final RecommendationViewHolder holder, int position) {
         Recommendation recommendation = recommendationList.get(position);
-        holder.fc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                holder.fc.toggle(false);
-            }
-        });
         //Title
         holder.titleUserTextView.setText(recommendation.getFromUser().getFullName());
         holder.titleMessageTextView.setText(recommendation.getMessage());
@@ -85,7 +79,8 @@ public class RecommendationListAdapter extends RecyclerView.Adapter<Recommendati
         notifyDataSetChanged();
     }
 
-    static class RecommendationViewHolder extends RecyclerView.ViewHolder{
+    static class RecommendationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        @Bind(R.id.folding_cell) public FoldingCell foldingCell;
         //Title
         @Bind(R.id.title_user) public TextView titleUserTextView;
         @Bind(R.id.title_message) public TextView titleMessageTextView;
@@ -94,11 +89,16 @@ public class RecommendationListAdapter extends RecyclerView.Adapter<Recommendati
         @Bind(R.id.content_message) public TextView contentMessageTextView;
         @Bind(R.id.content_category) public TextView contentCategoryTextView;
         @Bind(R.id.content_date) public TextView contentDateTextView;
-        @Bind(R.id.folding_cell) public FoldingCell fc;
 
         public RecommendationViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+            this.itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            foldingCell.toggle(false);
         }
     }
 }

@@ -50,7 +50,7 @@
                         android:layout_alignParentLeft="true"
                         android:textStyle="bold"
                         android:layout_alignParentTop="true"
-                        android:text="From:" />
+                        android:text="@string/title_content_from" />
 
                     <TextView
                         android:id="@+id/content_user"
@@ -68,7 +68,7 @@
                         android:textStyle="bold"
                         android:layout_marginTop="@dimen/text_margin"
                         android:layout_below="@+id/content_user"
-                        android:text="Message:" />
+                        android:text="@string/title_content_message" />
 
                     <TextView
                         android:id="@+id/content_message"
@@ -86,7 +86,7 @@
                         android:textStyle="bold"
                         android:layout_marginTop="@dimen/text_margin"
                         android:layout_below="@+id/content_message"
-                        android:text="Category:" />
+                        android:text="@string/title_content_category" />
 
                     <TextView
                         android:id="@+id/content_category"
@@ -105,7 +105,7 @@
                         android:textStyle="bold"
                         android:layout_marginTop="@dimen/text_margin"
                         android:layout_below="@+id/content_category"
-                        android:text="Date:" />
+                        android:text="@string/title_content_date" />
 
                     <TextView
                         android:id="@+id/content_date"
@@ -162,6 +162,7 @@
                         android:id="@+id/title_user"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_16"
                         tools:text="@string/title_user" />
 
                     <TextView
@@ -180,8 +181,7 @@
 
         </android.support.v7.widget.CardView>
 
-    </FrameLayout>
-    ​
+    </FrameLayout>    ​
     ​
 </com.ramotion.foldingcell.FoldingCell>
 

@@ -40,7 +40,6 @@ import butterknife.ButterKnife;
 public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapter.EmployeeViewHolder> {
 
     private List<Employee> employeeList;
-    private List<String> letters = new ArrayList<>();
 
     public EmployeeListAdapter() {
         this(new ArrayList<Employee>());
