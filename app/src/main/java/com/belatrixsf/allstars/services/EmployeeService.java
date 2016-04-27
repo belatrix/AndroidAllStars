@@ -35,6 +35,6 @@ public interface EmployeeService {
     void getEmployee(int employeeId, AllStarsCallback<Employee> callback);
     void getEmployeeList(AllStarsCallback<SearchEmployeeResponse> callback);
     void getEmployeeSearchList(String searchTerm, AllStarsCallback<SearchEmployeeResponse> callback);
-    void getRecommendationList(int employeeId, AllStarsCallback<RecommendationResponse> callback);
+    void getRecommendationList(int employeeId, int subcategory, AllStarsCallback<RecommendationResponse> callback);
 
 }

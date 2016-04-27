@@ -18,7 +18,6 @@
 */
 package com.belatrixsf.allstars.adapters;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,9 +26,8 @@ import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Recommendation;
-import com.belatrixsf.allstars.utils.Constants;
+import com.ramotion.foldingcell.FoldingCell;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,31 +40,38 @@ import butterknife.ButterKnife;
 public class RecommendationListAdapter extends RecyclerView.Adapter<RecommendationListAdapter.RecommendationViewHolder> {
 
     private List<Recommendation> recommendationList;
-    private WeakReference<Context> context;
 
-    public RecommendationListAdapter(Context context) {
-        this(context, new ArrayList<Recommendation>());
+    public RecommendationListAdapter() {
+        this(new ArrayList<Recommendation>());
     }
 
-    public RecommendationListAdapter(Context context, List<Recommendation> recommendationList) {
+    public RecommendationListAdapter(List<Recommendation> recommendationList) {
         this.recommendationList = recommendationList;
-        this.context = new WeakReference<>(context);
     }
 
     @Override
     public RecommendationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recommendation, parent, false);
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_folding_recommendation, parent, false);
         return new RecommendationViewHolder(layoutView);
     }
 
     @Override
-    public void onBindViewHolder(RecommendationViewHolder holder, int position) {
+    public void onBindViewHolder(final RecommendationViewHolder holder, int position) {
         Recommendation recommendation = recommendationList.get(position);
-
-        holder.messageTextView.setText(recommendation.getMessage());
-        holder.userTextView.setText(recommendation.getFromUser());
-        holder.dateTextView.setText(recommendation.getDate());
-        holder.categoryTextView.setText(recommendation.getCategory() + Constants.COMMA_SYMBOL + recommendation.getSubcategory());
+        holder.fc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.fc.toggle(false);
+            }
+        });
+        //Title
+        holder.titleUserTextView.setText(recommendation.getFromUser().getFullName());
+        holder.titleMessageTextView.setText(recommendation.getMessage());
+        //Content
+        holder.contentUserTextView.setText(recommendation.getFromUser().getFullName());
+        holder.contentMessageTextView.setText(recommendation.getMessage());
+        holder.contentCategoryTextView.setText(recommendation.getCategory().getName());
+        holder.contentDateTextView.setText(recommendation.getDate());
     }
 
     @Override
@@ -81,10 +86,15 @@ public class RecommendationListAdapter extends RecyclerView.Adapter<Recommendati
     }
 
     static class RecommendationViewHolder extends RecyclerView.ViewHolder{
-        @Bind(R.id.message) public TextView messageTextView;
-        @Bind(R.id.user) public TextView userTextView;
-        @Bind(R.id.date) public TextView dateTextView;
-        @Bind(R.id.category) public TextView categoryTextView;
+        //Title
+        @Bind(R.id.title_user) public TextView titleUserTextView;
+        @Bind(R.id.title_message) public TextView titleMessageTextView;
+        //Content
+        @Bind(R.id.content_user) public TextView contentUserTextView;
+        @Bind(R.id.content_message) public TextView contentMessageTextView;
+        @Bind(R.id.content_category) public TextView contentCategoryTextView;
+        @Bind(R.id.content_date) public TextView contentDateTextView;
+        @Bind(R.id.folding_cell) public FoldingCell fc;
 
         public RecommendationViewHolder(View view) {
             super(view);

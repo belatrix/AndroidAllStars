@@ -30,11 +30,8 @@ public class Recommendation {
     @SerializedName("text")
     private String message;
     @SerializedName("from_user")
-    private String fromUser;
-    @SerializedName("to_user")
-    private String toUser;
-    private String category;
-    private String subcategory;
+    private Employee fromUser;
+    private Category category;
 
     public Integer getPk() {
         return pk;
@@ -48,19 +45,11 @@ public class Recommendation {
         return message;
     }
 
-    public String getFromUser() {
+    public Employee getFromUser() {
         return fromUser;
     }
 
-    public String getToUser() {
-        return toUser;
-    }
-
-    public String getCategory() {
+    public Category getCategory() {
         return category;
-    }
-
-    public String getSubcategory() {
-        return subcategory;
     }
 }

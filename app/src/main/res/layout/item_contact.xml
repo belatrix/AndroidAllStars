@@ -5,20 +5,13 @@
     android:layout_height="?attr/listPreferredItemHeightLarge"
     android:gravity="center_vertical"
     android:orientation="horizontal"
+    android:padding="@dimen/activity_horizontal_margin"
     style="@style/ItemListStyle">
-
-    <TextView
-        android:id="@+id/first_letter"
-        android:layout_width="@dimen/dimen_10_7"
-        android:layout_height="?attr/listPreferredItemHeightLarge"
-        android:gravity="center"
-        android:textSize="@dimen/text_20"
-        tools:text="A" />
 
     <ImageView
         android:id="@+id/photo"
-        android:layout_width="@dimen/dimen_9_5"
-        android:layout_height="@dimen/dimen_9_5"
+        android:layout_width="@dimen/dimen_8_5"
+        android:layout_height="@dimen/dimen_8_5"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_user" />
 

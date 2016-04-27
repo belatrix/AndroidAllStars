@@ -50,6 +50,6 @@ public interface EmployeeAPI {
     Call<SearchEmployeeResponse> getEmployeeSearchList(@Path(ServerPaths.SEARCH_TERM) String searchTerm);
 
     @GET(ServerPaths.RECOMMENDATION_LIST)
-    Call<RecommendationResponse> getRecommendationList(@Path(ServerPaths.EMPLOYEE_ID) int employeeId);
+    Call<RecommendationResponse> getRecommendationList(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Path(ServerPaths.SUBCATEGORY_ID) int subcategoryId);
 
 }

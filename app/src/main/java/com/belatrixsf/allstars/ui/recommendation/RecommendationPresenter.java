@@ -20,7 +20,6 @@
 */
 package com.belatrixsf.allstars.ui.recommendation;
 
-import com.belatrixsf.allstars.managers.PreferencesManager;
 import com.belatrixsf.allstars.networking.retrofit.responses.RecommendationResponse;
 import com.belatrixsf.allstars.services.EmployeeService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
@@ -42,9 +41,8 @@ public class RecommendationPresenter extends AllStarsPresenter<RecommendationVie
         this.employeeService = employeeService;
     }
 
-    public void getRecommendationList() {
-        int storedEmployeeId = PreferencesManager.get().getEmployeeId();
-        employeeService.getRecommendationList(storedEmployeeId, new AllStarsCallback<RecommendationResponse>() {
+    public void getRecommendationList(int employeeId, int subcategoryId) {
+        employeeService.getRecommendationList(employeeId, subcategoryId, new AllStarsCallback<RecommendationResponse>() {
             @Override
             public void onSuccess(RecommendationResponse recommendationResponse) {
                 view.showRecommendations(recommendationResponse.getRecommendationList());

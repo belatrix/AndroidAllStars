@@ -76,11 +76,11 @@ public class RecommendationFragment extends AllStarsFragment implements Recommen
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews();
-        recommendationPresenter.getRecommendationList();
+        recommendationPresenter.getRecommendationList(1,9);
     }
 
     private void initViews() {
-        recommendationListAdapter = new RecommendationListAdapter(getActivity());
+        recommendationListAdapter = new RecommendationListAdapter();
         recommendationRecyclerView.setAdapter(recommendationListAdapter);
         recommendationRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
