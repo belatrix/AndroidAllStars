@@ -23,6 +23,7 @@ package com.belatrixsf.allstars.networking.retrofit.api;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.networking.retrofit.requests.AuthenticationRequest;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
+import com.belatrixsf.allstars.networking.retrofit.responses.RecommendationResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
 
 import retrofit.Call;
@@ -47,5 +48,8 @@ public interface EmployeeAPI {
 
     @GET(ServerPaths.EMPLOYEE_SEARCH_TERM)
     Call<SearchEmployeeResponse> getEmployeeSearchList(@Path(ServerPaths.SEARCH_TERM) String searchTerm);
+
+    @GET(ServerPaths.RECOMMENDATION_LIST)
+    Call<RecommendationResponse> getRecommendationList(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Path(ServerPaths.SUBCATEGORY_ID) int subcategoryId);
 
 }

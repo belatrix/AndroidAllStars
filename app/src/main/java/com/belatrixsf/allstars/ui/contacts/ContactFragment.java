@@ -118,7 +118,7 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
     }
 
     private void initViews() {
-        employeeListAdapter = new EmployeeListAdapter(getActivity());
+        employeeListAdapter = new EmployeeListAdapter();
         employeeRecyclerView.setAdapter(employeeListAdapter);
         employeeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }

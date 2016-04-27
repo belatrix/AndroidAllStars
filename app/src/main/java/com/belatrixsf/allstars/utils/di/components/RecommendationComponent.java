@@ -20,30 +20,21 @@
 */
 package com.belatrixsf.allstars.utils.di.components;
 
-import com.belatrixsf.allstars.managers.EmployeeManager;
-import com.belatrixsf.allstars.utils.di.modules.RetrofitModule;
-import com.belatrixsf.allstars.utils.di.modules.ServicesModule;
-import com.belatrixsf.allstars.utils.di.modules.presenters.ContactPresenterModule;
+import com.belatrixsf.allstars.ui.recommendation.RecommendationPresenter;
 import com.belatrixsf.allstars.utils.di.modules.presenters.RecommendationPresenterModule;
+import com.belatrixsf.allstars.utils.di.scopes.UIScope;
 
-import javax.inject.Singleton;
-
-import dagger.Component;
+import dagger.Subcomponent;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by icerrate on 25/04/2016.
  */
-@Singleton
-@Component(
-        modules = {
-                RetrofitModule.class,
-                ServicesModule.class
-        }
+@UIScope
+@Subcomponent(
+        modules = RecommendationPresenterModule.class
 )
-public interface ApplicationComponent {
+public interface RecommendationComponent {
 
-    EmployeeManager employeeManager();
-    ContactComponent contactComponent(ContactPresenterModule contactPresenterModule);
-    RecommendationComponent recommendationComponent(RecommendationPresenterModule recommendationPresenterModule);
+    RecommendationPresenter recommendationPresenter();
 
 }
