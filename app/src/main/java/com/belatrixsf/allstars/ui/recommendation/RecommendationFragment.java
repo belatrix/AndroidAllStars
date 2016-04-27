@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-package com.belatrixsf.allstars.ui.recommendation;
-
-/**
- * Created by PedroCarrillo on 4/22/16.
- */
-public class RecommendationFragment {
-}
-=======
 /* The MIT License (MIT)
 * Copyright (c) 2016 BELATRIX
 * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -99,4 +90,3 @@ public class RecommendationFragment extends AllStarsFragment implements Recommen
         recommendationListAdapter.updateData(recommendations);
     }
 }
->>>>>>> d75b47e2f36e53524db282f79e6727a872abcbdc
