@@ -45,5 +45,9 @@
     <string name="write_comment">Write a comment</string>
     <string name="skype_id_content">Skype : %s</string>
     <string name="done">DONE</string>
+    <string name="hint_comment">Write a comment</string>
+    <string name="comment_no_empty_error">Comment cannot be empty</string>
+    <string name="account_activity_title">Profile</string>
+    <string name="contact_activity_title">Select an user</string>
 
 </resources>

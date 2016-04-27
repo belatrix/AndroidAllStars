@@ -1,6 +1,5 @@
 package com.belatrixsf.allstars.ui.recommendation;
 
-import android.accounts.Account;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +9,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.entities.SubCategory;
+import com.belatrixsf.allstars.ui.comment.CommentActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.views.AccountSelectionView;
 import com.belatrixsf.allstars.ui.common.views.DataSelectionView;
@@ -28,15 +30,17 @@ import butterknife.Bind;
 public class RecommendationFragment extends AllStarsFragment implements RecommendationView {
 
     public static final String SELECTED_USER_KEY = "_selected_user";
+    public static final String COMMENT_KEY = "_user_comment";
+    public static final String SUBCATEGORY_KEY = "_user_comment";
     public static final int RQ_CONTACT = 100;
+    public static final int RQ_COMMENT = 101;
+    public static final int RQ_SUBCATEGORY = 102;
 
     private RecommendationPresenter recommendationPresenter;
 
     @Bind(R.id.account_selection) AccountSelectionView accountSelectionView;
     @Bind(R.id.category_selection) DataSelectionView categorySelectionView;
     @Bind(R.id.comment_selection) DataSelectionView commentSelectionView;
-
-    boolean aBoolean = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,7 +70,7 @@ public class RecommendationFragment extends AllStarsFragment implements Recommen
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         MenuItem menuItem = menu.findItem(R.id.action_done);
-        menuItem.setEnabled(true);
+        menuItem.setEnabled(recommendationPresenter.checkRecommendationEnabled());
         super.onPrepareOptionsMenu(menu);
     }
 
@@ -135,17 +139,19 @@ public class RecommendationFragment extends AllStarsFragment implements Recommen
 
     @Override
     public void goWriteComment() {
-
+        Intent intent = new Intent(getActivity(), CommentActivity.class);
+        startActivityForResult(intent, RQ_COMMENT);
     }
 
     @Override
     public void showComment(String comment) {
         commentSelectionView.setData(comment);
+        commentSelectionView.showData();
     }
 
     @Override
     public void goSelectSubcategory() {
-
+        //TODO: init selection of subcategories
     }
 
     @Override
@@ -161,8 +167,20 @@ public class RecommendationFragment extends AllStarsFragment implements Recommen
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RQ_CONTACT && resultCode == Activity.RESULT_OK) {
-            recommendationPresenter.loadSelectedUser((Employee)data.getParcelableExtra(SELECTED_USER_KEY));
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == RQ_CONTACT) {
+                recommendationPresenter.loadSelectedUser((Employee) data.getParcelableExtra(SELECTED_USER_KEY));
+            } else if (requestCode == RQ_COMMENT) {
+                recommendationPresenter.loadSelectedComment(data.getStringExtra(COMMENT_KEY));
+            } else if (requestCode == RQ_SUBCATEGORY) {
+                recommendationPresenter.loadSelectedSubCategory((SubCategory)data.getParcelableExtra(SUBCATEGORY_KEY));
+            }
         }
+    }
+
+    @Override
+    public void finishRecommendation() {
+        Toast.makeText(getActivity(), "SUCCESS", Toast.LENGTH_LONG).show();
+        fragmentListener.closeActivity();
     }
 }

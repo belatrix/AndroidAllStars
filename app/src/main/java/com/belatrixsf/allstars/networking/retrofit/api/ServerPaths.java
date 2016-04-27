@@ -28,6 +28,8 @@ public interface ServerPaths {
     String EMPLOYEE = "employee";
     String STAR = "star";
     String EMPLOYEE_ID = "employee_id";
+    String FROM_EMPLOYEE = "from_employee_id";
+    String TO_EMPLOYEE = "to_employee_id";
     String SEARCH_TERM = "search_term";
 
     String EMPLOYEE_AUTHENTICATE = EMPLOYEE + "/authenticate/";
@@ -35,5 +37,7 @@ public interface ServerPaths {
     String EMPLOYEE_SEARCH_TERM = EMPLOYEE + "/search/{" + SEARCH_TERM + "}";
     String EMPLOYEE_BY_ID = EMPLOYEE + "/{" + EMPLOYEE_ID + "}";
     String EMPLOYEE_SUBCATEGORY_LIST = STAR + "/{" + EMPLOYEE_ID + "}" + "/subcategory/list";
+
+    String STAR_EMPLOYEE = STAR + "/{" + FROM_EMPLOYEE + "}" + "/give/star/to/{" + TO_EMPLOYEE + "}/" ;
 
 }

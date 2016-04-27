@@ -29,7 +29,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.view.ActionMode;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.belatrixsf.allstars.R;
@@ -39,12 +38,10 @@ import com.belatrixsf.allstars.ui.contacts.ContactFragmentListener;
 import com.belatrixsf.allstars.ui.recommendation.RecommendationActivity;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 public class MainActivity extends AllStarsActivity implements ContactFragmentListener {
 
     @Bind(R.id.app_bar_layout) AppBarLayout appBarLayout;
-    @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.tab_layout) TabLayout tabLayout;
     @Bind(R.id.main_view_pager) ViewPager mainViewPager;
     @Bind(R.id.start_recommendation) FloatingActionButton startRecommendationButton;
@@ -53,8 +50,7 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
+        setToolbar();
         setupViews();
     }
 

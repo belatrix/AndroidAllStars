@@ -17,9 +17,6 @@ public class AccountActivity extends AllStarsActivity {
 
     public static final String USER_ID_KEY = "_user_id";
 
-    @Bind(R.id.toolbar)
-    Toolbar toolbar;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +26,7 @@ public class AccountActivity extends AllStarsActivity {
             Integer userId = getIntent().getIntExtra(USER_ID_KEY, -1);
             replaceFragment(AccountFragment.newInstance(userId), false);
         }
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setNavigationToolbar();
     }
 
 }

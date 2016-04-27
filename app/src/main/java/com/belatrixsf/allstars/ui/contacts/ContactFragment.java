@@ -62,7 +62,7 @@ import butterknife.Bind;
  */
 public class ContactFragment extends AllStarsFragment implements ContactView, RecyclerOnItemClickListener {
 
-    public static final String SEARCH_KEY = "_is_search";
+    public static final String PROFILE_ENABLED_KEY = "_is_search";
 
     @Bind(R.id.employees) RecyclerView employeeRecyclerView;
 
@@ -73,9 +73,9 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
     private EditText searchTermEditText;
     private ImageButton cleanImageButton;
 
-    public static ContactFragment newInstance(boolean isSearch) {
+    public static ContactFragment newInstance(boolean profileEnabled) {
         Bundle bundle = new Bundle();
-        bundle.putBoolean(SEARCH_KEY, isSearch);
+        bundle.putBoolean(PROFILE_ENABLED_KEY, profileEnabled);
         ContactFragment contactFragment = new ContactFragment();
         contactFragment.setArguments(bundle);
         return contactFragment;
@@ -118,8 +118,8 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
         contactPresenter = allStarsApplication.getApplicationComponent()
                 .contactComponent(new ContactPresenterModule(this))
                 .contactPresenter();
-        if (getArguments() != null && getArguments().containsKey(SEARCH_KEY)) {
-            contactPresenter.setProfileEnabled(getArguments().getBoolean(SEARCH_KEY));
+        if (getArguments() != null && getArguments().containsKey(PROFILE_ENABLED_KEY)) {
+            contactPresenter.setProfileEnabled(getArguments().getBoolean(PROFILE_ENABLED_KEY));
         }
     }
 

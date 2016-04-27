@@ -18,19 +18,16 @@ import butterknife.ButterKnife;
  */
 public class ContactActivity  extends AllStarsActivity implements ContactFragmentListener {
 
-    @Bind(R.id.toolbar)
-    Toolbar toolbar;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-        ButterKnife.bind(this);
         if (savedInstanceState == null) {
             replaceFragment(ContactFragment.newInstance(false), false);
         }
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setNavigationToolbar();
     }
 
 

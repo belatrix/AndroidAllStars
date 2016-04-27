@@ -25,10 +25,17 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.utils.Dialogs;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * @author PedroCarrillo
@@ -37,6 +44,13 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
 
     private AlertDialog errorAlertDialog;
     private ProgressDialog progressDialog;
+    @Nullable @Bind(R.id.toolbar) protected Toolbar toolbar;
+
+    @Override
+    public void setContentView(@LayoutRes int layoutResID) {
+        super.setContentView(layoutResID);
+        ButterKnife.bind(this);
+    }
 
     @Override
     public void replaceFragment(Fragment fragment, boolean addToBackStack) {
@@ -48,7 +62,7 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         String tag = fragment.getClass().getSimpleName();
         transaction.replace(containerId, fragment, tag);
-        if(addToBackStack) transaction.addToBackStack(null);
+        if (addToBackStack) transaction.addToBackStack(null);
         transaction.commit();
     }
 
@@ -117,5 +131,14 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
     @Override
     public void setActivityResult(int resultCode, Intent resultIntent) {
         setResult(resultCode, resultIntent);
+    }
+
+    protected void setToolbar() {
+        setSupportActionBar(toolbar);
+    }
+
+    protected void setNavigationToolbar() {
+        setToolbar();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }
