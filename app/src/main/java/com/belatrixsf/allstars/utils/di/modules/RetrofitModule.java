@@ -22,6 +22,7 @@ package com.belatrixsf.allstars.utils.di.modules;
 
 import com.belatrixsf.allstars.BuildConfig;
 import com.belatrixsf.allstars.managers.PreferencesManager;
+import com.belatrixsf.allstars.networking.retrofit.api.CategoryAPI;
 import com.belatrixsf.allstars.networking.retrofit.api.EmployeeAPI;
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.OkHttpClient;
@@ -46,7 +47,7 @@ public class RetrofitModule {
 
     @Singleton
     @Provides
-    public Retrofit providesRetrofit() {
+    public Retrofit provideRetrofit() {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient();
@@ -70,8 +71,13 @@ public class RetrofitModule {
     }
 
     @Provides
-    public EmployeeAPI providesUserAPI(Retrofit retrofit) {
+    public EmployeeAPI provideUserAPI(Retrofit retrofit) {
         return retrofit.create(EmployeeAPI.class);
+    }
+
+    @Provides
+    public CategoryAPI provideCategoryAPI(Retrofit retrofit) {
+        return retrofit.create(CategoryAPI.class);
     }
 
 }

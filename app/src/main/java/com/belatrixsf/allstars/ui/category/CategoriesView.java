@@ -18,32 +18,20 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils.di.modules;
+package com.belatrixsf.allstars.ui.category;
 
-import com.belatrixsf.allstars.networking.retrofit.api.CategoryAPI;
-import com.belatrixsf.allstars.networking.retrofit.api.EmployeeAPI;
-import com.belatrixsf.allstars.services.CategoryServerService;
-import com.belatrixsf.allstars.services.CategoryService;
-import com.belatrixsf.allstars.services.EmployeeServerService;
-import com.belatrixsf.allstars.services.EmployeeService;
+import com.belatrixsf.allstars.entities.Category;
+import com.belatrixsf.allstars.ui.common.AllStarsView;
 
-import dagger.Module;
-import dagger.Provides;
+import java.util.List;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by gyosida on 4/27/16.
  */
-@Module
-public class ServicesModule {
+public interface CategoriesView extends AllStarsView {
 
-    @Provides
-    public EmployeeService providesEmployeeService(EmployeeAPI employeeAPI) {
-        return new EmployeeServerService(employeeAPI);
-    }
-
-    @Provides
-    public CategoryService provideCategoryService(CategoryAPI categoryAPI) {
-        return new CategoryServerService(categoryAPI);
-    }
+    void showCategories(List<Category> categories);
+    void showSubcategories(Category category);
+    void notifySelection(Category subcategory);
 
 }

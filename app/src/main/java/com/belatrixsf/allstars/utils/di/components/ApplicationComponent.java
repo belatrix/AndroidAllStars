@@ -23,6 +23,7 @@ package com.belatrixsf.allstars.utils.di.components;
 import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.utils.di.modules.RetrofitModule;
 import com.belatrixsf.allstars.utils.di.modules.ServicesModule;
+import com.belatrixsf.allstars.utils.di.modules.presenters.CategoriesListModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactPresenterModule;
 
 import javax.inject.Singleton;
@@ -43,5 +44,6 @@ public interface ApplicationComponent {
 
     EmployeeManager employeeManager();
     ContactComponent contactComponent(ContactPresenterModule contactPresenterModule);
+    CategoriesListComponent categoriesListComponent(CategoriesListModule categoriesListModule);
 
 }

@@ -20,29 +20,67 @@
 */
 package com.belatrixsf.allstars.entities;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by PedroCarrillo on 4/8/16.
  */
-public class Category {
+public class Category implements Parcelable {
 
-    private String id;
+    @SerializedName("pk")
+    private int id;
     private String name;
     private int weight;
     private int value;
+    private transient int parentId;
 
-    public Category(String id, String name, int weight, int value) {
+    public Category(int id, String name, int weight, int value) {
         this.id = id;
         this.name = name;
         this.weight = weight;
         this.value = value;
     }
 
-    public String getId() {
-        return id;
+    protected Category(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        weight = in.readInt();
+        value = in.readInt();
+        parentId = in.readInt();
     }
 
-    public void setId(String id) {
-        this.id = id;
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeInt(weight);
+        dest.writeInt(value);
+        dest.writeInt(parentId);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Category> CREATOR = new Parcelable.Creator<Category>() {
+        @Override
+        public Category createFromParcel(Parcel in) {
+            return new Category(in);
+        }
+
+        @Override
+        public Category[] newArray(int size) {
+            return new Category[size];
+        }
+    };
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -57,16 +95,15 @@ public class Category {
         return weight;
     }
 
-    public void setWeight(int weight) {
-        this.weight = weight;
-    }
-
     public int getValue() {
         return value;
     }
 
-    public void setValue(int value) {
-        this.value = value;
+    public int getParentId() {
+        return parentId;
     }
 
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
+    }
 }

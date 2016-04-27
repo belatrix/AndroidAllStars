@@ -26,12 +26,18 @@ package com.belatrixsf.allstars.networking.retrofit.api;
 public interface ServerPaths {
 
     String EMPLOYEE = "employee";
+    String CATEGORY = "category";
     String EMPLOYEE_ID = "employee_id";
     String SEARCH_TERM = "search_term";
+    String CATEGORY_ID = "category_id";
 
     String EMPLOYEE_AUTHENTICATE = EMPLOYEE + "/authenticate/";
     String EMPLOYEE_LIST = EMPLOYEE + "/list";
     String EMPLOYEE_SEARCH_TERM = EMPLOYEE + "/search/{" + SEARCH_TERM + "}";
     String EMPLOYEE_BY_ID = EMPLOYEE + "/{" + EMPLOYEE_ID + "}";
+    String EMPLOYEE_CATEGORIES = EMPLOYEE + "/{" + EMPLOYEE_ID + "}/category/list";
+
+    String SUBCATEGORIES_BY_CATEGORY_ID = CATEGORY + "/{" + CATEGORY_ID + "}/subcategory/list";
+
 
 }

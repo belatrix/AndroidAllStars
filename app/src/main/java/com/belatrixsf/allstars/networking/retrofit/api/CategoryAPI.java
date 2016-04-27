@@ -18,32 +18,23 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils.di.modules;
+package com.belatrixsf.allstars.networking.retrofit.api;
 
-import com.belatrixsf.allstars.networking.retrofit.api.CategoryAPI;
-import com.belatrixsf.allstars.networking.retrofit.api.EmployeeAPI;
-import com.belatrixsf.allstars.services.CategoryServerService;
-import com.belatrixsf.allstars.services.CategoryService;
-import com.belatrixsf.allstars.services.EmployeeServerService;
-import com.belatrixsf.allstars.services.EmployeeService;
+import com.belatrixsf.allstars.entities.Category;
 
-import dagger.Module;
-import dagger.Provides;
+import java.util.List;
+
+import retrofit.Call;
+import retrofit.http.GET;
+import retrofit.http.Path;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by gyosida on 4/26/16.
  */
-@Module
-public class ServicesModule {
+public interface CategoryAPI {
 
-    @Provides
-    public EmployeeService providesEmployeeService(EmployeeAPI employeeAPI) {
-        return new EmployeeServerService(employeeAPI);
-    }
+    @GET(ServerPaths.SUBCATEGORIES_BY_CATEGORY_ID)
+    Call<List<Category>> getSubcategories(@Path(ServerPaths.CATEGORY_ID) int categoryId);
 
-    @Provides
-    public CategoryService provideCategoryService(CategoryAPI categoryAPI) {
-        return new CategoryServerService(categoryAPI);
-    }
 
 }

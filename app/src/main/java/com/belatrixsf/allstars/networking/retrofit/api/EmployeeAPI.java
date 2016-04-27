@@ -20,10 +20,13 @@
 */
 package com.belatrixsf.allstars.networking.retrofit.api;
 
+import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.networking.retrofit.requests.AuthenticationRequest;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
+
+import java.util.List;
 
 import retrofit.Call;
 import retrofit.http.Body;
@@ -47,5 +50,8 @@ public interface EmployeeAPI {
 
     @GET(ServerPaths.EMPLOYEE_SEARCH_TERM)
     Call<SearchEmployeeResponse> getEmployeeSearchList(@Path(ServerPaths.SEARCH_TERM) String searchTerm);
+
+    @GET(ServerPaths.EMPLOYEE_CATEGORIES)
+    Call<List<Category>> getEmployeeCategories(@Path(ServerPaths.EMPLOYEE_ID) int employeeId);
 
 }

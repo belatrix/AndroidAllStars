@@ -18,32 +18,40 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils.di.modules;
+package com.belatrixsf.allstars.utils.di.modules.presenters;
 
-import com.belatrixsf.allstars.networking.retrofit.api.CategoryAPI;
-import com.belatrixsf.allstars.networking.retrofit.api.EmployeeAPI;
-import com.belatrixsf.allstars.services.CategoryServerService;
+import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.services.CategoryService;
-import com.belatrixsf.allstars.services.EmployeeServerService;
 import com.belatrixsf.allstars.services.EmployeeService;
+import com.belatrixsf.allstars.ui.category.CategoriesPresenter;
+import com.belatrixsf.allstars.ui.category.CategoriesView;
 
 import dagger.Module;
 import dagger.Provides;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by gyosida on 4/27/16.
  */
 @Module
-public class ServicesModule {
+public class CategoriesListModule {
 
-    @Provides
-    public EmployeeService providesEmployeeService(EmployeeAPI employeeAPI) {
-        return new EmployeeServerService(employeeAPI);
+    private CategoriesView categoriesView;
+    private Integer categoryId;
+
+    public CategoriesListModule(CategoriesView categoriesView, Integer categoryId) {
+        this.categoriesView = categoriesView;
+        this.categoryId = categoryId;
     }
 
     @Provides
-    public CategoryService provideCategoryService(CategoryAPI categoryAPI) {
-        return new CategoryServerService(categoryAPI);
+    public CategoriesPresenter provideCategoriesPresenter(EmployeeManager employeeManager, EmployeeService employeeService, CategoryService categoryService) {
+        if (categoryId == null) {
+            return new CategoriesPresenter(categoriesView, employeeManager, employeeService);
+        } else {
+            CategoriesPresenter presenter = new CategoriesPresenter(categoriesView, categoryService);
+            presenter.setCategoryId(categoryId);
+            return presenter;
+        }
     }
 
 }

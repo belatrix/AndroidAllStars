@@ -20,10 +20,13 @@
 */
 package com.belatrixsf.allstars.services;
 
+import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
+
+import java.util.List;
 
 /**
  * Created by gyosida on 4/12/16.
@@ -34,5 +37,6 @@ public interface EmployeeService {
     void getEmployee(int employeeId, AllStarsCallback<Employee> callback);
     void getEmployeeList(AllStarsCallback<SearchEmployeeResponse> callback);
     void getEmployeeSearchList(String searchTerm, AllStarsCallback<SearchEmployeeResponse> callback);
+    void getEmployeeCategories(int employeeId, AllStarsCallback<List<Category>> callback);
 
 }

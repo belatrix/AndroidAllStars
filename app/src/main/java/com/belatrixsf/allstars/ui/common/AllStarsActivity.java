@@ -37,6 +37,17 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
     private AlertDialog errorAlertDialog;
     private ProgressDialog progressDialog;
 
+
+    // hack for forcing to pop the back stack when back key is pressed when using android.app.Fragment
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     @Override
     public void replaceFragment(Fragment fragment, boolean addToBackStack) {
         replaceFragment(R.id.main_content, fragment, addToBackStack);
