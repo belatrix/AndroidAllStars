@@ -51,7 +51,7 @@ import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactPresenterModule;
-import static com.belatrixsf.allstars.ui.startrecommendation.StartRecommendationFragment.SELECTED_USER_KEY;
+import static com.belatrixsf.allstars.ui.givestar.GiveStarFragment.SELECTED_USER_KEY;
 
 import java.util.List;
 

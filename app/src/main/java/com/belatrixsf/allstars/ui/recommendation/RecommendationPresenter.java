@@ -18,23 +18,40 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.services;
+package com.belatrixsf.allstars.ui.recommendation;
 
-import com.belatrixsf.allstars.entities.Employee;
-import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.RecommendationResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
+import com.belatrixsf.allstars.services.EmployeeService;
+import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
+import com.belatrixsf.allstars.utils.ServiceError;
+
+import javax.inject.Inject;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by icerrate on 25/04/2016.
  */
-public interface EmployeeService {
+public class RecommendationPresenter extends AllStarsPresenter<RecommendationView> {
 
-    void authenticate(String username, String password, AllStarsCallback<AuthenticationResponse> callback);
-    void getEmployee(int employeeId, AllStarsCallback<Employee> callback);
-    void getEmployeeList(AllStarsCallback<SearchEmployeeResponse> callback);
-    void getEmployeeSearchList(String searchTerm, AllStarsCallback<SearchEmployeeResponse> callback);
-    void getRecommendationList(int employeeId, int subcategory, AllStarsCallback<RecommendationResponse> callback);
+    private EmployeeService employeeService;
 
+    @Inject
+    public RecommendationPresenter(RecommendationView view, EmployeeService employeeService) {
+        super(view);
+        this.employeeService = employeeService;
+    }
+
+    public void getRecommendationList(int employeeId, int subcategoryId) {
+        employeeService.getRecommendationList(employeeId, subcategoryId, new AllStarsCallback<RecommendationResponse>() {
+            @Override
+            public void onSuccess(RecommendationResponse recommendationResponse) {
+                view.showRecommendations(recommendationResponse.getRecommendationList());
+            }
+
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                showError(serviceError.getErrorMessage());
+            }
+        });
+    }
 }

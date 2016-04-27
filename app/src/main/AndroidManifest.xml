@@ -37,7 +37,7 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".ui.startrecommendation.StartRecommendationActivity"
+            android:name=".ui.givestar.GiveStarActivity"
             android:label="@string/recommendation_string">
         </activity>
         <activity

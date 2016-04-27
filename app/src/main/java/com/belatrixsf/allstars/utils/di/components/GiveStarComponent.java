@@ -20,34 +20,22 @@
 */
 package com.belatrixsf.allstars.utils.di.components;
 
-import com.belatrixsf.allstars.managers.EmployeeManager;
-import com.belatrixsf.allstars.utils.di.modules.RetrofitModule;
-import com.belatrixsf.allstars.utils.di.modules.ServicesModule;
-import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModule;
-import com.belatrixsf.allstars.utils.di.modules.presenters.ContactPresenterModule;
+import com.belatrixsf.allstars.ui.givestar.GiveStarPresenter;
 import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
-import com.belatrixsf.allstars.utils.di.modules.presenters.RecommendationPresenterModule;
+import com.belatrixsf.allstars.utils.di.scopes.UIScope;
 
-import javax.inject.Singleton;
-
-import dagger.Component;
+import dagger.Subcomponent;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by PedroCarrillo on 4/27/16.
  */
-@Singleton
-@Component(
-        modules = {
-                RetrofitModule.class,
-                ServicesModule.class
-        }
+@UIScope
+@Subcomponent(
+        modules = GiveStarPresenterModule.class
 )
-public interface ApplicationComponent {
+public interface GiveStarComponent {
 
-    EmployeeManager employeeManager();
-    AccountComponent accountComponent(AccountPresenterModule accountPresenterModule);
-    ContactComponent contactComponent(ContactPresenterModule contactPresenterModule);
-    RecommendationComponent recommendationComponent(RecommendationPresenterModule recommendationPresenterModule);
-    GiveStarComponent giveStarComponent(GiveStarPresenterModule giveStarPresenterModule);
+    GiveStarPresenter giveStarPresenter();
 
 }
+

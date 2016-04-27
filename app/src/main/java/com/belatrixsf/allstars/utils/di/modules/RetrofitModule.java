@@ -57,7 +57,7 @@ public class RetrofitModule {
             public Response intercept(Chain chain) throws IOException {
                 String token = PreferencesManager.get().getToken();
                 if (token != null) {
-                    Request request = chain.request().newBuilder().addHeader("Authorization", token).build();
+                    Request request = chain.request().newBuilder().addHeader("Authorization", "Token "+token).build();
                     return chain.proceed(request);
                 }
                 return chain.proceed(chain.request());

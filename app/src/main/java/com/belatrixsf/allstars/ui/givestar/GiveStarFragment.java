@@ -1,4 +1,4 @@
-package com.belatrixsf.allstars.ui.startrecommendation;
+package com.belatrixsf.allstars.ui.givestar;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -20,14 +20,14 @@ import com.belatrixsf.allstars.ui.common.views.AccountSelectionView;
 import com.belatrixsf.allstars.ui.common.views.DataSelectionView;
 import com.belatrixsf.allstars.ui.contacts.ContactActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
-import com.belatrixsf.allstars.utils.di.modules.presenters.RecommendationPresenterModule;
+import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
 
 import butterknife.Bind;
 
 /**
  * Created by PedroCarrillo on 4/22/16.
  */
-public class StartRecommendationFragment extends AllStarsFragment implements StartRecommendationView {
+public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
 
     public static final String SELECTED_USER_KEY = "_selected_user";
     public static final String COMMENT_KEY = "_user_comment";
@@ -36,7 +36,7 @@ public class StartRecommendationFragment extends AllStarsFragment implements Sta
     public static final int RQ_COMMENT = 101;
     public static final int RQ_SUBCATEGORY = 102;
 
-    private StartRecommendationPresenter recommendationPresenter;
+    private GiveStarPresenter giveStarPresenter;
 
     @Bind(R.id.account_selection) AccountSelectionView accountSelectionView;
     @Bind(R.id.category_selection) DataSelectionView categorySelectionView;
@@ -51,14 +51,12 @@ public class StartRecommendationFragment extends AllStarsFragment implements Sta
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_recommendation, container, false);
+        return inflater.inflate(R.layout.fragment_give_star, container, false);
     }
 
     @Override
     protected void initDependencies(AllStarsApplication allStarsApplication) {
-        recommendationPresenter = allStarsApplication.getApplicationComponent()
-                .recommendationComponent(new RecommendationPresenterModule(this))
-                .recommendationPresenter();
+        giveStarPresenter = allStarsApplication.getApplicationComponent().giveStarComponent(new GiveStarPresenterModule(this)).giveStarPresenter();
     }
 
     @Override
@@ -70,7 +68,7 @@ public class StartRecommendationFragment extends AllStarsFragment implements Sta
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         MenuItem menuItem = menu.findItem(R.id.action_done);
-        menuItem.setEnabled(recommendationPresenter.checkRecommendationEnabled());
+        menuItem.setEnabled(giveStarPresenter.checkRecommendationEnabled());
         super.onPrepareOptionsMenu(menu);
     }
 
@@ -78,7 +76,7 @@ public class StartRecommendationFragment extends AllStarsFragment implements Sta
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_done:
-                recommendationPresenter.makeRecommendation();
+                giveStarPresenter.makeRecommendation();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -91,21 +89,21 @@ public class StartRecommendationFragment extends AllStarsFragment implements Sta
         accountSelectionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recommendationPresenter.userSelectionClicked();
+                giveStarPresenter.userSelectionClicked();
             }
         });
 
         categorySelectionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recommendationPresenter.categorySelectionClicked();
+                giveStarPresenter.categorySelectionClicked();
             }
         });
 
         commentSelectionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recommendationPresenter.commentSelectionClicked();
+                giveStarPresenter.commentSelectionClicked();
             }
         });
 
@@ -169,11 +167,11 @@ public class StartRecommendationFragment extends AllStarsFragment implements Sta
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == RQ_CONTACT) {
-                recommendationPresenter.loadSelectedUser((Employee) data.getParcelableExtra(SELECTED_USER_KEY));
+                giveStarPresenter.loadSelectedUser((Employee) data.getParcelableExtra(SELECTED_USER_KEY));
             } else if (requestCode == RQ_COMMENT) {
-                recommendationPresenter.loadSelectedComment(data.getStringExtra(COMMENT_KEY));
+                giveStarPresenter.loadSelectedComment(data.getStringExtra(COMMENT_KEY));
             } else if (requestCode == RQ_SUBCATEGORY) {
-                recommendationPresenter.loadSelectedSubCategory((SubCategory)data.getParcelableExtra(SUBCATEGORY_KEY));
+                giveStarPresenter.loadSelectedSubCategory((SubCategory)data.getParcelableExtra(SUBCATEGORY_KEY));
             }
         }
     }

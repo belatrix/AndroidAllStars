@@ -5,6 +5,7 @@ package com.belatrixsf.allstars.utils;
  */
 public class Constants {
     public static final String EMPTY_STRING = "";
+    public static final String COMMA_SYMBOL = ", ";
     public static final String NUMERIC_SYMBOL = "#";
     public static final int CAP_POSITION = 0;
 }

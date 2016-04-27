@@ -1,4 +1,4 @@
-package com.belatrixsf.allstars.ui.startrecommendation;
+package com.belatrixsf.allstars.ui.givestar;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,7 +12,7 @@ import butterknife.Bind;
 /**
  * Created by PedroCarrillo on 4/22/16.
  */
-public class StartRecommendationActivity extends AllStarsActivity {
+public class GiveStarActivity extends AllStarsActivity {
 
     @Bind(R.id.toolbar) Toolbar toolbar;
 
@@ -21,7 +21,7 @@ public class StartRecommendationActivity extends AllStarsActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
         if (savedInstanceState == null) {
-            replaceFragment(new StartRecommendationFragment(), false);
+            replaceFragment(new GiveStarFragment(), false);
         }
         setNavigationToolbar();
     }

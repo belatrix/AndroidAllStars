@@ -18,23 +18,18 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils.di.components;
+package com.belatrixsf.allstars.ui.recommendation;
 
-import com.belatrixsf.allstars.ui.recommendation.RecommendationPresenter;
-import com.belatrixsf.allstars.utils.di.modules.presenters.RecommendationPresenterModule;
-import com.belatrixsf.allstars.utils.di.scopes.UIScope;
+import com.belatrixsf.allstars.entities.Recommendation;
+import com.belatrixsf.allstars.ui.common.AllStarsView;
 
-import dagger.Subcomponent;
+import java.util.List;
 
 /**
  * Created by icerrate on 25/04/2016.
  */
-@UIScope
-@Subcomponent(
-        modules = RecommendationPresenterModule.class
-)
-public interface RecommendationComponent {
+public interface RecommendationView extends AllStarsView {
 
-    RecommendationPresenter recommendationPresenter();
+    void showRecommendations(List<Recommendation> recommendations);
 
 }
