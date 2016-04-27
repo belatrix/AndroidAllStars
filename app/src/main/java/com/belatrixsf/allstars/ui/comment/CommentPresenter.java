@@ -23,4 +23,10 @@ public class CommentPresenter extends AllStarsPresenter<CommentView> {
         }
     }
 
+    public void init(String comment) {
+        if (comment != null) {
+            view.selectComment(comment);
+        }
+    }
+
 }

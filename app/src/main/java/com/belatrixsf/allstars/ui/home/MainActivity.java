@@ -20,12 +20,15 @@
 */
 package com.belatrixsf.allstars.ui.home;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.view.ActionMode;
@@ -41,10 +44,14 @@ import butterknife.Bind;
 
 public class MainActivity extends AllStarsActivity implements ContactFragmentListener {
 
+    public static final int RQ_GIVE_STAR = 99;
+    public static final String MESSAGE_KEY = "_message_key";
+
     @Bind(R.id.app_bar_layout) AppBarLayout appBarLayout;
     @Bind(R.id.tab_layout) TabLayout tabLayout;
     @Bind(R.id.main_view_pager) ViewPager mainViewPager;
     @Bind(R.id.start_recommendation) FloatingActionButton startRecommendationButton;
+    @Bind(R.id.main_coordinator) CoordinatorLayout coordinatorLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +71,7 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, GiveStarActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, RQ_GIVE_STAR);
             }
         });
     }
@@ -119,4 +126,11 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
         super.onSupportActionModeFinished(mode);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            Snackbar.make(coordinatorLayout, data.getStringExtra(MESSAGE_KEY), Snackbar.LENGTH_LONG).show();
+        }
+    }
 }

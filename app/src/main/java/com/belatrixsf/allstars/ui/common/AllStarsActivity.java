@@ -30,6 +30,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.utils.Dialogs;
@@ -119,11 +120,6 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
     }
 
     @Override
-    public void setTitle() {
-
-    }
-
-    @Override
     public void setActivityResult(int resultCode) {
         setResult(resultCode);
     }
@@ -140,5 +136,14 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
     protected void setNavigationToolbar() {
         setToolbar();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (toolbar != null) {
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
+        }
     }
+
 }

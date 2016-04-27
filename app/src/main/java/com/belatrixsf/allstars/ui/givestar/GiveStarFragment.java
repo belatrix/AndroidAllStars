@@ -9,7 +9,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
@@ -19,6 +18,7 @@ import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.views.AccountSelectionView;
 import com.belatrixsf.allstars.ui.common.views.DataSelectionView;
 import com.belatrixsf.allstars.ui.contacts.ContactActivity;
+import com.belatrixsf.allstars.ui.home.MainActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
 
@@ -136,9 +136,10 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
     }
 
     @Override
-    public void goWriteComment() {
+    public void goWriteComment(String comment) {
         Intent intent = new Intent(getActivity(), CommentActivity.class);
-        startActivityForResult(intent, RQ_COMMENT);
+        intent.putExtra(COMMENT_KEY, comment);
+        getActivity().startActivityForResult(intent, RQ_COMMENT);
     }
 
     @Override
@@ -178,7 +179,9 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
 
     @Override
     public void finishRecommendation() {
-        Toast.makeText(getActivity(), "SUCCESS", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent();
+        intent.putExtra(MainActivity.MESSAGE_KEY, getString(R.string.success_recommendation));
+        fragmentListener.setActivityResult(MainActivity.RQ_GIVE_STAR, intent);
         fragmentListener.closeActivity();
     }
 }

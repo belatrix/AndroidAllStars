@@ -17,7 +17,7 @@ public interface GiveStarView extends AllStarsView {
 
     void showUserLevel(String level);
 
-    void goWriteComment();
+    void goWriteComment(String comment);
 
     void showComment(String comment);
 

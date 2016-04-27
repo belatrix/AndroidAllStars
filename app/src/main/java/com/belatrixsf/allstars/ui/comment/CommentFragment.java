@@ -33,6 +33,16 @@ public class CommentFragment extends AllStarsFragment implements CommentView {
 
     private CommentPresenter commentPresenter;
 
+    public static CommentFragment newInstance(String comment) {
+        Bundle bundle = new Bundle();
+        if (comment != null) {
+            bundle.putString(COMMENT_KEY, comment);
+        }
+        CommentFragment commentFragment = new CommentFragment();
+        commentFragment.setArguments(bundle);
+        return commentFragment;
+    }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -50,6 +60,9 @@ public class CommentFragment extends AllStarsFragment implements CommentView {
         commentPresenter = DaggerCommentComponent.builder().
                 commentPresenterModule(new CommentPresenterModule(this))
                 .build().commentPresenter();
+        if (getArguments() != null && getArguments().containsKey(COMMENT_KEY)) {
+            commentPresenter.init(getArguments().getString(COMMENT_KEY));
+        }
     }
 
     @Override

@@ -43,7 +43,7 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
     }
 
     public void commentSelectionClicked() {
-        view.goWriteComment();
+        view.goWriteComment(comment);
     }
 
     public void loadSelectedUser(Employee employee) {
