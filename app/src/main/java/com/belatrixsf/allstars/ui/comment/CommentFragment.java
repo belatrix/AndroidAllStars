@@ -20,7 +20,7 @@ import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.components.DaggerCommentComponent;
 import com.belatrixsf.allstars.utils.di.modules.presenters.CommentPresenterModule;
 
-import static com.belatrixsf.allstars.ui.recommendation.RecommendationFragment.COMMENT_KEY;
+import static com.belatrixsf.allstars.ui.startrecommendation.StartRecommendationFragment.COMMENT_KEY;
 
 import butterknife.Bind;
 

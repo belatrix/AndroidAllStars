@@ -1,4 +1,4 @@
-package com.belatrixsf.allstars.ui.recommendation;
+package com.belatrixsf.allstars.ui.startrecommendation;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -27,7 +27,7 @@ import butterknife.Bind;
 /**
  * Created by PedroCarrillo on 4/22/16.
  */
-public class RecommendationFragment extends AllStarsFragment implements RecommendationView {
+public class StartRecommendationFragment extends AllStarsFragment implements StartRecommendationView {
 
     public static final String SELECTED_USER_KEY = "_selected_user";
     public static final String COMMENT_KEY = "_user_comment";
@@ -36,7 +36,7 @@ public class RecommendationFragment extends AllStarsFragment implements Recommen
     public static final int RQ_COMMENT = 101;
     public static final int RQ_SUBCATEGORY = 102;
 
-    private RecommendationPresenter recommendationPresenter;
+    private StartRecommendationPresenter recommendationPresenter;
 
     @Bind(R.id.account_selection) AccountSelectionView accountSelectionView;
     @Bind(R.id.category_selection) DataSelectionView categorySelectionView;

@@ -1,11 +1,11 @@
-package com.belatrixsf.allstars.ui.recommendation;
+package com.belatrixsf.allstars.ui.startrecommendation;
 
 import com.belatrixsf.allstars.ui.common.AllStarsView;
 
 /**
  * Created by pedrocarrillo on 4/25/16.
  */
-public interface RecommendationView extends AllStarsView {
+public interface StartRecommendationView extends AllStarsView {
 
     void goSearchUser();
 

@@ -1,6 +1,6 @@
 package com.belatrixsf.allstars.utils.di.modules.presenters;
 
-import com.belatrixsf.allstars.ui.recommendation.RecommendationView;
+import com.belatrixsf.allstars.ui.startrecommendation.StartRecommendationView;
 
 import dagger.Module;
 import dagger.Provides;
@@ -11,14 +11,14 @@ import dagger.Provides;
 @Module
 public class RecommendationPresenterModule {
 
-    private RecommendationView view;
+    private StartRecommendationView view;
 
-    public RecommendationPresenterModule(RecommendationView view) {
+    public RecommendationPresenterModule(StartRecommendationView view) {
         this.view = view;
     }
 
     @Provides
-    public RecommendationView providesView() {
+    public StartRecommendationView providesView() {
         return view;
     }
 

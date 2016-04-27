@@ -1,6 +1,5 @@
-package com.belatrixsf.allstars.ui.recommendation;
+package com.belatrixsf.allstars.ui.startrecommendation;
 
-import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.managers.EmployeeManager;
@@ -16,7 +15,7 @@ import javax.inject.Inject;
 /**
  * Created by pedrocarrillo on 4/25/16.
  */
-public class RecommendationPresenter extends AllStarsPresenter<RecommendationView> {
+public class StartRecommendationPresenter extends AllStarsPresenter<StartRecommendationView> {
 
     private StarService starService;
     private EmployeeManager employeeManager;
@@ -25,7 +24,7 @@ public class RecommendationPresenter extends AllStarsPresenter<RecommendationVie
     private String comment;
 
     @Inject
-    public RecommendationPresenter(RecommendationView view, EmployeeManager employeeManager, StarService starService) {
+    public StartRecommendationPresenter(StartRecommendationView view, EmployeeManager employeeManager, StarService starService) {
         super(view);
         this.starService = starService;
         this.employeeManager = employeeManager;

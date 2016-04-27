@@ -35,7 +35,7 @@ import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.MainNavigationViewPagerAdapter;
 import com.belatrixsf.allstars.ui.common.AllStarsActivity;
 import com.belatrixsf.allstars.ui.contacts.ContactFragmentListener;
-import com.belatrixsf.allstars.ui.recommendation.RecommendationActivity;
+import com.belatrixsf.allstars.ui.startrecommendation.StartRecommendationActivity;
 
 import butterknife.Bind;
 
@@ -63,7 +63,7 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
         startRecommendationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, RecommendationActivity.class);
+                Intent intent = new Intent(MainActivity.this, StartRecommendationActivity.class);
                 startActivity(intent);
             }
         });
