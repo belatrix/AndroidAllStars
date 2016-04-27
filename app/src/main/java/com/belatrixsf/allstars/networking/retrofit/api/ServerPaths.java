@@ -26,6 +26,7 @@ package com.belatrixsf.allstars.networking.retrofit.api;
 public interface ServerPaths {
 
     String EMPLOYEE = "employee";
+    String STAR = "star";
     String EMPLOYEE_ID = "employee_id";
     String SEARCH_TERM = "search_term";
 
@@ -33,5 +34,6 @@ public interface ServerPaths {
     String EMPLOYEE_LIST = EMPLOYEE + "/list";
     String EMPLOYEE_SEARCH_TERM = EMPLOYEE + "/search/{" + SEARCH_TERM + "}";
     String EMPLOYEE_BY_ID = EMPLOYEE + "/{" + EMPLOYEE_ID + "}";
+    String EMPLOYEE_SUBCATEGORY_LIST = STAR + "/{" + EMPLOYEE_ID + "}" + "/subcategory/list";
 
 }

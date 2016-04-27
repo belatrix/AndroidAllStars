@@ -23,6 +23,7 @@ package com.belatrixsf.allstars.ui.contacts;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
@@ -45,9 +46,12 @@ import android.widget.TextView;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.EmployeeListAdapter;
 import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.ui.account.AccountActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
+import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactPresenterModule;
+import static com.belatrixsf.allstars.ui.recommendation.RecommendationFragment.SELECTED_USER_KEY;
 
 import java.util.List;
 
@@ -56,7 +60,9 @@ import butterknife.Bind;
 /**
  * Created by icerrate on 15/04/2016.
  */
-public class ContactFragment extends AllStarsFragment implements ContactView {
+public class ContactFragment extends AllStarsFragment implements ContactView, RecyclerOnItemClickListener {
+
+    public static final String SEARCH_KEY = "_is_search";
 
     @Bind(R.id.employees) RecyclerView employeeRecyclerView;
 
@@ -67,8 +73,12 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
     private EditText searchTermEditText;
     private ImageButton cleanImageButton;
 
-    public static ContactFragment newInstance() {
-        return new ContactFragment();
+    public static ContactFragment newInstance(boolean isSearch) {
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(SEARCH_KEY, isSearch);
+        ContactFragment contactFragment = new ContactFragment();
+        contactFragment.setArguments(bundle);
+        return contactFragment;
     }
 
     @Override
@@ -108,6 +118,9 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
         contactPresenter = allStarsApplication.getApplicationComponent()
                 .contactComponent(new ContactPresenterModule(this))
                 .contactPresenter();
+        if (getArguments() != null && getArguments().containsKey(SEARCH_KEY)) {
+            contactPresenter.setProfileEnabled(getArguments().getBoolean(SEARCH_KEY));
+        }
     }
 
     @Override
@@ -118,7 +131,7 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
     }
 
     private void initViews() {
-        employeeListAdapter = new EmployeeListAdapter(getActivity());
+        employeeListAdapter = new EmployeeListAdapter(this);
         employeeRecyclerView.setAdapter(employeeListAdapter);
         employeeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
@@ -230,6 +243,26 @@ public class ContactFragment extends AllStarsFragment implements ContactView {
             }
         }
     };
+
+    @Override
+    public void onClick(View v) {
+        contactPresenter.onContactClicked(v.getTag());
+    }
+
+    @Override
+    public void goEmployeeProfile(Integer id) {
+        Intent intent = new Intent(getActivity(), AccountActivity.class);
+        intent.putExtra(AccountActivity.USER_ID_KEY, id);
+        startActivity(intent);
+    }
+
+    @Override
+    public void selectEmployee(Employee employee) {
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra(SELECTED_USER_KEY, employee);
+        fragmentListener.setActivityResult(Activity.RESULT_OK, resultIntent);
+        fragmentListener.closeActivity();
+    }
 
     @Override
     public void showCleanButton() {

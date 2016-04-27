@@ -21,6 +21,7 @@
 package com.belatrixsf.allstars.ui.contacts;
 
 import com.belatrixsf.allstars.R;
+import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
 import com.belatrixsf.allstars.services.EmployeeService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
@@ -35,11 +36,16 @@ import javax.inject.Inject;
 public class ContactPresenter extends AllStarsPresenter<ContactView> {
 
     private EmployeeService employeeService;
+    private boolean profileEnabled = true;
 
     @Inject
     public ContactPresenter(ContactView view, EmployeeService employeeService) {
         super(view);
         this.employeeService = employeeService;
+    }
+
+    public void setProfileEnabled(boolean profileEnabled) {
+        this.profileEnabled = profileEnabled;
     }
 
     public void getEmployeeList() {
@@ -83,4 +89,16 @@ public class ContactPresenter extends AllStarsPresenter<ContactView> {
             showError(getString(R.string.empty_search_term));
         }
     }
+
+    public void onContactClicked(Object object) {
+        if (object != null && object instanceof Employee) {
+            Employee employee = (Employee) object;
+            if (profileEnabled) {
+                view.goEmployeeProfile(employee.getPk());
+            } else {
+                view.selectEmployee(employee);
+            }
+        }
+    }
+
 }

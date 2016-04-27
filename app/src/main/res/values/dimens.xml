@@ -26,5 +26,7 @@
     <dimen name="text_28">28sp</dimen>
 
     <dimen name="corner_radius">4dp</dimen>
+    <dimen name="picture_margin_size">20dp</dimen>
+    <dimen name="picture_stroke_width">15dp</dimen>
 
 </resources>

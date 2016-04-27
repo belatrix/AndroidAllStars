@@ -23,6 +23,9 @@ package com.belatrixsf.allstars.ui.account;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.managers.EmployeeManager;
+import com.belatrixsf.allstars.networking.retrofit.responses.StarSubCategoryResponse;
+import com.belatrixsf.allstars.services.EmployeeService;
+import com.belatrixsf.allstars.services.StarService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
@@ -36,19 +39,43 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
 
     protected EmployeeManager employeeManager;
     protected Employee employee;
+    protected StarService starService;
+    protected EmployeeService employeeService;
 
     @Inject
-    public AccountPresenter(AccountView view, EmployeeManager employeeManager) {
+    public AccountPresenter(AccountView view, EmployeeManager employeeManager, EmployeeService employeeService, StarService starService) {
         super(view);
         this.employeeManager = employeeManager;
+        this.starService = starService;
+        this.employeeService = employeeService;
     }
 
-    public void loadEmployeeAccount() {
-        employeeManager.getLoggedInEmployee(new AllStarsCallback<Employee>() {
+    public void loadEmployeeAccount(Integer employeeId) {
+        AllStarsCallback<Employee> employeeAllStarsCallback = new AllStarsCallback<Employee>() {
             @Override
             public void onSuccess(Employee employee) {
                 AccountPresenter.this.employee = employee;
+                loadSubCategoriesStar();
                 showEmployeeData();
+            }
+
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                showError(serviceError.getErrorMessage());
+            }
+        };
+        if (employeeId == null) {
+            employeeManager.getLoggedInEmployee(employeeAllStarsCallback);
+        } else{
+            employeeService.getEmployee(employeeId, employeeAllStarsCallback);
+        }
+    }
+
+    private void loadSubCategoriesStar() {
+        starService.getEmployeeSubCategoriesStars(employee.getPk(), new AllStarsCallback<StarSubCategoryResponse>() {
+            @Override
+            public void onSuccess(StarSubCategoryResponse starSubCategoryResponse) {
+                view.showSubCategories(starSubCategoryResponse.getSubCategories());
             }
 
             @Override
@@ -61,27 +88,31 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
     private void showEmployeeData() {
         if (employee.getLevel() != null) {
             view.showLevel(String.valueOf(employee.getLevel()));
+        } else {
+            view.showCurrentMonthScore(getString(R.string.no_data_option));
         }
         if (employee.getScore() != null) {
             view.showScore(String.valueOf(employee.getScore()));
-        }
-        if (employee.getSkypeId() != null) {
-            view.showSkypeId(String.valueOf(employee.getSkypeId()));
         } else {
-            view.showSkypeId(getString(R.string.no_data_option));
+            view.showCurrentMonthScore(getString(R.string.no_data_option));
+        }
+        if (employee.getCurrentMonthScore() != null) {
+            view.showCurrentMonthScore(String.valueOf(employee.getCurrentMonthScore()));
+        } else {
+            view.showCurrentMonthScore(getString(R.string.no_data_option));
         }
         if (employee.getFirstName() != null || employee.getLastName() != null || !employee.getFullName().isEmpty()) {
             view.showEmployeeName(employee.getFullName());
         } else {
             view.showEmployeeName(getString(R.string.no_data));
         }
+        if (employee.getSkypeId() != null && !employee.getSkypeId().isEmpty()) {
+            view.showSkypeId(employee.getSkypeId());
+        }
         if (employee.getRole() != null) {
             view.showRole(employee.getRole().getName());
         } else {
             view.showRole(getString(R.string.no_data));
-        }
-        if (employee.getCategories() != null) {
-            view.showCategories(employee.getCategories());
         }
         if (employee.getAvatar() != null) {
             view.showProfilePicture(employee.getAvatar());

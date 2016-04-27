@@ -33,14 +33,16 @@ import android.widget.TextView;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.AccountCategoriesAdapter;
 import com.belatrixsf.allstars.entities.Category;
+import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.allstars.ui.common.views.CircleTransform;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
-import com.belatrixsf.allstars.utils.di.components.DaggerAccountComponent;
 import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModule;
 import com.bumptech.glide.Glide;
+
+import static com.belatrixsf.allstars.ui.account.AccountActivity.USER_ID_KEY;
 
 import java.util.List;
 
@@ -49,20 +51,28 @@ import butterknife.Bind;
 /**
  * Created by pedrocarrillo on 4/9/16.
  */
-public class AccountFragment extends AllStarsFragment implements AccountView, RecyclerOnItemClickListener{
+public class AccountFragment extends AllStarsFragment implements AccountView, RecyclerOnItemClickListener {
 
     private AccountPresenter accountPresenter;
+    private AccountCategoriesAdapter accountCategoriesAdapter;
 
     @Bind(R.id.account_recommendations) RecyclerView recommendationRecyclerView;
-    @Bind(R.id.skype_id) TextView skypeTextView;
+    @Bind(R.id.skype_id) TextView skypeIdTextView;
+    @Bind(R.id.current_month_score) TextView currentMonthScoreTextView;
     @Bind(R.id.level) TextView levelTextView;
     @Bind(R.id.score) TextView scoreTextView;
     @Bind(R.id.profile_name) TextView nameTextView;
     @Bind(R.id.profile_role) TextView roleTextView;
     @Bind(R.id.profile_picture) ImageView pictureImageView;
 
-    public static AccountFragment newInstance() {
-        return new AccountFragment();
+    public static AccountFragment newInstance(Integer userId) {
+        Bundle bundle = new Bundle();
+        if (userId != null) {
+            bundle.putInt(USER_ID_KEY, userId);
+        }
+        AccountFragment accountFragment = new AccountFragment();
+        accountFragment.setArguments(bundle);
+        return accountFragment;
     }
 
     @Override
@@ -80,15 +90,30 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        accountPresenter.loadEmployeeAccount();
+        setupViews();
+        Integer userId = null;
+        if (getArguments() != null) {
+            if (getArguments().containsKey(USER_ID_KEY)) {
+                userId = getArguments().getInt(USER_ID_KEY);
+            }
+        }
+        accountPresenter.loadEmployeeAccount(userId);
+    }
+
+    private void setupViews() {
+        accountCategoriesAdapter = new AccountCategoriesAdapter(this);
+        recommendationRecyclerView.setAdapter(accountCategoriesAdapter);
+        recommendationRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setAutoMeasureEnabled(true);
+        recommendationRecyclerView.setNestedScrollingEnabled(false);
+        recommendationRecyclerView.setLayoutManager(linearLayoutManager);
     }
 
     @Override
     protected void initDependencies(AllStarsApplication allStarsApplication) {
-        accountPresenter = DaggerAccountComponent.builder()
-                .applicationComponent(allStarsApplication.getApplicationComponent())
-                .accountPresenterModule(new AccountPresenterModule(this))
-                .build()
+        accountPresenter = allStarsApplication.getApplicationComponent()
+                .accountComponent(new AccountPresenterModule(this))
                 .accountPresenter();
     }
 
@@ -98,8 +123,8 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     }
 
     @Override
-    public void showSkypeId(String skypeId) {
-        skypeTextView.setText(String.valueOf(skypeId));
+    public void showCurrentMonthScore(String currentMonthScore) {
+        currentMonthScoreTextView.setText(String.valueOf(currentMonthScore));
     }
 
     @Override
@@ -108,14 +133,8 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     }
 
     @Override
-    public void showCategories(List<Category> categories) {
-        AccountCategoriesAdapter accountCategoriesAdapter = new AccountCategoriesAdapter(categories, this);
-        recommendationRecyclerView.setAdapter(accountCategoriesAdapter);
-        recommendationRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setAutoMeasureEnabled(true);
-        recommendationRecyclerView.setNestedScrollingEnabled(false);
-        recommendationRecyclerView.setLayoutManager(linearLayoutManager);
+    public void showSubCategories(List<SubCategory> subCategories) {
+        accountCategoriesAdapter.updateData(subCategories);
     }
 
     @Override
@@ -134,8 +153,14 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     }
 
     @Override
-    public void showProfilePicture(final String profilePicture) {
-        int size = getActivity().getResources().getDimensionPixelSize(R.dimen.dimen_10_8);
-        Glide.with(getActivity()).load(profilePicture).override(size,size).centerCrop().transform(new CircleTransform(getActivity())).into(pictureImageView);
+    public void showSkypeId(String skypeID) {
+        skypeIdTextView.setText(getResources().getString(R.string.skype_id_content, skypeID));
     }
+
+    @Override
+    public void showProfilePicture(final String profilePicture) {
+        int size = getActivity().getResources().getDimensionPixelSize(R.dimen.dimen_15_10);
+        Glide.with(getActivity()).load(profilePicture).override(size, size).centerCrop().transform(new CircleTransform(getActivity())).into(pictureImageView);
+    }
+
 }

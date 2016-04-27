@@ -18,7 +18,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_20_10"
+                android:layout_height="@dimen/dimen_25_10"
                 android:background="@color/white"
                 android:orientation="vertical">
 
@@ -40,7 +40,7 @@
                         android:id="@+id/profile_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_1_5"
+                        android:layout_marginTop="@dimen/dimen_3_5"
                         tools:text="Pedro Carrillo"
                         style="@android:style/TextAppearance.Large" />
 
@@ -50,6 +50,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_1_5"
                         tools:text="Senior Android Developer" />
+
+                    <TextView
+                        android:id="@+id/skype_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_1_5"
+                        tools:text="fake skype id" />
 
                 </LinearLayout>
 
@@ -74,17 +81,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="@string/title_skype_id"
+                        android:text="@string/title_current_month_score"
                         android:textColor="@color/subTitle" />
 
                     <TextView
-                        android:id="@+id/skype_id"
+                        android:id="@+id/current_month_score"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginTop="@dimen/dimen_2_5"
                         android:gravity="center"
                         android:textColor="@android:color/black"
-                        tools:text="pter9" />
+                        tools:text="122" />
 
                 </LinearLayout>
 

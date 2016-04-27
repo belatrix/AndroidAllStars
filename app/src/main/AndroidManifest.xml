@@ -40,6 +40,14 @@
             android:name=".ui.recommendation.RecommendationActivity"
             android:label="@string/recommendation_string">
         </activity>
+        <activity
+            android:name=".ui.account.AccountActivity"
+            android:label="@string/recommendation_string">
+        </activity>
+        <activity
+            android:name=".ui.contacts.ContactActivity"
+            android:label="@string/recommendation_string">
+        </activity>
     </application>
 
 </manifest>

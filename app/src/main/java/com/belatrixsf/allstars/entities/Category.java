@@ -20,10 +20,13 @@
 */
 package com.belatrixsf.allstars.entities;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by PedroCarrillo on 4/8/16.
  */
-public class Category {
+public class Category implements Parcelable {
 
     private String id;
     private String name;
@@ -69,4 +72,36 @@ public class Category {
         this.value = value;
     }
 
+    protected Category(Parcel in) {
+        id = in.readString();
+        name = in.readString();
+        weight = in.readInt();
+        value = in.readInt();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(name);
+        dest.writeInt(weight);
+        dest.writeInt(value);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Category> CREATOR = new Parcelable.Creator<Category>() {
+        @Override
+        public Category createFromParcel(Parcel in) {
+            return new Category(in);
+        }
+
+        @Override
+        public Category[] newArray(int size) {
+            return new Category[size];
+        }
+    };
 }

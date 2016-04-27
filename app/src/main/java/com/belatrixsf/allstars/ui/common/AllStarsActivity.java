@@ -24,6 +24,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
 import com.belatrixsf.allstars.R;
@@ -107,5 +108,14 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
     public void setTitle() {
 
     }
-    
+
+    @Override
+    public void setActivityResult(int resultCode) {
+        setResult(resultCode);
+    }
+
+    @Override
+    public void setActivityResult(int resultCode, Intent resultIntent) {
+        setResult(resultCode, resultIntent);
+    }
 }

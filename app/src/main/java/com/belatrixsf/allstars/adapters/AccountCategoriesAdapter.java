@@ -28,53 +28,67 @@ import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Category;
+import com.belatrixsf.allstars.entities.SubCategory;
+import com.belatrixsf.allstars.ui.common.LoadMoreBaseAdapter;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Created by pedrocarrillo on 4/9/16.
  */
-public class AccountCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    public class AccountCategoriesAdapter extends LoadMoreBaseAdapter<SubCategory, RecyclerView.ViewHolder> {
 
-    private List<Category> categories;
+    public static final int TYPE_SUB_CATEGORY = 1;
+
     private RecyclerOnItemClickListener recyclerOnItemClickListener;
 
-    public AccountCategoriesAdapter(List<Category> categories, RecyclerOnItemClickListener recyclerOnItemClickListener) {
-        this.categories = categories;
+    public AccountCategoriesAdapter(RecyclerOnItemClickListener recyclerOnItemClickListener) {
+        this(new ArrayList<SubCategory>(), recyclerOnItemClickListener);
+    }
+
+    public AccountCategoriesAdapter(List<SubCategory> subCategories, RecyclerOnItemClickListener recyclerOnItemClickListener) {
+        this.data = subCategories;
         this.recyclerOnItemClickListener = recyclerOnItemClickListener;
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateDataViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_account_item, parent, false);
-        return new AccountCategoriesViewHolder(view, recyclerOnItemClickListener);
+        return new AccountSubCategoriesViewHolder(view, recyclerOnItemClickListener);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        AccountCategoriesViewHolder accountCategoriesViewHolder = (AccountCategoriesViewHolder) holder;
-        final Category category = categories.get(position);
-        accountCategoriesViewHolder.titleTextView.setText(category.getName());
-        accountCategoriesViewHolder.valueTextView.setText(String.valueOf(category.getValue()));
+    public void onBindDataViewHolder(RecyclerView.ViewHolder holder, int position) {
+        AccountSubCategoriesViewHolder accountSubCategoriesViewHolder = (AccountSubCategoriesViewHolder) holder;
+        final SubCategory subCategory = data.get(position);
+        holder.itemView.setTag(subCategory);
+        accountSubCategoriesViewHolder.titleTextView.setText(subCategory.getName());
+        accountSubCategoriesViewHolder.valueTextView.setText(String.valueOf(subCategory.getNumStars()));
     }
 
     @Override
-    public int getItemCount() {
-        return categories.size();
+    public int getDataItemViewType(int position) {
+        return TYPE_SUB_CATEGORY;
     }
 
-    public class AccountCategoriesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class AccountSubCategoriesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView titleTextView;
-        private TextView valueTextView;
+        @Bind(R.id.title) public TextView titleTextView;
+        @Bind(R.id.value) public TextView valueTextView;
         private RecyclerOnItemClickListener recyclerOnItemClickListener;
 
-        public AccountCategoriesViewHolder(View itemView, RecyclerOnItemClickListener recyclerOnItemClickListener) {
+        public AccountSubCategoriesViewHolder(View itemView, RecyclerOnItemClickListener recyclerOnItemClickListener) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
             this.titleTextView = (TextView) itemView.findViewById(R.id.title);
             this.valueTextView = (TextView) itemView.findViewById(R.id.value);
             this.recyclerOnItemClickListener = recyclerOnItemClickListener;
+            this.itemView.setOnClickListener(this);
         }
 
         @Override

@@ -1,4 +1,4 @@
-package com.belatrixsf.allstars.ui.recommendation;
+package com.belatrixsf.allstars.ui.account;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,11 +11,14 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * Created by PedroCarrillo on 4/22/16.
+ * Created by pedrocarrillo on 4/26/16.
  */
-public class RecommendationActivity extends AllStarsActivity {
+public class AccountActivity extends AllStarsActivity {
 
-    @Bind(R.id.toolbar) Toolbar toolbar;
+    public static final String USER_ID_KEY = "_user_id";
+
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -23,7 +26,8 @@ public class RecommendationActivity extends AllStarsActivity {
         setContentView(R.layout.activity_base);
         ButterKnife.bind(this);
         if (savedInstanceState == null) {
-            replaceFragment(new RecommendationFragment(), false);
+            Integer userId = getIntent().getIntExtra(USER_ID_KEY, -1);
+            replaceFragment(AccountFragment.newInstance(userId), false);
         }
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

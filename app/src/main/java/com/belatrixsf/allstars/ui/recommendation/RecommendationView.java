@@ -8,14 +8,23 @@ import com.belatrixsf.allstars.ui.common.AllStarsView;
 public interface RecommendationView extends AllStarsView {
 
     void goSearchUser();
+
+    void showUser();
+
     void showUserFullName(String fullName);
+
     void showUserProfileImage(String image);
+
     void showUserLevel(String level);
 
     void goWriteComment();
+
     void showComment(String comment);
 
     void goSelectSubcategory();
+
     void showCategory(String category);
+
+    void enableContinueButton();
 
 }
