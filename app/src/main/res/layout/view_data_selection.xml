@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent">
+
+    <View
+        style="@style/horizontalDivider"/>
+
+    <LinearLayout
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="@dimen/activity_horizontal_margin">
+
+        <TextView
+            android:id="@+id/hint_text_view"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textColor="@color/grey"
+            tools:visibility="visible"
+            android:text="@string/option_select_a_user"/>
+
+        <TextView
+            android:id="@+id/value_text_view"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/iv_right_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tint="@color/grey"
+            android:backgroundTint="@color/grey"
+            android:background="@drawable/ic_arrow_right"/>
+
+    </LinearLayout>
+
+    <View
+        style="@style/horizontalDivider"/>
+
+</LinearLayout>
+
