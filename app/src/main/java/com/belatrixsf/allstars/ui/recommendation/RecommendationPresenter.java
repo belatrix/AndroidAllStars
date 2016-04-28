@@ -42,9 +42,11 @@ public class RecommendationPresenter extends AllStarsPresenter<RecommendationVie
     }
 
     public void getRecommendationList(int employeeId, int subcategoryId) {
+        view.showProgressIndicator();
         employeeService.getRecommendationList(employeeId, subcategoryId, new AllStarsCallback<RecommendationResponse>() {
             @Override
             public void onSuccess(RecommendationResponse recommendationResponse) {
+                view.hideProgressIndicator();
                 view.showRecommendations(recommendationResponse.getRecommendationList());
             }
 

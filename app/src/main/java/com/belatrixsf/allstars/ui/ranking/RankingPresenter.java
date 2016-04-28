@@ -44,9 +44,11 @@ public class RankingPresenter extends AllStarsPresenter<RankingView> {
     }
 
     public void getRankingList(String kind, int quantity) {
+        view.showProgressIndicator();
         employeeService.getRankingList(kind, quantity, new AllStarsCallback<List<Employee>>() {
             @Override
             public void onSuccess(List<Employee> rankingResponse) {
+                view.hideProgressIndicator();
                 view.showRankingList(rankingResponse);
             }
 
