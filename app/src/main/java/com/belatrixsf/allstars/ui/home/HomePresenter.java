@@ -18,16 +18,34 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.contacts;
+package com.belatrixsf.allstars.ui.home;
 
+import com.belatrixsf.allstars.R;
+import com.belatrixsf.allstars.managers.EmployeeManager;
+import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 
-import android.support.v7.view.ActionMode;
+import javax.inject.Inject;
 
 /**
- * Created by icerrate on 19/04/2016.
+ * Created by gyosida on 4/28/16.
  */
-public interface ContactFragmentListener {
+public class HomePresenter extends AllStarsPresenter<HomeView> {
 
-    void setActionMode(ActionMode.Callback callback);
+    private EmployeeManager employeeManager;
+
+    @Inject
+    public HomePresenter(HomeView view, EmployeeManager employeeManager) {
+        super(view);
+        this.employeeManager = employeeManager;
+    }
+
+    public void wantToLogout() {
+        view.showLogoutConfirmationDialog(getString(R.string.dialog_confirmation_logout));
+    }
+
+    public void confirmLogout() {
+        employeeManager.logout();
+        view.goToLogin();
+    }
 
 }

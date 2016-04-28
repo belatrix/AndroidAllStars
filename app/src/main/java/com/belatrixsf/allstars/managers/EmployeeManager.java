@@ -90,4 +90,10 @@ public class EmployeeManager {
         }
     }
 
+    public void logout() {
+        employee = null;
+        PreferencesManager.get().clearEmployeeId();
+        PreferencesManager.get().clearToken();
+    }
+
 }

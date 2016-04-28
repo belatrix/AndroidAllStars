@@ -18,16 +18,28 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.contacts;
+package com.belatrixsf.allstars.utils.di.modules.presenters;
 
+import com.belatrixsf.allstars.ui.home.HomeView;
 
-import android.support.v7.view.ActionMode;
+import dagger.Module;
+import dagger.Provides;
 
 /**
- * Created by icerrate on 19/04/2016.
+ * Created by gyosida on 4/28/16.
  */
-public interface ContactFragmentListener {
+@Module
+public class HomePresenterModule {
 
-    void setActionMode(ActionMode.Callback callback);
+    private HomeView homeView;
+
+    public HomePresenterModule(HomeView homeView) {
+        this.homeView = homeView;
+    }
+
+    @Provides
+    public HomeView provideHomeView() {
+        return homeView;
+    }
 
 }

@@ -18,16 +18,28 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.contacts;
+package com.belatrixsf.allstars.utils.di.components;
 
+import com.belatrixsf.allstars.ui.home.MainActivity;
+import com.belatrixsf.allstars.utils.di.modules.presenters.HomePresenterModule;
+import com.belatrixsf.allstars.utils.di.scopes.UIScope;
 
-import android.support.v7.view.ActionMode;
+import dagger.Component;
 
 /**
- * Created by icerrate on 19/04/2016.
+ * Created by gyosida on 4/28/16.
  */
-public interface ContactFragmentListener {
+@UIScope
+@Component(
+        modules = {
+                HomePresenterModule.class
+        },
+        dependencies = {
+                ApplicationComponent.class
+        }
+)
+public interface HomeComponent {
 
-    void setActionMode(ActionMode.Callback callback);
+    void inject(MainActivity mainActivity);
 
 }

@@ -5,9 +5,15 @@
     <string name="no_data">No data found</string>
     <string name="no_data_option">-</string>
 
+    <!-- Menu items -->
+    <string name="menu_item_logout">Logout</string>
+
     <!-- Dialogs -->
     <string name="dialog_title_error">Oops something went wrong!</string>
     <string name="dialog_message_loading">Loading&#8230;</string>
+    <string name="dialog_confirmation_logout">Are you sure you want to logout?</string>
+    <string name="dialog_option_positive">Yes</string>
+    <string name="dialog_option_negative">No</string>
 
     <!-- Hint -->
     <string name="hint_username">Username</string>
