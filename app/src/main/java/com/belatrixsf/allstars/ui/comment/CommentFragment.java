@@ -67,7 +67,7 @@ public class CommentFragment extends AllStarsFragment implements CommentView {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.comment_menu, menu);
+        inflater.inflate(R.menu.menu_comment, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 

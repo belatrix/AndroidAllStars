@@ -2,7 +2,6 @@ package com.belatrixsf.allstars.ui.contacts;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
 import android.support.v7.view.ActionMode;
 
 import com.belatrixsf.allstars.R;
@@ -23,15 +22,9 @@ public class ContactActivity  extends AllStarsActivity implements ContactFragmen
         setNavigationToolbar();
     }
 
-
     @Override
     public void setActionMode(ActionMode.Callback callback) {
         startSupportActionMode(callback);
-    }
-
-    @Override
-    public AppBarLayout getAppBarLayout() {
-        return null;
     }
 
 }

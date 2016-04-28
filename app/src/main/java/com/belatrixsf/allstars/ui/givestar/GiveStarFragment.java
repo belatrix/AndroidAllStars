@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.Employee;
-import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.ui.category.CategoriesActivity;
 import com.belatrixsf.allstars.ui.comment.CommentActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
@@ -81,7 +80,7 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.recommend_menu, menu);
+        inflater.inflate(R.menu.menu_recommend, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
