@@ -50,7 +50,8 @@ public class AccountSelectionView  extends DataSelectionView {
     }
 
     public void setLevel(String level) {
-        levelTextView.setText(level);
+        String levelLabel = String.format(levelTextView.getContext().getString(R.string.contact_list_level), String.valueOf(level));
+        levelTextView.setText(levelLabel);
     }
 
 }
