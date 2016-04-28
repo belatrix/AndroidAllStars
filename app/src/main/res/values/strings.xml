@@ -30,6 +30,9 @@
     <string name="title_score">Score</string>
     <string name="title_level">Level</string>
 
+    <!--Contacts-->
+    <string name="contact_list_level">Lvl. %s</string>
+
     <!--Messages-->
     <string name="empty_search_term">Must write something</string>
 

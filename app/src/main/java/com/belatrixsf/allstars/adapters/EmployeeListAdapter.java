@@ -58,9 +58,9 @@ public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapte
     @Override
     public void onBindViewHolder(EmployeeViewHolder holder, int position) {
         final Employee employee = employeeList.get(position);
-
         holder.fullName.setText(employee.getFullName());
-        holder.level.setText(String.valueOf(employee.getLevel()));
+        String levelLabel = String.format(holder.level.getContext().getString(R.string.contact_list_level), String.valueOf(employee.getLevel()));
+        holder.level.setText(levelLabel);
     }
 
     @Override
