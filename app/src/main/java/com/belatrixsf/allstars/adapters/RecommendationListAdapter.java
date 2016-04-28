@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Recommendation;
+import com.belatrixsf.allstars.utils.DateUtils;
 import com.ramotion.foldingcell.FoldingCell;
 
 import java.util.ArrayList;
@@ -62,10 +63,11 @@ public class RecommendationListAdapter extends RecyclerView.Adapter<Recommendati
         holder.titleUserTextView.setText(recommendation.getFromUser().getFullName());
         holder.titleMessageTextView.setText(recommendation.getMessage());
         //Content
+        String fortmatDate = DateUtils.fortmatDate(recommendation.getDate(), DateUtils.DATE_FORMAT_1, DateUtils.DATE_FORMAT_2);
         holder.contentUserTextView.setText(recommendation.getFromUser().getFullName());
         holder.contentMessageTextView.setText(recommendation.getMessage());
         holder.contentCategoryTextView.setText(recommendation.getCategory().getName());
-        holder.contentDateTextView.setText(recommendation.getDate());
+        holder.contentDateTextView.setText(fortmatDate);
     }
 
     @Override
