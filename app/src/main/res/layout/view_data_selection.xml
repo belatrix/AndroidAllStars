@@ -20,9 +20,9 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:textColor="@color/grey"
             tools:visibility="visible"
-            android:text="@string/option_select_a_user"/>
+            android:text="@string/option_select_a_user"
+            style="@style/SingleLineItemTextView"/>
 
         <ViewStub android:id="@+id/dataStub"
             android:inflatedId="@+id/viewData"

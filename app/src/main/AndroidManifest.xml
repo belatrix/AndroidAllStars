@@ -42,7 +42,7 @@
         </activity>
         <activity
             android:name=".ui.givestar.GiveStarActivity"
-            android:label="@string/give_star_string">
+            android:label="@string/title_give_star_activity">
         </activity>
         <activity
             android:name=".ui.account.AccountActivity"
@@ -54,7 +54,7 @@
         </activity>
         <activity
             android:name=".ui.comment.CommentActivity"
-            android:label="@string/write_comment">
+            android:label="@string/title_comment_activity">
         </activity>
         <activity android:name=".ui.category.CategoriesActivity"/>
     </application>

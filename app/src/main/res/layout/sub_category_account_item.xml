@@ -12,7 +12,7 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
+        style="@style/SingleLineItemTextView"
         tools:text="Title"/>
 
     <TextView
@@ -31,7 +31,8 @@
         android:id="@+id/arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_chevron_right"
-        android:tint="@color/divider"/>
+        android:tint="@color/grey"
+        android:backgroundTint="@color/grey"
+        android:src="@drawable/ic_chevron_right"/>
 
 </LinearLayout>

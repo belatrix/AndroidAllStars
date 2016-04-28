@@ -35,7 +35,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
-import com.belatrixsf.allstars.adapters.AccountCategoriesAdapter;
+import com.belatrixsf.allstars.adapters.AccountSubCategoriesAdapter;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
@@ -61,7 +61,7 @@ import butterknife.Bind;
 public class AccountFragment extends AllStarsFragment implements AccountView, RecyclerOnItemClickListener {
 
     private AccountPresenter accountPresenter;
-    private AccountCategoriesAdapter accountCategoriesAdapter;
+    private AccountSubCategoriesAdapter accountCategoriesAdapter;
 
     @Bind(R.id.account_recommendations) RecyclerView recommendationRecyclerView;
     @Bind(R.id.skype_id) TextView skypeIdTextView;
@@ -146,7 +146,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
 
 
     private void setupViews() {
-        accountCategoriesAdapter = new AccountCategoriesAdapter(this);
+        accountCategoriesAdapter = new AccountSubCategoriesAdapter(this);
         recommendationRecyclerView.setAdapter(accountCategoriesAdapter);
         recommendationRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());

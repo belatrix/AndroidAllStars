@@ -27,7 +27,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
-import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.ui.common.LoadMoreBaseAdapter;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
@@ -41,24 +40,24 @@ import butterknife.ButterKnife;
 /**
  * Created by pedrocarrillo on 4/9/16.
  */
-    public class AccountCategoriesAdapter extends LoadMoreBaseAdapter<SubCategory, RecyclerView.ViewHolder> {
+    public class AccountSubCategoriesAdapter extends LoadMoreBaseAdapter<SubCategory, RecyclerView.ViewHolder> {
 
     public static final int TYPE_SUB_CATEGORY = 1;
 
     private RecyclerOnItemClickListener recyclerOnItemClickListener;
 
-    public AccountCategoriesAdapter(RecyclerOnItemClickListener recyclerOnItemClickListener) {
+    public AccountSubCategoriesAdapter(RecyclerOnItemClickListener recyclerOnItemClickListener) {
         this(new ArrayList<SubCategory>(), recyclerOnItemClickListener);
     }
 
-    public AccountCategoriesAdapter(List<SubCategory> subCategories, RecyclerOnItemClickListener recyclerOnItemClickListener) {
+    public AccountSubCategoriesAdapter(List<SubCategory> subCategories, RecyclerOnItemClickListener recyclerOnItemClickListener) {
         this.data = subCategories;
         this.recyclerOnItemClickListener = recyclerOnItemClickListener;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateDataViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_account_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sub_category_account_item, parent, false);
         return new AccountSubCategoriesViewHolder(view, recyclerOnItemClickListener);
     }
 
