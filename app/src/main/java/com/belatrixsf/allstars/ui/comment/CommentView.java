@@ -8,5 +8,6 @@ import com.belatrixsf.allstars.ui.common.AllStarsView;
 public interface CommentView extends AllStarsView {
 
     void selectComment(String comment);
+    void showComment(String comment);
 
 }

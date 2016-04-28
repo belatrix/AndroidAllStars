@@ -139,7 +139,7 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
     public void goWriteComment(String comment) {
         Intent intent = new Intent(getActivity(), CommentActivity.class);
         intent.putExtra(COMMENT_KEY, comment);
-        getActivity().startActivityForResult(intent, RQ_COMMENT);
+        startActivityForResult(intent, RQ_COMMENT);
     }
 
     @Override

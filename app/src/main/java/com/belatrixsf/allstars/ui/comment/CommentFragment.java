@@ -103,4 +103,10 @@ public class CommentFragment extends AllStarsFragment implements CommentView {
         fragmentListener.setActivityResult(Activity.RESULT_OK, resultIntent);
         fragmentListener.closeActivity();
     }
+
+    @Override
+    public void showComment(String comment) {
+        commentEditText.setText(comment);
+    }
+
 }
