@@ -21,41 +21,20 @@
 package com.belatrixsf.allstars.networking.retrofit.api;
 
 import com.belatrixsf.allstars.entities.Category;
-import com.belatrixsf.allstars.entities.Employee;
-import com.belatrixsf.allstars.networking.retrofit.requests.AuthenticationRequest;
-import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.RecommendationResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
 
 import java.util.List;
 
 import retrofit.Call;
-import retrofit.http.Body;
 import retrofit.http.GET;
-import retrofit.http.POST;
 import retrofit.http.Path;
 
 /**
- * Created by gyosida on 4/11/16.
+ * Created by gyosida on 4/26/16.
  */
-public interface EmployeeAPI {
+public interface CategoryAPI {
 
-    @POST(ServerPaths.EMPLOYEE_AUTHENTICATE)
-    Call<AuthenticationResponse> authenticate(@Body AuthenticationRequest request);
+    @GET(ServerPaths.SUBCATEGORIES_BY_CATEGORY_ID)
+    Call<List<Category>> getSubcategories(@Path(ServerPaths.CATEGORY_ID) int categoryId);
 
-    @GET(ServerPaths.EMPLOYEE_BY_ID)
-    Call<Employee> getEmployee(@Path(ServerPaths.EMPLOYEE_ID) int employeeId);
-
-    @GET(ServerPaths.EMPLOYEE_LIST)
-    Call<SearchEmployeeResponse> getEmployeeList();
-
-    @GET(ServerPaths.EMPLOYEE_SEARCH_TERM)
-    Call<SearchEmployeeResponse> getEmployeeSearchList(@Path(ServerPaths.SEARCH_TERM) String searchTerm);
-
-    @GET(ServerPaths.RECOMMENDATION_LIST)
-    Call<RecommendationResponse> getRecommendationList(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Path(ServerPaths.SUBCATEGORY_ID) int subcategoryId);
-
-    @GET(ServerPaths.EMPLOYEE_CATEGORIES)
-    Call<List<Category>> getEmployeeCategories(@Path(ServerPaths.EMPLOYEE_ID) int employeeId);
 
 }

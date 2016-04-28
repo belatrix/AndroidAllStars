@@ -19,6 +19,8 @@
     <!-- Title -->
     <string name="title_belatrix">Belatrix</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="title_select_category">Select Category</string>
+    <string name="title_select_subcategory">Select Subcategory</string>
     <string name="title_account_activity">Profile</string>
     <string name="title_contact_activity">Select an user</string>
     <string name="title_recommendation_activity">Recommendation</string>

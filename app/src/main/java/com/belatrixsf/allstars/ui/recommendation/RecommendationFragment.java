@@ -44,9 +44,6 @@ import butterknife.Bind;
  */
 public class RecommendationFragment extends AllStarsFragment implements RecommendationView {
 
-    public static final String USER_ID = "_user_id";
-    public static final String CATEGORY_ID = "_category_id";
-
     @Bind(R.id.recommendations) RecyclerView recommendationRecyclerView;
 
     private RecommendationPresenter recommendationPresenter;
@@ -54,8 +51,8 @@ public class RecommendationFragment extends AllStarsFragment implements Recommen
 
     public static RecommendationFragment newInstance(Integer userId, Integer categoryId) {
         Bundle bundle = new Bundle();
-        bundle.putInt(USER_ID, userId);
-        bundle.putInt(CATEGORY_ID, categoryId);
+        bundle.putInt(RecommendationActivity.USER_ID, userId);
+        bundle.putInt(RecommendationActivity.SUBCATEGORY_ID, categoryId);
         RecommendationFragment recommendationFragment = new RecommendationFragment();
         recommendationFragment.setArguments(bundle);
         return recommendationFragment;
@@ -84,9 +81,9 @@ public class RecommendationFragment extends AllStarsFragment implements Recommen
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews();
-        if (getArguments() != null && getArguments().containsKey(USER_ID) && getArguments().containsKey(CATEGORY_ID)) {
-            Integer userId = getArguments().getInt(USER_ID);
-            Integer categoryId = getArguments().getInt(CATEGORY_ID);
+        if (getArguments() != null && getArguments().containsKey(RecommendationActivity.USER_ID) && getArguments().containsKey(RecommendationActivity.SUBCATEGORY_ID)) {
+            Integer userId = getArguments().getInt(RecommendationActivity.USER_ID);
+            Integer categoryId = getArguments().getInt(RecommendationActivity.SUBCATEGORY_ID);
             recommendationPresenter.getRecommendationList(userId, categoryId);
         }
     }

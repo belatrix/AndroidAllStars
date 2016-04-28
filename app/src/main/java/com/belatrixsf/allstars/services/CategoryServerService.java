@@ -18,40 +18,28 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils.di.modules;
+package com.belatrixsf.allstars.services;
 
+import com.belatrixsf.allstars.entities.Category;
+import com.belatrixsf.allstars.networking.retrofit.RetrofitCallback;
 import com.belatrixsf.allstars.networking.retrofit.api.CategoryAPI;
-import com.belatrixsf.allstars.networking.retrofit.api.EmployeeAPI;
-import com.belatrixsf.allstars.networking.retrofit.api.StarAPI;
-import com.belatrixsf.allstars.services.CategoryServerService;
-import com.belatrixsf.allstars.services.CategoryService;
-import com.belatrixsf.allstars.services.EmployeeServerService;
-import com.belatrixsf.allstars.services.EmployeeService;
-import com.belatrixsf.allstars.services.StarServerService;
-import com.belatrixsf.allstars.services.StarService;
+import com.belatrixsf.allstars.utils.AllStarsCallback;
 
-import dagger.Module;
-import dagger.Provides;
+import java.util.List;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by gyosida on 4/27/16.
  */
-@Module
-public class ServicesModule {
+public class CategoryServerService implements CategoryService {
 
-    @Provides
-    public EmployeeService providesEmployeeService(EmployeeAPI employeeAPI) {
-        return new EmployeeServerService(employeeAPI);
+    private CategoryAPI categoryAPI;
+
+    public CategoryServerService(CategoryAPI categoryAPI) {
+        this.categoryAPI = categoryAPI;
     }
 
-    @Provides
-    public StarService providesStarService(StarAPI starAPI) {
-        return new StarServerService(starAPI);
+    @Override
+    public void getSubcategories(int categoryId, AllStarsCallback<List<Category>> callback) {
+        categoryAPI.getSubcategories(categoryId).enqueue(new RetrofitCallback<List<Category>>(callback));
     }
-
-    @Provides
-    public CategoryService provideCategoryService(CategoryAPI categoryAPI) {
-        return new CategoryServerService(categoryAPI);
-    }
-
 }

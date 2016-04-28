@@ -11,8 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.belatrixsf.allstars.R;
+import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.SubCategory;
+import com.belatrixsf.allstars.ui.category.CategoriesActivity;
 import com.belatrixsf.allstars.ui.comment.CommentActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.views.AccountSelectionView;
@@ -31,7 +33,6 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
 
     public static final String SELECTED_USER_KEY = "_selected_user";
     public static final String COMMENT_KEY = "_user_comment";
-    public static final String SUBCATEGORY_KEY = "_user_comment";
     public static final int RQ_CONTACT = 100;
     public static final int RQ_COMMENT = 101;
     public static final int RQ_SUBCATEGORY = 102;
@@ -169,12 +170,14 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
 
     @Override
     public void goSelectSubcategory() {
-        //TODO: init selection of subcategories
+        Intent intent = new Intent(getActivity(), CategoriesActivity.class);
+        startActivityForResult(intent, RQ_SUBCATEGORY);
     }
 
     @Override
     public void showCategory(String category) {
         categorySelectionView.setData(category);
+        categorySelectionView.showData();
     }
 
     @Override
@@ -191,7 +194,7 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
             } else if (requestCode == RQ_COMMENT) {
                 giveStarPresenter.loadSelectedComment(data.getStringExtra(COMMENT_KEY));
             } else if (requestCode == RQ_SUBCATEGORY) {
-                giveStarPresenter.loadSelectedSubCategory((SubCategory)data.getParcelableExtra(SUBCATEGORY_KEY));
+                giveStarPresenter.loadSelectedSubCategory((Category) data.getParcelableExtra(CategoriesActivity.SUBCATEGORY_KEY));
             }
         }
     }

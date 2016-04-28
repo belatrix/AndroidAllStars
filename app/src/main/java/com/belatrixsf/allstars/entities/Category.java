@@ -23,29 +23,47 @@ package com.belatrixsf.allstars.entities;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by PedroCarrillo on 4/8/16.
  */
 public class Category implements Parcelable {
 
-    private String id;
+    @SerializedName(value = "pk", alternate = {"subcategory__pk"})
+    private Integer id;
+    @SerializedName(value = "name", alternate = {"subcategory__name"})
     private String name;
     private int weight;
-    private int value;
+    private transient int parentId;
 
-    public Category(String id, String name, int weight, int value) {
-        this.id = id;
-        this.name = name;
-        this.weight = weight;
-        this.value = value;
+    protected Category(Parcel in) {
+        id = in.readByte() == 0x00 ? null : in.readInt();
+        name = in.readString();
+        weight = in.readInt();
+        parentId = in.readInt();
     }
 
-    public String getId() {
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        if (id == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(id);
+        }
+        dest.writeString(name);
+        dest.writeInt(weight);
+        dest.writeInt(parentId);
+    }
+
+    public Integer getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -60,36 +78,12 @@ public class Category implements Parcelable {
         return weight;
     }
 
-    public void setWeight(int weight) {
-        this.weight = weight;
+    public int getParentId() {
+        return parentId;
     }
 
-    public int getValue() {
-        return value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
-    }
-
-    protected Category(Parcel in) {
-        id = in.readString();
-        name = in.readString();
-        weight = in.readInt();
-        value = in.readInt();
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(name);
-        dest.writeInt(weight);
-        dest.writeInt(value);
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
     }
 
     @SuppressWarnings("unused")
