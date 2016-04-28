@@ -114,7 +114,13 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
                 userId = getArguments().getInt(USER_ID_KEY);
             }
         }
-        accountPresenter.loadEmployeeAccount(userId);
+        accountPresenter.setUserId(userId);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        accountPresenter.loadEmployeeAccount();
     }
 
     @Override
