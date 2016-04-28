@@ -49,8 +49,13 @@ public class RecommendationFragment extends AllStarsFragment implements Recommen
     private RecommendationPresenter recommendationPresenter;
     private RecommendationListAdapter recommendationListAdapter;
 
-    public static RecommendationFragment newInstance() {
-        return new RecommendationFragment();
+    public static RecommendationFragment newInstance(Integer userId, Integer categoryId) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(RecommendationActivity.USER_ID, userId);
+        bundle.putInt(RecommendationActivity.SUBCATEGORY_ID, categoryId);
+        RecommendationFragment recommendationFragment = new RecommendationFragment();
+        recommendationFragment.setArguments(bundle);
+        return recommendationFragment;
     }
 
     @Override
@@ -76,7 +81,11 @@ public class RecommendationFragment extends AllStarsFragment implements Recommen
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews();
-        recommendationPresenter.getRecommendationList(1,9);
+        if (getArguments() != null && getArguments().containsKey(RecommendationActivity.USER_ID) && getArguments().containsKey(RecommendationActivity.SUBCATEGORY_ID)) {
+            Integer userId = getArguments().getInt(RecommendationActivity.USER_ID);
+            Integer categoryId = getArguments().getInt(RecommendationActivity.SUBCATEGORY_ID);
+            recommendationPresenter.getRecommendationList(userId, categoryId);
+        }
     }
 
     private void initViews() {

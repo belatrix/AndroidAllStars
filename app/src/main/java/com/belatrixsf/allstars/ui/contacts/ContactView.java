@@ -33,5 +33,7 @@ public interface ContactView extends AllStarsView {
     void showEmployees(List<Employee> employees);
     void showCleanButton();
     void hideCleanButton();
+    void goEmployeeProfile(Integer id);
+    void selectEmployee(Employee employee);
 
 }
