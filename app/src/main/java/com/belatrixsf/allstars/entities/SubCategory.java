@@ -8,30 +8,17 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by PedroCarrillo on 4/26/16.
  */
-public class SubCategory implements Parcelable {
+public class SubCategory extends Category {
 
-    @SerializedName("subcategory__pk")
-    private Integer pk;
-    @SerializedName("subcategory__name")
-    private String name;
     @SerializedName("num_stars")
     private Integer numStars;
-
-    public Integer getPk() {
-        return pk;
-    }
-
-    public String getName() {
-        return name;
-    }
 
     public Integer getNumStars() {
         return numStars;
     }
 
     protected SubCategory(Parcel in) {
-        pk = in.readByte() == 0x00 ? null : in.readInt();
-        name = in.readString();
+        super(in);
         numStars = in.readByte() == 0x00 ? null : in.readInt();
     }
 
@@ -42,13 +29,7 @@ public class SubCategory implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        if (pk == null) {
-            dest.writeByte((byte) (0x00));
-        } else {
-            dest.writeByte((byte) (0x01));
-            dest.writeInt(pk);
-        }
-        dest.writeString(name);
+        super.writeToParcel(dest, flags);
         if (numStars == null) {
             dest.writeByte((byte) (0x00));
         } else {
@@ -69,15 +50,5 @@ public class SubCategory implements Parcelable {
             return new SubCategory[size];
         }
     };
-
-    //TODO: REMOVE THIS
-    public void setFakeData(int pk) {
-        this.pk = pk;
-        this.name = "test";
-    }
-
-    public SubCategory(){
-
-    }
 
 }

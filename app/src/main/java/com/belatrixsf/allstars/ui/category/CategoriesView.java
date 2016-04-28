@@ -18,23 +18,21 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.common;
+package com.belatrixsf.allstars.ui.category;
 
-import android.content.Context;
+import com.belatrixsf.allstars.entities.Category;
+import com.belatrixsf.allstars.ui.common.AllStarsView;
+
+import java.util.List;
 
 /**
- * @author Pedro Carrillo
+ * Created by gyosida on 4/27/16.
  */
+public interface CategoriesView extends AllStarsView {
 
-public interface AllStarsView {
-
-    void showProgressIndicator();
-    void hideProgressIndicator();
-    void showProgressDialog();
-    void showProgressDialog(String message);
-    void dismissProgressDialog();
-    void setTitle(String title);
-    void showError(String message);
-    Context getContext();
+    void notifyAreSubcategories(boolean areSubcategories);
+    void notifySelection(Category subcategory);
+    void showCategories(List<Category> categories);
+    void showSubcategories(Category category);
 
 }

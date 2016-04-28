@@ -44,15 +44,18 @@ public class CommentFragment extends AllStarsFragment implements CommentView {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        setHasOptionsMenu(true);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_comment, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setHasOptionsMenu(true);
+        if (getArguments() != null && getArguments().containsKey(COMMENT_KEY)) {
+            commentPresenter.init(getArguments().getString(COMMENT_KEY));
+        }
     }
 
     @Override
@@ -60,9 +63,6 @@ public class CommentFragment extends AllStarsFragment implements CommentView {
         commentPresenter = DaggerCommentComponent.builder().
                 commentPresenterModule(new CommentPresenterModule(this))
                 .build().commentPresenter();
-        if (getArguments() != null && getArguments().containsKey(COMMENT_KEY)) {
-            commentPresenter.init(getArguments().getString(COMMENT_KEY));
-        }
     }
 
     @Override
@@ -107,6 +107,7 @@ public class CommentFragment extends AllStarsFragment implements CommentView {
     @Override
     public void showComment(String comment) {
         commentEditText.setText(comment);
+        commentEditText.setSelection(comment.length());
     }
 
 }

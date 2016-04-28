@@ -39,5 +39,6 @@ public interface FragmentListener {
     void closeActivity();
     void setActivityResult(int resultCode);
     void setActivityResult(int resultCode, Intent resultIntent);
+    void setTitle(String title);
 
 }

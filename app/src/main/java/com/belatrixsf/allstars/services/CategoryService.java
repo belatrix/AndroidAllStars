@@ -18,23 +18,18 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.common;
+package com.belatrixsf.allstars.services;
 
-import android.content.Context;
+import com.belatrixsf.allstars.entities.Category;
+import com.belatrixsf.allstars.utils.AllStarsCallback;
+
+import java.util.List;
 
 /**
- * @author Pedro Carrillo
+ * Created by gyosida on 4/27/16.
  */
+public interface CategoryService {
 
-public interface AllStarsView {
-
-    void showProgressIndicator();
-    void hideProgressIndicator();
-    void showProgressDialog();
-    void showProgressDialog(String message);
-    void dismissProgressDialog();
-    void setTitle(String title);
-    void showError(String message);
-    Context getContext();
+    void getSubcategories(int categoryId, AllStarsCallback<List<Category>> callback);
 
 }

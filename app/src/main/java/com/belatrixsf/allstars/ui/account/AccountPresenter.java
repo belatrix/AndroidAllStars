@@ -123,7 +123,7 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
     public void onSubCategoryClicked(Object object) {
         if (object != null && object instanceof SubCategory) {
             SubCategory subCategory = (SubCategory) object;
-            view.goSubCategoryDetail(subCategory.getPk(), employee.getPk());
+            view.goSubCategoryDetail(subCategory.getId(), employee.getPk());
         }
     }
 

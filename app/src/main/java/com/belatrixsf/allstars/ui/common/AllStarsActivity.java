@@ -25,7 +25,6 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -51,6 +50,16 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
     public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(layoutResID);
         ButterKnife.bind(this);
+    }
+
+    // hack for forcing to pop the back stack when back key is pressed when using android.app.Fragment
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
@@ -92,6 +101,13 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
     }
 
     @Override
+    public void setTitle(String title) {
+        if (!activityHandleTitle() && getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(title);
+        }
+    }
+
+    @Override
     public void showProgressDialog() {
         showProgressDialog(getString(R.string.dialog_message_loading));
     }
@@ -127,6 +143,10 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
     @Override
     public void setActivityResult(int resultCode, Intent resultIntent) {
         setResult(resultCode, resultIntent);
+    }
+
+    protected boolean activityHandleTitle() {
+        return false;
     }
 
     protected void setToolbar() {

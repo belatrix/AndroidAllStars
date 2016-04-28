@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.allstars.services;
 
+import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.networking.retrofit.RetrofitCallback;
 import com.belatrixsf.allstars.networking.retrofit.api.EmployeeAPI;
@@ -28,6 +29,8 @@ import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationRespo
 import com.belatrixsf.allstars.networking.retrofit.responses.RecommendationResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
+
+import java.util.List;
 
 
 /**
@@ -66,4 +69,10 @@ public class EmployeeServerService implements EmployeeService {
     public void getRecommendationList(int employeeId, int subcategoryId, AllStarsCallback<RecommendationResponse> callback) {
         employeeAPI.getRecommendationList(employeeId, subcategoryId).enqueue(new RetrofitCallback<RecommendationResponse>(callback));
     }
+
+    @Override
+    public void getEmployeeCategories(int employeeId, AllStarsCallback<List<Category>> callback) {
+        employeeAPI.getEmployeeCategories(employeeId).enqueue(new RetrofitCallback<List<Category>>(callback));
+    }
+
 }
