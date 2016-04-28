@@ -48,4 +48,6 @@
     <string name="action_search">Search</string>
     <string name="hint_search">Search Term</string>
 
+    <string name="option_select_a_user">Select a user</string>
+
 </resources>
