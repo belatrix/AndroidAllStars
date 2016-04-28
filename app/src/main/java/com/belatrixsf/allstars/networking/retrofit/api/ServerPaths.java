@@ -30,11 +30,14 @@ public interface ServerPaths {
     String EMPLOYEE_ID = "employee_id";
     String SUBCATEGORY_ID = "subcategory_id";
     String SEARCH_TERM = "search_term";
+    String KIND = "kind";
+    String QUANTITY = "quantity";
 
     String EMPLOYEE_AUTHENTICATE = EMPLOYEE + "/authenticate/";
-    String EMPLOYEE_LIST = EMPLOYEE + "/list";
-    String EMPLOYEE_SEARCH_TERM = EMPLOYEE + "/search/{" + SEARCH_TERM + "}";
-    String EMPLOYEE_BY_ID = EMPLOYEE + "/{" + EMPLOYEE_ID + "}";
-    String RECOMMENDATION_LIST = STAR + "/{" + EMPLOYEE_ID + "}/subcategory" + "/{" + SUBCATEGORY_ID + "}/list";
+    String EMPLOYEE_LIST = EMPLOYEE + "/list/";
+    String EMPLOYEE_SEARCH_TERM = EMPLOYEE + "/search/{" + SEARCH_TERM + "}/";
+    String EMPLOYEE_BY_ID = EMPLOYEE + "/{" + EMPLOYEE_ID + "}/";
+    String RECOMMENDATION_LIST = STAR + "/{" + EMPLOYEE_ID + "}/subcategory" + "/{" + SUBCATEGORY_ID + "}/list/";
+    String RANKING_LIST = EMPLOYEE + "/list/top/{" + KIND + "}/{" + QUANTITY + "}/";
 
 }

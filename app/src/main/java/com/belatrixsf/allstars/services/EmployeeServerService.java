@@ -29,6 +29,8 @@ import com.belatrixsf.allstars.networking.retrofit.responses.RecommendationRespo
 import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 
+import java.util.List;
+
 
 /**
  * Created by gyosida on 4/12/16.
@@ -65,5 +67,10 @@ public class EmployeeServerService implements EmployeeService {
     @Override
     public void getRecommendationList(int employeeId, int subcategoryId, AllStarsCallback<RecommendationResponse> callback) {
         employeeAPI.getRecommendationList(employeeId, subcategoryId).enqueue(new RetrofitCallback<RecommendationResponse>(callback));
+    }
+
+    @Override
+    public void getRankingList(String kind, int quantity, AllStarsCallback<List<Employee>> callback) {
+        employeeAPI.getRankingList(kind, quantity).enqueue(new RetrofitCallback<List<Employee>>(callback));
     }
 }

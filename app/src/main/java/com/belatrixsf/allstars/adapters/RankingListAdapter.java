@@ -1,0 +1,101 @@
+/* The MIT License (MIT)
+* Copyright (c) 2016 BELATRIX
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software.
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*/
+package com.belatrixsf.allstars.adapters;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.belatrixsf.allstars.R;
+import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.ui.common.views.CircleTransform;
+import com.belatrixsf.allstars.utils.Constants;
+import com.bumptech.glide.Glide;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+/**
+ * Created by icerrate on 28/04/2016.
+ */
+public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.EmployeeViewHolder> {
+
+    private List<Employee> rankingList;
+
+    public RankingListAdapter() {
+        this(new ArrayList<Employee>());
+    }
+
+    public RankingListAdapter(List<Employee> rankingList) {
+        this.rankingList = rankingList;
+    }
+
+    @Override
+    public EmployeeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ranking, parent, false);
+        return new EmployeeViewHolder(layoutView);
+    }
+
+    @Override
+    public void onBindViewHolder(EmployeeViewHolder holder, int position) {
+        final Employee employee = rankingList.get(position);
+        int place = position + Constants.ONE_UNIT;
+        holder.position.setText(String.valueOf(place));
+        holder.fullName.setText(employee.getFullName());
+        String levelLabel = String.format(holder.level.getContext().getString(R.string.contact_list_level), String.valueOf(employee.getLevel()));
+        holder.level.setText(levelLabel);
+        holder.score.setText(String.valueOf(employee.getScore()));
+        if (employee.getAvatar() != null) {
+            Context context = holder.photo.getContext();
+            int size = context.getResources().getDimensionPixelSize(R.dimen.dimen_8_5);
+            Glide.with(context).load(employee.getAvatar()).override(size, size).centerCrop().transform(new CircleTransform(context)).into(holder.photo);
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        return this.rankingList.size();
+    }
+
+    public void updateData(List<Employee> ranking){
+        rankingList.clear();
+        rankingList.addAll(ranking);
+        notifyDataSetChanged();
+    }
+
+    static class EmployeeViewHolder extends RecyclerView.ViewHolder{
+        @Bind(R.id.position) public TextView position;
+        @Bind(R.id.photo) public ImageView photo;
+        @Bind(R.id.full_name) public TextView fullName;
+        @Bind(R.id.level) public TextView level;
+        @Bind(R.id.score) public TextView score;
+
+        public EmployeeViewHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
+}

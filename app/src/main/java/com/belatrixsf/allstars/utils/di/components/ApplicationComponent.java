@@ -24,6 +24,7 @@ import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.utils.di.modules.RetrofitModule;
 import com.belatrixsf.allstars.utils.di.modules.ServicesModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactPresenterModule;
+import com.belatrixsf.allstars.utils.di.modules.presenters.RankingPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.RecommendationPresenterModule;
 
 import javax.inject.Singleton;
@@ -45,5 +46,6 @@ public interface ApplicationComponent {
     EmployeeManager employeeManager();
     ContactComponent contactComponent(ContactPresenterModule contactPresenterModule);
     RecommendationComponent recommendationComponent(RecommendationPresenterModule recommendationPresenterModule);
+    RankingComponent rankingComponent(RankingPresenterModule rankingPresenterModule);
 
 }

@@ -26,6 +26,8 @@ import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationRespo
 import com.belatrixsf.allstars.networking.retrofit.responses.RecommendationResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
 
+import java.util.List;
+
 import retrofit.Call;
 import retrofit.http.Body;
 import retrofit.http.GET;
@@ -51,5 +53,8 @@ public interface EmployeeAPI {
 
     @GET(ServerPaths.RECOMMENDATION_LIST)
     Call<RecommendationResponse> getRecommendationList(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Path(ServerPaths.SUBCATEGORY_ID) int subcategoryId);
+
+    @GET(ServerPaths.RANKING_LIST)
+    Call<List<Employee>> getRankingList(@Path(ServerPaths.KIND) String kind, @Path(ServerPaths.QUANTITY) int quantity);
 
 }

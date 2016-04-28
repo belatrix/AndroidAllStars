@@ -18,26 +18,42 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.services;
+package com.belatrixsf.allstars.ui.ranking;
 
 import com.belatrixsf.allstars.entities.Employee;
-import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.RecommendationResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
+import com.belatrixsf.allstars.services.EmployeeService;
+import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
+import com.belatrixsf.allstars.utils.ServiceError;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
- * Created by gyosida on 4/12/16.
+ * Created by icerrate on 28/04/2016.
  */
-public interface EmployeeService {
+public class RankingPresenter extends AllStarsPresenter<RankingView> {
 
-    void authenticate(String username, String password, AllStarsCallback<AuthenticationResponse> callback);
-    void getEmployee(int employeeId, AllStarsCallback<Employee> callback);
-    void getEmployeeList(AllStarsCallback<SearchEmployeeResponse> callback);
-    void getEmployeeSearchList(String searchTerm, AllStarsCallback<SearchEmployeeResponse> callback);
-    void getRecommendationList(int employeeId, int subcategory, AllStarsCallback<RecommendationResponse> callback);
-    void getRankingList(String kind, int quantity, AllStarsCallback<List<Employee>> callback);
+    private EmployeeService employeeService;
 
+    @Inject
+    public RankingPresenter(RankingView view, EmployeeService employeeService) {
+        super(view);
+        this.employeeService = employeeService;
+    }
+
+    public void getRankingList(String kind, int quantity) {
+        employeeService.getRankingList(kind, quantity, new AllStarsCallback<List<Employee>>() {
+            @Override
+            public void onSuccess(List<Employee> rankingResponse) {
+                view.showRankingList(rankingResponse);
+            }
+
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                showError(serviceError.getErrorMessage());
+            }
+        });
+    }
 }
