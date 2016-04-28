@@ -136,7 +136,7 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
     }
 
     public void startRecommendation() {
-        view.goToRecommend(employee);
+        view.goToGiveStar(employee);
     }
 
 }

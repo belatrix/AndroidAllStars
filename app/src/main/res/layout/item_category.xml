@@ -7,7 +7,8 @@
     android:layout_height="?attr/listPreferredItemHeight"
     android:gravity="center_vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin">
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    style="@style/ItemListStyle">
 
     <TextView
         android:id="@+id/category_name"

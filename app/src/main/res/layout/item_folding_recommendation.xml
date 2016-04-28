@@ -10,178 +10,162 @@
     folding-cell:backSideColor="@color/back_side"
     android:clipToPadding="false">​ ​
 
-    <FrameLayout
+    <android.support.v7.widget.CardView
         android:id="@+id/cell_content_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/dimen_8"
-        android:paddingRight="@dimen/dimen_8"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true"
         android:visibility="gone">
 
-        <android.support.v7.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardPreventCornerOverlap="false"
-            app:cardUseCompatPadding="true">
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_horizontal_margin">
 
-            <LinearLayout
+            <ImageView
+                android:id="@+id/content_photo"
+                android:layout_width="@dimen/dimen_10_6"
+                android:layout_height="@dimen/dimen_10_6"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_user" />
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:padding="@dimen/activity_horizontal_margin">
+                android:layout_marginTop="@dimen/activity_vertical_margin">
 
-                <ImageView
-                    android:id="@+id/content_photo"
-                    android:layout_width="@dimen/dimen_10_6"
-                    android:layout_height="@dimen/dimen_10_6"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_user" />
+                <TextView
+                    android:id="@+id/content_label_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:textStyle="bold"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/title_content_from" />
 
-                <RelativeLayout
+                <TextView
+                    android:id="@+id/content_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    tools:text="Name" />
+
+                <TextView
+                    android:id="@+id/content_label_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/text_margin"
+                    android:layout_below="@+id/content_user"
+                    android:text="@string/title_content_message" />
+
+                <TextView
+                    android:id="@+id/content_message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_vertical_margin">
+                    android:textStyle="italic"
+                    android:layout_below="@+id/content_label_message"
+                    tools:text="Text" />
 
-                    <TextView
-                        android:id="@+id/content_label_user"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:textStyle="bold"
-                        android:layout_alignParentTop="true"
-                        android:text="@string/title_content_from" />
+                <TextView
+                    android:id="@+id/content_label_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/text_margin"
+                    android:layout_below="@+id/content_message"
+                    android:text="@string/title_content_category" />
 
-                    <TextView
-                        android:id="@+id/content_user"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentTop="true"
-                        tools:text="Name" />
+                <TextView
+                    android:id="@+id/content_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/text_margin"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/content_message"
+                    tools:text="Text" />
 
-                    <TextView
-                        android:id="@+id/content_label_message"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:textStyle="bold"
-                        android:layout_marginTop="@dimen/text_margin"
-                        android:layout_below="@+id/content_user"
-                        android:text="@string/title_content_message" />
+                <TextView
+                    android:id="@+id/content_label_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/text_margin"
+                    android:layout_below="@+id/content_category"
+                    android:text="@string/title_content_date" />
 
-                    <TextView
-                        android:id="@+id/content_message"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textStyle="italic"
-                        android:layout_below="@+id/content_label_message"
-                        tools:text="Text" />
+                <TextView
+                    android:id="@+id/content_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/text_margin"
+                    android:layout_below="@+id/content_category"
+                    tools:text="Text" />
+            </RelativeLayout>
 
-                    <TextView
-                        android:id="@+id/content_label_category"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:textStyle="bold"
-                        android:layout_marginTop="@dimen/text_margin"
-                        android:layout_below="@+id/content_message"
-                        android:text="@string/title_content_category" />
+        </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/content_category"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/text_margin"
-                        android:layout_alignParentRight="true"
-                        android:layout_below="@+id/content_message"
-                        tools:text="Text" />
+    </android.support.v7.widget.CardView>
 
-                    <TextView
-                        android:id="@+id/content_label_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:textStyle="bold"
-                        android:layout_marginTop="@dimen/text_margin"
-                        android:layout_below="@+id/content_category"
-                        android:text="@string/title_content_date" />
-
-                    <TextView
-                        android:id="@+id/content_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="@dimen/text_margin"
-                        android:layout_below="@+id/content_category"
-                        tools:text="Text" />
-                </RelativeLayout>
-
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
-
-    </FrameLayout>    ​
-
-    <FrameLayout
+    <android.support.v7.widget.CardView
         android:id="@+id/cell_title_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/dimen_8"
-        android:paddingRight="@dimen/dimen_8">
+        android:layout_height="@dimen/dimen_10_9"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true">
 
-        <android.support.v7.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_10_9"
-            app:cardPreventCornerOverlap="false"
-            app:cardUseCompatPadding="true">
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/activity_vertical_margin">
+
+            <ImageView
+                android:id="@+id/photo"
+                android:layout_width="@dimen/dimen_9_5"
+                android:layout_height="@dimen/dimen_9_5"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_user" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_10_9"
-                android:background="@color/white"
+                android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="@dimen/activity_vertical_margin">
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/activity_horizontal_margin">
 
-                <ImageView
-                    android:id="@+id/photo"
-                    android:layout_width="@dimen/dimen_9_5"
-                    android:layout_height="@dimen/dimen_9_5"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_user" />
+                <TextView
+                    android:id="@+id/title_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_16"
+                    tools:text="@string/title_user" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:paddingLeft="@dimen/activity_horizontal_margin">
-
-                    <TextView
-                        android:id="@+id/title_user"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_16"
-                        tools:text="@string/title_user" />
-
-                    <TextView
-                        android:id="@+id/title_message"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:textColor="@color/grey"
-                        android:maxLines="2"
-                        android:textStyle="italic"
-                        tools:text="@string/title_message" />
-
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/title_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:textColor="@color/grey"
+                    android:maxLines="2"
+                    android:textStyle="italic"
+                    tools:text="@string/title_message" />
 
             </LinearLayout>
 
-        </android.support.v7.widget.CardView>
+        </LinearLayout>
 
-    </FrameLayout>    ​
+    </android.support.v7.widget.CardView>
     ​
 </com.ramotion.foldingcell.FoldingCell>
 

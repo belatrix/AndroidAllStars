@@ -49,8 +49,6 @@ import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModul
 import com.bumptech.glide.Glide;
 
 import static com.belatrixsf.allstars.ui.account.AccountActivity.USER_ID_KEY;
-import static com.belatrixsf.allstars.ui.recommendation.RecommendationFragment.CATEGORY_ID;
-import static com.belatrixsf.allstars.ui.recommendation.RecommendationFragment.USER_ID;
 import static com.belatrixsf.allstars.ui.givestar.GiveStarFragment.SELECTED_USER_KEY;
 
 import java.util.List;
@@ -129,8 +127,6 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
         super.onPrepareOptionsMenu(menu);
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -163,8 +159,8 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     @Override
     public void goSubCategoryDetail(Integer categoryId, Integer employeeId) {
         Intent intent = new Intent(getActivity(), RecommendationActivity.class);
-        intent.putExtra(USER_ID, employeeId);
-        intent.putExtra(CATEGORY_ID, categoryId);
+        intent.putExtra(RecommendationActivity.USER_ID, employeeId);
+        intent.putExtra(RecommendationActivity.SUBCATEGORY_ID, categoryId);
         startActivity(intent);
     }
 
@@ -215,7 +211,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     }
 
     @Override
-    public void goToRecommend(Employee employee) {
+    public void goToGiveStar(Employee employee) {
         Intent intent = new Intent(getActivity(), GiveStarActivity.class);
         intent.putExtra(SELECTED_USER_KEY, employee);
         startActivity(intent);
