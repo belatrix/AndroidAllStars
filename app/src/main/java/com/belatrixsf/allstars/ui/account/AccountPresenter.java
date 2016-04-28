@@ -24,6 +24,7 @@ import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.managers.EmployeeManager;
+import com.belatrixsf.allstars.managers.PreferencesManager;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarSubCategoryResponse;
 import com.belatrixsf.allstars.services.EmployeeService;
 import com.belatrixsf.allstars.services.StarService;
@@ -118,6 +119,7 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
         if (employee.getAvatar() != null) {
             view.showProfilePicture(employee.getAvatar());
         }
+        checkRecommendationEnabled();
     }
 
     public void onSubCategoryClicked(Object object) {
@@ -125,6 +127,16 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
             SubCategory subCategory = (SubCategory) object;
             view.goSubCategoryDetail(subCategory.getId(), employee.getPk());
         }
+    }
+
+    public void checkRecommendationEnabled() {
+        if (PreferencesManager.get().getEmployeeId() != employee.getPk()) {
+            view.showRecommendMenu(true);
+        }
+    }
+
+    public void startRecommendation() {
+        view.goToRecommend(employee);
     }
 
 }

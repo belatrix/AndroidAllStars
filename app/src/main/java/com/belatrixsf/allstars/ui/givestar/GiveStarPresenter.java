@@ -32,6 +32,11 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
         this.employeeManager = employeeManager;
     }
 
+    public void initWithUser(Employee employee) {
+        loadSelectedUser(employee);
+        view.blockWithUserSelected();
+    }
+
     public void userSelectionClicked() {
         view.goSearchUser();
     }

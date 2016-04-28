@@ -21,6 +21,9 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_select_category">Select Category</string>
     <string name="title_select_subcategory">Select Subcategory</string>
+    <string name="title_account_activity">Profile</string>
+    <string name="title_contact_activity">Select an user</string>
+    <string name="title_recommendation_activity">Recommendation</string>
 
     <!-- Login -->
     <string name="title_login">Belatrix All Stars</string>
@@ -32,9 +35,25 @@
     <string name="title_category">Category</string>
     <string name="title_score">Score</string>
     <string name="title_level">Level</string>
+    <string name="skype_id_content">Skype : %s</string>
+
+    <!--Give a star-->
+    <string name="write_comment">Write a comment</string>
+    <string name="select_user">Select user</string>
+    <string name="select_category">Select Category</string>
+    <string name="option_select_a_user">Select a user</string>
+    <string name="give_star_string">Give a recommendation</string>
+    <string name="hint_comment">Add a comment (up to 100 characters)</string>
+    <string name="comment_no_empty_error">Comment cannot be empty</string>
+    <string name="success_recommendation">Recommendation completed</string>
+
+    <!--Contact-->
+    <string name="hint_search">Search Term</string>
+
 
     <!--Messages-->
     <string name="empty_search_term">Must write something</string>
+    <string name="making_recommendation">Making recommendation</string>
 
     <!--Recommendation-->
     <string name="title_user">User</string>
@@ -45,21 +64,8 @@
     <string name="title_content_date">Date:</string>
 
     <!--Actions-->
+    <string name="action_recommend">Recommend</string>
     <string name="action_search">Search</string>
-    <string name="hint_search">Search Term</string>
-    <string name="recommendation_string">Recommendation</string>
-    <string name="give_star_string">Give a recommendation</string>
-    <string name="making_recommendation">Making recommendation</string>
-    <string name="option_select_a_user">Select a user</string>
-    <string name="select_user">Select user</string>
-    <string name="select_category">Select Category</string>
-    <string name="write_comment">Write a comment</string>
-    <string name="skype_id_content">Skype : %s</string>
     <string name="done">DONE</string>
-    <string name="hint_comment">Add a comment (up to 100 characters)</string>
-    <string name="comment_no_empty_error">Comment cannot be empty</string>
-    <string name="account_activity_title">Profile</string>
-    <string name="contact_activity_title">Select an user</string>
-    <string name="success_recommendation">Recommendation completed</string>
 
 </resources>
