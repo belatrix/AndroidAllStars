@@ -39,7 +39,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -52,6 +51,7 @@ import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
+import com.belatrixsf.allstars.utils.KeyboardUtils;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactPresenterModule;
 import static com.belatrixsf.allstars.ui.givestar.GiveStarFragment.SELECTED_USER_KEY;
 
@@ -204,7 +204,7 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
                 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                     if (actionId == EditorInfo.IME_ACTION_SEARCH){
                         contactPresenter.submitSearchTerm(v.getText().toString());
-                        mode.finish();
+                        KeyboardUtils.hideKeyboard(getActivity(), getView());
                     }
                     return false;
                 }
@@ -214,10 +214,7 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
 
             searchTermEditText.requestFocus();
 
-            if (getActivity() != null) {
-                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(searchTermEditText, InputMethodManager.SHOW_IMPLICIT);
-            }
+            KeyboardUtils.showKeyboard(getActivity(), searchTermEditText);
 
             return true;
         }
@@ -238,12 +235,8 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
         // Called when the user exits the action mode
         @Override
         public void onDestroyActionMode(ActionMode mode) {
-            if (getActivity() != null && getView() != null) {
-                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (imm != null){
-                    imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-                }
-            }
+            KeyboardUtils.hideKeyboard(getActivity(), getView());
+            contactPresenter.getEmployeeList();
         }
     };
 
