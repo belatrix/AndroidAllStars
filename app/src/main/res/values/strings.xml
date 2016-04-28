@@ -51,6 +51,9 @@
     <string name="hint_search">Search Term</string>
     <string name="contact_list_level">Lvl. %s</string>
 
+    <!--Contacts-->
+    <string name="contact_list_level">Lvl. %s</string>
+
     <!--Messages-->
     <string name="empty_search_term">Must write something</string>
     <string name="making_recommendation">Making recommendation</string>
