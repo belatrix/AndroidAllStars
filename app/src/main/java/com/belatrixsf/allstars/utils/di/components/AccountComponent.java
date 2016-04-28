@@ -25,13 +25,13 @@ import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModul
 import com.belatrixsf.allstars.utils.di.scopes.UIScope;
 
 import dagger.Component;
+import dagger.Subcomponent;
 
 /**
  * Created by PedroCarrillo on 4/13/16.
  */
 @UIScope
-@Component(
-        dependencies = ApplicationComponent.class,
+@Subcomponent(
         modules = AccountPresenterModule.class
 )
 public interface AccountComponent {

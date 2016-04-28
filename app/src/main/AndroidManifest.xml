@@ -36,6 +36,27 @@
             android:label="@string/title_activity_example"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name=".ui.recommendation.RecommendationActivity"
+            android:label="@string/title_recommendation_activity">
+        </activity>
+        <activity
+            android:name=".ui.givestar.GiveStarActivity"
+            android:label="@string/title_give_star_activity">
+        </activity>
+        <activity
+            android:name=".ui.account.AccountActivity"
+            android:label="@string/title_account_activity">
+        </activity>
+        <activity
+            android:name=".ui.contacts.ContactActivity"
+            android:label="@string/title_contact_activity">
+        </activity>
+        <activity
+            android:name=".ui.comment.CommentActivity"
+            android:label="@string/title_comment_activity">
+        </activity>
+        <activity android:name=".ui.category.CategoriesActivity"/>
     </application>
 
 </manifest>
