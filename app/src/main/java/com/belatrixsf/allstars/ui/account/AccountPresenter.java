@@ -43,6 +43,7 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
     protected Employee employee;
     protected StarService starService;
     protected EmployeeService employeeService;
+    protected Integer employeeId;
 
     @Inject
     public AccountPresenter(AccountView view, EmployeeManager employeeManager, EmployeeService employeeService, StarService starService) {
@@ -52,7 +53,7 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
         this.employeeService = employeeService;
     }
 
-    public void loadEmployeeAccount(Integer employeeId) {
+    public void loadEmployeeAccount() {
         AllStarsCallback<Employee> employeeAllStarsCallback = new AllStarsCallback<Employee>() {
             @Override
             public void onSuccess(Employee employee) {
@@ -85,6 +86,10 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
                 showError(serviceError.getErrorMessage());
             }
         });
+    }
+
+    public void setUserId(Integer employeeId) {
+        this.employeeId = employeeId;
     }
 
     private void showEmployeeData() {
