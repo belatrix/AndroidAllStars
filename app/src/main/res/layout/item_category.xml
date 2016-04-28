@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/category_holder"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/listPreferredItemHeight"
+    android:gravity="center_vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    style="@style/ItemListStyle">
+
+    <TextView
+        android:id="@+id/category_name"
+        android:layout_weight="1"
+        tools:text="Coworkers"
+        style="@style/SingleLineItemTextView" />
+
+    <ImageView
+        android:id="@+id/chevron_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tint="@color/grey"
+        android:backgroundTint="@color/grey"
+        android:src="@drawable/ic_chevron_right"/>
+
+</LinearLayout>

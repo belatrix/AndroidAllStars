@@ -20,27 +20,36 @@
 */
 package com.belatrixsf.allstars.ui.account;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
-import com.belatrixsf.allstars.adapters.AccountCategoriesAdapter;
-import com.belatrixsf.allstars.entities.Category;
+import com.belatrixsf.allstars.adapters.AccountSubCategoriesAdapter;
+import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.allstars.ui.common.views.CircleTransform;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
+import com.belatrixsf.allstars.ui.givestar.GiveStarActivity;
+import com.belatrixsf.allstars.ui.recommendation.RecommendationActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
-import com.belatrixsf.allstars.utils.di.components.DaggerAccountComponent;
 import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModule;
 import com.bumptech.glide.Glide;
+
+import static com.belatrixsf.allstars.ui.account.AccountActivity.USER_ID_KEY;
+import static com.belatrixsf.allstars.ui.givestar.GiveStarFragment.SELECTED_USER_KEY;
 
 import java.util.List;
 
@@ -52,24 +61,33 @@ import butterknife.Bind;
 public class AccountFragment extends AllStarsFragment implements AccountView, RecyclerOnItemClickListener {
 
     private AccountPresenter accountPresenter;
+    private AccountSubCategoriesAdapter accountCategoriesAdapter;
 
-    @Bind(R.id.account_recommendations)
-    RecyclerView recommendationRecyclerView;
-    @Bind(R.id.skype_id)
-    TextView skypeTextView;
-    @Bind(R.id.level)
-    TextView levelTextView;
-    @Bind(R.id.score)
-    TextView scoreTextView;
-    @Bind(R.id.profile_name)
-    TextView nameTextView;
-    @Bind(R.id.profile_role)
-    TextView roleTextView;
-    @Bind(R.id.profile_picture)
-    ImageView pictureImageView;
+    @Bind(R.id.account_recommendations) RecyclerView recommendationRecyclerView;
+    @Bind(R.id.skype_id) TextView skypeIdTextView;
+    @Bind(R.id.current_month_score) TextView currentMonthScoreTextView;
+    @Bind(R.id.level) TextView levelTextView;
+    @Bind(R.id.score) TextView scoreTextView;
+    @Bind(R.id.profile_name) TextView nameTextView;
+    @Bind(R.id.profile_role) TextView roleTextView;
+    @Bind(R.id.profile_picture) ImageView pictureImageView;
 
-    public static AccountFragment newInstance() {
-        return new AccountFragment();
+    private MenuItem recommendMenuItem;
+
+    public static AccountFragment newInstance(Integer userId) {
+        Bundle bundle = new Bundle();
+        if (userId != null) {
+            bundle.putInt(USER_ID_KEY, userId);
+        }
+        AccountFragment accountFragment = new AccountFragment();
+        accountFragment.setArguments(bundle);
+        return accountFragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -81,32 +99,80 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
 
     @Override
     public void onClick(View v) {
-
+        accountPresenter.onSubCategoryClicked(v.getTag());
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setupViews();
+        Integer userId = null;
+        if (getArguments() != null) {
+            if (getArguments().containsKey(USER_ID_KEY)) {
+                userId = getArguments().getInt(USER_ID_KEY);
+            }
+        }
+        accountPresenter.setUserId(userId);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         accountPresenter.loadEmployeeAccount();
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.account_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        recommendMenuItem = menu.findItem(R.id.action_recommend);
+        super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_recommend:
+                accountPresenter.startRecommendation();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+    private void setupViews() {
+        accountCategoriesAdapter = new AccountSubCategoriesAdapter(this);
+        recommendationRecyclerView.setAdapter(accountCategoriesAdapter);
+        recommendationRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setAutoMeasureEnabled(true);
+        recommendationRecyclerView.setNestedScrollingEnabled(false);
+        recommendationRecyclerView.setLayoutManager(linearLayoutManager);
+    }
+
+    @Override
     protected void initDependencies(AllStarsApplication allStarsApplication) {
-        accountPresenter = DaggerAccountComponent.builder()
-                .applicationComponent(allStarsApplication.getApplicationComponent())
-                .accountPresenterModule(new AccountPresenterModule(this))
-                .build()
+        accountPresenter = allStarsApplication.getApplicationComponent()
+                .accountComponent(new AccountPresenterModule(this))
                 .accountPresenter();
     }
 
     @Override
-    public void goCategoryDetail(Category category) {
-
+    public void goSubCategoryDetail(Integer categoryId, Integer employeeId) {
+        Intent intent = new Intent(getActivity(), RecommendationActivity.class);
+        intent.putExtra(RecommendationActivity.USER_ID, employeeId);
+        intent.putExtra(RecommendationActivity.SUBCATEGORY_ID, categoryId);
+        startActivity(intent);
     }
 
     @Override
-    public void showSkypeId(String skypeId) {
-        skypeTextView.setText(String.valueOf(skypeId));
+    public void showCurrentMonthScore(String currentMonthScore) {
+        currentMonthScoreTextView.setText(String.valueOf(currentMonthScore));
     }
 
     @Override
@@ -115,14 +181,8 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     }
 
     @Override
-    public void showCategories(List<Category> categories) {
-        AccountCategoriesAdapter accountCategoriesAdapter = new AccountCategoriesAdapter(categories, this);
-        recommendationRecyclerView.setAdapter(accountCategoriesAdapter);
-        recommendationRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setAutoMeasureEnabled(true);
-        recommendationRecyclerView.setNestedScrollingEnabled(false);
-        recommendationRecyclerView.setLayoutManager(linearLayoutManager);
+    public void showSubCategories(List<SubCategory> subCategories) {
+        accountCategoriesAdapter.updateData(subCategories);
     }
 
     @Override
@@ -141,8 +201,26 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     }
 
     @Override
+    public void showSkypeId(String skypeID) {
+        skypeIdTextView.setText(getResources().getString(R.string.skype_id_content, skypeID));
+    }
+
+    @Override
     public void showProfilePicture(final String profilePicture) {
         int size = getActivity().getResources().getDimensionPixelSize(R.dimen.dimen_15_10);
         Glide.with(getActivity()).load(profilePicture).override(size, size).centerCrop().transform(new CircleTransform(getActivity())).into(pictureImageView);
     }
+
+    @Override
+    public void showRecommendMenu(boolean show) {
+        recommendMenuItem.setVisible(show);
+    }
+
+    @Override
+    public void goToGiveStar(Employee employee) {
+        Intent intent = new Intent(getActivity(), GiveStarActivity.class);
+        intent.putExtra(SELECTED_USER_KEY, employee);
+        startActivity(intent);
+    }
+
 }

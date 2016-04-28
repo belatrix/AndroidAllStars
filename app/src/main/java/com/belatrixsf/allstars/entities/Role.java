@@ -20,10 +20,13 @@
 */
 package com.belatrixsf.allstars.entities;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by PedroCarrillo on 4/15/16.
  */
-public class Role {
+public class Role implements Parcelable {
 
     private int id;
     private String name;
@@ -35,4 +38,34 @@ public class Role {
     public String getName() {
         return name;
     }
+
+    protected Role(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Role> CREATOR = new Parcelable.Creator<Role>() {
+        @Override
+        public Role createFromParcel(Parcel in) {
+            return new Role(in);
+        }
+
+        @Override
+        public Role[] newArray(int size) {
+            return new Role[size];
+        }
+    };
+
 }

@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.allstars.services;
 
+import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.networking.retrofit.RetrofitCallback;
 import com.belatrixsf.allstars.networking.retrofit.api.EmployeeAPI;
@@ -72,5 +73,9 @@ public class EmployeeServerService implements EmployeeService {
     @Override
     public void getRankingList(String kind, int quantity, AllStarsCallback<List<Employee>> callback) {
         employeeAPI.getRankingList(kind, quantity).enqueue(new RetrofitCallback<List<Employee>>(callback));
+    }
+
+    public void getEmployeeCategories(int employeeId, AllStarsCallback<List<Category>> callback) {
+        employeeAPI.getEmployeeCategories(employeeId).enqueue(new RetrofitCallback<List<Category>>(callback));
     }
 }

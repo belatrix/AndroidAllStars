@@ -43,13 +43,13 @@ public class MainNavigationViewPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return AccountFragment.newInstance();
+                return AccountFragment.newInstance(null);
             case 1:
                 return RankingFragment.newInstance();
             case 2:
-                return ContactFragment.newInstance();
+                return ContactFragment.newInstance(true);
             default:
-                return AccountFragment.newInstance();
+                return AccountFragment.newInstance(null);
         }
     }
 

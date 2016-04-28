@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.allstars.networking.retrofit.api;
 
+import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.networking.retrofit.requests.AuthenticationRequest;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
@@ -56,5 +57,8 @@ public interface EmployeeAPI {
 
     @GET(ServerPaths.RANKING_LIST)
     Call<List<Employee>> getRankingList(@Path(ServerPaths.KIND) String kind, @Path(ServerPaths.QUANTITY) int quantity);
+
+    @GET(ServerPaths.EMPLOYEE_CATEGORIES)
+    Call<List<Category>> getEmployeeCategories(@Path(ServerPaths.EMPLOYEE_ID) int employeeId);
 
 }

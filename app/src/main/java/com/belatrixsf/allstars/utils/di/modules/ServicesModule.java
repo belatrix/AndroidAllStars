@@ -20,9 +20,15 @@
 */
 package com.belatrixsf.allstars.utils.di.modules;
 
+import com.belatrixsf.allstars.networking.retrofit.api.CategoryAPI;
 import com.belatrixsf.allstars.networking.retrofit.api.EmployeeAPI;
+import com.belatrixsf.allstars.networking.retrofit.api.StarAPI;
+import com.belatrixsf.allstars.services.CategoryServerService;
+import com.belatrixsf.allstars.services.CategoryService;
 import com.belatrixsf.allstars.services.EmployeeServerService;
 import com.belatrixsf.allstars.services.EmployeeService;
+import com.belatrixsf.allstars.services.StarServerService;
+import com.belatrixsf.allstars.services.StarService;
 
 import dagger.Module;
 import dagger.Provides;
@@ -36,6 +42,16 @@ public class ServicesModule {
     @Provides
     public EmployeeService providesEmployeeService(EmployeeAPI employeeAPI) {
         return new EmployeeServerService(employeeAPI);
+    }
+
+    @Provides
+    public StarService providesStarService(StarAPI starAPI) {
+        return new StarServerService(starAPI);
+    }
+
+    @Provides
+    public CategoryService provideCategoryService(CategoryAPI categoryAPI) {
+        return new CategoryServerService(categoryAPI);
     }
 
 }

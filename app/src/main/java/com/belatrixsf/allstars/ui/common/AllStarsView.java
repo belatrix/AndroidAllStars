@@ -33,6 +33,7 @@ public interface AllStarsView {
     void showProgressDialog();
     void showProgressDialog(String message);
     void dismissProgressDialog();
+    void setTitle(String title);
     void showError(String message);
     Context getContext();
 
