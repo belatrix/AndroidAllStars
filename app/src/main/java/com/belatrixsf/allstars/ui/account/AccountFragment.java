@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.allstars.ui.account;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,17 +33,19 @@ import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.AccountCategoriesAdapter;
-import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.allstars.ui.common.views.CircleTransform;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
+import com.belatrixsf.allstars.ui.recommendation.RecommendationActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModule;
 import com.bumptech.glide.Glide;
 
 import static com.belatrixsf.allstars.ui.account.AccountActivity.USER_ID_KEY;
+import static com.belatrixsf.allstars.ui.recommendation.RecommendationFragment.CATEGORY_ID;
+import static com.belatrixsf.allstars.ui.recommendation.RecommendationFragment.USER_ID;
 
 import java.util.List;
 
@@ -84,7 +87,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
 
     @Override
     public void onClick(View v) {
-
+        accountPresenter.onSubCategoryClicked(v.getTag());
     }
 
     @Override
@@ -118,8 +121,11 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     }
 
     @Override
-    public void goCategoryDetail(Category category) {
-
+    public void goSubCategoryDetail(Integer categoryId, Integer employeeId) {
+        Intent intent = new Intent(getActivity(), RecommendationActivity.class);
+        intent.putExtra(USER_ID, employeeId);
+        intent.putExtra(CATEGORY_ID, categoryId);
+        startActivity(intent);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.belatrixsf.allstars.ui.givestar;
 
+import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.managers.EmployeeManager;
@@ -71,6 +72,7 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
     }
 
     public void makeRecommendation() {
+        view.showProgressDialog(getString(R.string.making_recommendation));
         employeeManager.getLoggedInEmployee(new AllStarsCallback<Employee>() {
             @Override
             public void onSuccess(Employee fromEmployee) {
@@ -79,11 +81,13 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
                 starService.star(fromEmployee.getPk(), toEmployee.getPk(), starRequest, new AllStarsCallback<StarResponse>() {
                     @Override
                     public void onSuccess(StarResponse starResponse) {
+                        view.dismissProgressDialog();
                         view.finishRecommendation();
                     }
 
                     @Override
                     public void onFailure(ServiceError serviceError) {
+                        view.dismissProgressDialog();
                         view.showError(serviceError.getErrorMessage());
                     }
                 });

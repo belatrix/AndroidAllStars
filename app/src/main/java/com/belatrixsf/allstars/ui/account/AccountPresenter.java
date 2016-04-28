@@ -22,6 +22,7 @@ package com.belatrixsf.allstars.ui.account;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarSubCategoryResponse;
 import com.belatrixsf.allstars.services.EmployeeService;
@@ -119,8 +120,11 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
         }
     }
 
-    public void onCategoryClicked(int position) {
-        view.goCategoryDetail(employee.getCategories().get(position));
+    public void onSubCategoryClicked(Object object) {
+        if (object != null && object instanceof SubCategory) {
+            SubCategory subCategory = (SubCategory) object;
+            view.goSubCategoryDetail(subCategory.getPk(), employee.getPk());
+        }
     }
 
 }
