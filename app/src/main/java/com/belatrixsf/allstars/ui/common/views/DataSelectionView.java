@@ -80,5 +80,9 @@ public class DataSelectionView extends LinearLayout {
         valueView.setVisibility(View.VISIBLE);
     }
 
+    public void setArrowVisibility(int arrowVisibility) {
+        rightArrowImageView.setVisibility(arrowVisibility);
+    }
+
 
 }

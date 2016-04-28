@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.allstars.ui.account;
 
+import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.ui.common.AllStarsView;
 
@@ -39,5 +40,7 @@ public interface AccountView extends AllStarsView {
     void showEmployeeName(String employeName);
     void showRole(String role);
     void showProfilePicture(String profilePicture);
+    void showRecommendMenu(boolean show);
+    void goToRecommend(Employee employee);
 
 }

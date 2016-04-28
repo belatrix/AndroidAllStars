@@ -62,6 +62,7 @@
     <string name="title_content_date">Date:</string>
 
     <!--Actions-->
+    <string name="action_recommend">Recommend</string>
     <string name="action_search">Search</string>
     <string name="done">DONE</string>
 

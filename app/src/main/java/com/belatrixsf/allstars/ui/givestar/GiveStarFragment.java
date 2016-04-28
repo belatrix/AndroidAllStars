@@ -42,6 +42,16 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
     @Bind(R.id.category_selection) DataSelectionView categorySelectionView;
     @Bind(R.id.comment_selection) DataSelectionView commentSelectionView;
 
+    public static GiveStarFragment newInstance(Employee employee) {
+        Bundle bundle = new Bundle();
+        if (employee != null) {
+            bundle.putParcelable(SELECTED_USER_KEY, employee);
+        }
+        GiveStarFragment giveStarFragment = new GiveStarFragment();
+        giveStarFragment.setArguments(bundle);
+        return giveStarFragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +67,15 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
     @Override
     protected void initDependencies(AllStarsApplication allStarsApplication) {
         giveStarPresenter = allStarsApplication.getApplicationComponent().giveStarComponent(new GiveStarPresenterModule(this)).giveStarPresenter();
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (getArguments() != null && getArguments().containsKey(SELECTED_USER_KEY)) {
+            Employee employee = getArguments().getParcelable(SELECTED_USER_KEY);
+            giveStarPresenter.initWithUser(employee);
+        }
     }
 
     @Override
@@ -183,5 +202,11 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
         intent.putExtra(MainActivity.MESSAGE_KEY, getString(R.string.success_recommendation));
         fragmentListener.setActivityResult(MainActivity.RQ_GIVE_STAR, intent);
         fragmentListener.closeActivity();
+    }
+
+    @Override
+    public void blockWithUserSelected() {
+        accountSelectionView.setArrowVisibility(View.GONE);
+        accountSelectionView.setOnClickListener(null);
     }
 }

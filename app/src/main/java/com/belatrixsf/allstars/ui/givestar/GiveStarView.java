@@ -29,4 +29,6 @@ public interface GiveStarView extends AllStarsView {
 
     void finishRecommendation();
 
+    void blockWithUserSelected();
+
 }

@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
+import com.bumptech.glide.Glide;
 
 /**
  * Created by PedroCarrillo on 4/25/16.
@@ -37,10 +38,11 @@ public class AccountSelectionView  extends DataSelectionView {
 
     @Override
     public void setData(String data) {
+        //Empty because is a custom view.
     }
 
     public void setProfileImage(String imageUrl) {
-
+        Glide.with(profileImageView.getContext()).load(imageUrl).override(50, 50).centerCrop().transform(new CircleTransform(profileImageView.getContext())).into(profileImageView);
     }
 
     public void setFullName(String fullName) {
