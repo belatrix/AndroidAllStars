@@ -185,4 +185,8 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
             Snackbar.make(coordinatorLayout, data.getStringExtra(MESSAGE_KEY), Snackbar.LENGTH_LONG).show();
         }
     }
+
+    public static Intent makeIntent(Context context) {
+        return new Intent(context, MainActivity.class);
+    }
 }
