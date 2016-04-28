@@ -63,7 +63,30 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
     public void onBindViewHolder(EmployeeViewHolder holder, int position) {
         final Employee employee = rankingList.get(position);
         int place = position + Constants.ONE_UNIT;
-        holder.position.setText(String.valueOf(place));
+        if (place<=3) {
+            int crownResourceId;
+            int cupResourceId;
+            switch (place) {
+                case 1:
+                    crownResourceId = R.drawable.ic_first_place;
+                    cupResourceId = R.drawable.ic_first_place_cup;
+                    break;
+                case 2:
+                    crownResourceId = R.drawable.ic_second_place;
+                    cupResourceId = R.drawable.ic_second_place_cup;
+                    break;
+                default:
+                    crownResourceId = R.drawable.ic_third_place;
+                    cupResourceId = R.drawable.ic_third_place_cup;
+                    break;
+            }
+            holder.positionCup.setBackgroundResource(crownResourceId);
+            holder.scoreCup.setBackgroundResource(cupResourceId);
+            holder.positionCup.setVisibility(View.VISIBLE);
+            holder.positionNumer.setVisibility(View.GONE);
+        }else{
+            holder.positionNumer.setText(String.valueOf(place));
+        }
         holder.fullName.setText(employee.getFullName());
         String levelLabel = String.format(holder.level.getContext().getString(R.string.contact_list_level), String.valueOf(employee.getLevel()));
         holder.level.setText(levelLabel);
@@ -87,11 +110,13 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
     }
 
     static class EmployeeViewHolder extends RecyclerView.ViewHolder{
-        @Bind(R.id.position) public TextView position;
+        @Bind(R.id.position_number) public TextView positionNumer;
+        @Bind(R.id.position_cup) public ImageView positionCup;
         @Bind(R.id.photo) public ImageView photo;
         @Bind(R.id.full_name) public TextView fullName;
         @Bind(R.id.level) public TextView level;
-        @Bind(R.id.score) public TextView score;
+        @Bind(R.id.score_cup) public ImageView scoreCup;
+        @Bind(R.id.score_number) public TextView score;
 
         public EmployeeViewHolder(View view) {
             super(view);

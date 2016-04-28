@@ -9,12 +9,20 @@
     style="@style/ItemListStyle">
 
     <TextView
-        android:id="@+id/position"
+        android:id="@+id/position_number"
         android:layout_width="@dimen/dimen_6_5"
         android:layout_height="@dimen/dimen_6_5"
         tools:text="P"
         android:textSize="@dimen/text_20"
+        android:visibility="visible"
         android:gravity="center"/>
+
+    <ImageView
+        android:id="@+id/position_cup"
+        android:layout_width="@dimen/dimen_6_5"
+        android:layout_height="@dimen/dimen_6_5"
+        android:visibility="gone"
+        android:scaleType="centerCrop" />
 
     <ImageView
         android:id="@+id/photo"
@@ -55,12 +63,13 @@
         android:gravity="center">
 
         <ImageView
+            android:id="@+id/score_cup"
             android:layout_width="@dimen/dimen_5_5"
             android:layout_height="@dimen/dimen_5_5"
-            android:src="@drawable/ic_cup"/>
+            android:background="@drawable/ic_cup"/>
 
         <TextView
-            android:id="@+id/score"
+            android:id="@+id/score_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="0"
