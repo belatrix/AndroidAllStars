@@ -49,8 +49,7 @@
 
     <!--Contact-->
     <string name="hint_search">Search Term</string>
-    <string name="contact_list_level">Lvl. %s</string>
-
+    
     <!--Contacts-->
     <string name="contact_list_level">Lvl. %s</string>
 
