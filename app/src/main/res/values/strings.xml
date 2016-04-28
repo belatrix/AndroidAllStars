@@ -64,10 +64,10 @@
     <string name="title_content_message">Message:</string>
     <string name="title_content_category">Category:</string>
     <string name="title_content_date">Date:</string>
+    <string name="message_placeholder">No message</string>
 
     <!--Actions-->
     <string name="action_recommend">Recommend</string>
     <string name="action_search">Search</string>
     <string name="done">DONE</string>
-
 </resources>
