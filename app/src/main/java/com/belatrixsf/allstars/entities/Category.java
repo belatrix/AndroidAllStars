@@ -37,13 +37,6 @@ public class Category implements Parcelable {
     private int value;
     private transient int parentId;
 
-    public Category(int id, String name, int weight, int value) {
-        this.id = id;
-        this.name = name;
-        this.weight = weight;
-        this.value = value;
-    }
-
     protected Category(Parcel in) {
         id = in.readInt();
         name = in.readString();
@@ -65,19 +58,6 @@ public class Category implements Parcelable {
         dest.writeInt(value);
         dest.writeInt(parentId);
     }
-
-    @SuppressWarnings("unused")
-    public static final Parcelable.Creator<Category> CREATOR = new Parcelable.Creator<Category>() {
-        @Override
-        public Category createFromParcel(Parcel in) {
-            return new Category(in);
-        }
-
-        @Override
-        public Category[] newArray(int size) {
-            return new Category[size];
-        }
-    };
 
     public int getId() {
         return id;
@@ -106,4 +86,17 @@ public class Category implements Parcelable {
     public void setParentId(int parentId) {
         this.parentId = parentId;
     }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Category> CREATOR = new Parcelable.Creator<Category>() {
+        @Override
+        public Category createFromParcel(Parcel in) {
+            return new Category(in);
+        }
+
+        @Override
+        public Category[] newArray(int size) {
+            return new Category[size];
+        }
+    };
 }

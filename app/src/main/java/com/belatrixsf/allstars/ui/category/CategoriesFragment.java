@@ -17,6 +17,7 @@ import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.modules.presenters.CategoriesListModule;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -73,15 +74,15 @@ public class CategoriesFragment extends AllStarsFragment implements CategoriesVi
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews();
+        if (savedInstanceState != null) {
+            restoreState(savedInstanceState);
+        }
         categoriesPresenter.getCategories();
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-//        List<Category> forSavingCategories = categoriesPresenter.forSavingCategories();
-//        if (forSavingCategories != null) {
-//            outState.putParcelableArrayList();
-//        }
+        saveState(outState);
         super.onSaveInstanceState(outState);
     }
 
@@ -107,24 +108,29 @@ public class CategoriesFragment extends AllStarsFragment implements CategoriesVi
         return null;
     }
 
-    @Override
-    protected void initDependencies(AllStarsApplication allStarsApplication) {
-        if (categoriesPresenter == null) {
-            allStarsApplication
-                    .getApplicationComponent()
-                    .categoriesListComponent(new CategoriesListModule(this, getCategoryIdIfExists()))
-                    .inject(this);
+    private void restoreState(Bundle savedInstanceState) {
+        List<Category> savedCategories = savedInstanceState.getParcelableArrayList(CATEGORIES_KEY);
+        categoriesPresenter.loadSavedCategories(savedCategories);
+    }
+
+    private void saveState(Bundle outState) {
+        List<Category> forSavingCategories = categoriesPresenter.forSavingCategories();
+        if (forSavingCategories != null && forSavingCategories instanceof ArrayList) {
+            outState.putParcelableArrayList(CATEGORIES_KEY, (ArrayList<Category>) forSavingCategories);
         }
     }
 
     @Override
-    public void showCategories(List<Category> categories) {
-        categoriesAdapter.update(categories);
+    protected void initDependencies(AllStarsApplication allStarsApplication) {
+        allStarsApplication
+                .getApplicationComponent()
+                .categoriesListComponent(new CategoriesListModule(this, getCategoryIdIfExists()))
+                .inject(this);
     }
 
     @Override
-    public void showSubcategories(Category category) {
-        fragmentListener.replaceFragment(CategoriesFragment.newInstance(category.getId()), true);
+    public void notifyAreSubcategories(boolean areSubcategories) {
+        categoriesAdapter.setAreSubcategories(areSubcategories);
     }
 
     @Override
@@ -133,8 +139,18 @@ public class CategoriesFragment extends AllStarsFragment implements CategoriesVi
     }
 
     @Override
+    public void showCategories(List<Category> categories) {
+        categoriesAdapter.update(categories);
+    }
+
+    @Override
     public void onCategorySelected(int position) {
         categoriesPresenter.categorySelected(position);
+    }
+
+    @Override
+    public void showSubcategories(Category category) {
+        fragmentListener.replaceFragment(CategoriesFragment.newInstance(category.getId()), true);
     }
 
     public interface SubcategorySelectionListener {

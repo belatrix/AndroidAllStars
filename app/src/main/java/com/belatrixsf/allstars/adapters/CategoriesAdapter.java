@@ -44,6 +44,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
 
     private List<Category> categories = new ArrayList<>();
     private CategoriesListListener categoriesListListener;
+    private boolean areSubcategories = false;
 
     @Override
     public CategoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -55,11 +56,16 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     public void onBindViewHolder(CategoryViewHolder holder, int position) {
         Category category = categories.get(position);
         holder.categoryName.setText(category.getName());
+        holder.chevronRight.setVisibility(areSubcategories ? View.INVISIBLE : View.VISIBLE);
     }
 
     @Override
     public int getItemCount() {
         return categories.size();
+    }
+
+    public void setAreSubcategories(boolean areSubcategories) {
+        this.areSubcategories = areSubcategories;
     }
 
     public void setCategoriesListListener(CategoriesListListener categoriesListListener) {

@@ -30,8 +30,9 @@ import java.util.List;
  */
 public interface CategoriesView extends AllStarsView {
 
+    void notifyAreSubcategories(boolean areSubcategories);
+    void notifySelection(Category subcategory);
     void showCategories(List<Category> categories);
     void showSubcategories(Category category);
-    void notifySelection(Category subcategory);
 
 }

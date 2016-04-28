@@ -24,7 +24,8 @@ public class CategoriesActivity extends AllStarsActivity implements CategoriesFr
     @Override
     public void onSubcategorySelected(Category subcategory) {
         Intent intent = new Intent();
-//        intent.putExtra(SUBCATEGORY_KEY, null);
+        intent.putExtra(SUBCATEGORY_KEY, subcategory);
         setResult(Activity.RESULT_OK, intent);
+        finish();
     }
 }

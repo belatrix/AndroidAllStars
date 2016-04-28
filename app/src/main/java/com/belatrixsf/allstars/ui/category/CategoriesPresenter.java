@@ -85,7 +85,7 @@ public class CategoriesPresenter extends AllStarsPresenter<CategoriesView> {
                 }
             }
         } else {
-            view.showCategories(categories);
+            showItemsAndNotifyIfAreSubcategories();
         }
     }
 
@@ -109,11 +109,16 @@ public class CategoriesPresenter extends AllStarsPresenter<CategoriesView> {
         this.categories = categories;
     }
 
+    private void showItemsAndNotifyIfAreSubcategories() {
+        view.showCategories(categories);
+        view.notifyAreSubcategories(categoryId != null);
+    }
+
     private AllStarsCallback<List<Category>> categoriesCallback = new AllStarsCallback<List<Category>>() {
         @Override
         public void onSuccess(List<Category> categories) {
             CategoriesPresenter.this.categories = categories;
-            view.showCategories(categories);
+            showItemsAndNotifyIfAreSubcategories();
             view.hideProgressIndicator();
         }
 
