@@ -32,7 +32,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.belatrixsf.allstars.R;
-import com.belatrixsf.allstars.utils.Dialogs;
+import com.belatrixsf.allstars.utils.DialogUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -79,7 +79,7 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
     @Override
     public void showError(String message) {
         if (errorAlertDialog == null) {
-            errorAlertDialog = Dialogs.createErrorDialog(this, null);
+            errorAlertDialog = DialogUtils.createErrorDialog(this, null);
         }
         if (progressDialog != null) {
             progressDialog.dismiss();
@@ -115,7 +115,7 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
     @Override
     public void showProgressDialog(String message) {
         if (progressDialog == null) {
-            progressDialog = Dialogs.createProgressDialog(this, null);
+            progressDialog = DialogUtils.createProgressDialog(this, null);
         }
         if (!progressDialog.isShowing()) {
             progressDialog.setMessage(message);

@@ -146,7 +146,7 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.search_menu, menu);
+        inflater.inflate(R.menu.menu_search, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
