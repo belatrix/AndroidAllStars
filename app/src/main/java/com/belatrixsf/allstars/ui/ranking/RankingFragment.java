@@ -21,7 +21,6 @@
 package com.belatrixsf.allstars.ui.ranking;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -42,8 +41,6 @@ import com.belatrixsf.allstars.utils.di.modules.presenters.RankingPresenterModul
 import java.util.List;
 
 import butterknife.Bind;
-
-import static com.belatrixsf.allstars.ui.givestar.GiveStarFragment.SELECTED_USER_KEY;
 
 /**
  * Created by icerrate on 28/04/2016.
@@ -96,6 +93,7 @@ public class RankingFragment extends AllStarsFragment implements RankingView, Ra
     private void initViews() {
         rankingListAdapter = new RankingListAdapter(this);
         rankingRecyclerView.setAdapter(rankingListAdapter);
+        rankingRecyclerView.setNestedScrollingEnabled(false);
         rankingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
