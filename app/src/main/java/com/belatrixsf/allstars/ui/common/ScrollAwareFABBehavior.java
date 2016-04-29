@@ -7,9 +7,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListener;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
+import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.Interpolator;
+
+import com.belatrixsf.allstars.R;
 
 /**
  * Created by pedrocarrillo on 4/28/16.
@@ -26,6 +29,11 @@ public class ScrollAwareFABBehavior extends FloatingActionButton.Behavior {
     public boolean onStartNestedScroll(final CoordinatorLayout coordinatorLayout, final FloatingActionButton child,
                                        final View directTargetChild, final View target, final int nestedScrollAxes) {
         // Ensure we react to vertical scrolling
+        if (target instanceof NestedScrollView && target.getTag() != null) {
+            if (target.getTag().toString().equalsIgnoreCase(target.getContext().getString(R.string.ranking_tag)) || target.getTag().toString().equalsIgnoreCase(target.getContext().getString(R.string.ranking_tag))) {
+                return false;
+            }
+        }
         return nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL
                 || super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target, nestedScrollAxes);
     }
@@ -37,10 +45,10 @@ public class ScrollAwareFABBehavior extends FloatingActionButton.Behavior {
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed);
         if (dyConsumed > 0 && !this.mIsAnimatingOut && child.getVisibility() == View.VISIBLE) {
             // User scrolled down and the FAB is currently visible -> hide the FAB
-            animateOut(child);
+            child.hide();
         } else if (dyConsumed < 0 && child.getVisibility() != View.VISIBLE) {
             // User scrolled up and the FAB is currently not visible -> show the FAB
-            animateIn(child);
+            child.show();
         }
     }
 

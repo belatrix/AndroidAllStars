@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.allstars.ui.home;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -34,6 +35,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v7.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -125,9 +127,13 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
             @Override
             public void onPageSelected(int position) {
                 if (position == RANKING_TAB) {
-                    bottomNavigation.restoreBottomNavigation();
+                    bottomNavigation.setVisibility(View.VISIBLE);
+                    bottomNavigation.setCurrentItem(1);
+                    startRecommendationButton.hide();
+
                 } else {
-                    bottomNavigation.hideBottomNavigation();
+                    bottomNavigation.setVisibility(View.GONE);
+                    startRecommendationButton.show();
                 }
             }
 
@@ -142,15 +148,12 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
         AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.action_search, R.drawable.ic_arrow_back, R.color.colorActiveSmall);
         AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.action_search, R.drawable.ic_arrow_back, R.color.colorPrimary);
 
-        // Add items
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);
         bottomNavigation.addItem(item3);
 
-        bottomNavigation.hideBottomNavigation();
         bottomNavigation.setBehaviorTranslationEnabled(false);
 
-        // Disable the translation inside the CoordinatorLayout
     }
 
     private void setupDependencies() {
