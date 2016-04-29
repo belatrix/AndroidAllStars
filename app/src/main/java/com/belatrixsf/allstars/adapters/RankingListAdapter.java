@@ -37,6 +37,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by icerrate on 28/04/2016.
@@ -44,19 +45,21 @@ import butterknife.ButterKnife;
 public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.EmployeeViewHolder> {
 
     private List<Employee> rankingList;
+    private RankingListClickListener rankingListClickListener;
 
-    public RankingListAdapter() {
-        this(new ArrayList<Employee>());
+    public RankingListAdapter(RankingListClickListener rankingListClickListener) {
+        this(rankingListClickListener, new ArrayList<Employee>());
     }
 
-    public RankingListAdapter(List<Employee> rankingList) {
+    public RankingListAdapter(RankingListClickListener rankingListClickListener, List<Employee> rankingList) {
         this.rankingList = rankingList;
+        this.rankingListClickListener = rankingListClickListener;
     }
 
     @Override
     public EmployeeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ranking, parent, false);
-        return new EmployeeViewHolder(layoutView);
+        return new EmployeeViewHolder(layoutView, rankingListClickListener);
     }
 
     @Override
@@ -83,9 +86,9 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
             holder.positionCup.setBackgroundResource(crownResourceId);
             holder.scoreCup.setBackgroundResource(cupResourceId);
             holder.positionCup.setVisibility(View.VISIBLE);
-            holder.positionNumer.setVisibility(View.GONE);
+            holder.positionNumber.setVisibility(View.GONE);
         }else{
-            holder.positionNumer.setText(String.valueOf(place));
+            holder.positionNumber.setText(String.valueOf(place));
         }
         holder.fullName.setText(employee.getFullName());
         String levelLabel = String.format(holder.level.getContext().getString(R.string.contact_list_level), String.valueOf(employee.getLevel()));
@@ -110,7 +113,8 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
     }
 
     static class EmployeeViewHolder extends RecyclerView.ViewHolder{
-        @Bind(R.id.position_number) public TextView positionNumer;
+
+        @Bind(R.id.position_number) public TextView positionNumber;
         @Bind(R.id.position_cup) public ImageView positionCup;
         @Bind(R.id.photo) public ImageView photo;
         @Bind(R.id.full_name) public TextView fullName;
@@ -118,9 +122,26 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
         @Bind(R.id.score_cup) public ImageView scoreCup;
         @Bind(R.id.score_number) public TextView score;
 
-        public EmployeeViewHolder(View view) {
+        private RankingListClickListener rankingListClickListener;
+
+        public EmployeeViewHolder(View view, RankingListClickListener rankingListClickListener) {
             super(view);
+            this.rankingListClickListener = rankingListClickListener;
             ButterKnife.bind(this, view);
         }
+
+        @OnClick(R.id.layout_container)
+        public void onClick() {
+            if (rankingListClickListener != null) {
+                rankingListClickListener.onEmployeeClicked(getLayoutPosition());
+            }
+        }
+
+    }
+
+    public interface RankingListClickListener {
+
+        void onEmployeeClicked(int position);
+
     }
 }

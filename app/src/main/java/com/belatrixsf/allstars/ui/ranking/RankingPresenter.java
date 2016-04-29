@@ -36,6 +36,7 @@ import javax.inject.Inject;
 public class RankingPresenter extends AllStarsPresenter<RankingView> {
 
     private EmployeeService employeeService;
+    private List<Employee> rankingEmployees;
 
     @Inject
     public RankingPresenter(RankingView view, EmployeeService employeeService) {
@@ -48,6 +49,7 @@ public class RankingPresenter extends AllStarsPresenter<RankingView> {
         employeeService.getRankingList(kind, quantity, new AllStarsCallback<List<Employee>>() {
             @Override
             public void onSuccess(List<Employee> rankingResponse) {
+                rankingEmployees = rankingResponse;
                 view.hideProgressIndicator();
                 view.showRankingList(rankingResponse);
             }
@@ -58,4 +60,9 @@ public class RankingPresenter extends AllStarsPresenter<RankingView> {
             }
         });
     }
+
+    public void employeeSelected(int position) {
+        view.goToEmployeeProfile(rankingEmployees.get(position).getPk());
+    }
+
 }

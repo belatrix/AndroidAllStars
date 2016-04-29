@@ -21,6 +21,8 @@
 package com.belatrixsf.allstars.ui.ranking;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,6 +33,7 @@ import android.view.ViewGroup;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.RankingListAdapter;
 import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.ui.account.AccountActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.Constants;
@@ -40,10 +43,12 @@ import java.util.List;
 
 import butterknife.Bind;
 
+import static com.belatrixsf.allstars.ui.givestar.GiveStarFragment.SELECTED_USER_KEY;
+
 /**
  * Created by icerrate on 28/04/2016.
  */
-public class RankingFragment extends AllStarsFragment implements RankingView {
+public class RankingFragment extends AllStarsFragment implements RankingView, RankingListAdapter.RankingListClickListener {
 
     public static final String RANKING_KIND_KEY = "_ranking_kind_key";
 
@@ -89,7 +94,7 @@ public class RankingFragment extends AllStarsFragment implements RankingView {
     }
 
     private void initViews() {
-        rankingListAdapter = new RankingListAdapter();
+        rankingListAdapter = new RankingListAdapter(this);
         rankingRecyclerView.setAdapter(rankingListAdapter);
         rankingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
@@ -98,4 +103,17 @@ public class RankingFragment extends AllStarsFragment implements RankingView {
     public void showRankingList(List<Employee> rankingList) {
         rankingListAdapter.updateData(rankingList);
     }
+
+    @Override
+    public void onEmployeeClicked(int position) {
+        rankingPresenter.employeeSelected(position);
+    }
+
+    @Override
+    public void goToEmployeeProfile(Integer employeeId) {
+        Intent intent = new Intent(getActivity(), AccountActivity.class);
+        intent.putExtra(AccountActivity.USER_ID_KEY, employeeId);
+        startActivity(intent);
+    }
+
 }
