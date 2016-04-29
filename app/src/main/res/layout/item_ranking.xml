@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_container"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/listPreferredItemHeightLarge"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="@dimen/activity_horizontal_margin"
+    style="@style/ItemListStyle">
+
+    <TextView
+        android:id="@+id/position_number"
+        android:layout_width="@dimen/dimen_6_5"
+        android:layout_height="@dimen/dimen_6_5"
+        tools:text="P"
+        android:textSize="@dimen/text_20"
+        android:visibility="visible"
+        android:gravity="center"/>
+
+    <ImageView
+        android:id="@+id/position_crown"
+        android:layout_width="@dimen/dimen_6_5"
+        android:layout_height="@dimen/dimen_6_5"
+        android:visibility="gone"
+        android:scaleType="centerCrop" />
+
+    <ImageView
+        android:id="@+id/photo"
+        android:layout_width="@dimen/dimen_9_5"
+        android:layout_height="@dimen/dimen_9_5"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/ic_user" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:paddingLeft="@dimen/activity_horizontal_margin">
+
+        <TextView
+            android:id="@+id/full_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_16"
+            android:singleLine="true"
+            tools:text="@string/title_full_name" />
+
+        <TextView
+            android:id="@+id/level"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/grey"
+            tools:text="@string/title_level" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="@dimen/dimen_10_6"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/score_cup"
+            android:layout_width="@dimen/dimen_5_5"
+            android:layout_height="@dimen/dimen_5_5"
+            android:scaleType="centerCrop"/>
+
+        <TextView
+            android:id="@+id/score_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="0"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+</LinearLayout>

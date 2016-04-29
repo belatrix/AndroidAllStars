@@ -21,7 +21,7 @@
 package com.belatrixsf.allstars.ui.common;
 
 import android.app.Fragment;
-import android.support.v7.widget.Toolbar;
+import android.content.Intent;
 
 /**
  * Created by PedroCarrillo on 4/8/16.
@@ -37,7 +37,8 @@ public interface FragmentListener {
     void showProgressDialog(String message);
     void dismissProgressDialog();
     void closeActivity();
-    void setTitle();
-    void setToolbar(Toolbar toolbar);
+    void setActivityResult(int resultCode);
+    void setActivityResult(int resultCode, Intent resultIntent);
+    void setTitle(String title);
 
 }

@@ -53,6 +53,10 @@ public class PreferencesManager {
         editor.apply();
     }
 
+    public void clearToken() {
+        sharedPreferences.edit().remove(TOKEN_KEY).apply();
+    }
+
     public String getToken() {
         return sharedPreferences.getString(TOKEN_KEY, null);
     }
@@ -61,6 +65,10 @@ public class PreferencesManager {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(EMPLOYEE_ID_KEY, employeeId);
         editor.apply();
+    }
+
+    public void clearEmployeeId() {
+        sharedPreferences.edit().remove(EMPLOYEE_ID_KEY).apply();
     }
 
     public int getEmployeeId() {

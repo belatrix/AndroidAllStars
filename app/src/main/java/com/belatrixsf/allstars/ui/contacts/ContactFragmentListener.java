@@ -18,35 +18,16 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils;
+package com.belatrixsf.allstars.ui.contacts;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
 
-import com.belatrixsf.allstars.R;
+import android.support.v7.view.ActionMode;
 
 /**
- * Created by gyosida on 4/14/16.
+ * Created by icerrate on 19/04/2016.
  */
-public class Dialogs {
+public interface ContactFragmentListener {
 
-    public static AlertDialog createErrorDialog(Activity activity, String message) {
-        return createSimpleDialog(activity, AllStarsApplication.getContext().getString(R.string.dialog_title_error), message);
-    }
+    void setActionMode(ActionMode.Callback callback);
 
-    public static AlertDialog createSimpleDialog(Activity activity, String title, String message) {
-        return new AlertDialog.Builder(activity)
-                .setTitle(title)
-                .setMessage(message)
-                .create();
-    }
-
-    public static ProgressDialog createProgressDialog(Activity activity, String message) {
-        ProgressDialog progressDialog = new ProgressDialog(activity);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage(message);
-        progressDialog.setCancelable(false);
-        return progressDialog;
-    }
 }

@@ -23,13 +23,19 @@ package com.belatrixsf.allstars.ui.common;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.belatrixsf.allstars.R;
-import android.app.ProgressDialog;
-import android.support.v7.widget.Toolbar;
+import com.belatrixsf.allstars.utils.DialogUtils;
 
-import com.belatrixsf.allstars.utils.Dialogs;
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * @author PedroCarrillo
@@ -38,7 +44,23 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
 
     private AlertDialog errorAlertDialog;
     private ProgressDialog progressDialog;
+    @Nullable @Bind(R.id.toolbar) protected Toolbar toolbar;
 
+    @Override
+    public void setContentView(@LayoutRes int layoutResID) {
+        super.setContentView(layoutResID);
+        ButterKnife.bind(this);
+    }
+
+    // hack for forcing to pop the back stack when back key is pressed when using android.app.Fragment
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
+    }
 
     @Override
     public void replaceFragment(Fragment fragment, boolean addToBackStack) {
@@ -50,14 +72,14 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         String tag = fragment.getClass().getSimpleName();
         transaction.replace(containerId, fragment, tag);
-        if(addToBackStack) transaction.addToBackStack(null);
+        if (addToBackStack) transaction.addToBackStack(null);
         transaction.commit();
     }
 
     @Override
     public void showError(String message) {
         if (errorAlertDialog == null) {
-            errorAlertDialog = Dialogs.createErrorDialog(this, null);
+            errorAlertDialog = DialogUtils.createErrorDialog(this, null);
         }
         if (progressDialog != null) {
             progressDialog.dismiss();
@@ -79,6 +101,13 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
     }
 
     @Override
+    public void setTitle(String title) {
+        if (!activityHandleTitle() && getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(title);
+        }
+    }
+
+    @Override
     public void showProgressDialog() {
         showProgressDialog(getString(R.string.dialog_message_loading));
     }
@@ -86,7 +115,7 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
     @Override
     public void showProgressDialog(String message) {
         if (progressDialog == null) {
-            progressDialog = Dialogs.createProgressDialog(this, null);
+            progressDialog = DialogUtils.createProgressDialog(this, null);
         }
         if (!progressDialog.isShowing()) {
             progressDialog.setMessage(message);
@@ -107,13 +136,34 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
     }
 
     @Override
-    public void setTitle() {
-
+    public void setActivityResult(int resultCode) {
+        setResult(resultCode);
     }
 
     @Override
-    public void setToolbar(Toolbar toolbar) {
+    public void setActivityResult(int resultCode, Intent resultIntent) {
+        setResult(resultCode, resultIntent);
+    }
+
+    protected boolean activityHandleTitle() {
+        return false;
+    }
+
+    protected void setToolbar() {
         setSupportActionBar(toolbar);
     }
-    
+
+    protected void setNavigationToolbar() {
+        setToolbar();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (toolbar != null) {
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
+        }
+    }
+
 }

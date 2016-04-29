@@ -42,7 +42,6 @@ public abstract class AllStarsFragment extends Fragment implements AllStarsView 
     protected static final String TAG = AllStarsFragment.class.getName();
     protected FragmentListener fragmentListener;
 
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -56,10 +55,15 @@ public abstract class AllStarsFragment extends Fragment implements AllStarsView 
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initDependencies((AllStarsApplication) getActivity().getApplication());
+    }
+
+    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-        initDependencies((AllStarsApplication) getActivity().getApplication());
     }
 
     @Override
@@ -102,6 +106,11 @@ public abstract class AllStarsFragment extends Fragment implements AllStarsView 
     @Override
     public void showError(String message) {
         fragmentListener.showError(message);
+    }
+
+    @Override
+    public void setTitle(String title) {
+        fragmentListener.setTitle(title);
     }
 
     @Override
