@@ -24,6 +24,10 @@ public class RankingContainerFragment extends Fragment {
     public static final int TAB_LAST_MONTH = 1;
     public static final int TAB_ALL_TIME = 2;
 
+    public static RankingContainerFragment newInstance() {
+        return new RankingContainerFragment();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,16 +49,6 @@ public class RankingContainerFragment extends Fragment {
                 }
             }
         });
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -83,4 +77,5 @@ public class RankingContainerFragment extends Fragment {
         transaction.replace(R.id.fragment_ranking_container, fragment, tag);
         transaction.commit();
     }
+
 }

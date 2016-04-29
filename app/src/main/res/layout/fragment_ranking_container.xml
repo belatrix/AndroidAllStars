@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:tag="@string/ranking_tag"
-    android:paddingBottom="56dp"
+    android:paddingBottom="@dimen/dimen_7_8"
     android:layout_height="match_parent"
     android:fillViewport="true" >
 

@@ -47,7 +47,7 @@ public class MainNavigationViewPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return AccountFragment.newInstance(null);
             case 1:
-                return new RankingContainerFragment();
+                return RankingContainerFragment.newInstance();
             case 2:
                 return ContactFragment.newInstance(true);
             default:
