@@ -25,11 +25,12 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 
 import com.belatrixsf.allstars.R;
+import static android.content.DialogInterface.OnClickListener;
 
 /**
  * Created by gyosida on 4/14/16.
  */
-public class Dialogs {
+public class DialogUtils {
 
     public static AlertDialog createErrorDialog(Activity activity, String message) {
         return createSimpleDialog(activity, AllStarsApplication.getContext().getString(R.string.dialog_title_error), message);
@@ -38,6 +39,14 @@ public class Dialogs {
     public static AlertDialog createSimpleDialog(Activity activity, String title, String message) {
         return new AlertDialog.Builder(activity)
                 .setTitle(title)
+                .setMessage(message)
+                .create();
+    }
+
+    public static AlertDialog createConfirmationDialog(Activity activity, String message, OnClickListener positiveListener, OnClickListener negativeListener) {
+        return new AlertDialog.Builder(activity)
+                .setPositiveButton(R.string.dialog_option_positive, positiveListener)
+                .setNegativeButton(R.string.dialog_option_negative, negativeListener)
                 .setMessage(message)
                 .create();
     }

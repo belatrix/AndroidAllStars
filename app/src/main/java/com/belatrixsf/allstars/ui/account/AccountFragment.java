@@ -123,7 +123,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.account_menu, menu);
+        inflater.inflate(R.menu.menu_account, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 

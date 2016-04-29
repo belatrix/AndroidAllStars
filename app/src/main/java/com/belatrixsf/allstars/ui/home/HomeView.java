@@ -18,16 +18,16 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.contacts;
+package com.belatrixsf.allstars.ui.home;
 
-
-import android.support.v7.view.ActionMode;
+import com.belatrixsf.allstars.ui.common.AllStarsView;
 
 /**
- * Created by icerrate on 19/04/2016.
+ * Created by gyosida on 4/28/16.
  */
-public interface ContactFragmentListener {
+public interface HomeView extends AllStarsView {
 
-    void setActionMode(ActionMode.Callback callback);
+    void goToLogin();
+    void showLogoutConfirmationDialog(String message);
 
 }
