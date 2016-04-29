@@ -118,6 +118,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     @Override
     public void onResume() {
         super.onResume();
+        accountCategoriesAdapter.clear();
         accountPresenter.loadEmployeeAccount();
     }
 

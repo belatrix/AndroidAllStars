@@ -24,6 +24,7 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
     private Employee toEmployee;
     private Category selectedSubCategory;
     private String comment;
+    private boolean initWithUser = false;
 
     @Inject
     public GiveStarPresenter(GiveStarView view, EmployeeManager employeeManager, StarService starService) {
@@ -34,11 +35,14 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
 
     public void initWithUser(Employee employee) {
         loadSelectedUser(employee);
+        initWithUser = true;
         view.blockWithUserSelected();
     }
 
     public void userSelectionClicked() {
-        view.goSearchUser();
+        if (!initWithUser) {
+            view.goSearchUser();
+        }
     }
 
     public void categorySelectionClicked() {
@@ -102,9 +106,8 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
         });
     }
 
-    public boolean checkRecommendationEnabled() {
-        view.enableContinueButton();
-        return validateFormComplete();
+    public void checkRecommendationEnabled() {
+        view.showDoneMenu(validateFormComplete());
     }
 
     private boolean validateFormComplete() {
