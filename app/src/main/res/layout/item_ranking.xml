@@ -19,7 +19,7 @@
         android:gravity="center"/>
 
     <ImageView
-        android:id="@+id/position_cup"
+        android:id="@+id/position_crown"
         android:layout_width="@dimen/dimen_6_5"
         android:layout_height="@dimen/dimen_6_5"
         android:visibility="gone"
@@ -31,7 +31,7 @@
         android:layout_height="@dimen/dimen_8_5"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_user" />
+        tools:src="@drawable/ic_user" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -67,7 +67,7 @@
             android:id="@+id/score_cup"
             android:layout_width="@dimen/dimen_5_5"
             android:layout_height="@dimen/dimen_5_5"
-            android:background="@drawable/ic_cup"/>
+            android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/score_number"

@@ -66,9 +66,9 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
     public void onBindViewHolder(EmployeeViewHolder holder, int position) {
         final Employee employee = rankingList.get(position);
         int place = position + Constants.ONE_UNIT;
+        int cupResourceId;
         if (place<=3) {
             int crownResourceId;
-            int cupResourceId;
             switch (place) {
                 case 1:
                     crownResourceId = R.drawable.ic_first_place;
@@ -83,13 +83,16 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
                     cupResourceId = R.drawable.ic_third_place_cup;
                     break;
             }
-            holder.positionCup.setBackgroundResource(crownResourceId);
-            holder.scoreCup.setBackgroundResource(cupResourceId);
-            holder.positionCup.setVisibility(View.VISIBLE);
+            holder.positionCrown.setBackgroundResource(crownResourceId);
+            holder.positionCrown.setVisibility(View.VISIBLE);
             holder.positionNumber.setVisibility(View.GONE);
         }else{
+            cupResourceId = R.drawable.ic_cup;
             holder.positionNumber.setText(String.valueOf(place));
+            holder.positionCrown.setVisibility(View.GONE);
+            holder.positionNumber.setVisibility(View.VISIBLE);
         }
+        holder.scoreCup.setBackgroundResource(cupResourceId);
         holder.fullName.setText(employee.getFullName());
         String levelLabel = String.format(holder.level.getContext().getString(R.string.contact_list_level), String.valueOf(employee.getLevel()));
         holder.level.setText(levelLabel);
@@ -115,7 +118,7 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
     static class EmployeeViewHolder extends RecyclerView.ViewHolder{
 
         @Bind(R.id.position_number) public TextView positionNumber;
-        @Bind(R.id.position_cup) public ImageView positionCup;
+        @Bind(R.id.position_crown) public ImageView positionCrown;
         @Bind(R.id.photo) public ImageView photo;
         @Bind(R.id.full_name) public TextView fullName;
         @Bind(R.id.level) public TextView level;
