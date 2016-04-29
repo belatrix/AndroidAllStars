@@ -209,7 +209,9 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
 
     @Override
     public void showDoneMenu(boolean show) {
-        menuDone.setEnabled(show);
+        if (menuDone != null) {
+            menuDone.setEnabled(show);
+        }
     }
 
 }
