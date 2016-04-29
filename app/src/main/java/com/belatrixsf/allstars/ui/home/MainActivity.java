@@ -42,7 +42,6 @@ import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.MainNavigationViewPagerAdapter;
 import com.belatrixsf.allstars.ui.common.AllStarsActivity;
 import com.belatrixsf.allstars.ui.contacts.ContactFragmentListener;
-import com.belatrixsf.allstars.ui.givestar.GiveStarActivity;
 import com.belatrixsf.allstars.ui.login.LoginActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.DialogUtils;
@@ -100,8 +99,9 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
         startRecommendationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, GiveStarActivity.class);
-                startActivityForResult(intent, RQ_GIVE_STAR);
+                /*Intent intent = new Intent(MainActivity.this, GiveStarActivity.class);
+                startActivityForResult(intent, RQ_GIVE_STAR);*/
+                Snackbar.make(coordinatorLayout, "Simulacion exitosa", Snackbar.LENGTH_LONG).show();
             }
         });
     }
@@ -183,6 +183,19 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && data != null) {
             Snackbar snackbar = Snackbar.make(coordinatorLayout, data.getStringExtra(MESSAGE_KEY), Snackbar.LENGTH_LONG);
+            snackbar.getView().addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+                @Override
+                public void onViewAttachedToWindow(View v) {
+                }
+
+                @Override
+                public void onViewDetachedFromWindow(View v) {
+                    startRecommendationButton.setTranslationY(0);
+                }
+            });
+            snackbar.show();
+        }else{
+            Snackbar snackbar = Snackbar.make(coordinatorLayout, "Simulacion exitosa", Snackbar.LENGTH_LONG);
             snackbar.getView().addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
                 @Override
                 public void onViewAttachedToWindow(View v) {
