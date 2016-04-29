@@ -20,12 +20,10 @@
 */
 package com.belatrixsf.allstars.ui.home;
 
-import android.animation.Animator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -35,7 +33,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v7.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,7 +46,6 @@ import com.belatrixsf.allstars.ui.common.AllStarsActivity;
 import com.belatrixsf.allstars.ui.contacts.ContactFragmentListener;
 import com.belatrixsf.allstars.ui.givestar.GiveStarActivity;
 import com.belatrixsf.allstars.ui.login.LoginActivity;
-import com.belatrixsf.allstars.ui.ranking.RankingFragment;
 import com.belatrixsf.allstars.ui.ranking.RankingFragmentListener;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.DialogUtils;
@@ -144,9 +140,9 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
         });
         tabLayout.setupWithViewPager(mainViewPager);
 
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.action_recommend, R.drawable.ic_arrow_back, R.color.colorAccent);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.action_search, R.drawable.ic_arrow_back, R.color.colorActiveSmall);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.action_search, R.drawable.ic_arrow_back, R.color.colorPrimary);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_current_month, R.drawable.ic_whatshot, R.color.colorAccent);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_last_month, R.drawable.ic_event, R.color.colorActiveSmall);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.tab_all_time, R.drawable.ic_star, R.color.colorPrimary);
 
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);

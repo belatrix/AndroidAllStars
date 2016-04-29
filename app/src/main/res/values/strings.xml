@@ -53,11 +53,14 @@
     <string name="comment_no_empty_error">Comment cannot be empty</string>
     <string name="success_recommendation">Recommendation completed</string>
 
-    <!--Contact-->
-    <string name="hint_search">Search Term</string>
-
     <!--Contacts-->
     <string name="contact_list_level">Lvl. %s</string>
+    <string name="hint_search">Search Term</string>
+
+    <!--Ranking-->
+    <string name="tab_current_month">Current Month</string>
+    <string name="tab_last_month">Last Month</string>
+    <string name="tab_all_time">All Time</string>
 
     <!--Messages-->
     <string name="empty_search_term">Must write something</string>
