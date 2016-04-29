@@ -28,7 +28,7 @@ public class AccountSelectionView  extends DataSelectionView {
 
     @Override
     protected void initValueView() {
-        dataStub.setLayoutResource(R.layout.view_contact_data);
+        dataStub.setLayoutResource(R.layout.item_contact);
         valueView = dataStub.inflate();
         valueView.setVisibility(View.GONE);
         profileImageView = (ImageView) valueView.findViewById(R.id.photo);
@@ -42,7 +42,7 @@ public class AccountSelectionView  extends DataSelectionView {
     }
 
     public void setProfileImage(String imageUrl) {
-        Glide.with(profileImageView.getContext()).load(imageUrl).override(50, 50).centerCrop().transform(new CircleTransform(profileImageView.getContext())).into(profileImageView);
+        Glide.with(profileImageView.getContext()).load(imageUrl).override(50, 50).centerCrop().transform(new BorderedCircleTransformation(profileImageView.getContext())).into(profileImageView);
     }
 
     public void setFullName(String fullName) {

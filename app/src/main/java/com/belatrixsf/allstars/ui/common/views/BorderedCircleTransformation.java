@@ -16,12 +16,12 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 /**
  * Created by pedrocarrillo on 4/16/16.
  */
-public class CircleTransform extends BitmapTransformation {
+public class BorderedCircleTransformation extends BitmapTransformation {
 
     private final int marginSize;
     private final int strokeWidth;
 
-    public CircleTransform(Context context) {
+    public BorderedCircleTransformation(Context context) {
         super(context);
         Resources resources = context.getResources();
         marginSize = resources.getDimensionPixelSize(R.dimen.picture_margin_size);

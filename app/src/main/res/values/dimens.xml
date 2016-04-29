@@ -29,6 +29,6 @@
 
     <dimen name="text_margin">3dp</dimen>
     <dimen name="corner_radius">4dp</dimen>
-    <dimen name="picture_margin_size">20dp</dimen>
-    <dimen name="picture_stroke_width">15dp</dimen>
+    <dimen name="picture_margin_size">25dp</dimen>
+    <dimen name="picture_stroke_width">10dp</dimen>
 </resources>

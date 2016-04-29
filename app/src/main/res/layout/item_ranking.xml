@@ -27,8 +27,8 @@
 
     <ImageView
         android:id="@+id/photo"
-        android:layout_width="@dimen/dimen_8_5"
-        android:layout_height="@dimen/dimen_8_5"
+        android:layout_width="@dimen/dimen_9_5"
+        android:layout_height="@dimen/dimen_9_5"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:scaleType="centerCrop"
         tools:src="@drawable/ic_user" />
@@ -46,6 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_16"
+            android:singleLine="true"
             tools:text="@string/title_full_name" />
 
         <TextView
