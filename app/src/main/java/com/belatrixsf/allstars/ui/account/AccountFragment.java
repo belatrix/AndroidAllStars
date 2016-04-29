@@ -40,7 +40,7 @@ import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
-import com.belatrixsf.allstars.ui.common.views.CircleTransform;
+import com.belatrixsf.allstars.ui.common.views.BorderedCircleTransformation;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.allstars.ui.givestar.GiveStarActivity;
 import com.belatrixsf.allstars.ui.recommendation.RecommendationActivity;
@@ -118,6 +118,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     @Override
     public void onResume() {
         super.onResume();
+        accountCategoriesAdapter.clear();
         accountPresenter.loadEmployeeAccount();
     }
 
@@ -207,8 +208,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
 
     @Override
     public void showProfilePicture(final String profilePicture) {
-        int size = getActivity().getResources().getDimensionPixelSize(R.dimen.dimen_15_10);
-        Glide.with(getActivity()).load(profilePicture).override(size, size).centerCrop().transform(new CircleTransform(getActivity())).into(pictureImageView);
+        Glide.with(getActivity()).load(profilePicture).fitCenter().transform(new BorderedCircleTransformation(getActivity())).into(pictureImageView);
     }
 
     @Override

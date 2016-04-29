@@ -91,7 +91,7 @@ public class CommentFragment extends AllStarsFragment implements CommentView {
                 if (actionId == EditorInfo.IME_ACTION_DONE){
                     commentPresenter.validateComment(v.getText().toString());
                 }
-                return false;
+                return true;
             }
         });
     }

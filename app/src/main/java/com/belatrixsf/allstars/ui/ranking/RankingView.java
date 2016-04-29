@@ -18,31 +18,19 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils;
+package com.belatrixsf.allstars.ui.ranking;
 
-import android.app.Activity;
-import android.content.Context;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
+import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.ui.common.AllStarsView;
+
+import java.util.List;
 
 /**
- * Created by icerrate on 27/04/2016.
+ * Created by icerrate on 28/04/2016.
  */
-public class KeyboardUtils {
+public interface RankingView extends AllStarsView {
 
-    public static void hideKeyboard(Activity activity, View view){
-        if (activity != null && view != null) {
-            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (imm != null){
-                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-            }
-        }
-    }
+    void showRankingList(List<Employee> rankingList);
+    void goToEmployeeProfile(Integer employeeId);
 
-    public static void showKeyboard(Activity activity, View view){
-        if (activity != null) {
-            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
-        }
-    }
 }

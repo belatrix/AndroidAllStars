@@ -55,6 +55,9 @@ public interface EmployeeAPI {
     @GET(ServerPaths.RECOMMENDATION_LIST)
     Call<RecommendationResponse> getRecommendationList(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Path(ServerPaths.SUBCATEGORY_ID) int subcategoryId);
 
+    @GET(ServerPaths.RANKING_LIST)
+    Call<List<Employee>> getRankingList(@Path(ServerPaths.KIND) String kind, @Path(ServerPaths.QUANTITY) int quantity);
+
     @GET(ServerPaths.EMPLOYEE_CATEGORIES)
     Call<List<Category>> getEmployeeCategories(@Path(ServerPaths.EMPLOYEE_ID) int employeeId);
 

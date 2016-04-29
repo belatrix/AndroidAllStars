@@ -26,6 +26,7 @@ import com.belatrixsf.allstars.utils.di.modules.ServicesModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.CategoriesListModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactPresenterModule;
+import com.belatrixsf.allstars.utils.di.modules.presenters.RankingPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.RecommendationPresenterModule;
 
@@ -49,6 +50,7 @@ public interface ApplicationComponent {
     AccountComponent accountComponent(AccountPresenterModule accountPresenterModule);
     ContactComponent contactComponent(ContactPresenterModule contactPresenterModule);
     RecommendationComponent recommendationComponent(RecommendationPresenterModule recommendationPresenterModule);
+    RankingComponent rankingComponent(RankingPresenterModule rankingPresenterModule);
     GiveStarComponent giveStarComponent(GiveStarPresenterModule giveStarPresenterModule);
     CategoriesListComponent categoriesListComponent(CategoriesListModule categoriesListModule);
 

@@ -18,36 +18,38 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.recommendation;
+package com.belatrixsf.allstars.ui.ranking;
 
-import com.belatrixsf.allstars.networking.retrofit.responses.RecommendationResponse;
+import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.services.EmployeeService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 /**
- * Created by icerrate on 25/04/2016.
+ * Created by icerrate on 28/04/2016.
  */
-public class RecommendationPresenter extends AllStarsPresenter<RecommendationView> {
+public class RankingPresenter extends AllStarsPresenter<RankingView> {
 
     private EmployeeService employeeService;
+    private List<Employee> rankingEmployees;
 
     @Inject
-    public RecommendationPresenter(RecommendationView view, EmployeeService employeeService) {
+    public RankingPresenter(RankingView view, EmployeeService employeeService) {
         super(view);
         this.employeeService = employeeService;
     }
 
-    public void getRecommendationList(int employeeId, int subcategoryId) {
-        view.showProgressIndicator();
-        employeeService.getRecommendationList(employeeId, subcategoryId, new AllStarsCallback<RecommendationResponse>() {
+    public void getRankingList(String kind, int quantity) {
+        employeeService.getRankingList(kind, quantity, new AllStarsCallback<List<Employee>>() {
             @Override
-            public void onSuccess(RecommendationResponse recommendationResponse) {
-                view.hideProgressIndicator();
-                view.showRecommendations(recommendationResponse.getRecommendationList());
+            public void onSuccess(List<Employee> rankingResponse) {
+                rankingEmployees = rankingResponse;
+                view.showRankingList(rankingResponse);
             }
 
             @Override
@@ -56,4 +58,9 @@ public class RecommendationPresenter extends AllStarsPresenter<RecommendationVie
             }
         });
     }
+
+    public void employeeSelected(int position) {
+        view.goToEmployeeProfile(rankingEmployees.get(position).getPk());
+    }
+
 }

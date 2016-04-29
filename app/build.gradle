@@ -48,4 +48,5 @@ dependencies {
     compile 'javax.inject:javax.inject:1'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.ramotion.foldingcell:folding-cell:1.0.0'
+    compile 'com.aurelhubert:ahbottomnavigation:1.1.8'
 }
