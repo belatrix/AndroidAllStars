@@ -202,7 +202,7 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
     public void finishRecommendation() {
         Intent intent = new Intent();
         intent.putExtra(MainActivity.MESSAGE_KEY, getString(R.string.success_recommendation));
-        fragmentListener.setActivityResult(MainActivity.RQ_GIVE_STAR, intent);
+        fragmentListener.setActivityResult(Activity.RESULT_OK, intent);
         fragmentListener.closeActivity();
     }
 
