@@ -45,13 +45,19 @@ import butterknife.Bind;
  */
 public class RankingFragment extends AllStarsFragment implements RankingView {
 
+    public static final String RANKING_KIND_KEY = "_ranking_kind_key";
+
     @Bind(R.id.ranking) RecyclerView rankingRecyclerView;
 
     private RankingPresenter rankingPresenter;
     private RankingListAdapter rankingListAdapter;
 
-    public static RankingFragment newInstance() {
-        return new RankingFragment();
+    public static RankingFragment newInstance(String kind) {
+        Bundle bundle = new Bundle();
+        bundle.putString(RANKING_KIND_KEY, kind);
+        RankingFragment rankingFragment = new RankingFragment();
+        rankingFragment.setArguments(bundle);
+        return rankingFragment;
     }
 
     @Override
@@ -77,7 +83,9 @@ public class RankingFragment extends AllStarsFragment implements RankingView {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews();
-        rankingPresenter.getRankingList(Constants.KIND_SCORE, Constants.DEFAULT_QUANTITY);
+        if (getArguments() != null && getArguments().containsKey(RANKING_KIND_KEY)) {
+            rankingPresenter.getRankingList(getArguments().getString(RANKING_KIND_KEY), Constants.DEFAULT_QUANTITY);
+        }
     }
 
     private void initViews() {
