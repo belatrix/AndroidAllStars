@@ -61,6 +61,9 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
         if (employee.getLevel() != null) {
             view.showUserLevel(String.valueOf(employee.getLevel()));
         }
+        if (employee.getAvatar() != null) {
+            view.showUserProfileImage(employee.getAvatar());
+        }
         this.toEmployee = employee;
         view.showUser();
     }

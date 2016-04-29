@@ -30,6 +30,7 @@ public class AccountSelectionView  extends DataSelectionView {
     protected void initValueView() {
         dataStub.setLayoutResource(R.layout.item_contact);
         valueView = dataStub.inflate();
+        valueView.setPadding(0, 0, 0, 0);
         valueView.setVisibility(View.GONE);
         profileImageView = (ImageView) valueView.findViewById(R.id.photo);
         fullNameTextView = (TextView) valueView.findViewById(R.id.full_name);
@@ -42,7 +43,7 @@ public class AccountSelectionView  extends DataSelectionView {
     }
 
     public void setProfileImage(String imageUrl) {
-        Glide.with(profileImageView.getContext()).load(imageUrl).override(50, 50).centerCrop().transform(new BorderedCircleTransformation(profileImageView.getContext())).into(profileImageView);
+        Glide.with(profileImageView.getContext()).load(imageUrl).fitCenter().transform(new CircleTransformation(profileImageView.getContext())).into(profileImageView);
     }
 
     public void setFullName(String fullName) {
