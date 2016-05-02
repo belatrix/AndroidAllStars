@@ -30,7 +30,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.view.ActionMode;
@@ -42,6 +41,7 @@ import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.MainNavigationViewPagerAdapter;
 import com.belatrixsf.allstars.ui.common.AllStarsActivity;
 import com.belatrixsf.allstars.ui.contacts.ContactFragmentListener;
+import com.belatrixsf.allstars.ui.givestar.GiveStarActivity;
 import com.belatrixsf.allstars.ui.login.LoginActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.DialogUtils;
@@ -62,7 +62,8 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
     @Bind(R.id.app_bar_layout) AppBarLayout appBarLayout;
     @Bind(R.id.tab_layout) TabLayout tabLayout;
     @Bind(R.id.main_view_pager) ViewPager mainViewPager;
-    @Bind(R.id.start_recommendation) FloatingActionButton startRecommendationButton;
+    @Bind(R.id.start_recommendation)
+    FloatingActionButton startRecommendationButton;
     @Bind(R.id.main_coordinator) CoordinatorLayout coordinatorLayout;
 
     @Override
@@ -99,9 +100,8 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
         startRecommendationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent intent = new Intent(MainActivity.this, GiveStarActivity.class);
-                startActivityForResult(intent, RQ_GIVE_STAR);*/
-                Snackbar.make(coordinatorLayout, "Simulacion exitosa", Snackbar.LENGTH_LONG).show();
+                Intent intent = new Intent(MainActivity.this, GiveStarActivity.class);
+                startActivityForResult(intent, RQ_GIVE_STAR);*
             }
         });
     }
@@ -182,31 +182,12 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && data != null) {
-            Snackbar snackbar = Snackbar.make(coordinatorLayout, data.getStringExtra(MESSAGE_KEY), Snackbar.LENGTH_LONG);
-            snackbar.getView().addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+            DialogUtils.createInformationDialog(this, data.getStringExtra(MESSAGE_KEY), getString(R.string.app_name), new DialogInterface.OnClickListener() {
                 @Override
-                public void onViewAttachedToWindow(View v) {
+                public void onClick(DialogInterface dialog, int which) {
+                    //Do Nothing
                 }
-
-                @Override
-                public void onViewDetachedFromWindow(View v) {
-                    startRecommendationButton.setTranslationY(0);
-                }
-            });
-            snackbar.show();
-        }else{
-            Snackbar snackbar = Snackbar.make(coordinatorLayout, "Simulacion exitosa", Snackbar.LENGTH_LONG);
-            snackbar.getView().addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
-                @Override
-                public void onViewAttachedToWindow(View v) {
-                }
-
-                @Override
-                public void onViewDetachedFromWindow(View v) {
-                    startRecommendationButton.setTranslationY(0);
-                }
-            });
-            snackbar.show();
+            }).show();
         }
     }
 

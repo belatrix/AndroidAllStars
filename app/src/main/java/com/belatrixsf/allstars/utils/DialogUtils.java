@@ -43,6 +43,14 @@ public class DialogUtils {
                 .create();
     }
 
+    public static AlertDialog createInformationDialog(Activity activity, String message, String title, OnClickListener positiveListener) {
+        return new AlertDialog.Builder(activity)
+                .setTitle(title)
+                .setPositiveButton(R.string.dialog_option_confirm, positiveListener)
+                .setMessage(message)
+                .create();
+    }
+
     public static AlertDialog createConfirmationDialog(Activity activity, String message, OnClickListener positiveListener, OnClickListener negativeListener) {
         return new AlertDialog.Builder(activity)
                 .setPositiveButton(R.string.dialog_option_positive, positiveListener)
