@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.utils.Constants;
 
@@ -20,8 +19,8 @@ import com.belatrixsf.allstars.utils.Constants;
 public class RankingContainerFragment extends Fragment {
 
     private RankingFragmentListener rankingFragmentListener;
-    public static final int TAB_CURRENT_MONTH = 0;
-    public static final int TAB_LAST_MONTH = 1;
+    public static final int TAB_LAST_MONTH = 0;
+    public static final int TAB_CURRENT_MONTH = 1;
     public static final int TAB_ALL_TIME = 2;
 
     public static RankingContainerFragment newInstance() {
@@ -40,10 +39,10 @@ public class RankingContainerFragment extends Fragment {
         rankingFragmentListener.setBottomTabListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position, boolean wasSelected) {
-                if (position == TAB_CURRENT_MONTH && !wasSelected) {
-                    replaceChildFragment(RankingFragment.newInstance(Constants.KIND_CURRENT_MONTH));
-                } else if (position == TAB_LAST_MONTH && !wasSelected) {
+                if (position == TAB_LAST_MONTH && !wasSelected) {
                     replaceChildFragment(RankingFragment.newInstance(Constants.KIND_LAST_MONTH_SCORE));
+                } else if (position == TAB_CURRENT_MONTH && !wasSelected) {
+                    replaceChildFragment(RankingFragment.newInstance(Constants.KIND_CURRENT_MONTH));
                 } else if (position == TAB_ALL_TIME && !wasSelected) {
                     replaceChildFragment(RankingFragment.newInstance(Constants.KIND_SCORE));
                 }
