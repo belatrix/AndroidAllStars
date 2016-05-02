@@ -30,6 +30,6 @@
         android:layout_margin="@dimen/fab_margin"
         android:tint="@color/white"
         android:src="@android:drawable/ic_input_add"
-        app:layout_behavior="com.belatrixsf.allstars.utils.ScrollAwareFABBehavior"/>
+        app:layout_behavior="com.belatrixsf.allstars.ui.common.ScrollAwareFABBehavior"/>
 
 </android.support.design.widget.CoordinatorLayout>
