@@ -15,15 +15,7 @@
         android:layout_height="@dimen/dimen_6_5"
         tools:text="P"
         android:textSize="@dimen/text_20"
-        android:visibility="visible"
         android:gravity="center"/>
-
-    <ImageView
-        android:id="@+id/position_crown"
-        android:layout_width="@dimen/dimen_6_5"
-        android:layout_height="@dimen/dimen_6_5"
-        android:visibility="gone"
-        android:scaleType="centerCrop" />
 
     <ImageView
         android:id="@+id/photo"
