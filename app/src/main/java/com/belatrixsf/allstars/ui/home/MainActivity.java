@@ -196,9 +196,11 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
-                AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
-                params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
-                toolbar.setVisibility(View.GONE);
+                if (toolbar != null && toolbar.getLayoutParams() != null){
+                    AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
+                    params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
+                    toolbar.setVisibility(View.GONE);
+                }
             }
         }, 300);
         super.onSupportActionModeStarted(mode);
@@ -206,15 +208,17 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
 
     @Override
     public void onSupportActionModeFinished(@NonNull ActionMode mode) {
-        AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
-        params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
-        appBarLayout.setExpanded(true, true);
-        new Handler().postDelayed(new Runnable(){
-            @Override
-            public void run() {
-                toolbar.setVisibility(View.VISIBLE);
-            }
-        }, 300);
+        if (toolbar != null && toolbar.getLayoutParams() != null){
+            AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
+            params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
+            appBarLayout.setExpanded(true, true);
+            new Handler().postDelayed(new Runnable(){
+                @Override
+                public void run() {
+                    toolbar.setVisibility(View.VISIBLE);
+                }
+            }, 300);
+        }
         super.onSupportActionModeFinished(mode);
     }
 
