@@ -49,6 +49,7 @@ public class ContactPresenter extends AllStarsPresenter<ContactView> {
     }
 
     public void getEmployeeList() {
+        view.showProgressIndicator();
         employeeService.getEmployeeList(new AllStarsCallback<SearchEmployeeResponse>() {
             @Override
             public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
@@ -72,11 +73,11 @@ public class ContactPresenter extends AllStarsPresenter<ContactView> {
 
     public void submitSearchTerm(String searchTerm){
         if (!searchTerm.isEmpty()) {
-            view.showProgressDialog();
+            view.showProgressIndicator();
             employeeService.getEmployeeSearchList(searchTerm, new AllStarsCallback<SearchEmployeeResponse>() {
                 @Override
                 public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
-                    view.dismissProgressDialog();
+                    view.hideProgressIndicator();
                     view.showEmployees(searchEmployeeResponse.getEmployeeList());
                 }
 

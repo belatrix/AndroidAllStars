@@ -37,6 +37,7 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
     public static final int RQ_SUBCATEGORY = 102;
 
     private GiveStarPresenter giveStarPresenter;
+    private MenuItem menuDone;
 
     @Bind(R.id.account_selection) AccountSelectionView accountSelectionView;
     @Bind(R.id.category_selection) DataSelectionView categorySelectionView;
@@ -86,8 +87,7 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
-        MenuItem menuItem = menu.findItem(R.id.action_done);
-        menuItem.setEnabled(giveStarPresenter.checkRecommendationEnabled());
+        menuDone = menu.findItem(R.id.action_done);
         super.onPrepareOptionsMenu(menu);
     }
 
@@ -182,11 +182,6 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
     }
 
     @Override
-    public void enableContinueButton() {
-        getActivity().invalidateOptionsMenu();
-    }
-
-    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
@@ -211,6 +206,14 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
     @Override
     public void blockWithUserSelected() {
         accountSelectionView.setArrowVisibility(View.GONE);
-        accountSelectionView.setOnClickListener(null);
+        accountSelectionView.setClickable(false);
     }
+
+    @Override
+    public void showDoneMenu(boolean show) {
+        if (menuDone != null) {
+            menuDone.setEnabled(show);
+        }
+    }
+
 }

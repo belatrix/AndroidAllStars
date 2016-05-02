@@ -25,10 +25,10 @@ public interface GiveStarView extends AllStarsView {
 
     void showCategory(String category);
 
-    void enableContinueButton();
-
     void finishRecommendation();
 
     void blockWithUserSelected();
+
+    void showDoneMenu(boolean show);
 
 }

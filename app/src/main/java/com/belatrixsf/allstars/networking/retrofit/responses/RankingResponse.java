@@ -18,31 +18,37 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils;
+package com.belatrixsf.allstars.networking.retrofit.responses;
 
-import android.app.Activity;
-import android.content.Context;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
+import com.belatrixsf.allstars.entities.Employee;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 /**
- * Created by icerrate on 27/04/2016.
+ * Created by icerrate on 28/04/2016.
  */
-public class KeyboardUtils {
+public class RankingResponse {
 
-    public static void hideKeyboard(Activity activity, View view){
-        if (activity != null && view != null) {
-            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (imm != null){
-                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-            }
-        }
+    private int count;
+    private String next;
+    private String previous;
+    @SerializedName("results")
+    private List<Employee> rankingList;
+
+    public int getCount() {
+        return count;
     }
 
-    public static void showKeyboard(Activity activity, View view){
-        if (activity != null) {
-            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
-        }
+    public String getNext() {
+        return next;
+    }
+
+    public String getPrevious() {
+        return previous;
+    }
+
+    public List<Employee> getRankingList() {
+        return rankingList;
     }
 }

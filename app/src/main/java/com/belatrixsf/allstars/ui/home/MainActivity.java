@@ -37,12 +37,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.MainNavigationViewPagerAdapter;
 import com.belatrixsf.allstars.ui.common.AllStarsActivity;
 import com.belatrixsf.allstars.ui.contacts.ContactFragmentListener;
 import com.belatrixsf.allstars.ui.givestar.GiveStarActivity;
 import com.belatrixsf.allstars.ui.login.LoginActivity;
+import com.belatrixsf.allstars.ui.ranking.RankingFragmentListener;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.DialogUtils;
 import com.belatrixsf.allstars.utils.di.components.DaggerHomeComponent;
@@ -52,9 +55,10 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 
-public class MainActivity extends AllStarsActivity implements ContactFragmentListener, HomeView {
+public class MainActivity extends AllStarsActivity implements ContactFragmentListener, HomeView, RankingFragmentListener {
 
     public static final int RQ_GIVE_STAR = 99;
+    public static final int RANKING_TAB = 1;
     public static final String MESSAGE_KEY = "_message_key";
 
     @Inject HomePresenter homePresenter;
@@ -65,6 +69,7 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
     @Bind(R.id.start_recommendation)
     FloatingActionButton startRecommendationButton;
     @Bind(R.id.main_coordinator) CoordinatorLayout coordinatorLayout;
+    @Bind(R.id.bottom_navigation) AHBottomNavigation bottomNavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +106,7 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, GiveStarActivity.class);
-                startActivityForResult(intent, RQ_GIVE_STAR);*
+                startActivityForResult(intent, RQ_GIVE_STAR);
             }
         });
     }
@@ -109,7 +114,42 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
     private void setupTabs() {
         MainNavigationViewPagerAdapter mainNavigationViewPagerAdapter = new MainNavigationViewPagerAdapter(getFragmentManager());
         mainViewPager.setAdapter(mainNavigationViewPagerAdapter);
+        mainViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == RANKING_TAB) {
+                    bottomNavigation.setVisibility(View.VISIBLE);
+                    bottomNavigation.setCurrentItem(1);
+                    startRecommendationButton.hide();
+
+                } else {
+                    bottomNavigation.setVisibility(View.GONE);
+                    startRecommendationButton.show();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         tabLayout.setupWithViewPager(mainViewPager);
+
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_current_month, R.drawable.ic_whatshot, R.color.colorAccent);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_last_month, R.drawable.ic_event, R.color.colorActiveSmall);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.tab_all_time, R.drawable.ic_star, R.color.colorPrimary);
+
+        bottomNavigation.addItem(item1);
+        bottomNavigation.addItem(item2);
+        bottomNavigation.addItem(item3);
+
+        bottomNavigation.setBehaviorTranslationEnabled(false);
+
     }
 
     private void setupDependencies() {
@@ -194,4 +234,10 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
     public static Intent makeIntent(Context context) {
         return new Intent(context, MainActivity.class);
     }
+
+    @Override
+    public void setBottomTabListener(AHBottomNavigation.OnTabSelectedListener onTabSelectedListener) {
+        bottomNavigation.setOnTabSelectedListener(onTabSelectedListener);
+    }
+
 }
