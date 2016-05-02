@@ -44,7 +44,7 @@ public class RankingContainerFragment extends Fragment {
                 } else if (position == TAB_CURRENT_MONTH && !wasSelected) {
                     replaceChildFragment(RankingFragment.newInstance(Constants.KIND_CURRENT_MONTH));
                 } else if (position == TAB_ALL_TIME && !wasSelected) {
-                    replaceChildFragment(RankingFragment.newInstance(Constants.KIND_SCORE));
+                    replaceChildFragment(RankingFragment.newInstance(Constants.KIND_TOTAL_SCORE));
                 }
             }
         });

@@ -46,13 +46,15 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
 
     private List<Employee> rankingList;
     private RankingListClickListener rankingListClickListener;
+    private String rankingKind;
 
-    public RankingListAdapter(RankingListClickListener rankingListClickListener) {
-        this(rankingListClickListener, new ArrayList<Employee>());
+    public RankingListAdapter(RankingListClickListener rankingListClickListener, String rankingKind) {
+        this(rankingListClickListener, rankingKind, new ArrayList<Employee>());
     }
 
-    public RankingListAdapter(RankingListClickListener rankingListClickListener, List<Employee> rankingList) {
+    public RankingListAdapter(RankingListClickListener rankingListClickListener, String rankingKind, List<Employee> rankingList) {
         this.rankingList = rankingList;
+        this.rankingKind = rankingKind;
         this.rankingListClickListener = rankingListClickListener;
     }
 
@@ -88,7 +90,15 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
         holder.fullName.setText(employee.getFullName());
         String levelLabel = String.format(holder.level.getContext().getString(R.string.contact_list_level), String.valueOf(employee.getLevel()));
         holder.level.setText(levelLabel);
-        holder.score.setText(String.valueOf(employee.getScore()));
+        String stringScore = Constants.EMPTY_STRING;
+        if (Constants.KIND_LAST_MONTH_SCORE.equalsIgnoreCase(rankingKind)){
+            stringScore = String.valueOf(employee.getLastMonthScore());
+        }else if (Constants.KIND_CURRENT_MONTH.equalsIgnoreCase(rankingKind)) {
+            stringScore = String.valueOf(employee.getCurrentMonthScore());
+        }else if (Constants.KIND_TOTAL_SCORE.equalsIgnoreCase(rankingKind)) {
+            stringScore = String.valueOf(employee.getTotalScore());
+        }
+        holder.score.setText(stringScore);
         if (employee.getAvatar() != null) {
             Context context = holder.photo.getContext();
             Glide.with(context).load(employee.getAvatar()).fitCenter().transform(new CircleTransformation(context)).into(holder.photo);

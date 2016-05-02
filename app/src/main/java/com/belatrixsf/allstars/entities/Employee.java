@@ -43,12 +43,17 @@ public class Employee implements Parcelable {
     private Role role;
     @SerializedName("skype_id")
     private String skypeId;
+    @SerializedName("last_year_score")
+    private Integer lastYearScore;
+    @SerializedName("current_year_score")
+    private Integer currentYearScore;
     @SerializedName("last_month_score")
     private Integer lastMonthScore;
     @SerializedName("current_month_score")
     private Integer currentMonthScore;
     private Integer level;
-    private Integer score;
+    @SerializedName("total_score")
+    private Integer totalScore;
     private List<Category> categories;
     @SerializedName("is_active")
     private boolean active;
@@ -84,6 +89,14 @@ public class Employee implements Parcelable {
         return skypeId;
     }
 
+    public Integer getLastYearScore() {
+        return lastYearScore;
+    }
+
+    public Integer getCurrentYearScore() {
+        return currentYearScore;
+    }
+
     public Integer getLastMonthScore() {
         return lastMonthScore;
     }
@@ -96,8 +109,8 @@ public class Employee implements Parcelable {
         return level;
     }
 
-    public Integer getScore() {
-        return score;
+    public Integer getTotalScore() {
+        return totalScore;
     }
 
     public List<Category> getCategories() {
@@ -139,7 +152,7 @@ public class Employee implements Parcelable {
         lastMonthScore = in.readByte() == 0x00 ? null : in.readInt();
         currentMonthScore = in.readByte() == 0x00 ? null : in.readInt();
         level = in.readByte() == 0x00 ? null : in.readInt();
-        score = in.readByte() == 0x00 ? null : in.readInt();
+        totalScore = in.readByte() == 0x00 ? null : in.readInt();
         if (in.readByte() == 0x01) {
             categories = new ArrayList<Category>();
             in.readList(categories, Category.class.getClassLoader());
@@ -188,11 +201,11 @@ public class Employee implements Parcelable {
             dest.writeByte((byte) (0x01));
             dest.writeInt(level);
         }
-        if (score == null) {
+        if (totalScore == null) {
             dest.writeByte((byte) (0x00));
         } else {
             dest.writeByte((byte) (0x01));
-            dest.writeInt(score);
+            dest.writeInt(totalScore);
         }
         if (categories == null) {
             dest.writeByte((byte) (0x00));
