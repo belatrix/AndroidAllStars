@@ -98,8 +98,6 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
                 giveStarPresenter.makeRecommendation();
                 return true;
             default:
-                fragmentListener.setActivityResult(Activity.RESULT_OK);
-                fragmentListener.closeActivity();
                 return super.onOptionsItemSelected(item);
         }
     }
