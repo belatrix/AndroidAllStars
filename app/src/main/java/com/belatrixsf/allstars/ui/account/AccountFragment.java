@@ -23,6 +23,7 @@ package com.belatrixsf.allstars.ui.account;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,6 +33,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
@@ -71,6 +73,8 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     @Bind(R.id.profile_name) TextView nameTextView;
     @Bind(R.id.profile_role) TextView roleTextView;
     @Bind(R.id.profile_picture) ImageView pictureImageView;
+    @Bind(R.id.account_swipe_refresh) SwipeRefreshLayout accountSwipeRefresh;
+    @Bind(R.id.subcategories_progress_bar) ProgressBar subCategoriesProgressBar;
 
     private MenuItem recommendMenuItem;
 
@@ -147,6 +151,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
 
 
     private void setupViews() {
+
         accountCategoriesAdapter = new AccountSubCategoriesAdapter(this);
         recommendationRecyclerView.setAdapter(accountCategoriesAdapter);
         recommendationRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
@@ -221,6 +226,32 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
         Intent intent = new Intent(getActivity(), GiveStarActivity.class);
         intent.putExtra(SELECTED_USER_KEY, employee);
         startActivity(intent);
+    }
+
+    @Override
+    public void showProgressDialog() {
+//        super.showProgressDialog();
+        accountSwipeRefresh.setRefreshing(true);
+    }
+
+
+
+
+    @Override
+    public void showProgressIndicator() {
+        accountSwipeRefresh.setRefreshing(false);
+        loading(View.VISIBLE);
+        super.showProgressIndicator();
+    }
+
+    @Override
+    public void dismissProgressDialog() {
+        loading(View.GONE);
+        super.dismissProgressDialog();
+    }
+
+    public void loading(int visibility) {
+        subCategoriesProgressBar.setVisibility(visibility);
     }
 
 }
