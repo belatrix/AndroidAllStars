@@ -19,7 +19,6 @@ import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.views.AccountSelectionView;
 import com.belatrixsf.allstars.ui.common.views.DataSelectionView;
 import com.belatrixsf.allstars.ui.contacts.ContactActivity;
-import com.belatrixsf.allstars.ui.home.MainActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
 
@@ -32,6 +31,7 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
 
     public static final String SELECTED_USER_KEY = "_selected_user";
     public static final String COMMENT_KEY = "_user_comment";
+    public static final String MESSAGE_KEY = "_message_key";
     public static final int RQ_CONTACT = 100;
     public static final int RQ_COMMENT = 101;
     public static final int RQ_SUBCATEGORY = 102;
@@ -196,7 +196,7 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
     @Override
     public void finishRecommendation() {
         Intent intent = new Intent();
-        intent.putExtra(MainActivity.MESSAGE_KEY, getString(R.string.success_recommendation));
+        intent.putExtra(MESSAGE_KEY, getString(R.string.success_recommendation));
         fragmentListener.setActivityResult(Activity.RESULT_OK, intent);
         fragmentListener.closeActivity();
     }

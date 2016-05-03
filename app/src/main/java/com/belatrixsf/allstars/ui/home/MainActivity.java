@@ -44,6 +44,7 @@ import com.belatrixsf.allstars.adapters.MainNavigationViewPagerAdapter;
 import com.belatrixsf.allstars.ui.common.AllStarsActivity;
 import com.belatrixsf.allstars.ui.contacts.ContactFragmentListener;
 import com.belatrixsf.allstars.ui.givestar.GiveStarActivity;
+import com.belatrixsf.allstars.ui.givestar.GiveStarFragment;
 import com.belatrixsf.allstars.ui.login.LoginActivity;
 import com.belatrixsf.allstars.ui.ranking.RankingFragmentListener;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
@@ -59,7 +60,6 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
 
     public static final int RQ_GIVE_STAR = 99;
     public static final int RANKING_TAB = 1;
-    public static final String MESSAGE_KEY = "_message_key";
 
     @Inject HomePresenter homePresenter;
 
@@ -226,7 +226,7 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && data != null) {
-            DialogUtils.createInformationDialog(this, data.getStringExtra(MESSAGE_KEY), getString(R.string.app_name), new DialogInterface.OnClickListener() {
+            DialogUtils.createInformationDialog(this, data.getStringExtra(GiveStarFragment.MESSAGE_KEY), getString(R.string.app_name), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     //Do Nothing

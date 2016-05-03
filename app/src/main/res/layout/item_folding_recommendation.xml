@@ -145,7 +145,7 @@
                 android:padding="@dimen/activity_vertical_margin">
 
                 <ImageView
-                    android:id="@+id/photo"
+                    android:id="@+id/title_photo"
                     android:layout_width="@dimen/dimen_9_5"
                     android:layout_height="@dimen/dimen_9_5"
                     android:scaleType="centerCrop"
