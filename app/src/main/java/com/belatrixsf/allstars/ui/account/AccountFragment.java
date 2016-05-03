@@ -20,6 +20,8 @@
 */
 package com.belatrixsf.allstars.ui.account;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -43,22 +45,27 @@ import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.allstars.ui.common.views.BorderedCircleTransformation;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.allstars.ui.givestar.GiveStarActivity;
+import com.belatrixsf.allstars.ui.givestar.GiveStarFragment;
 import com.belatrixsf.allstars.ui.recommendation.RecommendationActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
+import com.belatrixsf.allstars.utils.DialogUtils;
 import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModule;
 import com.bumptech.glide.Glide;
-
-import static com.belatrixsf.allstars.ui.account.AccountActivity.USER_ID_KEY;
-import static com.belatrixsf.allstars.ui.givestar.GiveStarFragment.SELECTED_USER_KEY;
 
 import java.util.List;
 
 import butterknife.Bind;
 
+import static com.belatrixsf.allstars.ui.account.AccountActivity.USER_ID_KEY;
+import static com.belatrixsf.allstars.ui.givestar.GiveStarFragment.SELECTED_USER_KEY;
+
 /**
  * Created by pedrocarrillo on 4/9/16.
  */
 public class AccountFragment extends AllStarsFragment implements AccountView, RecyclerOnItemClickListener {
+
+    public static final int RQ_GIVE_STAR = 99;
+    public static final String MESSAGE_KEY = "_message_key";
 
     private AccountPresenter accountPresenter;
     private AccountSubCategoriesAdapter accountCategoriesAdapter;
@@ -220,7 +227,20 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     public void goToGiveStar(Employee employee) {
         Intent intent = new Intent(getActivity(), GiveStarActivity.class);
         intent.putExtra(SELECTED_USER_KEY, employee);
-        startActivity(intent);
+        startActivityForResult(intent, RQ_GIVE_STAR);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            DialogUtils.createInformationDialog(getActivity(), data.getStringExtra(GiveStarFragment.MESSAGE_KEY), getString(R.string.app_name), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //Do Nothing
+                }
+            }).show();
+        }
     }
 
 }

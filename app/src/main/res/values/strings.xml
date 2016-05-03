@@ -14,6 +14,7 @@
     <string name="dialog_confirmation_logout">Are you sure you want to logout?</string>
     <string name="dialog_option_positive">Yes</string>
     <string name="dialog_option_negative">No</string>
+    <string name="dialog_option_confirm">Got it!</string>
 
     <!-- Hint -->
     <string name="hint_username">Username</string>

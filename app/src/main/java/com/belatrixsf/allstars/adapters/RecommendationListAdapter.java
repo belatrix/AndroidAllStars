@@ -18,16 +18,20 @@
 */
 package com.belatrixsf.allstars.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Recommendation;
+import com.belatrixsf.allstars.ui.common.views.CircleTransformation;
 import com.belatrixsf.allstars.utils.Constants;
 import com.belatrixsf.allstars.utils.DateUtils;
+import com.bumptech.glide.Glide;
 import com.ramotion.foldingcell.FoldingCell;
 
 import java.util.ArrayList;
@@ -63,6 +67,10 @@ public class RecommendationListAdapter extends RecyclerView.Adapter<Recommendati
         //Title
         holder.titleUserTextView.setText(recommendation.getFromUser().getFullName());
         holder.titleMessageTextView.setText(recommendation.getMessage());
+        if (recommendation.getFromUser().getAvatar() != null) {
+            Context context = holder.titlePhotoImageView.getContext();
+            Glide.with(context).load(recommendation.getFromUser().getAvatar()).fitCenter().transform(new CircleTransformation(context)).into(holder.titlePhotoImageView);
+        }
         //Content
         String formatDate = DateUtils.fortmatDate(recommendation.getDate(), DateUtils.DATE_FORMAT_1, DateUtils.DATE_FORMAT_2);
         String noMessagePlaceHolder = holder.contentMessageTextView.getContext().getResources().getString(R.string.message_placeholder);
@@ -71,6 +79,10 @@ public class RecommendationListAdapter extends RecyclerView.Adapter<Recommendati
         holder.contentMessageTextView.setText(message);
         holder.contentCategoryTextView.setText(recommendation.getCategory().getName());
         holder.contentDateTextView.setText(formatDate);
+        if (recommendation.getFromUser().getAvatar() != null) {
+            Context context = holder.contentPhotoImageView.getContext();
+            Glide.with(context).load(recommendation.getFromUser().getAvatar()).fitCenter().transform(new CircleTransformation(context)).into(holder.contentPhotoImageView);
+        }
     }
 
     @Override
@@ -87,9 +99,11 @@ public class RecommendationListAdapter extends RecyclerView.Adapter<Recommendati
     static class RecommendationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         @Bind(R.id.folding_cell) public FoldingCell foldingCell;
         //Title
+        @Bind(R.id.title_photo) public ImageView titlePhotoImageView;
         @Bind(R.id.title_user) public TextView titleUserTextView;
         @Bind(R.id.title_message) public TextView titleMessageTextView;
         //Content
+        @Bind(R.id.content_photo) public ImageView contentPhotoImageView;
         @Bind(R.id.content_user) public TextView contentUserTextView;
         @Bind(R.id.content_message) public TextView contentMessageTextView;
         @Bind(R.id.content_category) public TextView contentCategoryTextView;
