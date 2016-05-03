@@ -84,8 +84,8 @@ public class RankingFragment extends AllStarsFragment implements RankingView, Ra
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initViews();
         if (getArguments() != null && getArguments().containsKey(RANKING_KIND_KEY)) {
+            initViews();
             rankingPresenter.getRankingList(getArguments().getString(RANKING_KIND_KEY), Constants.DEFAULT_QUANTITY);
         }
     }
