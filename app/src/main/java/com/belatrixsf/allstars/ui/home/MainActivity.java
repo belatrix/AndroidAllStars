@@ -30,7 +30,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.view.ActionMode;
@@ -45,6 +44,7 @@ import com.belatrixsf.allstars.adapters.MainNavigationViewPagerAdapter;
 import com.belatrixsf.allstars.ui.common.AllStarsActivity;
 import com.belatrixsf.allstars.ui.contacts.ContactFragmentListener;
 import com.belatrixsf.allstars.ui.givestar.GiveStarActivity;
+import com.belatrixsf.allstars.ui.givestar.GiveStarFragment;
 import com.belatrixsf.allstars.ui.login.LoginActivity;
 import com.belatrixsf.allstars.ui.ranking.RankingFragmentListener;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
@@ -60,14 +60,14 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
 
     public static final int RQ_GIVE_STAR = 99;
     public static final int RANKING_TAB = 1;
-    public static final String MESSAGE_KEY = "_message_key";
 
     @Inject HomePresenter homePresenter;
 
     @Bind(R.id.app_bar_layout) AppBarLayout appBarLayout;
     @Bind(R.id.tab_layout) TabLayout tabLayout;
     @Bind(R.id.main_view_pager) ViewPager mainViewPager;
-    @Bind(R.id.start_recommendation) FloatingActionButton startRecommendationButton;
+    @Bind(R.id.start_recommendation)
+    FloatingActionButton startRecommendationButton;
     @Bind(R.id.main_coordinator) CoordinatorLayout coordinatorLayout;
     @Bind(R.id.bottom_navigation) AHBottomNavigation bottomNavigation;
 
@@ -196,9 +196,11 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
-                AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
-                params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
-                toolbar.setVisibility(View.GONE);
+                if (toolbar != null && toolbar.getLayoutParams() != null){
+                    AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
+                    params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
+                    toolbar.setVisibility(View.GONE);
+                }
             }
         }, 300);
         super.onSupportActionModeStarted(mode);
@@ -206,15 +208,17 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
 
     @Override
     public void onSupportActionModeFinished(@NonNull ActionMode mode) {
-        AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
-        params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
-        appBarLayout.setExpanded(true, true);
-        new Handler().postDelayed(new Runnable(){
-            @Override
-            public void run() {
-                toolbar.setVisibility(View.VISIBLE);
-            }
-        }, 300);
+        if (toolbar != null && toolbar.getLayoutParams() != null){
+            AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
+            params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
+            appBarLayout.setExpanded(true, true);
+            new Handler().postDelayed(new Runnable(){
+                @Override
+                public void run() {
+                    toolbar.setVisibility(View.VISIBLE);
+                }
+            }, 300);
+        }
         super.onSupportActionModeFinished(mode);
     }
 
@@ -222,18 +226,12 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && data != null) {
-            Snackbar snackbar = Snackbar.make(coordinatorLayout, data.getStringExtra(MESSAGE_KEY), Snackbar.LENGTH_LONG);
-            snackbar.getView().addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+            DialogUtils.createInformationDialog(this, data.getStringExtra(GiveStarFragment.MESSAGE_KEY), getString(R.string.app_name), new DialogInterface.OnClickListener() {
                 @Override
-                public void onViewAttachedToWindow(View v) {
+                public void onClick(DialogInterface dialog, int which) {
+                    //Do Nothing
                 }
-
-                @Override
-                public void onViewDetachedFromWindow(View v) {
-                    startRecommendationButton.setTranslationY(0);
-                }
-            });
-            snackbar.show();
+            }).show();
         }
     }
 
