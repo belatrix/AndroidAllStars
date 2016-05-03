@@ -25,30 +25,15 @@
         android:scaleType="centerCrop"
         tools:src="@drawable/ic_user" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/full_name"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:paddingLeft="@dimen/activity_horizontal_margin">
-
-        <TextView
-            android:id="@+id/full_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/text_16"
-            android:singleLine="true"
-            tools:text="@string/title_full_name" />
-
-        <TextView
-            android:id="@+id/level"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/grey"
-            tools:text="@string/title_level" />
-
-    </LinearLayout>
+        android:textSize="@dimen/text_16"
+        android:singleLine="true"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        tools:text="@string/title_full_name" />
 
     <LinearLayout
         android:layout_width="@dimen/dimen_10_6"

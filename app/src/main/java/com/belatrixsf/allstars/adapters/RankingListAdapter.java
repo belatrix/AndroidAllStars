@@ -48,13 +48,12 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
     private RankingListClickListener rankingListClickListener;
     private String rankingKind;
 
-    public RankingListAdapter(RankingListClickListener rankingListClickListener, String rankingKind) {
-        this(rankingListClickListener, rankingKind, new ArrayList<Employee>());
+    public RankingListAdapter(RankingListClickListener rankingListClickListener) {
+        this(rankingListClickListener, new ArrayList<Employee>());
     }
 
-    public RankingListAdapter(RankingListClickListener rankingListClickListener, String rankingKind, List<Employee> rankingList) {
+    public RankingListAdapter(RankingListClickListener rankingListClickListener, List<Employee> rankingList) {
         this.rankingList = rankingList;
-        this.rankingKind = rankingKind;
         this.rankingListClickListener = rankingListClickListener;
     }
 
@@ -69,35 +68,25 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
         final Employee employee = rankingList.get(position);
         int place = position + Constants.ONE_UNIT;
         int cupResourceId;
-        if (place<=3) {
-            switch (place) {
-                case 1:
-                    cupResourceId = R.drawable.ic_first_place_cup;
-                    break;
-                case 2:
-                    cupResourceId = R.drawable.ic_second_place_cup;
-                    break;
-                default:
-                    cupResourceId = R.drawable.ic_third_place_cup;
-                    break;
-            }
-        }else{
-            cupResourceId = R.drawable.ic_cup;
+        switch (place) {
+            case Constants.FIRST_POSITION:
+                cupResourceId = R.drawable.ic_first_place_cup;
+                break;
+            case Constants.SECOND_POSITION:
+                cupResourceId = R.drawable.ic_second_place_cup;
+                break;
+            case Constants.THIRD_POSITION:
+                cupResourceId = R.drawable.ic_third_place_cup;
+                break;
+            default:
+                cupResourceId = R.drawable.ic_cup;
+                break;
         }
         holder.positionNumber.setText(String.valueOf(place));
         holder.positionNumber.setVisibility(View.VISIBLE);
         holder.scoreCup.setBackgroundResource(cupResourceId);
         holder.fullName.setText(employee.getFullName());
-        String levelLabel = String.format(holder.level.getContext().getString(R.string.contact_list_level), String.valueOf(employee.getLevel()));
-        holder.level.setText(levelLabel);
-        String stringScore = Constants.EMPTY_STRING;
-        if (Constants.KIND_LAST_MONTH_SCORE.equalsIgnoreCase(rankingKind)){
-            stringScore = String.valueOf(employee.getLastMonthScore());
-        }else if (Constants.KIND_CURRENT_MONTH.equalsIgnoreCase(rankingKind)) {
-            stringScore = String.valueOf(employee.getCurrentMonthScore());
-        }else if (Constants.KIND_TOTAL_SCORE.equalsIgnoreCase(rankingKind)) {
-            stringScore = String.valueOf(employee.getTotalScore());
-        }
+        String stringScore = String.valueOf(employee.getValue());
         holder.score.setText(stringScore);
         if (employee.getAvatar() != null) {
             Context context = holder.photo.getContext();
@@ -121,7 +110,6 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
         @Bind(R.id.position_number) public TextView positionNumber;
         @Bind(R.id.photo) public ImageView photo;
         @Bind(R.id.full_name) public TextView fullName;
-        @Bind(R.id.level) public TextView level;
         @Bind(R.id.score_cup) public ImageView scoreCup;
         @Bind(R.id.score_number) public TextView score;
 

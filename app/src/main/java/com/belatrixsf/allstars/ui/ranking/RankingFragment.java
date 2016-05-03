@@ -85,14 +85,13 @@ public class RankingFragment extends AllStarsFragment implements RankingView, Ra
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (getArguments() != null && getArguments().containsKey(RANKING_KIND_KEY)) {
-            String rankingKind = getArguments().getString(RANKING_KIND_KEY);
-            initViews(rankingKind);
+            initViews();
             rankingPresenter.getRankingList(getArguments().getString(RANKING_KIND_KEY), Constants.DEFAULT_QUANTITY);
         }
     }
 
-    private void initViews(String rankingKind) {
-        rankingListAdapter = new RankingListAdapter(this, rankingKind);
+    private void initViews() {
+        rankingListAdapter = new RankingListAdapter(this);
         rankingRecyclerView.setAdapter(rankingListAdapter);
         rankingRecyclerView.setNestedScrollingEnabled(false);
         rankingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

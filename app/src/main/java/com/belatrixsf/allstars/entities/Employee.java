@@ -43,17 +43,18 @@ public class Employee implements Parcelable {
     private Role role;
     @SerializedName("skype_id")
     private String skypeId;
-    @SerializedName("last_year_score")
-    private Integer lastYearScore;
-    @SerializedName("current_year_score")
-    private Integer currentYearScore;
+    @SerializedName("total_score")
+    private Integer totalScore;
     @SerializedName("last_month_score")
     private Integer lastMonthScore;
     @SerializedName("current_month_score")
     private Integer currentMonthScore;
+    @SerializedName("last_year_score")
+    private Integer lastYearScore;
+    @SerializedName("current_year_score")
+    private Integer currentYearScore;
+    private Integer value;
     private Integer level;
-    @SerializedName("total_score")
-    private Integer totalScore;
     private List<Category> categories;
     @SerializedName("is_active")
     private boolean active;
@@ -89,12 +90,8 @@ public class Employee implements Parcelable {
         return skypeId;
     }
 
-    public Integer getLastYearScore() {
-        return lastYearScore;
-    }
-
-    public Integer getCurrentYearScore() {
-        return currentYearScore;
+    public Integer getTotalScore() {
+        return totalScore;
     }
 
     public Integer getLastMonthScore() {
@@ -105,12 +102,20 @@ public class Employee implements Parcelable {
         return currentMonthScore;
     }
 
-    public Integer getLevel() {
-        return level;
+    public Integer getLastYearScore() {
+        return lastYearScore;
     }
 
-    public Integer getTotalScore() {
-        return totalScore;
+    public Integer getCurrentYearScore() {
+        return currentYearScore;
+    }
+
+    public Integer getValue() {
+        return value;
+    }
+
+    public Integer getLevel() {
+        return level;
     }
 
     public List<Category> getCategories() {
@@ -149,10 +154,13 @@ public class Employee implements Parcelable {
         lastName = in.readString();
         role = (Role) in.readValue(Role.class.getClassLoader());
         skypeId = in.readString();
+        totalScore = in.readByte() == 0x00 ? null : in.readInt();
         lastMonthScore = in.readByte() == 0x00 ? null : in.readInt();
         currentMonthScore = in.readByte() == 0x00 ? null : in.readInt();
+        lastYearScore = in.readByte() == 0x00 ? null : in.readInt();
+        currentYearScore = in.readByte() == 0x00 ? null : in.readInt();
+        value = in.readByte() == 0x00 ? null : in.readInt();
         level = in.readByte() == 0x00 ? null : in.readInt();
-        totalScore = in.readByte() == 0x00 ? null : in.readInt();
         if (in.readByte() == 0x01) {
             categories = new ArrayList<Category>();
             in.readList(categories, Category.class.getClassLoader());
@@ -183,6 +191,12 @@ public class Employee implements Parcelable {
         dest.writeString(lastName);
         dest.writeValue(role);
         dest.writeString(skypeId);
+        if (totalScore == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(totalScore);
+        }
         if (lastMonthScore == null) {
             dest.writeByte((byte) (0x00));
         } else {
@@ -195,17 +209,29 @@ public class Employee implements Parcelable {
             dest.writeByte((byte) (0x01));
             dest.writeInt(currentMonthScore);
         }
+        if (lastYearScore == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(lastYearScore);
+        }
+        if (currentYearScore == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(currentYearScore);
+        }
+        if (value == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(value);
+        }
         if (level == null) {
             dest.writeByte((byte) (0x00));
         } else {
             dest.writeByte((byte) (0x01));
             dest.writeInt(level);
-        }
-        if (totalScore == null) {
-            dest.writeByte((byte) (0x00));
-        } else {
-            dest.writeByte((byte) (0x01));
-            dest.writeInt(totalScore);
         }
         if (categories == null) {
             dest.writeByte((byte) (0x00));
