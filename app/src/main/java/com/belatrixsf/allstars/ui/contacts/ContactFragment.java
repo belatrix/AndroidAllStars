@@ -53,11 +53,13 @@ import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.KeyboardUtils;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactPresenterModule;
-import static com.belatrixsf.allstars.ui.givestar.GiveStarFragment.SELECTED_USER_KEY;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+
+import static com.belatrixsf.allstars.ui.givestar.GiveStarFragment.SELECTED_USER_KEY;
 
 /**
  * Created by icerrate on 15/04/2016.
@@ -65,6 +67,7 @@ import butterknife.Bind;
 public class ContactFragment extends AllStarsFragment implements ContactView, RecyclerOnItemClickListener {
 
     public static final String PROFILE_ENABLED_KEY = "_is_search";
+    private static final String EMPLOYEES_KEY = "employees_key";
 
     @Bind(R.id.employees) RecyclerView employeeRecyclerView;
 
@@ -129,7 +132,28 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews();
+        if (savedInstanceState != null) {
+            restoreState(savedInstanceState);
+        }
         contactPresenter.getEmployeeList();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        saveState(outState);
+        super.onSaveInstanceState(outState);
+    }
+
+    private void restoreState(Bundle savedInstanceState) {
+        List<Employee> savedEmployees = savedInstanceState.getParcelableArrayList(EMPLOYEES_KEY);
+        contactPresenter.loadSavedEmployees(savedEmployees);
+    }
+
+    private void saveState(Bundle outState) {
+        List<Employee> forSavingEmployees = contactPresenter.forSavingEmployees();
+        if (forSavingEmployees != null && forSavingEmployees instanceof ArrayList) {
+            outState.putParcelableArrayList(EMPLOYEES_KEY, (ArrayList<Employee>) forSavingEmployees);
+        }
     }
 
     private void initViews() {
