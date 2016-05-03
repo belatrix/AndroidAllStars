@@ -46,7 +46,6 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
 
     private List<Employee> rankingList;
     private RankingListClickListener rankingListClickListener;
-    private String rankingKind;
 
     public RankingListAdapter(RankingListClickListener rankingListClickListener) {
         this(rankingListClickListener, new ArrayList<Employee>());
