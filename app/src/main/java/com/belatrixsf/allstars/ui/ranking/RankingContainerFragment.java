@@ -1,8 +1,8 @@
 package com.belatrixsf.allstars.ui.ranking;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.utils.Constants;
 

@@ -134,9 +134,9 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
         }
 
         @OnClick(R.id.layout_container)
-        public void onClick() {
+        public void onClick(View view) {
             if (rankingListClickListener != null) {
-                rankingListClickListener.onEmployeeClicked(getLayoutPosition());
+                rankingListClickListener.onEmployeeClicked(getLayoutPosition(), view);
             }
         }
 
@@ -144,7 +144,8 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
 
     public interface RankingListClickListener {
 
-        void onEmployeeClicked(int position);
+        void onEmployeeClicked(int position, View view);
 
     }
+
 }

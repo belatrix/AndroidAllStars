@@ -41,6 +41,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
@@ -58,6 +59,7 @@ import static com.belatrixsf.allstars.ui.givestar.GiveStarFragment.SELECTED_USER
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Created by icerrate on 15/04/2016.
@@ -74,6 +76,7 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
 
     private EditText searchTermEditText;
     private ImageButton cleanImageButton;
+    private ImageView photoImageView;
 
     public static ContactFragment newInstance(boolean profileEnabled) {
         Bundle bundle = new Bundle();
@@ -242,14 +245,13 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
 
     @Override
     public void onClick(View v) {
+        photoImageView = ButterKnife.findById(v, R.id.photo);
         contactPresenter.onContactClicked(v.getTag());
     }
 
     @Override
     public void goEmployeeProfile(Integer id) {
-        Intent intent = new Intent(getActivity(), AccountActivity.class);
-        intent.putExtra(AccountActivity.USER_ID_KEY, id);
-        startActivity(intent);
+        AccountActivity.startActivityAnimatingProfilePic(getActivity(), photoImageView, id);
     }
 
     @Override

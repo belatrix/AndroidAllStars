@@ -80,4 +80,8 @@
     <string name="action_search">Search</string>
     <string name="done">DONE</string>
     <string name="ranking_tag">ranking_tag</string>
+
+    <!-- Transition names -->
+    <string name="transition_photo">transition_photo</string>
+
 </resources>

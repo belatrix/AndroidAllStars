@@ -112,7 +112,7 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
     }
 
     private void setupTabs() {
-        MainNavigationViewPagerAdapter mainNavigationViewPagerAdapter = new MainNavigationViewPagerAdapter(getFragmentManager());
+        MainNavigationViewPagerAdapter mainNavigationViewPagerAdapter = new MainNavigationViewPagerAdapter(getSupportFragmentManager());
         mainViewPager.setAdapter(mainNavigationViewPagerAdapter);
         mainViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

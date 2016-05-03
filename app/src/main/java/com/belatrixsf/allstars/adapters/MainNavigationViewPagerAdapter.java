@@ -20,15 +20,13 @@
 */
 package com.belatrixsf.allstars.adapters;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 
 import com.belatrixsf.allstars.ui.account.AccountFragment;
 import com.belatrixsf.allstars.ui.contacts.ContactFragment;
 import com.belatrixsf.allstars.ui.ranking.RankingContainerFragment;
-import com.belatrixsf.allstars.ui.ranking.RankingFragment;
-import com.belatrixsf.allstars.utils.Constants;
 
 /**
  * Created by PedroCarrillo on 4/14/16.
@@ -54,6 +52,8 @@ public class MainNavigationViewPagerAdapter extends FragmentPagerAdapter {
                 return AccountFragment.newInstance(null);
         }
     }
+
+
 
     @Override
     public CharSequence getPageTitle(int position) {
