@@ -62,7 +62,7 @@ public class ContactPresenter extends AllStarsPresenter<ContactView> {
         }
     }
 
-    public List<Employee> forSavingEmployees(){
+    public List<Employee> getEmployees(){
         return employees;
     }
 

@@ -154,7 +154,7 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
     }
 
     private void saveState(Bundle outState) {
-        List<Employee> forSavingEmployees = contactPresenter.forSavingEmployees();
+        List<Employee> forSavingEmployees = contactPresenter.getEmployees();
         boolean forSavingActionMode = contactPresenter.forSavingInActionMode();
         if (forSavingEmployees != null && forSavingEmployees instanceof ArrayList) {
             outState.putParcelableArrayList(EMPLOYEES_KEY, (ArrayList<Employee>) forSavingEmployees);
