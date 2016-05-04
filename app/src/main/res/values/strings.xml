@@ -30,7 +30,7 @@
     <string name="title_select_subcategory">Select Subcategory</string>
     <string name="title_account_activity">Profile</string>
     <string name="title_contact_activity">Select an user</string>
-    <string name="title_recommendation_activity">Recommendation</string>
+    <string name="title_recommendation_activity">Recommendations</string>
     <string name="title_give_star_activity">Give a recommendation</string>
     <string name="title_comment_activity">Write a comment</string>
 

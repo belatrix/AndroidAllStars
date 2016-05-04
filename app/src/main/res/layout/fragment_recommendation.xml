@@ -5,5 +5,5 @@
     android:paddingTop="@dimen/dimen_1_5"
     android:paddingBottom="@dimen/dimen_1_5"
     android:layout_width="match_parent"
-    tools:listitem="@layout/item_folding_recommendation"
+    tools:listitem="@layout/item_recommendation"
     android:layout_height="match_parent" />
