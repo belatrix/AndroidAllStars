@@ -20,7 +20,7 @@ import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.components.DaggerCommentComponent;
 import com.belatrixsf.allstars.utils.di.modules.presenters.CommentPresenterModule;
 
-import static com.belatrixsf.allstars.ui.givestar.GiveStarFragment.COMMENT_KEY;
+import static com.belatrixsf.allstars.ui.givestar.GiveStarFragment.EXTRA_COMMENT_KEY;
 
 import butterknife.Bind;
 
@@ -36,7 +36,7 @@ public class CommentFragment extends AllStarsFragment implements CommentView {
     public static CommentFragment newInstance(String comment) {
         Bundle bundle = new Bundle();
         if (comment != null) {
-            bundle.putString(COMMENT_KEY, comment);
+            bundle.putString(EXTRA_COMMENT_KEY, comment);
         }
         CommentFragment commentFragment = new CommentFragment();
         commentFragment.setArguments(bundle);
@@ -53,8 +53,8 @@ public class CommentFragment extends AllStarsFragment implements CommentView {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-        if (getArguments() != null && getArguments().containsKey(COMMENT_KEY)) {
-            commentPresenter.init(getArguments().getString(COMMENT_KEY));
+        if (getArguments() != null && getArguments().containsKey(EXTRA_COMMENT_KEY)) {
+            commentPresenter.init(getArguments().getString(EXTRA_COMMENT_KEY));
         }
     }
 
@@ -99,7 +99,7 @@ public class CommentFragment extends AllStarsFragment implements CommentView {
     @Override
     public void selectComment(String comment) {
         Intent resultIntent = new Intent();
-        resultIntent.putExtra(COMMENT_KEY, comment);
+        resultIntent.putExtra(EXTRA_COMMENT_KEY, comment);
         fragmentListener.setActivityResult(Activity.RESULT_OK, resultIntent);
         fragmentListener.closeActivity();
     }

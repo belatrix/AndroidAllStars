@@ -5,8 +5,8 @@
     android:id="@+id/cell_content_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginRight="?listPreferredItemPaddingRight"
-    android:layout_marginLeft="?listPreferredItemPaddingLeft"
+    android:layout_marginRight="@dimen/dimen_1_5"
+    android:layout_marginLeft="@dimen/dimen_1_5"
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="true"
     app:contentPadding="@dimen/activity_horizontal_margin">

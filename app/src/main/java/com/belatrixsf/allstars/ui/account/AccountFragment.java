@@ -57,7 +57,7 @@ import java.util.List;
 import butterknife.Bind;
 
 import static com.belatrixsf.allstars.ui.account.AccountActivity.USER_ID_KEY;
-import static com.belatrixsf.allstars.ui.givestar.GiveStarFragment.SELECTED_USER_KEY;
+import static com.belatrixsf.allstars.ui.givestar.GiveStarFragment.ARG_SELECTED_USER_KEY;
 
 /**
  * Created by pedrocarrillo on 4/9/16.
@@ -226,7 +226,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     @Override
     public void goToGiveStar(Employee employee) {
         Intent intent = new Intent(getActivity(), GiveStarActivity.class);
-        intent.putExtra(SELECTED_USER_KEY, employee);
+        intent.putExtra(ARG_SELECTED_USER_KEY, employee);
         startActivityForResult(intent, RQ_GIVE_STAR);
     }
 
@@ -234,7 +234,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && data != null) {
-            DialogUtils.createInformationDialog(getActivity(), data.getStringExtra(GiveStarFragment.MESSAGE_KEY), getString(R.string.app_name), new DialogInterface.OnClickListener() {
+            DialogUtils.createInformationDialog(getActivity(), data.getStringExtra(GiveStarFragment.EXTRA_MESSAGE_KEY), getString(R.string.app_name), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     //Do Nothing

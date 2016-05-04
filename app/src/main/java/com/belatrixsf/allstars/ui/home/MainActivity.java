@@ -226,7 +226,7 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && data != null) {
-            DialogUtils.createInformationDialog(this, data.getStringExtra(GiveStarFragment.MESSAGE_KEY), getString(R.string.app_name), new DialogInterface.OnClickListener() {
+            DialogUtils.createInformationDialog(this, data.getStringExtra(GiveStarFragment.EXTRA_MESSAGE_KEY), getString(R.string.app_name), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     //Do Nothing
