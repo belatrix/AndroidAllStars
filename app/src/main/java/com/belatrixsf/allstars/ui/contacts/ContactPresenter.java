@@ -66,7 +66,7 @@ public class ContactPresenter extends AllStarsPresenter<ContactView> {
         return employees;
     }
 
-    public boolean forSavingInActionMode(){
+    public boolean isInActionMode(){
         return inActionMode;
     }
 
