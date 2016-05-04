@@ -42,7 +42,6 @@ import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
-import com.belatrixsf.allstars.ui.common.views.BorderedCircleTransformation;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.allstars.ui.givestar.GiveStarActivity;
 import com.belatrixsf.allstars.ui.givestar.GiveStarFragment;
@@ -50,7 +49,8 @@ import com.belatrixsf.allstars.ui.recommendation.RecommendationActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.DialogUtils;
 import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModule;
-import com.bumptech.glide.Glide;
+import com.belatrixsf.allstars.utils.media.ImageLoader;
+import com.belatrixsf.allstars.utils.media.ImageUtils;
 
 import java.util.List;
 
@@ -70,14 +70,22 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     private AccountPresenter accountPresenter;
     private AccountSubCategoriesAdapter accountCategoriesAdapter;
 
-    @Bind(R.id.account_recommendations) RecyclerView recommendationRecyclerView;
-    @Bind(R.id.skype_id) TextView skypeIdTextView;
-    @Bind(R.id.current_month_score) TextView currentMonthScoreTextView;
-    @Bind(R.id.level) TextView levelTextView;
-    @Bind(R.id.score) TextView scoreTextView;
-    @Bind(R.id.profile_name) TextView nameTextView;
-    @Bind(R.id.profile_role) TextView roleTextView;
-    @Bind(R.id.profile_picture) ImageView pictureImageView;
+    @Bind(R.id.account_recommendations)
+    RecyclerView recommendationRecyclerView;
+    @Bind(R.id.skype_id)
+    TextView skypeIdTextView;
+    @Bind(R.id.current_month_score)
+    TextView currentMonthScoreTextView;
+    @Bind(R.id.level)
+    TextView levelTextView;
+    @Bind(R.id.score)
+    TextView scoreTextView;
+    @Bind(R.id.profile_name)
+    TextView nameTextView;
+    @Bind(R.id.profile_role)
+    TextView roleTextView;
+    @Bind(R.id.profile_picture)
+    ImageView pictureImageView;
 
     private MenuItem recommendMenuItem;
 
@@ -215,7 +223,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
 
     @Override
     public void showProfilePicture(final String profilePicture) {
-        Glide.with(getActivity()).load(profilePicture).fitCenter().transform(new BorderedCircleTransformation(getActivity())).into(pictureImageView);
+        ImageUtils.get().getLoader().loadFromUrl(profilePicture, pictureImageView, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
     }
 
     @Override
