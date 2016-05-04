@@ -268,9 +268,9 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
         // Called when the user exits the action mode
         @Override
         public void onDestroyActionMode(ActionMode mode) {
-            KeyboardUtils.hideKeyboard(getActivity(), getView());
             contactPresenter.setInActionMode(false);
             contactPresenter.getEmployeeList(true);
+            KeyboardUtils.hideKeyboard(getActivity(), getView());
         }
     };
 
