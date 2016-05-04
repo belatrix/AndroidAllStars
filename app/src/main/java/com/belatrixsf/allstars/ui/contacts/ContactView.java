@@ -31,6 +31,7 @@ import java.util.List;
 public interface ContactView extends AllStarsView {
 
     void showEmployees(List<Employee> employees);
+    void startActionMode();
     void showCleanButton();
     void hideCleanButton();
     void goEmployeeProfile(Integer id);

@@ -53,18 +53,22 @@ import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.KeyboardUtils;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactPresenterModule;
-import static com.belatrixsf.allstars.ui.givestar.GiveStarFragment.SELECTED_USER_KEY;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+
+import static com.belatrixsf.allstars.ui.givestar.GiveStarFragment.SELECTED_USER_KEY;
 
 /**
  * Created by icerrate on 15/04/2016.
  */
 public class ContactFragment extends AllStarsFragment implements ContactView, RecyclerOnItemClickListener {
 
-    public static final String PROFILE_ENABLED_KEY = "_is_search";
+    public static final String ARG_PROFILE_ENABLED_KEY = "_is_search";
+    private static final String STATE_EMPLOYEES_KEY = "employees_key";
+    private static final String STATE_ACTION_MODE_KEY = "action_mode_key";
 
     @Bind(R.id.employees) RecyclerView employeeRecyclerView;
 
@@ -77,7 +81,7 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
 
     public static ContactFragment newInstance(boolean profileEnabled) {
         Bundle bundle = new Bundle();
-        bundle.putBoolean(PROFILE_ENABLED_KEY, profileEnabled);
+        bundle.putBoolean(ARG_PROFILE_ENABLED_KEY, profileEnabled);
         ContactFragment contactFragment = new ContactFragment();
         contactFragment.setArguments(bundle);
         return contactFragment;
@@ -120,8 +124,8 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
         contactPresenter = allStarsApplication.getApplicationComponent()
                 .contactComponent(new ContactPresenterModule(this))
                 .contactPresenter();
-        if (getArguments() != null && getArguments().containsKey(PROFILE_ENABLED_KEY)) {
-            contactPresenter.setProfileEnabled(getArguments().getBoolean(PROFILE_ENABLED_KEY));
+        if (getArguments() != null && getArguments().containsKey(ARG_PROFILE_ENABLED_KEY)) {
+            contactPresenter.setProfileEnabled(getArguments().getBoolean(ARG_PROFILE_ENABLED_KEY));
         }
     }
 
@@ -129,7 +133,33 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews();
-        contactPresenter.getEmployeeList();
+        if (savedInstanceState != null) {
+            restoreState(savedInstanceState);
+            contactPresenter.shouldShowActionMode();
+        }
+        contactPresenter.getEmployeeList(false);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        saveState(outState);
+        super.onSaveInstanceState(outState);
+    }
+
+    private void restoreState(Bundle savedInstanceState) {
+        List<Employee> savedEmployees = savedInstanceState.getParcelableArrayList(STATE_EMPLOYEES_KEY);
+        boolean actionModeEnabled = savedInstanceState.getBoolean(STATE_ACTION_MODE_KEY);
+        contactPresenter.loadSavedEmployees(savedEmployees);
+        contactPresenter.setInActionMode(actionModeEnabled);
+    }
+
+    private void saveState(Bundle outState) {
+        List<Employee> forSavingEmployees = contactPresenter.getEmployees();
+        boolean forSavingActionMode = contactPresenter.isInActionMode();
+        if (forSavingEmployees != null && forSavingEmployees instanceof ArrayList) {
+            outState.putParcelableArrayList(STATE_EMPLOYEES_KEY, (ArrayList<Employee>) forSavingEmployees);
+            outState.putBoolean(STATE_ACTION_MODE_KEY, forSavingActionMode);
+        }
     }
 
     private void initViews() {
@@ -142,6 +172,11 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
     @Override
     public void showEmployees(List<Employee> employees) {
         employeeListAdapter.updateData(employees);
+    }
+
+    @Override
+    public void startActionMode() {
+        contactFragmentListener.setActionMode(actionModeCallback);
     }
 
     @Override
@@ -168,6 +203,7 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
         // Called when the action mode is created; startActionMode() was called
         @Override
         public boolean onCreateActionMode(final ActionMode mode, Menu menu) {
+            contactPresenter.setInActionMode(true);
             LayoutInflater inflater = getActivity().getLayoutInflater();
             View customView = inflater.inflate(R.layout.item_action_mode, null);
 
@@ -235,8 +271,9 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
         // Called when the user exits the action mode
         @Override
         public void onDestroyActionMode(ActionMode mode) {
+            contactPresenter.setInActionMode(false);
+            contactPresenter.getEmployeeList(true);
             KeyboardUtils.hideKeyboard(getActivity(), getView());
-            contactPresenter.getEmployeeList();
         }
     };
 
