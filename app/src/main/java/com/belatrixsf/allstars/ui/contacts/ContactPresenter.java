@@ -39,6 +39,7 @@ public class ContactPresenter extends AllStarsPresenter<ContactView> {
 
     private EmployeeService employeeService;
     private List<Employee> employees;
+    private boolean inActionMode = false;
     private boolean profileEnabled = true;
 
     @Inject
@@ -51,16 +52,32 @@ public class ContactPresenter extends AllStarsPresenter<ContactView> {
         this.profileEnabled = profileEnabled;
     }
 
+    public void setInActionMode(boolean inActionMode) {
+        this.inActionMode = inActionMode;
+    }
+
+    public boolean isInActionMode() {
+        return inActionMode;
+    }
+
     public List<Employee> forSavingEmployees(){
         return employees;
+    }
+
+    public boolean forSavingInActionMode(){
+        return inActionMode;
     }
 
     public void loadSavedEmployees(List<Employee> employees){
         this.employees = employees;
     }
 
-    public void getEmployeeList() {
-        if (employees == null || employees.isEmpty()) {
+    public void loadSavedInActionMode(boolean isActionMode){
+        this.inActionMode = isActionMode;
+    }
+
+    public void getEmployeeList(boolean force) {
+        if (force || employees == null || employees.isEmpty()) {
             view.showProgressIndicator();
             employeeService.getEmployeeList(new AllStarsCallback<SearchEmployeeResponse>() {
                 @Override

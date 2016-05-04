@@ -68,6 +68,7 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
 
     public static final String PROFILE_ENABLED_KEY = "_is_search";
     private static final String EMPLOYEES_KEY = "employees_key";
+    private static final String ACTION_MODE_KEY = "action_mode_key";
 
     @Bind(R.id.employees) RecyclerView employeeRecyclerView;
 
@@ -134,8 +135,11 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
         initViews();
         if (savedInstanceState != null) {
             restoreState(savedInstanceState);
+            if (contactPresenter.isInActionMode()) {
+                contactFragmentListener.setActionMode(actionModeCallback);
+            }
         }
-        contactPresenter.getEmployeeList();
+        contactPresenter.getEmployeeList(false);
     }
 
     @Override
@@ -146,13 +150,17 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
 
     private void restoreState(Bundle savedInstanceState) {
         List<Employee> savedEmployees = savedInstanceState.getParcelableArrayList(EMPLOYEES_KEY);
+        boolean savedActionMode = savedInstanceState.getBoolean(ACTION_MODE_KEY);
         contactPresenter.loadSavedEmployees(savedEmployees);
+        contactPresenter.loadSavedInActionMode(savedActionMode);
     }
 
     private void saveState(Bundle outState) {
         List<Employee> forSavingEmployees = contactPresenter.forSavingEmployees();
+        boolean forSavingActionMode = contactPresenter.forSavingInActionMode();
         if (forSavingEmployees != null && forSavingEmployees instanceof ArrayList) {
             outState.putParcelableArrayList(EMPLOYEES_KEY, (ArrayList<Employee>) forSavingEmployees);
+            outState.putBoolean(ACTION_MODE_KEY, forSavingActionMode);
         }
     }
 
@@ -192,6 +200,7 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
         // Called when the action mode is created; startActionMode() was called
         @Override
         public boolean onCreateActionMode(final ActionMode mode, Menu menu) {
+            contactPresenter.setInActionMode(true);
             LayoutInflater inflater = getActivity().getLayoutInflater();
             View customView = inflater.inflate(R.layout.item_action_mode, null);
 
@@ -260,7 +269,8 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
         @Override
         public void onDestroyActionMode(ActionMode mode) {
             KeyboardUtils.hideKeyboard(getActivity(), getView());
-            contactPresenter.getEmployeeList();
+            contactPresenter.setInActionMode(false);
+            contactPresenter.getEmployeeList(true);
         }
     };
 
