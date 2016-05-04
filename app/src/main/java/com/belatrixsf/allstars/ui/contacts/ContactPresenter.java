@@ -56,8 +56,10 @@ public class ContactPresenter extends AllStarsPresenter<ContactView> {
         this.inActionMode = inActionMode;
     }
 
-    public boolean isInActionMode() {
-        return inActionMode;
+    public void shouldShowActionMode() {
+        if (inActionMode){
+            view.startActionMode();
+        }
     }
 
     public List<Employee> forSavingEmployees(){
@@ -70,10 +72,6 @@ public class ContactPresenter extends AllStarsPresenter<ContactView> {
 
     public void loadSavedEmployees(List<Employee> employees){
         this.employees = employees;
-    }
-
-    public void loadSavedInActionMode(boolean isActionMode){
-        this.inActionMode = isActionMode;
     }
 
     public void getEmployeeList(boolean force) {

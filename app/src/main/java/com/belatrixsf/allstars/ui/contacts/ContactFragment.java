@@ -135,9 +135,7 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
         initViews();
         if (savedInstanceState != null) {
             restoreState(savedInstanceState);
-            if (contactPresenter.isInActionMode()) {
-                contactFragmentListener.setActionMode(actionModeCallback);
-            }
+            contactPresenter.shouldShowActionMode();
         }
         contactPresenter.getEmployeeList(false);
     }
@@ -150,9 +148,9 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
 
     private void restoreState(Bundle savedInstanceState) {
         List<Employee> savedEmployees = savedInstanceState.getParcelableArrayList(EMPLOYEES_KEY);
-        boolean savedActionMode = savedInstanceState.getBoolean(ACTION_MODE_KEY);
+        boolean actionModeEnabled = savedInstanceState.getBoolean(ACTION_MODE_KEY);
         contactPresenter.loadSavedEmployees(savedEmployees);
-        contactPresenter.loadSavedInActionMode(savedActionMode);
+        contactPresenter.setInActionMode(actionModeEnabled);
     }
 
     private void saveState(Bundle outState) {
@@ -174,6 +172,11 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
     @Override
     public void showEmployees(List<Employee> employees) {
         employeeListAdapter.updateData(employees);
+    }
+
+    @Override
+    public void startActionMode() {
+        contactFragmentListener.setActionMode(actionModeCallback);
     }
 
     @Override
