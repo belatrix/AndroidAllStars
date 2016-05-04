@@ -65,7 +65,7 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
     @Override
     public void onBindViewHolder(EmployeeViewHolder holder, int position) {
         final Employee employee = rankingList.get(position);
-        int place = position + Constants.ONE_UNIT;
+        int place = position + 1;
         int cupResourceId;
         switch (place) {
             case Constants.FIRST_POSITION:
