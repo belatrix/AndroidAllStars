@@ -100,7 +100,7 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
         holder.score.setText(String.valueOf(employee.getScore()));
         if (employee.getAvatar() != null) {
             Context context = holder.photo.getContext();
-            Glide.with(context).load(employee.getAvatar()).fitCenter().transform(new CircleTransformation(context)).into(holder.photo);
+            Glide.with(context).load(employee.getAvatar()).fitCenter().transform(new BorderedCircleTransformation(context)).into(holder.photo);
         }
     }
 

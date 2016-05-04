@@ -22,6 +22,7 @@ package com.belatrixsf.allstars.ui.ranking;
 
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -34,6 +35,7 @@ import com.belatrixsf.allstars.adapters.RankingListAdapter;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.ui.account.AccountActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
+import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.Constants;
 import com.belatrixsf.allstars.utils.di.modules.presenters.RankingPresenterModule;
@@ -94,8 +96,9 @@ public class RankingFragment extends AllStarsFragment implements RankingView, Ra
     private void initViews() {
         rankingListAdapter = new RankingListAdapter(this);
         rankingRecyclerView.setAdapter(rankingListAdapter);
-        rankingRecyclerView.setNestedScrollingEnabled(false);
+        rankingRecyclerView.setNestedScrollingEnabled(false); 
         rankingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rankingRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
     }
 
     @Override

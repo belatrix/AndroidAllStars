@@ -6,7 +6,8 @@
     android:layout_height="?attr/listPreferredItemHeightLarge"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:padding="@dimen/activity_horizontal_margin"
+    android:paddingLeft="?listPreferredItemPaddingLeft"
+    android:paddingRight="?listPreferredItemPaddingRight"
     style="@style/ItemListStyle">
 
     <TextView
@@ -27,10 +28,9 @@
 
     <ImageView
         android:id="@+id/photo"
-        android:layout_width="@dimen/dimen_9_5"
-        android:layout_height="@dimen/dimen_9_5"
+        android:layout_width="@dimen/dimen_10_6"
+        android:layout_height="@dimen/dimen_10_6"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:scaleType="centerCrop"
         tools:src="@drawable/ic_user"/>
 
     <LinearLayout

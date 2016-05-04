@@ -98,7 +98,6 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_account, container, false);
     }
 
@@ -219,20 +218,20 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
                 .listener(new RequestListener<String, GlideDrawable>() {
                     @Override
                     public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                        startPosponedEnterTransition();
+                        startPostponedEnterTransition();
                         return false;
                     }
 
                     @Override
                     public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        startPosponedEnterTransition();
+                        startPostponedEnterTransition();
                         return false;
                     }
                 })
                 .into(pictureImageView);
     }
 
-    private void startPosponedEnterTransition() {
+    private void startPostponedEnterTransition() {
         recommendationRecyclerView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {

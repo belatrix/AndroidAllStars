@@ -18,14 +18,17 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
  */
 public class BorderedCircleTransformation extends BitmapTransformation {
 
-    private final int marginSize;
     private final int strokeWidth;
 
     public BorderedCircleTransformation(Context context) {
         super(context);
         Resources resources = context.getResources();
-        marginSize = resources.getDimensionPixelSize(R.dimen.picture_margin_size);
-        strokeWidth = resources.getDimensionPixelSize(R.dimen.picture_stroke_width);
+        strokeWidth = resources.getDimensionPixelSize(R.dimen.default_picture_stroke_width);
+    }
+
+    public BorderedCircleTransformation(Context context, int strokeWidth) {
+        super(context);
+        this.strokeWidth = strokeWidth;
     }
 
     @Override
@@ -36,9 +39,9 @@ public class BorderedCircleTransformation extends BitmapTransformation {
     private Bitmap circleCrop(BitmapPool pool, Bitmap source) {
         if (source == null) return null;
         int size = Math.min(source.getWidth(), source.getHeight());
-        int radius = Math.min(size / 2, size / 2);
-        int outputSize = size + marginSize;
-        int halfMargin = marginSize / 2;
+        int radius = size / 2;
+        int outputSize = size + strokeWidth;
+        int halfStrokeWidth = strokeWidth / 2;
         Bitmap output = pool.get(outputSize, outputSize, Bitmap.Config.ARGB_8888);
         if (output == null) {
             output = Bitmap.createBitmap(outputSize, outputSize, Bitmap.Config.ARGB_8888);
@@ -49,14 +52,14 @@ public class BorderedCircleTransformation extends BitmapTransformation {
         Canvas canvas = new Canvas(output);
         canvas.drawARGB(0, 0, 0, 0);
         paint.setStyle(Paint.Style.FILL);
-        canvas.drawCircle(radius + halfMargin, radius + halfMargin, radius, paint);
+        canvas.drawCircle(radius + halfStrokeWidth, radius + halfStrokeWidth, radius, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(source, halfMargin, halfMargin, paint);
+        canvas.drawBitmap(source, halfStrokeWidth, halfStrokeWidth, paint);
 
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.WHITE);
         paint.setStrokeWidth(strokeWidth);
-        canvas.drawCircle(radius + halfMargin, radius + halfMargin, radius, paint);
+        canvas.drawCircle(radius + halfStrokeWidth, radius + halfStrokeWidth, radius, paint);
         return output;
     }
 
