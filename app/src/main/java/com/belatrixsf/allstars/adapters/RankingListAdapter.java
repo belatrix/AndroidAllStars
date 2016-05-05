@@ -38,7 +38,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-
 /**
  * Created by icerrate on 28/04/2016.
  */
@@ -137,5 +136,4 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
         void onEmployeeClicked(int position, View view);
 
     }
-
 }

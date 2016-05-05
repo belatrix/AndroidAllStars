@@ -71,7 +71,6 @@ public class RecommendationListAdapter extends RecyclerView.Adapter<Recommendati
         holder.contentCategoryTextView.setText(recommendation.getCategory().getName());
         holder.contentDateTextView.setText(formattedDate);
         if (recommendation.getFromUser().getAvatar() != null) {
-            Context context = holder.contentPhotoImageView.getContext();
             new ImageFactory().getLoader().loadFromUrl(recommendation.getFromUser().getAvatar(), holder.contentPhotoImageView, ImageLoader.ImageTransformation.CIRCLE);
         }
     }
