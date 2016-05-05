@@ -18,7 +18,6 @@
 */
 package com.belatrixsf.allstars.adapters;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,14 +28,15 @@ import android.widget.TextView;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
-import com.belatrixsf.allstars.ui.common.views.BorderedCircleTransformation;
-import com.bumptech.glide.Glide;
+import com.belatrixsf.allstars.utils.media.ImageFactory;
+import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
 
 /**
  * Created by icerrate on 15/04/2016.
@@ -69,8 +69,7 @@ public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapte
         String levelLabel = String.format(holder.level.getContext().getString(R.string.contact_list_level), String.valueOf(employee.getLevel()));
         holder.level.setText(levelLabel);
         if (employee.getAvatar() != null) {
-            Context context = holder.photo.getContext();
-            Glide.with(context).load(employee.getAvatar()).fitCenter().transform(new BorderedCircleTransformation(context)).into(holder.photo);
+            ImageFactory.getLoader().loadFromUrl(employee.getAvatar(), holder.photo, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
         }
     }
 
@@ -79,7 +78,7 @@ public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapte
         return this.employeeList.size();
     }
 
-    public void updateData(List<Employee> employees){
+    public void updateData(List<Employee> employees) {
         employeeList.clear();
         employeeList.addAll(employees);
         notifyDataSetChanged();
@@ -87,9 +86,12 @@ public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapte
 
     static class EmployeeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @Bind(R.id.photo) public ImageView photo;
-        @Bind(R.id.full_name) public TextView fullName;
-        @Bind(R.id.level) public TextView level;
+        @Bind(R.id.photo)
+        public ImageView photo;
+        @Bind(R.id.full_name)
+        public TextView fullName;
+        @Bind(R.id.level)
+        public TextView level;
         private RecyclerOnItemClickListener recyclerOnItemClickListener;
 
         public EmployeeViewHolder(View view, RecyclerOnItemClickListener recyclerOnItemClickListener) {
@@ -101,7 +103,7 @@ public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapte
 
         @Override
         public void onClick(View v) {
-            if (recyclerOnItemClickListener != null){
+            if (recyclerOnItemClickListener != null) {
                 recyclerOnItemClickListener.onClick(this.itemView);
             }
         }
