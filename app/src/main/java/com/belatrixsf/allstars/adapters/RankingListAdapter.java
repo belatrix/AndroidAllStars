@@ -27,11 +27,6 @@ import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
-<<<<<<< HEAD
-=======
-import com.belatrixsf.allstars.ui.common.views.BorderedCircleTransformation;
-import com.belatrixsf.allstars.ui.common.views.CircleTransformation;
->>>>>>> develop
 import com.belatrixsf.allstars.utils.Constants;
 import com.belatrixsf.allstars.utils.media.ImageFactory;
 import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
@@ -92,12 +87,7 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
         String stringScore = String.valueOf(employee.getValue());
         holder.score.setText(stringScore);
         if (employee.getAvatar() != null) {
-<<<<<<< HEAD
             new ImageFactory().getLoader().loadFromUrl(employee.getAvatar(), holder.photo, ImageLoader.ImageTransformation.CIRCLE);
-=======
-            Context context = holder.photo.getContext();
-            Glide.with(context).load(employee.getAvatar()).fitCenter().transform(new BorderedCircleTransformation(context)).into(holder.photo);
->>>>>>> develop
         }
     }
 
