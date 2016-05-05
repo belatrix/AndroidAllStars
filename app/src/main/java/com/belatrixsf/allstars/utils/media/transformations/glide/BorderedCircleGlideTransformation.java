@@ -40,8 +40,8 @@ public class BorderedCircleGlideTransformation extends BitmapTransformation {
     public BorderedCircleGlideTransformation(Context context) {
         super(context);
         Resources resources = context.getResources();
-        marginSize = resources.getDimensionPixelSize(R.dimen.picture_margin_size);
-        strokeWidth = resources.getDimensionPixelSize(R.dimen.picture_stroke_width);
+        marginSize = resources.getDimensionPixelSize(R.dimen.default_corner_radius);
+        strokeWidth = resources.getDimensionPixelSize(R.dimen.default_picture_stroke_width);
     }
 
     @Override
