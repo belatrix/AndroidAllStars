@@ -1,4 +1,4 @@
-package com.belatrixsf.allstars.ui.recommendation;
+package com.belatrixsf.allstars.ui.stars;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,7 +10,7 @@ import com.belatrixsf.allstars.ui.common.AllStarsActivity;
 /**
  * Created by PedroCarrillo on 4/28/16.
  */
-public class RecommendationActivity extends AllStarsActivity {
+public class StarsListActivity extends AllStarsActivity {
 
     public static final String SUBCATEGORY_ID = "_category_id";
     public static final String USER_ID = "_user_id";
@@ -22,7 +22,7 @@ public class RecommendationActivity extends AllStarsActivity {
         if (savedInstanceState == null) {
             Integer categoryId = getIntent().getIntExtra(SUBCATEGORY_ID, -1);
             Integer userId = getIntent().getIntExtra(USER_ID, -1);
-            replaceFragment(RecommendationFragment.newInstance(userId, categoryId), false);
+            replaceFragment(StarsListFragment.newInstance(userId, categoryId), false);
         }
         setNavigationToolbar();
     }

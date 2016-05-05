@@ -18,23 +18,37 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.example;
+package com.belatrixsf.allstars.networking.retrofit.responses;
 
-import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
+import com.belatrixsf.allstars.entities.Star;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 /**
- * @author PedroCarrillo
- * @author gyosida
+ * Created by icerrate on 25/04/2016.
  */
-public class ExamplePresenter extends AllStarsPresenter<ExampleView> {
+public class StarsResponse {
 
-    public ExamplePresenter(ExampleView view) {
-        super(view);
+    private int count;
+    private String next;
+    private String previous;
+    @SerializedName("results")
+    private List<Star> starList;
+
+    public int getCount() {
+        return count;
     }
 
-    public void getBooks() {
-        // will get the books from the model layer and use the showBooks() method from the view reference
-        view.showBooks();
+    public String getNext() {
+        return next;
     }
 
+    public String getPrevious() {
+        return previous;
+    }
+
+    public List<Star> getStarList() {
+        return starList;
+    }
 }

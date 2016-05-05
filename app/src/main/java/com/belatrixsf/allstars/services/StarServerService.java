@@ -3,6 +3,7 @@ package com.belatrixsf.allstars.services;
 import com.belatrixsf.allstars.networking.retrofit.RetrofitCallback;
 import com.belatrixsf.allstars.networking.retrofit.api.StarAPI;
 import com.belatrixsf.allstars.networking.retrofit.requests.StarRequest;
+import com.belatrixsf.allstars.networking.retrofit.responses.StarsResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarSubCategoryResponse;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
@@ -28,4 +29,8 @@ public class StarServerService implements StarService {
         starAPI.star(fromEmployeeId, toEmployeeId, starRequest).enqueue(new RetrofitCallback<StarResponse>(callback));
     }
 
+    @Override
+    public void getStars(int employeeId, int subcategory, AllStarsCallback<StarsResponse> callback) {
+        starAPI.getStars(employeeId, subcategory).enqueue(new RetrofitCallback<StarsResponse>(callback));
+    }
 }

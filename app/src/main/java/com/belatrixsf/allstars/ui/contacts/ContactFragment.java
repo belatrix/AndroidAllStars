@@ -61,7 +61,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-import static com.belatrixsf.allstars.ui.givestar.GiveStarFragment.SELECTED_USER_KEY;
+import static com.belatrixsf.allstars.ui.stars.GiveStarFragment.SELECTED_USER_KEY;
 
 /**
  * Created by icerrate on 15/04/2016.

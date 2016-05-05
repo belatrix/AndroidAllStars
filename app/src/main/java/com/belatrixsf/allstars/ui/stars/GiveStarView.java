@@ -1,4 +1,4 @@
-package com.belatrixsf.allstars.ui.givestar;
+package com.belatrixsf.allstars.ui.stars;
 
 import com.belatrixsf.allstars.ui.common.AllStarsView;
 

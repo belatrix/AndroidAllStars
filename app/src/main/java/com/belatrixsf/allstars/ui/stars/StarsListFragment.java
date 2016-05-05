@@ -18,7 +18,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.recommendation;
+package com.belatrixsf.allstars.ui.stars;
 
 
 import android.os.Bundle;
@@ -29,11 +29,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.belatrixsf.allstars.R;
-import com.belatrixsf.allstars.adapters.RecommendationListAdapter;
-import com.belatrixsf.allstars.entities.Recommendation;
+import com.belatrixsf.allstars.adapters.StarsListAdapter;
+import com.belatrixsf.allstars.entities.Star;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
-import com.belatrixsf.allstars.utils.di.modules.presenters.RecommendationPresenterModule;
+import com.belatrixsf.allstars.utils.di.modules.presenters.StarsListPresenterModule;
 
 import java.util.List;
 
@@ -42,20 +42,20 @@ import butterknife.Bind;
 /**
  * Created by icerrate on 25/04/2016.
  */
-public class RecommendationFragment extends AllStarsFragment implements RecommendationView {
+public class StarsListFragment extends AllStarsFragment implements StarsListView {
 
-    @Bind(R.id.recommendations) RecyclerView recommendationRecyclerView;
+    private StarsListPresenter starsListPresenter;
+    private StarsListAdapter starsListAdapter;
 
-    private RecommendationPresenter recommendationPresenter;
-    private RecommendationListAdapter recommendationListAdapter;
+    @Bind(R.id.stars) RecyclerView starsRecyclerView;
 
-    public static RecommendationFragment newInstance(Integer userId, Integer categoryId) {
+    public static StarsListFragment newInstance(Integer userId, Integer categoryId) {
         Bundle bundle = new Bundle();
-        bundle.putInt(RecommendationActivity.USER_ID, userId);
-        bundle.putInt(RecommendationActivity.SUBCATEGORY_ID, categoryId);
-        RecommendationFragment recommendationFragment = new RecommendationFragment();
-        recommendationFragment.setArguments(bundle);
-        return recommendationFragment;
+        bundle.putInt(StarsListActivity.USER_ID, userId);
+        bundle.putInt(StarsListActivity.SUBCATEGORY_ID, categoryId);
+        StarsListFragment employeeStarsListFragment = new StarsListFragment();
+        employeeStarsListFragment.setArguments(bundle);
+        return employeeStarsListFragment;
     }
 
     @Override
@@ -67,35 +67,36 @@ public class RecommendationFragment extends AllStarsFragment implements Recommen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_recommendation, container, false);
+        return inflater.inflate(R.layout.fragment_stars_list, container, false);
     }
 
     @Override
     protected void initDependencies(AllStarsApplication allStarsApplication) {
-        recommendationPresenter = allStarsApplication.getApplicationComponent()
-                .recommendationComponent(new RecommendationPresenterModule(this))
-                .recommendationPresenter();
+        starsListPresenter = allStarsApplication.getApplicationComponent()
+                .starsListComponent(new StarsListPresenterModule(this))
+                .starsListPresenter();
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews();
-        if (getArguments() != null && getArguments().containsKey(RecommendationActivity.USER_ID) && getArguments().containsKey(RecommendationActivity.SUBCATEGORY_ID)) {
-            Integer userId = getArguments().getInt(RecommendationActivity.USER_ID);
-            Integer categoryId = getArguments().getInt(RecommendationActivity.SUBCATEGORY_ID);
-            recommendationPresenter.getRecommendationList(userId, categoryId);
+        if (getArguments() != null && getArguments().containsKey(StarsListActivity.USER_ID) && getArguments().containsKey(StarsListActivity.SUBCATEGORY_ID)) {
+            Integer userId = getArguments().getInt(StarsListActivity.USER_ID);
+            Integer categoryId = getArguments().getInt(StarsListActivity.SUBCATEGORY_ID);
+            starsListPresenter.getStars(userId, categoryId);
         }
     }
 
     private void initViews() {
-        recommendationListAdapter = new RecommendationListAdapter(getActivity());
-        recommendationRecyclerView.setAdapter(recommendationListAdapter);
-        recommendationRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        starsListAdapter = new StarsListAdapter(getActivity());
+        starsRecyclerView.setAdapter(starsListAdapter);
+        starsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
     @Override
-    public void showRecommendations(List<Recommendation> recommendations) {
-        recommendationListAdapter.updateData(recommendations);
+    public void showStars(List<Star> stars) {
+        starsListAdapter.updateData(stars);
     }
+
 }

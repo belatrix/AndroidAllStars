@@ -1,4 +1,4 @@
-package com.belatrixsf.allstars.ui.givestar;
+package com.belatrixsf.allstars.ui.stars;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,7 +7,7 @@ import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.ui.common.AllStarsActivity;
 
-import static com.belatrixsf.allstars.ui.givestar.GiveStarFragment.SELECTED_USER_KEY;
+import static com.belatrixsf.allstars.ui.stars.GiveStarFragment.SELECTED_USER_KEY;
 
 /**
  * Created by PedroCarrillo on 4/22/16.
