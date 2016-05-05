@@ -59,16 +59,16 @@ import java.util.List;
 
 import butterknife.Bind;
 
-import static com.belatrixsf.allstars.ui.givestar.GiveStarFragment.ARG_SELECTED_USER_KEY;
+import static com.belatrixsf.allstars.ui.givestar.GiveStarFragment.SELECTED_USER_KEY;
 
 /**
  * Created by icerrate on 15/04/2016.
  */
 public class ContactFragment extends AllStarsFragment implements ContactView, RecyclerOnItemClickListener {
 
-    public static final String ARG_PROFILE_ENABLED_KEY = "_is_search";
-    private static final String STATE_EMPLOYEES_KEY = "_employees_key";
-    private static final String STATE_ACTION_MODE_KEY = "_action_mode_key";
+    public static final String PROFILE_ENABLED_KEY = "_is_search_key";
+    private static final String EMPLOYEES_KEY = "_employees_key";
+    private static final String ACTION_MODE_KEY = "_action_mode_key";
 
     @Bind(R.id.employees) RecyclerView employeeRecyclerView;
 
@@ -81,7 +81,7 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
 
     public static ContactFragment newInstance(boolean profileEnabled) {
         Bundle bundle = new Bundle();
-        bundle.putBoolean(ARG_PROFILE_ENABLED_KEY, profileEnabled);
+        bundle.putBoolean(PROFILE_ENABLED_KEY, profileEnabled);
         ContactFragment contactFragment = new ContactFragment();
         contactFragment.setArguments(bundle);
         return contactFragment;
@@ -124,8 +124,8 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
         contactPresenter = allStarsApplication.getApplicationComponent()
                 .contactComponent(new ContactPresenterModule(this))
                 .contactPresenter();
-        if (getArguments() != null && getArguments().containsKey(ARG_PROFILE_ENABLED_KEY)) {
-            contactPresenter.setProfileEnabled(getArguments().getBoolean(ARG_PROFILE_ENABLED_KEY));
+        if (getArguments() != null && getArguments().containsKey(PROFILE_ENABLED_KEY)) {
+            contactPresenter.setProfileEnabled(getArguments().getBoolean(PROFILE_ENABLED_KEY));
         }
     }
 
@@ -147,8 +147,8 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
     }
 
     private void restoreState(Bundle savedInstanceState) {
-        List<Employee> savedEmployees = savedInstanceState.getParcelableArrayList(STATE_EMPLOYEES_KEY);
-        boolean actionModeEnabled = savedInstanceState.getBoolean(STATE_ACTION_MODE_KEY);
+        List<Employee> savedEmployees = savedInstanceState.getParcelableArrayList(EMPLOYEES_KEY);
+        boolean actionModeEnabled = savedInstanceState.getBoolean(ACTION_MODE_KEY);
         contactPresenter.loadSavedEmployees(savedEmployees);
         contactPresenter.setInActionMode(actionModeEnabled);
     }
@@ -157,8 +157,8 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
         List<Employee> forSavingEmployees = contactPresenter.getEmployees();
         boolean forSavingActionMode = contactPresenter.isInActionMode();
         if (forSavingEmployees != null && forSavingEmployees instanceof ArrayList) {
-            outState.putParcelableArrayList(STATE_EMPLOYEES_KEY, (ArrayList<Employee>) forSavingEmployees);
-            outState.putBoolean(STATE_ACTION_MODE_KEY, forSavingActionMode);
+            outState.putParcelableArrayList(EMPLOYEES_KEY, (ArrayList<Employee>) forSavingEmployees);
+            outState.putBoolean(ACTION_MODE_KEY, forSavingActionMode);
         }
     }
 
@@ -292,7 +292,7 @@ public class ContactFragment extends AllStarsFragment implements ContactView, Re
     @Override
     public void selectEmployee(Employee employee) {
         Intent resultIntent = new Intent();
-        resultIntent.putExtra(ARG_SELECTED_USER_KEY, employee);
+        resultIntent.putExtra(SELECTED_USER_KEY, employee);
         fragmentListener.setActivityResult(Activity.RESULT_OK, resultIntent);
         fragmentListener.closeActivity();
     }
