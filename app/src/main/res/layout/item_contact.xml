@@ -5,14 +5,14 @@
     android:layout_height="?attr/listPreferredItemHeightLarge"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:padding="@dimen/activity_horizontal_margin"
+    android:paddingLeft="?listPreferredItemPaddingLeft"
+    android:paddingRight="?listPreferredItemPaddingRight"
     style="@style/ItemListStyle">
 
     <ImageView
         android:id="@+id/photo"
-        android:layout_width="@dimen/dimen_9_5"
-        android:layout_height="@dimen/dimen_9_5"
-        android:scaleType="centerCrop"
+        android:layout_width="@dimen/dimen_10_6"
+        android:layout_height="@dimen/dimen_10_6"
         tools:src="@drawable/ic_user" />
 
     <LinearLayout
@@ -37,6 +37,5 @@
             tools:text="@string/title_level" />
 
     </LinearLayout>
-    <!--<include layout="@layout/view_contact_data" />-->
 
 </LinearLayout>

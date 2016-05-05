@@ -21,8 +21,8 @@
 package com.belatrixsf.allstars.ui.common;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.LayoutRes;
@@ -52,16 +52,6 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
         ButterKnife.bind(this);
     }
 
-    // hack for forcing to pop the back stack when back key is pressed when using android.app.Fragment
-    @Override
-    public void onBackPressed() {
-        if (getFragmentManager().getBackStackEntryCount() > 0) {
-            getFragmentManager().popBackStack();
-        } else {
-            super.onBackPressed();
-        }
-    }
-
     @Override
     public void replaceFragment(Fragment fragment, boolean addToBackStack) {
         replaceFragment(R.id.main_content, fragment, addToBackStack);
@@ -69,7 +59,7 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
 
     @Override
     public void replaceFragment(int containerId, Fragment fragment, boolean addToBackStack) {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         String tag = fragment.getClass().getSimpleName();
         transaction.replace(containerId, fragment, tag);
         if (addToBackStack) transaction.addToBackStack(null);

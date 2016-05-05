@@ -30,7 +30,6 @@ import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.allstars.ui.common.views.BorderedCircleTransformation;
-import com.belatrixsf.allstars.ui.common.views.CircleTransformation;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -71,7 +70,7 @@ public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapte
         holder.level.setText(levelLabel);
         if (employee.getAvatar() != null) {
             Context context = holder.photo.getContext();
-            Glide.with(context).load(employee.getAvatar()).fitCenter().transform(new CircleTransformation(context)).into(holder.photo);
+            Glide.with(context).load(employee.getAvatar()).fitCenter().transform(new BorderedCircleTransformation(context)).into(holder.photo);
         }
     }
 
