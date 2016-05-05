@@ -96,7 +96,7 @@ public class RankingFragment extends AllStarsFragment implements RankingView, Ra
     private void initViews() {
         rankingListAdapter = new RankingListAdapter(this);
         rankingRecyclerView.setAdapter(rankingListAdapter);
-        rankingRecyclerView.setNestedScrollingEnabled(false); 
+        rankingRecyclerView.setNestedScrollingEnabled(false);
         rankingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         rankingRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
     }

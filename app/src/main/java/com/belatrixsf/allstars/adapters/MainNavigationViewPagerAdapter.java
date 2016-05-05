@@ -53,8 +53,6 @@ public class MainNavigationViewPagerAdapter extends FragmentPagerAdapter {
         }
     }
 
-
-
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position) {
