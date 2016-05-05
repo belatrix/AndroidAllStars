@@ -223,7 +223,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
 
     @Override
     public void showProfilePicture(final String profilePicture) {
-        new ImageFactory().getLoader().loadFromUrl(
+        ImageFactory.getLoader().loadFromUrl(
                 profilePicture,
                 pictureImageView,
                 ImageLoader.ImageTransformation.BORDERED_CIRCLE,

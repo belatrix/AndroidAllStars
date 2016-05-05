@@ -35,11 +35,13 @@ public class ImageFactory {
         PICASSO
     }
 
-    public ImageLoader getLoader() {
+    private ImageFactory() { /* UNUSED */ }
+
+    public static ImageLoader getLoader() {
         return getLoader(ImageProvider.GLIDE);
     }
 
-    public ImageLoader getLoader(ImageProvider imageProvider) {
+    public static ImageLoader getLoader(ImageProvider imageProvider) {
         switch (imageProvider) {
             case GLIDE:
                 return new GlideLoader();

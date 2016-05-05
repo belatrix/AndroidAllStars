@@ -35,18 +35,17 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
  */
 public class BorderedCircleGlideTransformation extends BitmapTransformation {
 
-    protected final int marginSize, strokeWidth;
+    protected final int strokeWidth;
 
     public BorderedCircleGlideTransformation(Context context) {
         super(context);
         Resources resources = context.getResources();
-        marginSize = resources.getDimensionPixelSize(R.dimen.default_corner_radius);
         strokeWidth = resources.getDimensionPixelSize(R.dimen.default_picture_stroke_width);
     }
 
     @Override
     protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
-        return AllStarsTransformationUtils.borderedCircle(pool, toTransform, marginSize, strokeWidth);
+        return AllStarsTransformationUtils.borderedCircle(pool, toTransform, strokeWidth);
     }
 
     @Override

@@ -44,7 +44,7 @@ public class AccountSelectionView extends DataSelectionView {
     }
 
     public void setProfileImage(String imageUrl) {
-        new ImageFactory().getLoader().loadFromUrl(imageUrl, profileImageView, ImageLoader.ImageTransformation.CIRCLE);
+        ImageFactory.getLoader().loadFromUrl(imageUrl, profileImageView, ImageLoader.ImageTransformation.CIRCLE);
     }
 
     public void setFullName(String fullName) {

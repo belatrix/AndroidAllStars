@@ -69,7 +69,7 @@ public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapte
         String levelLabel = String.format(holder.level.getContext().getString(R.string.contact_list_level), String.valueOf(employee.getLevel()));
         holder.level.setText(levelLabel);
         if (employee.getAvatar() != null) {
-            new ImageFactory().getLoader().loadFromUrl(employee.getAvatar(), holder.photo, ImageLoader.ImageTransformation.CIRCLE);
+            ImageFactory.getLoader().loadFromUrl(employee.getAvatar(), holder.photo, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
         }
     }
 

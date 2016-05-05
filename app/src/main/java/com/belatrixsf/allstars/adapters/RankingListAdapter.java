@@ -87,7 +87,7 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
         String stringScore = String.valueOf(employee.getValue());
         holder.score.setText(stringScore);
         if (employee.getAvatar() != null) {
-            new ImageFactory().getLoader().loadFromUrl(employee.getAvatar(), holder.photo, ImageLoader.ImageTransformation.CIRCLE);
+            ImageFactory.getLoader().loadFromUrl(employee.getAvatar(), holder.photo, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
         }
     }
 

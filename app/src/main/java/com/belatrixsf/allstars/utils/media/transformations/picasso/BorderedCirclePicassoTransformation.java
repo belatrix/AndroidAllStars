@@ -39,7 +39,7 @@ public class BorderedCirclePicassoTransformation extends BorderedCircleGlideTran
 
     @Override
     public Bitmap transform(Bitmap source) {
-        return AllStarsTransformationUtils.borderedCircle(null, source, marginSize, strokeWidth);
+        return AllStarsTransformationUtils.borderedCircle(null, source, strokeWidth);
     }
 
     @Override
