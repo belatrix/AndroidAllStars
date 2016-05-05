@@ -45,9 +45,9 @@ import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
-import com.belatrixsf.allstars.ui.givestar.GiveStarActivity;
-import com.belatrixsf.allstars.ui.givestar.GiveStarFragment;
-import com.belatrixsf.allstars.ui.recommendation.RecommendationActivity;
+import com.belatrixsf.allstars.ui.stars.GiveStarActivity;
+import com.belatrixsf.allstars.ui.stars.GiveStarFragment;
+import com.belatrixsf.allstars.ui.stars.StarsListActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.DialogUtils;
 import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModule;
@@ -59,7 +59,7 @@ import java.util.List;
 import butterknife.Bind;
 
 import static com.belatrixsf.allstars.ui.account.AccountActivity.USER_ID_KEY;
-import static com.belatrixsf.allstars.ui.givestar.GiveStarFragment.SELECTED_USER_KEY;
+import static com.belatrixsf.allstars.ui.stars.GiveStarFragment.SELECTED_USER_KEY;
 
 /**
  * Created by pedrocarrillo on 4/9/16.
@@ -180,9 +180,9 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
 
     @Override
     public void goSubCategoryDetail(Integer categoryId, Integer employeeId) {
-        Intent intent = new Intent(getActivity(), RecommendationActivity.class);
-        intent.putExtra(RecommendationActivity.USER_ID, employeeId);
-        intent.putExtra(RecommendationActivity.SUBCATEGORY_ID, categoryId);
+        Intent intent = new Intent(getActivity(), StarsListActivity.class);
+        intent.putExtra(StarsListActivity.USER_ID, employeeId);
+        intent.putExtra(StarsListActivity.SUBCATEGORY_ID, categoryId);
         startActivity(intent);
     }
 

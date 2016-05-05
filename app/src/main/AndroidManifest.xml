@@ -16,14 +16,10 @@
             android:name=".ui.login.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".ui.example.ExampleActivity"
-            android:label="@string/title_activity_example"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity
-            android:name=".ui.recommendation.RecommendationActivity"
+            android:name=".ui.stars.StarsListActivity"
             android:label="@string/title_recommendation_activity"/>
         <activity
-            android:name=".ui.givestar.GiveStarActivity"
+            android:name=".ui.stars.GiveStarActivity"
             android:label="@string/title_give_star_activity"/>
         <activity
             android:name=".ui.account.AccountActivity"

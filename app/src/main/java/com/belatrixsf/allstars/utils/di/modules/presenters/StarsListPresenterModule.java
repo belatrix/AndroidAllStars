@@ -18,22 +18,28 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.example;
+package com.belatrixsf.allstars.utils.di.modules.presenters;
 
-import android.os.Bundle;
+import com.belatrixsf.allstars.ui.stars.StarsListView;
 
-import com.belatrixsf.allstars.R;
-import com.belatrixsf.allstars.ui.common.AllStarsActivity;
+import dagger.Module;
+import dagger.Provides;
 
-/**
- * @author PedroCarrillo
+/*
+ * Created by icerrate on 25/04/2016.
  */
-public class ExampleActivity extends AllStarsActivity {
+@Module
+public class StarsListPresenterModule {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_example);
+    private StarsListView view;
+
+    public StarsListPresenterModule(StarsListView view) {
+        this.view = view;
+    }
+
+    @Provides
+    public StarsListView providesView() {
+        return view;
     }
 
 }

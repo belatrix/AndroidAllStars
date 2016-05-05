@@ -18,15 +18,18 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.example;
+package com.belatrixsf.allstars.ui.stars;
 
+import com.belatrixsf.allstars.entities.Star;
 import com.belatrixsf.allstars.ui.common.AllStarsView;
 
-/**
- * @author gyosida
- */
-public interface ExampleView extends AllStarsView {
+import java.util.List;
 
-    void showBooks();
+/**
+ * Created by icerrate on 25/04/2016.
+ */
+public interface StarsListView extends AllStarsView {
+
+    void showStars(List<Star> stars);
 
 }

@@ -1,4 +1,4 @@
-package com.belatrixsf.allstars.ui.givestar;
+package com.belatrixsf.allstars.ui.stars;
 
 import android.app.Activity;
 import android.content.Intent;

@@ -20,7 +20,7 @@
 */
 package com.belatrixsf.allstars.utils.di.components;
 
-import com.belatrixsf.allstars.ui.givestar.GiveStarPresenter;
+import com.belatrixsf.allstars.ui.stars.GiveStarPresenter;
 import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
 import com.belatrixsf.allstars.utils.di.scopes.UIScope;
 

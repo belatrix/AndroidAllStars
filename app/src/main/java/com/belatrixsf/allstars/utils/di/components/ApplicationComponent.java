@@ -28,7 +28,7 @@ import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModul
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.RankingPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
-import com.belatrixsf.allstars.utils.di.modules.presenters.RecommendationPresenterModule;
+import com.belatrixsf.allstars.utils.di.modules.presenters.StarsListPresenterModule;
 
 import javax.inject.Singleton;
 
@@ -49,7 +49,7 @@ public interface ApplicationComponent {
     EmployeeManager employeeManager();
     AccountComponent accountComponent(AccountPresenterModule accountPresenterModule);
     ContactComponent contactComponent(ContactPresenterModule contactPresenterModule);
-    RecommendationComponent recommendationComponent(RecommendationPresenterModule recommendationPresenterModule);
+    StarsListComponent starsListComponent(StarsListPresenterModule StarsListPresenterModule);
     RankingComponent rankingComponent(RankingPresenterModule rankingPresenterModule);
     GiveStarComponent giveStarComponent(GiveStarPresenterModule giveStarPresenterModule);
     CategoriesListComponent categoriesListComponent(CategoriesListModule categoriesListModule);

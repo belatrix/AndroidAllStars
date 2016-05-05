@@ -18,10 +18,10 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.recommendation;
+package com.belatrixsf.allstars.ui.stars;
 
-import com.belatrixsf.allstars.networking.retrofit.responses.RecommendationResponse;
-import com.belatrixsf.allstars.services.EmployeeService;
+import com.belatrixsf.allstars.networking.retrofit.responses.StarsResponse;
+import com.belatrixsf.allstars.services.StarService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
@@ -31,23 +31,23 @@ import javax.inject.Inject;
 /**
  * Created by icerrate on 25/04/2016.
  */
-public class RecommendationPresenter extends AllStarsPresenter<RecommendationView> {
+public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
 
-    private EmployeeService employeeService;
+    private StarService starService;
 
     @Inject
-    public RecommendationPresenter(RecommendationView view, EmployeeService employeeService) {
+    public StarsListPresenter(StarsListView view, StarService starService) {
         super(view);
-        this.employeeService = employeeService;
+        this.starService = starService;
     }
 
-    public void getRecommendationList(int employeeId, int subcategoryId) {
+    public void getStars(int employeeId, int subcategoryId) {
         view.showProgressIndicator();
-        employeeService.getRecommendationList(employeeId, subcategoryId, new AllStarsCallback<RecommendationResponse>() {
+        starService.getStars(employeeId, subcategoryId, new AllStarsCallback<StarsResponse>() {
             @Override
-            public void onSuccess(RecommendationResponse recommendationResponse) {
+            public void onSuccess(StarsResponse starsResponse) {
                 view.hideProgressIndicator();
-                view.showRecommendations(recommendationResponse.getRecommendationList());
+                view.showStars(starsResponse.getStarList());
             }
 
             @Override
