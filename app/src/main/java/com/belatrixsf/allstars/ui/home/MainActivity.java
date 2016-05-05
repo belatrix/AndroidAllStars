@@ -42,7 +42,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.MainNavigationViewPagerAdapter;
 import com.belatrixsf.allstars.ui.common.AllStarsActivity;
-import com.belatrixsf.allstars.ui.contacts.ContactFragmentListener;
+import com.belatrixsf.allstars.ui.contacts.ContactsListFragmentListener;
 import com.belatrixsf.allstars.ui.stars.GiveStarActivity;
 import com.belatrixsf.allstars.ui.stars.GiveStarFragment;
 import com.belatrixsf.allstars.ui.login.LoginActivity;
@@ -56,7 +56,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 
-public class MainActivity extends AllStarsActivity implements ContactFragmentListener, HomeView, RankingFragmentListener {
+public class MainActivity extends AllStarsActivity implements ContactsListFragmentListener, HomeView, RankingFragmentListener {
 
     public static final int RQ_GIVE_STAR = 99;
     public static final int RANKING_TAB = 1;
@@ -66,8 +66,7 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
     @Bind(R.id.app_bar_layout) AppBarLayout appBarLayout;
     @Bind(R.id.tab_layout) TabLayout tabLayout;
     @Bind(R.id.main_view_pager) ViewPager mainViewPager;
-    @Bind(R.id.start_recommendation)
-    FloatingActionButton startRecommendationButton;
+    @Bind(R.id.start_recommendation) FloatingActionButton startRecommendationButton;
     @Bind(R.id.main_coordinator) CoordinatorLayout coordinatorLayout;
     @Bind(R.id.bottom_navigation) AHBottomNavigation bottomNavigation;
 
@@ -183,7 +182,7 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
         return this;
     }
 
-    // ContactFragmentListener
+    // ContactsListFragmentListener
 
     @Override
     public void setActionMode(ActionMode.Callback callback) {

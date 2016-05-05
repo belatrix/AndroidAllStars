@@ -10,7 +10,7 @@
     style="@style/ItemListStyle">
 
     <ImageView
-        android:id="@+id/photo"
+        android:id="@+id/contact_photo"
         android:layout_width="@dimen/dimen_10_6"
         android:layout_height="@dimen/dimen_10_6"
         tools:src="@drawable/ic_user" />
@@ -23,14 +23,14 @@
         android:paddingLeft="@dimen/activity_horizontal_margin">
 
         <TextView
-            android:id="@+id/full_name"
+            android:id="@+id/contact_full_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_16"
             tools:text="@string/title_full_name" />
 
         <TextView
-            android:id="@+id/level"
+            android:id="@+id/contact_level"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/grey"

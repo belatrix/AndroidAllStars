@@ -41,60 +41,60 @@ import butterknife.ButterKnife;
 /**
  * Created by icerrate on 15/04/2016.
  */
-public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapter.EmployeeViewHolder> {
+public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapter.ContactViewHolder> {
 
-    private List<Employee> employeeList;
+    private List<Employee> contactsList;
     private RecyclerOnItemClickListener recyclerOnItemClickListener;
 
-    public EmployeeListAdapter(RecyclerOnItemClickListener recyclerOnItemClickListener) {
+    public ContactsListAdapter(RecyclerOnItemClickListener recyclerOnItemClickListener) {
         this(recyclerOnItemClickListener, new ArrayList<Employee>());
     }
 
-    public EmployeeListAdapter(RecyclerOnItemClickListener recyclerOnItemClickListener, List<Employee> employeeList) {
-        this.employeeList = employeeList;
+    public ContactsListAdapter(RecyclerOnItemClickListener recyclerOnItemClickListener, List<Employee> contactsList) {
+        this.contactsList = contactsList;
         this.recyclerOnItemClickListener = recyclerOnItemClickListener;
     }
 
     @Override
-    public EmployeeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ContactViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_contact, parent, false);
-        return new EmployeeViewHolder(layoutView, recyclerOnItemClickListener);
+        return new ContactViewHolder(layoutView, recyclerOnItemClickListener);
     }
 
     @Override
-    public void onBindViewHolder(EmployeeViewHolder holder, int position) {
-        final Employee employee = employeeList.get(position);
+    public void onBindViewHolder(ContactViewHolder holder, int position) {
+        final Employee employee = contactsList.get(position);
         holder.itemView.setTag(employee);
-        holder.fullName.setText(employee.getFullName());
-        String levelLabel = String.format(holder.level.getContext().getString(R.string.contact_list_level), String.valueOf(employee.getLevel()));
-        holder.level.setText(levelLabel);
+        holder.contactFullNameTextView.setText(employee.getFullName());
+        String levelLabel = String.format(holder.contactLevelTextView.getContext().getString(R.string.contact_list_level), String.valueOf(employee.getLevel()));
+        holder.contactLevelTextView.setText(levelLabel);
         if (employee.getAvatar() != null) {
-            ImageFactory.getLoader().loadFromUrl(employee.getAvatar(), holder.photo, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
+            ImageFactory.getLoader().loadFromUrl(employee.getAvatar(), holder.photoImageView, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
         }
     }
 
     @Override
     public int getItemCount() {
-        return this.employeeList.size();
+        return this.contactsList.size();
     }
 
     public void updateData(List<Employee> employees) {
-        employeeList.clear();
-        employeeList.addAll(employees);
+        contactsList.clear();
+        contactsList.addAll(employees);
         notifyDataSetChanged();
     }
 
-    static class EmployeeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    static class ContactViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @Bind(R.id.photo)
-        public ImageView photo;
-        @Bind(R.id.full_name)
-        public TextView fullName;
-        @Bind(R.id.level)
-        public TextView level;
+        @Bind(R.id.contact_photo)
+        public ImageView photoImageView;
+        @Bind(R.id.contact_full_name)
+        public TextView contactFullNameTextView;
+        @Bind(R.id.contact_level)
+        public TextView contactLevelTextView;
         private RecyclerOnItemClickListener recyclerOnItemClickListener;
 
-        public EmployeeViewHolder(View view, RecyclerOnItemClickListener recyclerOnItemClickListener) {
+        public ContactViewHolder(View view, RecyclerOnItemClickListener recyclerOnItemClickListener) {
             super(view);
             ButterKnife.bind(this, view);
             this.recyclerOnItemClickListener = recyclerOnItemClickListener;

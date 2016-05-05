@@ -145,7 +145,7 @@
                         android:textColor="@color/subTitle" />
 
                     <TextView
-                        android:id="@+id/level"
+                        android:id="@+id/contact_level"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginTop="10dp"

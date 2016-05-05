@@ -78,7 +78,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     TextView skypeIdTextView;
     @Bind(R.id.current_month_score)
     TextView currentMonthScoreTextView;
-    @Bind(R.id.level)
+    @Bind(R.id.contact_level)
     TextView levelTextView;
     @Bind(R.id.score)
     TextView scoreTextView;

@@ -46,7 +46,7 @@ public interface EmployeeAPI {
     Call<Employee> getEmployee(@Path(ServerPaths.EMPLOYEE_ID) int employeeId);
 
     @GET(ServerPaths.EMPLOYEE_LIST)
-    Call<SearchEmployeeResponse> getEmployeeList();
+    Call<SearchEmployeeResponse> getEmployees();
 
     @GET(ServerPaths.EMPLOYEE_SEARCH_TERM)
     Call<SearchEmployeeResponse> getEmployeeSearchList(@Path(ServerPaths.SEARCH_TERM) String searchTerm);

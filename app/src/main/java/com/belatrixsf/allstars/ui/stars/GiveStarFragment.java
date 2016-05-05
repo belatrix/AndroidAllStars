@@ -18,7 +18,7 @@ import com.belatrixsf.allstars.ui.comment.CommentActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.views.AccountSelectionView;
 import com.belatrixsf.allstars.ui.common.views.DataSelectionView;
-import com.belatrixsf.allstars.ui.contacts.ContactActivity;
+import com.belatrixsf.allstars.ui.contacts.ContactsListActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
 
@@ -130,7 +130,7 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
 
     @Override
     public void goSearchUser() {
-        Intent intent = new Intent(getActivity(), ContactActivity.class);
+        Intent intent = new Intent(getActivity(), ContactsListActivity.class);
         startActivityForResult(intent, RQ_CONTACT);
     }
 

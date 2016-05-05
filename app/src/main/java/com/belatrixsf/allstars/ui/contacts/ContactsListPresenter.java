@@ -35,7 +35,7 @@ import javax.inject.Inject;
 /**
  * Created by icerrate on 15/04/2016.
  */
-public class ContactPresenter extends AllStarsPresenter<ContactView> {
+public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
 
     private EmployeeService employeeService;
     private List<Employee> employees;
@@ -43,7 +43,7 @@ public class ContactPresenter extends AllStarsPresenter<ContactView> {
     private boolean profileEnabled = true;
 
     @Inject
-    public ContactPresenter(ContactView view, EmployeeService employeeService) {
+    public ContactsListPresenter(ContactsListView view, EmployeeService employeeService) {
         super(view);
         this.employeeService = employeeService;
     }
@@ -62,7 +62,7 @@ public class ContactPresenter extends AllStarsPresenter<ContactView> {
         }
     }
 
-    public List<Employee> getEmployees(){
+    public List<Employee> getContacts(){
         return employees;
     }
 
@@ -70,18 +70,18 @@ public class ContactPresenter extends AllStarsPresenter<ContactView> {
         return inActionMode;
     }
 
-    public void loadSavedEmployees(List<Employee> employees){
+    public void loadSavedContacts(List<Employee> employees){
         this.employees = employees;
     }
 
-    public void getEmployeeList(boolean force) {
+    public void getContacts(boolean force) {
         if (force || employees == null || employees.isEmpty()) {
             view.showProgressIndicator();
-            employeeService.getEmployeeList(new AllStarsCallback<SearchEmployeeResponse>() {
+            employeeService.getEmployees(new AllStarsCallback<SearchEmployeeResponse>() {
                 @Override
                 public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
                     employees = searchEmployeeResponse.getEmployeeList();
-                    view.showEmployees(searchEmployeeResponse.getEmployeeList());
+                    view.showContacts(searchEmployeeResponse.getEmployeeList());
                 }
 
                 @Override
@@ -90,7 +90,7 @@ public class ContactPresenter extends AllStarsPresenter<ContactView> {
                 }
             });
         }else{
-            view.showEmployees(employees);
+            view.showContacts(employees);
         }
     }
 
@@ -110,7 +110,7 @@ public class ContactPresenter extends AllStarsPresenter<ContactView> {
                 public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
                     employees = searchEmployeeResponse.getEmployeeList();
                     //view.hideProgressIndicator();
-                    view.showEmployees(searchEmployeeResponse.getEmployeeList());
+                    view.showContacts(searchEmployeeResponse.getEmployeeList());
                 }
 
                 @Override
@@ -127,9 +127,9 @@ public class ContactPresenter extends AllStarsPresenter<ContactView> {
         if (object != null && object instanceof Employee) {
             Employee employee = (Employee) object;
             if (profileEnabled) {
-                view.goEmployeeProfile(employee.getPk());
+                view.goContactProfile(employee.getPk());
             } else {
-                view.selectEmployee(employee);
+                view.selectContact(employee);
             }
         }
     }
