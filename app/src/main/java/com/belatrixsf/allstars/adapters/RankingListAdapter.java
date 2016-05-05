@@ -28,8 +28,8 @@ import android.widget.TextView;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.utils.Constants;
-import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
 import com.belatrixsf.allstars.utils.media.ImageFactory;
+import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +37,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 
 /**
  * Created by icerrate on 28/04/2016.
@@ -64,7 +65,7 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
     @Override
     public void onBindViewHolder(EmployeeViewHolder holder, int position) {
         final Employee employee = rankingList.get(position);
-        int place = position + Constants.ONE_UNIT;
+        int place = position + 1;
         int cupResourceId;
         switch (place) {
             case Constants.FIRST_POSITION:
@@ -124,17 +125,17 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
         }
 
         @OnClick(R.id.layout_container)
-        public void onClick() {
+        public void onClick(View view) {
             if (rankingListClickListener != null) {
-                rankingListClickListener.onEmployeeClicked(getLayoutPosition());
+                rankingListClickListener.onEmployeeClicked(getLayoutPosition(), view);
             }
         }
-
     }
 
     public interface RankingListClickListener {
 
-        void onEmployeeClicked(int position);
+        void onEmployeeClicked(int position, View view);
 
     }
+
 }

@@ -24,6 +24,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,6 +34,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -49,8 +51,8 @@ import com.belatrixsf.allstars.ui.recommendation.RecommendationActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.DialogUtils;
 import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModule;
-import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
 import com.belatrixsf.allstars.utils.media.ImageFactory;
+import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
 
 import java.util.List;
 
@@ -108,7 +110,6 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_account, container, false);
     }
 
@@ -159,7 +160,6 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
                 return super.onOptionsItemSelected(item);
         }
     }
-
 
     private void setupViews() {
         accountCategoriesAdapter = new AccountSubCategoriesAdapter(this);
@@ -223,7 +223,33 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
 
     @Override
     public void showProfilePicture(final String profilePicture) {
-        new ImageFactory().getLoader().loadFromUrl(profilePicture, pictureImageView, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
+        new ImageFactory().getLoader().loadFromUrl(
+                profilePicture,
+                pictureImageView,
+                ImageLoader.ImageTransformation.BORDERED_CIRCLE,
+                new ImageLoader.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        startPostponedEnterTransition();
+                    }
+
+                    @Override
+                    public void onFailure() {
+                        startPostponedEnterTransition();
+                    }
+                }
+        );
+    }
+
+    private void startPostponedEnterTransition() {
+        recommendationRecyclerView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                recommendationRecyclerView.getViewTreeObserver().removeOnPreDrawListener(this);
+                ActivityCompat.startPostponedEnterTransition(getActivity());
+                return false;
+            }
+        });
     }
 
     @Override

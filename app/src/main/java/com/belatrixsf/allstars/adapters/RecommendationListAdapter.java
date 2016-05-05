@@ -18,6 +18,7 @@
 */
 package com.belatrixsf.allstars.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,11 +28,9 @@ import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Recommendation;
-import com.belatrixsf.allstars.utils.Constants;
 import com.belatrixsf.allstars.utils.DateUtils;
-import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
 import com.belatrixsf.allstars.utils.media.ImageFactory;
-import com.ramotion.foldingcell.FoldingCell;
+import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,39 +44,34 @@ import butterknife.ButterKnife;
 public class RecommendationListAdapter extends RecyclerView.Adapter<RecommendationListAdapter.RecommendationViewHolder> {
 
     private List<Recommendation> recommendationList;
+    private String noMessagePlaceHolder;
 
-    public RecommendationListAdapter() {
-        this(new ArrayList<Recommendation>());
+    public RecommendationListAdapter(Context context) {
+        this(context, new ArrayList<Recommendation>());
     }
 
-    public RecommendationListAdapter(List<Recommendation> recommendationList) {
+    public RecommendationListAdapter(Context context, List<Recommendation> recommendationList) {
         this.recommendationList = recommendationList;
+        this.noMessagePlaceHolder = context.getString(R.string.message_placeholder);
     }
 
     @Override
     public RecommendationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_folding_recommendation, parent, false);
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recommendation, parent, false);
         return new RecommendationViewHolder(layoutView);
     }
 
     @Override
     public void onBindViewHolder(final RecommendationViewHolder holder, int position) {
         Recommendation recommendation = recommendationList.get(position);
-        //Title
-        holder.titleUserTextView.setText(recommendation.getFromUser().getFullName());
-        holder.titleMessageTextView.setText(recommendation.getMessage());
-        if (recommendation.getFromUser().getAvatar() != null) {
-            new ImageFactory().getLoader().loadFromUrl(recommendation.getFromUser().getAvatar(), holder.titlePhotoImageView, ImageLoader.ImageTransformation.CIRCLE);
-        }
-        //Content
-        String formatDate = DateUtils.fortmatDate(recommendation.getDate(), DateUtils.DATE_FORMAT_1, DateUtils.DATE_FORMAT_2);
-        String noMessagePlaceHolder = holder.contentMessageTextView.getContext().getResources().getString(R.string.message_placeholder);
-        String message = (recommendation.getMessage() != null && !Constants.EMPTY_STRING.equalsIgnoreCase(recommendation.getMessage())) ? recommendation.getMessage() : noMessagePlaceHolder;
+        String formattedDate = DateUtils.formatDate(recommendation.getDate(), DateUtils.DATE_FORMAT_1, DateUtils.DATE_FORMAT_2);
+        String message = recommendation.getMessage() != null && !recommendation.getMessage().isEmpty() ? recommendation.getMessage() : noMessagePlaceHolder;
         holder.contentUserTextView.setText(recommendation.getFromUser().getFullName());
         holder.contentMessageTextView.setText(message);
         holder.contentCategoryTextView.setText(recommendation.getCategory().getName());
-        holder.contentDateTextView.setText(formatDate);
+        holder.contentDateTextView.setText(formattedDate);
         if (recommendation.getFromUser().getAvatar() != null) {
+            Context context = holder.contentPhotoImageView.getContext();
             new ImageFactory().getLoader().loadFromUrl(recommendation.getFromUser().getAvatar(), holder.contentPhotoImageView, ImageLoader.ImageTransformation.CIRCLE);
         }
     }
@@ -93,17 +87,7 @@ public class RecommendationListAdapter extends RecyclerView.Adapter<Recommendati
         notifyDataSetChanged();
     }
 
-    static class RecommendationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @Bind(R.id.folding_cell)
-        public FoldingCell foldingCell;
-        //Title
-        @Bind(R.id.title_photo)
-        public ImageView titlePhotoImageView;
-        @Bind(R.id.title_user)
-        public TextView titleUserTextView;
-        @Bind(R.id.title_message)
-        public TextView titleMessageTextView;
-        //Content
+    static class RecommendationViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.content_photo)
         public ImageView contentPhotoImageView;
         @Bind(R.id.content_user)
@@ -118,12 +102,7 @@ public class RecommendationListAdapter extends RecyclerView.Adapter<Recommendati
         public RecommendationViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-            this.itemView.setOnClickListener(this);
         }
 
-        @Override
-        public void onClick(View v) {
-            foldingCell.toggle(false);
-        }
     }
 }

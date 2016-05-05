@@ -28,8 +28,8 @@ import android.widget.TextView;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
-import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
 import com.belatrixsf.allstars.utils.media.ImageFactory;
+import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
