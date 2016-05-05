@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.ui.common.views.BorderedCircleTransformation;
 import com.belatrixsf.allstars.ui.common.views.CircleTransformation;
 import com.belatrixsf.allstars.utils.Constants;
 import com.bumptech.glide.Glide;
