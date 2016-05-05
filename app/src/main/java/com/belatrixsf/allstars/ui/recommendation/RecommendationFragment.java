@@ -89,7 +89,7 @@ public class RecommendationFragment extends AllStarsFragment implements Recommen
     }
 
     private void initViews() {
-        recommendationListAdapter = new RecommendationListAdapter();
+        recommendationListAdapter = new RecommendationListAdapter(getActivity());
         recommendationRecyclerView.setAdapter(recommendationListAdapter);
         recommendationRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }

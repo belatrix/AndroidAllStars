@@ -14,6 +14,7 @@
     <string name="dialog_confirmation_logout">Are you sure you want to logout?</string>
     <string name="dialog_option_positive">Yes</string>
     <string name="dialog_option_negative">No</string>
+    <string name="dialog_option_confirm">Got it!</string>
 
     <!-- Hint -->
     <string name="hint_username">Username</string>
@@ -29,7 +30,7 @@
     <string name="title_select_subcategory">Select Subcategory</string>
     <string name="title_account_activity">Profile</string>
     <string name="title_contact_activity">Select an user</string>
-    <string name="title_recommendation_activity">Recommendation</string>
+    <string name="title_recommendation_activity">Recommendations</string>
     <string name="title_give_star_activity">Give a recommendation</string>
     <string name="title_comment_activity">Write a comment</string>
 
@@ -80,4 +81,8 @@
     <string name="action_search">Search</string>
     <string name="done">DONE</string>
     <string name="ranking_tag">ranking_tag</string>
+
+    <!-- Transition names -->
+    <string name="transition_photo">transition_photo</string>
+
 </resources>

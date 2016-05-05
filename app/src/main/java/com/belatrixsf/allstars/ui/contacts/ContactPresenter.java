@@ -28,6 +28,8 @@ import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 /**
@@ -36,6 +38,8 @@ import javax.inject.Inject;
 public class ContactPresenter extends AllStarsPresenter<ContactView> {
 
     private EmployeeService employeeService;
+    private List<Employee> employees;
+    private boolean inActionMode = false;
     private boolean profileEnabled = true;
 
     @Inject
@@ -48,19 +52,46 @@ public class ContactPresenter extends AllStarsPresenter<ContactView> {
         this.profileEnabled = profileEnabled;
     }
 
-    public void getEmployeeList() {
-        view.showProgressIndicator();
-        employeeService.getEmployeeList(new AllStarsCallback<SearchEmployeeResponse>() {
-            @Override
-            public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
-                view.showEmployees(searchEmployeeResponse.getEmployeeList());
-            }
+    public void setInActionMode(boolean inActionMode) {
+        this.inActionMode = inActionMode;
+    }
 
-            @Override
-            public void onFailure(ServiceError serviceError) {
-                showError(serviceError.getErrorMessage());
-            }
-        });
+    public void shouldShowActionMode() {
+        if (inActionMode){
+            view.startActionMode();
+        }
+    }
+
+    public List<Employee> getEmployees(){
+        return employees;
+    }
+
+    public boolean isInActionMode(){
+        return inActionMode;
+    }
+
+    public void loadSavedEmployees(List<Employee> employees){
+        this.employees = employees;
+    }
+
+    public void getEmployeeList(boolean force) {
+        if (force || employees == null || employees.isEmpty()) {
+            view.showProgressIndicator();
+            employeeService.getEmployeeList(new AllStarsCallback<SearchEmployeeResponse>() {
+                @Override
+                public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
+                    employees = searchEmployeeResponse.getEmployeeList();
+                    view.showEmployees(searchEmployeeResponse.getEmployeeList());
+                }
+
+                @Override
+                public void onFailure(ServiceError serviceError) {
+                    showError(serviceError.getErrorMessage());
+                }
+            });
+        }else{
+            view.showEmployees(employees);
+        }
     }
 
     public void onSearchTermChange(String newSearchTerm){
@@ -73,11 +104,12 @@ public class ContactPresenter extends AllStarsPresenter<ContactView> {
 
     public void submitSearchTerm(String searchTerm){
         if (!searchTerm.isEmpty()) {
-            view.showProgressIndicator();
+            //view.showProgressIndicator();
             employeeService.getEmployeeSearchList(searchTerm, new AllStarsCallback<SearchEmployeeResponse>() {
                 @Override
                 public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
-                    view.hideProgressIndicator();
+                    employees = searchEmployeeResponse.getEmployeeList();
+                    //view.hideProgressIndicator();
                     view.showEmployees(searchEmployeeResponse.getEmployeeList());
                 }
 

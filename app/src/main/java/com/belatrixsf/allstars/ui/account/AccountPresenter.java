@@ -103,8 +103,8 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
         } else {
             view.showCurrentMonthScore(getString(R.string.no_data_option));
         }
-        if (employee.getScore() != null) {
-            view.showScore(String.valueOf(employee.getScore()));
+        if (employee.getTotalScore() != null) {
+            view.showScore(String.valueOf(employee.getTotalScore()));
         } else {
             view.showCurrentMonthScore(getString(R.string.no_data_option));
         }

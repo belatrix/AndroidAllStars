@@ -18,25 +18,32 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.common;
 
-import android.support.v4.app.Fragment;
-import android.content.Intent;
+package com.belatrixsf.allstars.utils.media.transformations.picasso;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+
+import com.belatrixsf.allstars.utils.media.transformations.AllStarsTransformationUtils;
+import com.belatrixsf.allstars.utils.media.transformations.glide.BorderedCircleGlideTransformation;
+import com.squareup.picasso.Transformation;
 
 /**
- * Created by PedroCarrillo on 4/8/16.
+ * @author Carlos Piñan
  */
-public interface FragmentListener {
+public class BorderedCirclePicassoTransformation extends BorderedCircleGlideTransformation implements Transformation {
 
-    void replaceFragment(Fragment fragment, boolean addToBackStack);
-    void replaceFragment(int containerId, Fragment fragment, boolean addToBackStack);
-    void showError(String message);
-    void showProgressDialog();
-    void showProgressDialog(String message);
-    void dismissProgressDialog();
-    void closeActivity();
-    void setActivityResult(int resultCode);
-    void setActivityResult(int resultCode, Intent resultIntent);
-    void setTitle(String title);
+    public BorderedCirclePicassoTransformation(Context context) {
+        super(context);
+    }
 
+    @Override
+    public Bitmap transform(Bitmap source) {
+        return AllStarsTransformationUtils.borderedCircle(null, source, strokeWidth);
+    }
+
+    @Override
+    public String key() {
+        return "borderedCirclePicasso()";
+    }
 }

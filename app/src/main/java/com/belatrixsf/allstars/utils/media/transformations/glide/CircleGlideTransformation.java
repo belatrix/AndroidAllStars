@@ -18,25 +18,32 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.common;
 
-import android.support.v4.app.Fragment;
-import android.content.Intent;
+package com.belatrixsf.allstars.utils.media.transformations.glide;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+
+import com.belatrixsf.allstars.utils.media.transformations.AllStarsTransformationUtils;
+import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 
 /**
- * Created by PedroCarrillo on 4/8/16.
+ * Created by gyosida on 4/29/16.
  */
-public interface FragmentListener {
+public class CircleGlideTransformation extends BitmapTransformation {
 
-    void replaceFragment(Fragment fragment, boolean addToBackStack);
-    void replaceFragment(int containerId, Fragment fragment, boolean addToBackStack);
-    void showError(String message);
-    void showProgressDialog();
-    void showProgressDialog(String message);
-    void dismissProgressDialog();
-    void closeActivity();
-    void setActivityResult(int resultCode);
-    void setActivityResult(int resultCode, Intent resultIntent);
-    void setTitle(String title);
+    public CircleGlideTransformation(Context context) {
+        super(context);
+    }
 
+    @Override
+    protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
+        return AllStarsTransformationUtils.circleCrop(pool, toTransform);
+    }
+
+    @Override
+    public String getId() {
+        return this.getClass().getName();
+    }
 }
