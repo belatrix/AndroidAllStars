@@ -91,16 +91,6 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
     }
 
     @Override
-    public void showProgressIndicator() {
-
-    }
-
-    @Override
-    public void hideProgressIndicator() {
-
-    }
-
-    @Override
     public void setTitle(String title) {
         if (!activityHandleTitle() && getSupportActionBar() != null) {
             getSupportActionBar().setTitle(title);

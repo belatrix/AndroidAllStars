@@ -246,4 +246,13 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
         bottomNavigation.setOnTabSelectedListener(onTabSelectedListener);
     }
 
+    @Override
+    public void showProgressIndicator() {
+
+    }
+
+    @Override
+    public void hideProgressIndicator() {
+
+    }
 }
