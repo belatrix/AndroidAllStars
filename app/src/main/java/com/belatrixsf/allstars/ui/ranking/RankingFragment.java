@@ -119,7 +119,7 @@ public class RankingFragment extends AllStarsFragment implements RankingView, Ra
 
     @Override
     public void onEmployeeClicked(int position, View view) {
-        photoImageView = (ImageView) view.findViewById(R.id.photo);
+        photoImageView = (ImageView) view.findViewById(R.id.contact_photo);
         rankingPresenter.employeeSelected(position);
     }
 

@@ -26,7 +26,7 @@ import android.support.v7.view.ActionMode;
 /**
  * Created by icerrate on 19/04/2016.
  */
-public interface ContactFragmentListener {
+public interface ContactsListFragmentListener {
 
     void setActionMode(ActionMode.Callback callback);
 

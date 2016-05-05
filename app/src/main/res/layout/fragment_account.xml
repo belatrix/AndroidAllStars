@@ -171,8 +171,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="?android:attr/progressBarStyleHorizontal"
-                    android:indeterminate="true"
-                    />
+                    android:indeterminate="true"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/account_recommendations"
@@ -188,6 +187,21 @@
                     android:text="@string/no_data_found"
                     android:visibility="gone"
                     tools:visibility="visible"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/title_level"
+                    android:textColor="@color/subTitle" />
+
+                <TextView
+                    android:id="@+id/contact_level"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:textColor="@android:color/black"
+                    tools:text="9000+" />
 
             </LinearLayout>
 

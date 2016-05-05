@@ -18,28 +18,23 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils.di.modules.presenters;
+package com.belatrixsf.allstars.ui.contacts;
 
-import com.belatrixsf.allstars.ui.contacts.ContactView;
+import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.ui.common.AllStarsView;
 
-import dagger.Module;
-import dagger.Provides;
+import java.util.List;
 
 /**
  * Created by icerrate on 15/04/2016.
  */
-@Module
-public class ContactPresenterModule {
+public interface ContactsListView extends AllStarsView {
 
-    private ContactView view;
-
-    public ContactPresenterModule(ContactView view) {
-        this.view = view;
-    }
-
-    @Provides
-    public ContactView providesView() {
-        return view;
-    }
+    void showContacts(List<Employee> contacts);
+    void startActionMode();
+    void showCleanButton();
+    void hideCleanButton();
+    void goContactProfile(Integer id);
+    void selectContact(Employee contact);
 
 }

@@ -55,8 +55,8 @@ public class EmployeeServerService implements EmployeeService {
     }
 
     @Override
-    public void getEmployeeList(AllStarsCallback<SearchEmployeeResponse> callback) {
-        employeeAPI.getEmployeeList().enqueue(new RetrofitCallback<SearchEmployeeResponse>(callback));
+    public void getEmployees(AllStarsCallback<SearchEmployeeResponse> callback) {
+        employeeAPI.getEmployees().enqueue(new RetrofitCallback<SearchEmployeeResponse>(callback));
     }
 
     @Override

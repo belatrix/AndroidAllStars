@@ -10,14 +10,14 @@ import com.belatrixsf.allstars.ui.common.AllStarsActivity;
 /**
  * Created by pedrocarrillo on 4/26/16.
  */
-public class ContactActivity  extends AllStarsActivity implements ContactFragmentListener {
+public class ContactsListActivity extends AllStarsActivity implements ContactsListFragmentListener {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
         if (savedInstanceState == null) {
-            replaceFragment(ContactFragment.newInstance(false), false);
+            replaceFragment(ContactsListFragment.newInstance(false), false);
         }
         setNavigationToolbar();
     }
