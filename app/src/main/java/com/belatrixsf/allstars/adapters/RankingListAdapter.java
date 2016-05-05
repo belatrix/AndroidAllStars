@@ -28,8 +28,8 @@ import android.widget.TextView;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.utils.Constants;
-import com.belatrixsf.allstars.utils.media.ImageLoader;
-import com.belatrixsf.allstars.utils.media.ImageUtils;
+import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
+import com.belatrixsf.allstars.utils.media.ImageFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,7 +87,7 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
         String stringScore = String.valueOf(employee.getValue());
         holder.score.setText(stringScore);
         if (employee.getAvatar() != null) {
-            ImageUtils.get().getLoader().loadFromUrl(employee.getAvatar(), holder.photo, ImageLoader.ImageTransformation.CIRCLE);
+            new ImageFactory().getLoader().loadFromUrl(employee.getAvatar(), holder.photo, ImageLoader.ImageTransformation.CIRCLE);
         }
     }
 

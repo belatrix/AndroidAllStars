@@ -7,12 +7,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
-import com.bumptech.glide.Glide;
+import com.belatrixsf.allstars.utils.media.ImageFactory;
+import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
 
 /**
  * Created by PedroCarrillo on 4/25/16.
  */
-public class AccountSelectionView  extends DataSelectionView {
+public class AccountSelectionView extends DataSelectionView {
 
     private ImageView profileImageView;
     private TextView fullNameTextView;
@@ -43,7 +44,7 @@ public class AccountSelectionView  extends DataSelectionView {
     }
 
     public void setProfileImage(String imageUrl) {
-        Glide.with(profileImageView.getContext()).load(imageUrl).fitCenter().transform(new CircleTransformation(profileImageView.getContext())).into(profileImageView);
+        new ImageFactory().getLoader().loadFromUrl(imageUrl, profileImageView, ImageLoader.ImageTransformation.CIRCLE);
     }
 
     public void setFullName(String fullName) {

@@ -21,40 +21,32 @@
 
 package com.belatrixsf.allstars.utils.media;
 
-import android.content.Context;
-import android.widget.ImageView;
-
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.RequestCreator;
+import com.belatrixsf.allstars.utils.media.loaders.GlideLoader;
+import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
+import com.belatrixsf.allstars.utils.media.loaders.PicassoLoader;
 
 /**
  * @author Carlos Piñan
  */
-public class PicassoLoader implements ImageLoader {
+public class ImageFactory {
 
-    @Override
-    public void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation) {
-        Context context = imageView.getContext();
-        load(context, Picasso.with(context).load(url), transformation).into(imageView);
+    public enum ImageProvider {
+        GLIDE,
+        PICASSO
     }
 
-    @Override
-    public void loadFromPath(String path, ImageView imageView, ImageTransformation transformation) {
+    public ImageLoader getLoader() {
+        return getLoader(ImageProvider.GLIDE);
     }
 
-    private RequestCreator load(Context context, RequestCreator load, ImageTransformation transformation) {
-        load.centerInside();
-        if (context != null && transformation != null) {
-            switch (transformation) {
-                case BORDERED_CIRCLE:
-                    // TODO Implement Bordered Circle Transformation for Picasso
-                    break;
-                case CIRCLE:
-                    // TODO Implement Circle Transformation for Picasso
-                    break;
-            }
+    public ImageLoader getLoader(ImageProvider imageProvider) {
+        switch (imageProvider) {
+            case GLIDE:
+                return new GlideLoader();
+            case PICASSO:
+                return new PicassoLoader();
+            default:
+                return new GlideLoader();
         }
-        return load;
     }
-
 }

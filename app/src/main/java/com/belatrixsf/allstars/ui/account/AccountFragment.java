@@ -49,8 +49,8 @@ import com.belatrixsf.allstars.ui.recommendation.RecommendationActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.DialogUtils;
 import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModule;
-import com.belatrixsf.allstars.utils.media.ImageLoader;
-import com.belatrixsf.allstars.utils.media.ImageUtils;
+import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
+import com.belatrixsf.allstars.utils.media.ImageFactory;
 
 import java.util.List;
 
@@ -223,7 +223,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
 
     @Override
     public void showProfilePicture(final String profilePicture) {
-        ImageUtils.get().getLoader().loadFromUrl(profilePicture, pictureImageView, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
+        new ImageFactory().getLoader().loadFromUrl(profilePicture, pictureImageView, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
     }
 
     @Override

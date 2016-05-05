@@ -19,22 +19,24 @@
 * SOFTWARE.
 */
 
-package com.belatrixsf.allstars.utils.media;
+package com.belatrixsf.allstars.utils.media.transformations.picasso;
 
-import android.widget.ImageView;
+import android.graphics.Bitmap;
+
+import com.belatrixsf.allstars.utils.media.transformations.AllStarsTransformationUtils;
+import com.squareup.picasso.Transformation;
 
 /**
  * @author Carlos Piñan
  */
-public interface ImageLoader {
-
-    enum ImageTransformation {
-        BORDERED_CIRCLE,
-        CIRCLE
+public class CirclePicassoTransformation implements Transformation {
+    @Override
+    public Bitmap transform(Bitmap source) {
+        return AllStarsTransformationUtils.circleCrop(null, source);
     }
 
-    void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation);
-
-    void loadFromPath(String path, ImageView imageView, ImageTransformation transformation);
-
+    @Override
+    public String key() {
+        return "circlePicasso()";
+    }
 }

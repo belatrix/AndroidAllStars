@@ -18,53 +18,40 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.common.views;
+
+package com.belatrixsf.allstars.utils.media.transformations.glide;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapShader;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 
+import com.belatrixsf.allstars.R;
+import com.belatrixsf.allstars.utils.media.transformations.AllStarsTransformationUtils;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 
 /**
- * Created by gyosida on 4/29/16.
+ * Created by pedrocarrillo on 4/16/16.
  */
-public class CircleTransformation extends BitmapTransformation {
+public class BorderedCircleGlideTransformation extends BitmapTransformation {
 
-    public CircleTransformation(Context context) {
+    protected final int marginSize, strokeWidth;
+
+    public BorderedCircleGlideTransformation(Context context) {
         super(context);
+        Resources resources = context.getResources();
+        marginSize = resources.getDimensionPixelSize(R.dimen.picture_margin_size);
+        strokeWidth = resources.getDimensionPixelSize(R.dimen.picture_stroke_width);
     }
 
     @Override
     protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
-        return circleCrop(pool, toTransform);
-    }
-
-    private static Bitmap circleCrop(BitmapPool pool, Bitmap source) {
-        if (source == null) return null;
-
-        int size = Math.min(source.getWidth(), source.getHeight());
-        int x = (source.getWidth() - size) / 2;
-        int y = (source.getHeight() - size) / 2;
-        Bitmap squared = Bitmap.createBitmap(source, x, y, size, size);
-        Bitmap result = pool.get(size, size, Bitmap.Config.ARGB_8888);
-        if (result == null) {
-            result = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
-        }
-        Canvas canvas = new Canvas(result);
-        Paint paint = new Paint();
-        paint.setShader(new BitmapShader(squared, BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP));
-        paint.setAntiAlias(true);
-        float r = size / 2f;
-        canvas.drawCircle(r, r, r, paint);
-        return result;
+        return AllStarsTransformationUtils.borderedCircle(pool, toTransform, marginSize, strokeWidth);
     }
 
     @Override
     public String getId() {
-        return this.getClass().getName();
+        return getClass().getName();
     }
+
 }

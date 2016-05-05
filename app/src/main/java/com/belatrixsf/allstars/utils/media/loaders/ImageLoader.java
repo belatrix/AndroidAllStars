@@ -19,44 +19,32 @@
 * SOFTWARE.
 */
 
-package com.belatrixsf.allstars.utils.media;
+package com.belatrixsf.allstars.utils.media.loaders;
+
+import android.widget.ImageView;
 
 /**
  * @author Carlos Piñan
  */
-public class ImageUtils {
+public interface ImageLoader {
 
-    private static ImageUtils instance;
+    interface Callback {
+        void onSuccess();
 
-    public enum ImageProvider {
-        GLIDE,
-        PICASSO
+        void onFailure();
     }
 
-    private ImageProvider imageProvider = ImageProvider.GLIDE;
-
-    private ImageUtils() { /* UNUSED */ }
-
-    public static ImageUtils get() {
-        if (instance == null) {
-            instance = new ImageUtils();
-        }
-        return instance;
+    enum ImageTransformation {
+        BORDERED_CIRCLE,
+        CIRCLE
     }
 
-    public void setProvider(ImageProvider imageProvider) {
-        this.imageProvider = imageProvider;
-    }
+    void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation);
 
-    public ImageLoader getLoader() {
-        switch (imageProvider) {
-            case GLIDE:
-                return new GlideLoader();
-            case PICASSO:
-                return new PicassoLoader();
-            default:
-                return new GlideLoader();
-        }
-    }
+    void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation, ImageLoader.Callback callback);
+
+    void loadFromPath(String path, ImageView imageView, ImageTransformation transformation);
+
+    void loadFromPath(String path, ImageView imageView, ImageTransformation transformation, ImageLoader.Callback callback);
 
 }

@@ -19,47 +19,77 @@
 * SOFTWARE.
 */
 
-package com.belatrixsf.allstars.utils.media;
+package com.belatrixsf.allstars.utils.media.loaders;
 
 import android.content.Context;
 import android.widget.ImageView;
 
-import com.belatrixsf.allstars.ui.common.views.BorderedCircleTransformation;
-import com.belatrixsf.allstars.ui.common.views.CircleTransformation;
-import com.bumptech.glide.DrawableTypeRequest;
-import com.bumptech.glide.Glide;
+import com.belatrixsf.allstars.utils.media.transformations.picasso.BorderedCirclePicassoTransformation;
+import com.belatrixsf.allstars.utils.media.transformations.picasso.CirclePicassoTransformation;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
 
 import java.io.File;
 
 /**
  * @author Carlos Piñan
  */
-public class GlideLoader implements ImageLoader {
+public class PicassoLoader implements ImageLoader {
 
     @Override
     public void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation) {
+        loadFromUrl(url, imageView, transformation, null);
+    }
+
+    @Override
+    public void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation, Callback callback) {
         Context context = imageView.getContext();
-        load(context, Glide.with(context).load(url), transformation).into(imageView);
+        load(context, Picasso.with(context).load(url), transformation, imageView, callback);
     }
 
     @Override
     public void loadFromPath(String path, ImageView imageView, ImageTransformation transformation) {
-        Context context = imageView.getContext();
-        load(context, Glide.with(context).load(new File(path)), transformation).into(imageView);
+        loadFromPath(path, imageView, transformation, null);
     }
 
-    private <T> DrawableTypeRequest<T> load(Context context, DrawableTypeRequest<T> load, ImageTransformation transformation) {
-        load.fitCenter();
+    @Override
+    public void loadFromPath(String path, ImageView imageView, ImageTransformation transformation, Callback callback) {
+        Context context = imageView.getContext();
+        load(context, Picasso.with(context).load(new File(path)), transformation, imageView, callback);
+    }
+
+    private void load(
+            Context context,
+            RequestCreator load,
+            ImageTransformation transformation,
+            ImageView imageView,
+            final Callback callback
+    ) {
+        load.centerInside();
         if (context != null && transformation != null) {
             switch (transformation) {
                 case BORDERED_CIRCLE:
-                    load.transform(new BorderedCircleTransformation(context));
+                    load.transform(new BorderedCirclePicassoTransformation(context));
                     break;
                 case CIRCLE:
-                    load.transform(new CircleTransformation(context));
+                    load.transform(new CirclePicassoTransformation());
                     break;
             }
         }
-        return load;
+        if (callback != null) {
+            load.into(imageView, new com.squareup.picasso.Callback() {
+                @Override
+                public void onSuccess() {
+                    callback.onSuccess();
+                }
+
+                @Override
+                public void onError() {
+                    callback.onFailure();
+                }
+            });
+        } else {
+            load.into(imageView);
+        }
     }
 }

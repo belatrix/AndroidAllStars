@@ -28,8 +28,8 @@ import android.widget.TextView;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
-import com.belatrixsf.allstars.utils.media.ImageLoader;
-import com.belatrixsf.allstars.utils.media.ImageUtils;
+import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
+import com.belatrixsf.allstars.utils.media.ImageFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +68,7 @@ public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapte
         String levelLabel = String.format(holder.level.getContext().getString(R.string.contact_list_level), String.valueOf(employee.getLevel()));
         holder.level.setText(levelLabel);
         if (employee.getAvatar() != null) {
-            ImageUtils.get().getLoader().loadFromUrl(employee.getAvatar(), holder.photo, ImageLoader.ImageTransformation.CIRCLE);
+            new ImageFactory().getLoader().loadFromUrl(employee.getAvatar(), holder.photo, ImageLoader.ImageTransformation.CIRCLE);
         }
     }
 

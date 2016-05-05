@@ -29,8 +29,8 @@ import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Recommendation;
 import com.belatrixsf.allstars.utils.Constants;
 import com.belatrixsf.allstars.utils.DateUtils;
-import com.belatrixsf.allstars.utils.media.ImageLoader;
-import com.belatrixsf.allstars.utils.media.ImageUtils;
+import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
+import com.belatrixsf.allstars.utils.media.ImageFactory;
 import com.ramotion.foldingcell.FoldingCell;
 
 import java.util.ArrayList;
@@ -67,7 +67,7 @@ public class RecommendationListAdapter extends RecyclerView.Adapter<Recommendati
         holder.titleUserTextView.setText(recommendation.getFromUser().getFullName());
         holder.titleMessageTextView.setText(recommendation.getMessage());
         if (recommendation.getFromUser().getAvatar() != null) {
-            ImageUtils.get().getLoader().loadFromUrl(recommendation.getFromUser().getAvatar(), holder.titlePhotoImageView, ImageLoader.ImageTransformation.CIRCLE);
+            new ImageFactory().getLoader().loadFromUrl(recommendation.getFromUser().getAvatar(), holder.titlePhotoImageView, ImageLoader.ImageTransformation.CIRCLE);
         }
         //Content
         String formatDate = DateUtils.fortmatDate(recommendation.getDate(), DateUtils.DATE_FORMAT_1, DateUtils.DATE_FORMAT_2);
@@ -78,7 +78,7 @@ public class RecommendationListAdapter extends RecyclerView.Adapter<Recommendati
         holder.contentCategoryTextView.setText(recommendation.getCategory().getName());
         holder.contentDateTextView.setText(formatDate);
         if (recommendation.getFromUser().getAvatar() != null) {
-            ImageUtils.get().getLoader().loadFromUrl(recommendation.getFromUser().getAvatar(), holder.contentPhotoImageView, ImageLoader.ImageTransformation.CIRCLE);
+            new ImageFactory().getLoader().loadFromUrl(recommendation.getFromUser().getAvatar(), holder.contentPhotoImageView, ImageLoader.ImageTransformation.CIRCLE);
         }
     }
 
