@@ -28,8 +28,13 @@ import android.widget.TextView;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
+<<<<<<< HEAD
 import com.belatrixsf.allstars.utils.media.ImageFactory;
 import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
+=======
+import com.belatrixsf.allstars.ui.common.views.BorderedCircleTransformation;
+import com.bumptech.glide.Glide;
+>>>>>>> develop
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +73,12 @@ public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapte
         String levelLabel = String.format(holder.level.getContext().getString(R.string.contact_list_level), String.valueOf(employee.getLevel()));
         holder.level.setText(levelLabel);
         if (employee.getAvatar() != null) {
+<<<<<<< HEAD
             new ImageFactory().getLoader().loadFromUrl(employee.getAvatar(), holder.photo, ImageLoader.ImageTransformation.CIRCLE);
+=======
+            Context context = holder.photo.getContext();
+            Glide.with(context).load(employee.getAvatar()).fitCenter().transform(new BorderedCircleTransformation(context)).into(holder.photo);
+>>>>>>> develop
         }
     }
 
