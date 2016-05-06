@@ -2,10 +2,12 @@ package com.belatrixsf.allstars.ui.common.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,6 +22,7 @@ public class DataSelectionView extends LinearLayout {
 
     private ImageView rightArrowImageView;
     private TextView hintTextView;
+    private String value;
 
     /**
      * Views for default data views
@@ -68,6 +71,7 @@ public class DataSelectionView extends LinearLayout {
     public void setData(String data) {
         if (valueView != null) {
             ((TextView)valueView).setText(data);
+            value = data;
         }
     }
 
@@ -84,5 +88,60 @@ public class DataSelectionView extends LinearLayout {
         rightArrowImageView.setVisibility(arrowVisibility);
     }
 
+    @Override
+    public Parcelable onSaveInstanceState() {
+        Parcelable superState = super.onSaveInstanceState();
+        SavedState state = new SavedState(superState);
+        if (value != null){
+            state.value = value;
+        }
+        return state;
+    }
 
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        if (!(state instanceof SavedState)) {
+            super.onRestoreInstanceState(state);
+            return;
+        }
+        SavedState ss = (SavedState)state;
+        super.onRestoreInstanceState(ss.getSuperState());
+        if (ss.value != null) {
+            setData(ss.value.toString());
+            showData();
+        }
+    }
+
+    public static class SavedState extends android.view.View.BaseSavedState {
+
+        CharSequence value;
+
+        SavedState(Parcel in) {
+            super(in);
+            value = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(in);
+        }
+
+        SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+            TextUtils.writeToParcel(value, out, flags);
+        }
+
+        public static final Parcelable.Creator<SavedState> CREATOR
+                = new Parcelable.Creator<SavedState>() {
+            @Override
+            public SavedState createFromParcel(Parcel in) {
+                return new SavedState(in);
+            }
+
+            @Override
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
+    }
 }

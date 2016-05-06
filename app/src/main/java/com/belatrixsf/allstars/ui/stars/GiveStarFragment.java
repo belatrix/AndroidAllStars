@@ -29,8 +29,9 @@ import butterknife.Bind;
  */
 public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
 
-    public static final String SELECTED_USER_KEY = "_selected_user";
-    public static final String COMMENT_KEY = "_user_comment";
+    public static final String SELECTED_USER_KEY = "_selected_user_key";
+    public static final String COMMENT_KEY = "_user_comment_key";
+    public static final String SELECTED_CATEGORY_KEY = "_selected_category_key";
     public static final String MESSAGE_KEY = "_message_key";
     public static final int RQ_CONTACT = 100;
     public static final int RQ_COMMENT = 101;
@@ -73,9 +74,41 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (getArguments() != null && getArguments().containsKey(SELECTED_USER_KEY)) {
+        if (savedInstanceState != null) {
+            restoreState(savedInstanceState);
+        }else if (getArguments() != null && getArguments().containsKey(SELECTED_USER_KEY)) {
             Employee employee = getArguments().getParcelable(SELECTED_USER_KEY);
             giveStarPresenter.initWithUser(employee);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        saveState(outState);
+        super.onSaveInstanceState(outState);
+    }
+
+    private void restoreState(Bundle savedInstanceState) {
+        Employee savedEmployee = savedInstanceState.getParcelable(SELECTED_USER_KEY);
+        String savedComment = savedInstanceState.getString(COMMENT_KEY);
+        Category savedCategory = savedInstanceState.getParcelable(SELECTED_CATEGORY_KEY);
+        giveStarPresenter.loadSelectedUser(savedEmployee);
+        giveStarPresenter.loadSelectedComment(savedComment);
+        giveStarPresenter.loadSelectedSubCategory(savedCategory);
+    }
+
+    private void saveState(Bundle outState) {
+        Employee selectedEmployee = giveStarPresenter.getSelectedEmployee();
+        String selectedComment = giveStarPresenter.getSelectedComment();
+        Category selectedSubCategory = giveStarPresenter.getSelectedSubCategory();
+        if (selectedEmployee != null) {
+            outState.putParcelable(SELECTED_USER_KEY, selectedEmployee);
+        }
+        if (selectedComment != null && !selectedComment.isEmpty()) {
+            outState.putString(COMMENT_KEY, selectedComment);
+        }
+        if (selectedSubCategory != null) {
+            outState.putParcelable(SELECTED_CATEGORY_KEY, selectedSubCategory);
         }
     }
 
@@ -88,6 +121,7 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         menuDone = menu.findItem(R.id.action_done);
+        giveStarPresenter.checkRecommendationEnabled();
         super.onPrepareOptionsMenu(menu);
     }
 

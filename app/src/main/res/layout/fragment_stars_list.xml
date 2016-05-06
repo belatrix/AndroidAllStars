@@ -2,8 +2,8 @@
 <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/stars"
-    android:paddingTop="@dimen/dimen_1_5"
-    android:paddingBottom="@dimen/dimen_1_5"
+    android:paddingTop="@dimen/dimen_8"
+    android:paddingBottom="@dimen/dimen_8"
     android:layout_width="match_parent"
     tools:listitem="@layout/item_star"
     android:layout_height="match_parent" />
