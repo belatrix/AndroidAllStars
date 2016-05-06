@@ -45,15 +45,18 @@ public class RankingPresenter extends AllStarsPresenter<RankingView> {
     }
 
     public void getRankingList(String kind, int quantity) {
+        view.showProgressIndicator();
         employeeService.getRankingList(kind, quantity, new AllStarsCallback<List<Employee>>() {
             @Override
             public void onSuccess(List<Employee> rankingResponse) {
                 rankingEmployees = rankingResponse;
                 view.showRankingList(rankingResponse);
+                view.hideProgressIndicator();
             }
 
             @Override
             public void onFailure(ServiceError serviceError) {
+                view.hideProgressIndicator();
                 showError(serviceError.getErrorMessage());
             }
         });

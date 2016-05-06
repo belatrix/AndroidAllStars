@@ -29,6 +29,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.RankingListAdapter;
@@ -56,6 +57,7 @@ public class RankingFragment extends AllStarsFragment implements RankingView, Ra
 
     private ImageView photoImageView;
     @Bind(R.id.ranking) RecyclerView rankingRecyclerView;
+    @Bind(R.id.progressBar) ProgressBar loadingProgressBar;
 
     public static RankingFragment newInstance(String kind) {
         Bundle bundle = new Bundle();
@@ -115,6 +117,16 @@ public class RankingFragment extends AllStarsFragment implements RankingView, Ra
     @Override
     public void goToEmployeeProfile(Integer employeeId) {
         AccountActivity.startActivityAnimatingProfilePic(getActivity(), photoImageView, employeeId);
+    }
+
+    @Override
+    public void showProgressIndicator() {
+        loadingProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressIndicator() {
+        loadingProgressBar.setVisibility(View.GONE);
     }
 
 }
