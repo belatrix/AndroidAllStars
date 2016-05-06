@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Star;
+import com.belatrixsf.allstars.ui.common.views.KeywordView;
 import com.belatrixsf.allstars.utils.DateUtils;
 import com.belatrixsf.allstars.utils.media.ImageFactory;
 import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
@@ -66,10 +67,12 @@ public class StarsListAdapter extends RecyclerView.Adapter<StarsListAdapter.Star
         Star star = starList.get(position);
         String formattedDate = DateUtils.formatDate(star.getDate(), DateUtils.DATE_FORMAT_1, DateUtils.DATE_FORMAT_2);
         String message = star.getMessage() != null && !star.getMessage().isEmpty() ? star.getMessage() : noMessagePlaceHolder;
+        String keyword = star.getCategory().getName();
         holder.employeeFullNameTextView.setText(star.getFromUser().getFullName());
         holder.starMessageTextView.setText(message);
         holder.starCategoryTextView.setText(star.getCategory().getName());
         holder.starDateTextView.setText(formattedDate);
+        holder.starKeywordView.setData(keyword);
         if (star.getFromUser().getAvatar() != null) {
             ImageFactory.getLoader().loadFromUrl(star.getFromUser().getAvatar(), holder.photoImageView, ImageLoader.ImageTransformation.CIRCLE);
         }
@@ -95,8 +98,10 @@ public class StarsListAdapter extends RecyclerView.Adapter<StarsListAdapter.Star
         public TextView starMessageTextView;
         @Bind(R.id.star_category)
         public TextView starCategoryTextView;
-        @Bind(R.id.star_date)
+        @Bind(R.id.keyword)
         public TextView starDateTextView;
+        @Bind(R.id.star_keyword)
+        public KeywordView starKeywordView;
 
         public StarViewHolder(View view) {
             super(view);
