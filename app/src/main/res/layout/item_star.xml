@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginRight="@dimen/dimen_1_5"
-    android:layout_marginLeft="@dimen/dimen_1_5"
+    android:layout_marginRight="@dimen/dimen_8"
+    android:layout_marginLeft="@dimen/dimen_8"
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="true"
     app:contentPadding="@dimen/activity_horizontal_margin">

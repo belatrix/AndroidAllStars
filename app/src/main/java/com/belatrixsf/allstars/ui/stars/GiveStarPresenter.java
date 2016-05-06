@@ -20,9 +20,9 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
 
     private StarService starService;
     private EmployeeManager employeeManager;
-    private Employee toEmployee;
+    private Employee selectedEmployee;
     private Category selectedSubCategory;
-    private String comment;
+    private String selectedComment;
     private boolean initWithUser = false;
 
     @Inject
@@ -49,7 +49,19 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
     }
 
     public void commentSelectionClicked() {
-        view.goWriteComment(comment);
+        view.goWriteComment(selectedComment);
+    }
+
+    public Employee getSelectedEmployee() {
+        return selectedEmployee;
+    }
+
+    public Category getSelectedSubCategory() {
+        return selectedSubCategory;
+    }
+
+    public String getSelectedComment() {
+        return selectedComment;
     }
 
     public void loadSelectedUser(Employee employee) {
@@ -63,14 +75,14 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
         if (employee.getAvatar() != null) {
             view.showUserProfileImage(employee.getAvatar());
         }
-        this.toEmployee = employee;
+        this.selectedEmployee = employee;
         view.showUser();
     }
 
     public void loadSelectedComment(String comment) {
         checkRecommendationEnabled();
         if (!comment.isEmpty()) {
-            this.comment = comment;
+            this.selectedComment = comment;
             view.showComment(comment);
         }
     }
@@ -86,8 +98,8 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
         employeeManager.getLoggedInEmployee(new AllStarsCallback<Employee>() {
             @Override
             public void onSuccess(Employee fromEmployee) {
-                StarRequest starRequest = new StarRequest(selectedSubCategory.getParentId(), selectedSubCategory.getId(), comment);
-                starService.star(fromEmployee.getPk(), toEmployee.getPk(), starRequest, new AllStarsCallback<StarResponse>() {
+                StarRequest starRequest = new StarRequest(selectedSubCategory.getParentId(), selectedSubCategory.getId(), selectedComment);
+                starService.star(fromEmployee.getPk(), selectedEmployee.getPk(), starRequest, new AllStarsCallback<StarResponse>() {
                     @Override
                     public void onSuccess(StarResponse starResponse) {
                         view.dismissProgressDialog();
@@ -113,7 +125,7 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
     }
 
     private boolean validateFormComplete() {
-        return toEmployee != null && selectedSubCategory != null;
+        return selectedEmployee != null && selectedSubCategory != null;
     }
 
 }
