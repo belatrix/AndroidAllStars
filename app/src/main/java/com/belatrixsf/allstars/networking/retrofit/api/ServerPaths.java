@@ -46,7 +46,7 @@ public interface ServerPaths {
     String EMPLOYEE_SUBCATEGORY_LIST = STAR + "/{" + EMPLOYEE_ID + "}" + "/subcategory/list";
 
     String STAR_EMPLOYEE = STAR + "/{" + FROM_EMPLOYEE + "}" + "/give/star/to/{" + TO_EMPLOYEE + "}/" ;
-    String RECOMMENDATION_LIST = STAR + "/{" + EMPLOYEE_ID + "}/subcategory" + "/{" + SUBCATEGORY_ID + "}/list";
+    String STARS_BY_EMPLOYEE_AND_SUBCATEGORY = STAR + "/{" + EMPLOYEE_ID + "}/subcategory" + "/{" + SUBCATEGORY_ID + "}/list";
     String RANKING_LIST = EMPLOYEE + "/list/top/{" + KIND + "}/{" + QUANTITY + "}/";
 
     String SUBCATEGORIES_BY_CATEGORY_ID = CATEGORY + "/{" + CATEGORY_ID + "}/subcategory/list";

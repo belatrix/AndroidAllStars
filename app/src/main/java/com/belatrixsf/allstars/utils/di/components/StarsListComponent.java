@@ -20,22 +20,21 @@
 */
 package com.belatrixsf.allstars.utils.di.components;
 
-import com.belatrixsf.allstars.ui.stars.GiveStarPresenter;
-import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
+import com.belatrixsf.allstars.ui.stars.StarsListPresenter;
+import com.belatrixsf.allstars.utils.di.modules.presenters.StarsListPresenterModule;
 import com.belatrixsf.allstars.utils.di.scopes.UIScope;
 
 import dagger.Subcomponent;
 
 /**
- * Created by PedroCarrillo on 4/27/16.
+ * Created by icerrate on 25/04/2016.
  */
 @UIScope
 @Subcomponent(
-        modules = GiveStarPresenterModule.class
+        modules = StarsListPresenterModule.class
 )
-public interface GiveStarComponent {
+public interface StarsListComponent {
 
-    GiveStarPresenter giveStarPresenter();
+    StarsListPresenter starsListPresenter();
 
 }
-

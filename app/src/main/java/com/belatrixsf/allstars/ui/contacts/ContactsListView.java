@@ -18,24 +18,23 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils.di.components;
+package com.belatrixsf.allstars.ui.contacts;
 
-import com.belatrixsf.allstars.ui.stars.GiveStarPresenter;
-import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
-import com.belatrixsf.allstars.utils.di.scopes.UIScope;
+import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.ui.common.AllStarsView;
 
-import dagger.Subcomponent;
+import java.util.List;
 
 /**
- * Created by PedroCarrillo on 4/27/16.
+ * Created by icerrate on 15/04/2016.
  */
-@UIScope
-@Subcomponent(
-        modules = GiveStarPresenterModule.class
-)
-public interface GiveStarComponent {
+public interface ContactsListView extends AllStarsView {
 
-    GiveStarPresenter giveStarPresenter();
+    void showContacts(List<Employee> contacts);
+    void startActionMode();
+    void showCleanButton();
+    void hideCleanButton();
+    void goContactProfile(Integer id);
+    void selectContact(Employee contact);
 
 }
-

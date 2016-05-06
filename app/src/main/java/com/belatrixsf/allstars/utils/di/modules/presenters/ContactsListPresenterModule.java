@@ -18,24 +18,28 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils.di.components;
+package com.belatrixsf.allstars.utils.di.modules.presenters;
 
-import com.belatrixsf.allstars.ui.stars.GiveStarPresenter;
-import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
-import com.belatrixsf.allstars.utils.di.scopes.UIScope;
+import com.belatrixsf.allstars.ui.contacts.ContactsListView;
 
-import dagger.Subcomponent;
+import dagger.Module;
+import dagger.Provides;
 
 /**
- * Created by PedroCarrillo on 4/27/16.
+ * Created by icerrate on 15/04/2016.
  */
-@UIScope
-@Subcomponent(
-        modules = GiveStarPresenterModule.class
-)
-public interface GiveStarComponent {
+@Module
+public class ContactsListPresenterModule {
 
-    GiveStarPresenter giveStarPresenter();
+    private ContactsListView view;
+
+    public ContactsListPresenterModule(ContactsListView view) {
+        this.view = view;
+    }
+
+    @Provides
+    public ContactsListView providesView() {
+        return view;
+    }
 
 }
-

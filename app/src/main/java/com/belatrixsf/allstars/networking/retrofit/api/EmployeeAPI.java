@@ -24,7 +24,6 @@ import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.networking.retrofit.requests.AuthenticationRequest;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.RecommendationResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
 
 import java.util.List;
@@ -47,13 +46,10 @@ public interface EmployeeAPI {
     Call<Employee> getEmployee(@Path(ServerPaths.EMPLOYEE_ID) int employeeId);
 
     @GET(ServerPaths.EMPLOYEE_LIST)
-    Call<SearchEmployeeResponse> getEmployeeList();
+    Call<SearchEmployeeResponse> getEmployees();
 
     @GET(ServerPaths.EMPLOYEE_SEARCH_TERM)
     Call<SearchEmployeeResponse> getEmployeeSearchList(@Path(ServerPaths.SEARCH_TERM) String searchTerm);
-
-    @GET(ServerPaths.RECOMMENDATION_LIST)
-    Call<RecommendationResponse> getRecommendationList(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Path(ServerPaths.SUBCATEGORY_ID) int subcategoryId);
 
     @GET(ServerPaths.RANKING_LIST)
     Call<List<Employee>> getRankingList(@Path(ServerPaths.KIND) String kind, @Path(ServerPaths.QUANTITY) int quantity);

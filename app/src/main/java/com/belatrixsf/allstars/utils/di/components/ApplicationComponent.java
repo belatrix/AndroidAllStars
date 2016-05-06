@@ -25,10 +25,10 @@ import com.belatrixsf.allstars.utils.di.modules.RetrofitModule;
 import com.belatrixsf.allstars.utils.di.modules.ServicesModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.CategoriesListModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModule;
-import com.belatrixsf.allstars.utils.di.modules.presenters.ContactPresenterModule;
+import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsListPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.RankingPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
-import com.belatrixsf.allstars.utils.di.modules.presenters.RecommendationPresenterModule;
+import com.belatrixsf.allstars.utils.di.modules.presenters.StarsListPresenterModule;
 
 import javax.inject.Singleton;
 
@@ -48,8 +48,8 @@ public interface ApplicationComponent {
 
     EmployeeManager employeeManager();
     AccountComponent accountComponent(AccountPresenterModule accountPresenterModule);
-    ContactComponent contactComponent(ContactPresenterModule contactPresenterModule);
-    RecommendationComponent recommendationComponent(RecommendationPresenterModule recommendationPresenterModule);
+    ContactsListComponent contactsListComponent(ContactsListPresenterModule contactsListPresenterModule);
+    StarsListComponent starsListComponent(StarsListPresenterModule StarsListPresenterModule);
     RankingComponent rankingComponent(RankingPresenterModule rankingPresenterModule);
     GiveStarComponent giveStarComponent(GiveStarPresenterModule giveStarPresenterModule);
     CategoriesListComponent categoriesListComponent(CategoriesListModule categoriesListModule);

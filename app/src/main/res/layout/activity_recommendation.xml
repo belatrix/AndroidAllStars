@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:name="com.belatrixsf.allstars.ui.recommendation.RecommendationFragment"
-    tools:context="com.belatrixsf.allstars.ui.recommendation.RecommendationActivity"
-    tools:layout="@layout/fragment_recommendation">
+    android:name="com.belatrixsf.allstars.ui.stars.StarsListFragment"
+    tools:context=".ui.stars.StarsListActivity"
+    tools:layout="@layout/fragment_stars_list">
 </fragment>

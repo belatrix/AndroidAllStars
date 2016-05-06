@@ -18,24 +18,37 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils.di.components;
+package com.belatrixsf.allstars.networking.retrofit.responses;
 
-import com.belatrixsf.allstars.ui.stars.GiveStarPresenter;
-import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
-import com.belatrixsf.allstars.utils.di.scopes.UIScope;
+import com.belatrixsf.allstars.entities.Star;
+import com.google.gson.annotations.SerializedName;
 
-import dagger.Subcomponent;
+import java.util.List;
 
 /**
- * Created by PedroCarrillo on 4/27/16.
+ * Created by icerrate on 25/04/2016.
  */
-@UIScope
-@Subcomponent(
-        modules = GiveStarPresenterModule.class
-)
-public interface GiveStarComponent {
+public class StarsResponse {
 
-    GiveStarPresenter giveStarPresenter();
+    private int count;
+    private String next;
+    private String previous;
+    @SerializedName("results")
+    private List<Star> starList;
 
+    public int getCount() {
+        return count;
+    }
+
+    public String getNext() {
+        return next;
+    }
+
+    public String getPrevious() {
+        return previous;
+    }
+
+    public List<Star> getStarList() {
+        return starList;
+    }
 }
-
