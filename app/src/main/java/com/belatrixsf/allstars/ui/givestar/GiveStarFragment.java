@@ -75,7 +75,7 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (savedInstanceState != null) {
-            //restoreState(savedInstanceState);
+            restoreState(savedInstanceState);
         }else if (getArguments() != null && getArguments().containsKey(SELECTED_USER_KEY)) {
             Employee employee = getArguments().getParcelable(SELECTED_USER_KEY);
             giveStarPresenter.initWithUser(employee);

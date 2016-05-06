@@ -22,6 +22,7 @@ public class DataSelectionView extends LinearLayout {
 
     private ImageView rightArrowImageView;
     private TextView hintTextView;
+    private String value;
 
     /**
      * Views for default data views
@@ -70,6 +71,7 @@ public class DataSelectionView extends LinearLayout {
     public void setData(String data) {
         if (valueView != null) {
             ((TextView)valueView).setText(data);
+            value = data;
         }
     }
 
@@ -90,9 +92,8 @@ public class DataSelectionView extends LinearLayout {
     public Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
         SavedState state = new SavedState(superState);
-        if (valueView != null){
-            TextView tvValue = (TextView) valueView;
-            state.value = tvValue.getText();
+        if (value != null){
+            state.value = value;
         }
         return state;
     }
