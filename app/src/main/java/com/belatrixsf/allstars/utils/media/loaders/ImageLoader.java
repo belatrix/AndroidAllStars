@@ -18,27 +18,33 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.common;
 
-import android.support.v4.app.Fragment;
-import android.content.Intent;
+package com.belatrixsf.allstars.utils.media.loaders;
+
+import android.widget.ImageView;
 
 /**
- * Created by PedroCarrillo on 4/8/16.
+ * @author Carlos Piñan
  */
-public interface FragmentListener {
+public interface ImageLoader {
 
-    void replaceFragment(Fragment fragment, boolean addToBackStack);
-    void replaceFragment(int containerId, Fragment fragment, boolean addToBackStack);
-    void showError(String message);
-    void showProgressIndicator();
-    void hideProgressIndicator();
-    void showProgressDialog();
-    void showProgressDialog(String message);
-    void dismissProgressDialog();
-    void closeActivity();
-    void setActivityResult(int resultCode);
-    void setActivityResult(int resultCode, Intent resultIntent);
-    void setTitle(String title);
+    interface Callback {
+        void onSuccess();
+
+        void onFailure();
+    }
+
+    enum ImageTransformation {
+        BORDERED_CIRCLE,
+        CIRCLE
+    }
+
+    void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation);
+
+    void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation, ImageLoader.Callback callback);
+
+    void loadFromPath(String path, ImageView imageView, ImageTransformation transformation);
+
+    void loadFromPath(String path, ImageView imageView, ImageTransformation transformation, ImageLoader.Callback callback);
 
 }

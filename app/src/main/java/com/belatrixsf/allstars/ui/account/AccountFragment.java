@@ -24,6 +24,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,6 +34,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -42,7 +44,6 @@ import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
-import com.belatrixsf.allstars.ui.common.views.BorderedCircleTransformation;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.allstars.ui.givestar.GiveStarActivity;
 import com.belatrixsf.allstars.ui.givestar.GiveStarFragment;
@@ -50,7 +51,8 @@ import com.belatrixsf.allstars.ui.recommendation.RecommendationActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.DialogUtils;
 import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModule;
-import com.bumptech.glide.Glide;
+import com.belatrixsf.allstars.utils.media.ImageFactory;
+import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
 
 import java.util.List;
 
@@ -70,14 +72,22 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     private AccountPresenter accountPresenter;
     private AccountSubCategoriesAdapter accountCategoriesAdapter;
 
-    @Bind(R.id.account_recommendations) RecyclerView recommendationRecyclerView;
-    @Bind(R.id.skype_id) TextView skypeIdTextView;
-    @Bind(R.id.current_month_score) TextView currentMonthScoreTextView;
-    @Bind(R.id.level) TextView levelTextView;
-    @Bind(R.id.score) TextView scoreTextView;
-    @Bind(R.id.profile_name) TextView nameTextView;
-    @Bind(R.id.profile_role) TextView roleTextView;
-    @Bind(R.id.profile_picture) ImageView pictureImageView;
+    @Bind(R.id.account_recommendations)
+    RecyclerView recommendationRecyclerView;
+    @Bind(R.id.skype_id)
+    TextView skypeIdTextView;
+    @Bind(R.id.current_month_score)
+    TextView currentMonthScoreTextView;
+    @Bind(R.id.level)
+    TextView levelTextView;
+    @Bind(R.id.score)
+    TextView scoreTextView;
+    @Bind(R.id.profile_name)
+    TextView nameTextView;
+    @Bind(R.id.profile_role)
+    TextView roleTextView;
+    @Bind(R.id.profile_picture)
+    ImageView pictureImageView;
 
     private MenuItem recommendMenuItem;
 
@@ -100,7 +110,6 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_account, container, false);
     }
 
@@ -151,7 +160,6 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
                 return super.onOptionsItemSelected(item);
         }
     }
-
 
     private void setupViews() {
         accountCategoriesAdapter = new AccountSubCategoriesAdapter(this);
@@ -215,7 +223,33 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
 
     @Override
     public void showProfilePicture(final String profilePicture) {
-        Glide.with(getActivity()).load(profilePicture).fitCenter().transform(new BorderedCircleTransformation(getActivity())).into(pictureImageView);
+        ImageFactory.getLoader().loadFromUrl(
+                profilePicture,
+                pictureImageView,
+                ImageLoader.ImageTransformation.BORDERED_CIRCLE,
+                new ImageLoader.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        startPostponedEnterTransition();
+                    }
+
+                    @Override
+                    public void onFailure() {
+                        startPostponedEnterTransition();
+                    }
+                }
+        );
+    }
+
+    private void startPostponedEnterTransition() {
+        recommendationRecyclerView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                recommendationRecyclerView.getViewTreeObserver().removeOnPreDrawListener(this);
+                ActivityCompat.startPostponedEnterTransition(getActivity());
+                return false;
+            }
+        });
     }
 
     @Override

@@ -18,27 +18,37 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.common;
 
-import android.support.v4.app.Fragment;
-import android.content.Intent;
+package com.belatrixsf.allstars.utils.media;
+
+import com.belatrixsf.allstars.utils.media.loaders.GlideLoader;
+import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
+import com.belatrixsf.allstars.utils.media.loaders.PicassoLoader;
 
 /**
- * Created by PedroCarrillo on 4/8/16.
+ * @author Carlos Piñan
  */
-public interface FragmentListener {
+public class ImageFactory {
 
-    void replaceFragment(Fragment fragment, boolean addToBackStack);
-    void replaceFragment(int containerId, Fragment fragment, boolean addToBackStack);
-    void showError(String message);
-    void showProgressIndicator();
-    void hideProgressIndicator();
-    void showProgressDialog();
-    void showProgressDialog(String message);
-    void dismissProgressDialog();
-    void closeActivity();
-    void setActivityResult(int resultCode);
-    void setActivityResult(int resultCode, Intent resultIntent);
-    void setTitle(String title);
+    public enum ImageProvider {
+        GLIDE,
+        PICASSO
+    }
 
+    private ImageFactory() { /* UNUSED */ }
+
+    public static ImageLoader getLoader() {
+        return getLoader(ImageProvider.GLIDE);
+    }
+
+    public static ImageLoader getLoader(ImageProvider imageProvider) {
+        switch (imageProvider) {
+            case GLIDE:
+                return new GlideLoader();
+            case PICASSO:
+                return new PicassoLoader();
+            default:
+                return new GlideLoader();
+        }
+    }
 }
