@@ -69,7 +69,7 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
         if (employee.getFullName() != null && !employee.getFullName().isEmpty()) {
             view.showUserFullName(employee.getFullName());
         }
-        if (employee.getLevel() != null) {
+        if (employee.getLevel() != null && !employee.getLevel().toString().isEmpty()) {
             view.showUserLevel(String.valueOf(employee.getLevel()));
         }
         if (employee.getAvatar() != null) {
@@ -80,17 +80,19 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
     }
 
     public void loadSelectedComment(String comment) {
-        checkRecommendationEnabled();
-        if (!comment.isEmpty()) {
+        if (comment != null && !comment.isEmpty()) {
+            checkRecommendationEnabled();
             this.selectedComment = comment;
             view.showComment(comment);
         }
     }
 
     public void loadSelectedSubCategory(Category subCategory) {
-        selectedSubCategory = subCategory;
-        view.showCategory(subCategory.getName());
-        checkRecommendationEnabled();
+        if(subCategory != null && subCategory.getName() != null && !subCategory.getName().isEmpty()){
+            selectedSubCategory = subCategory;
+            view.showCategory(subCategory.getName());
+            checkRecommendationEnabled();
+        }
     }
 
     public void makeRecommendation() {
