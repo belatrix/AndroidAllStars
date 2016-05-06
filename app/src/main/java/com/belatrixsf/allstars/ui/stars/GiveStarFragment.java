@@ -14,7 +14,7 @@ import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.ui.category.CategoriesActivity;
-import com.belatrixsf.allstars.ui.comment.CommentActivity;
+import com.belatrixsf.allstars.ui.stars.comment.CommentActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.views.AccountSelectionView;
 import com.belatrixsf.allstars.ui.common.views.DataSelectionView;

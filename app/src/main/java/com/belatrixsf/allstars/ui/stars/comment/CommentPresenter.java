@@ -1,4 +1,4 @@
-package com.belatrixsf.allstars.ui.comment;
+package com.belatrixsf.allstars.ui.stars.comment;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;

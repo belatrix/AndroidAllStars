@@ -28,7 +28,7 @@
             android:name=".ui.contacts.ContactsListActivity"
             android:label="@string/title_contact_activity"/>
         <activity
-            android:name=".ui.comment.CommentActivity"
+            android:name=".ui.stars.comment.CommentActivity"
             android:label="@string/title_comment_activity"/>
         <activity android:name=".ui.category.CategoriesActivity" />
         <activity android:name=".ui.LauncherActivity">

@@ -1,4 +1,4 @@
-package com.belatrixsf.allstars.ui.comment;
+package com.belatrixsf.allstars.ui.stars.comment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
