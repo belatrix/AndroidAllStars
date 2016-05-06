@@ -74,7 +74,6 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     private AccountPresenter accountPresenter;
     private AccountSubCategoriesAdapter accountCategoriesAdapter;
 
-<<<<<<< HEAD
     @Bind(R.id.account_recommendations) RecyclerView recommendationRecyclerView;
     @Bind(R.id.skype_id) TextView skypeIdTextView;
     @Bind(R.id.current_month_score) TextView currentMonthScoreTextView;
@@ -85,24 +84,6 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     @Bind(R.id.profile_picture) ImageView pictureImageView;
     @Bind(R.id.account_swipe_refresh) SwipeRefreshLayout accountSwipeRefresh;
     @Bind(R.id.subcategories_progress_bar) ProgressBar subCategoriesProgressBar;
-=======
-    @Bind(R.id.account_recommendations)
-    RecyclerView recommendationRecyclerView;
-    @Bind(R.id.skype_id)
-    TextView skypeIdTextView;
-    @Bind(R.id.current_month_score)
-    TextView currentMonthScoreTextView;
-    @Bind(R.id.level)
-    TextView levelTextView;
-    @Bind(R.id.score)
-    TextView scoreTextView;
-    @Bind(R.id.profile_name)
-    TextView nameTextView;
-    @Bind(R.id.profile_role)
-    TextView roleTextView;
-    @Bind(R.id.profile_picture)
-    ImageView pictureImageView;
->>>>>>> develop
 
     private MenuItem recommendMenuItem;
 
@@ -149,8 +130,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     @Override
     public void onResume() {
         super.onResume();
-        accountCategoriesAdapter.clear();
-        accountPresenter.loadEmployeeAccount();
+        refresh();
     }
 
     @Override
@@ -177,7 +157,6 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     }
 
     private void setupViews() {
-
         accountCategoriesAdapter = new AccountSubCategoriesAdapter(this);
         recommendationRecyclerView.setAdapter(accountCategoriesAdapter);
         recommendationRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
@@ -185,6 +164,13 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
         linearLayoutManager.setAutoMeasureEnabled(true);
         recommendationRecyclerView.setNestedScrollingEnabled(false);
         recommendationRecyclerView.setLayoutManager(linearLayoutManager);
+
+        accountSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
+            }
+        });
     }
 
     @Override
@@ -293,34 +279,29 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
         }
     }
 
-<<<<<<< HEAD
     @Override
     public void showProgressDialog() {
-//        super.showProgressDialog();
         accountSwipeRefresh.setRefreshing(true);
     }
-
-
-
 
     @Override
     public void showProgressIndicator() {
         accountSwipeRefresh.setRefreshing(false);
-        loading(View.VISIBLE);
-        super.showProgressIndicator();
+        setProgressViewVisibility(View.VISIBLE);
     }
 
     @Override
     public void dismissProgressDialog() {
-        loading(View.GONE);
-        super.dismissProgressDialog();
+        setProgressViewVisibility(View.GONE);
     }
 
-    public void loading(int visibility) {
+    public void setProgressViewVisibility(int visibility) {
         subCategoriesProgressBar.setVisibility(visibility);
     }
 
+    public void refresh() {
+        accountCategoriesAdapter.clear();
+        accountPresenter.loadEmployeeAccount();
+    }
+
 }
-=======
-}
->>>>>>> develop

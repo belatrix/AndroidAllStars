@@ -182,32 +182,23 @@
 
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/profile_picture"
-                android:layout_width="@dimen/dimen_12_10"
-                android:layout_height="@dimen/dimen_12_10"
+            <!-- Wrapping Imageview in a FrameLayout as a
+            workaround for allowing the transition to happen when the view is anchored -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:layout_anchor="@+id/belatrix_placeholder"
-                app:layout_anchorGravity="bottom|center" />
+                app:layout_anchorGravity="bottom|center" >
 
-<<<<<<< HEAD
+                <ImageView
+                    android:id="@+id/profile_picture"
+                    android:layout_width="@dimen/dimen_10_10"
+                    android:layout_height="@dimen/dimen_10_10"
+                    android:transitionName="@string/transition_photo"/>
+
+            </FrameLayout>
+
         </android.support.design.widget.CoordinatorLayout>
-=======
-        <!-- Wrapping Imageview in a FrameLayout as a
-        workaround for allowing the transition to happen when the view is anchored -->
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_anchor="@+id/belatrix_placeholder"
-            app:layout_anchorGravity="bottom|center" >
-
-            <ImageView
-                android:id="@+id/profile_picture"
-                android:layout_width="@dimen/dimen_10_10"
-                android:layout_height="@dimen/dimen_10_10"
-                android:transitionName="@string/transition_photo"/>
-
-        </FrameLayout>
->>>>>>> develop
 
     </android.support.v4.widget.NestedScrollView>
 
