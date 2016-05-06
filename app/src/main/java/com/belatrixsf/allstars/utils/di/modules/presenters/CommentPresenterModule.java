@@ -1,6 +1,6 @@
 package com.belatrixsf.allstars.utils.di.modules.presenters;
 
-import com.belatrixsf.allstars.ui.comment.CommentView;
+import com.belatrixsf.allstars.ui.stars.comment.CommentView;
 
 import dagger.Module;
 import dagger.Provides;

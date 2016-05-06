@@ -37,9 +37,9 @@ public class AccountSelectionView extends DataSelectionView {
         valueView = dataStub.inflate();
         valueView.setPadding(0, 0, 0, 0);
         valueView.setVisibility(View.GONE);
-        profileImageView = (ImageView) valueView.findViewById(R.id.photo);
-        fullNameTextView = (TextView) valueView.findViewById(R.id.full_name);
-        levelTextView = (TextView) valueView.findViewById(R.id.level);
+        profileImageView = (ImageView) valueView.findViewById(R.id.contact_photo);
+        fullNameTextView = (TextView) valueView.findViewById(R.id.contact_full_name);
+        levelTextView = (TextView) valueView.findViewById(R.id.contact_level);
     }
 
     @Override

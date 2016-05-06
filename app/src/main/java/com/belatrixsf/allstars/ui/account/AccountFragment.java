@@ -26,6 +26,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -36,6 +37,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
@@ -45,9 +47,9 @@ import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
-import com.belatrixsf.allstars.ui.givestar.GiveStarActivity;
-import com.belatrixsf.allstars.ui.givestar.GiveStarFragment;
-import com.belatrixsf.allstars.ui.recommendation.RecommendationActivity;
+import com.belatrixsf.allstars.ui.stars.GiveStarActivity;
+import com.belatrixsf.allstars.ui.stars.GiveStarFragment;
+import com.belatrixsf.allstars.ui.stars.StarsListActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.DialogUtils;
 import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModule;
@@ -59,7 +61,7 @@ import java.util.List;
 import butterknife.Bind;
 
 import static com.belatrixsf.allstars.ui.account.AccountActivity.USER_ID_KEY;
-import static com.belatrixsf.allstars.ui.givestar.GiveStarFragment.SELECTED_USER_KEY;
+import static com.belatrixsf.allstars.ui.stars.GiveStarFragment.SELECTED_USER_KEY;
 
 /**
  * Created by pedrocarrillo on 4/9/16.
@@ -72,22 +74,17 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     private AccountPresenter accountPresenter;
     private AccountSubCategoriesAdapter accountCategoriesAdapter;
 
-    @Bind(R.id.account_recommendations)
-    RecyclerView recommendationRecyclerView;
-    @Bind(R.id.skype_id)
-    TextView skypeIdTextView;
-    @Bind(R.id.current_month_score)
-    TextView currentMonthScoreTextView;
-    @Bind(R.id.level)
-    TextView levelTextView;
-    @Bind(R.id.score)
-    TextView scoreTextView;
-    @Bind(R.id.profile_name)
-    TextView nameTextView;
-    @Bind(R.id.profile_role)
-    TextView roleTextView;
-    @Bind(R.id.profile_picture)
-    ImageView pictureImageView;
+    @Bind(R.id.account_recommendations) RecyclerView recommendationRecyclerView;
+    @Bind(R.id.skype_id) TextView skypeIdTextView;
+    @Bind(R.id.current_month_score) TextView currentMonthScoreTextView;
+    @Bind(R.id.level) TextView levelTextView;
+    @Bind(R.id.score) TextView scoreTextView;
+    @Bind(R.id.profile_name) TextView nameTextView;
+    @Bind(R.id.profile_role) TextView roleTextView;
+    @Bind(R.id.profile_picture) ImageView pictureImageView;
+    @Bind(R.id.account_swipe_refresh) SwipeRefreshLayout accountSwipeRefresh;
+    @Bind(R.id.subcategories_progress_bar) ProgressBar subCategoriesProgressBar;
+    @Bind(R.id.no_data_textview) TextView noDataTextView;
 
     private MenuItem recommendMenuItem;
 
@@ -134,8 +131,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     @Override
     public void onResume() {
         super.onResume();
-        accountCategoriesAdapter.clear();
-        accountPresenter.loadEmployeeAccount();
+        loadData();
     }
 
     @Override
@@ -169,6 +165,13 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
         linearLayoutManager.setAutoMeasureEnabled(true);
         recommendationRecyclerView.setNestedScrollingEnabled(false);
         recommendationRecyclerView.setLayoutManager(linearLayoutManager);
+
+        accountSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadData();
+            }
+        });
     }
 
     @Override
@@ -180,9 +183,9 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
 
     @Override
     public void goSubCategoryDetail(Integer categoryId, Integer employeeId) {
-        Intent intent = new Intent(getActivity(), RecommendationActivity.class);
-        intent.putExtra(RecommendationActivity.USER_ID, employeeId);
-        intent.putExtra(RecommendationActivity.SUBCATEGORY_ID, categoryId);
+        Intent intent = new Intent(getActivity(), StarsListActivity.class);
+        intent.putExtra(StarsListActivity.USER_ID, employeeId);
+        intent.putExtra(StarsListActivity.SUBCATEGORY_ID, categoryId);
         startActivity(intent);
     }
 
@@ -275,6 +278,45 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
                 }
             }).show();
         }
+    }
+
+    @Override
+    public void showProgressDialog() {
+        accountSwipeRefresh.setRefreshing(true);
+    }
+
+    @Override
+    public void showProgressIndicator() {
+        setProgressViewVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void dismissProgressDialog() {
+        accountSwipeRefresh.setRefreshing(false);
+    }
+
+    @Override
+    public void hideProgressIndicator() {
+        setProgressViewVisibility(View.GONE);
+    }
+
+    @Override
+    public void showNoDataView() {
+        noDataTextView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideNoDataView() {
+        noDataTextView.setVisibility(View.GONE);
+    }
+
+    public void setProgressViewVisibility(int visibility) {
+        subCategoriesProgressBar.setVisibility(visibility);
+    }
+
+    public void loadData() {
+        accountCategoriesAdapter.clear();
+        accountPresenter.loadEmployeeAccount();
     }
 
 }

@@ -16,23 +16,19 @@
             android:name=".ui.login.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".ui.example.ExampleActivity"
-            android:label="@string/title_activity_example"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity
-            android:name=".ui.recommendation.RecommendationActivity"
+            android:name=".ui.stars.StarsListActivity"
             android:label="@string/title_recommendation_activity"/>
         <activity
-            android:name=".ui.givestar.GiveStarActivity"
+            android:name=".ui.stars.GiveStarActivity"
             android:label="@string/title_give_star_activity"/>
         <activity
             android:name=".ui.account.AccountActivity"
             android:label="@string/title_account_activity"/>
         <activity
-            android:name=".ui.contacts.ContactActivity"
+            android:name=".ui.contacts.ContactsListActivity"
             android:label="@string/title_contact_activity"/>
         <activity
-            android:name=".ui.comment.CommentActivity"
+            android:name=".ui.stars.comment.CommentActivity"
             android:label="@string/title_comment_activity"/>
         <activity android:name=".ui.category.CategoriesActivity" />
         <activity android:name=".ui.LauncherActivity">

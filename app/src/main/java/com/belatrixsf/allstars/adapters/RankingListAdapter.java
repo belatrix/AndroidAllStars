@@ -102,13 +102,18 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
         notifyDataSetChanged();
     }
 
+    public void clear() {
+        rankingList.clear();
+        notifyDataSetChanged();
+    }
+
     static class EmployeeViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.position_number)
         public TextView positionNumber;
-        @Bind(R.id.photo)
+        @Bind(R.id.contact_photo)
         public ImageView photo;
-        @Bind(R.id.full_name)
+        @Bind(R.id.contact_full_name)
         public TextView fullName;
         @Bind(R.id.score_cup)
         public ImageView scoreCup;

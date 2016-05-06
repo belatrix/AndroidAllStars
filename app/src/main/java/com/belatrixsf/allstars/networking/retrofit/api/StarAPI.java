@@ -1,6 +1,7 @@
 package com.belatrixsf.allstars.networking.retrofit.api;
 
 import com.belatrixsf.allstars.networking.retrofit.requests.StarRequest;
+import com.belatrixsf.allstars.networking.retrofit.responses.StarsResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarSubCategoryResponse;
 
@@ -20,5 +21,8 @@ public interface StarAPI {
 
     @POST(ServerPaths.STAR_EMPLOYEE)
     Call<StarResponse> star(@Path(ServerPaths.FROM_EMPLOYEE) int fromEmployeeId, @Path(ServerPaths.TO_EMPLOYEE) int toEmployeeId, @Body StarRequest request);
+
+    @GET(ServerPaths.STARS_BY_EMPLOYEE_AND_SUBCATEGORY)
+    Call<StarsResponse> getStars(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Path(ServerPaths.SUBCATEGORY_ID) int subcategoryId);
 
 }

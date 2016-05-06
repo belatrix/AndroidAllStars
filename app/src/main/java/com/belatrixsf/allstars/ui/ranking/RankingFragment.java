@@ -23,12 +23,14 @@ package com.belatrixsf.allstars.ui.ranking;
 
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.RankingListAdapter;
@@ -56,6 +58,8 @@ public class RankingFragment extends AllStarsFragment implements RankingView, Ra
 
     private ImageView photoImageView;
     @Bind(R.id.ranking) RecyclerView rankingRecyclerView;
+    @Bind(R.id.progressBar) ProgressBar loadingProgressBar;
+    @Bind(R.id.ranking_swipe_refresh) SwipeRefreshLayout rankingSwipeRefresh;
 
     public static RankingFragment newInstance(String kind) {
         Bundle bundle = new Bundle();
@@ -89,7 +93,7 @@ public class RankingFragment extends AllStarsFragment implements RankingView, Ra
         super.onViewCreated(view, savedInstanceState);
         if (getArguments() != null && getArguments().containsKey(RANKING_KIND_KEY)) {
             initViews();
-            rankingPresenter.getRankingList(getArguments().getString(RANKING_KIND_KEY), Constants.DEFAULT_QUANTITY);
+            rankingPresenter.getRankingList(getArguments().getString(RANKING_KIND_KEY), Constants.DEFAULT_QUANTITY, false);
         }
     }
 
@@ -99,6 +103,13 @@ public class RankingFragment extends AllStarsFragment implements RankingView, Ra
         rankingRecyclerView.setNestedScrollingEnabled(false);
         rankingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         rankingRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
+        rankingSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                rankingListAdapter.clear();
+                rankingPresenter.getRankingList(getArguments().getString(RANKING_KIND_KEY), Constants.DEFAULT_QUANTITY, true);
+            }
+        });
     }
 
     @Override
@@ -108,7 +119,7 @@ public class RankingFragment extends AllStarsFragment implements RankingView, Ra
 
     @Override
     public void onEmployeeClicked(int position, View view) {
-        photoImageView = (ImageView) view.findViewById(R.id.photo);
+        photoImageView = (ImageView) view.findViewById(R.id.contact_photo);
         rankingPresenter.employeeSelected(position);
     }
 
@@ -117,4 +128,20 @@ public class RankingFragment extends AllStarsFragment implements RankingView, Ra
         AccountActivity.startActivityAnimatingProfilePic(getActivity(), photoImageView, employeeId);
     }
 
+    @Override
+    public void showProgressIndicator() {
+        loadingProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressIndicator() {
+        if (loadingProgressBar != null) {
+            loadingProgressBar.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void hideRefreshData() {
+        rankingSwipeRefresh.setRefreshing(false);
+    }
 }

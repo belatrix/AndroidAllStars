@@ -19,14 +19,14 @@
         android:gravity="center"/>
 
     <ImageView
-        android:id="@+id/photo"
+        android:id="@+id/contact_photo"
         android:layout_width="@dimen/dimen_10_6"
         android:layout_height="@dimen/dimen_10_6"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         tools:src="@drawable/ic_user"/>
 
     <TextView
-        android:id="@+id/full_name"
+        android:id="@+id/contact_full_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"

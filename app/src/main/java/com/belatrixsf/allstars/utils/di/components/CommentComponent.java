@@ -1,6 +1,6 @@
 package com.belatrixsf.allstars.utils.di.components;
 
-import com.belatrixsf.allstars.ui.comment.CommentPresenter;
+import com.belatrixsf.allstars.ui.stars.comment.CommentPresenter;
 import com.belatrixsf.allstars.utils.di.modules.presenters.CommentPresenterModule;
 import com.belatrixsf.allstars.utils.di.scopes.UIScope;
 

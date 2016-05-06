@@ -66,6 +66,7 @@
     <!--Messages-->
     <string name="empty_search_term">Must write something</string>
     <string name="making_recommendation">Making recommendation</string>
+    <string name="no_data_found">No data found</string>
 
     <!--Recommendation-->
     <string name="title_user">User</string>
