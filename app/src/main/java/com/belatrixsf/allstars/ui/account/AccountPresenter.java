@@ -82,7 +82,12 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
             @Override
             public void onSuccess(StarSubCategoryResponse starSubCategoryResponse) {
                 view.dismissProgressDialog();
-                view.showSubCategories(starSubCategoryResponse.getSubCategories());
+                if (starSubCategoryResponse.getSubCategories().isEmpty()) {
+                    view.showNoDataView();
+                } else {
+                    view.hideNoDataView();
+                    view.showSubCategories(starSubCategoryResponse.getSubCategories());
+                }
             }
 
             @Override

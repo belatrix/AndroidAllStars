@@ -180,6 +180,15 @@
                     android:layout_height="match_parent"
                     android:background="@color/white"/>
 
+                <TextView
+                    android:id="@+id/no_data_textview"
+                    android:layout_width="match_parent"
+                    android:layout_height="?android:attr/listPreferredItemHeightSmall"
+                    android:gravity="center"
+                    android:text="@string/no_data_found"
+                    android:visibility="gone"
+                    tools:visibility="visible"/>
+
             </LinearLayout>
 
             <!-- Wrapping Imageview in a FrameLayout as a

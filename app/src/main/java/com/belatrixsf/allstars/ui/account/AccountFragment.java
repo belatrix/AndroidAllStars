@@ -84,6 +84,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     @Bind(R.id.profile_picture) ImageView pictureImageView;
     @Bind(R.id.account_swipe_refresh) SwipeRefreshLayout accountSwipeRefresh;
     @Bind(R.id.subcategories_progress_bar) ProgressBar subCategoriesProgressBar;
+    @Bind(R.id.no_data_textview) TextView noDataTextView;
 
     private MenuItem recommendMenuItem;
 
@@ -130,7 +131,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     @Override
     public void onResume() {
         super.onResume();
-        refresh();
+        loadData();
     }
 
     @Override
@@ -168,7 +169,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
         accountSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refresh();
+                loadData();
             }
         });
     }
@@ -295,11 +296,21 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
         setProgressViewVisibility(View.GONE);
     }
 
+    @Override
+    public void showNoDataView() {
+        noDataTextView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideNoDataView() {
+        noDataTextView.setVisibility(View.GONE);
+    }
+
     public void setProgressViewVisibility(int visibility) {
         subCategoriesProgressBar.setVisibility(visibility);
     }
 
-    public void refresh() {
+    public void loadData() {
         accountCategoriesAdapter.clear();
         accountPresenter.loadEmployeeAccount();
     }
