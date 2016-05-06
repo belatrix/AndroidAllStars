@@ -135,7 +135,9 @@ public class RankingFragment extends AllStarsFragment implements RankingView, Ra
 
     @Override
     public void hideProgressIndicator() {
-        loadingProgressBar.setVisibility(View.GONE);
+        if (loadingProgressBar != null) {
+            loadingProgressBar.setVisibility(View.GONE);
+        }
     }
 
     @Override
