@@ -287,7 +287,6 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
 
     @Override
     public void showProgressIndicator() {
-        accountSwipeRefresh.setRefreshing(false);
         setProgressViewVisibility(View.VISIBLE);
     }
 

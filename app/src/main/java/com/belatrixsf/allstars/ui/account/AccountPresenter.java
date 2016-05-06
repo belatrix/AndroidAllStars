@@ -61,6 +61,7 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
                 AccountPresenter.this.employee = employee;
                 loadSubCategoriesStar();
                 showEmployeeData();
+                view.dismissProgressDialog();
                 view.showProgressIndicator();
             }
 
