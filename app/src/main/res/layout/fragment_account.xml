@@ -188,21 +188,6 @@
                     android:visibility="gone"
                     tools:visibility="visible"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/title_level"
-                    android:textColor="@color/subTitle" />
-
-                <TextView
-                    android:id="@+id/contact_level"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:textColor="@android:color/black"
-                    tools:text="9000+" />
-
             </LinearLayout>
 
             <!-- Wrapping Imageview in a FrameLayout as a
