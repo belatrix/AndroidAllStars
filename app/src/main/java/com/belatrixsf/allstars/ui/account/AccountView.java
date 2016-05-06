@@ -42,5 +42,7 @@ public interface AccountView extends AllStarsView {
     void showProfilePicture(String profilePicture);
     void showRecommendMenu(boolean show);
     void goToGiveStar(Employee employee);
+    void showNoDataView();
+    void hideNoDataView();
 
 }

@@ -102,6 +102,11 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
         notifyDataSetChanged();
     }
 
+    public void clear() {
+        rankingList.clear();
+        notifyDataSetChanged();
+    }
+
     static class EmployeeViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.position_number)

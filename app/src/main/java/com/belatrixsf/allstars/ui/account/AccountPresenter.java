@@ -54,16 +54,20 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
     }
 
     public void loadEmployeeAccount() {
+        view.showProgressDialog();
         AllStarsCallback<Employee> employeeAllStarsCallback = new AllStarsCallback<Employee>() {
             @Override
             public void onSuccess(Employee employee) {
                 AccountPresenter.this.employee = employee;
                 loadSubCategoriesStar();
                 showEmployeeData();
+                view.dismissProgressDialog();
+                view.showProgressIndicator();
             }
 
             @Override
             public void onFailure(ServiceError serviceError) {
+                view.dismissProgressDialog();
                 showError(serviceError.getErrorMessage());
             }
         };
@@ -78,11 +82,18 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
         starService.getEmployeeSubCategoriesStars(employee.getPk(), new AllStarsCallback<StarSubCategoryResponse>() {
             @Override
             public void onSuccess(StarSubCategoryResponse starSubCategoryResponse) {
-                view.showSubCategories(starSubCategoryResponse.getSubCategories());
+                view.hideProgressIndicator();
+                if (starSubCategoryResponse.getSubCategories().isEmpty()) {
+                    view.showNoDataView();
+                } else {
+                    view.hideNoDataView();
+                    view.showSubCategories(starSubCategoryResponse.getSubCategories());
+                }
             }
 
             @Override
             public void onFailure(ServiceError serviceError) {
+                view.hideProgressIndicator();
                 showError(serviceError.getErrorMessage());
             }
         });

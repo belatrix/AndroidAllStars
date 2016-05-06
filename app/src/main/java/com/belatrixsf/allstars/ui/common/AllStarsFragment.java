@@ -78,14 +78,11 @@ public abstract class AllStarsFragment extends Fragment implements AllStarsView 
         fragmentListener = null;
     }
 
-    @Override
     public void showProgressIndicator() {
-        fragmentListener.showProgressIndicator();
+
     }
 
-    @Override
     public void hideProgressIndicator() {
-        fragmentListener.hideProgressIndicator();
     }
 
     @Override

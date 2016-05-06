@@ -44,16 +44,29 @@ public class RankingPresenter extends AllStarsPresenter<RankingView> {
         this.employeeService = employeeService;
     }
 
-    public void getRankingList(String kind, int quantity) {
+    public void getRankingList(String kind, int quantity, final boolean isRefresh) {
+        if (!isRefresh) {
+            view.showProgressIndicator();
+        }
         employeeService.getRankingList(kind, quantity, new AllStarsCallback<List<Employee>>() {
             @Override
             public void onSuccess(List<Employee> rankingResponse) {
                 rankingEmployees = rankingResponse;
                 view.showRankingList(rankingResponse);
+                if (!isRefresh) {
+                    view.hideProgressIndicator();
+                } else {
+                    view.hideRefreshData();
+                }
             }
 
             @Override
             public void onFailure(ServiceError serviceError) {
+                if (!isRefresh) {
+                    view.hideProgressIndicator();
+                } else {
+                    view.hideRefreshData();
+                }
                 showError(serviceError.getErrorMessage());
             }
         });

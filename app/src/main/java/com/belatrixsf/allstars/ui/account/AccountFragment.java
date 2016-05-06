@@ -26,6 +26,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -36,6 +37,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
@@ -72,22 +74,17 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     private AccountPresenter accountPresenter;
     private AccountSubCategoriesAdapter accountCategoriesAdapter;
 
-    @Bind(R.id.account_recommendations)
-    RecyclerView recommendationRecyclerView;
-    @Bind(R.id.skype_id)
-    TextView skypeIdTextView;
-    @Bind(R.id.current_month_score)
-    TextView currentMonthScoreTextView;
-    @Bind(R.id.level)
-    TextView levelTextView;
-    @Bind(R.id.score)
-    TextView scoreTextView;
-    @Bind(R.id.profile_name)
-    TextView nameTextView;
-    @Bind(R.id.profile_role)
-    TextView roleTextView;
-    @Bind(R.id.profile_picture)
-    ImageView pictureImageView;
+    @Bind(R.id.account_recommendations) RecyclerView recommendationRecyclerView;
+    @Bind(R.id.skype_id) TextView skypeIdTextView;
+    @Bind(R.id.current_month_score) TextView currentMonthScoreTextView;
+    @Bind(R.id.level) TextView levelTextView;
+    @Bind(R.id.score) TextView scoreTextView;
+    @Bind(R.id.profile_name) TextView nameTextView;
+    @Bind(R.id.profile_role) TextView roleTextView;
+    @Bind(R.id.profile_picture) ImageView pictureImageView;
+    @Bind(R.id.account_swipe_refresh) SwipeRefreshLayout accountSwipeRefresh;
+    @Bind(R.id.subcategories_progress_bar) ProgressBar subCategoriesProgressBar;
+    @Bind(R.id.no_data_textview) TextView noDataTextView;
 
     private MenuItem recommendMenuItem;
 
@@ -134,8 +131,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     @Override
     public void onResume() {
         super.onResume();
-        accountCategoriesAdapter.clear();
-        accountPresenter.loadEmployeeAccount();
+        loadData();
     }
 
     @Override
@@ -169,6 +165,13 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
         linearLayoutManager.setAutoMeasureEnabled(true);
         recommendationRecyclerView.setNestedScrollingEnabled(false);
         recommendationRecyclerView.setLayoutManager(linearLayoutManager);
+
+        accountSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadData();
+            }
+        });
     }
 
     @Override
@@ -275,6 +278,45 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
                 }
             }).show();
         }
+    }
+
+    @Override
+    public void showProgressDialog() {
+        accountSwipeRefresh.setRefreshing(true);
+    }
+
+    @Override
+    public void showProgressIndicator() {
+        setProgressViewVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void dismissProgressDialog() {
+        accountSwipeRefresh.setRefreshing(false);
+    }
+
+    @Override
+    public void hideProgressIndicator() {
+        setProgressViewVisibility(View.GONE);
+    }
+
+    @Override
+    public void showNoDataView() {
+        noDataTextView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideNoDataView() {
+        noDataTextView.setVisibility(View.GONE);
+    }
+
+    public void setProgressViewVisibility(int visibility) {
+        subCategoriesProgressBar.setVisibility(visibility);
+    }
+
+    public void loadData() {
+        accountCategoriesAdapter.clear();
+        accountPresenter.loadEmployeeAccount();
     }
 
 }
