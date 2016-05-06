@@ -81,7 +81,7 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
         starService.getEmployeeSubCategoriesStars(employee.getPk(), new AllStarsCallback<StarSubCategoryResponse>() {
             @Override
             public void onSuccess(StarSubCategoryResponse starSubCategoryResponse) {
-                view.dismissProgressDialog();
+                view.hideProgressIndicator();
                 if (starSubCategoryResponse.getSubCategories().isEmpty()) {
                     view.showNoDataView();
                 } else {
@@ -92,7 +92,7 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
 
             @Override
             public void onFailure(ServiceError serviceError) {
-                view.dismissProgressDialog();
+                view.hideProgressIndicator();
                 showError(serviceError.getErrorMessage());
             }
         });
