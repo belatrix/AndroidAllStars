@@ -81,6 +81,7 @@ public abstract class LoadMoreBaseAdapter<T,VH extends RecyclerView.ViewHolder> 
     }
 
     public void updateData(List<T> moreData) {
+        setLoading(false);
         this.data.addAll(moreData);
         notifyDataSetChanged();
     }

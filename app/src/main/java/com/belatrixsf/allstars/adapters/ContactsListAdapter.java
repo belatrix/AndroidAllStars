@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.ui.common.LoadMoreBaseAdapter;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.allstars.utils.media.ImageFactory;
 import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
@@ -41,9 +42,10 @@ import butterknife.ButterKnife;
 /**
  * Created by icerrate on 15/04/2016.
  */
-public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapter.ContactViewHolder> {
+public class ContactsListAdapter extends LoadMoreBaseAdapter<Employee, ContactsListAdapter.ContactViewHolder> {
 
-    private List<Employee> contactsList;
+    public static final int TYPE_EMPLOYEE = 1;
+
     private RecyclerOnItemClickListener recyclerOnItemClickListener;
 
     public ContactsListAdapter(RecyclerOnItemClickListener recyclerOnItemClickListener) {
@@ -51,47 +53,43 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
     }
 
     public ContactsListAdapter(RecyclerOnItemClickListener recyclerOnItemClickListener, List<Employee> contactsList) {
-        this.contactsList = contactsList;
+        this.data = contactsList;
         this.recyclerOnItemClickListener = recyclerOnItemClickListener;
     }
 
     @Override
-    public ContactViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateDataViewHolder(ViewGroup parent, int viewType) {
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_contact, parent, false);
         return new ContactViewHolder(layoutView, recyclerOnItemClickListener);
     }
 
     @Override
-    public void onBindViewHolder(ContactViewHolder holder, int position) {
-        final Employee employee = contactsList.get(position);
-        holder.itemView.setTag(employee);
-        holder.contactFullNameTextView.setText(employee.getFullName());
-        String levelLabel = String.format(holder.contactLevelTextView.getContext().getString(R.string.contact_list_level), String.valueOf(employee.getLevel()));
-        holder.contactLevelTextView.setText(levelLabel);
+    public void onBindDataViewHolder(RecyclerView.ViewHolder holder, int position) {
+        final Employee employee = data.get(position);
+        ContactViewHolder castHolder = (ContactViewHolder) holder;
+        castHolder.itemView.setTag(employee);
+        castHolder.contactFullNameTextView.setText(employee.getFullName());
+        String levelLabel = String.format(castHolder.contactLevelTextView.getContext().getString(R.string.contact_list_level), String.valueOf(employee.getLevel()));
+        castHolder.contactLevelTextView.setText(levelLabel);
         if (employee.getAvatar() != null) {
-            ImageFactory.getLoader().loadFromUrl(employee.getAvatar(), holder.photoImageView, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
+            ImageFactory.getLoader().loadFromUrl(employee.getAvatar(), castHolder.photoImageView, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
         }
+    }
+    @Override
+    public int getDataItemViewType(int position) {
+        return TYPE_EMPLOYEE;
     }
 
     @Override
-    public int getItemCount() {
-        return this.contactsList.size();
-    }
-
-    public void updateData(List<Employee> employees) {
-        contactsList.clear();
-        contactsList.addAll(employees);
-        notifyDataSetChanged();
+    public int getItemViewType(int position) {
+        return TYPE_EMPLOYEE;
     }
 
     static class ContactViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @Bind(R.id.contact_photo)
-        public ImageView photoImageView;
-        @Bind(R.id.contact_full_name)
-        public TextView contactFullNameTextView;
-        @Bind(R.id.contact_level)
-        public TextView contactLevelTextView;
+        @Bind(R.id.contact_photo) public ImageView photoImageView;
+        @Bind(R.id.contact_full_name) public TextView contactFullNameTextView;
+        @Bind(R.id.contact_level) public TextView contactLevelTextView;
         private RecyclerOnItemClickListener recyclerOnItemClickListener;
 
         public ContactViewHolder(View view, RecyclerOnItemClickListener recyclerOnItemClickListener) {

@@ -33,6 +33,7 @@ import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.Path;
+import retrofit.http.Query;
 
 /**
  * Created by gyosida on 4/11/16.
@@ -43,7 +44,7 @@ public interface EmployeeAPI {
     Call<AuthenticationResponse> authenticate(@Body AuthenticationRequest request);
 
     @GET(ServerPaths.EMPLOYEE_BY_ID)
-    Call<Employee> getEmployee(@Path(ServerPaths.EMPLOYEE_ID) int employeeId);
+    Call<Employee> getEmployee(@Query(ServerPaths.PAGE) int page, @Path(ServerPaths.EMPLOYEE_ID) int employeeId);
 
     @GET(ServerPaths.EMPLOYEE_LIST)
     Call<SearchEmployeeResponse> getEmployees();

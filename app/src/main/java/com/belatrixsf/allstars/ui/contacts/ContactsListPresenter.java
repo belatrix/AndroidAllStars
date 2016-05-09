@@ -41,6 +41,8 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
     private List<Employee> employees;
     private boolean inActionMode = false;
     private boolean profileEnabled = true;
+    private int currentPage = 1;
+    private boolean hasNextPage = false;
 
     @Inject
     public ContactsListPresenter(ContactsListView view, EmployeeService employeeService) {
@@ -62,7 +64,7 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
         }
     }
 
-    public List<Employee> getContacts(){
+    public List<Employee> getForSavingContacts(){
         return employees;
     }
 
@@ -70,16 +72,33 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
         return inActionMode;
     }
 
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
+    }
+
+    public boolean hasNextPage() {
+        return hasNextPage;
+    }
+
+    public void setHasNextPage(boolean hasNextPage) {
+        this.hasNextPage = hasNextPage;
+    }
+
     public void loadSavedContacts(List<Employee> employees){
         this.employees = employees;
     }
 
-    public void getContacts(boolean force) {
-        if (force || employees == null || employees.isEmpty()) {
+    public void getContacts() {
+        if (!inActionMode || employees == null) {
             view.showProgressIndicator();
-            employeeService.getEmployees(new AllStarsCallback<SearchEmployeeResponse>() {
+            employeeService.getEmployees(currentPage+1, new AllStarsCallback<SearchEmployeeResponse>() {
                 @Override
                 public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
+                    hasNextPage = (searchEmployeeResponse.getNext() != null);
                     employees = searchEmployeeResponse.getEmployeeList();
                     view.showContacts(searchEmployeeResponse.getEmployeeList());
                 }

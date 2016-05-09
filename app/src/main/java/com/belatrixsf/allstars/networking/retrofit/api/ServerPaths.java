@@ -37,6 +37,7 @@ public interface ServerPaths {
     String KIND = "kind";
     String QUANTITY = "quantity";
     String CATEGORY_ID = "category_id";
+    String PAGE = "page";
 
     String EMPLOYEE_AUTHENTICATE = EMPLOYEE + "/authenticate/";
     String EMPLOYEE_LIST = EMPLOYEE + "/list";

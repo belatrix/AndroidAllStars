@@ -49,6 +49,7 @@ import com.belatrixsf.allstars.adapters.ContactsListAdapter;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.ui.account.AccountActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
+import com.belatrixsf.allstars.ui.common.EndlessRecyclerOnScrollListener;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
@@ -139,8 +140,10 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
         if (savedInstanceState != null) {
             restoreState(savedInstanceState);
             contactsListPresenter.shouldShowActionMode();
+        }else{
+            contactsListPresenter.setCurrentPage(0);
         }
-        contactsListPresenter.getContacts(false);
+        contactsListPresenter.getContacts();
     }
 
     @Override
@@ -157,7 +160,7 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     }
 
     private void saveState(Bundle outState) {
-        List<Employee> forSavingContacts = contactsListPresenter.getContacts();
+        List<Employee> forSavingContacts = contactsListPresenter.getForSavingContacts();
         boolean forSavingActionMode = contactsListPresenter.isInActionMode();
         if (forSavingContacts != null && forSavingContacts instanceof ArrayList) {
             outState.putParcelableArrayList(STATE_EMPLOYEES_KEY, (ArrayList<Employee>) forSavingContacts);
@@ -166,13 +169,23 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     }
 
     private void initViews() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         contactsListAdapter = new ContactsListAdapter(this);
         contactsRecyclerView.setAdapter(contactsListAdapter);
-        contactsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        contactsRecyclerView.setLayoutManager(linearLayoutManager);
         contactsRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
+        contactsRecyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int current_page) {
+                if (contactsListAdapter != null && contactsListPresenter.hasNextPage()) {
+                    contactsListPresenter.setCurrentPage(current_page);
+                    contactsListPresenter.getContacts();
+                }
+            }
+        });
     }
 
-    @Override
+        @Override
     public void showContacts(List<Employee> contacts) {
         contactsListAdapter.updateData(contacts);
     }
@@ -269,7 +282,7 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
         @Override
         public void onDestroyActionMode(ActionMode mode) {
             contactsListPresenter.setInActionMode(false);
-            contactsListPresenter.getContacts(true);
+            contactsListPresenter.getContacts();
             KeyboardUtils.hideKeyboard(getActivity(), getView());
         }
     };
