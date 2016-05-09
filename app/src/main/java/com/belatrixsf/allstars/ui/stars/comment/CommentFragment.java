@@ -20,9 +20,9 @@ import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.components.DaggerCommentComponent;
 import com.belatrixsf.allstars.utils.di.modules.presenters.CommentPresenterModule;
 
-import static com.belatrixsf.allstars.ui.stars.GiveStarFragment.COMMENT_KEY;
-
 import butterknife.Bind;
+
+import static com.belatrixsf.allstars.ui.stars.GiveStarFragment.COMMENT_KEY;
 
 /**
  * Created by PedroCarrillo on 4/27/16.

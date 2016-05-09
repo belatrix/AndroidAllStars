@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginRight="?listPreferredItemPaddingRight"
-    android:layout_marginLeft="?listPreferredItemPaddingLeft"
+    android:layout_marginRight="@dimen/dimen_8"
+    android:layout_marginLeft="@dimen/dimen_8"
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="true"
     app:contentPadding="@dimen/activity_horizontal_margin">
@@ -67,6 +67,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dictum, felis vel vulputate laoreet, ante lectus fringilla risus, ac ullamcorper est quam eleifend purus. Aenean eu urna aliquet, posuere lorem nec, laoreet libero. Class aptent taciti sociosqu ad litora torquent per " />
+
+        <com.belatrixsf.allstars.ui.common.views.KeywordView
+            android:id="@+id/star_keyword"
+            android:layout_marginTop="@dimen/dimen_3_5"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            app:key_text="@string/title_keyword"/>
 
     </LinearLayout>
 

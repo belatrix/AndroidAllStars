@@ -32,6 +32,8 @@
 
     <dimen name="text_margin">3dp</dimen>
 
+    <dimen name="keyword_stroke">1dp</dimen>
+
     <!-- Defaults -->
     <dimen name="default_corner_radius">4dp</dimen>
     <dimen name="default_picture_stroke_width">7dp</dimen>

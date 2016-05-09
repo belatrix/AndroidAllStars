@@ -3,6 +3,7 @@ package com.belatrixsf.allstars.ui.stars;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.networking.retrofit.requests.StarRequest;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarResponse;
@@ -20,10 +21,10 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
 
     private StarService starService;
     private EmployeeManager employeeManager;
-    private Employee toEmployee;
+    private Employee selectedEmployee;
     private Category selectedSubCategory;
-    private String comment;
     private Keyword selectedKeyword;
+    private String selectedComment;
     private boolean initWithUser = false;
 
     @Inject
@@ -53,7 +54,19 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
     }
 
     public void commentSelectionClicked() {
-        view.goWriteComment(comment);
+        view.goWriteComment(selectedComment);
+    }
+
+    public Employee getSelectedEmployee() {
+        return selectedEmployee;
+    }
+
+    public Category getSelectedSubCategory() {
+        return selectedSubCategory;
+    }
+
+    public String getSelectedComment() {
+        return selectedComment;
     }
 
     public void keywordSelectionClicked() { view.goSelectKeyword(); }
@@ -63,28 +76,30 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
         if (employee.getFullName() != null && !employee.getFullName().isEmpty()) {
             view.showUserFullName(employee.getFullName());
         }
-        if (employee.getLevel() != null) {
+        if (employee.getLevel() != null && !employee.getLevel().toString().isEmpty()) {
             view.showUserLevel(String.valueOf(employee.getLevel()));
         }
         if (employee.getAvatar() != null) {
             view.showUserProfileImage(employee.getAvatar());
         }
-        this.toEmployee = employee;
+        this.selectedEmployee = employee;
         view.showUser();
     }
 
     public void loadSelectedComment(String comment) {
-        checkRecommendationEnabled();
-        if (!comment.isEmpty()) {
-            this.comment = comment;
+        if (comment != null && !comment.isEmpty()) {
+            checkRecommendationEnabled();
+            this.selectedComment = comment;
             view.showComment(comment);
         }
     }
 
     public void loadSelectedSubCategory(Category subCategory) {
-        selectedSubCategory = subCategory;
-        view.showCategory(subCategory.getName());
-        checkRecommendationEnabled();
+        if(subCategory != null && subCategory.getName() != null && !subCategory.getName().isEmpty()){
+            selectedSubCategory = subCategory;
+            view.showCategory(subCategory.getName());
+            checkRecommendationEnabled();
+        }
     }
 
     public void loadSelectedKeyword(Keyword keyword) {
@@ -98,8 +113,8 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
         employeeManager.getLoggedInEmployee(new AllStarsCallback<Employee>() {
             @Override
             public void onSuccess(Employee fromEmployee) {
-                StarRequest starRequest = new StarRequest(selectedSubCategory.getParentId(), selectedSubCategory.getId(), comment, selectedKeyword.getId());
-                starService.star(fromEmployee.getPk(), toEmployee.getPk(), starRequest, new AllStarsCallback<StarResponse>() {
+                StarRequest starRequest = new StarRequest(selectedSubCategory.getParentId(), selectedSubCategory.getId(), selectedComment, selectedKeyword.getId());
+                starService.star(fromEmployee.getPk(), selectedEmployee.getPk(), starRequest, new AllStarsCallback<StarResponse>() {
                     @Override
                     public void onSuccess(StarResponse starResponse) {
                         view.dismissProgressDialog();
@@ -125,7 +140,7 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
     }
 
     private boolean validateFormComplete() {
-        return toEmployee != null && selectedSubCategory != null && selectedKeyword != null;
+        return selectedEmployee != null && selectedSubCategory != null && selectedKeyword != null;
     }
 
 }
