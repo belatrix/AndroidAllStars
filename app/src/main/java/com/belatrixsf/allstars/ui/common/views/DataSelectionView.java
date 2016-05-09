@@ -22,7 +22,7 @@ public class DataSelectionView extends LinearLayout {
 
     private ImageView rightArrowImageView;
     private TextView hintTextView;
-    private String value;
+    private String selectionValue;
 
     /**
      * Views for default data views
@@ -71,7 +71,7 @@ public class DataSelectionView extends LinearLayout {
     public void setData(String data) {
         if (valueView != null) {
             ((TextView)valueView).setText(data);
-            value = data;
+            selectionValue = data;
         }
     }
 
@@ -92,8 +92,8 @@ public class DataSelectionView extends LinearLayout {
     public Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
         SavedState state = new SavedState(superState);
-        if (value != null){
-            state.value = value;
+        if (selectionValue != null){
+            state.selectionValue = selectionValue;
         }
         return state;
     }
@@ -104,21 +104,21 @@ public class DataSelectionView extends LinearLayout {
             super.onRestoreInstanceState(state);
             return;
         }
-        SavedState ss = (SavedState)state;
-        super.onRestoreInstanceState(ss.getSuperState());
-        if (ss.value != null) {
-            setData(ss.value.toString());
+        SavedState savedState = (SavedState)state;
+        super.onRestoreInstanceState(savedState.getSuperState());
+        if (savedState.selectionValue != null) {
+            setData(savedState.selectionValue.toString());
             showData();
         }
     }
 
     public static class SavedState extends android.view.View.BaseSavedState {
 
-        CharSequence value;
+        CharSequence selectionValue;
 
         SavedState(Parcel in) {
             super(in);
-            value = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(in);
+            selectionValue = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(in);
         }
 
         SavedState(Parcelable superState) {
@@ -128,7 +128,7 @@ public class DataSelectionView extends LinearLayout {
         @Override
         public void writeToParcel(Parcel out, int flags) {
             super.writeToParcel(out, flags);
-            TextUtils.writeToParcel(value, out, flags);
+            TextUtils.writeToParcel(selectionValue, out, flags);
         }
 
         public static final Parcelable.Creator<SavedState> CREATOR

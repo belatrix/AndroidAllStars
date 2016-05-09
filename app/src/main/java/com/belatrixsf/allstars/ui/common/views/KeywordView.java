@@ -18,7 +18,7 @@ import com.belatrixsf.allstars.R;
 public class KeywordView extends LinearLayout {
 
     private TextView keyboardTextView;
-    private String value;
+    private String keywordValue;
 
     public KeywordView(Context context) {
         super(context);
@@ -45,7 +45,7 @@ public class KeywordView extends LinearLayout {
     public void setKeyword(String keyword) {
         if (keyword != null && !keyword.isEmpty()) {
             keyboardTextView.setText(keyword);
-            value = keyword;
+            keywordValue = keyword;
         }
     }
 
@@ -53,8 +53,8 @@ public class KeywordView extends LinearLayout {
     public Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
         SavedState state = new SavedState(superState);
-        if (value != null){
-            state.value = value;
+        if (keywordValue != null){
+            state.keywordValue = keywordValue;
         }
         return state;
     }
@@ -65,20 +65,20 @@ public class KeywordView extends LinearLayout {
             super.onRestoreInstanceState(state);
             return;
         }
-        SavedState ss = (SavedState)state;
-        super.onRestoreInstanceState(ss.getSuperState());
-        if (ss.value != null) {
-            setKeyword(ss.value.toString());
+        SavedState savedState = (SavedState)state;
+        super.onRestoreInstanceState(savedState.getSuperState());
+        if (savedState.keywordValue != null) {
+            setKeyword(savedState.keywordValue.toString());
         }
     }
 
     public static class SavedState extends BaseSavedState {
 
-        CharSequence value;
+        CharSequence keywordValue;
 
         SavedState(Parcel in) {
             super(in);
-            value = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(in);
+            keywordValue = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(in);
         }
 
         SavedState(Parcelable superState) {
@@ -88,7 +88,7 @@ public class KeywordView extends LinearLayout {
         @Override
         public void writeToParcel(Parcel out, int flags) {
             super.writeToParcel(out, flags);
-            TextUtils.writeToParcel(value, out, flags);
+            TextUtils.writeToParcel(keywordValue, out, flags);
         }
 
         public static final Creator<SavedState> CREATOR
