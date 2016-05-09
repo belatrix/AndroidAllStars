@@ -72,7 +72,7 @@ public class StarsListAdapter extends RecyclerView.Adapter<StarsListAdapter.Star
         holder.starDateTextView.setText(formattedDate);
         holder.starMessageTextView.setText(message);
         holder.starCategoryTextView.setText(star.getCategory().getName());
-        holder.starKeywordView.setData(keyword);
+        holder.starKeywordView.setKeyword(keyword);
         if (star.getFromUser().getAvatar() != null) {
             ImageFactory.getLoader().loadFromUrl(star.getFromUser().getAvatar(), holder.photoImageView, ImageLoader.ImageTransformation.CIRCLE);
         }

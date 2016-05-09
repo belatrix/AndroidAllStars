@@ -30,8 +30,8 @@ public class KeywordView extends LinearLayout {
         initView();
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.KeywordView);
 
-        String hintText = typedArray.getString(R.styleable.KeywordView_key_text);
-        keyboardTextView.setText(hintText);
+        String text = typedArray.getString(R.styleable.KeywordView_key_text);
+        keyboardTextView.setText(text);
 
         typedArray.recycle();
     }
@@ -42,10 +42,10 @@ public class KeywordView extends LinearLayout {
         keyboardTextView = (TextView) findViewById(R.id.keyword);
     }
 
-    public void setData(String data) {
-        if (data != null && !data.isEmpty()) {
-            keyboardTextView.setText(data);
-            value = data;
+    public void setKeyword(String keyword) {
+        if (keyword != null && !keyword.isEmpty()) {
+            keyboardTextView.setText(keyword);
+            value = keyword;
         }
     }
 
@@ -68,7 +68,7 @@ public class KeywordView extends LinearLayout {
         SavedState ss = (SavedState)state;
         super.onRestoreInstanceState(ss.getSuperState());
         if (ss.value != null) {
-            setData(ss.value.toString());
+            setKeyword(ss.value.toString());
         }
     }
 

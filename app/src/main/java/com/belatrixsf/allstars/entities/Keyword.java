@@ -20,16 +20,8 @@
 */
 package com.belatrixsf.allstars.entities;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import com.google.gson.annotations.SerializedName;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Created by gyosida on 4/12/16.
+ * Created by icerrate on 06/05/16.
  */
 public class Keyword {
 
