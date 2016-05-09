@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.belatrixsf.allstars.R;
 
 /**
- * Created by PedroCarrillo on 4/25/16.
+ * Created by icerrate on 06/05/2016.
  */
 public class KeywordView extends LinearLayout {
 
@@ -28,9 +28,9 @@ public class KeywordView extends LinearLayout {
     public KeywordView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView();
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.DataSelectionView);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.KeywordView);
 
-        String hintText = typedArray.getString(R.styleable.DataSelectionView_hint_text);
+        String hintText = typedArray.getString(R.styleable.KeywordView_key_text);
         keyboardTextView.setText(hintText);
 
         typedArray.recycle();

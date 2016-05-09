@@ -3,26 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="@drawable/selector_background_keyword"
+    android:clickable="true"
     android:gravity="center_vertical"
-    android:background="@drawable/background_keyword"
     android:orientation="horizontal"
-    android:paddingTop="@dimen/dimen_1_5"
     android:paddingBottom="@dimen/dimen_1_5"
-    android:paddingRight="@dimen/dimen_3_5"
-    android:paddingLeft="@dimen/dimen_2_5">
+    android:paddingLeft="@dimen/dimen_2_5"
+    android:paddingRight="@dimen/dimen_2_5"
+    android:paddingTop="@dimen/dimen_1_5">
 
-    <ImageView
-        android:layout_width="@dimen/dimen_5_5"
-        android:layout_height="@dimen/dimen_5_5"
-        android:layout_marginRight="@dimen/dimen_1_5"
-        android:src="@drawable/ic_hashtag"/>
-    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hashtag"
+        android:textColor="@color/selector_text_keyword"
+        android:textSize="@dimen/text_12" />
+
     <TextView
         android:id="@+id/keyword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:visibility="visible"
-        tools:text="Keyword"
-        style="@style/SingleLineItemTextView"/>
+        android:lines="1"
+        android:textColor="@color/selector_text_keyword"
+        android:textSize="@dimen/text_12"
+        tools:text="Keyword" />
 
 </LinearLayout>

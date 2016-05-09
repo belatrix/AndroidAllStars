@@ -73,7 +73,7 @@
             android:layout_marginTop="@dimen/dimen_3_5"
             android:layout_height="match_parent"
             android:layout_width="wrap_content"
-            app:hint_text="@string/title_keyword"/>
+            app:key_text="@string/title_keyword"/>
 
     </LinearLayout>
 
