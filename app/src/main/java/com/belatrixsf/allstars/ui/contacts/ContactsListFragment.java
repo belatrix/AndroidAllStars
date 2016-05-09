@@ -68,9 +68,9 @@ import static com.belatrixsf.allstars.ui.stars.GiveStarFragment.SELECTED_USER_KE
  */
 public class ContactsListFragment extends AllStarsFragment implements ContactsListView, RecyclerOnItemClickListener {
 
-    public static final String ARG_PROFILE_ENABLED_KEY = "_is_search";
-    private static final String STATE_EMPLOYEES_KEY = "employees_key";
-    private static final String STATE_ACTION_MODE_KEY = "action_mode_key";
+    public static final String PROFILE_ENABLED_KEY = "_is_search";
+    private static final String EMPLOYEES_KEY = "_employees_key";
+    private static final String ACTION_MODE_KEY = "_action_mode_key";
 
     private ContactsListPresenter contactsListPresenter;
     private ContactsListFragmentListener contactsListFragmentListener;
@@ -84,7 +84,7 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
 
     public static ContactsListFragment newInstance(boolean profileEnabled) {
         Bundle bundle = new Bundle();
-        bundle.putBoolean(ARG_PROFILE_ENABLED_KEY, profileEnabled);
+        bundle.putBoolean(PROFILE_ENABLED_KEY, profileEnabled);
         ContactsListFragment contactsListFragment = new ContactsListFragment();
         contactsListFragment.setArguments(bundle);
         return contactsListFragment;
@@ -127,8 +127,8 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
         contactsListPresenter = allStarsApplication.getApplicationComponent()
                 .contactsListComponent(new ContactsListPresenterModule(this))
                 .contactsListPresenter();
-        if (getArguments() != null && getArguments().containsKey(ARG_PROFILE_ENABLED_KEY)) {
-            contactsListPresenter.setProfileEnabled(getArguments().getBoolean(ARG_PROFILE_ENABLED_KEY));
+        if (getArguments() != null && getArguments().containsKey(PROFILE_ENABLED_KEY)) {
+            contactsListPresenter.setProfileEnabled(getArguments().getBoolean(PROFILE_ENABLED_KEY));
         }
     }
 
@@ -150,8 +150,8 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     }
 
     private void restoreState(Bundle savedInstanceState) {
-        List<Employee> savedContacts = savedInstanceState.getParcelableArrayList(STATE_EMPLOYEES_KEY);
-        boolean actionModeEnabled = savedInstanceState.getBoolean(STATE_ACTION_MODE_KEY);
+        List<Employee> savedContacts = savedInstanceState.getParcelableArrayList(EMPLOYEES_KEY);
+        boolean actionModeEnabled = savedInstanceState.getBoolean(ACTION_MODE_KEY);
         contactsListPresenter.loadSavedContacts(savedContacts);
         contactsListPresenter.setInActionMode(actionModeEnabled);
     }
@@ -160,8 +160,8 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
         List<Employee> forSavingContacts = contactsListPresenter.getContacts();
         boolean forSavingActionMode = contactsListPresenter.isInActionMode();
         if (forSavingContacts != null && forSavingContacts instanceof ArrayList) {
-            outState.putParcelableArrayList(STATE_EMPLOYEES_KEY, (ArrayList<Employee>) forSavingContacts);
-            outState.putBoolean(STATE_ACTION_MODE_KEY, forSavingActionMode);
+            outState.putParcelableArrayList(EMPLOYEES_KEY, (ArrayList<Employee>) forSavingContacts);
+            outState.putBoolean(ACTION_MODE_KEY, forSavingActionMode);
         }
     }
 
