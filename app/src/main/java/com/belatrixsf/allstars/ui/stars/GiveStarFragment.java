@@ -180,6 +180,16 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
     }
 
     @Override
+    public void goSelectKeyword() {
+        //TODO: go to select keyboard view.
+    }
+
+    @Override
+    public void showKeywordSelected(String comment) {
+
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {

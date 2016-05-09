@@ -23,6 +23,7 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
     private Employee toEmployee;
     private Category selectedSubCategory;
     private String comment;
+    private Keyword selectedKeyword;
     private boolean initWithUser = false;
 
     @Inject
@@ -30,6 +31,9 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
         super(view);
         this.starService = starService;
         this.employeeManager = employeeManager;
+        //TODO: Remove this
+        selectedKeyword = new Keyword();
+        selectedKeyword.setTestData(1,"Android");
     }
 
     public void initWithUser(Employee employee) {
@@ -51,6 +55,8 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
     public void commentSelectionClicked() {
         view.goWriteComment(comment);
     }
+
+    public void keywordSelectionClicked() { view.goSelectKeyword(); }
 
     public void loadSelectedUser(Employee employee) {
         checkRecommendationEnabled();
@@ -81,12 +87,18 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
         checkRecommendationEnabled();
     }
 
+    public void loadSelectedKeyword(Keyword keyword) {
+        selectedKeyword = keyword;
+        view.showKeywordSelected(keyword.getName());
+        checkRecommendationEnabled();
+    }
+
     public void makeRecommendation() {
         view.showProgressDialog(getString(R.string.making_recommendation));
         employeeManager.getLoggedInEmployee(new AllStarsCallback<Employee>() {
             @Override
             public void onSuccess(Employee fromEmployee) {
-                StarRequest starRequest = new StarRequest(selectedSubCategory.getParentId(), selectedSubCategory.getId(), comment);
+                StarRequest starRequest = new StarRequest(selectedSubCategory.getParentId(), selectedSubCategory.getId(), comment, selectedKeyword.getId());
                 starService.star(fromEmployee.getPk(), toEmployee.getPk(), starRequest, new AllStarsCallback<StarResponse>() {
                     @Override
                     public void onSuccess(StarResponse starResponse) {
@@ -113,7 +125,7 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
     }
 
     private boolean validateFormComplete() {
-        return toEmployee != null && selectedSubCategory != null;
+        return toEmployee != null && selectedSubCategory != null && selectedKeyword != null;
     }
 
 }
