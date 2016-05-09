@@ -33,6 +33,7 @@
     <string name="title_recommendation_activity">Recommendations</string>
     <string name="title_give_star_activity">Give a recommendation</string>
     <string name="title_comment_activity">Write a comment</string>
+    <string name="title_keyword">Keyword</string>
 
     <!-- Login -->
     <string name="title_login">Belatrix All Stars</string>
@@ -76,6 +77,7 @@
     <string name="title_content_category">Category:</string>
     <string name="title_content_date">Date:</string>
     <string name="message_placeholder">No message</string>
+    <string name="hashtag">#</string>
 
     <!--Actions-->
     <string name="action_recommend">Recommend</string>

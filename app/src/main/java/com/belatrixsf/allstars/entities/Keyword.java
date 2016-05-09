@@ -6,8 +6,10 @@
 * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 * copies of the Software, and to permit persons to whom the Software is
 * furnished to do so, subject to the following conditions:
+
 * The above copyright notice and this permission notice shall be included in all
 * copies or substantial portions of the Software.
+
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -18,43 +20,22 @@
 */
 package com.belatrixsf.allstars.entities;
 
-import com.google.gson.annotations.SerializedName;
-
 /**
- * Created by icerrate on 25/04/2016.
+ * Created by icerrate on 06/05/16.
  */
-public class Star {
+public class Keyword {
 
-    private Integer pk;
-    private String date;
-    @SerializedName("text")
-    private String message;
-    @SerializedName("from_user")
-    private Employee fromUser;
-    private Category category;
-    private Keyword keyword;
+    private Integer id;
+    private String name;
 
-    public Integer getPk() {
-        return pk;
+    public Keyword() {
     }
 
-    public String getDate() {
-        return date;
+    public Integer getId() {
+        return id;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public Employee getFromUser() {
-        return fromUser;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public Keyword getKeyword() {
-        return keyword;
+    public String getName() {
+        return name;
     }
 }
