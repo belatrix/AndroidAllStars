@@ -20,10 +20,13 @@
 */
 package com.belatrixsf.allstars.entities;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by icerrate on 06/05/16.
  */
-public class Keyword {
+public class Keyword implements Parcelable {
 
     private Integer id;
     private String name;
@@ -38,4 +41,38 @@ public class Keyword {
     public String getName() {
         return name;
     }
+
+    protected Keyword (Parcel in) {
+        id = in.readByte() == 0x00 ? null : in.readInt();
+        name = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        if (id == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(id);
+        }
+        dest.writeString(name);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Keyword> CREATOR = new Parcelable.Creator<Keyword>() {
+        @Override
+        public Keyword createFromParcel(Parcel in) {
+            return new Keyword(in);
+        }
+
+        @Override
+        public Keyword[] newArray(int size) {
+            return new Keyword[size];
+        }
+    };
 }
