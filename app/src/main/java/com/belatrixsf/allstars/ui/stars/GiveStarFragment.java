@@ -14,6 +14,7 @@ import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.ui.category.CategoriesActivity;
+import com.belatrixsf.allstars.ui.common.views.KeywordSelectionView;
 import com.belatrixsf.allstars.ui.stars.comment.CommentActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.views.AccountSelectionView;
@@ -23,6 +24,7 @@ import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Created by PedroCarrillo on 4/22/16.
@@ -43,6 +45,7 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
     @Bind(R.id.account_selection) AccountSelectionView accountSelectionView;
     @Bind(R.id.category_selection) DataSelectionView categorySelectionView;
     @Bind(R.id.comment_selection) DataSelectionView commentSelectionView;
+    @Bind(R.id.keyword_selection) KeywordSelectionView keywordSelectionView;
 
     public static GiveStarFragment newInstance(Employee employee) {
         Bundle bundle = new Bundle();
@@ -139,27 +142,26 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        accountSelectionView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                giveStarPresenter.userSelectionClicked();
-            }
-        });
+    }
 
-        categorySelectionView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                giveStarPresenter.categorySelectionClicked();
-            }
-        });
+    @OnClick(R.id.account_selection)
+    public void accountSelectionViewClicked() {
+        giveStarPresenter.userSelectionClicked();
+    }
 
-        commentSelectionView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                giveStarPresenter.commentSelectionClicked();
-            }
-        });
+    @OnClick(R.id.category_selection)
+    public void categorySelectionViewClicked() {
+        giveStarPresenter.categorySelectionClicked();
+    }
 
+    @OnClick(R.id.comment_selection)
+    public void commentSelectionViewClicked() {
+        giveStarPresenter.commentSelectionClicked();
+    }
+
+    @OnClick(R.id.keyword_selection)
+    public void keywordSelectionViewClicked() {
+        giveStarPresenter.keywordSelectionClicked();
     }
 
     @Override
@@ -219,8 +221,9 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
     }
 
     @Override
-    public void showKeywordSelected(String comment) {
-
+    public void showKeywordSelected(String keyword) {
+        keywordSelectionView.setKeyword(keyword);
+        keywordSelectionView.showData();
     }
 
     @Override

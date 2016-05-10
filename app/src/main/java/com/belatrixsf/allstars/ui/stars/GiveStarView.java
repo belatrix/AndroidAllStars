@@ -33,6 +33,6 @@ public interface GiveStarView extends AllStarsView {
 
     void goSelectKeyword();
 
-    void showKeywordSelected(String comment);
+    void showKeywordSelected(String keyword);
 
 }

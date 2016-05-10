@@ -32,9 +32,6 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
         super(view);
         this.starService = starService;
         this.employeeManager = employeeManager;
-        //TODO: Remove this
-        selectedKeyword = new Keyword();
-        selectedKeyword.setTestData(1,"Android");
     }
 
     public void initWithUser(Employee employee) {
@@ -69,7 +66,13 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
         return selectedComment;
     }
 
-    public void keywordSelectionClicked() { view.goSelectKeyword(); }
+    public void keywordSelectionClicked() {
+        //TODO: Remove this
+        selectedKeyword = new Keyword();
+        selectedKeyword.setTestData(1,"Android");
+        view.showKeywordSelected(selectedKeyword.getName());
+        view.goSelectKeyword();
+    }
 
     public void loadSelectedUser(Employee employee) {
         checkRecommendationEnabled();
