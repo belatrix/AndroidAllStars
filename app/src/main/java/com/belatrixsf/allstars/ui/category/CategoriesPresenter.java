@@ -95,7 +95,7 @@ public class CategoriesPresenter extends AllStarsPresenter<CategoriesView> {
         if (position >= 0 && position < categories.size()) {
             Category category = categories.get(position);
             if (!viewPresentsCategories()) {
-                category.setParentId(categoryId);
+                category.setC(categoryId);
                 view.notifySelection(category);
             } else {
                 view.showSubcategories(category);

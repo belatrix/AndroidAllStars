@@ -31,7 +31,7 @@ import butterknife.Bind;
  */
 public class CategoriesFragment extends AllStarsFragment implements CategoriesView, CategoriesAdapter.CategoriesListListener {
 
-    private static final String CATEGORY_ID_KEY = "category_id_key";
+    private static final String CATEGORY_KEY = "category_key";
     private static final String CATEGORIES_KEY = "categories_key";
 
     private SubcategorySelectionListener subcategorySelectionListener;
@@ -46,10 +46,10 @@ public class CategoriesFragment extends AllStarsFragment implements CategoriesVi
         // Required empty public constructor
     }
 
-    public static CategoriesFragment newInstance(int categoryId) {
+    public static CategoriesFragment newInstance(Category category) {
         CategoriesFragment fragment = new CategoriesFragment();
         Bundle args = new Bundle();
-        args.putInt(CATEGORY_ID_KEY, categoryId);
+        args.putParcelable(CATEGORY_KEY, category);
         fragment.setArguments(args);
         return fragment;
     }
@@ -105,9 +105,9 @@ public class CategoriesFragment extends AllStarsFragment implements CategoriesVi
         categoriesRecyclerView.setAdapter(categoriesAdapter);
     }
 
-    private Integer getCategoryIdIfExists() {
+    private Category getCategoryIfExists() {
         if (getArguments() != null) {
-            return getArguments().getInt(CATEGORY_ID_KEY);
+            return getArguments().getParcelable(CATEGORY_KEY);
         }
         return null;
     }
@@ -128,7 +128,7 @@ public class CategoriesFragment extends AllStarsFragment implements CategoriesVi
     protected void initDependencies(AllStarsApplication allStarsApplication) {
         allStarsApplication
                 .getApplicationComponent()
-                .categoriesListComponent(new CategoriesListModule(this, getCategoryIdIfExists()))
+                .categoriesListComponent(new CategoriesListModule(this, getCategoryIfExists()))
                 .inject(this);
     }
 
@@ -154,7 +154,7 @@ public class CategoriesFragment extends AllStarsFragment implements CategoriesVi
 
     @Override
     public void showSubcategories(Category category) {
-        fragmentListener.replaceFragment(CategoriesFragment.newInstance(category.getId()), true);
+        fragmentListener.replaceFragment(CategoriesFragment.newInstance(category), true);
     }
 
     public interface SubcategorySelectionListener {

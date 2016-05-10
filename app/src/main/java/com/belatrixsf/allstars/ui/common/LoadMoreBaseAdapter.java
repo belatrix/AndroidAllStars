@@ -87,6 +87,7 @@ public abstract class LoadMoreBaseAdapter<T,VH extends RecyclerView.ViewHolder> 
 
     public void clear() {
         data.clear();
+        notifyDataSetChanged();
     }
 
     public void setLoading(boolean loading) {

@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.allstars.utils.di.modules.presenters;
 
+import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.services.CategoryService;
 import com.belatrixsf.allstars.services.EmployeeService;
@@ -36,19 +37,19 @@ import dagger.Provides;
 public class CategoriesListModule {
 
     private CategoriesView categoriesView;
-    private Integer categoryId;
+    private Category category;
 
-    public CategoriesListModule(CategoriesView categoriesView, Integer categoryId) {
+    public CategoriesListModule(CategoriesView categoriesView, Category category) {
         this.categoriesView = categoriesView;
-        this.categoryId = categoryId;
+        this.category = category;
     }
 
     @Provides
     public CategoriesPresenter provideCategoriesPresenter(EmployeeManager employeeManager, EmployeeService employeeService, CategoryService categoryService) {
-        if (categoryId == null) {
+        if (category == null) {
             return new CategoriesPresenter(categoriesView, employeeManager, employeeService);
         } else {
-            return new CategoriesPresenter(categoriesView, categoryService, categoryId);
+            return new CategoriesPresenter(categoriesView, categoryService, category.getId());
         }
     }
 

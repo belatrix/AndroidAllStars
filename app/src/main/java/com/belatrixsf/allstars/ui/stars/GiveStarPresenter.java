@@ -4,6 +4,7 @@ import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.Keyword;
+import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.networking.retrofit.requests.StarRequest;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarResponse;
@@ -22,7 +23,7 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
     private StarService starService;
     private EmployeeManager employeeManager;
     private Employee selectedEmployee;
-    private Category selectedSubCategory;
+    private SubCategory selectedSubCategory;
     private Keyword selectedKeyword;
     private String selectedComment;
     private boolean initWithUser = false;
@@ -102,7 +103,7 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
         }
     }
 
-    public void loadSelectedSubCategory(Category subCategory) {
+    public void loadSelectedSubCategory(SubCategory subCategory) {
         if(subCategory != null && subCategory.getName() != null && !subCategory.getName().isEmpty()){
             selectedSubCategory = subCategory;
             view.showCategory(subCategory.getName());
@@ -123,7 +124,7 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
         employeeManager.getLoggedInEmployee(new AllStarsCallback<Employee>() {
             @Override
             public void onSuccess(Employee fromEmployee) {
-                StarRequest starRequest = new StarRequest(selectedSubCategory.getParentId(), selectedSubCategory.getId(), selectedComment, selectedKeyword.getId());
+                StarRequest starRequest = new StarRequest(selectedSubCategory.getParentCategory().getId(), selectedSubCategory.getId(), selectedComment, selectedKeyword.getId());
                 starService.star(fromEmployee.getPk(), selectedEmployee.getPk(), starRequest, new AllStarsCallback<StarResponse>() {
                     @Override
                     public void onSuccess(StarResponse starResponse) {
@@ -150,7 +151,11 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
     }
 
     private boolean validateFormComplete() {
-        return selectedEmployee != null && selectedSubCategory != null && selectedKeyword != null;
+        return selectedEmployee != null && selectedSubCategory != null && selectedKeyword != null ;
+    }
+
+    private boolean validateCategoryCommentRequired() {
+//        if (selected)
     }
 
 }
