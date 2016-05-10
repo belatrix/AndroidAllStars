@@ -45,11 +45,11 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
         this.starService = starService;
     }
 
-    public List<Star> getForSavingStars(){
+    public List<Star> getLoadedStars(){
         return stars;
     }
 
-    public void loadSavedStars(List<Star> stars){
+    public void setLoadedStars(List<Star> stars){
         if (stars != null ){
             this.stars = stars;
         }

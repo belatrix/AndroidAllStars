@@ -85,12 +85,10 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
         super.onViewCreated(view, savedInstanceState);
         initViews();
         boolean hasArguments = (getArguments() != null && getArguments().containsKey(StarsListActivity.USER_ID) && getArguments().containsKey(StarsListActivity.SUBCATEGORY_ID));
-        if (savedInstanceState != null && hasArguments) {
+        if (savedInstanceState != null) {
             restoreState(savedInstanceState);
-            Integer userId = getArguments().getInt(StarsListActivity.USER_ID);
-            Integer categoryId = getArguments().getInt(StarsListActivity.SUBCATEGORY_ID);
-            starsListPresenter.getStars(userId, categoryId);
-        }else if (hasArguments) {
+        }
+        if (hasArguments) {
             Integer userId = getArguments().getInt(StarsListActivity.USER_ID);
             Integer categoryId = getArguments().getInt(StarsListActivity.SUBCATEGORY_ID);
             starsListPresenter.getStars(userId, categoryId);
@@ -104,12 +102,12 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
     }
 
     private void restoreState(Bundle savedInstanceState) {
-        List<Star> savedStars = savedInstanceState.getParcelableArrayList(STARS_KEY);
-        starsListPresenter.loadSavedStars(savedStars);
+        //List<Star> savedStars = savedInstanceState.getParcelableArrayList(STARS_KEY);
+        starsListPresenter.setLoadedStars(savedInstanceState.<Star>getParcelableArrayList(STARS_KEY));
     }
 
     private void saveState(Bundle outState) {
-        List<Star> forSavingStars = starsListPresenter.getForSavingStars();
+        List<Star> forSavingStars = starsListPresenter.getLoadedStars();
         if (forSavingStars != null && forSavingStars instanceof ArrayList) {
             outState.putParcelableArrayList(STARS_KEY, (ArrayList<Star>) forSavingStars);
         }

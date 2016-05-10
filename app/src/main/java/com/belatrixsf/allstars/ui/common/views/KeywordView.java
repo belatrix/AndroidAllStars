@@ -17,7 +17,7 @@ import com.belatrixsf.allstars.R;
  */
 public class KeywordView extends LinearLayout {
 
-    private TextView keyboardTextView;
+    private TextView keywordTextView;
     private String keywordValue;
 
     public KeywordView(Context context) {
@@ -31,7 +31,7 @@ public class KeywordView extends LinearLayout {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.KeywordView);
 
         String text = typedArray.getString(R.styleable.KeywordView_key_text);
-        keyboardTextView.setText(text);
+        keywordTextView.setText(text);
 
         typedArray.recycle();
     }
@@ -39,12 +39,12 @@ public class KeywordView extends LinearLayout {
     private void initView() {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.view_keyword, this, true);
-        keyboardTextView = (TextView) findViewById(R.id.keyword);
+        keywordTextView = (TextView) findViewById(R.id.keyword);
     }
 
     public void setKeyword(String keyword) {
         if (keyword != null && !keyword.isEmpty()) {
-            keyboardTextView.setText(keyword);
+            keywordTextView.setText(keyword);
             keywordValue = keyword;
         }
     }
