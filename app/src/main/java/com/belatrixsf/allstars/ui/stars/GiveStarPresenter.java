@@ -66,27 +66,32 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
         return selectedComment;
     }
 
+    public Keyword getSelectedKeyword() {
+        return selectedKeyword;
+    }
+
     public void keywordSelectionClicked() {
         //TODO: Remove this
         selectedKeyword = new Keyword();
-        selectedKeyword.setTestData(1,"Android");
-        view.showKeywordSelected(selectedKeyword.getName());
-        view.goSelectKeyword();
+        selectedKeyword.setData(1,"Android");
+        loadSelectedKeyword(selectedKeyword);
     }
 
     public void loadSelectedUser(Employee employee) {
-        checkRecommendationEnabled();
-        if (employee.getFullName() != null && !employee.getFullName().isEmpty()) {
-            view.showUserFullName(employee.getFullName());
+        if (employee != null) {
+            checkRecommendationEnabled();
+            if (employee.getFullName() != null && !employee.getFullName().isEmpty()) {
+                view.showUserFullName(employee.getFullName());
+            }
+            if (employee.getLevel() != null && !employee.getLevel().toString().isEmpty()) {
+                view.showUserLevel(String.valueOf(employee.getLevel()));
+            }
+            if (employee.getAvatar() != null) {
+                view.showUserProfileImage(employee.getAvatar());
+            }
+            this.selectedEmployee = employee;
+            view.showUser();
         }
-        if (employee.getLevel() != null && !employee.getLevel().toString().isEmpty()) {
-            view.showUserLevel(String.valueOf(employee.getLevel()));
-        }
-        if (employee.getAvatar() != null) {
-            view.showUserProfileImage(employee.getAvatar());
-        }
-        this.selectedEmployee = employee;
-        view.showUser();
     }
 
     public void loadSelectedComment(String comment) {
@@ -106,9 +111,11 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
     }
 
     public void loadSelectedKeyword(Keyword keyword) {
-        selectedKeyword = keyword;
-        view.showKeywordSelected(keyword.getName());
-        checkRecommendationEnabled();
+        if (keyword != null) {
+            selectedKeyword = keyword;
+            view.showKeywordSelected(keyword.getName());
+            checkRecommendationEnabled();
+        }
     }
 
     public void makeRecommendation() {

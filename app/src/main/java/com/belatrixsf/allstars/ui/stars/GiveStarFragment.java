@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.ui.category.CategoriesActivity;
 import com.belatrixsf.allstars.ui.common.views.KeywordSelectionView;
 import com.belatrixsf.allstars.ui.stars.comment.CommentActivity;
@@ -32,6 +33,7 @@ import butterknife.OnClick;
 public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
 
     public static final String SELECTED_USER_KEY = "_selected_user_key";
+    public static final String SELECTED_KEYWORD_KEY = "_selected_keyword_key";
     public static final String COMMENT_KEY = "_user_comment_key";
     public static final String SELECTED_CATEGORY_KEY = "_selected_category_key";
     public static final String MESSAGE_KEY = "_message_key";
@@ -95,15 +97,18 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
         Employee savedEmployee = savedInstanceState.getParcelable(SELECTED_USER_KEY);
         String savedComment = savedInstanceState.getString(COMMENT_KEY);
         Category savedCategory = savedInstanceState.getParcelable(SELECTED_CATEGORY_KEY);
+        Keyword savedKeyword = savedInstanceState.getParcelable(SELECTED_KEYWORD_KEY);
         giveStarPresenter.loadSelectedUser(savedEmployee);
         giveStarPresenter.loadSelectedComment(savedComment);
         giveStarPresenter.loadSelectedSubCategory(savedCategory);
+        giveStarPresenter.loadSelectedKeyword(savedKeyword);
     }
 
     private void saveState(Bundle outState) {
         Employee selectedEmployee = giveStarPresenter.getSelectedEmployee();
         String selectedComment = giveStarPresenter.getSelectedComment();
         Category selectedSubCategory = giveStarPresenter.getSelectedSubCategory();
+        Keyword selectedKeyword = giveStarPresenter.getSelectedKeyword();
         if (selectedEmployee != null) {
             outState.putParcelable(SELECTED_USER_KEY, selectedEmployee);
         }
@@ -112,6 +117,9 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
         }
         if (selectedSubCategory != null) {
             outState.putParcelable(SELECTED_CATEGORY_KEY, selectedSubCategory);
+        }
+        if (selectedKeyword != null) {
+            outState.putParcelable(SELECTED_KEYWORD_KEY, selectedKeyword);
         }
     }
 

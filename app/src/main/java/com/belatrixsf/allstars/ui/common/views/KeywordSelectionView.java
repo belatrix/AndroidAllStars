@@ -45,6 +45,9 @@ public class KeywordSelectionView extends DataSelectionView {
     public Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
         SavedState state = new SavedState(superState);
+        if (keywordView != null) {
+            state.keyword = keywordView.getKeyword();
+        }
         return state;
     }
 
@@ -54,14 +57,23 @@ public class KeywordSelectionView extends DataSelectionView {
             super.onRestoreInstanceState(state);
             return;
         }
-        SavedState ss = (SavedState)state;
-        super.onRestoreInstanceState(ss.getSuperState());
+        SavedState savedState = (SavedState)state;
+        if (savedState.keyword != null && !savedState.keyword.isEmpty()) {
+            keywordView.setKeyword(savedState.keyword);
+            showData();
+        } else {
+            showHint();
+        }
+        super.onRestoreInstanceState(savedState.getSuperState());
     }
 
     public static class SavedState extends android.view.View.BaseSavedState {
 
+        String keyword;
+
         SavedState(Parcel in) {
             super(in);
+            keyword = in.readString();
         }
 
         SavedState(Parcelable superState) {
@@ -71,6 +83,7 @@ public class KeywordSelectionView extends DataSelectionView {
         @Override
         public void writeToParcel(Parcel out, int flags) {
             super.writeToParcel(out, flags);
+            out.writeString(keyword);
         }
 
         public static final Parcelable.Creator<SavedState> CREATOR
