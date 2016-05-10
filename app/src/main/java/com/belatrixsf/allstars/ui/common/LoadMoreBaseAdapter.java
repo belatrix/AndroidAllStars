@@ -86,8 +86,22 @@ public abstract class LoadMoreBaseAdapter<T,VH extends RecyclerView.ViewHolder> 
         notifyDataSetChanged();
     }
 
+    public void updatePaginationData(int currentPage, int itemsPerPage, List<T> data) {
+        setLoading(false);
+
+        boolean isNewData = (currentPage == 1);
+        if (isNewData) {
+            this.data = data;
+        } else {
+            int firstPosition = (itemsPerPage*(currentPage-1))-1;
+            this.data.addAll(data.subList(firstPosition, data.size()));
+        }
+        notifyDataSetChanged();
+    }
+
     public void clear() {
         data.clear();
+        notifyDataSetChanged();
     }
 
     public void setLoading(boolean loading) {

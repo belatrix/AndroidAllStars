@@ -72,6 +72,7 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     public static final String ARG_PROFILE_ENABLED_KEY = "_is_search";
     private static final String STATE_EMPLOYEES_KEY = "employees_key";
     private static final String STATE_ACTION_MODE_KEY = "action_mode_key";
+    private static final String CURRENT_PAGE_KEY = "_current_page_key";
 
     private ContactsListPresenter contactsListPresenter;
     private ContactsListFragmentListener contactsListFragmentListener;
@@ -141,7 +142,8 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
             restoreState(savedInstanceState);
             contactsListPresenter.shouldShowActionMode();
         }else{
-            contactsListPresenter.setCurrentPage(0);
+            contactsListPresenter.setCurrentPage(1);
+            contactsListPresenter.setHasNextPage(true);
         }
         contactsListPresenter.getContacts();
     }
@@ -155,39 +157,47 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     private void restoreState(Bundle savedInstanceState) {
         List<Employee> savedContacts = savedInstanceState.getParcelableArrayList(STATE_EMPLOYEES_KEY);
         boolean actionModeEnabled = savedInstanceState.getBoolean(STATE_ACTION_MODE_KEY);
+        int currentPage = savedInstanceState.getInt(CURRENT_PAGE_KEY);
         contactsListPresenter.loadSavedContacts(savedContacts);
         contactsListPresenter.setInActionMode(actionModeEnabled);
+        contactsListPresenter.setCurrentPage(currentPage);
     }
 
     private void saveState(Bundle outState) {
         List<Employee> forSavingContacts = contactsListPresenter.getForSavingContacts();
         boolean forSavingActionMode = contactsListPresenter.isInActionMode();
+        int forSavingCurrentPage = contactsListPresenter.getCurrentPage();
         if (forSavingContacts != null && forSavingContacts instanceof ArrayList) {
             outState.putParcelableArrayList(STATE_EMPLOYEES_KEY, (ArrayList<Employee>) forSavingContacts);
             outState.putBoolean(STATE_ACTION_MODE_KEY, forSavingActionMode);
+            outState.putInt(CURRENT_PAGE_KEY, forSavingCurrentPage);
         }
     }
 
     private void initViews() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         contactsListAdapter = new ContactsListAdapter(this);
         contactsRecyclerView.setAdapter(contactsListAdapter);
-        contactsRecyclerView.setLayoutManager(linearLayoutManager);
         contactsRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
+        preparePagination();
+    }
+
+    private void preparePagination(){
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        contactsRecyclerView.setLayoutManager(linearLayoutManager);
         contactsRecyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
             @Override
-            public void onLoadMore(int current_page) {
+            public void onLoadMore(int currentPage) {
                 if (contactsListAdapter != null && contactsListPresenter.hasNextPage()) {
-                    contactsListPresenter.setCurrentPage(current_page);
+                    contactsListPresenter.setCurrentPage(currentPage);
                     contactsListPresenter.getContacts();
                 }
             }
         });
     }
 
-        @Override
-    public void showContacts(List<Employee> contacts) {
-        contactsListAdapter.updateData(contacts);
+    @Override
+    public void showContacts(int currentPage, List<Employee> contacts) {
+        contactsListAdapter.updatePaginationData(currentPage, 20, contacts);
     }
 
     @Override
@@ -262,6 +272,7 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
             mode.setCustomView(customView);
             searchTermEditText.requestFocus();
             KeyboardUtils.showKeyboard(getActivity(), searchTermEditText);
+            contactsListPresenter.setCurrentPage(1);
             return true;
         }
 
@@ -281,6 +292,8 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
         // Called when the user exits the action mode
         @Override
         public void onDestroyActionMode(ActionMode mode) {
+            contactsListPresenter.setCurrentPage(1);
+            contactsListPresenter.setHasNextPage(true);
             contactsListPresenter.setInActionMode(false);
             contactsListPresenter.getContacts();
             KeyboardUtils.hideKeyboard(getActivity(), getView());

@@ -30,7 +30,7 @@ import java.util.List;
  */
 public interface ContactsListView extends AllStarsView {
 
-    void showContacts(List<Employee> contacts);
+    void showContacts(int currentPage, List<Employee> contacts);
     void startActionMode();
     void showCleanButton();
     void hideCleanButton();

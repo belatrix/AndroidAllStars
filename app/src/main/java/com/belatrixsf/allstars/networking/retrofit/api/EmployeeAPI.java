@@ -44,13 +44,13 @@ public interface EmployeeAPI {
     Call<AuthenticationResponse> authenticate(@Body AuthenticationRequest request);
 
     @GET(ServerPaths.EMPLOYEE_BY_ID)
-    Call<Employee> getEmployee(@Query(ServerPaths.PAGE) int page, @Path(ServerPaths.EMPLOYEE_ID) int employeeId);
+    Call<Employee> getEmployee(@Path(ServerPaths.EMPLOYEE_ID) int employeeId);
 
     @GET(ServerPaths.EMPLOYEE_LIST)
-    Call<SearchEmployeeResponse> getEmployees();
+    Call<SearchEmployeeResponse> getEmployees(@Query(ServerPaths.PAGE) int page);
 
-    @GET(ServerPaths.EMPLOYEE_SEARCH_TERM)
-    Call<SearchEmployeeResponse> getEmployeeSearchList(@Path(ServerPaths.SEARCH_TERM) String searchTerm);
+    @GET(ServerPaths.EMPLOYEE_LIST)
+    Call<SearchEmployeeResponse> getEmployeeSearchList(@Query(ServerPaths.SEARCH_TERM) String searchTerm, @Query(ServerPaths.PAGE) int page);
 
     @GET(ServerPaths.RANKING_LIST)
     Call<List<Employee>> getRankingList(@Path(ServerPaths.KIND) String kind, @Path(ServerPaths.QUANTITY) int quantity);

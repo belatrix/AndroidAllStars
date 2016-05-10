@@ -42,7 +42,7 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
     private boolean inActionMode = false;
     private boolean profileEnabled = true;
     private int currentPage = 1;
-    private boolean hasNextPage = false;
+    private boolean hasNextPage = true;
 
     @Inject
     public ContactsListPresenter(ContactsListView view, EmployeeService employeeService) {
@@ -93,14 +93,21 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
     }
 
     public void getContacts() {
-        if (!inActionMode || employees == null) {
+        int loadedContacts = (currentPage)*20;
+        boolean allreadyLoaded = (employees != null && loadedContacts == employees.size());
+        if (!allreadyLoaded && hasNextPage) {
             view.showProgressIndicator();
-            employeeService.getEmployees(currentPage+1, new AllStarsCallback<SearchEmployeeResponse>() {
+            employeeService.getEmployees(currentPage, new AllStarsCallback<SearchEmployeeResponse>() {
                 @Override
                 public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
-                    hasNextPage = (searchEmployeeResponse.getNext() != null);
-                    employees = searchEmployeeResponse.getEmployeeList();
-                    view.showContacts(searchEmployeeResponse.getEmployeeList());
+                    hasNextPage = (searchEmployeeResponse.getNext() != null && !searchEmployeeResponse.getNext().isEmpty());
+                    boolean isFirstPage = (currentPage == 1);
+                    if (isFirstPage){
+                        employees = searchEmployeeResponse.getEmployeeList();
+                    } else {
+                        employees.addAll(searchEmployeeResponse.getEmployeeList());
+                    }
+                    view.showContacts(currentPage, employees);
                 }
 
                 @Override
@@ -108,15 +115,15 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
                     showError(serviceError.getErrorMessage());
                 }
             });
-        }else{
-            view.showContacts(employees);
+        } else {
+            view.showContacts(currentPage, employees);
         }
     }
 
     public void onSearchTermChange(String newSearchTerm){
         if (newSearchTerm.length()>0){
             view.showCleanButton();
-        }else{
+        } else {
             view.hideCleanButton();
         }
     }
@@ -124,12 +131,18 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
     public void submitSearchTerm(String searchTerm){
         if (!searchTerm.isEmpty()) {
             //view.showProgressIndicator();
-            employeeService.getEmployeeSearchList(searchTerm, new AllStarsCallback<SearchEmployeeResponse>() {
+            employeeService.getEmployeeSearchList(searchTerm, currentPage, new AllStarsCallback<SearchEmployeeResponse>() {
                 @Override
                 public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
-                    employees = searchEmployeeResponse.getEmployeeList();
+                    hasNextPage = (searchEmployeeResponse.getNext() != null && !searchEmployeeResponse.getNext().isEmpty());
+                    boolean isFirstPage = (currentPage == 1);
+                    if (isFirstPage){
+                        employees = searchEmployeeResponse.getEmployeeList();
+                    } else {
+                        employees.addAll(searchEmployeeResponse.getEmployeeList());
+                    }
                     //view.hideProgressIndicator();
-                    view.showContacts(searchEmployeeResponse.getEmployeeList());
+                    view.showContacts(currentPage, searchEmployeeResponse.getEmployeeList());
                 }
 
                 @Override
@@ -137,7 +150,7 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
                     showError(serviceError.getErrorMessage());
                 }
             });
-        }else{
+        } else {
             showError(getString(R.string.empty_search_term));
         }
     }
