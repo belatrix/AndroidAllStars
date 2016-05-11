@@ -3,6 +3,7 @@ package com.belatrixsf.allstars.ui.stars;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.networking.retrofit.requests.StarRequest;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarResponse;
@@ -22,6 +23,7 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
     private EmployeeManager employeeManager;
     private Employee selectedEmployee;
     private Category selectedSubCategory;
+    private Keyword selectedKeyword;
     private String selectedComment;
     private boolean initWithUser = false;
 
@@ -64,19 +66,32 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
         return selectedComment;
     }
 
+    public Keyword getSelectedKeyword() {
+        return selectedKeyword;
+    }
+
+    public void keywordSelectionClicked() {
+        //TODO: Remove this
+        selectedKeyword = new Keyword();
+        selectedKeyword.setData(1,"Android");
+        loadSelectedKeyword(selectedKeyword);
+    }
+
     public void loadSelectedUser(Employee employee) {
-        checkRecommendationEnabled();
-        if (employee.getFullName() != null && !employee.getFullName().isEmpty()) {
-            view.showUserFullName(employee.getFullName());
+        if (employee != null) {
+            checkRecommendationEnabled();
+            if (employee.getFullName() != null && !employee.getFullName().isEmpty()) {
+                view.showUserFullName(employee.getFullName());
+            }
+            if (employee.getLevel() != null && !employee.getLevel().toString().isEmpty()) {
+                view.showUserLevel(String.valueOf(employee.getLevel()));
+            }
+            if (employee.getAvatar() != null) {
+                view.showUserProfileImage(employee.getAvatar());
+            }
+            this.selectedEmployee = employee;
+            view.showUser();
         }
-        if (employee.getLevel() != null && !employee.getLevel().toString().isEmpty()) {
-            view.showUserLevel(String.valueOf(employee.getLevel()));
-        }
-        if (employee.getAvatar() != null) {
-            view.showUserProfileImage(employee.getAvatar());
-        }
-        this.selectedEmployee = employee;
-        view.showUser();
     }
 
     public void loadSelectedComment(String comment) {
@@ -95,12 +110,20 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
         }
     }
 
+    public void loadSelectedKeyword(Keyword keyword) {
+        if (keyword != null) {
+            selectedKeyword = keyword;
+            view.showKeywordSelected(keyword.getName());
+            checkRecommendationEnabled();
+        }
+    }
+
     public void makeRecommendation() {
         view.showProgressDialog(getString(R.string.making_recommendation));
         employeeManager.getLoggedInEmployee(new AllStarsCallback<Employee>() {
             @Override
             public void onSuccess(Employee fromEmployee) {
-                StarRequest starRequest = new StarRequest(selectedSubCategory.getParentId(), selectedSubCategory.getId(), selectedComment);
+                StarRequest starRequest = new StarRequest(selectedSubCategory.getParentId(), selectedSubCategory.getId(), selectedComment, selectedKeyword.getId());
                 starService.star(fromEmployee.getPk(), selectedEmployee.getPk(), starRequest, new AllStarsCallback<StarResponse>() {
                     @Override
                     public void onSuccess(StarResponse starResponse) {
@@ -127,7 +150,7 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
     }
 
     private boolean validateFormComplete() {
-        return selectedEmployee != null && selectedSubCategory != null;
+        return selectedEmployee != null && selectedSubCategory != null && selectedKeyword != null;
     }
 
 }

@@ -31,4 +31,8 @@ public interface GiveStarView extends AllStarsView {
 
     void showDoneMenu(boolean show);
 
+    void goSelectKeyword();
+
+    void showKeywordSelected(String keyword);
+
 }
