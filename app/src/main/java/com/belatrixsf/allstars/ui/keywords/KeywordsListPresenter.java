@@ -18,26 +18,33 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.networking.retrofit.api;
+package com.belatrixsf.allstars.ui.keywords;
 
-import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.entities.Keyword;
+import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import retrofit.Call;
-import retrofit.http.GET;
-import retrofit.http.Path;
-
 /**
- * Created by gyosida on 4/26/16.
+ * Created by gyosida on 5/9/16.
  */
-public interface CategoryAPI {
+public abstract class KeywordsListPresenter extends AllStarsPresenter<KeywordsListView> {
 
-    @GET(ServerPaths.SUBCATEGORIES_BY_CATEGORY_ID)
-    Call<List<SubCategory>> getSubcategories(@Path(ServerPaths.CATEGORY_ID) int categoryId);
+    protected List<Keyword> keywords = new ArrayList<>();
 
-    @GET(ServerPaths.CATEGORY_KEYWORD_LIST)
-    Call<List<Keyword>> getKeywords();
+
+    protected KeywordsListPresenter(KeywordsListView keywordsListView) {
+        super(keywordsListView);
+    }
+
+    public void onKeywordSelected(int position) {
+        if (position >= 0 && position < keywords.size()) {
+            Keyword keyword = keywords.get(position);
+            view.deliverSelectedKeyword(keyword);
+        }
+    }
+
+    public abstract void getKeywords();
 
 }

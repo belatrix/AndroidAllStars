@@ -18,35 +18,44 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.services;
+package com.belatrixsf.allstars.utils.di.modules.presenters;
 
-import com.belatrixsf.allstars.entities.Category;
-import com.belatrixsf.allstars.entities.Keyword;
-import com.belatrixsf.allstars.entities.SubCategory;
-import com.belatrixsf.allstars.networking.retrofit.RetrofitCallback;
-import com.belatrixsf.allstars.networking.retrofit.api.CategoryAPI;
-import com.belatrixsf.allstars.utils.AllStarsCallback;
+import com.belatrixsf.allstars.services.StarService;
+import com.belatrixsf.allstars.ui.keywords.KeywordsListPresenter;
+import com.belatrixsf.allstars.ui.keywords.KeywordsListView;
+import com.belatrixsf.allstars.ui.keywords.KeywordsMode;
+import com.belatrixsf.allstars.ui.keywords.SearchingKeywordsListPresenter;
 
-import java.util.List;
+import dagger.Module;
+import dagger.Provides;
 
 /**
- * Created by gyosida on 4/27/16.
+ * Created by gyosida on 5/10/16.
  */
-public class CategoryServerService implements CategoryService {
+@Module
+public class KeywordsListModule {
 
-    private CategoryAPI categoryAPI;
+    private KeywordsListView keywordsListView;
+    private KeywordsMode mode;
 
-    public CategoryServerService(CategoryAPI categoryAPI) {
-        this.categoryAPI = categoryAPI;
+    public KeywordsListModule(KeywordsListView keywordsListView, KeywordsMode mode) {
+        this.keywordsListView = keywordsListView;
+        this.mode = mode;
     }
 
-    @Override
-    public void getSubcategories(int categoryId, AllStarsCallback<List<Category>> callback) {
-        categoryAPI.getSubcategories(categoryId).enqueue(new RetrofitCallback<List<SubCategory>>(callback));
+    @Provides
+    public KeywordsListView provideView() {
+        return keywordsListView;
     }
 
-    @Override
-    public void getKeywords(AllStarsCallback<List<Keyword>> callback) {
-        categoryAPI.getKeywords().enqueue(new RetrofitCallback<List<Keyword>>(callback));
+    @Provides
+    public KeywordsListPresenter providePresenter(StarService starService) {
+        switch (mode) {
+            case SEARCH:
+                return new SearchingKeywordsListPresenter(keywordsListView, starService);
+            default:
+                return null;
+        }
     }
+
 }
