@@ -94,12 +94,10 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
         boolean hasArguments = (getArguments() != null && getArguments().containsKey(StarsListActivity.USER_ID) && getArguments().containsKey(StarsListActivity.SUBCATEGORY_ID));
         if (savedInstanceState != null) {
             restoreState(savedInstanceState);
-        } else {
-            if (hasArguments) {
+        } else if (hasArguments) {
                 Integer userId = getArguments().getInt(StarsListActivity.USER_ID);
                 Integer categoryId = getArguments().getInt(StarsListActivity.SUBCATEGORY_ID);
                 starsListPresenter.getStars(userId, categoryId);
-            }
         }
     }
 
@@ -150,14 +148,12 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
 
     @Override
     public void showProgressIndicator() {
-        super.showProgressIndicator();
         starsListAdapter.setLoading(true);
         endlessRecyclerOnScrollListener.setLoading(true);
     }
 
     @Override
     public void hideProgressIndicator() {
-        super.hideProgressIndicator();
         starsListAdapter.setLoading(false);
         endlessRecyclerOnScrollListener.setLoading(false);
     }
