@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Star;
+import com.belatrixsf.allstars.ui.common.LoadMoreBaseAdapter;
 import com.belatrixsf.allstars.ui.common.views.KeywordView;
 import com.belatrixsf.allstars.utils.DateUtils;
 import com.belatrixsf.allstars.utils.media.ImageFactory;
@@ -42,9 +43,8 @@ import butterknife.ButterKnife;
 /**
  * Created by icerrate on 25/04/2016.
  */
-public class StarsListAdapter extends RecyclerView.Adapter<StarsListAdapter.StarViewHolder> {
+public class StarsListAdapter extends LoadMoreBaseAdapter<Star> {
 
-    private List<Star> starList;
     private String noMessagePlaceHolder;
 
     public StarsListAdapter(Context context) {
@@ -52,40 +52,42 @@ public class StarsListAdapter extends RecyclerView.Adapter<StarsListAdapter.Star
     }
 
     public StarsListAdapter(Context context, List<Star> starList) {
-        this.starList = starList;
+        this.data = starList;
         this.noMessagePlaceHolder = context.getString(R.string.message_placeholder);
     }
 
     @Override
-    public StarViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateDataViewHolder(ViewGroup parent, int viewType) {
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_star, parent, false);
         return new StarViewHolder(layoutView);
     }
 
     @Override
-    public void onBindViewHolder(final StarViewHolder holder, int position) {
-        Star star = starList.get(position);
-        String formattedDate = DateUtils.formatDate(star.getDate(), DateUtils.DATE_FORMAT_1, DateUtils.DATE_FORMAT_2);
-        String message = star.getMessage() != null && !star.getMessage().isEmpty() ? star.getMessage() : noMessagePlaceHolder;
-        String keyword = star.getKeyword().getName();
-        holder.employeeFullNameTextView.setText(star.getFromUser().getFullName());
-        holder.starDateTextView.setText(formattedDate);
-        holder.starMessageTextView.setText(message);
-        holder.starCategoryTextView.setText(star.getCategory().getName());
-        holder.starKeywordView.setKeyword(keyword);
-        if (star.getFromUser().getAvatar() != null) {
-            ImageFactory.getLoader().loadFromUrl(star.getFromUser().getAvatar(), holder.photoImageView, ImageLoader.ImageTransformation.CIRCLE);
+    public void onBindDataViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof StarViewHolder) {
+            StarViewHolder starViewHolder = (StarViewHolder) holder;
+            Star star = data.get(position);
+            String formattedDate = DateUtils.formatDate(star.getDate(), DateUtils.DATE_FORMAT_1, DateUtils.DATE_FORMAT_2);
+            String message = star.getMessage() != null && !star.getMessage().isEmpty() ? star.getMessage() : noMessagePlaceHolder;
+            String keyword = star.getKeyword().getName();
+            starViewHolder.employeeFullNameTextView.setText(star.getFromUser().getFullName());
+            starViewHolder.starDateTextView.setText(formattedDate);
+            starViewHolder.starMessageTextView.setText(message);
+            starViewHolder.starCategoryTextView.setText(star.getCategory().getName());
+            starViewHolder.starKeywordView.setKeyword(keyword);
+            if (star.getFromUser().getAvatar() != null) {
+                ImageFactory.getLoader().loadFromUrl(star.getFromUser().getAvatar(), starViewHolder.photoImageView, ImageLoader.ImageTransformation.CIRCLE);
+            }
         }
     }
 
     @Override
-    public int getItemCount() {
-        return this.starList.size();
+    public int getDataItemViewType(int position) {
+        return 1;
     }
 
     public void updateData(List<Star> stars) {
-        starList.clear();
-        starList.addAll(stars);
+        data.addAll(stars);
         notifyDataSetChanged();
     }
 

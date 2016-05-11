@@ -21,11 +21,14 @@
 package com.belatrixsf.allstars.ui.stars;
 
 import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
+import com.belatrixsf.allstars.entities.Star;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarsResponse;
 import com.belatrixsf.allstars.services.StarService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -38,6 +41,7 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
     private int employeeId;
     private int subCategoryId;
     private PaginatedResponse starPaginatedResponse = new PaginatedResponse();
+    private List<Star> stars;
 
     @Inject
     public StarsListPresenter(StarsListView view, StarService starService) {
@@ -51,23 +55,37 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
         getStars(page);
     }
 
-    public void getStars(Integer page) {
-        if (starPaginatedResponse.getNext() != null || page == 1) {
-            view.showProgressIndicator();
-            starService.getStars(employeeId, subCategoryId, page, new AllStarsCallback<StarsResponse>() {
-                @Override
-                public void onSuccess(StarsResponse starsResponse) {
-                    starPaginatedResponse.setNext(starsResponse.getNext());
-                    view.hideProgressIndicator();
-                    view.showStars(starsResponse.getStarList());
-                }
+    public List<Star> getLoadedStars(){
+        return stars;
+    }
 
-                @Override
-                public void onFailure(ServiceError serviceError) {
-                    view.hideProgressIndicator();
-                    showError(serviceError.getErrorMessage());
-                }
-            });
+    public void setLoadedStars(List<Star> stars) {
+        if (stars != null) {
+            this.stars = stars;
+        }
+    }
+
+    public void getStars(Integer page) {
+        if (stars == null) {
+            if (starPaginatedResponse.getNext() != null || page == 1) {
+                view.showProgressIndicator();
+                starService.getStars(employeeId, subCategoryId, page, new AllStarsCallback<StarsResponse>() {
+                    @Override
+                    public void onSuccess(StarsResponse starsResponse) {
+                        starPaginatedResponse.setNext(starsResponse.getNext());
+                        view.hideProgressIndicator();
+                        view.showStars(starsResponse.getStarList());
+                    }
+
+                    @Override
+                    public void onFailure(ServiceError serviceError) {
+                        view.hideProgressIndicator();
+                        showError(serviceError.getErrorMessage());
+                    }
+                });
+            }
+        } else {
+            view.showStars(stars);
         }
     }
 

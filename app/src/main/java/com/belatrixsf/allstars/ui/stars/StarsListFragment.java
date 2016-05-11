@@ -37,6 +37,7 @@ import com.belatrixsf.allstars.ui.common.EndlessRecyclerOnScrollListener;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.modules.presenters.StarsListPresenterModule;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -46,8 +47,11 @@ import butterknife.Bind;
  */
 public class StarsListFragment extends AllStarsFragment implements StarsListView {
 
+    public static final String STARS_KEY = "_stars_key";
+
     private StarsListPresenter starsListPresenter;
     private StarsListAdapter starsListAdapter;
+    private EndlessRecyclerOnScrollListener endlessRecyclerOnScrollListener;
 
     @Bind(R.id.stars) RecyclerView starsRecyclerView;
 
@@ -83,10 +87,32 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews();
-        if (getArguments() != null && getArguments().containsKey(StarsListActivity.USER_ID) && getArguments().containsKey(StarsListActivity.SUBCATEGORY_ID)) {
+        boolean hasArguments = (getArguments() != null && getArguments().containsKey(StarsListActivity.USER_ID) && getArguments().containsKey(StarsListActivity.SUBCATEGORY_ID));
+        if (savedInstanceState != null) {
+            restoreState(savedInstanceState);
+        }
+        if (hasArguments) {
             Integer userId = getArguments().getInt(StarsListActivity.USER_ID);
             Integer categoryId = getArguments().getInt(StarsListActivity.SUBCATEGORY_ID);
             starsListPresenter.getStars(userId, categoryId, 1);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        saveState(outState);
+        super.onSaveInstanceState(outState);
+    }
+
+    private void restoreState(Bundle savedInstanceState) {
+        List<Star> savedStars = savedInstanceState.getParcelableArrayList(STARS_KEY);
+        starsListPresenter.setLoadedStars(savedStars);
+    }
+
+    private void saveState(Bundle outState) {
+        List<Star> forSavingStars = starsListPresenter.getLoadedStars();
+        if (forSavingStars != null && forSavingStars instanceof ArrayList) {
+            outState.putParcelableArrayList(STARS_KEY, (ArrayList<Star>) forSavingStars);
         }
     }
 
@@ -95,12 +121,13 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
         starsRecyclerView.setAdapter(starsListAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         starsRecyclerView.setLayoutManager(linearLayoutManager);
-        starsRecyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
+        endlessRecyclerOnScrollListener = new EndlessRecyclerOnScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int current_page) {
                 starsListPresenter.getStars(current_page);
             }
-        });
+        };
+        starsRecyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);
     }
 
     @Override
@@ -112,11 +139,13 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
     public void showProgressIndicator() {
         super.showProgressIndicator();
         starsListAdapter.setLoading(true);
+        endlessRecyclerOnScrollListener.setLoading(true);
     }
 
     @Override
     public void hideProgressIndicator() {
         super.hideProgressIndicator();
         starsListAdapter.setLoading(false);
+        endlessRecyclerOnScrollListener.setLoading(false);
     }
 }

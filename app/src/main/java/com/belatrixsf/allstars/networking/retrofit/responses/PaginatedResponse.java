@@ -26,31 +26,27 @@ package com.belatrixsf.allstars.networking.retrofit.responses;
 public class PaginatedResponse {
 
     private int count;
-    private Integer next;
-    private Integer previous;
+    private String next;
+    private String previous;
 
     public int getCount() {
         return count;
     }
 
-    public Integer getNext() {
+    public String getNext() {
         return next;
     }
 
-    public Integer getPrevious() {
+    public String getPrevious() {
         return previous;
+    }
+
+    public void setNext(String next) {
+        this.next = next;
     }
 
     public void setCount(int count) {
         this.count = count;
-    }
-
-    public void setNext(Integer next) {
-        this.next = next;
-    }
-
-    public void setPrevious(Integer previous) {
-        this.previous = previous;
     }
 
     public void reset() {

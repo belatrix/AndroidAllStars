@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by PedroCarrillo on 4/26/16.
  */
-public abstract class LoadMoreBaseAdapter<T,VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public abstract class LoadMoreBaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     protected static final int VIEW_TYPE_LOAD = 0;
 

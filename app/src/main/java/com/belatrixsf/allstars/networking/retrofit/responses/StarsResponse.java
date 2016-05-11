@@ -28,27 +28,14 @@ import java.util.List;
 /**
  * Created by icerrate on 25/04/2016.
  */
-public class StarsResponse {
+public class StarsResponse extends PaginatedResponse {
 
-    private int count;
-    private String next;
-    private String previous;
     @SerializedName("results")
     private List<Star> starList;
-
-    public int getCount() {
-        return count;
-    }
-
-    public String getNext() {
-        return next;
-    }
-
-    public String getPrevious() {
-        return previous;
-    }
 
     public List<Star> getStarList() {
         return starList;
     }
+
+
 }
