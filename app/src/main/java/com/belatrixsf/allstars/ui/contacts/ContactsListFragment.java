@@ -53,7 +53,6 @@ import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.EndlessRecyclerOnScrollListener;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
-import com.belatrixsf.allstars.ui.common.views.searchingview.SearchingView;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.KeyboardUtils;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsListPresenterModule;
@@ -83,6 +82,8 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     private ContactsListFragmentListener contactsListFragmentListener;
     private EndlessRecyclerOnScrollListener endlessRecyclerOnScrollListener;
 
+    private EditText searchTermEditText;
+    private ImageButton cleanImageButton;
     private ImageView photoImageView;
 
     @Bind(R.id.employees) RecyclerView contactsRecyclerView;

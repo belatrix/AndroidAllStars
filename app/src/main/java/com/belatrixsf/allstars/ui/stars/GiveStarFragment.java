@@ -42,7 +42,6 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
     public static final int RQ_CONTACT = 100;
     public static final int RQ_COMMENT = 101;
     public static final int RQ_SUBCATEGORY = 102;
-    public static final int RQ_KEYWORD = 103;
 
     private GiveStarPresenter giveStarPresenter;
     private MenuItem menuDone;

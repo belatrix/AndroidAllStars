@@ -148,7 +148,7 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
     public void submitSearchTerm(String searchTerm){
         if (!searchTerm.isEmpty()) {
             //view.showProgressIndicator();
-            employeeService.getEmployees(searchTerm, new AllStarsCallback<SearchEmployeeResponse>() {
+            employeeService.getEmployeeSearchList(searchTerm, new AllStarsCallback<SearchEmployeeResponse>() {
                 @Override
                 public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
                     employees = searchEmployeeResponse.getEmployeeList();
