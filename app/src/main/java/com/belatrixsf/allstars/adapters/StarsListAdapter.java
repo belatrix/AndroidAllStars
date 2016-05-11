@@ -72,7 +72,7 @@ public class StarsListAdapter extends LoadMoreBaseAdapter<Star> {
             String keyword = star.getKeyword().getName();
             starViewHolder.employeeFullNameTextView.setText(star.getFromUser().getFullName());
             starViewHolder.starDateTextView.setText(formattedDate);
-            starViewHolder.starMessageTextView.setText("pk: " + star.getId() + " position: "+position);
+            starViewHolder.starMessageTextView.setText(message);
             starViewHolder.starCategoryTextView.setText(star.getCategory().getName());
             starViewHolder.starKeywordView.setKeyword(keyword);
             if (star.getFromUser().getAvatar() != null) {
