@@ -39,6 +39,8 @@ public interface ServerPaths {
     String CATEGORY_ID = "category_id";
     String PAGE = "page";
 
+    String QUERY_SEARCH = "search";
+    String QUERY_NEXT = "next";
     String QUERY_PAGE = "page";
 
     String QUERY_SEARCH = "search";

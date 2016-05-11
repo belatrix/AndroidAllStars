@@ -32,6 +32,14 @@ public class PaginatedResponse implements Parcelable {
     private String next;
     private String previous;
 
+    public PaginatedResponse() {}
+
+    protected PaginatedResponse(Parcel in) {
+        count = in.readInt();
+        next = in.readString();
+        previous = in.readString();
+    }
+
     public int getCount() {
         return count;
     }
@@ -56,15 +64,6 @@ public class PaginatedResponse implements Parcelable {
         count = 0;
         next = null;
         previous = null;
-    }
-
-    public PaginatedResponse() {
-    }
-
-    protected PaginatedResponse(Parcel in) {
-        count = in.readInt();
-        next = in.readString();
-        previous = in.readString();
     }
 
     @Override
