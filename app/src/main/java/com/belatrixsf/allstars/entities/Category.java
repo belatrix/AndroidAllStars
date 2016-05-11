@@ -35,13 +35,14 @@ public class Category implements Parcelable {
     @SerializedName(value = "name", alternate = {"subcategory__name"})
     private String name;
     private int weight;
-    private transient int parentId;
+    @SerializedName("comment_required")
+    private boolean commentRequired;
 
     protected Category(Parcel in) {
         id = in.readByte() == 0x00 ? null : in.readInt();
         name = in.readString();
         weight = in.readInt();
-        parentId = in.readInt();
+        commentRequired = in.readByte() != 0x00;
     }
 
     @Override
@@ -59,7 +60,7 @@ public class Category implements Parcelable {
         }
         dest.writeString(name);
         dest.writeInt(weight);
-        dest.writeInt(parentId);
+        dest.writeByte((byte) (commentRequired ? 0x01 : 0x00));
     }
 
     public Integer getId() {
@@ -78,12 +79,20 @@ public class Category implements Parcelable {
         return weight;
     }
 
-    public int getParentId() {
-        return parentId;
+    public boolean isCommentRequired() {
+        return commentRequired;
     }
 
-    public void setParentId(int parentId) {
-        this.parentId = parentId;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public void setCommentRequired(boolean commentRequired) {
+        this.commentRequired = commentRequired;
     }
 
     @SuppressWarnings("unused")

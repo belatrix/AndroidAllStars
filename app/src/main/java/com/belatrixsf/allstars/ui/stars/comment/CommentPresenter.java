@@ -16,11 +16,11 @@ public class CommentPresenter extends AllStarsPresenter<CommentView> {
     }
 
     public void validateComment(String comment) {
-        if (comment.isEmpty()) {
-            view.showError(getString(R.string.comment_no_empty_error));
-        } else {
+//        if (comment.isEmpty()) {
+//            view.showError(getString(R.string.comment_no_empty_error));
+//        } else {
             view.selectComment(comment);
-        }
+//        }
     }
 
     public void init(String comment) {
