@@ -31,7 +31,9 @@ import android.view.ViewGroup;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.StarsListAdapter;
 import com.belatrixsf.allstars.entities.Star;
+import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
+import com.belatrixsf.allstars.ui.common.EndlessRecyclerOnScrollListener;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.modules.presenters.StarsListPresenterModule;
 
@@ -84,14 +86,21 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
         if (getArguments() != null && getArguments().containsKey(StarsListActivity.USER_ID) && getArguments().containsKey(StarsListActivity.SUBCATEGORY_ID)) {
             Integer userId = getArguments().getInt(StarsListActivity.USER_ID);
             Integer categoryId = getArguments().getInt(StarsListActivity.SUBCATEGORY_ID);
-            starsListPresenter.getStars(userId, categoryId);
+            starsListPresenter.getStars(userId, categoryId, 1);
         }
     }
 
     private void initViews() {
         starsListAdapter = new StarsListAdapter(getActivity());
         starsRecyclerView.setAdapter(starsListAdapter);
-        starsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        starsRecyclerView.setLayoutManager(linearLayoutManager);
+        starsRecyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int current_page) {
+                starsListPresenter.getStars(current_page);
+            }
+        });
     }
 
     @Override
@@ -99,4 +108,15 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
         starsListAdapter.updateData(stars);
     }
 
+    @Override
+    public void showProgressIndicator() {
+        super.showProgressIndicator();
+        starsListAdapter.setLoading(true);
+    }
+
+    @Override
+    public void hideProgressIndicator() {
+        super.hideProgressIndicator();
+        starsListAdapter.setLoading(false);
+    }
 }

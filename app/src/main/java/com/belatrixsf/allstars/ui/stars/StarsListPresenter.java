@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.allstars.ui.stars;
 
+import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarsResponse;
 import com.belatrixsf.allstars.services.StarService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
@@ -34,6 +35,9 @@ import javax.inject.Inject;
 public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
 
     private StarService starService;
+    private int employeeId;
+    private int subCategoryId;
+    private PaginatedResponse starPaginatedResponse = new PaginatedResponse();
 
     @Inject
     public StarsListPresenter(StarsListView view, StarService starService) {
@@ -41,19 +45,30 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
         this.starService = starService;
     }
 
-    public void getStars(int employeeId, int subcategoryId) {
-        view.showProgressIndicator();
-        starService.getStars(employeeId, subcategoryId, new AllStarsCallback<StarsResponse>() {
-            @Override
-            public void onSuccess(StarsResponse starsResponse) {
-                view.hideProgressIndicator();
-                view.showStars(starsResponse.getStarList());
-            }
-
-            @Override
-            public void onFailure(ServiceError serviceError) {
-                showError(serviceError.getErrorMessage());
-            }
-        });
+    public void getStars(int employeeId, int subcategoryId, Integer page) {
+        this.employeeId = employeeId;
+        this.subCategoryId = subcategoryId;
+        getStars(page);
     }
+
+    public void getStars(Integer page) {
+        if (starPaginatedResponse.getNext() != null || page == 1) {
+            view.showProgressIndicator();
+            starService.getStars(employeeId, subCategoryId, page, new AllStarsCallback<StarsResponse>() {
+                @Override
+                public void onSuccess(StarsResponse starsResponse) {
+                    starPaginatedResponse.setNext(starsResponse.getNext());
+                    view.hideProgressIndicator();
+                    view.showStars(starsResponse.getStarList());
+                }
+
+                @Override
+                public void onFailure(ServiceError serviceError) {
+                    view.hideProgressIndicator();
+                    showError(serviceError.getErrorMessage());
+                }
+            });
+        }
+    }
+
 }
