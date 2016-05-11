@@ -39,6 +39,8 @@ public interface ServerPaths {
     String CATEGORY_ID = "category_id";
     String PAGE = "page";
 
+    String QUERY_PAGE = "page";
+
     String EMPLOYEE_AUTHENTICATE = EMPLOYEE + "/authenticate/";
     String EMPLOYEE_LIST = EMPLOYEE + "/list/";
     String EMPLOYEE_BY_ID = EMPLOYEE + "/{" + EMPLOYEE_ID + "}";

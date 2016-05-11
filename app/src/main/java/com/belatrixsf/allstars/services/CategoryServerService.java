@@ -21,6 +21,7 @@
 package com.belatrixsf.allstars.services;
 
 import com.belatrixsf.allstars.entities.Category;
+import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.networking.retrofit.RetrofitCallback;
 import com.belatrixsf.allstars.networking.retrofit.api.CategoryAPI;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
@@ -40,6 +41,6 @@ public class CategoryServerService implements CategoryService {
 
     @Override
     public void getSubcategories(int categoryId, AllStarsCallback<List<Category>> callback) {
-        categoryAPI.getSubcategories(categoryId).enqueue(new RetrofitCallback<List<Category>>(callback));
+        categoryAPI.getSubcategories(categoryId).enqueue(new RetrofitCallback<List<SubCategory>>(callback));
     }
 }

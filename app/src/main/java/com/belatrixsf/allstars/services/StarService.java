@@ -15,6 +15,6 @@ public interface StarService {
 
     void star(int fromEmployeeId, int toEmployeeId, StarRequest starRequest, AllStarsCallback<StarResponse> callback);
 
-    void getStars(int employeeId, int subcategory, AllStarsCallback<StarsResponse> callback);
+    void getStars(int employeeId, int subcategory, Integer page, AllStarsCallback<StarsResponse> callback);
 
 }

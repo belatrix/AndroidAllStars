@@ -14,6 +14,7 @@ import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.Keyword;
+import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.ui.category.CategoriesActivity;
 import com.belatrixsf.allstars.ui.common.views.KeywordSelectionView;
 import com.belatrixsf.allstars.ui.stars.comment.CommentActivity;
@@ -96,7 +97,7 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
     private void restoreState(Bundle savedInstanceState) {
         Employee savedEmployee = savedInstanceState.getParcelable(SELECTED_USER_KEY);
         String savedComment = savedInstanceState.getString(COMMENT_KEY);
-        Category savedCategory = savedInstanceState.getParcelable(SELECTED_CATEGORY_KEY);
+        SubCategory savedCategory = savedInstanceState.getParcelable(SELECTED_CATEGORY_KEY);
         Keyword savedKeyword = savedInstanceState.getParcelable(SELECTED_KEYWORD_KEY);
         giveStarPresenter.loadSelectedUser(savedEmployee);
         giveStarPresenter.loadSelectedComment(savedComment);
@@ -199,6 +200,11 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
     }
 
     @Override
+    public void showCommentHint() {
+        commentSelectionView.showHint();
+    }
+
+    @Override
     public void goWriteComment(String comment) {
         Intent intent = new Intent(getActivity(), CommentActivity.class);
         intent.putExtra(COMMENT_KEY, comment);
@@ -243,7 +249,7 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
             } else if (requestCode == RQ_COMMENT) {
                 giveStarPresenter.loadSelectedComment(data.getStringExtra(COMMENT_KEY));
             } else if (requestCode == RQ_SUBCATEGORY) {
-                giveStarPresenter.loadSelectedSubCategory((Category) data.getParcelableExtra(CategoriesActivity.SUBCATEGORY_KEY));
+                giveStarPresenter.loadSelectedSubCategory((SubCategory) data.getParcelableExtra(CategoriesActivity.SUBCATEGORY_KEY));
             }
         }
     }
