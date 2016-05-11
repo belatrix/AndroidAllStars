@@ -80,11 +80,6 @@ public class ContactsListAdapter extends LoadMoreBaseAdapter<Employee, ContactsL
         return TYPE_EMPLOYEE;
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        return TYPE_EMPLOYEE;
-    }
-
     static class ContactViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @Bind(R.id.contact_photo) public ImageView photoImageView;

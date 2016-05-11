@@ -332,4 +332,10 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     public void hideCleanButton() {
         cleanImageButton.setVisibility(View.INVISIBLE);
     }
+
+    @Override
+    public void showListLoading(boolean loading) {
+        contactsListAdapter.setLoading(loading);
+    }
+
 }

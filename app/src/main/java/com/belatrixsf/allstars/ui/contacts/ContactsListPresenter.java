@@ -97,6 +97,7 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
         boolean allreadyLoaded = (employees != null && loadedContacts == employees.size());
         if (!allreadyLoaded && hasNextPage) {
             view.showProgressIndicator();
+            view.showListLoading(true);
             employeeService.getEmployees(currentPage, new AllStarsCallback<SearchEmployeeResponse>() {
                 @Override
                 public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
@@ -106,11 +107,13 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
                     } else {
                         employees.addAll(searchEmployeeResponse.getEmployeeList());
                     }
+                    view.showListLoading(false);
                     view.showContacts(currentPage, employees);
                 }
 
                 @Override
                 public void onFailure(ServiceError serviceError) {
+                    view.showListLoading(false);
                     showError(serviceError.getErrorMessage());
                 }
             });
