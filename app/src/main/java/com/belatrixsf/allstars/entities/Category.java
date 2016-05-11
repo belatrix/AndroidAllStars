@@ -45,10 +45,6 @@ public class Category implements Parcelable {
         commentRequired = in.readByte() != 0x00;
     }
 
-    protected Category() {
-
-    }
-
     @Override
     public int describeContents() {
         return 0;

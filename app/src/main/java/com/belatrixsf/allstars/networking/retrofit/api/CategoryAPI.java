@@ -20,7 +20,7 @@
 */
 package com.belatrixsf.allstars.networking.retrofit.api;
 
-import com.belatrixsf.allstars.entities.Category;
+import com.belatrixsf.allstars.entities.SubCategory;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ import retrofit.http.Path;
 public interface CategoryAPI {
 
     @GET(ServerPaths.SUBCATEGORIES_BY_CATEGORY_ID)
-    Call<List<Category>> getSubcategories(@Path(ServerPaths.CATEGORY_ID) int categoryId);
+    Call<List<SubCategory>> getSubcategories(@Path(ServerPaths.CATEGORY_ID) int categoryId);
 
 
 }
