@@ -30,7 +30,7 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Category implements Parcelable {
 
-    @SerializedName(value = "pk", alternate = {"subcategory__pk"})
+    @SerializedName(value = "pk", alternate = {"subcategory__pk", "id"})
     private Integer id;
     @SerializedName(value = "name", alternate = {"subcategory__name"})
     private String name;

@@ -35,6 +35,7 @@ import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.modules.presenters.StarsListPresenterModule;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -43,6 +44,8 @@ import butterknife.Bind;
  * Created by icerrate on 25/04/2016.
  */
 public class StarsListFragment extends AllStarsFragment implements StarsListView {
+
+    public static final String STARS_KEY = "_stars_key";
 
     private StarsListPresenter starsListPresenter;
     private StarsListAdapter starsListAdapter;
@@ -81,10 +84,32 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews();
-        if (getArguments() != null && getArguments().containsKey(StarsListActivity.USER_ID) && getArguments().containsKey(StarsListActivity.SUBCATEGORY_ID)) {
+        boolean hasArguments = (getArguments() != null && getArguments().containsKey(StarsListActivity.USER_ID) && getArguments().containsKey(StarsListActivity.SUBCATEGORY_ID));
+        if (savedInstanceState != null) {
+            restoreState(savedInstanceState);
+        }
+        if (hasArguments) {
             Integer userId = getArguments().getInt(StarsListActivity.USER_ID);
             Integer categoryId = getArguments().getInt(StarsListActivity.SUBCATEGORY_ID);
             starsListPresenter.getStars(userId, categoryId);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        saveState(outState);
+        super.onSaveInstanceState(outState);
+    }
+
+    private void restoreState(Bundle savedInstanceState) {
+        List<Star> savedStars = savedInstanceState.getParcelableArrayList(STARS_KEY);
+        starsListPresenter.setLoadedStars(savedStars);
+    }
+
+    private void saveState(Bundle outState) {
+        List<Star> forSavingStars = starsListPresenter.getLoadedStars();
+        if (forSavingStars != null && forSavingStars instanceof ArrayList) {
+            outState.putParcelableArrayList(STARS_KEY, (ArrayList<Star>) forSavingStars);
         }
     }
 

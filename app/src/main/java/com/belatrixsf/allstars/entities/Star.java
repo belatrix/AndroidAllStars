@@ -18,14 +18,18 @@
 */
 package com.belatrixsf.allstars.entities;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by icerrate on 25/04/2016.
  */
-public class Star {
+public class Star implements Parcelable {
 
-    private Integer pk;
+    @SerializedName(value = "pk", alternate = {"id"})
+    private Integer id;
     private String date;
     @SerializedName("text")
     private String message;
@@ -34,8 +38,8 @@ public class Star {
     private Category category;
     private Keyword keyword;
 
-    public Integer getPk() {
-        return pk;
+    public Integer getId() {
+        return id;
     }
 
     public String getDate() {
@@ -57,4 +61,46 @@ public class Star {
     public Keyword getKeyword() {
         return keyword;
     }
+
+    protected Star (Parcel in) {
+        id = in.readByte() == 0x00 ? null : in.readInt();
+        date = in.readString();
+        message = in.readString();
+        fromUser = (Employee) in.readValue(Employee.class.getClassLoader());
+        category = (Category) in.readValue(Category.class.getClassLoader());
+        keyword = (Keyword) in.readValue(Keyword.class.getClassLoader());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        if (id == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(id);
+        }
+        dest.writeString(date);
+        dest.writeString(message);
+        dest.writeValue(fromUser);
+        dest.writeValue(category);
+        dest.writeValue(keyword);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Star> CREATOR = new Parcelable.Creator<Star>() {
+        @Override
+        public Star createFromParcel(Parcel in) {
+            return new Star(in);
+        }
+
+        @Override
+        public Star[] newArray(int size) {
+            return new Star[size];
+        }
+    };
 }
