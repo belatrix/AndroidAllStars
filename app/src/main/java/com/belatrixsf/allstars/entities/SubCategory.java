@@ -8,18 +8,28 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by PedroCarrillo on 4/26/16.
  */
-public class SubCategory extends Category {
+public class SubCategory extends Category implements Parcelable {
 
     @SerializedName("num_stars")
     private Integer numStars;
+    private Category parentCategory;
+
+    protected SubCategory(Parcel in) {
+        super(in);
+        numStars = in.readByte() == 0x00 ? null : in.readInt();
+        parentCategory = (Category) in.readValue(Category.class.getClassLoader());
+    }
 
     public Integer getNumStars() {
         return numStars;
     }
 
-    protected SubCategory(Parcel in) {
-        super(in);
-        numStars = in.readByte() == 0x00 ? null : in.readInt();
+    public Category getParentCategory() {
+        return parentCategory;
+    }
+
+    public void setParentCategory(Category parentCategory) {
+        this.parentCategory = parentCategory;
     }
 
     @Override
@@ -36,6 +46,7 @@ public class SubCategory extends Category {
             dest.writeByte((byte) (0x01));
             dest.writeInt(numStars);
         }
+        dest.writeValue(parentCategory);
     }
 
     @SuppressWarnings("unused")
