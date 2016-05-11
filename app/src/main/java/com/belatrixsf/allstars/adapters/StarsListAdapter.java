@@ -45,6 +45,8 @@ import butterknife.ButterKnife;
  */
 public class StarsListAdapter extends LoadMoreBaseAdapter<Star> {
 
+    public static final int VIEW_TYPE_STAR_ITEM = 1;
+
     private String noMessagePlaceHolder;
 
     public StarsListAdapter(Context context) {
@@ -83,7 +85,7 @@ public class StarsListAdapter extends LoadMoreBaseAdapter<Star> {
 
     @Override
     public int getDataItemViewType(int position) {
-        return 1;
+        return VIEW_TYPE_STAR_ITEM;
     }
 
     public void updateData(List<Star> stars) {
