@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.allstars.ui.stars;
 
+import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.allstars.entities.Star;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarsResponse;
 import com.belatrixsf.allstars.services.StarService;
@@ -27,6 +28,7 @@ import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -37,7 +39,11 @@ import javax.inject.Inject;
 public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
 
     private StarService starService;
-    private List<Star> stars;
+    private int employeeId;
+    private int subCategoryId;
+    private PaginatedResponse starPaginatedResponse = new PaginatedResponse();
+    private List<Star> stars = new ArrayList<>();
+    private int currentPage = 1;
 
     @Inject
     public StarsListPresenter(StarsListView view, StarService starService) {
@@ -45,34 +51,64 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
         this.starService = starService;
     }
 
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public int getSubCategoryId() {
+        return subCategoryId;
+    }
+
+    public PaginatedResponse getStarPaginatedResponse() {
+        return starPaginatedResponse;
+    }
+
     public List<Star> getLoadedStars(){
         return stars;
     }
 
-    public void setLoadedStars(List<Star> stars){
-        if (stars != null ){
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setLoadedStars(int employeeId, int subCategoryId, List<Star> stars, int currentPage, PaginatedResponse starPaginatedResponse) {
+        if (stars != null) {
             this.stars = stars;
         }
+        this.employeeId = employeeId;
+        this.subCategoryId = subCategoryId;
+        this.starPaginatedResponse = starPaginatedResponse;
+        this.currentPage = currentPage;
+        view.showCurrentPage(currentPage);
+        view.showStars(stars);
     }
 
     public void getStars(int employeeId, int subcategoryId) {
-        if (stars == null) {
+        this.employeeId = employeeId;
+        this.subCategoryId = subcategoryId;
+        getStars(currentPage);
+    }
+
+    public void getStars(Integer page) {
+        if (starPaginatedResponse.getNext() != null || page == 1) {
+            currentPage = page;
             view.showProgressIndicator();
-            starService.getStars(employeeId, subcategoryId, new AllStarsCallback<StarsResponse>() {
+            starService.getStars(employeeId, subCategoryId, page, new AllStarsCallback<StarsResponse>() {
                 @Override
                 public void onSuccess(StarsResponse starsResponse) {
-                    stars = starsResponse.getStarList();
+                    stars.addAll(starsResponse.getStarList());
+                    starPaginatedResponse.setNext(starsResponse.getNext());
                     view.hideProgressIndicator();
-                    view.showStars(starsResponse.getStarList());
+                    view.showStars(stars);
                 }
 
                 @Override
                 public void onFailure(ServiceError serviceError) {
+                    view.hideProgressIndicator();
                     showError(serviceError.getErrorMessage());
                 }
             });
-        }else{
-            view.showStars(stars);
         }
     }
+
 }

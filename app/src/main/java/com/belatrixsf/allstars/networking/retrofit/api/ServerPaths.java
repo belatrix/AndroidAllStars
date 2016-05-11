@@ -38,6 +38,8 @@ public interface ServerPaths {
     String QUANTITY = "quantity";
     String CATEGORY_ID = "category_id";
 
+    String QUERY_PAGE = "page";
+
     String EMPLOYEE_AUTHENTICATE = EMPLOYEE + "/authenticate/";
     String EMPLOYEE_LIST = EMPLOYEE + "/list";
     String EMPLOYEE_SEARCH_TERM = EMPLOYEE + "/search/{" + SEARCH_TERM + "}";

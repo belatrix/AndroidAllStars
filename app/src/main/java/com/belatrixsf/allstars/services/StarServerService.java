@@ -30,7 +30,7 @@ public class StarServerService implements StarService {
     }
 
     @Override
-    public void getStars(int employeeId, int subcategory, AllStarsCallback<StarsResponse> callback) {
-        starAPI.getStars(employeeId, subcategory).enqueue(new RetrofitCallback<StarsResponse>(callback));
+    public void getStars(int employeeId, int subcategory, Integer page, AllStarsCallback<StarsResponse> callback) {
+        starAPI.getStars(employeeId, subcategory, page).enqueue(new RetrofitCallback<StarsResponse>(callback));
     }
 }
