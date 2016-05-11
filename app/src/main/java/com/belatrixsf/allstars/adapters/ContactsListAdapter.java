@@ -83,6 +83,12 @@ public class ContactsListAdapter extends LoadMoreBaseAdapter<Employee> {
         return TYPE_EMPLOYEE;
     }
 
+    public void updateData(List<Employee> contacts) {
+        data.clear();
+        data.addAll(contacts);
+        notifyDataSetChanged();
+    }
+
     static class ContactViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @Bind(R.id.contact_photo) public ImageView photoImageView;

@@ -141,7 +141,6 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
         boolean hasArguments = (getArguments() != null && getArguments().containsKey(PROFILE_ENABLED_KEY));
         if (savedInstanceState != null) {
             restoreState(savedInstanceState);
-            contactsListPresenter.shouldShowActionMode();
         } else {
             if (hasArguments){
                 contactsListPresenter.setProfileEnabled(getArguments().getBoolean(PROFILE_ENABLED_KEY));
@@ -161,8 +160,11 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
         boolean actionModeEnabled = savedInstanceState.getBoolean(ACTION_MODE_KEY);
         Integer currentPage = savedInstanceState.getInt(CURRENT_PAGE_KEY);
         PaginatedResponse paginatedResponse = savedInstanceState.getParcelable(PAGINATION_RESPONSE_KEY);
-        contactsListPresenter.setInActionMode(actionModeEnabled);
-        contactsListPresenter.setLoadedContacts(savedContacts, currentPage, paginatedResponse);
+        if (actionModeEnabled){
+            contactsListPresenter.resumeActionMode(savedContacts, currentPage, paginatedResponse);
+        } else {
+            contactsListPresenter.setLoadedContacts(savedContacts, currentPage, paginatedResponse);
+        }
     }
 
     private void saveState(Bundle outState) {
@@ -243,7 +245,7 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
         // Called when the action mode is created; startActionMode() was called
         @Override
         public boolean onCreateActionMode(final ActionMode mode, Menu menu) {
-            contactsListPresenter.setInActionMode(true);
+            contactsListPresenter.startActionMode();
             LayoutInflater inflater = getActivity().getLayoutInflater();
             View customView = inflater.inflate(R.layout.item_action_mode, null);
 
@@ -277,7 +279,7 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
                 @Override
                 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                     if (actionId == EditorInfo.IME_ACTION_SEARCH){
-                        contactsListPresenter.submitSearchTerm(v.getText().toString());
+                        contactsListPresenter.getContacts(v.getText().toString());
                         KeyboardUtils.hideKeyboard(getActivity(), getView());
                     }
                     return false;
@@ -305,7 +307,7 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
         // Called when the user exits the action mode
         @Override
         public void onDestroyActionMode(ActionMode mode) {
-            contactsListPresenter.getContacts();
+            contactsListPresenter.finishActionMode();
             KeyboardUtils.hideKeyboard(getActivity(), getView());
         }
     };
@@ -314,6 +316,11 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     public void onClick(View v) {
         photoImageView = ButterKnife.findById(v, R.id.contact_photo);
         contactsListPresenter.onContactClicked(v.getTag());
+    }
+
+    @Override
+    public void resetContacts() {
+        contactsListAdapter.clear();
     }
 
     @Override
