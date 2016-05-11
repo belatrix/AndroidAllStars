@@ -101,8 +101,7 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
                 @Override
                 public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
                     hasNextPage = (searchEmployeeResponse.getNext() != null && !searchEmployeeResponse.getNext().isEmpty());
-                    boolean isFirstPage = (currentPage == 1);
-                    if (isFirstPage){
+                    if (currentPage == 1){
                         employees = searchEmployeeResponse.getEmployeeList();
                     } else {
                         employees.addAll(searchEmployeeResponse.getEmployeeList());
