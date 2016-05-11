@@ -102,8 +102,8 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
     }
 
     private void restoreState(Bundle savedInstanceState) {
-        //List<Star> savedStars = savedInstanceState.getParcelableArrayList(STARS_KEY);
-        starsListPresenter.setLoadedStars(savedInstanceState.<Star>getParcelableArrayList(STARS_KEY));
+        List<Star> savedStars = savedInstanceState.getParcelableArrayList(STARS_KEY);
+        starsListPresenter.setLoadedStars(savedStars);
     }
 
     private void saveState(Bundle outState) {
