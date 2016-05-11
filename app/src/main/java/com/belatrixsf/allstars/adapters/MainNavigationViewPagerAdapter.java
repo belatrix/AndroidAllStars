@@ -51,7 +51,7 @@ public class MainNavigationViewPagerAdapter extends FragmentPagerAdapter {
             case 2:
                 return ContactsListFragment.newInstance(true);
             default:
-                return KeywordsListFragment.newInstance(KeywordsMode.SEARCH.getCode());
+                return KeywordsListFragment.newInstance(KeywordsMode.SEARCH);
         }
     }
 

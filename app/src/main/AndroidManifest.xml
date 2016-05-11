@@ -14,22 +14,22 @@
         <activity android:name=".ui.home.MainActivity" />
         <activity
             android:name=".ui.login.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.stars.StarsListActivity"
-            android:label="@string/title_recommendation_activity"/>
+            android:label="@string/title_recommendation_activity" />
         <activity
             android:name=".ui.stars.GiveStarActivity"
-            android:label="@string/title_give_star_activity"/>
+            android:label="@string/title_give_star_activity" />
         <activity
             android:name=".ui.account.AccountActivity"
-            android:label="@string/title_account_activity"/>
+            android:label="@string/title_account_activity" />
         <activity
             android:name=".ui.contacts.ContactsListActivity"
-            android:label="@string/title_contact_activity"/>
+            android:label="@string/title_contact_activity" />
         <activity
             android:name=".ui.stars.comment.CommentActivity"
-            android:label="@string/title_comment_activity"/>
+            android:label="@string/title_comment_activity" />
         <activity android:name=".ui.category.CategoriesActivity" />
         <activity android:name=".ui.LauncherActivity">
             <intent-filter>
@@ -38,6 +38,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.keywords.KeywordsActivity"></activity>
     </application>
 
 </manifest>

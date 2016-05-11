@@ -31,7 +31,8 @@ import java.util.List;
 public interface KeywordsListView extends AllStarsView {
 
     void addKeywords(List<Keyword> keywords);
-    void deliverSelectedKeyword(Keyword keyword);
+    void showKeywordDetail(Keyword keyword);
+    void deliverKeywordAsResult(Keyword keyword);
     void showSearchActionMode(boolean show);
 
 }

@@ -17,6 +17,8 @@ import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.ui.category.CategoriesActivity;
 import com.belatrixsf.allstars.ui.common.views.KeywordSelectionView;
+import com.belatrixsf.allstars.ui.keywords.KeywordsActivity;
+import com.belatrixsf.allstars.ui.keywords.KeywordsMode;
 import com.belatrixsf.allstars.ui.stars.comment.CommentActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.views.AccountSelectionView;
@@ -41,6 +43,7 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
     public static final int RQ_CONTACT = 100;
     public static final int RQ_COMMENT = 101;
     public static final int RQ_SUBCATEGORY = 102;
+    public static final int RQ_KEYWORD = 103;
 
     private GiveStarPresenter giveStarPresenter;
     private MenuItem menuDone;
@@ -82,7 +85,7 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
         super.onViewCreated(view, savedInstanceState);
         if (savedInstanceState != null) {
             restoreState(savedInstanceState);
-        }else if (getArguments() != null && getArguments().containsKey(SELECTED_USER_KEY)) {
+        } else if (getArguments() != null && getArguments().containsKey(SELECTED_USER_KEY)) {
             Employee employee = getArguments().getParcelable(SELECTED_USER_KEY);
             giveStarPresenter.initWithUser(employee);
         }
@@ -231,7 +234,7 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
 
     @Override
     public void goSelectKeyword() {
-        //TODO: go to select keyboard view.
+        startActivityForResult(KeywordsActivity.makeIntent(getActivity(), KeywordsMode.LIST), RQ_KEYWORD);
     }
 
     @Override
@@ -250,6 +253,8 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
                 giveStarPresenter.loadSelectedComment(data.getStringExtra(COMMENT_KEY));
             } else if (requestCode == RQ_SUBCATEGORY) {
                 giveStarPresenter.loadSelectedSubCategory((SubCategory) data.getParcelableExtra(CategoriesActivity.SUBCATEGORY_KEY));
+            } else if (requestCode == RQ_KEYWORD) {
+                giveStarPresenter.loadSelectedKeyword((Keyword) data.getParcelableExtra(KeywordsActivity.KEYWORD_MODE_KEY));
             }
         }
     }

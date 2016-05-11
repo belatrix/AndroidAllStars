@@ -24,20 +24,22 @@ import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.KeyboardUtils;
 import com.belatrixsf.allstars.utils.di.modules.presenters.KeywordsListModule;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.Bind;
 
-public class KeywordsListFragment extends AllStarsFragment implements KeywordsListView {
+public class KeywordsListFragment extends AllStarsFragment implements KeywordsListView, KeywordsListAdapter.KeywordListener {
 
     private static final String MODE_KEY = "mode_key";
 
     private KeywordsListAdapter keywordsListAdapter;
-    private int modeCode;
+    private KeywordsMode keywordsMode;
 
-    @Inject KeywordsListPresenter keywordsListPresenter;
+    @Inject
+    KeywordsPresenter keywordsPresenter;
 
     @Bind(R.id.keywords) RecyclerView keywords;
 
@@ -46,10 +48,10 @@ public class KeywordsListFragment extends AllStarsFragment implements KeywordsLi
         // Required empty public constructor
     }
 
-    public static KeywordsListFragment newInstance(int mode) {
+    public static KeywordsListFragment newInstance(KeywordsMode keywordsMode) {
         KeywordsListFragment fragment = new KeywordsListFragment();
         Bundle args = new Bundle();
-        args.putInt(MODE_KEY, mode);
+        args.putSerializable(MODE_KEY, keywordsMode);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,7 +59,8 @@ public class KeywordsListFragment extends AllStarsFragment implements KeywordsLi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         if (getArguments() != null) {
-            modeCode = getArguments().getInt(MODE_KEY, KeywordsMode.LIST.getCode());
+            Serializable serializedMode = getArguments().getSerializable(MODE_KEY);
+            keywordsMode = serializedMode != null? (KeywordsMode) serializedMode : KeywordsMode.LIST;
         }
         super.onCreate(savedInstanceState);
     }
@@ -73,11 +76,12 @@ public class KeywordsListFragment extends AllStarsFragment implements KeywordsLi
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews();
-        keywordsListPresenter.getKeywords();
+        keywordsPresenter.getKeywords();
     }
 
     private void initViews() {
         keywordsListAdapter = new KeywordsListAdapter();
+        keywordsListAdapter.setKeywordListener(this);
         keywords.setLayoutManager(new LinearLayoutManager(getActivity()));
         keywords.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
         keywords.setAdapter(keywordsListAdapter);
@@ -87,17 +91,8 @@ public class KeywordsListFragment extends AllStarsFragment implements KeywordsLi
     protected void initDependencies(AllStarsApplication allStarsApplication) {
         allStarsApplication
                 .getApplicationComponent()
-                .keywordsListComponent(new KeywordsListModule(this, matchKeywordCode()))
+                .keywordsListComponent(new KeywordsListModule(this, keywordsMode))
                 .inject(this);
-    }
-
-    private KeywordsMode matchKeywordCode() {
-        for (KeywordsMode keywordsMode : KeywordsMode.values()) {
-            if (keywordsMode.getCode() == modeCode) {
-                return keywordsMode;
-            }
-        }
-        return KeywordsMode.LIST;
     }
 
     @Override
@@ -106,8 +101,15 @@ public class KeywordsListFragment extends AllStarsFragment implements KeywordsLi
     }
 
     @Override
-    public void deliverSelectedKeyword(Keyword keyword) {
+    public void deliverKeywordAsResult(Keyword keyword) {
+        if (getActivity() instanceof KeywordsListListener) {
+            ((KeywordsListListener) getActivity()).onKeywordSelectedForDispatching(keyword);
+        }
+    }
 
+    @Override
+    public void showKeywordDetail(Keyword keyword) {
+        //TODO: display detail
     }
 
     @Override
@@ -117,6 +119,11 @@ public class KeywordsListFragment extends AllStarsFragment implements KeywordsLi
         }
     }
 
+    @Override
+    public void onKeywordSelected(int position) {
+        keywordsPresenter.onKeywordSelected(position);
+    }
+
     private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
@@ -124,8 +131,8 @@ public class KeywordsListFragment extends AllStarsFragment implements KeywordsLi
             searchingView.setSearchingListener(new SearchingView.SearchingListener() {
                 @Override
                 public void onSearchingTextTyped(String searchText) {
-                    if (keywordsListPresenter instanceof SearchingKeywordsListPresenter) {
-                        ((SearchingKeywordsListPresenter) keywordsListPresenter).getKeywords(searchText);
+                    if (keywordsPresenter instanceof SearchingKeywordsPresenter) {
+                        ((SearchingKeywordsPresenter) keywordsPresenter).getKeywords(searchText);
                     }
                 }
             });
@@ -148,5 +155,9 @@ public class KeywordsListFragment extends AllStarsFragment implements KeywordsLi
             KeyboardUtils.hideKeyboard(getActivity(), getView());
         }
     };
+
+    interface KeywordsListListener {
+        void onKeywordSelectedForDispatching(Keyword keyword);
+    }
 
 }

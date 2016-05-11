@@ -145,11 +145,22 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
         }
     }
 
-    public void onSearchTermChange(String newSearchTerm){
-        if (newSearchTerm.length()>0){
-            view.showCleanButton();
-        } else {
-            view.hideCleanButton();
+    public void submitSearchTerm(String searchTerm){
+        if (!searchTerm.isEmpty()) {
+            //view.showProgressIndicator();
+            employeeService.getEmployees(searchTerm, new AllStarsCallback<SearchEmployeeResponse>() {
+                @Override
+                public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
+                    employees = searchEmployeeResponse.getEmployeeList();
+                    //view.hideProgressIndicator();
+                    view.showContacts(searchEmployeeResponse.getEmployeeList());
+                }
+
+                @Override
+                public void onFailure(ServiceError serviceError) {
+                    showError(serviceError.getErrorMessage());
+                }
+            });
         }
     }
 

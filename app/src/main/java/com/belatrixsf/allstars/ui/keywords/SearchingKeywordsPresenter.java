@@ -35,7 +35,7 @@ import javax.inject.Inject;
 /**
  * Created by gyosida on 5/9/16.
  */
-public class SearchingKeywordsListPresenter extends KeywordsListPresenter {
+public class SearchingKeywordsPresenter extends KeywordsPresenter {
 
     private StarService starService;
     private List<Keyword> filteredKeywords = new ArrayList<>();
@@ -43,8 +43,8 @@ public class SearchingKeywordsListPresenter extends KeywordsListPresenter {
     private PaginatedResponse filteredKeywordsPaging = new PaginatedResponse();
 
     @Inject
-    public SearchingKeywordsListPresenter(KeywordsListView keywordsListView, StarService starService) {
-        super(keywordsListView);
+    public SearchingKeywordsPresenter(KeywordsListView keywordsListView, StarService starService) {
+        super(keywordsListView, KeywordsMode.SEARCH);
         this.starService = starService;
     }
 
@@ -59,10 +59,11 @@ public class SearchingKeywordsListPresenter extends KeywordsListPresenter {
         if (filteredKeywords.isEmpty()) {
             super.onKeywordSelected(position);
         } else {
-            if (position >= 0 && position < filteredKeywords.size()) {
-                Keyword keyword = filteredKeywords.get(position);
-                view.deliverSelectedKeyword(keyword);
-            }
+//            if (position >= 0 && position < filteredKeywords.size()) {
+//                Keyword keyword = filteredKeywords.get(position);
+//                view.showKeywordDetail(keyword);
+//            }
+            matchAndDispatchKeyword(filteredKeywords, position);
         }
     }
 
@@ -82,7 +83,7 @@ public class SearchingKeywordsListPresenter extends KeywordsListPresenter {
 
     private void getKeywords(final List<Keyword> keywords, String searchText, final PaginatedResponse paginatedResponse) {
         view.showProgressIndicator();
-        starService.getStarsByKeywords(searchText, paginatedResponse.getNext(), new AllStarsCallback<StarsByKeywordsResponse>() {
+        starService.getStarsByKeywords(searchText, 1, new AllStarsCallback<StarsByKeywordsResponse>() {
             @Override
             public void onSuccess(StarsByKeywordsResponse starsByKeywordsResponse) {
                 paginatedResponse.setCount(starsByKeywordsResponse.getCount());
