@@ -20,10 +20,13 @@
 */
 package com.belatrixsf.allstars.networking.retrofit.responses;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by gyosida on 5/9/16.
  */
-public class PaginatedResponse {
+public class PaginatedResponse implements Parcelable {
 
     private int count;
     private String next;
@@ -54,4 +57,39 @@ public class PaginatedResponse {
         next = null;
         previous = null;
     }
+
+    public PaginatedResponse() {
+    }
+
+    protected PaginatedResponse(Parcel in) {
+        count = in.readInt();
+        next = in.readString();
+        previous = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(count);
+        dest.writeString(next);
+        dest.writeString(previous);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<PaginatedResponse> CREATOR = new Parcelable.Creator<PaginatedResponse>() {
+        @Override
+        public PaginatedResponse createFromParcel(Parcel in) {
+            return new PaginatedResponse(in);
+        }
+
+        @Override
+        public PaginatedResponse[] newArray(int size) {
+            return new PaginatedResponse[size];
+        }
+    };
+
 }

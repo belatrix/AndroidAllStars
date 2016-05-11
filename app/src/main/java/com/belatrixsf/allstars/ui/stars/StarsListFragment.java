@@ -48,6 +48,10 @@ import butterknife.Bind;
 public class StarsListFragment extends AllStarsFragment implements StarsListView {
 
     public static final String STARS_KEY = "_stars_key";
+    public static final String EMPLOYEE_ID_KEY = "_employee_id_key";
+    public static final String SUBCATEGORY_ID_KEY = "_sub_category_id_key";
+    public static final String PAGINATION_RESPONSE_KEY = "_pagination_response_key";
+    public static final String CURRENT_PAGE_KEY = "_current_page_key";
 
     private StarsListPresenter starsListPresenter;
     private StarsListAdapter starsListAdapter;
@@ -90,11 +94,12 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
         boolean hasArguments = (getArguments() != null && getArguments().containsKey(StarsListActivity.USER_ID) && getArguments().containsKey(StarsListActivity.SUBCATEGORY_ID));
         if (savedInstanceState != null) {
             restoreState(savedInstanceState);
-        }
-        if (hasArguments) {
-            Integer userId = getArguments().getInt(StarsListActivity.USER_ID);
-            Integer categoryId = getArguments().getInt(StarsListActivity.SUBCATEGORY_ID);
-            starsListPresenter.getStars(userId, categoryId, 1);
+        } else {
+            if (hasArguments) {
+                Integer userId = getArguments().getInt(StarsListActivity.USER_ID);
+                Integer categoryId = getArguments().getInt(StarsListActivity.SUBCATEGORY_ID);
+                starsListPresenter.getStars(userId, categoryId);
+            }
         }
     }
 
@@ -106,7 +111,11 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
 
     private void restoreState(Bundle savedInstanceState) {
         List<Star> savedStars = savedInstanceState.getParcelableArrayList(STARS_KEY);
-        starsListPresenter.setLoadedStars(savedStars);
+        Integer employeeId = savedInstanceState.getInt(EMPLOYEE_ID_KEY);
+        Integer subCategoryId = savedInstanceState.getInt(SUBCATEGORY_ID_KEY);
+        Integer currentPage = savedInstanceState.getInt(CURRENT_PAGE_KEY);
+        PaginatedResponse paginatedResponse = savedInstanceState.getParcelable(PAGINATION_RESPONSE_KEY);
+        starsListPresenter.setLoadedStars(employeeId, subCategoryId, savedStars, currentPage, paginatedResponse);
     }
 
     private void saveState(Bundle outState) {
@@ -114,6 +123,10 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
         if (forSavingStars != null && forSavingStars instanceof ArrayList) {
             outState.putParcelableArrayList(STARS_KEY, (ArrayList<Star>) forSavingStars);
         }
+        outState.putInt(EMPLOYEE_ID_KEY, starsListPresenter.getEmployeeId());
+        outState.putInt(SUBCATEGORY_ID_KEY, starsListPresenter.getSubCategoryId());
+        outState.putInt(CURRENT_PAGE_KEY, starsListPresenter.getCurrentPage());
+        outState.putParcelable(PAGINATION_RESPONSE_KEY, starsListPresenter.getStarPaginatedResponse());
     }
 
     private void initViews() {
@@ -147,5 +160,10 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
         super.hideProgressIndicator();
         starsListAdapter.setLoading(false);
         endlessRecyclerOnScrollListener.setLoading(false);
+    }
+
+    @Override
+    public void showCurrentPage(int currentPage) {
+        endlessRecyclerOnScrollListener.setCurrentPage(currentPage);
     }
 }

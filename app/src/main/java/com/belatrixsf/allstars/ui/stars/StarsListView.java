@@ -31,5 +31,6 @@ import java.util.List;
 public interface StarsListView extends AllStarsView {
 
     void showStars(List<Star> stars);
+    void showCurrentPage(int currentPage);
 
 }

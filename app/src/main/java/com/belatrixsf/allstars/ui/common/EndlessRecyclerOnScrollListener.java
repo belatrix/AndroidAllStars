@@ -52,5 +52,9 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
         loading = true;
     }
 
+    public void setCurrentPage(int current) {
+        this.current_page = current;
+    }
+
     public abstract void onLoadMore(int current_page);
 }
