@@ -49,6 +49,17 @@ public class KeywordView extends LinearLayout {
         }
     }
 
+    public String getKeyword() {
+        return (keywordTextView != null) ? keywordTextView.getText().toString() : null;
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        findViewById(R.id.keyword_hashtag).setEnabled(enabled);
+        keywordTextView.setEnabled(enabled);
+    }
+
     @Override
     public Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();

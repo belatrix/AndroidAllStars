@@ -8,11 +8,13 @@ public class StarRequest {
     private int category;
     private int subcategory;
     private String text;
+    private int keyword;
 
-    public StarRequest(int category, int subcategory, String text) {
+    public StarRequest(int category, int subcategory, String text, int keyword) {
         this.category = category;
         this.subcategory = subcategory;
         this.text = text;
+        this.keyword = keyword;
     }
 
 }
