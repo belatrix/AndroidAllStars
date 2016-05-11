@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.CategoriesAdapter;
 import com.belatrixsf.allstars.entities.Category;
+import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
@@ -138,7 +139,7 @@ public class CategoriesFragment extends AllStarsFragment implements CategoriesVi
     }
 
     @Override
-    public void notifySelection(Category subcategory) {
+    public void notifySelection(SubCategory subcategory) {
         subcategorySelectionListener.onSubcategorySelected(subcategory);
     }
 

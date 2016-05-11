@@ -45,6 +45,10 @@ public class Category implements Parcelable {
         commentRequired = in.readByte() != 0x00;
     }
 
+    protected Category() {
+
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -81,6 +85,18 @@ public class Category implements Parcelable {
 
     public boolean isCommentRequired() {
         return commentRequired;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public void setCommentRequired(boolean commentRequired) {
+        this.commentRequired = commentRequired;
     }
 
     @SuppressWarnings("unused")

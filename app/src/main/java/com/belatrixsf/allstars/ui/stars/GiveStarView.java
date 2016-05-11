@@ -21,6 +21,8 @@ public interface GiveStarView extends AllStarsView {
 
     void showComment(String comment);
 
+    void showCommentHint();
+
     void goSelectSubcategory();
 
     void showCategory(String category);

@@ -20,6 +20,11 @@ public class SubCategory extends Category implements Parcelable {
         parentCategory = (Category) in.readValue(Category.class.getClassLoader());
     }
 
+    public SubCategory(Category category) {
+        setId(category.getId());
+        setName(category.getName());
+    }
+
     public Integer getNumStars() {
         return numStars;
     }

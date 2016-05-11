@@ -96,10 +96,14 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
     }
 
     public void loadSelectedComment(String comment) {
-        if (comment != null && !comment.isEmpty()) {
-            checkRecommendationEnabled();
+        if (comment != null) {
             this.selectedComment = comment;
-            view.showComment(comment);
+            if (selectedComment.isEmpty()) {
+                view.showCommentHint();
+            } else {
+                view.showComment(comment);
+            }
+            checkRecommendationEnabled();
         }
     }
 
@@ -147,15 +151,22 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
     }
 
     public void checkRecommendationEnabled() {
-        view.showDoneMenu(validateFormComplete());
+        boolean a = validateFormComplete();
+        view.showDoneMenu(a);
     }
 
     private boolean validateFormComplete() {
-        return selectedEmployee != null && selectedSubCategory != null && selectedKeyword != null ;
+        return selectedEmployee != null && selectedSubCategory != null && selectedKeyword != null && validateCategoryCommentRequired();
     }
 
     private boolean validateCategoryCommentRequired() {
-//        if (selected)
+        if (selectedSubCategory != null) {
+            boolean commentRequired = selectedSubCategory.getParentCategory().isCommentRequired();
+            if ((selectedComment == null || selectedComment.isEmpty()) && commentRequired) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

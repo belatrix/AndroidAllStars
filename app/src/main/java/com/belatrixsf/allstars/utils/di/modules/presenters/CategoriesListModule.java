@@ -49,7 +49,7 @@ public class CategoriesListModule {
         if (category == null) {
             return new CategoriesPresenter(categoriesView, employeeManager, employeeService);
         } else {
-            return new CategoriesPresenter(categoriesView, categoryService, category.getId());
+            return new CategoriesPresenter(categoriesView, categoryService, category);
         }
     }
 
