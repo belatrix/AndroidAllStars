@@ -42,7 +42,7 @@ import butterknife.ButterKnife;
 /**
  * Created by icerrate on 15/04/2016.
  */
-public class ContactsListAdapter extends LoadMoreBaseAdapter<Employee, ContactsListAdapter.ContactViewHolder> {
+public class ContactsListAdapter extends LoadMoreBaseAdapter<Employee> {
 
     public static final int TYPE_EMPLOYEE = 1;
 
@@ -65,14 +65,17 @@ public class ContactsListAdapter extends LoadMoreBaseAdapter<Employee, ContactsL
 
     @Override
     public void onBindDataViewHolder(RecyclerView.ViewHolder holder, int position) {
-        final Employee employee = data.get(position);
-        ContactViewHolder castHolder = (ContactViewHolder) holder;
-        castHolder.itemView.setTag(employee);
-        castHolder.contactFullNameTextView.setText(employee.getFullName());
-        String levelLabel = String.format(castHolder.contactLevelTextView.getContext().getString(R.string.contact_list_level), String.valueOf(employee.getLevel()));
-        castHolder.contactLevelTextView.setText(levelLabel);
-        if (employee.getAvatar() != null) {
-            ImageFactory.getLoader().loadFromUrl(employee.getAvatar(), castHolder.photoImageView, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
+        if (holder instanceof ContactViewHolder) {
+            ContactViewHolder contactViewHolder = (ContactViewHolder) holder;
+            Employee contact = data.get(position);
+            String fullName = contact.getFullName() != null && !contact.getFullName().isEmpty() ? contact.getFullName() : contactViewHolder.contactFullNameTextView.getContext().getString(R.string.fullname_placeholder);
+            String level = contact.getLevel() != null ? String.format(contactViewHolder.contactLevelTextView.getContext().getString(R.string.contact_list_level), String.valueOf(contact.getLevel())) : contactViewHolder.contactLevelTextView.getContext().getString(R.string.level_placeholder);
+            contactViewHolder.contactFullNameTextView.setText(fullName);
+            contactViewHolder.contactLevelTextView.setText(level);
+            contactViewHolder.itemView.setTag(contact);
+            if (contact.getAvatar() != null) {
+                ImageFactory.getLoader().loadFromUrl(contact.getAvatar(), contactViewHolder.photoImageView, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
+            }
         }
     }
     @Override

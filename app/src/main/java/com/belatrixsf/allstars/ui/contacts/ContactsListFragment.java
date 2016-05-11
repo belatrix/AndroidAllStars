@@ -47,6 +47,7 @@ import android.widget.TextView;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.ContactsListAdapter;
 import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.allstars.ui.account.AccountActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.EndlessRecyclerOnScrollListener;
@@ -69,15 +70,16 @@ import static com.belatrixsf.allstars.ui.stars.GiveStarFragment.SELECTED_USER_KE
  */
 public class ContactsListFragment extends AllStarsFragment implements ContactsListView, RecyclerOnItemClickListener {
 
-    public static final String ARG_PROFILE_ENABLED_KEY = "_is_search";
-    private static final String STATE_EMPLOYEES_KEY = "employees_key";
-    private static final String STATE_ACTION_MODE_KEY = "action_mode_key";
-    private static final String CURRENT_PAGE_KEY = "_current_page_key";
-    private static final String HAS_NEXT_PAGE_KEY = "_has_next_page_key";
+    public static final String PROFILE_ENABLED_KEY = "_is_search";
+    public static final String CONTACTS_KEY = "_employees_key";
+    public static final String ACTION_MODE_KEY = "_action_mode_key";
+    public static final String PAGINATION_RESPONSE_KEY = "_pagination_response_key";
+    public static final String CURRENT_PAGE_KEY = "_current_page_key";
 
     private ContactsListPresenter contactsListPresenter;
-    private ContactsListFragmentListener contactsListFragmentListener;
     private ContactsListAdapter contactsListAdapter;
+    private ContactsListFragmentListener contactsListFragmentListener;
+    private EndlessRecyclerOnScrollListener endlessRecyclerOnScrollListener;
 
     private EditText searchTermEditText;
     private ImageButton cleanImageButton;
@@ -87,7 +89,7 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
 
     public static ContactsListFragment newInstance(boolean profileEnabled) {
         Bundle bundle = new Bundle();
-        bundle.putBoolean(ARG_PROFILE_ENABLED_KEY, profileEnabled);
+        bundle.putBoolean(PROFILE_ENABLED_KEY, profileEnabled);
         ContactsListFragment contactsListFragment = new ContactsListFragment();
         contactsListFragment.setArguments(bundle);
         return contactsListFragment;
@@ -130,20 +132,20 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
         contactsListPresenter = allStarsApplication.getApplicationComponent()
                 .contactsListComponent(new ContactsListPresenterModule(this))
                 .contactsListPresenter();
-        if (getArguments() != null && getArguments().containsKey(ARG_PROFILE_ENABLED_KEY)) {
-            contactsListPresenter.setProfileEnabled(getArguments().getBoolean(ARG_PROFILE_ENABLED_KEY));
-        }
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews();
+        boolean hasArguments = (getArguments() != null && getArguments().containsKey(PROFILE_ENABLED_KEY));
         if (savedInstanceState != null) {
             restoreState(savedInstanceState);
             contactsListPresenter.shouldShowActionMode();
-        }else{
-            contactsListPresenter.setHasNextPage(true);
+        } else {
+            if (hasArguments){
+                contactsListPresenter.setProfileEnabled(getArguments().getBoolean(PROFILE_ENABLED_KEY));
+            }
         }
         contactsListPresenter.getContacts();
     }
@@ -155,53 +157,61 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     }
 
     private void restoreState(Bundle savedInstanceState) {
-        List<Employee> savedContacts = savedInstanceState.getParcelableArrayList(STATE_EMPLOYEES_KEY);
-        boolean actionModeEnabled = savedInstanceState.getBoolean(STATE_ACTION_MODE_KEY);
-        int currentPage = savedInstanceState.getInt(CURRENT_PAGE_KEY);
-        boolean hasNextPage = savedInstanceState.getBoolean(HAS_NEXT_PAGE_KEY);
-        contactsListPresenter.loadSavedContacts(savedContacts);
+        List<Employee> savedContacts = savedInstanceState.getParcelableArrayList(CONTACTS_KEY);
+        boolean actionModeEnabled = savedInstanceState.getBoolean(ACTION_MODE_KEY);
+        Integer currentPage = savedInstanceState.getInt(CURRENT_PAGE_KEY);
+        PaginatedResponse paginatedResponse = savedInstanceState.getParcelable(PAGINATION_RESPONSE_KEY);
         contactsListPresenter.setInActionMode(actionModeEnabled);
-        contactsListPresenter.setCurrentPage(currentPage);
-        contactsListPresenter.setHasNextPage(hasNextPage);
+        contactsListPresenter.setLoadedContacts(savedContacts, currentPage, paginatedResponse);
     }
 
     private void saveState(Bundle outState) {
-        List<Employee> forSavingContacts = contactsListPresenter.getForSavingContacts();
-        boolean forSavingActionMode = contactsListPresenter.isInActionMode();
-        int forSavingCurrentPage = contactsListPresenter.getCurrentPage();
-        boolean forSavingHasNextPage = contactsListPresenter.hasNextPage();
+        List<Employee> forSavingContacts = contactsListPresenter.getLoadedContacts();
         if (forSavingContacts != null && forSavingContacts instanceof ArrayList) {
-            outState.putParcelableArrayList(STATE_EMPLOYEES_KEY, (ArrayList<Employee>) forSavingContacts);
-            outState.putBoolean(STATE_ACTION_MODE_KEY, forSavingActionMode);
-            outState.putInt(CURRENT_PAGE_KEY, forSavingCurrentPage);
-            outState.putBoolean(HAS_NEXT_PAGE_KEY, forSavingHasNextPage);
+            outState.putParcelableArrayList(CONTACTS_KEY, (ArrayList<Employee>) forSavingContacts);
         }
+        outState.putBoolean(ACTION_MODE_KEY, contactsListPresenter.isInActionMode());
+        outState.putInt(CURRENT_PAGE_KEY, contactsListPresenter.getCurrentPage());
+        outState.putParcelable(PAGINATION_RESPONSE_KEY, contactsListPresenter.getContactPaginatedResponse());
     }
 
     private void initViews() {
         contactsListAdapter = new ContactsListAdapter(this);
         contactsRecyclerView.setAdapter(contactsListAdapter);
-        contactsRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
-        preparePagination();
-    }
-
-    private void preparePagination(){
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         contactsRecyclerView.setLayoutManager(linearLayoutManager);
-        contactsRecyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
+        endlessRecyclerOnScrollListener = new EndlessRecyclerOnScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int currentPage) {
-                if (contactsListAdapter != null) {
-                    contactsListPresenter.setCurrentPage(currentPage);
-                    contactsListPresenter.getContacts();
-                }
+                contactsListPresenter.getContacts(currentPage);
             }
-        });
+        };
+        contactsRecyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);
+        contactsRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
     }
 
     @Override
-    public void showContacts(int currentPage, List<Employee> contacts) {
-        contactsListAdapter.updatePaginationData(contacts);
+    public void showContacts(List<Employee> contacts) {
+        contactsListAdapter.updateData(contacts);
+    }
+
+    @Override
+    public void showProgressIndicator() {
+        super.showProgressIndicator();
+        contactsListAdapter.setLoading(true);
+        endlessRecyclerOnScrollListener.setLoading(true);
+    }
+
+    @Override
+    public void hideProgressIndicator() {
+        super.hideProgressIndicator();
+        contactsListAdapter.setLoading(false);
+        endlessRecyclerOnScrollListener.setLoading(false);
+    }
+
+    @Override
+    public void showCurrentPage(int currentPage) {
+        endlessRecyclerOnScrollListener.setCurrentPage(currentPage);
     }
 
     @Override
@@ -276,7 +286,6 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
             mode.setCustomView(customView);
             searchTermEditText.requestFocus();
             KeyboardUtils.showKeyboard(getActivity(), searchTermEditText);
-            contactsListPresenter.setCurrentPage(1);
             return true;
         }
 
@@ -296,9 +305,6 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
         // Called when the user exits the action mode
         @Override
         public void onDestroyActionMode(ActionMode mode) {
-            contactsListPresenter.setCurrentPage(1);
-            contactsListPresenter.setHasNextPage(true);
-            contactsListPresenter.setInActionMode(false);
             contactsListPresenter.getContacts();
             KeyboardUtils.hideKeyboard(getActivity(), getView());
         }
@@ -331,11 +337,6 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     @Override
     public void hideCleanButton() {
         cleanImageButton.setVisibility(View.INVISIBLE);
-    }
-
-    @Override
-    public void showListLoading(boolean loading) {
-        contactsListAdapter.setLoading(loading);
     }
 
 }
