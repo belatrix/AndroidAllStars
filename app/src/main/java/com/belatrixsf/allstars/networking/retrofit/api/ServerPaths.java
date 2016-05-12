@@ -39,10 +39,7 @@ public interface ServerPaths {
     String CATEGORY_ID = "category_id";
     String PAGE = "page";
 
-    String QUERY_SEARCH = "search";
-    String QUERY_NEXT = "next";
     String QUERY_PAGE = "page";
-
     String QUERY_SEARCH = "search";
     String QUERY_NEXT = "next";
 
@@ -51,6 +48,7 @@ public interface ServerPaths {
     String EMPLOYEE_BY_ID = EMPLOYEE + "/{" + EMPLOYEE_ID + "}";
     String EMPLOYEE_CATEGORIES = EMPLOYEE + "/{" + EMPLOYEE_ID + "}/category/list";
     String EMPLOYEE_SUBCATEGORY_LIST = STAR + "/{" + EMPLOYEE_ID + "}" + "/subcategory/list";
+    String EMPLOYEE_SEARCH_TERM = EMPLOYEE + "/list";
 
     String STAR_EMPLOYEE = STAR + "/{" + FROM_EMPLOYEE + "}" + "/give/star/to/{" + TO_EMPLOYEE + "}/" ;
     String STARS_BY_EMPLOYEE_AND_SUBCATEGORY = STAR + "/{" + EMPLOYEE_ID + "}/subcategory" + "/{" + SUBCATEGORY_ID + "}/list";

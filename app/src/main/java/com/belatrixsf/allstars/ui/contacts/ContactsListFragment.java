@@ -53,6 +53,7 @@ import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.EndlessRecyclerOnScrollListener;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
+import com.belatrixsf.allstars.ui.common.views.searchingview.SearchingView;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.KeyboardUtils;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsListPresenterModule;
@@ -247,7 +248,7 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
             searchingView.setSearchingListener(new SearchingView.SearchingListener() {
                 @Override
                 public void onSearchingTextTyped(String searchText) {
-                    contactsListPresenter.submitSearchTerm(searchText);
+                    contactsListPresenter.getContacts(searchText);
                 }
             });
             mode.setCustomView(searchingView);
@@ -256,7 +257,7 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
 
         @Override
         public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            return false; // Return false if nothing is done
+            return false;
         }
 
         @Override

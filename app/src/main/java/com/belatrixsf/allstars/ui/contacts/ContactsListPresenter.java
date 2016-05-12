@@ -145,25 +145,6 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
         }
     }
 
-    public void submitSearchTerm(String searchTerm){
-        if (!searchTerm.isEmpty()) {
-            //view.showProgressIndicator();
-            employeeService.getEmployeeSearchList(searchTerm, new AllStarsCallback<SearchEmployeeResponse>() {
-                @Override
-                public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
-                    employees = searchEmployeeResponse.getEmployeeList();
-                    //view.hideProgressIndicator();
-                    view.showContacts(searchEmployeeResponse.getEmployeeList());
-                }
-
-                @Override
-                public void onFailure(ServiceError serviceError) {
-                    showError(serviceError.getErrorMessage());
-                }
-            });
-        }
-    }
-
     public void onContactClicked(Object object) {
         if (object != null && object instanceof Employee) {
             Employee employee = (Employee) object;

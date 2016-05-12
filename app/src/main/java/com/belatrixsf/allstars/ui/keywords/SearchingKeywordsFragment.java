@@ -135,6 +135,11 @@ public class SearchingKeywordsFragment extends AllStarsFragment implements Searc
     }
 
     @Override
+    public void resetList() {
+        keywordsListAdapter.reset();
+    }
+
+    @Override
     public void onKeywordSelected(int position) {
         keywordsPresenter.onKeywordSelected(position);
     }

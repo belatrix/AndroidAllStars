@@ -33,5 +33,6 @@ public interface SearchingKeywordsView extends AllStarsView {
     void addKeywords(List<Keyword> keywords);
     void showKeywordDetail(Keyword keyword);
     void showSearchActionMode();
+    void resetList();
 
 }
