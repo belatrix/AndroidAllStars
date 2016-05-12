@@ -26,7 +26,6 @@ import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeRespo
 import com.belatrixsf.allstars.services.EmployeeService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
-import com.belatrixsf.allstars.utils.Constants;
 import com.belatrixsf.allstars.utils.ServiceError;
 
 import java.util.ArrayList;
@@ -44,8 +43,8 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
     private boolean inActionMode = false;
     private boolean profileEnabled = true;
     private PaginatedResponse contactPaginatedResponse = new PaginatedResponse();
-    private int currentPage = Constants.FIRST_POSITION;
-    private String searchTerm = Constants.EMPTY_STRING;
+    private int currentPage = 1;
+    private String searchTerm = "";
 
     @Inject
     public ContactsListPresenter(ContactsListView view, EmployeeService employeeService) {
@@ -99,10 +98,10 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
 
     public void finishActionMode(){
         inActionMode = false;
-        currentPage = Constants.FIRST_POSITION;
-        searchTerm = Constants.EMPTY_STRING;
+        currentPage = 1;
+        searchTerm = "";
         view.showCurrentPage(currentPage);
-        getContacts(currentPage, Constants.EMPTY_STRING);
+        getContacts(currentPage, "");
     }
 
     public void getContacts() {
@@ -115,7 +114,7 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
 
     public void getContacts(String searchTerm) {
         this.searchTerm = searchTerm;
-        currentPage = Constants.FIRST_POSITION;
+        currentPage = 1;
         contactPaginatedResponse = new PaginatedResponse();
         view.showCurrentPage(currentPage);
         getContacts(currentPage, searchTerm);
@@ -123,12 +122,12 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
 
     public void getContacts(Integer page, String searchTerm){
         currentPage = page;
-        if (contactPaginatedResponse.getNext() != null || page == Constants.FIRST_POSITION) {
+        if (contactPaginatedResponse.getNext() != null || page == 1) {
             view.showProgressIndicator();
             employeeService.getEmployeeSearchList(searchTerm, page, new AllStarsCallback<SearchEmployeeResponse>() {
                 @Override
                 public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
-                    if (currentPage == Constants.FIRST_POSITION){
+                    if (currentPage == 1){
                         contacts.clear();
                     }
                     contacts.addAll(searchEmployeeResponse.getEmployeeList());

@@ -10,10 +10,4 @@ public class Constants {
     public static final String KIND_LAST_YEAR_SCORE = "last_year_score";
     public static final String KIND_CURRENT_YEAR_SCORE = "current_year_score";
     public static final int DEFAULT_QUANTITY = 15;
-
-    public static final int FIRST_POSITION = 1;
-    public static final int SECOND_POSITION = 2;
-    public static final int THIRD_POSITION = 3;
-
-    public static final String EMPTY_STRING = "";
 }

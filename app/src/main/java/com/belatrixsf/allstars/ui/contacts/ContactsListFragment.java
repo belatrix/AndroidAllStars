@@ -54,7 +54,6 @@ import com.belatrixsf.allstars.ui.common.EndlessRecyclerOnScrollListener;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
-import com.belatrixsf.allstars.utils.Constants;
 import com.belatrixsf.allstars.utils.KeyboardUtils;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsListPresenterModule;
 
@@ -256,7 +255,7 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
             cleanImageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    searchTermEditText.setText(Constants.EMPTY_STRING);
+                    searchTermEditText.setText("");
                     searchTermEditText.requestFocus();
                 }
             });
