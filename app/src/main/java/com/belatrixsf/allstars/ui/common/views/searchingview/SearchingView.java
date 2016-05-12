@@ -62,8 +62,13 @@ public class SearchingView extends LinearLayout implements SearchableView {
         searchingEditText = (EditText) findViewById(R.id.search_term);
         clearImageButton = (ImageButton) findViewById(R.id.clean);
         searchingEditText.requestFocus();
-        KeyboardUtils.showKeyboard((Activity) getContext(), searchingEditText);
         setViewListeners();
+        post(new Runnable() {
+            @Override
+            public void run() {
+                KeyboardUtils.showKeyboard((Activity) getContext(), searchingEditText);
+            }
+        });
     }
 
     private void setViewListeners() {
