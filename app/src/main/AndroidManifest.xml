@@ -30,6 +30,9 @@
         <activity
             android:name=".ui.stars.comment.CommentActivity"
             android:label="@string/title_comment_activity"/>
+        <activity
+            android:name=".ui.contacts.keyword.ContactsKeywordListActivity"
+            android:label="@string/title_contacts_keyword_activity"/>
         <activity android:name=".ui.category.CategoriesActivity" />
         <activity android:name=".ui.LauncherActivity">
             <intent-filter>

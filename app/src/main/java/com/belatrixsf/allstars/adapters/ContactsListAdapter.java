@@ -84,7 +84,7 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
         notifyDataSetChanged();
     }
 
-    static class ContactViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ContactViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @Bind(R.id.contact_photo)
         public ImageView photoImageView;
@@ -92,7 +92,7 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
         public TextView contactFullNameTextView;
         @Bind(R.id.contact_level)
         public TextView contactLevelTextView;
-        private RecyclerOnItemClickListener recyclerOnItemClickListener;
+        protected RecyclerOnItemClickListener recyclerOnItemClickListener;
 
         public ContactViewHolder(View view, RecyclerOnItemClickListener recyclerOnItemClickListener) {
             super(view);

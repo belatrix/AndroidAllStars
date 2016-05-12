@@ -18,21 +18,28 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.stars;
+package com.belatrixsf.allstars.utils.di.modules.presenters;
 
-import com.belatrixsf.allstars.entities.Keyword;
-import com.belatrixsf.allstars.entities.Star;
-import com.belatrixsf.allstars.ui.common.AllStarsView;
+import com.belatrixsf.allstars.ui.contacts.keyword.ContactsKeywordListView;
 
-import java.util.List;
+import dagger.Module;
+import dagger.Provides;
 
 /**
- * Created by icerrate on 25/04/2016.
+ * Created by PedroCarrillo on 5/12/16.
  */
-public interface StarsListView extends AllStarsView {
+@Module
+public class ContactsKeywordPresenterModule {
 
-    void showStars(List<Star> stars);
-    void showCurrentPage(int currentPage);
-    void goToKeywordContacts(Keyword keyword);
+    private ContactsKeywordListView view;
+
+    public ContactsKeywordPresenterModule(ContactsKeywordListView view) {
+        this.view = view;
+    }
+
+    @Provides
+    public ContactsKeywordListView providesView() {
+        return view;
+    }
 
 }

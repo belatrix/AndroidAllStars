@@ -21,6 +21,7 @@
 package com.belatrixsf.allstars.ui.stars;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,10 +31,12 @@ import android.view.ViewGroup;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.StarsListAdapter;
+import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.entities.Star;
 import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.EndlessRecyclerOnScrollListener;
+import com.belatrixsf.allstars.ui.contacts.keyword.ContactsKeywordListActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.modules.presenters.StarsListPresenterModule;
 
@@ -45,7 +48,7 @@ import butterknife.Bind;
 /**
  * Created by icerrate on 25/04/2016.
  */
-public class StarsListFragment extends AllStarsFragment implements StarsListView {
+public class StarsListFragment extends AllStarsFragment implements StarsListView, StarsListAdapter.KeywordClickListener {
 
     public static final String STARS_KEY = "_stars_key";
     public static final String EMPLOYEE_ID_KEY = "_employee_id_key";
@@ -128,7 +131,7 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
     }
 
     private void initViews() {
-        starsListAdapter = new StarsListAdapter(getActivity());
+        starsListAdapter = new StarsListAdapter(getActivity(), this);
         starsRecyclerView.setAdapter(starsListAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         starsRecyclerView.setLayoutManager(linearLayoutManager);
@@ -162,4 +165,18 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
     public void showCurrentPage(int currentPage) {
         endlessRecyclerOnScrollListener.setCurrentPage(currentPage);
     }
+
+    @Override
+    public void onKeywordSelected(int position) {
+        starsListPresenter.onKeywordSelected(position);
+    }
+
+    @Override
+    public void goToKeywordContacts(Keyword keyword) {
+        Intent intent = new Intent(getActivity(), ContactsKeywordListActivity.class);
+        intent.putExtra(ContactsKeywordListActivity.KEYWORD_KEY, keyword);
+        startActivity(intent);
+    }
+
 }
+

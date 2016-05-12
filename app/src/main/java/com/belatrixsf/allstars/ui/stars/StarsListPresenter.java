@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.allstars.ui.stars;
 
+import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.allstars.entities.Star;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarsResponse;
@@ -111,4 +112,8 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
         }
     }
 
+    public void onKeywordSelected(int position) {
+        Keyword keyword = stars.get(position).getKeyword();
+        view.goToKeywordContacts(keyword);
+    }
 }

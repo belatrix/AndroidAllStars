@@ -2,10 +2,8 @@ package com.belatrixsf.allstars.ui.contacts.keyword;
 
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.Keyword;
-import com.belatrixsf.allstars.entities.Star;
 import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarKeywordListResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.StarsResponse;
 import com.belatrixsf.allstars.services.StarService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
@@ -45,6 +43,10 @@ public class ContactsKeywordListPresenter extends AllStarsPresenter<ContactsKeyw
         return employeeList;
     }
 
+    public void setKeyword(Keyword keyword) {
+        this.keyword = keyword;
+    }
+
     public void init(Keyword keyword) {
         this.keyword = keyword;
         getEmployeesByStarKeywords(currentPage);
@@ -58,6 +60,10 @@ public class ContactsKeywordListPresenter extends AllStarsPresenter<ContactsKeyw
         this.currentPage = currentPage;
         view.showCurrentPage(currentPage);
         view.showEmployees(employeeList);
+    }
+
+    public void getEmployeesByStarKeywords() {
+        getEmployeesByStarKeywords(currentPage);
     }
 
     public void getEmployeesByStarKeywords(Integer page) {
@@ -79,6 +85,17 @@ public class ContactsKeywordListPresenter extends AllStarsPresenter<ContactsKeyw
                     showError(serviceError.getErrorMessage());
                 }
             });
+        }
+    }
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public void onContactClicked(Object contact) {
+        if (contact != null && contact instanceof Employee) {
+            Employee employee = (Employee) contact;
+            view.goContactProfile(employee.getPk());
         }
     }
 

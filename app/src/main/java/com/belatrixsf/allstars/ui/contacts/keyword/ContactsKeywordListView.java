@@ -13,6 +13,5 @@ public interface ContactsKeywordListView extends AllStarsView {
     void showEmployees(List<Employee> contacts);
     void showCurrentPage(int currentPage);
     void goContactProfile(Integer id);
-    void selectContact(Employee contact);
 
 }

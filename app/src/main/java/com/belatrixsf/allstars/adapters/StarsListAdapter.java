@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
+import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.entities.Star;
 import com.belatrixsf.allstars.ui.common.LoadMoreBaseAdapter;
 import com.belatrixsf.allstars.ui.common.views.KeywordView;
@@ -39,6 +40,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by icerrate on 25/04/2016.
@@ -48,20 +50,22 @@ public class StarsListAdapter extends LoadMoreBaseAdapter<Star> {
     public static final int VIEW_TYPE_STAR_ITEM = 1;
 
     private String noMessagePlaceHolder;
+    private KeywordClickListener keywordClickListener;
 
-    public StarsListAdapter(Context context) {
-        this(context, new ArrayList<Star>());
+    public StarsListAdapter(Context context, KeywordClickListener keywordClickListener) {
+        this(context, new ArrayList<Star>(), keywordClickListener);
     }
 
-    public StarsListAdapter(Context context, List<Star> starList) {
+    public StarsListAdapter(Context context, List<Star> starList, KeywordClickListener keywordClickListener) {
         this.data = starList;
+        this.keywordClickListener = keywordClickListener;
         this.noMessagePlaceHolder = context.getString(R.string.message_placeholder);
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateDataViewHolder(ViewGroup parent, int viewType) {
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_star, parent, false);
-        return new StarViewHolder(layoutView);
+        return new StarViewHolder(layoutView, keywordClickListener);
     }
 
     @Override
@@ -108,10 +112,25 @@ public class StarsListAdapter extends LoadMoreBaseAdapter<Star> {
         @Bind(R.id.star_keyword)
         public KeywordView starKeywordView;
 
-        public StarViewHolder(View view) {
+        KeywordClickListener keywordClickListener;
+
+        public StarViewHolder(View view, KeywordClickListener keywordClickListener) {
             super(view);
             ButterKnife.bind(this, view);
+            this.keywordClickListener = keywordClickListener;
         }
+
+        @OnClick(R.id.star_message)
+        public void onKeywordClick(View v) {
+            if (keywordClickListener != null) {
+                keywordClickListener.onKeywordSelected(getAdapterPosition());
+            }
+        }
+    }
+
+    public interface KeywordClickListener {
+
+        void onKeywordSelected(int position);
 
     }
 

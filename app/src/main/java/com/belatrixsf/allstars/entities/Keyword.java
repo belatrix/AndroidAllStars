@@ -21,11 +21,14 @@ package com.belatrixsf.allstars.entities;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by icerrate on 06/05/16.
  */
 public class Keyword implements Parcelable {
 
+    @SerializedName(value = "pk", alternate = {"id"})
     private Integer id;
     private String name;
 
