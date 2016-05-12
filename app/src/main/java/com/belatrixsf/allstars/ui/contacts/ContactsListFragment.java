@@ -54,6 +54,7 @@ import com.belatrixsf.allstars.ui.common.EndlessRecyclerOnScrollListener;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
+import com.belatrixsf.allstars.utils.Constants;
 import com.belatrixsf.allstars.utils.KeyboardUtils;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsListPresenterModule;
 
@@ -75,6 +76,7 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     public static final String ACTION_MODE_KEY = "_action_mode_key";
     public static final String PAGINATION_RESPONSE_KEY = "_pagination_response_key";
     public static final String CURRENT_PAGE_KEY = "_current_page_key";
+    public static final String SEARCH_TERM_KEY = "_search_term_key";
 
     private ContactsListPresenter contactsListPresenter;
     private ContactsListAdapter contactsListAdapter;
@@ -141,12 +143,10 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
         boolean hasArguments = (getArguments() != null && getArguments().containsKey(PROFILE_ENABLED_KEY));
         if (savedInstanceState != null) {
             restoreState(savedInstanceState);
-        } else {
-            if (hasArguments){
-                contactsListPresenter.setProfileEnabled(getArguments().getBoolean(PROFILE_ENABLED_KEY));
-            }
+        } else if (hasArguments){
+            contactsListPresenter.setProfileEnabled(getArguments().getBoolean(PROFILE_ENABLED_KEY));
+            contactsListPresenter.getContacts();
         }
-        contactsListPresenter.getContacts();
     }
 
     @Override
@@ -160,21 +160,22 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
         boolean actionModeEnabled = savedInstanceState.getBoolean(ACTION_MODE_KEY);
         Integer currentPage = savedInstanceState.getInt(CURRENT_PAGE_KEY);
         PaginatedResponse paginatedResponse = savedInstanceState.getParcelable(PAGINATION_RESPONSE_KEY);
-        if (actionModeEnabled){
-            contactsListPresenter.resumeActionMode(savedContacts, currentPage, paginatedResponse);
-        } else {
-            contactsListPresenter.setLoadedContacts(savedContacts, currentPage, paginatedResponse);
-        }
+        String searchTerm = savedInstanceState.getString(SEARCH_TERM_KEY);
+        boolean profileEnabled = savedInstanceState.getBoolean(PROFILE_ENABLED_KEY);
+        contactsListPresenter.setProfileEnabled(profileEnabled);
+        contactsListPresenter.setLoadedContacts(actionModeEnabled, savedContacts, currentPage, paginatedResponse, searchTerm);
     }
 
     private void saveState(Bundle outState) {
-        List<Employee> forSavingContacts = contactsListPresenter.getLoadedContacts();
-        if (forSavingContacts != null && forSavingContacts instanceof ArrayList) {
-            outState.putParcelableArrayList(CONTACTS_KEY, (ArrayList<Employee>) forSavingContacts);
+        List<Employee> contactsList = contactsListPresenter.getLoadedContacts();
+        if (contactsList != null && contactsList instanceof ArrayList) {
+            outState.putParcelableArrayList(CONTACTS_KEY, (ArrayList<Employee>) contactsList);
         }
         outState.putBoolean(ACTION_MODE_KEY, contactsListPresenter.isInActionMode());
         outState.putInt(CURRENT_PAGE_KEY, contactsListPresenter.getCurrentPage());
         outState.putParcelable(PAGINATION_RESPONSE_KEY, contactsListPresenter.getContactPaginatedResponse());
+        outState.putString(SEARCH_TERM_KEY, contactsListPresenter.getSearchTerm());
+        outState.putBoolean(PROFILE_ENABLED_KEY, contactsListPresenter.getProfileEnabled());
     }
 
     private void initViews() {
@@ -255,7 +256,7 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
             cleanImageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    searchTermEditText.setText("");
+                    searchTermEditText.setText(Constants.EMPTY_STRING);
                     searchTermEditText.requestFocus();
                 }
             });
@@ -316,11 +317,6 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     public void onClick(View v) {
         photoImageView = ButterKnife.findById(v, R.id.contact_photo);
         contactsListPresenter.onContactClicked(v.getTag());
-    }
-
-    @Override
-    public void resetContacts() {
-        contactsListAdapter.clear();
     }
 
     @Override

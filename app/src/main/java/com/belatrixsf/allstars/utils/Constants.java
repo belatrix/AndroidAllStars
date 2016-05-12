@@ -14,4 +14,6 @@ public class Constants {
     public static final int FIRST_POSITION = 1;
     public static final int SECOND_POSITION = 2;
     public static final int THIRD_POSITION = 3;
+
+    public static final String EMPTY_STRING = "";
 }
