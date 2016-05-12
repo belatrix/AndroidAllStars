@@ -80,7 +80,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     @Bind(R.id.level) TextView levelTextView;
     @Bind(R.id.score) TextView scoreTextView;
     @Bind(R.id.profile_name) TextView nameTextView;
-    @Bind(R.id.profile_role) TextView roleTextView;
+    @Bind(R.id.profile_email) TextView emailTextView;
     @Bind(R.id.profile_picture) ImageView pictureImageView;
     @Bind(R.id.account_swipe_refresh) SwipeRefreshLayout accountSwipeRefresh;
     @Bind(R.id.subcategories_progress_bar) ProgressBar subCategoriesProgressBar;
@@ -215,8 +215,8 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     }
 
     @Override
-    public void showRole(String role) {
-        roleTextView.setText(role);
+    public void showEmail(String role) {
+        emailTextView.setText(role);
     }
 
     @Override
