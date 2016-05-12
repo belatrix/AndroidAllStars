@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Keyword;
+import com.belatrixsf.allstars.ui.common.LoadMoreBaseAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,40 +40,52 @@ import butterknife.OnClick;
 /**
  * Created by gyosida on 5/10/16.
  */
-public class KeywordsListAdapter extends RecyclerView.Adapter<KeywordsListAdapter.KeywordHolder> {
+public class KeywordsListAdapter extends LoadMoreBaseAdapter<Keyword> {
 
-    private List<Keyword> keywords;
+    private static final int KEYWORD_TYPE = 1;
+
     private KeywordListener keywordListener;
 
     public KeywordsListAdapter() {
-        this.keywords = new ArrayList<>();
+        this.data = new ArrayList<>();
     }
 
     @Override
-    public KeywordsListAdapter.KeywordHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateDataViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_keyword, parent, false);
         return new KeywordHolder(view, keywordListener);
     }
 
     @Override
-    public void onBindViewHolder(KeywordHolder holder, int position) {
-        Keyword keyword = keywords.get(position);
-        holder.keywordName.setText(keyword.getName());
+    public void onBindDataViewHolder(RecyclerView.ViewHolder holder, int position) {
+        Keyword keyword = data.get(position);
+        KeywordHolder keywordHolder = (KeywordHolder) holder;
+        keywordHolder.keywordName.setText(keyword.getName());
+    }
+
+    @Override
+    public int getDataItemViewType(int position) {
+        return KEYWORD_TYPE;
     }
 
     @Override
     public int getItemCount() {
-        return keywords.size();
+        return data.size();
     }
 
     public void update(List<Keyword> keywords) {
-        this.keywords.clear();
-        this.keywords.addAll(keywords);
+        this.data.clear();
+        this.data.addAll(keywords);
         notifyDataSetChanged();
     }
 
     public void add(List<Keyword> keywords) {
-        this.keywords.addAll(keywords);
+        this.data.addAll(keywords);
+        notifyDataSetChanged();
+    }
+
+    public void reset() {
+        data.clear();
         notifyDataSetChanged();
     }
 

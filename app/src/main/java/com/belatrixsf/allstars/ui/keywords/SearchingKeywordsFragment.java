@@ -19,6 +19,7 @@ import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.KeywordsListAdapter;
 import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
+import com.belatrixsf.allstars.ui.common.EndlessRecyclerOnScrollListener;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.allstars.ui.common.views.searchingview.SearchingView;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
@@ -34,6 +35,7 @@ import butterknife.Bind;
 public class SearchingKeywordsFragment extends AllStarsFragment implements SearchingKeywordsView, KeywordsListAdapter.KeywordListener {
 
     private KeywordsListAdapter keywordsListAdapter;
+    private EndlessRecyclerOnScrollListener endlessRecyclerOnScrollListener;
 
     @Inject SearchingKeywordsPresenter keywordsPresenter;
 
@@ -80,11 +82,19 @@ public class SearchingKeywordsFragment extends AllStarsFragment implements Searc
     }
 
     private void initViews() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        endlessRecyclerOnScrollListener = new EndlessRecyclerOnScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int current_page) {
+                keywordsPresenter.callNextPage();
+            }
+        };
         keywordsListAdapter = new KeywordsListAdapter();
         keywordsListAdapter.setKeywordListener(this);
-        keywords.setLayoutManager(new LinearLayoutManager(getActivity()));
-        keywords.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
+        keywords.addOnScrollListener(endlessRecyclerOnScrollListener);
         keywords.setAdapter(keywordsListAdapter);
+        keywords.setLayoutManager(linearLayoutManager);
+        keywords.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
     }
 
     @Override
@@ -93,6 +103,18 @@ public class SearchingKeywordsFragment extends AllStarsFragment implements Searc
                 .getApplicationComponent()
                 .keywordsListComponent(new KeywordsListModule(this))
                 .inject(this);
+    }
+
+    @Override
+    public void showProgressIndicator() {
+        keywordsListAdapter.setLoading(true);
+        endlessRecyclerOnScrollListener.setLoading(true);
+    }
+
+    @Override
+    public void hideProgressIndicator() {
+        keywordsListAdapter.setLoading(false);
+        endlessRecyclerOnScrollListener.setLoading(false);
     }
 
     @Override

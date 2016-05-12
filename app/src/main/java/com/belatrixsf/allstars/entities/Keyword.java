@@ -30,6 +30,7 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Keyword implements Parcelable {
 
+    @SerializedName("pk")
     private Integer id;
     private String name;
     @SerializedName("num_stars")

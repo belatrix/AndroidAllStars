@@ -40,9 +40,9 @@ public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywo
 
     private StarService starService;
     private List<Keyword> keywords = new ArrayList<>();
-    private List<Keyword> filteredKeywords = new ArrayList<>();
     private PaginatedResponse keywordsPaging = new PaginatedResponse();
-    private PaginatedResponse filteredKeywordsPaging = new PaginatedResponse();
+    private String searchText;
+
 
     @Inject
     public SearchingKeywordsPresenter(SearchingKeywordsView searchingKeywordsView, StarService starService) {
@@ -50,20 +50,7 @@ public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywo
         this.starService = starService;
     }
 
-    public void getKeywords() {
-        getKeywords(keywords, null, keywordsPaging);
-    }
-
-    public void getKeywords(String searchText) {
-        getKeywords(filteredKeywords, searchText, filteredKeywordsPaging);
-    }
-
     public void onKeywordSelected(int position) {
-        // if it is empty means is not from the searching list
-        matchAndDispatchKeyword(filteredKeywords.isEmpty()? keywords : filteredKeywords, position);
-    }
-
-    private void matchAndDispatchKeyword(List<Keyword> keywords, int position) {
         if (position >= 0 && position < keywords.size()) {
             Keyword keyword = keywords.get(position);
             view.showKeywordDetail(keyword);
@@ -75,19 +62,37 @@ public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywo
     }
 
     public void stopSearchingKeywords() {
-        filteredKeywords.clear();
-        filteredKeywordsPaging.reset();
-        view.showSearchActionMode();
+        view.resetList();
+        this.searchText = null;
+        getKeywordsInternal();
     }
 
-    private void getKeywords(final List<Keyword> keywords, String searchText, final PaginatedResponse paginatedResponse) {
+    public void callNextPage() {
+        if (keywordsPaging.getNext() != null) {
+            getKeywordsInternal();
+        }
+    }
+
+    public void getKeywords() {
+        getKeywords(null);
+    }
+
+    public void getKeywords(String searchText) {
+        this.searchText = searchText;
+        view.resetList();
+        if (searchText != null) {
+            keywordsPaging.reset();
+        }
+        getKeywordsInternal();
+    }
+
+    private void getKeywordsInternal() {
         view.showProgressIndicator();
-        starService.getStarsByKeywords(searchText, 1, new AllStarsCallback<StarsByKeywordsResponse>() {
+        starService.getStarsByKeywords(searchText, keywordsPaging.getNextPage(), new AllStarsCallback<StarsByKeywordsResponse>() {
             @Override
             public void onSuccess(StarsByKeywordsResponse starsByKeywordsResponse) {
-                paginatedResponse.setCount(starsByKeywordsResponse.getCount());
-                paginatedResponse.setNext(starsByKeywordsResponse.getNext());
-                paginatedResponse.setPrevious(starsByKeywordsResponse.getPrevious());
+                keywordsPaging.setCount(starsByKeywordsResponse.getCount());
+                keywordsPaging.setNext(starsByKeywordsResponse.getNext());
                 keywords.addAll(starsByKeywordsResponse.getKeywords());
                 view.addKeywords(starsByKeywordsResponse.getKeywords());
                 view.hideProgressIndicator();
