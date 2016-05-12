@@ -77,6 +77,8 @@
     <string name="title_content_category">Category:</string>
     <string name="title_content_date">Date:</string>
     <string name="message_placeholder">No message</string>
+    <string name="fullname_placeholder">Anonymous</string>
+    <string name="level_placeholder">No data</string>
     <string name="hashtag">#</string>
 
     <!--Actions-->

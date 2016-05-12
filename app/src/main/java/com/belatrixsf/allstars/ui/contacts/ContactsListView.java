@@ -31,6 +31,7 @@ import java.util.List;
 public interface ContactsListView extends AllStarsView {
 
     void showContacts(List<Employee> contacts);
+    void showCurrentPage(int currentPage);
     void startActionMode();
     void showCleanButton();
     void hideCleanButton();
