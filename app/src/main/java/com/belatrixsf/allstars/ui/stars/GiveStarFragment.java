@@ -17,8 +17,7 @@ import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.ui.category.CategoriesActivity;
 import com.belatrixsf.allstars.ui.common.views.KeywordSelectionView;
-import com.belatrixsf.allstars.ui.keywords.KeywordsActivity;
-import com.belatrixsf.allstars.ui.keywords.KeywordsMode;
+import com.belatrixsf.allstars.ui.stars.keyword.KeywordsActivity;
 import com.belatrixsf.allstars.ui.stars.comment.CommentActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.views.AccountSelectionView;
@@ -234,7 +233,7 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
 
     @Override
     public void goSelectKeyword() {
-        startActivityForResult(KeywordsActivity.makeIntent(getActivity(), KeywordsMode.LIST), RQ_KEYWORD);
+        startActivityForResult(new Intent(getActivity(), KeywordsActivity.class), RQ_KEYWORD);
     }
 
     @Override
@@ -254,7 +253,7 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
             } else if (requestCode == RQ_SUBCATEGORY) {
                 giveStarPresenter.loadSelectedSubCategory((SubCategory) data.getParcelableExtra(CategoriesActivity.SUBCATEGORY_KEY));
             } else if (requestCode == RQ_KEYWORD) {
-                giveStarPresenter.loadSelectedKeyword((Keyword) data.getParcelableExtra(KeywordsActivity.KEYWORD_MODE_KEY));
+                giveStarPresenter.loadSelectedKeyword((Keyword) data.getParcelableExtra(KeywordsActivity.KEYWORD_KEY));
             }
         }
     }

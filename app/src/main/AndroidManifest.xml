@@ -38,7 +38,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.keywords.KeywordsActivity"></activity>
+        <activity
+            android:name=".ui.stars.keyword.KeywordsActivity"
+            android:label="@string/title_keywords_activity"/>
     </application>
 
 </manifest>

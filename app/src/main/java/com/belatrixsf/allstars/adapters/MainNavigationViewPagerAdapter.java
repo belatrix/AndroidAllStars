@@ -26,8 +26,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.belatrixsf.allstars.ui.account.AccountFragment;
 import com.belatrixsf.allstars.ui.contacts.ContactsListFragment;
-import com.belatrixsf.allstars.ui.keywords.KeywordsListFragment;
-import com.belatrixsf.allstars.ui.keywords.KeywordsMode;
+import com.belatrixsf.allstars.ui.keywords.SearchingKeywordsFragment;
 import com.belatrixsf.allstars.ui.ranking.RankingContainerFragment;
 
 /**
@@ -51,7 +50,7 @@ public class MainNavigationViewPagerAdapter extends FragmentPagerAdapter {
             case 2:
                 return ContactsListFragment.newInstance(true);
             default:
-                return KeywordsListFragment.newInstance(KeywordsMode.SEARCH);
+                return SearchingKeywordsFragment.newInstance();
         }
     }
 

@@ -18,49 +18,54 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.keywords;
+package com.belatrixsf.allstars.ui.stars.keyword;
 
 import com.belatrixsf.allstars.entities.Keyword;
+import com.belatrixsf.allstars.services.CategoryService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
+import com.belatrixsf.allstars.utils.AllStarsCallback;
+import com.belatrixsf.allstars.utils.ServiceError;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
- * Created by gyosida on 5/9/16.
+ * Created by gyosida on 5/11/16.
  */
-public abstract class KeywordsPresenter extends AllStarsPresenter<KeywordsListView> {
+public class KeywordsListPresenter extends AllStarsPresenter<KeywordsListView> {
 
-    protected List<Keyword> keywords = new ArrayList<>();
-    protected KeywordsMode keywordsMode;
+    private List<Keyword> keywords = new ArrayList<>();
+    private CategoryService categoryService;
 
-
-    protected KeywordsPresenter(KeywordsListView keywordsListView, KeywordsMode keywordsMode) {
+    @Inject
+    public KeywordsListPresenter(KeywordsListView keywordsListView, CategoryService categoryService) {
         super(keywordsListView);
-        this.keywordsMode = keywordsMode;
+        this.categoryService = categoryService;
+    }
+
+    public void getKeywords() {
+        view.showProgressIndicator();
+        categoryService.getKeywords(new AllStarsCallback<List<Keyword>>() {
+            @Override
+            public void onSuccess(List<Keyword> keywords) {
+                KeywordsListPresenter.this.keywords.addAll(keywords);
+                view.showKeywords(keywords);
+                view.hideProgressIndicator();
+            }
+
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                showError(serviceError.getErrorMessage());
+            }
+        });
     }
 
     public void onKeywordSelected(int position) {
-        matchAndDispatchKeyword(keywords, position);
-    }
-
-    protected void matchAndDispatchKeyword(List<Keyword> keywords, int position) {
         if (position >= 0 && position < keywords.size()) {
             Keyword keyword = keywords.get(position);
-            if (keywordsMode != null) {
-                switch (keywordsMode) {
-                    case SEARCH:
-                        view.showKeywordDetail(keyword);
-                        break;
-                    default:
-                        view.deliverKeywordAsResult(keyword);
-                }
-            } else {
-                throw new RuntimeException("Need to pass a non-null keyword");
-            }
+            view.deliverKeywordAsResult(keyword);
         }
     }
-
-    public abstract void getKeywords();
-
 }

@@ -20,13 +20,8 @@
 */
 package com.belatrixsf.allstars.utils.di.modules.presenters;
 
-import com.belatrixsf.allstars.services.CategoryService;
-import com.belatrixsf.allstars.services.StarService;
-import com.belatrixsf.allstars.ui.keywords.KeywordsListPresenter;
-import com.belatrixsf.allstars.ui.keywords.KeywordsPresenter;
-import com.belatrixsf.allstars.ui.keywords.KeywordsListView;
-import com.belatrixsf.allstars.ui.keywords.KeywordsMode;
-import com.belatrixsf.allstars.ui.keywords.SearchingKeywordsPresenter;
+import com.belatrixsf.allstars.ui.keywords.SearchingKeywordsView;
+import com.belatrixsf.allstars.ui.stars.keyword.KeywordsListView;
 
 import dagger.Module;
 import dagger.Provides;
@@ -37,27 +32,25 @@ import dagger.Provides;
 @Module
 public class KeywordsListModule {
 
+    private SearchingKeywordsView searchingKeywordsView;
     private KeywordsListView keywordsListView;
-    private KeywordsMode mode;
 
-    public KeywordsListModule(KeywordsListView keywordsListView, KeywordsMode mode) {
+    public KeywordsListModule(SearchingKeywordsView searchingKeywordsView) {
+        this.searchingKeywordsView = searchingKeywordsView;
+    }
+
+    public KeywordsListModule(KeywordsListView keywordsListView) {
         this.keywordsListView = keywordsListView;
-        this.mode = mode;
     }
 
     @Provides
-    public KeywordsListView provideView() {
+    public SearchingKeywordsView provideSearchKeywordsView() {
+        return searchingKeywordsView;
+    }
+
+    @Provides
+    public KeywordsListView provideKeywordsListView() {
         return keywordsListView;
-    }
-
-    @Provides
-    public KeywordsPresenter providePresenter(StarService starService, CategoryService categoryService) {
-        switch (mode) {
-            case SEARCH:
-                return new SearchingKeywordsPresenter(keywordsListView, starService);
-            default:
-                return new KeywordsListPresenter(keywordsListView, categoryService);
-        }
     }
 
 }

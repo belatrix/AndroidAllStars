@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,51 +25,33 @@ import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.KeyboardUtils;
 import com.belatrixsf.allstars.utils.di.modules.presenters.KeywordsListModule;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.Bind;
 
-public class KeywordsListFragment extends AllStarsFragment implements KeywordsListView, KeywordsListAdapter.KeywordListener {
-
-    private static final String MODE_KEY = "mode_key";
+public class SearchingKeywordsFragment extends AllStarsFragment implements SearchingKeywordsView, KeywordsListAdapter.KeywordListener {
 
     private KeywordsListAdapter keywordsListAdapter;
-    private KeywordsMode keywordsMode;
 
-    @Inject
-    KeywordsPresenter keywordsPresenter;
+    @Inject SearchingKeywordsPresenter keywordsPresenter;
 
     @Bind(R.id.keywords) RecyclerView keywords;
 
 
-    public KeywordsListFragment() {
+    public SearchingKeywordsFragment() {
         // Required empty public constructor
     }
 
-    public static KeywordsListFragment newInstance(KeywordsMode keywordsMode) {
-        KeywordsListFragment fragment = new KeywordsListFragment();
-        Bundle args = new Bundle();
-        args.putSerializable(MODE_KEY, keywordsMode);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        if (getArguments() != null) {
-            Serializable serializedMode = getArguments().getSerializable(MODE_KEY);
-            keywordsMode = serializedMode != null? (KeywordsMode) serializedMode : KeywordsMode.LIST;
-        }
-        super.onCreate(savedInstanceState);
+    public static SearchingKeywordsFragment newInstance() {
+        return new SearchingKeywordsFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment_keywords_list, container, false);
     }
 
@@ -77,6 +60,23 @@ public class KeywordsListFragment extends AllStarsFragment implements KeywordsLi
         super.onViewCreated(view, savedInstanceState);
         initViews();
         keywordsPresenter.getKeywords();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_search, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                keywordsPresenter.searchKeywords();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void initViews() {
@@ -91,7 +91,7 @@ public class KeywordsListFragment extends AllStarsFragment implements KeywordsLi
     protected void initDependencies(AllStarsApplication allStarsApplication) {
         allStarsApplication
                 .getApplicationComponent()
-                .keywordsListComponent(new KeywordsListModule(this, keywordsMode))
+                .keywordsListComponent(new KeywordsListModule(this))
                 .inject(this);
     }
 
@@ -101,19 +101,12 @@ public class KeywordsListFragment extends AllStarsFragment implements KeywordsLi
     }
 
     @Override
-    public void deliverKeywordAsResult(Keyword keyword) {
-        if (getActivity() instanceof KeywordsListListener) {
-            ((KeywordsListListener) getActivity()).onKeywordSelectedForDispatching(keyword);
-        }
-    }
-
-    @Override
     public void showKeywordDetail(Keyword keyword) {
         //TODO: display detail
     }
 
     @Override
-    public void showSearchActionMode(boolean show) {
+    public void showSearchActionMode() {
         if (getActivity() instanceof AppCompatActivity) {
             ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
         }
@@ -131,9 +124,7 @@ public class KeywordsListFragment extends AllStarsFragment implements KeywordsLi
             searchingView.setSearchingListener(new SearchingView.SearchingListener() {
                 @Override
                 public void onSearchingTextTyped(String searchText) {
-                    if (keywordsPresenter instanceof SearchingKeywordsPresenter) {
-                        ((SearchingKeywordsPresenter) keywordsPresenter).getKeywords(searchText);
-                    }
+                    keywordsPresenter.getKeywords(searchText);
                 }
             });
             mode.setCustomView(searchingView);
@@ -152,12 +143,9 @@ public class KeywordsListFragment extends AllStarsFragment implements KeywordsLi
 
         @Override
         public void onDestroyActionMode(ActionMode mode) {
+            keywordsPresenter.stopSearchingKeywords();
             KeyboardUtils.hideKeyboard(getActivity(), getView());
         }
     };
-
-    interface KeywordsListListener {
-        void onKeywordSelectedForDispatching(Keyword keyword);
-    }
 
 }

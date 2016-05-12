@@ -65,6 +65,12 @@ public class KeywordsListAdapter extends RecyclerView.Adapter<KeywordsListAdapte
         return keywords.size();
     }
 
+    public void update(List<Keyword> keywords) {
+        this.keywords.clear();
+        this.keywords.addAll(keywords);
+        notifyDataSetChanged();
+    }
+
     public void add(List<Keyword> keywords) {
         this.keywords.addAll(keywords);
         notifyDataSetChanged();

@@ -18,45 +18,19 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.keywords;
+package com.belatrixsf.allstars.ui.stars.keyword;
 
 import com.belatrixsf.allstars.entities.Keyword;
-import com.belatrixsf.allstars.services.CategoryService;
-import com.belatrixsf.allstars.utils.AllStarsCallback;
-import com.belatrixsf.allstars.utils.ServiceError;
+import com.belatrixsf.allstars.ui.common.AllStarsView;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 /**
- * Created by gyosida on 5/11/16.
+ * Created by gyosida on 5/12/16.
  */
-public class KeywordsListPresenter extends KeywordsPresenter {
+public interface KeywordsListView extends AllStarsView {
 
-    private CategoryService categoryService;
+    void deliverKeywordAsResult(Keyword keyword);
+    void showKeywords(List<Keyword> keywords);
 
-    @Inject
-    public KeywordsListPresenter(KeywordsListView keywordsListView, CategoryService categoryService) {
-        super(keywordsListView, KeywordsMode.LIST);
-        this.categoryService = categoryService;
-    }
-
-    @Override
-    public void getKeywords() {
-        view.showProgressIndicator();
-        categoryService.getKeywords(new AllStarsCallback<List<Keyword>>() {
-            @Override
-            public void onSuccess(List<Keyword> keywords) {
-                KeywordsListPresenter.this.keywords.addAll(keywords);
-                view.addKeywords(keywords);
-                view.hideProgressIndicator();
-            }
-
-            @Override
-            public void onFailure(ServiceError serviceError) {
-                showError(serviceError.getErrorMessage());
-            }
-        });
-    }
 }

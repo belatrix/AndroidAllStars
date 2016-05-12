@@ -54,6 +54,6 @@ public interface ApplicationComponent {
     RankingComponent rankingComponent(RankingPresenterModule rankingPresenterModule);
     GiveStarComponent giveStarComponent(GiveStarPresenterModule giveStarPresenterModule);
     CategoriesListComponent categoriesListComponent(CategoriesListModule categoriesListModule);
-    KeywordsListComponent keywordsListComponent(KeywordsListModule keywordsListModule);
+    KeywordsComponent keywordsListComponent(KeywordsListModule keywordsListModule);
 
 }

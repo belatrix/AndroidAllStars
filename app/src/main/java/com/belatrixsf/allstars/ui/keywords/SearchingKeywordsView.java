@@ -18,25 +18,20 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils.di.components;
+package com.belatrixsf.allstars.ui.keywords;
 
-import com.belatrixsf.allstars.ui.keywords.KeywordsListFragment;
-import com.belatrixsf.allstars.utils.di.modules.presenters.KeywordsListModule;
-import com.belatrixsf.allstars.utils.di.scopes.UIScope;
+import com.belatrixsf.allstars.entities.Keyword;
+import com.belatrixsf.allstars.ui.common.AllStarsView;
 
-import dagger.Subcomponent;
+import java.util.List;
 
 /**
- * Created by gyosida on 5/10/16.
+ * Created by gyosida on 5/9/16.
  */
-@UIScope
-@Subcomponent(
-        modules = {
-                KeywordsListModule.class
-        }
-)
-public interface KeywordsListComponent {
+public interface SearchingKeywordsView extends AllStarsView {
 
-    void inject(KeywordsListFragment keywordsListFragment);
+    void addKeywords(List<Keyword> keywords);
+    void showKeywordDetail(Keyword keyword);
+    void showSearchActionMode();
 
 }

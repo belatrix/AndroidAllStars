@@ -18,21 +18,27 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.keywords;
+package com.belatrixsf.allstars.utils.di.components;
+
+import com.belatrixsf.allstars.ui.keywords.SearchingKeywordsFragment;
+import com.belatrixsf.allstars.ui.stars.keyword.KeywordsListFragment;
+import com.belatrixsf.allstars.utils.di.modules.presenters.KeywordsListModule;
+import com.belatrixsf.allstars.utils.di.scopes.UIScope;
+
+import dagger.Subcomponent;
 
 /**
  * Created by gyosida on 5/10/16.
  */
-public enum KeywordsMode {
-    SEARCH(100),
-    LIST(101);
-    private int code;
+@UIScope
+@Subcomponent(
+        modules = {
+                KeywordsListModule.class
+        }
+)
+public interface KeywordsComponent {
 
-    KeywordsMode(int code) {
-        this.code = code;
-    }
+    void inject(SearchingKeywordsFragment searchingKeywordsFragment);
+    void inject(KeywordsListFragment keywordsListFragment);
 
-    public int getCode() {
-        return code;
-    }
 }
