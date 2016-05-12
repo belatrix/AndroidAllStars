@@ -40,7 +40,6 @@ public class Employee implements Parcelable {
     private String firstName;
     @SerializedName("last_name")
     private String lastName;
-    private Role role;
     @SerializedName("skype_id")
     private String skypeId;
     @SerializedName("total_score")
@@ -80,10 +79,6 @@ public class Employee implements Parcelable {
 
     public String getLastName() {
         return lastName;
-    }
-
-    public Role getRole() {
-        return role;
     }
 
     public String getSkypeId() {
@@ -152,7 +147,6 @@ public class Employee implements Parcelable {
         email = in.readString();
         firstName = in.readString();
         lastName = in.readString();
-        role = (Role) in.readValue(Role.class.getClassLoader());
         skypeId = in.readString();
         totalScore = in.readByte() == 0x00 ? null : in.readInt();
         lastMonthScore = in.readByte() == 0x00 ? null : in.readInt();
@@ -189,7 +183,6 @@ public class Employee implements Parcelable {
         dest.writeString(email);
         dest.writeString(firstName);
         dest.writeString(lastName);
-        dest.writeValue(role);
         dest.writeString(skypeId);
         if (totalScore == null) {
             dest.writeByte((byte) (0x00));
