@@ -30,6 +30,7 @@ public interface ServerPaths {
     String STAR = "star";
 
     String EMPLOYEE_ID = "employee_id";
+    String KEYWORD_ID = "keyword_id";
     String FROM_EMPLOYEE = "from_employee_id";
     String TO_EMPLOYEE = "to_employee_id";
     String SUBCATEGORY_ID = "subcategory_id";
@@ -49,6 +50,7 @@ public interface ServerPaths {
 
     String STAR_EMPLOYEE = STAR + "/{" + FROM_EMPLOYEE + "}" + "/give/star/to/{" + TO_EMPLOYEE + "}/" ;
     String STARS_BY_EMPLOYEE_AND_SUBCATEGORY = STAR + "/{" + EMPLOYEE_ID + "}/subcategory" + "/{" + SUBCATEGORY_ID + "}/list";
+    String STARS_BY_KEYWORD = STAR + "/keyword/{" + KEYWORD_ID + "}/list/";
     String RANKING_LIST = EMPLOYEE + "/list/top/{" + KIND + "}/{" + QUANTITY + "}/";
 
     String SUBCATEGORIES_BY_CATEGORY_ID = CATEGORY + "/{" + CATEGORY_ID + "}/subcategory/list";
