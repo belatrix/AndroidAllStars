@@ -24,6 +24,7 @@ import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarsByKeywordsResponse;
 import com.belatrixsf.allstars.services.StarService;
+import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
 
@@ -35,50 +36,48 @@ import javax.inject.Inject;
 /**
  * Created by gyosida on 5/9/16.
  */
-public class SearchingKeywordsPresenter extends KeywordsPresenter {
+public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywordsView> {
 
     private StarService starService;
+    private List<Keyword> keywords = new ArrayList<>();
     private List<Keyword> filteredKeywords = new ArrayList<>();
     private PaginatedResponse keywordsPaging = new PaginatedResponse();
     private PaginatedResponse filteredKeywordsPaging = new PaginatedResponse();
 
     @Inject
-    public SearchingKeywordsPresenter(KeywordsListView keywordsListView, StarService starService) {
-        super(keywordsListView, KeywordsMode.SEARCH);
+    public SearchingKeywordsPresenter(SearchingKeywordsView searchingKeywordsView, StarService starService) {
+        super(searchingKeywordsView);
         this.starService = starService;
     }
 
-    @Override
     public void getKeywords() {
         getKeywords(keywords, null, keywordsPaging);
-    }
-
-    @Override
-    public void onKeywordSelected(int position) {
-        // if it is empty means is not from the searching list
-        if (filteredKeywords.isEmpty()) {
-            super.onKeywordSelected(position);
-        } else {
-//            if (position >= 0 && position < filteredKeywords.size()) {
-//                Keyword keyword = filteredKeywords.get(position);
-//                view.showKeywordDetail(keyword);
-//            }
-            matchAndDispatchKeyword(filteredKeywords, position);
-        }
     }
 
     public void getKeywords(String searchText) {
         getKeywords(filteredKeywords, searchText, filteredKeywordsPaging);
     }
 
-    public void searchContacts() {
-        view.showSearchActionMode(true);
+    public void onKeywordSelected(int position) {
+        // if it is empty means is not from the searching list
+        matchAndDispatchKeyword(filteredKeywords.isEmpty()? keywords : filteredKeywords, position);
     }
 
-    public void stopSearchingContacts() {
+    private void matchAndDispatchKeyword(List<Keyword> keywords, int position) {
+        if (position >= 0 && position < keywords.size()) {
+            Keyword keyword = keywords.get(position);
+            view.showKeywordDetail(keyword);
+        }
+    }
+
+    public void searchKeywords() {
+        view.showSearchActionMode();
+    }
+
+    public void stopSearchingKeywords() {
         filteredKeywords.clear();
         filteredKeywordsPaging.reset();
-        view.showSearchActionMode(false);
+        view.showSearchActionMode();
     }
 
     private void getKeywords(final List<Keyword> keywords, String searchText, final PaginatedResponse paginatedResponse) {
