@@ -57,9 +57,12 @@ public class RankingFragment extends AllStarsFragment implements RankingView, Ra
     private RankingListAdapter rankingListAdapter;
 
     private ImageView photoImageView;
-    @Bind(R.id.ranking) RecyclerView rankingRecyclerView;
-    @Bind(R.id.progressBar) ProgressBar loadingProgressBar;
-    @Bind(R.id.ranking_swipe_refresh) SwipeRefreshLayout rankingSwipeRefresh;
+    @Bind(R.id.ranking)
+    RecyclerView rankingRecyclerView;
+    @Bind(R.id.progressBar)
+    ProgressBar loadingProgressBar;
+    @Bind(R.id.ranking_swipe_refresh)
+    SwipeRefreshLayout rankingSwipeRefresh;
 
     public static RankingFragment newInstance(String kind) {
         Bundle bundle = new Bundle();
@@ -144,4 +147,5 @@ public class RankingFragment extends AllStarsFragment implements RankingView, Ra
     public void hideRefreshData() {
         rankingSwipeRefresh.setRefreshing(false);
     }
+
 }

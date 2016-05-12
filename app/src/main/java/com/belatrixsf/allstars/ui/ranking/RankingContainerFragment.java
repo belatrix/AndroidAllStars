@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.belatrixsf.allstars.R;
+import com.belatrixsf.allstars.services.AllStarsService;
 import com.belatrixsf.allstars.utils.Constants;
 
 /**
@@ -77,4 +78,9 @@ public class RankingContainerFragment extends Fragment {
         transaction.commit();
     }
 
+    @Override
+    public void onDestroyView() {
+        AllStarsService.cancel();
+        super.onDestroyView();
+    }
 }

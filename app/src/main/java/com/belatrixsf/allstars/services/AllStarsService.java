@@ -18,29 +18,45 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
+
 package com.belatrixsf.allstars.services;
 
-import com.belatrixsf.allstars.entities.Category;
-import com.belatrixsf.allstars.entities.SubCategory;
-import com.belatrixsf.allstars.networking.retrofit.RetrofitCallback;
-import com.belatrixsf.allstars.networking.retrofit.api.CategoryAPI;
-import com.belatrixsf.allstars.utils.AllStarsCallback;
+import android.os.NetworkOnMainThreadException;
 
+import com.belatrixsf.allstars.networking.retrofit.RetrofitCallback;
+
+import java.util.ArrayList;
 import java.util.List;
 
+import retrofit.Call;
+
 /**
- * Created by gyosida on 4/27/16.
+ * @author Carlos Piñan
  */
-public class CategoryServerService extends AllStarsService implements CategoryService {
+public abstract class AllStarsService {
 
-    private CategoryAPI categoryAPI;
+    private static List<Call> callList;
+    public static boolean cancelling = false;
 
-    public CategoryServerService(CategoryAPI categoryAPI) {
-        this.categoryAPI = categoryAPI;
+    protected static void enqueue(Call call, RetrofitCallback callback) {
+        if (callList == null) {
+            callList = new ArrayList<>();
+        }
+        callList.add(call);
+        call.enqueue(callback);
     }
 
-    @Override
-    public void getSubcategories(int categoryId, AllStarsCallback<List<Category>> callback) {
-        enqueue(categoryAPI.getSubcategories(categoryId), new RetrofitCallback<List<SubCategory>>(callback));
+    public static void cancel() {
+        if (callList != null && !callList.isEmpty()) {
+            cancelling = true;
+            try {
+                for (Call call : callList) {
+                    call.cancel();
+                }
+            } catch (NetworkOnMainThreadException e) {
+                e.printStackTrace();
+            }
+            callList.clear();
+        }
     }
 }

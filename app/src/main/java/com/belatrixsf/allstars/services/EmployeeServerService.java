@@ -35,7 +35,7 @@ import java.util.List;
 /**
  * Created by gyosida on 4/12/16.
  */
-public class EmployeeServerService implements EmployeeService {
+public class EmployeeServerService extends AllStarsService implements EmployeeService {
 
     private EmployeeAPI employeeAPI;
 
@@ -46,30 +46,31 @@ public class EmployeeServerService implements EmployeeService {
     @Override
     public void authenticate(String username, String password, AllStarsCallback<AuthenticationResponse> callback) {
         AuthenticationRequest request = new AuthenticationRequest(username, password);
-        employeeAPI.authenticate(request).enqueue(new RetrofitCallback<AuthenticationResponse>(callback));
+        enqueue(employeeAPI.authenticate(request), new RetrofitCallback<AuthenticationResponse>(callback));
     }
 
     @Override
     public void getEmployee(int employeeId, AllStarsCallback<Employee> callback) {
-        employeeAPI.getEmployee(employeeId).enqueue(new RetrofitCallback<Employee>(callback));
+        enqueue(employeeAPI.getEmployee(employeeId), new RetrofitCallback<Employee>(callback));
     }
 
     @Override
     public void getEmployees(AllStarsCallback<SearchEmployeeResponse> callback) {
-        employeeAPI.getEmployees().enqueue(new RetrofitCallback<SearchEmployeeResponse>(callback));
+        enqueue(employeeAPI.getEmployees(), new RetrofitCallback<SearchEmployeeResponse>(callback));
     }
 
     @Override
     public void getEmployeeSearchList(String searchTerm, AllStarsCallback<SearchEmployeeResponse> callback) {
-        employeeAPI.getEmployeeSearchList(searchTerm).enqueue(new RetrofitCallback<SearchEmployeeResponse>(callback));
+        enqueue(employeeAPI.getEmployeeSearchList(searchTerm), new RetrofitCallback<SearchEmployeeResponse>(callback));
     }
 
     @Override
     public void getRankingList(String kind, int quantity, AllStarsCallback<List<Employee>> callback) {
-        employeeAPI.getRankingList(kind, quantity).enqueue(new RetrofitCallback<List<Employee>>(callback));
+        enqueue(employeeAPI.getRankingList(kind, quantity), new RetrofitCallback<List<Employee>>(callback));
     }
 
     public void getEmployeeCategories(int employeeId, AllStarsCallback<List<Category>> callback) {
-        employeeAPI.getEmployeeCategories(employeeId).enqueue(new RetrofitCallback<List<Category>>(callback));
+        enqueue(employeeAPI.getEmployeeCategories(employeeId), new RetrofitCallback<List<Category>>(callback));
+
     }
 }

@@ -22,6 +22,7 @@ package com.belatrixsf.allstars.networking.retrofit;
 
 import android.util.Log;
 
+import com.belatrixsf.allstars.services.AllStarsService;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
 
@@ -65,7 +66,11 @@ public class RetrofitCallback<T> implements Callback<T> {
     @Override
     public void onFailure(Throwable t) {
         // TODO handle exception
-        Log.d("RetrofitCallback", "onFailure: " + t.getMessage());
-        callback.onFailure(new ServiceError(UNKNOWN, "Unknown error"));
+        // Boolean validation to prevent call the onFailure when is cancelling the service.
+        if (!AllStarsService.cancelling) {
+            Log.d("RetrofitCallback", "onFailure: " + t.getMessage());
+            callback.onFailure(new ServiceError(UNKNOWN, "Unknown error"));
+        }
+        AllStarsService.cancelling = false;
     }
 }

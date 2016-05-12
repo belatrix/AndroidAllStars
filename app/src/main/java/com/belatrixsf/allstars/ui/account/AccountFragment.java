@@ -69,22 +69,32 @@ import static com.belatrixsf.allstars.ui.stars.GiveStarFragment.SELECTED_USER_KE
 public class AccountFragment extends AllStarsFragment implements AccountView, RecyclerOnItemClickListener {
 
     public static final int RQ_GIVE_STAR = 99;
-    public static final String MESSAGE_KEY = "_message_key";
 
     private AccountPresenter accountPresenter;
     private AccountSubCategoriesAdapter accountCategoriesAdapter;
 
-    @Bind(R.id.account_recommendations) RecyclerView recommendationRecyclerView;
-    @Bind(R.id.skype_id) TextView skypeIdTextView;
-    @Bind(R.id.current_month_score) TextView currentMonthScoreTextView;
-    @Bind(R.id.level) TextView levelTextView;
-    @Bind(R.id.score) TextView scoreTextView;
-    @Bind(R.id.profile_name) TextView nameTextView;
-    @Bind(R.id.profile_role) TextView roleTextView;
-    @Bind(R.id.profile_picture) ImageView pictureImageView;
-    @Bind(R.id.account_swipe_refresh) SwipeRefreshLayout accountSwipeRefresh;
-    @Bind(R.id.subcategories_progress_bar) ProgressBar subCategoriesProgressBar;
-    @Bind(R.id.no_data_textview) TextView noDataTextView;
+    @Bind(R.id.account_recommendations)
+    RecyclerView recommendationRecyclerView;
+    @Bind(R.id.skype_id)
+    TextView skypeIdTextView;
+    @Bind(R.id.current_month_score)
+    TextView currentMonthScoreTextView;
+    @Bind(R.id.level)
+    TextView levelTextView;
+    @Bind(R.id.score)
+    TextView scoreTextView;
+    @Bind(R.id.profile_name)
+    TextView nameTextView;
+    @Bind(R.id.profile_role)
+    TextView roleTextView;
+    @Bind(R.id.profile_picture)
+    ImageView pictureImageView;
+    @Bind(R.id.account_swipe_refresh)
+    SwipeRefreshLayout accountSwipeRefresh;
+    @Bind(R.id.subcategories_progress_bar)
+    ProgressBar subCategoriesProgressBar;
+    @Bind(R.id.no_data_textview)
+    TextView noDataTextView;
 
     private MenuItem recommendMenuItem;
 

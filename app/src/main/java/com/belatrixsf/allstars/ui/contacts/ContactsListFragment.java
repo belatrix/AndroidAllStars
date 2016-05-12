@@ -80,7 +80,8 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     private ImageButton cleanImageButton;
     private ImageView photoImageView;
 
-    @Bind(R.id.employees) RecyclerView contactsRecyclerView;
+    @Bind(R.id.employees)
+    RecyclerView contactsRecyclerView;
 
     public static ContactsListFragment newInstance(boolean profileEnabled) {
         Bundle bundle = new Bundle();
@@ -239,7 +240,7 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
             searchTermEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                 @Override
                 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                    if (actionId == EditorInfo.IME_ACTION_SEARCH){
+                    if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                         contactsListPresenter.submitSearchTerm(v.getText().toString());
                         KeyboardUtils.hideKeyboard(getActivity(), getView());
                     }
@@ -262,7 +263,7 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
         // Called when the user selects a contextual menu item
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-            return  false;
+            return false;
         }
 
         // Called when the user exits the action mode
@@ -302,4 +303,5 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     public void hideCleanButton() {
         cleanImageButton.setVisibility(View.INVISIBLE);
     }
+
 }

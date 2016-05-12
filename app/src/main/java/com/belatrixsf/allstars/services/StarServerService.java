@@ -11,7 +11,7 @@ import com.belatrixsf.allstars.utils.AllStarsCallback;
 /**
  * Created by PedroCarrillo on 4/26/16.
  */
-public class StarServerService implements StarService {
+public class StarServerService extends AllStarsService implements StarService {
 
     private StarAPI starAPI;
 
@@ -21,16 +21,16 @@ public class StarServerService implements StarService {
 
     @Override
     public void getEmployeeSubCategoriesStars(int employeeId, AllStarsCallback<StarSubCategoryResponse> callback) {
-        starAPI.getEmployeeSubCategoriesStars(employeeId).enqueue(new RetrofitCallback<StarSubCategoryResponse>(callback));
+        enqueue(starAPI.getEmployeeSubCategoriesStars(employeeId), new RetrofitCallback<StarSubCategoryResponse>(callback));
     }
 
     @Override
     public void star(int fromEmployeeId, int toEmployeeId, StarRequest starRequest, AllStarsCallback<StarResponse> callback) {
-        starAPI.star(fromEmployeeId, toEmployeeId, starRequest).enqueue(new RetrofitCallback<StarResponse>(callback));
+        enqueue(starAPI.star(fromEmployeeId, toEmployeeId, starRequest), new RetrofitCallback<StarResponse>(callback));
     }
 
     @Override
     public void getStars(int employeeId, int subcategory, Integer page, AllStarsCallback<StarsResponse> callback) {
-        starAPI.getStars(employeeId, subcategory, page).enqueue(new RetrofitCallback<StarsResponse>(callback));
+        enqueue(starAPI.getStars(employeeId, subcategory, page), new RetrofitCallback<StarsResponse>(callback));
     }
 }

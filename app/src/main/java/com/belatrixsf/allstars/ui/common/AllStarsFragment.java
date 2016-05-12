@@ -26,6 +26,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
+import com.belatrixsf.allstars.services.AllStarsService;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 
 import butterknife.ButterKnife;
@@ -33,13 +34,12 @@ import butterknife.ButterKnife;
 /**
  * @author PedroCarrillo
  * @author gyosida
- *
- * AllStarsFragment will implement the AllStarsView interface and manage
- * common fragment stuff to avoid boilerplate code
+ *         <p/>
+ *         AllStarsFragment will implement the AllStarsView interface and manage
+ *         common fragment stuff to avoid boilerplate code
  */
 public abstract class AllStarsFragment extends Fragment implements AllStarsView {
 
-    protected static final String TAG = AllStarsFragment.class.getName();
     protected FragmentListener fragmentListener;
 
     @Override
@@ -69,6 +69,7 @@ public abstract class AllStarsFragment extends Fragment implements AllStarsView 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        AllStarsService.cancel();
         ButterKnife.unbind(this);
     }
 
