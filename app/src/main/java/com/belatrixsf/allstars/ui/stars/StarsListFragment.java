@@ -138,7 +138,7 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
         endlessRecyclerOnScrollListener = new EndlessRecyclerOnScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int current_page) {
-                starsListPresenter.getStars(current_page);
+                starsListPresenter.callNextPage();
             }
         };
         starsRecyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);

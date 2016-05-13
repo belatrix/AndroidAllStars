@@ -44,7 +44,7 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
     private int subCategoryId;
     private PaginatedResponse starPaginatedResponse = new PaginatedResponse();
     private List<Star> stars = new ArrayList<>();
-    private int currentPage = 1;
+    private Integer currentPage = 1;
 
     @Inject
     public StarsListPresenter(StarsListView view, StarService starService) {
@@ -87,29 +87,33 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
     public void getStars(int employeeId, int subcategoryId) {
         this.employeeId = employeeId;
         this.subCategoryId = subcategoryId;
-        getStars(currentPage);
+        getStars();
     }
 
-    public void getStars(Integer page) {
-        if (starPaginatedResponse.getNext() != null || page == 1) {
-            currentPage = page;
-            view.showProgressIndicator();
-            starService.getStars(employeeId, subCategoryId, page, new AllStarsCallback<StarsResponse>() {
-                @Override
-                public void onSuccess(StarsResponse starsResponse) {
-                    stars.addAll(starsResponse.getStarList());
-                    starPaginatedResponse.setNext(starsResponse.getNext());
-                    view.hideProgressIndicator();
-                    view.showStars(stars);
-                }
-
-                @Override
-                public void onFailure(ServiceError serviceError) {
-                    view.hideProgressIndicator();
-                    showError(serviceError.getErrorMessage());
-                }
-            });
+    public void callNextPage() {
+        if (starPaginatedResponse.getNext() != null) {
+            getStars();
         }
+    }
+
+    public void getStars() {
+        currentPage = starPaginatedResponse.getNextPage();
+        view.showProgressIndicator();
+        starService.getStars(employeeId, subCategoryId, currentPage, new AllStarsCallback<StarsResponse>() {
+            @Override
+            public void onSuccess(StarsResponse starsResponse) {
+                stars.addAll(starsResponse.getStarList());
+                starPaginatedResponse.setNext(starsResponse.getNext());
+                view.hideProgressIndicator();
+                view.showStars(stars);
+            }
+
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                view.hideProgressIndicator();
+                showError(serviceError.getErrorMessage());
+            }
+        });
     }
 
     public void onKeywordSelected(int position) {
