@@ -61,11 +61,11 @@ public class SearchingView extends LinearLayout implements SearchableView {
         LayoutInflater.from(getContext()).inflate(R.layout.item_action_mode, this, true);
         searchingEditText = (EditText) findViewById(R.id.search_term);
         clearImageButton = (ImageButton) findViewById(R.id.clean);
-        searchingEditText.requestFocus();
         setViewListeners();
         post(new Runnable() {
             @Override
             public void run() {
+                searchingEditText.requestFocus();
                 KeyboardUtils.showKeyboard((Activity) getContext(), searchingEditText);
             }
         });
@@ -91,7 +91,7 @@ public class SearchingView extends LinearLayout implements SearchableView {
         clearImageButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                searchingEditText.setText("");
+                searchingViewPresenter.clearSearching();
             }
         });
     }
@@ -99,6 +99,11 @@ public class SearchingView extends LinearLayout implements SearchableView {
     @Override
     public void changeClearButtonVisibility(boolean show) {
         clearImageButton.setVisibility(show? VISIBLE : INVISIBLE);
+    }
+
+    @Override
+    public void clearSearching() {
+        searchingEditText.setText("");
     }
 
     @Override
