@@ -18,26 +18,39 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.networking.retrofit.api;
+package com.belatrixsf.allstars.utils.di.modules.presenters;
 
-import com.belatrixsf.allstars.entities.SubCategory;
-import com.belatrixsf.allstars.entities.Keyword;
+import com.belatrixsf.allstars.ui.keywords.SearchingKeywordsView;
+import com.belatrixsf.allstars.ui.stars.keyword.KeywordsListView;
 
-import java.util.List;
-
-import retrofit.Call;
-import retrofit.http.GET;
-import retrofit.http.Path;
+import dagger.Module;
+import dagger.Provides;
 
 /**
- * Created by gyosida on 4/26/16.
+ * Created by gyosida on 5/10/16.
  */
-public interface CategoryAPI {
+@Module
+public class KeywordsListModule {
 
-    @GET(ServerPaths.SUBCATEGORIES_BY_CATEGORY_ID)
-    Call<List<SubCategory>> getSubcategories(@Path(ServerPaths.CATEGORY_ID) int categoryId);
+    private SearchingKeywordsView searchingKeywordsView;
+    private KeywordsListView keywordsListView;
 
-    @GET(ServerPaths.CATEGORY_KEYWORD_LIST)
-    Call<List<Keyword>> getKeywords();
+    public KeywordsListModule(SearchingKeywordsView searchingKeywordsView) {
+        this.searchingKeywordsView = searchingKeywordsView;
+    }
+
+    public KeywordsListModule(KeywordsListView keywordsListView) {
+        this.keywordsListView = keywordsListView;
+    }
+
+    @Provides
+    public SearchingKeywordsView provideSearchKeywordsView() {
+        return searchingKeywordsView;
+    }
+
+    @Provides
+    public KeywordsListView provideKeywordsListView() {
+        return keywordsListView;
+    }
 
 }

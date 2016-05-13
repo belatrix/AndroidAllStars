@@ -145,14 +145,6 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
         }
     }
 
-    public void onSearchTermChange(String newSearchTerm){
-        if (newSearchTerm.length()>0){
-            view.showCleanButton();
-        } else {
-            view.hideCleanButton();
-        }
-    }
-
     public void onContactClicked(Object object) {
         if (object != null && object instanceof Employee) {
             Employee employee = (Employee) object;

@@ -40,6 +40,7 @@ public interface ServerPaths {
     String PAGE = "page";
 
     String QUERY_PAGE = "page";
+    String QUERY_SEARCH = "search";
 
     String EMPLOYEE_AUTHENTICATE = EMPLOYEE + "/authenticate/";
     String EMPLOYEE_LIST = EMPLOYEE + "/list/";
@@ -49,8 +50,10 @@ public interface ServerPaths {
 
     String STAR_EMPLOYEE = STAR + "/{" + FROM_EMPLOYEE + "}" + "/give/star/to/{" + TO_EMPLOYEE + "}/" ;
     String STARS_BY_EMPLOYEE_AND_SUBCATEGORY = STAR + "/{" + EMPLOYEE_ID + "}/subcategory" + "/{" + SUBCATEGORY_ID + "}/list";
+    String STARS_BY_KEYWORD = STAR + "/keyword/list";
     String RANKING_LIST = EMPLOYEE + "/list/top/{" + KIND + "}/{" + QUANTITY + "}/";
 
+    String CATEGORY_KEYWORD_LIST = CATEGORY + "/keyword/list";
     String SUBCATEGORIES_BY_CATEGORY_ID = CATEGORY + "/{" + CATEGORY_ID + "}/subcategory/list";
 
 }

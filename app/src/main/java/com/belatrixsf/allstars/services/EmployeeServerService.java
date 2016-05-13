@@ -64,7 +64,9 @@ public class EmployeeServerService implements EmployeeService {
         employeeAPI.getRankingList(kind, quantity).enqueue(new RetrofitCallback<List<Employee>>(callback));
     }
 
+    @Override
     public void getEmployeeCategories(int employeeId, AllStarsCallback<List<Category>> callback) {
         employeeAPI.getEmployeeCategories(employeeId).enqueue(new RetrofitCallback<List<Category>>(callback));
     }
+
 }

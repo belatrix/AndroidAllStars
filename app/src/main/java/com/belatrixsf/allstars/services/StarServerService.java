@@ -3,6 +3,7 @@ package com.belatrixsf.allstars.services;
 import com.belatrixsf.allstars.networking.retrofit.RetrofitCallback;
 import com.belatrixsf.allstars.networking.retrofit.api.StarAPI;
 import com.belatrixsf.allstars.networking.retrofit.requests.StarRequest;
+import com.belatrixsf.allstars.networking.retrofit.responses.StarsByKeywordsResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarsResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarSubCategoryResponse;
@@ -32,5 +33,10 @@ public class StarServerService implements StarService {
     @Override
     public void getStars(int employeeId, int subcategory, Integer page, AllStarsCallback<StarsResponse> callback) {
         starAPI.getStars(employeeId, subcategory, page).enqueue(new RetrofitCallback<StarsResponse>(callback));
+    }
+
+    @Override
+    public void getStarsByKeywords(String search, Integer next, AllStarsCallback<StarsByKeywordsResponse> callback) {
+        starAPI.getStarsByKeywords(search, next).enqueue(new RetrofitCallback<StarsByKeywordsResponse>(callback));
     }
 }

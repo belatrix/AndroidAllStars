@@ -18,26 +18,20 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.networking.retrofit.api;
-
-import com.belatrixsf.allstars.entities.SubCategory;
-import com.belatrixsf.allstars.entities.Keyword;
-
-import java.util.List;
-
-import retrofit.Call;
-import retrofit.http.GET;
-import retrofit.http.Path;
+package com.belatrixsf.allstars.utils;
 
 /**
- * Created by gyosida on 4/26/16.
+ * Created by gyosida on 5/12/16.
  */
-public interface CategoryAPI {
+public class Utils {
 
-    @GET(ServerPaths.SUBCATEGORIES_BY_CATEGORY_ID)
-    Call<List<SubCategory>> getSubcategories(@Path(ServerPaths.CATEGORY_ID) int categoryId);
-
-    @GET(ServerPaths.CATEGORY_KEYWORD_LIST)
-    Call<List<Keyword>> getKeywords();
+    public static boolean isNumeric(String numericText) {
+        for (char digit : numericText.toCharArray()) {
+            if (!Character.isDigit(digit)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 }

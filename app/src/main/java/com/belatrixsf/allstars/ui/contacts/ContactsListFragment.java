@@ -53,6 +53,7 @@ import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.EndlessRecyclerOnScrollListener;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
+import com.belatrixsf.allstars.ui.common.views.searchingview.SearchingView;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.KeyboardUtils;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsListPresenterModule;
@@ -229,10 +230,8 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
         switch (item.getItemId()) {
             case R.id.action_search:
-                //ActionMode
                 contactsListFragmentListener.setActionMode(actionModeCallback);
                 return true;
             default:
@@ -242,69 +241,30 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
 
     private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
 
-        // Called when the action mode is created; startActionMode() was called
         @Override
         public boolean onCreateActionMode(final ActionMode mode, Menu menu) {
             contactsListPresenter.startActionMode();
-            LayoutInflater inflater = getActivity().getLayoutInflater();
-            View customView = inflater.inflate(R.layout.item_action_mode, null);
-
-            searchTermEditText = (EditText) customView.findViewById(R.id.search_term);
-            cleanImageButton = (ImageButton) customView.findViewById(R.id.clean);
-
-            cleanImageButton.setOnClickListener(new View.OnClickListener() {
+            SearchingView searchingView = new SearchingView(getActivity());
+            searchingView.setSearchingListener(new SearchingView.SearchingListener() {
                 @Override
-                public void onClick(View v) {
-                    searchTermEditText.setText("");
-                    searchTermEditText.requestFocus();
+                public void onSearchingTextTyped(String searchText) {
+                    contactsListPresenter.getContacts(searchText);
                 }
             });
-            searchTermEditText.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    contactsListPresenter.onSearchTermChange(s.toString());
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-            });
-            searchTermEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                @Override
-                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                    if (actionId == EditorInfo.IME_ACTION_SEARCH){
-                        contactsListPresenter.getContacts(v.getText().toString());
-                        KeyboardUtils.hideKeyboard(getActivity(), getView());
-                    }
-                    return false;
-                }
-            });
-            mode.setCustomView(customView);
-            searchTermEditText.requestFocus();
-            KeyboardUtils.showKeyboard(getActivity(), searchTermEditText);
+            mode.setCustomView(searchingView);
             return true;
         }
 
-        // Called each time the action mode is shown. Always called after onCreateActionMode, but
-        // may be called multiple times if the mode is invalidated.
         @Override
         public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            return false; // Return false if nothing is done
+            return false;
         }
 
-        // Called when the user selects a contextual menu item
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             return  false;
         }
 
-        // Called when the user exits the action mode
         @Override
         public void onDestroyActionMode(ActionMode mode) {
             contactsListPresenter.finishActionMode();
@@ -329,16 +289,6 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
         resultIntent.putExtra(SELECTED_USER_KEY, contact);
         fragmentListener.setActivityResult(Activity.RESULT_OK, resultIntent);
         fragmentListener.closeActivity();
-    }
-
-    @Override
-    public void showCleanButton() {
-        cleanImageButton.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideCleanButton() {
-        cleanImageButton.setVisibility(View.INVISIBLE);
     }
 
 }
