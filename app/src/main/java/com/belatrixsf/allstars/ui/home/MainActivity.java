@@ -42,11 +42,10 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.MainNavigationViewPagerAdapter;
 import com.belatrixsf.allstars.ui.common.AllStarsActivity;
-import com.belatrixsf.allstars.ui.contacts.ContactsListFragmentListener;
-import com.belatrixsf.allstars.ui.stars.GiveStarActivity;
-import com.belatrixsf.allstars.ui.stars.GiveStarFragment;
 import com.belatrixsf.allstars.ui.login.LoginActivity;
 import com.belatrixsf.allstars.ui.ranking.RankingFragmentListener;
+import com.belatrixsf.allstars.ui.stars.GiveStarActivity;
+import com.belatrixsf.allstars.ui.stars.GiveStarFragment;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.DialogUtils;
 import com.belatrixsf.allstars.utils.di.components.DaggerHomeComponent;
@@ -56,7 +55,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 
-public class MainActivity extends AllStarsActivity implements ContactsListFragmentListener, HomeView, RankingFragmentListener {
+public class MainActivity extends AllStarsActivity implements HomeView, RankingFragmentListener {
 
     public static final int RQ_GIVE_STAR = 99;
     public static final int RANKING_TAB = 1;
@@ -180,13 +179,6 @@ public class MainActivity extends AllStarsActivity implements ContactsListFragme
     @Override
     public Context getContext() {
         return this;
-    }
-
-    // ContactsListFragmentListener
-
-    @Override
-    public void setActionMode(ActionMode.Callback callback) {
-        startSupportActionMode(callback);
     }
 
     @Override

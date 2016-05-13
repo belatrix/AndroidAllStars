@@ -84,10 +84,14 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
         this.contactPaginatedResponse = contactPaginatedResponse;
         this.searchTerm = searchTerm;
         if (inActionMode){
-            view.startActionMode();
+            view.showSearchActionMode();
         }
         view.showCurrentPage(currentPage);
         view.showContacts(contacts);
+    }
+
+    public void searchContacts() {
+        view.showSearchActionMode();
     }
 
     public void startActionMode(){
@@ -96,7 +100,7 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
         }
     }
 
-    public void finishActionMode(){
+    public void stopSearchingContacts(){
         inActionMode = false;
         currentPage = 1;
         searchTerm = "";
@@ -105,6 +109,8 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
     }
 
     public void getContacts() {
+        currentPage = 1;
+        searchTerm = "";
         getContacts(currentPage, searchTerm);
     }
 

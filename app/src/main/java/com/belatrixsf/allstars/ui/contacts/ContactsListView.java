@@ -32,7 +32,7 @@ public interface ContactsListView extends AllStarsView {
 
     void showContacts(List<Employee> contacts);
     void showCurrentPage(int currentPage);
-    void startActionMode();
+    void showSearchActionMode();
     void goContactProfile(Integer id);
     void selectContact(Employee contact);
 

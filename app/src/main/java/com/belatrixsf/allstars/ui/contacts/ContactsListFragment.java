@@ -22,27 +22,20 @@ package com.belatrixsf.allstars.ui.contacts;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.ContactsListAdapter;
@@ -83,8 +76,6 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     private ContactsListFragmentListener contactsListFragmentListener;
     private EndlessRecyclerOnScrollListener endlessRecyclerOnScrollListener;
 
-    private EditText searchTermEditText;
-    private ImageButton cleanImageButton;
     private ImageView photoImageView;
 
     @Bind(R.id.employees) RecyclerView contactsRecyclerView;
@@ -95,26 +86,6 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
         ContactsListFragment contactsListFragment = new ContactsListFragment();
         contactsListFragment.setArguments(bundle);
         return contactsListFragment;
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        castOrThrowException(activity);
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        castOrThrowException(context);
-    }
-
-    private void castOrThrowException(Context context) {
-        try {
-            contactsListFragmentListener = (ContactsListFragmentListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement ContactsListFragmentListener");
-        }
     }
 
     @Override
@@ -218,8 +189,10 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     }
 
     @Override
-    public void startActionMode() {
-        contactsListFragmentListener.setActionMode(actionModeCallback);
+    public void showSearchActionMode() {
+        if (getActivity() instanceof AppCompatActivity) {
+            ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
+        }
     }
 
     @Override
@@ -232,7 +205,7 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
-                contactsListFragmentListener.setActionMode(actionModeCallback);
+                contactsListPresenter.searchContacts();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -240,7 +213,6 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     }
 
     private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
-
         @Override
         public boolean onCreateActionMode(final ActionMode mode, Menu menu) {
             contactsListPresenter.startActionMode();
@@ -267,7 +239,7 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
 
         @Override
         public void onDestroyActionMode(ActionMode mode) {
-            contactsListPresenter.finishActionMode();
+            contactsListPresenter.stopSearchingContacts();
             KeyboardUtils.hideKeyboard(getActivity(), getView());
         }
     };
