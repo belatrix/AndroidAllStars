@@ -20,9 +20,15 @@ public class ContactsKeywordListActivity extends AllStarsActivity {
         setContentView(R.layout.activity_base);
         if (savedInstanceState == null) {
             Keyword keyword = getIntent().getParcelableExtra(KEYWORD_KEY);
+            setTitle(getString(R.string.keyword_top, keyword.getName()));
             replaceFragment(ContactsKeywordListFragment.newInstance(keyword), false);
         }
         setNavigationToolbar();
+    }
+
+    @Override
+    protected boolean activityHandleTitle() {
+        return true;
     }
 
 }

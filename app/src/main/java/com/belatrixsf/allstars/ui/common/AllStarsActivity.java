@@ -82,8 +82,8 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
 
     @Override
     public void setTitle(String title) {
-        if (!activityHandleTitle() && getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(title);
+        if (activityHandleTitle() && toolbar != null) {
+            toolbar.setTitle(title);
         }
     }
 
