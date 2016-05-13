@@ -115,7 +115,7 @@ public class ContactsKeywordListFragment extends AllStarsFragment implements Con
         endlessRecyclerOnScrollListener = new EndlessRecyclerOnScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int current_page) {
-                contactsKeywordListPresenter.getEmployeesByStarKeywords(current_page);
+                contactsKeywordListPresenter.callNextPage();
             }
         };
         employeesRecyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);

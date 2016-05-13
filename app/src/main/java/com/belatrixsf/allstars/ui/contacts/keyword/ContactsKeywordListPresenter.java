@@ -49,11 +49,12 @@ public class ContactsKeywordListPresenter extends AllStarsPresenter<ContactsKeyw
 
     public void init(Keyword keyword) {
         this.keyword = keyword;
-        getEmployeesByStarKeywords(currentPage);
+        this.currentPage = 1;
+        getEmployeesByStarKeywords();
     }
 
     public void setLoadedEmployeeList(List<Employee> employeeList, int currentPage, PaginatedResponse starPaginatedResponse) {
-        if (employeeList != employeeList) {
+        if (employeeList != null) {
             this.employeeList = employeeList;
         }
         this.starPaginatedResponse = starPaginatedResponse;
@@ -62,30 +63,30 @@ public class ContactsKeywordListPresenter extends AllStarsPresenter<ContactsKeyw
         view.showEmployees(employeeList);
     }
 
-    public void getEmployeesByStarKeywords() {
-        getEmployeesByStarKeywords(currentPage);
+    public void callNextPage() {
+        if (starPaginatedResponse.getNext() != null) {
+            getEmployeesByStarKeywords();
+        }
     }
 
-    public void getEmployeesByStarKeywords(Integer page) {
-        if (starPaginatedResponse.getNext() != null || page == 1) {
-            currentPage = page;
-            view.showProgressIndicator();
-            starService.getStarsKeywordTopList(keyword.getId(), currentPage, new AllStarsCallback<StarKeywordTopListResponse>() {
-                @Override
-                public void onSuccess(StarKeywordTopListResponse starKeywordTopListResponse) {
-                    employeeList.addAll(starKeywordTopListResponse.getEmployees());
-                    starPaginatedResponse.setNext(starKeywordTopListResponse.getNext());
-                    view.hideProgressIndicator();
-                    view.showEmployees(employeeList);
-                }
+    public void getEmployeesByStarKeywords() {
+        currentPage = starPaginatedResponse.getNextPage();
+        view.showProgressIndicator();
+        starService.getStarsKeywordTopList(keyword.getId(), currentPage, new AllStarsCallback<StarKeywordTopListResponse>() {
+            @Override
+            public void onSuccess(StarKeywordTopListResponse starKeywordTopListResponse) {
+                employeeList.addAll(starKeywordTopListResponse.getEmployees());
+                starPaginatedResponse.setNext(starKeywordTopListResponse.getNext());
+                view.hideProgressIndicator();
+                view.showEmployees(employeeList);
+            }
 
-                @Override
-                public void onFailure(ServiceError serviceError) {
-                    view.hideProgressIndicator();
-                    showError(serviceError.getErrorMessage());
-                }
-            });
-        }
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                view.hideProgressIndicator();
+                showError(serviceError.getErrorMessage());
+            }
+        });
     }
 
     public int getCurrentPage() {
