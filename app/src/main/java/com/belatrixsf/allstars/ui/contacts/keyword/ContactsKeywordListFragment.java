@@ -95,14 +95,16 @@ public class ContactsKeywordListFragment extends AllStarsFragment implements Con
         outState.putParcelable(KEYWORD_KEY, keyword);
         outState.putParcelable(PAGINATED_RESPONSE_KEY, paginatedResponse);
         outState.putParcelableArrayList(EMPLOYEE_LIST_KEY, new ArrayList<>(employeeList));
-        outState.putInt(CURRENT_PAGE_KEY, currentPage);
+        if (currentPage != null) {
+            outState.putInt(CURRENT_PAGE_KEY, currentPage);
+        }
     }
 
     private void restoreState(Bundle savedInstanceState) {
         Keyword keyword = savedInstanceState.getParcelable(KEYWORD_KEY);
         PaginatedResponse paginatedResponse = savedInstanceState.getParcelable(PAGINATED_RESPONSE_KEY);
         List<Employee> employeeList = savedInstanceState.getParcelableArrayList(EMPLOYEE_LIST_KEY);
-        Integer currentPage = savedInstanceState.getInt(CURRENT_PAGE_KEY);
+        Integer currentPage = savedInstanceState.containsKey(CURRENT_PAGE_KEY) ? savedInstanceState.getInt(CURRENT_PAGE_KEY) : null;
         contactsKeywordListPresenter.setLoadedEmployeeList(employeeList, currentPage, paginatedResponse);
         contactsKeywordListPresenter.setKeyword(keyword);
     }

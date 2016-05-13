@@ -23,7 +23,7 @@ public class ContactsKeywordListPresenter extends AllStarsPresenter<ContactsKeyw
     private Keyword keyword;
     private PaginatedResponse starPaginatedResponse = new PaginatedResponse();
     private List<Employee> employeeList = new ArrayList<>();
-    private int currentPage = 1;
+    private Integer currentPage;
 
     @Inject
     protected ContactsKeywordListPresenter(ContactsKeywordListView view, StarService starService) {
@@ -89,7 +89,7 @@ public class ContactsKeywordListPresenter extends AllStarsPresenter<ContactsKeyw
         });
     }
 
-    public int getCurrentPage() {
+    public Integer getCurrentPage() {
         return currentPage;
     }
 

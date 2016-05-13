@@ -34,6 +34,14 @@
         <activity
             android:name=".ui.category.CategoriesActivity"/>
         <activity
+            android:name=".ui.stars.keyword.KeywordsActivity"
+            android:label="@string/title_keywords_activity" />
+
+        <activity
+            android:name=".ui.contacts.keyword.ContactsKeywordListActivity"
+            android:label="@string/title_contacts_keyword_activity"/>
+
+        <activity
             android:name=".ui.LauncherActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -41,9 +49,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.stars.keyword.KeywordsActivity"
-            android:label="@string/title_keywords_activity" />
+
     </application>
 
 </manifest>
