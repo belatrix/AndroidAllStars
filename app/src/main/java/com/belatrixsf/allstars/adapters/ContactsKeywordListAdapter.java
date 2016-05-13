@@ -49,6 +49,7 @@ public class ContactsKeywordListAdapter extends LoadMoreBaseAdapter<Employee> {
         if (holder instanceof ContactKeywordViewHolder) {
             ContactKeywordViewHolder contactKeywordViewHolder = (ContactKeywordViewHolder) holder;
             Employee employee = data.get(position);
+            contactKeywordViewHolder.contactHolder.setBackground(null);
             contactKeywordViewHolder.itemView.setTag(employee);
             contactKeywordViewHolder.contactFullNameTextView.setText(employee.getFullName());
             String levelLabel = String.format(contactKeywordViewHolder.contactLevelTextView.getContext().getString(R.string.contact_list_level), String.valueOf(employee.getLevel()));
@@ -74,7 +75,9 @@ public class ContactsKeywordListAdapter extends LoadMoreBaseAdapter<Employee> {
     static class ContactKeywordViewHolder extends ContactsListAdapter.ContactViewHolder {
 
         @Bind(R.id.number_stars_textview)
-        public TextView numberStarsTextView;
+        TextView numberStarsTextView;
+        @Bind(R.id.contact_holder)
+        View contactHolder;
 
         public ContactKeywordViewHolder(View view, RecyclerOnItemClickListener recyclerOnItemClickListener) {
             super(view, null);

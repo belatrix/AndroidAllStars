@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/activity_horizontal_margin"
-    android:layout_marginBottom="@dimen/activity_horizontal_margin"
-    android:gravity="center">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:paddingLeft="0dp"
+    style="@style/LargeItemList">
 
     <include
         android:layout_width="0dp"
@@ -17,9 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/belatrix"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
         style="@style/TextAppearance.AppCompat.Subhead"
-        android:text="23"/>
+        tools:text="23"/>
 
 </LinearLayout>

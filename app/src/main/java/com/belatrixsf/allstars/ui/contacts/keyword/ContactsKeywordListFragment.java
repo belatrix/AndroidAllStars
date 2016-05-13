@@ -2,6 +2,7 @@ package com.belatrixsf.allstars.ui.contacts.keyword;
 
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.belatrixsf.allstars.ui.account.AccountActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.EndlessRecyclerOnScrollListener;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
+import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.allstars.ui.stars.StarsListActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsKeywordPresenterModule;
@@ -121,6 +123,7 @@ public class ContactsKeywordListFragment extends AllStarsFragment implements Con
             }
         };
         employeesRecyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);
+        employeesRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
     }
 
     @Override
