@@ -20,6 +20,8 @@
 */
 package com.belatrixsf.allstars.ui.common.views.searchingview;
 
+import android.view.View;
+
 /**
  * Created by gyosida on 5/10/16.
  */
@@ -28,5 +30,6 @@ public interface SearchableView {
     void changeClearButtonVisibility(boolean show);
     void notifyTextTyped(String typedText);
     void clearSearching();
+    void editorAction(View view, int actionId);
 
 }

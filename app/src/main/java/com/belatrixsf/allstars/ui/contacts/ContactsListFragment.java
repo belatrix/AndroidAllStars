@@ -73,7 +73,6 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
 
     private ContactsListPresenter contactsListPresenter;
     private ContactsListAdapter contactsListAdapter;
-    private ContactsListFragmentListener contactsListFragmentListener;
     private EndlessRecyclerOnScrollListener endlessRecyclerOnScrollListener;
 
     private ImageView photoImageView;
