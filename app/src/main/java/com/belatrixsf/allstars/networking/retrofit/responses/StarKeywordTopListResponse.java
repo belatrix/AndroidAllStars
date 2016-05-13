@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by PedroCarrillo on 5/12/16.
  */
-public class StarKeywordListResponse extends PaginatedResponse {
+public class StarKeywordTopListResponse extends PaginatedResponse {
 
     @SerializedName("results")
     List<Employee> employeeList;

@@ -120,7 +120,7 @@ public class StarsListAdapter extends LoadMoreBaseAdapter<Star> {
             this.keywordClickListener = keywordClickListener;
         }
 
-        @OnClick(R.id.star_message)
+        @OnClick(R.id.star_keyword)
         public void onKeywordClick(View v) {
             if (keywordClickListener != null) {
                 keywordClickListener.onKeywordSelected(getAdapterPosition());

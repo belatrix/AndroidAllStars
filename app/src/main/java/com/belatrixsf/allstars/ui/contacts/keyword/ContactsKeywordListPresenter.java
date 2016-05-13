@@ -3,7 +3,7 @@ package com.belatrixsf.allstars.ui.contacts.keyword;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.StarKeywordListResponse;
+import com.belatrixsf.allstars.networking.retrofit.responses.StarKeywordTopListResponse;
 import com.belatrixsf.allstars.services.StarService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
@@ -70,11 +70,11 @@ public class ContactsKeywordListPresenter extends AllStarsPresenter<ContactsKeyw
         if (starPaginatedResponse.getNext() != null || page == 1) {
             currentPage = page;
             view.showProgressIndicator();
-            starService.getStarKeywordList(keyword.getId(), currentPage, new AllStarsCallback<StarKeywordListResponse>() {
+            starService.getStarsKeywordTopList(keyword.getId(), currentPage, new AllStarsCallback<StarKeywordTopListResponse>() {
                 @Override
-                public void onSuccess(StarKeywordListResponse starKeywordListResponse) {
-                    employeeList.addAll(starKeywordListResponse.getEmployees());
-                    starPaginatedResponse.setNext(starKeywordListResponse.getNext());
+                public void onSuccess(StarKeywordTopListResponse starKeywordTopListResponse) {
+                    employeeList.addAll(starKeywordTopListResponse.getEmployees());
+                    starPaginatedResponse.setNext(starKeywordTopListResponse.getNext());
                     view.hideProgressIndicator();
                     view.showEmployees(employeeList);
                 }

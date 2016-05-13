@@ -33,6 +33,7 @@
     <string name="title_recommendation_activity">Recommendations</string>
     <string name="title_give_star_activity">Give a recommendation</string>
     <string name="title_comment_activity">Write a comment</string>
+    <string name="title_keywords_activity">Select a Keyword</string>
     <string name="title_keyword">Keyword</string>
 
     <!-- Login -->
@@ -77,6 +78,8 @@
     <string name="title_content_category">Category:</string>
     <string name="title_content_date">Date:</string>
     <string name="message_placeholder">No message</string>
+    <string name="fullname_placeholder">Anonymous</string>
+    <string name="level_placeholder">No data</string>
     <string name="hashtag">#</string>
 
     <!--Actions-->

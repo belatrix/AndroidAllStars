@@ -18,25 +18,22 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.services;
+package com.belatrixsf.allstars.networking.retrofit.responses;
 
-import com.belatrixsf.allstars.entities.Category;
-import com.belatrixsf.allstars.entities.Employee;
-import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
-import com.belatrixsf.allstars.utils.AllStarsCallback;
+import com.belatrixsf.allstars.entities.Keyword;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by gyosida on 5/9/16.
  */
-public interface EmployeeService {
+public class StarsByKeywordsResponse extends PaginatedResponse {
 
-    void authenticate(String username, String password, AllStarsCallback<AuthenticationResponse> callback);
-    void getEmployee(int employeeId, AllStarsCallback<Employee> callback);
-    void getEmployeeSearchList(String searchTerm, Integer page, AllStarsCallback<SearchEmployeeResponse> callback);
-    void getRankingList(String kind, int quantity, AllStarsCallback<List<Employee>> callback);
-    void getEmployeeCategories(int employeeId, AllStarsCallback<List<Category>> callback);
+    @SerializedName("results")
+    List<Keyword> keywords;
 
+    public List<Keyword> getKeywords() {
+        return keywords;
+    }
 }

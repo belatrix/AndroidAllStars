@@ -21,6 +21,7 @@
 package com.belatrixsf.allstars.services;
 
 import com.belatrixsf.allstars.entities.Category;
+import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.networking.retrofit.RetrofitCallback;
 import com.belatrixsf.allstars.networking.retrofit.api.CategoryAPI;
@@ -42,5 +43,10 @@ public class CategoryServerService implements CategoryService {
     @Override
     public void getSubcategories(int categoryId, AllStarsCallback<List<Category>> callback) {
         categoryAPI.getSubcategories(categoryId).enqueue(new RetrofitCallback<List<SubCategory>>(callback));
+    }
+
+    @Override
+    public void getKeywords(AllStarsCallback<List<Keyword>> callback) {
+        categoryAPI.getKeywords().enqueue(new RetrofitCallback<List<Keyword>>(callback));
     }
 }
