@@ -62,8 +62,9 @@ public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywo
     }
 
     public void stopSearchingKeywords() {
+        searchText = null;
         view.resetList();
-        this.searchText = null;
+        keywordsPaging.reset();
         getKeywordsInternal();
     }
 
