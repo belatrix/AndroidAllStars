@@ -1,7 +1,7 @@
 package com.belatrixsf.allstars.networking.retrofit.responses;
 
 /**
- * Created by PedroCarrillo on 4/27/16.
+ * Created by icerrate on 16/05/16.
  */
 public class CreateEmployeeResponse {
 

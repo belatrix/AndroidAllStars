@@ -21,7 +21,7 @@
 package com.belatrixsf.allstars.networking.retrofit.requests;
 
 /**
- * Created by gyosida on 4/11/16.
+ * Created by icerrate on 16/05/16.
  */
 public class CreateEmployeeRequest {
 
