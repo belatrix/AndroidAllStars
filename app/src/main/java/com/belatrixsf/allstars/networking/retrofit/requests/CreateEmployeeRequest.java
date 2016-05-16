@@ -27,8 +27,10 @@ public class CreateEmployeeRequest {
 
     private String email;
 
-    public CreateEmployeeRequest(String username) {
-        this.email = username;
+    public CreateEmployeeRequest(String email) {
+        this.email = email;
     }
+
+    
 
 }
