@@ -43,7 +43,6 @@ public class ContactsKeywordListFragment extends AllStarsFragment implements Con
 
     public static final String PAGINATED_RESPONSE_KEY = "_paginated_response_key";
     public static final String EMPLOYEE_LIST_KEY = "_employee_list_key";
-    public static final String CURRENT_PAGE_KEY = "_current_page_key";
 
     @Bind(R.id.employees) RecyclerView employeesRecyclerView;
     ImageView photoImageView;
@@ -93,21 +92,16 @@ public class ContactsKeywordListFragment extends AllStarsFragment implements Con
         Keyword keyword = contactsKeywordListPresenter.getKeyword();
         PaginatedResponse paginatedResponse = contactsKeywordListPresenter.getStarPaginatedResponse();
         List<Employee> employeeList = contactsKeywordListPresenter.getEmployeeList();
-        Integer currentPage = contactsKeywordListPresenter.getCurrentPage();
         outState.putParcelable(KEYWORD_KEY, keyword);
         outState.putParcelable(PAGINATED_RESPONSE_KEY, paginatedResponse);
         outState.putParcelableArrayList(EMPLOYEE_LIST_KEY, new ArrayList<>(employeeList));
-        if (currentPage != null) {
-            outState.putInt(CURRENT_PAGE_KEY, currentPage);
-        }
     }
 
     private void restoreState(Bundle savedInstanceState) {
         Keyword keyword = savedInstanceState.getParcelable(KEYWORD_KEY);
         PaginatedResponse paginatedResponse = savedInstanceState.getParcelable(PAGINATED_RESPONSE_KEY);
         List<Employee> employeeList = savedInstanceState.getParcelableArrayList(EMPLOYEE_LIST_KEY);
-        Integer currentPage = savedInstanceState.containsKey(CURRENT_PAGE_KEY) ? savedInstanceState.getInt(CURRENT_PAGE_KEY) : null;
-        contactsKeywordListPresenter.setLoadedEmployeeList(employeeList, currentPage, paginatedResponse);
+        contactsKeywordListPresenter.setLoadedEmployeeList(employeeList, paginatedResponse);
         contactsKeywordListPresenter.setKeyword(keyword);
     }
 

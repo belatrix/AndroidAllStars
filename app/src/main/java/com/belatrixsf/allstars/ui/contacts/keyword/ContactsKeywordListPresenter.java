@@ -23,7 +23,6 @@ public class ContactsKeywordListPresenter extends AllStarsPresenter<ContactsKeyw
     private Keyword keyword;
     private PaginatedResponse starPaginatedResponse = new PaginatedResponse();
     private List<Employee> employeeList = new ArrayList<>();
-    private Integer currentPage;
 
     @Inject
     protected ContactsKeywordListPresenter(ContactsKeywordListView view, StarService starService) {
@@ -49,17 +48,15 @@ public class ContactsKeywordListPresenter extends AllStarsPresenter<ContactsKeyw
 
     public void init(Keyword keyword) {
         this.keyword = keyword;
-        this.currentPage = 1;
         getEmployeesByStarKeywords();
     }
 
-    public void setLoadedEmployeeList(List<Employee> employeeList, int currentPage, PaginatedResponse starPaginatedResponse) {
+    public void setLoadedEmployeeList(List<Employee> employeeList, PaginatedResponse starPaginatedResponse) {
         if (employeeList != null) {
             this.employeeList = employeeList;
         }
         this.starPaginatedResponse = starPaginatedResponse;
-        this.currentPage = currentPage;
-        view.showCurrentPage(currentPage);
+        view.showCurrentPage(starPaginatedResponse.getNextPage() == null ? 1 : starPaginatedResponse.getNextPage());
         view.showEmployees(employeeList);
     }
 
@@ -70,9 +67,8 @@ public class ContactsKeywordListPresenter extends AllStarsPresenter<ContactsKeyw
     }
 
     public void getEmployeesByStarKeywords() {
-        currentPage = starPaginatedResponse.getNextPage();
         view.showProgressIndicator();
-        starService.getStarsKeywordTopList(keyword.getId(), currentPage, new AllStarsCallback<StarKeywordTopListResponse>() {
+        starService.getStarsKeywordTopList(keyword.getId(), starPaginatedResponse.getNextPage(), new AllStarsCallback<StarKeywordTopListResponse>() {
             @Override
             public void onSuccess(StarKeywordTopListResponse starKeywordTopListResponse) {
                 employeeList.addAll(starKeywordTopListResponse.getEmployees());
@@ -87,10 +83,6 @@ public class ContactsKeywordListPresenter extends AllStarsPresenter<ContactsKeyw
                 showError(serviceError.getErrorMessage());
             }
         });
-    }
-
-    public Integer getCurrentPage() {
-        return currentPage;
     }
 
     public void onContactClicked(Object contact) {

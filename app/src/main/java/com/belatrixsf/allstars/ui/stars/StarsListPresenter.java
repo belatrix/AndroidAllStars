@@ -44,7 +44,6 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
     private int subCategoryId;
     private PaginatedResponse starPaginatedResponse = new PaginatedResponse();
     private List<Star> stars = new ArrayList<>();
-    private Integer currentPage = 1;
 
     @Inject
     public StarsListPresenter(StarsListView view, StarService starService) {
@@ -68,19 +67,14 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
         return stars;
     }
 
-    public Integer getCurrentPage() {
-        return currentPage;
-    }
-
-    public void setLoadedStars(int employeeId, int subCategoryId, List<Star> stars, Integer currentPage, PaginatedResponse starPaginatedResponse) {
+    public void setLoadedStars(int employeeId, int subCategoryId, List<Star> stars, PaginatedResponse starPaginatedResponse) {
         if (stars != null) {
             this.stars = stars;
         }
         this.employeeId = employeeId;
         this.subCategoryId = subCategoryId;
         this.starPaginatedResponse = starPaginatedResponse;
-        this.currentPage = currentPage;
-        view.showCurrentPage(currentPage);
+        view.showCurrentPage(starPaginatedResponse.getNextPage() == null ? 1 : starPaginatedResponse.getNextPage());
         view.showStars(stars);
     }
 
@@ -97,9 +91,8 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
     }
 
     public void getStars() {
-        currentPage = starPaginatedResponse.getNextPage();
         view.showProgressIndicator();
-        starService.getStars(employeeId, subCategoryId, currentPage, new AllStarsCallback<StarsResponse>() {
+        starService.getStars(employeeId, subCategoryId, starPaginatedResponse.getNextPage(), new AllStarsCallback<StarsResponse>() {
             @Override
             public void onSuccess(StarsResponse starsResponse) {
                 stars.addAll(starsResponse.getStarList());

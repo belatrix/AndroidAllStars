@@ -54,7 +54,6 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
     public static final String EMPLOYEE_ID_KEY = "_employee_id_key";
     public static final String SUBCATEGORY_ID_KEY = "_sub_category_id_key";
     public static final String PAGINATION_RESPONSE_KEY = "_pagination_response_key";
-    public static final String CURRENT_PAGE_KEY = "_current_page_key";
 
     private StarsListPresenter starsListPresenter;
     private StarsListAdapter starsListAdapter;
@@ -114,9 +113,8 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
         List<Star> savedStars = savedInstanceState.getParcelableArrayList(STARS_KEY);
         Integer employeeId = savedInstanceState.getInt(EMPLOYEE_ID_KEY);
         Integer subCategoryId = savedInstanceState.getInt(SUBCATEGORY_ID_KEY);
-        Integer currentPage = savedInstanceState.getInt(CURRENT_PAGE_KEY);
         PaginatedResponse paginatedResponse = savedInstanceState.getParcelable(PAGINATION_RESPONSE_KEY);
-        starsListPresenter.setLoadedStars(employeeId, subCategoryId, savedStars, currentPage, paginatedResponse);
+        starsListPresenter.setLoadedStars(employeeId, subCategoryId, savedStars, paginatedResponse);
     }
 
     private void saveState(Bundle outState) {
@@ -126,7 +124,6 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
         }
         outState.putInt(EMPLOYEE_ID_KEY, starsListPresenter.getEmployeeId());
         outState.putInt(SUBCATEGORY_ID_KEY, starsListPresenter.getSubCategoryId());
-        outState.putInt(CURRENT_PAGE_KEY, starsListPresenter.getCurrentPage());
         outState.putParcelable(PAGINATION_RESPONSE_KEY, starsListPresenter.getStarPaginatedResponse());
     }
 
