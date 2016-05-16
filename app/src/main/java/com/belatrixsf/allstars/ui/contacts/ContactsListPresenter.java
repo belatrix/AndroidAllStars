@@ -105,17 +105,17 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
         currentPage = 1;
         searchTerm = "";
         view.showCurrentPage(currentPage);
-        getContacts(currentPage, "");
+        getContactsInternal(currentPage, "");
     }
 
     public void getContacts() {
         currentPage = 1;
         searchTerm = "";
-        getContacts(currentPage, searchTerm);
+        getContactsInternal(currentPage, searchTerm);
     }
 
     public void getContacts(int currentPage) {
-        getContacts(currentPage, searchTerm);
+        getContactsInternal(currentPage, searchTerm);
     }
 
     public void getContacts(String searchTerm) {
@@ -123,10 +123,10 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
         currentPage = 1;
         contactPaginatedResponse = new PaginatedResponse();
         view.showCurrentPage(currentPage);
-        getContacts(currentPage, searchTerm);
+        getContactsInternal(currentPage, searchTerm);
     }
 
-    public void getContacts(Integer page, String searchTerm){
+    public void getContactsInternal(Integer page, String searchTerm){
         currentPage = page;
         if (contactPaginatedResponse.getNext() != null || page == 1) {
             view.showProgressIndicator();
