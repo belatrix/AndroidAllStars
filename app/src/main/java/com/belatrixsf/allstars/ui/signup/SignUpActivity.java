@@ -28,7 +28,7 @@ import com.belatrixsf.allstars.ui.common.AllStarsActivity;
 /**
  * Created by icerrate on 16/05/16.
  */
-public class SignupActivity extends AllStarsActivity {
+public class SignUpActivity extends AllStarsActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

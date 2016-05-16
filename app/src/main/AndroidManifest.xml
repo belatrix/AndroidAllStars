@@ -16,7 +16,7 @@
         <activity
             android:name=".ui.login.LoginActivity"/>
         <activity
-            android:name=".ui.signup.SignupActivity"/>
+            android:name=".ui.signup.SignUpActivity"/>
         <activity
             android:name=".ui.stars.StarsListActivity"
             android:label="@string/title_recommendation_activity"/>

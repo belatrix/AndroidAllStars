@@ -81,8 +81,7 @@
             android:textSize="@dimen/text_16"
             android:textColor="@color/colorAccent"
             android:gravity="center"
-            android:padding="10dp"
-            android:clickable="true"
+            android:padding="@dimen/dimen_2_5"
             android:layout_marginTop="@dimen/dimen_5_5"
             android:text="@string/title_sign_up"/>
 

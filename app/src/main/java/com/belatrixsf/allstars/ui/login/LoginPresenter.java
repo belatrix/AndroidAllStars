@@ -64,7 +64,7 @@ public class LoginPresenter extends AllStarsPresenter<LoginView> {
         });
     }
 
-    public void signup() {
-        view.goSignup();
+    public void signUp() {
+        view.goSignUp();
     }
 }

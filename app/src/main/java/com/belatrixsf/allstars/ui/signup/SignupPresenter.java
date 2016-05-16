@@ -44,7 +44,7 @@ public class SignUpPresenter extends AllStarsPresenter<SignUpView> {
     }
 
     public void checkIfEmailIsValid(String email) {
-        view.enableSend(!TextUtils.isEmpty(email) && email.contains("@belatrixsf.com"));
+        view.enableSend(!TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches());
     }
 
     public void init() {
@@ -65,5 +65,9 @@ public class SignUpPresenter extends AllStarsPresenter<SignUpView> {
                 showError(serviceError.getErrorMessage());
             }
         });
+    }
+
+    public void confirmMessage(){
+        view.backToLogin();
     }
 }

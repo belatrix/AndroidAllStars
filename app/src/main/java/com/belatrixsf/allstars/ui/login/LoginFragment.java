@@ -36,7 +36,7 @@ import android.widget.TextView;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.home.MainActivity;
-import com.belatrixsf.allstars.ui.signup.SignupActivity;
+import com.belatrixsf.allstars.ui.signup.SignUpActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.components.DaggerLoginComponent;
 import com.belatrixsf.allstars.utils.di.modules.presenters.LoginPresenterModule;
@@ -102,8 +102,8 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
     }
 
     @Override
-    public void goSignup() {
-        Intent intent = new Intent(getActivity(), SignupActivity.class);
+    public void goSignUp() {
+        Intent intent = new Intent(getActivity(), SignUpActivity.class);
         startActivity(intent);
     }
 
@@ -120,8 +120,8 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
     }
 
     @OnClick(R.id.sign_up)
-    public void signupClicked() {
-        loginPresenter.signup();
+    public void signUpClicked() {
+        loginPresenter.signUp();
     }
 
     private TextWatcher formFieldWatcher = new TextWatcher() {
