@@ -17,6 +17,9 @@
             android:name=".ui.login.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
+            android:name=".ui.signup.SignupActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
             android:name=".ui.stars.StarsListActivity"
             android:label="@string/title_recommendation_activity"/>
         <activity

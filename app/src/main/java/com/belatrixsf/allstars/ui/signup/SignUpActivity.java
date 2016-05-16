@@ -18,27 +18,22 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.services;
+package com.belatrixsf.allstars.ui.signup;
 
-import com.belatrixsf.allstars.entities.Category;
-import com.belatrixsf.allstars.entities.Employee;
-import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.CreateEmployeeResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
-import com.belatrixsf.allstars.utils.AllStarsCallback;
+import android.os.Bundle;
 
-import java.util.List;
+import com.belatrixsf.allstars.R;
+import com.belatrixsf.allstars.ui.common.AllStarsActivity;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by icerrate on 16/05/16.
  */
-public interface EmployeeService {
+public class SignupActivity extends AllStarsActivity {
 
-    void authenticate(String username, String password, AllStarsCallback<AuthenticationResponse> callback);
-    void createEmployee(String email, AllStarsCallback<CreateEmployeeResponse> callback);
-    void getEmployee(int employeeId, AllStarsCallback<Employee> callback);
-    void getEmployeeSearchList(String searchTerm, Integer page, AllStarsCallback<SearchEmployeeResponse> callback);
-    void getRankingList(String kind, int quantity, AllStarsCallback<List<Employee>> callback);
-    void getEmployeeCategories(int employeeId, AllStarsCallback<List<Category>> callback);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_signup);
+    }
 
 }

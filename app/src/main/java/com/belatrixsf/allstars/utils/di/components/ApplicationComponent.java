@@ -23,12 +23,13 @@ package com.belatrixsf.allstars.utils.di.components;
 import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.utils.di.modules.RetrofitModule;
 import com.belatrixsf.allstars.utils.di.modules.ServicesModule;
-import com.belatrixsf.allstars.utils.di.modules.presenters.CategoriesListModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModule;
+import com.belatrixsf.allstars.utils.di.modules.presenters.CategoriesListModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsListPresenterModule;
+import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.KeywordsListModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.RankingPresenterModule;
-import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
+import com.belatrixsf.allstars.utils.di.modules.presenters.SignupPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.StarsListPresenterModule;
 
 import javax.inject.Singleton;
@@ -48,6 +49,7 @@ import dagger.Component;
 public interface ApplicationComponent {
 
     EmployeeManager employeeManager();
+    SignupComponent signupComponent(SignupPresenterModule signupPresenterModule);
     AccountComponent accountComponent(AccountPresenterModule accountPresenterModule);
     ContactsListComponent contactsListComponent(ContactsListPresenterModule contactsListPresenterModule);
     StarsListComponent starsListComponent(StarsListPresenterModule StarsListPresenterModule);

@@ -18,27 +18,28 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.services;
+package com.belatrixsf.allstars.utils.di.modules.presenters;
 
-import com.belatrixsf.allstars.entities.Category;
-import com.belatrixsf.allstars.entities.Employee;
-import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.CreateEmployeeResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
-import com.belatrixsf.allstars.utils.AllStarsCallback;
+import com.belatrixsf.allstars.ui.signup.SignupView;
 
-import java.util.List;
+import dagger.Module;
+import dagger.Provides;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by icerrate on 16/05/16.
  */
-public interface EmployeeService {
+@Module
+public class SignupPresenterModule {
 
-    void authenticate(String username, String password, AllStarsCallback<AuthenticationResponse> callback);
-    void createEmployee(String email, AllStarsCallback<CreateEmployeeResponse> callback);
-    void getEmployee(int employeeId, AllStarsCallback<Employee> callback);
-    void getEmployeeSearchList(String searchTerm, Integer page, AllStarsCallback<SearchEmployeeResponse> callback);
-    void getRankingList(String kind, int quantity, AllStarsCallback<List<Employee>> callback);
-    void getEmployeeCategories(int employeeId, AllStarsCallback<List<Category>> callback);
+    private SignupView view;
+
+    public SignupPresenterModule(SignupView view) {
+        this.view = view;
+    }
+
+    @Provides
+    public SignupView providesView() {
+        return view;
+    }
 
 }

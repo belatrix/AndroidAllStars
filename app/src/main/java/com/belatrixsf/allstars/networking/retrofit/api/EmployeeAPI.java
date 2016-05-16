@@ -23,7 +23,9 @@ package com.belatrixsf.allstars.networking.retrofit.api;
 import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.networking.retrofit.requests.AuthenticationRequest;
+import com.belatrixsf.allstars.networking.retrofit.requests.CreateEmployeeRequest;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
+import com.belatrixsf.allstars.networking.retrofit.responses.CreateEmployeeResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
 
 import java.util.List;
@@ -42,6 +44,9 @@ public interface EmployeeAPI {
 
     @POST(ServerPaths.EMPLOYEE_AUTHENTICATE)
     Call<AuthenticationResponse> authenticate(@Body AuthenticationRequest request);
+
+    @POST(ServerPaths.EMPLOYEE_CREATE)
+    Call<CreateEmployeeResponse> createEmployee(@Body CreateEmployeeRequest request);
 
     @GET(ServerPaths.EMPLOYEE_BY_ID)
     Call<Employee> getEmployee(@Path(ServerPaths.EMPLOYEE_ID) int employeeId);

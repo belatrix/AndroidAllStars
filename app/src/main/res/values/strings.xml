@@ -19,13 +19,16 @@
     <!-- Hint -->
     <string name="hint_username">Username</string>
     <string name="hint_password">Password</string>
+    <string name="hint_email">Email</string>
 
     <!-- Button -->
     <string name="button_log_in">Log In</string>
+    <string name="button_sign_up">Send</string>
 
     <!-- Title -->
     <string name="title_belatrix">Belatrix</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="title_sign_up"><u>Sign Up</u></string>
     <string name="title_select_category">Select Category</string>
     <string name="title_select_subcategory">Select Subcategory</string>
     <string name="title_account_activity">Profile</string>

@@ -43,6 +43,7 @@ public interface ServerPaths {
     String QUERY_SEARCH = "search";
 
     String EMPLOYEE_AUTHENTICATE = EMPLOYEE + "/authenticate/";
+    String EMPLOYEE_CREATE = EMPLOYEE + "/create/";
     String EMPLOYEE_LIST = EMPLOYEE + "/list/";
     String EMPLOYEE_BY_ID = EMPLOYEE + "/{" + EMPLOYEE_ID + "}";
     String EMPLOYEE_CATEGORIES = EMPLOYEE + "/{" + EMPLOYEE_ID + "}/category/list";

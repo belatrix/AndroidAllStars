@@ -18,27 +18,17 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.services;
-
-import com.belatrixsf.allstars.entities.Category;
-import com.belatrixsf.allstars.entities.Employee;
-import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.CreateEmployeeResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
-import com.belatrixsf.allstars.utils.AllStarsCallback;
-
-import java.util.List;
+package com.belatrixsf.allstars.networking.retrofit.requests;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by gyosida on 4/11/16.
  */
-public interface EmployeeService {
+public class CreateEmployeeRequest {
 
-    void authenticate(String username, String password, AllStarsCallback<AuthenticationResponse> callback);
-    void createEmployee(String email, AllStarsCallback<CreateEmployeeResponse> callback);
-    void getEmployee(int employeeId, AllStarsCallback<Employee> callback);
-    void getEmployeeSearchList(String searchTerm, Integer page, AllStarsCallback<SearchEmployeeResponse> callback);
-    void getRankingList(String kind, int quantity, AllStarsCallback<List<Employee>> callback);
-    void getEmployeeCategories(int employeeId, AllStarsCallback<List<Category>> callback);
+    private String email;
+
+    public CreateEmployeeRequest(String username) {
+        this.email = username;
+    }
 
 }

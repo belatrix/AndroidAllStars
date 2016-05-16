@@ -25,7 +25,9 @@ import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.networking.retrofit.RetrofitCallback;
 import com.belatrixsf.allstars.networking.retrofit.api.EmployeeAPI;
 import com.belatrixsf.allstars.networking.retrofit.requests.AuthenticationRequest;
+import com.belatrixsf.allstars.networking.retrofit.requests.CreateEmployeeRequest;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
+import com.belatrixsf.allstars.networking.retrofit.responses.CreateEmployeeResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 
@@ -47,6 +49,12 @@ public class EmployeeServerService implements EmployeeService {
     public void authenticate(String username, String password, AllStarsCallback<AuthenticationResponse> callback) {
         AuthenticationRequest request = new AuthenticationRequest(username, password);
         employeeAPI.authenticate(request).enqueue(new RetrofitCallback<AuthenticationResponse>(callback));
+    }
+
+    @Override
+    public void createEmployee(String email, AllStarsCallback<CreateEmployeeResponse> callback) {
+        CreateEmployeeRequest request = new CreateEmployeeRequest(email);
+        employeeAPI.createEmployee(request).enqueue(new RetrofitCallback<CreateEmployeeResponse>(callback));
     }
 
     @Override
