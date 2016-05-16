@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="?attr/listPreferredItemHeightLarge"
+    android:id="@+id/contact_holder"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingLeft="?listPreferredItemPaddingLeft"
-    android:paddingRight="?listPreferredItemPaddingRight"
-    style="@style/ItemListStyle">
+    style="@style/LargeItemList">
 
     <ImageView
         android:id="@+id/contact_photo"

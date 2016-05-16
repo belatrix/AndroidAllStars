@@ -1,6 +1,7 @@
 package com.belatrixsf.allstars.networking.retrofit.api;
 
 import com.belatrixsf.allstars.networking.retrofit.requests.StarRequest;
+import com.belatrixsf.allstars.networking.retrofit.responses.StarKeywordTopListResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarsByKeywordsResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarsResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarResponse;
@@ -29,5 +30,8 @@ public interface StarAPI {
 
     @GET(ServerPaths.STARS_BY_KEYWORD)
     Call<StarsByKeywordsResponse> getStarsByKeywords(@Query(ServerPaths.QUERY_SEARCH) String search, @Query(ServerPaths.QUERY_PAGE) Integer nextPage);
+
+    @GET(ServerPaths.STARS_KEYWORD_TOP)
+    Call<StarKeywordTopListResponse> getStarsKeywordTop(@Path(ServerPaths.KEYWORD_ID) int keywordId, @Query(ServerPaths.QUERY_PAGE) Integer page);
 
 }

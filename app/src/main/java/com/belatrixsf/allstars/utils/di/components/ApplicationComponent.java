@@ -21,10 +21,12 @@
 package com.belatrixsf.allstars.utils.di.components;
 
 import com.belatrixsf.allstars.managers.EmployeeManager;
+import com.belatrixsf.allstars.ui.contacts.keyword.ContactsKeywordListPresenter;
 import com.belatrixsf.allstars.utils.di.modules.RetrofitModule;
 import com.belatrixsf.allstars.utils.di.modules.ServicesModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.CategoriesListModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModule;
+import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsKeywordPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsListPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.KeywordsListModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.RankingPresenterModule;
@@ -54,6 +56,7 @@ public interface ApplicationComponent {
     RankingComponent rankingComponent(RankingPresenterModule rankingPresenterModule);
     GiveStarComponent giveStarComponent(GiveStarPresenterModule giveStarPresenterModule);
     CategoriesListComponent categoriesListComponent(CategoriesListModule categoriesListModule);
+    ContactsKeywordListComponent contactsKeywordListComponent(ContactsKeywordPresenterModule contactsKeywordPresenterModule);
     KeywordsComponent keywordsListComponent(KeywordsListModule keywordsListModule);
 
 }

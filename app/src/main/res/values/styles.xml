@@ -42,9 +42,16 @@
         <item name="android:background">@drawable/selector_accent_button</item>
     </style>
 
-    <style name="ItemListStyle">
-        <item name="android:background">@drawable/general_selector</item>
-        <item name="android:clickable">true</item>
+    <style name="ItemList">
+        <item name="android:layout_height">?attr/listPreferredItemHeight</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingLeft">?listPreferredItemPaddingLeft</item>
+        <item name="android:paddingRight">?listPreferredItemPaddingLeft</item>
+        <item name="android:background">@drawable/selector_default_item</item>
+    </style>
+
+    <style name="LargeItemList" parent="ItemList">
+        <item name="android:layout_height">?attr/listPreferredItemHeightLarge</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

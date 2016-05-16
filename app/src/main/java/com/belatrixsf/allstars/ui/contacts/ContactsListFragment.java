@@ -83,8 +83,6 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     private ContactsListFragmentListener contactsListFragmentListener;
     private EndlessRecyclerOnScrollListener endlessRecyclerOnScrollListener;
 
-    private EditText searchTermEditText;
-    private ImageButton cleanImageButton;
     private ImageView photoImageView;
 
     @Bind(R.id.employees) RecyclerView contactsRecyclerView;
