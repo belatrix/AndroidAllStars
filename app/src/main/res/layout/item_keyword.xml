@@ -2,12 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/keyword_holder"
-    android:layout_width="match_parent"
-    android:layout_height="?attr/listPreferredItemHeight"
     android:gravity="center_vertical"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    style="@style/ItemListStyle">
+    style="@style/ItemList">
 
     <TextView
         android:id="@+id/keyword_name"

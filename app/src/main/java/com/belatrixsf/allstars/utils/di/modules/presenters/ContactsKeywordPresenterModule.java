@@ -20,25 +20,25 @@
 */
 package com.belatrixsf.allstars.utils.di.modules.presenters;
 
-import com.belatrixsf.allstars.ui.signup.SignUpView;
+import com.belatrixsf.allstars.ui.contacts.keyword.ContactsKeywordListView;
 
 import dagger.Module;
 import dagger.Provides;
 
 /**
- * Created by icerrate on 16/05/16.
+ * Created by PedroCarrillo on 5/12/16.
  */
 @Module
-public class SignupPresenterModule {
+public class ContactsKeywordPresenterModule {
 
-    private SignUpView view;
+    private ContactsKeywordListView view;
 
-    public SignupPresenterModule(SignUpView view) {
+    public ContactsKeywordPresenterModule(ContactsKeywordListView view) {
         this.view = view;
     }
 
     @Provides
-    public SignUpView providesView() {
+    public ContactsKeywordListView providesView() {
         return view;
     }
 

@@ -18,54 +18,28 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.entities;
+package com.belatrixsf.allstars.utils.di.modules.presenters;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import com.belatrixsf.allstars.ui.signup.SignUpView;
+
+import dagger.Module;
+import dagger.Provides;
 
 /**
- * Created by PedroCarrillo on 4/15/16.
+ * Created by icerrate on 16/05/16.
  */
-public class Role implements Parcelable {
+@Module
+public class SignUpPresenterModule {
 
-    private int id;
-    private String name;
+    private SignUpView view;
 
-    public int getId() {
-        return id;
+    public SignUpPresenterModule(SignUpView view) {
+        this.view = view;
     }
 
-    public String getName() {
-        return name;
+    @Provides
+    public SignUpView providesView() {
+        return view;
     }
-
-    protected Role(Parcel in) {
-        id = in.readInt();
-        name = in.readString();
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(name);
-    }
-
-    @SuppressWarnings("unused")
-    public static final Parcelable.Creator<Role> CREATOR = new Parcelable.Creator<Role>() {
-        @Override
-        public Role createFromParcel(Parcel in) {
-            return new Role(in);
-        }
-
-        @Override
-        public Role[] newArray(int size) {
-            return new Role[size];
-        }
-    };
 
 }

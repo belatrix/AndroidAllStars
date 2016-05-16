@@ -94,5 +94,7 @@
     <!-- Transition names -->
     <string name="transition_photo">transition_photo</string>
     <string name="select_keyword">Select a Keyword</string>
+    <string name="title_contacts_keyword_activity">Keyword Top</string>
+    <string name="keyword_top">%s Top</string>
 
 </resources>

@@ -94,7 +94,7 @@ public class ContactsListAdapter extends LoadMoreBaseAdapter<Employee> {
         @Bind(R.id.contact_photo) public ImageView photoImageView;
         @Bind(R.id.contact_full_name) public TextView contactFullNameTextView;
         @Bind(R.id.contact_level) public TextView contactLevelTextView;
-        private RecyclerOnItemClickListener recyclerOnItemClickListener;
+        protected RecyclerOnItemClickListener recyclerOnItemClickListener;
 
         public ContactViewHolder(View view, RecyclerOnItemClickListener recyclerOnItemClickListener) {
             super(view);

@@ -1,6 +1,7 @@
 package com.belatrixsf.allstars.ui.keywords;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -22,6 +23,7 @@ import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.EndlessRecyclerOnScrollListener;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.allstars.ui.common.views.searchingview.SearchingView;
+import com.belatrixsf.allstars.ui.contacts.keyword.ContactsKeywordListActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.KeyboardUtils;
 import com.belatrixsf.allstars.utils.di.modules.presenters.KeywordsListModule;
@@ -124,7 +126,9 @@ public class SearchingKeywordsFragment extends AllStarsFragment implements Searc
 
     @Override
     public void showKeywordDetail(Keyword keyword) {
-        //TODO: display detail
+        Intent intent = new Intent(getActivity(), ContactsKeywordListActivity.class);
+        intent.putExtra(ContactsKeywordListActivity.KEYWORD_KEY, keyword);
+        startActivity(intent);
     }
 
     @Override

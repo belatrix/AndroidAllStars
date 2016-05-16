@@ -21,7 +21,7 @@
 package com.belatrixsf.allstars.utils.di.components;
 
 import com.belatrixsf.allstars.ui.signup.SignUpPresenter;
-import com.belatrixsf.allstars.utils.di.modules.presenters.SignupPresenterModule;
+import com.belatrixsf.allstars.utils.di.modules.presenters.SignUpPresenterModule;
 import com.belatrixsf.allstars.utils.di.scopes.UIScope;
 
 import dagger.Subcomponent;
@@ -31,9 +31,9 @@ import dagger.Subcomponent;
  */
 @UIScope
 @Subcomponent(
-        modules = SignupPresenterModule.class
+        modules = SignUpPresenterModule.class
 )
-public interface SignupComponent {
+public interface SignUpComponent {
 
     SignUpPresenter signUpPresenter();
 

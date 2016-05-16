@@ -35,7 +35,7 @@ import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.DialogUtils;
-import com.belatrixsf.allstars.utils.di.modules.presenters.SignupPresenterModule;
+import com.belatrixsf.allstars.utils.di.modules.presenters.SignUpPresenterModule;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -83,7 +83,7 @@ public class SignUpFragment extends AllStarsFragment implements SignUpView {
     @Override
     protected void initDependencies(AllStarsApplication allStarsApplication) {
         signUpPresenter = allStarsApplication.getApplicationComponent()
-                .signUpComponent(new SignupPresenterModule(this))
+                .signUpComponent(new SignUpPresenterModule(this))
                 .signUpPresenter();
     }
 

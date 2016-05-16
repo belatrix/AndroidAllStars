@@ -25,11 +25,12 @@ import com.belatrixsf.allstars.utils.di.modules.RetrofitModule;
 import com.belatrixsf.allstars.utils.di.modules.ServicesModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.CategoriesListModule;
+import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsKeywordPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsListPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.KeywordsListModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.RankingPresenterModule;
-import com.belatrixsf.allstars.utils.di.modules.presenters.SignupPresenterModule;
+import com.belatrixsf.allstars.utils.di.modules.presenters.SignUpPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.StarsListPresenterModule;
 
 import javax.inject.Singleton;
@@ -49,13 +50,14 @@ import dagger.Component;
 public interface ApplicationComponent {
 
     EmployeeManager employeeManager();
-    SignupComponent signUpComponent(SignupPresenterModule signupPresenterModule);
+    SignUpComponent signUpComponent(SignUpPresenterModule signUpPresenterModule);
     AccountComponent accountComponent(AccountPresenterModule accountPresenterModule);
     ContactsListComponent contactsListComponent(ContactsListPresenterModule contactsListPresenterModule);
     StarsListComponent starsListComponent(StarsListPresenterModule StarsListPresenterModule);
     RankingComponent rankingComponent(RankingPresenterModule rankingPresenterModule);
     GiveStarComponent giveStarComponent(GiveStarPresenterModule giveStarPresenterModule);
     CategoriesListComponent categoriesListComponent(CategoriesListModule categoriesListModule);
+    ContactsKeywordListComponent contactsKeywordListComponent(ContactsKeywordPresenterModule contactsKeywordPresenterModule);
     KeywordsComponent keywordsListComponent(KeywordsListModule keywordsListModule);
 
 }
