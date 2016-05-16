@@ -7,7 +7,6 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,7 +15,7 @@ import com.belatrixsf.allstars.R;
 /**
  * Created by icerrate on 06/05/2016.
  */
-public class KeywordView extends LinearLayout implements View.OnClickListener {
+public class KeywordView extends LinearLayout {
 
     private TextView keywordTextView;
     private String keywordValue;
@@ -115,11 +114,6 @@ public class KeywordView extends LinearLayout implements View.OnClickListener {
                 return new SavedState[size];
             }
         };
-    }
-
-    @Override
-    public void onClick(View v) {
-
     }
 
 }

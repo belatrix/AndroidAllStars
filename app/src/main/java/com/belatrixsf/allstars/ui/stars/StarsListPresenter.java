@@ -68,11 +68,11 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
         return stars;
     }
 
-    public int getCurrentPage() {
+    public Integer getCurrentPage() {
         return currentPage;
     }
 
-    public void setLoadedStars(int employeeId, int subCategoryId, List<Star> stars, int currentPage, PaginatedResponse starPaginatedResponse) {
+    public void setLoadedStars(int employeeId, int subCategoryId, List<Star> stars, Integer currentPage, PaginatedResponse starPaginatedResponse) {
         if (stars != null) {
             this.stars = stars;
         }

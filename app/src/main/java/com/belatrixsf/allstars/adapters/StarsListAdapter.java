@@ -20,6 +20,7 @@ package com.belatrixsf.allstars.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
-import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.entities.Star;
 import com.belatrixsf.allstars.ui.common.LoadMoreBaseAdapter;
 import com.belatrixsf.allstars.ui.common.views.KeywordView;
@@ -122,6 +122,7 @@ public class StarsListAdapter extends LoadMoreBaseAdapter<Star> {
 
         @OnClick(R.id.star_keyword)
         public void onKeywordClick(View v) {
+            Log.e("Adapter", "InYourFacePedro :D");
             if (keywordClickListener != null) {
                 keywordClickListener.onKeywordSelected(getAdapterPosition());
             }
