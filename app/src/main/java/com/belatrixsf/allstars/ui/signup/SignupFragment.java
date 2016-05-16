@@ -43,14 +43,14 @@ import butterknife.OnClick;
 /**
  * Created by icerrate on 16/05/16.
  */
-public class SignupFragment extends AllStarsFragment implements SignupView {
+public class SignUpFragment extends AllStarsFragment implements SignUpView {
 
     @Bind(R.id.email) EditText emailEditText;
     @Bind(R.id.send) Button sendButton;
 
-    private SignupPresenter signupPresenter;
+    private SignUpPresenter signUpPresenter;
 
-    public SignupFragment() {
+    public SignUpFragment() {
         // Required empty public constructor
     }
 
@@ -58,7 +58,7 @@ public class SignupFragment extends AllStarsFragment implements SignupView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_signup, container, false);
+        return inflater.inflate(R.layout.fragment_sign_up, container, false);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class SignupFragment extends AllStarsFragment implements SignupView {
         super.onViewCreated(view, savedInstanceState);
         initViews();
         if (savedInstanceState == null) {
-            signupPresenter.init();
+            signUpPresenter.init();
         }
     }
 
@@ -77,14 +77,14 @@ public class SignupFragment extends AllStarsFragment implements SignupView {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        signupPresenter = null;
+        signUpPresenter = null;
     }
 
     @Override
     protected void initDependencies(AllStarsApplication allStarsApplication) {
-        signupPresenter = allStarsApplication.getApplicationComponent()
-                .signupComponent(new SignupPresenterModule(this))
-                .signupPresenter();
+        signUpPresenter = allStarsApplication.getApplicationComponent()
+                .signUpComponent(new SignupPresenterModule(this))
+                .signUpPresenter();
     }
 
     @Override
@@ -100,7 +100,7 @@ public class SignupFragment extends AllStarsFragment implements SignupView {
     @OnClick(R.id.send)
     public void sendClicked() {
         String email = emailEditText.getText().toString();
-        signupPresenter.signup(email);
+        signUpPresenter.signUp(email);
     }
 
     @Override
@@ -123,7 +123,7 @@ public class SignupFragment extends AllStarsFragment implements SignupView {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             String email = emailEditText.getText().toString();
-            signupPresenter.checkIfEmailIsValid(email);
+            signUpPresenter.checkIfEmailIsValid(email);
         }
 
         @Override

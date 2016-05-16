@@ -33,12 +33,12 @@ import javax.inject.Inject;
 /**
  * Created by icerrate on 16/05/16.
  */
-public class SignupPresenter extends AllStarsPresenter<SignupView> {
+public class SignUpPresenter extends AllStarsPresenter<SignUpView> {
 
     private EmployeeService employeeService;
 
     @Inject
-    public SignupPresenter(SignupView view, EmployeeService employeeService) {
+    public SignUpPresenter(SignUpView view, EmployeeService employeeService) {
         super(view);
         this.employeeService = employeeService;
     }
@@ -51,7 +51,7 @@ public class SignupPresenter extends AllStarsPresenter<SignupView> {
         view.enableSend(false);
     }
 
-    public void signup(String email) {
+    public void signUp(String email) {
         view.showProgressDialog();
         employeeService.createEmployee(email, new AllStarsCallback<CreateEmployeeResponse>() {
             @Override

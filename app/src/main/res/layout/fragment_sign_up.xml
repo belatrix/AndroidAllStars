@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/dimen_6_5"
     android:paddingRight="@dimen/dimen_6_5"
     android:scrollbars="none"
-    tools:context="com.belatrixsf.allstars.ui.signup.SignupFragment">
+    tools:context=".ui.signup.SignUpFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

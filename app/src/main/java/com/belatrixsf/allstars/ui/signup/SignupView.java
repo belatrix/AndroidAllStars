@@ -25,7 +25,7 @@ import com.belatrixsf.allstars.ui.common.AllStarsView;
 /**
  * Created by icerrate on 16/05/16.
  */
-public interface SignupView extends AllStarsView {
+public interface SignUpView extends AllStarsView {
 
     void backToLogin();
     void enableSend(boolean enable);

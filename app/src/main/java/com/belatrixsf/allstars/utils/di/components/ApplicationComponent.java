@@ -49,7 +49,7 @@ import dagger.Component;
 public interface ApplicationComponent {
 
     EmployeeManager employeeManager();
-    SignupComponent signupComponent(SignupPresenterModule signupPresenterModule);
+    SignupComponent signUpComponent(SignupPresenterModule signupPresenterModule);
     AccountComponent accountComponent(AccountPresenterModule accountPresenterModule);
     ContactsListComponent contactsListComponent(ContactsListPresenterModule contactsListPresenterModule);
     StarsListComponent starsListComponent(StarsListPresenterModule StarsListPresenterModule);
