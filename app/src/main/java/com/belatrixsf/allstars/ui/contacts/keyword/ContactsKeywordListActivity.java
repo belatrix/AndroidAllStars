@@ -18,12 +18,14 @@ public class ContactsKeywordListActivity extends AllStarsActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+        setNavigationToolbar();
         if (savedInstanceState == null) {
             Keyword keyword = getIntent().getParcelableExtra(KEYWORD_KEY);
-            setTitle(getString(R.string.keyword_top, keyword.getName()));
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setTitle(getString(R.string.keyword_top, keyword.getName()));
+            }
             replaceFragment(ContactsKeywordListFragment.newInstance(keyword), false);
         }
-        setNavigationToolbar();
     }
 
     @Override
