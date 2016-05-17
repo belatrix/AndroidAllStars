@@ -41,6 +41,8 @@ public interface AccountView extends AllStarsView {
     void showEmail(String role);
     void showProfilePicture(String profilePicture);
     void showRecommendMenu(boolean show);
+    void showEditProfileButton(boolean show);
+    void goToEditProfile(Employee employee);
     void goToGiveStar(Employee employee);
     void showNoDataView();
     void hideNoDataView();

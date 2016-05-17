@@ -8,4 +8,10 @@
         android:visible="false"
         app:showAsAction="always"/>
 
+    <item
+        android:id="@+id/action_edit_profile"
+        android:title="@string/edit_profile"
+        android:visible="false"
+        app:showAsAction="ifRoom"/>
+
 </menu>

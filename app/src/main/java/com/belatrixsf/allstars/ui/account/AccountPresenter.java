@@ -73,7 +73,7 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
         };
         if (employeeId == null) {
             employeeManager.getLoggedInEmployee(employeeAllStarsCallback);
-        } else{
+        } else {
             employeeService.getEmployee(employeeId, employeeAllStarsCallback);
         }
     }
@@ -148,6 +148,8 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
     public void checkRecommendationEnabled() {
         if (PreferencesManager.get().getEmployeeId() != employee.getPk()) {
             view.showRecommendMenu(true);
+        } else {
+            view.showEditProfileButton(true);
         }
     }
 
@@ -155,4 +157,11 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
         view.goToGiveStar(employee);
     }
 
+    public void startEditProfile() {
+        view.goToEditProfile(employee);
+    }
+
+    public void refreshEmployee() {
+        employeeManager.refreshEmployee();
+    }
 }

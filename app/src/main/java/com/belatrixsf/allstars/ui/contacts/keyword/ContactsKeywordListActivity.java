@@ -22,7 +22,7 @@ public class ContactsKeywordListActivity extends AllStarsActivity {
         if (savedInstanceState == null) {
             Keyword keyword = getIntent().getParcelableExtra(KEYWORD_KEY);
             if (getSupportActionBar() != null) {
-                getSupportActionBar().setTitle(getString(R.string.keyword_top, keyword.getName()));
+                getSupportActionBar().setTitle(getString(R.string.title_keyword_top, keyword.getName()));
             }
             replaceFragment(ContactsKeywordListFragment.newInstance(keyword), false);
         }
