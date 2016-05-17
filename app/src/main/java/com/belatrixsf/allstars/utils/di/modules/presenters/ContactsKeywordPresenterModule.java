@@ -18,54 +18,28 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.entities;
+package com.belatrixsf.allstars.utils.di.modules.presenters;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import com.belatrixsf.allstars.ui.contacts.keyword.ContactsKeywordListView;
+
+import dagger.Module;
+import dagger.Provides;
 
 /**
- * Created by PedroCarrillo on 4/15/16.
+ * Created by PedroCarrillo on 5/12/16.
  */
-public class Role implements Parcelable {
+@Module
+public class ContactsKeywordPresenterModule {
 
-    private int id;
-    private String name;
+    private ContactsKeywordListView view;
 
-    public int getId() {
-        return id;
+    public ContactsKeywordPresenterModule(ContactsKeywordListView view) {
+        this.view = view;
     }
 
-    public String getName() {
-        return name;
+    @Provides
+    public ContactsKeywordListView providesView() {
+        return view;
     }
-
-    protected Role(Parcel in) {
-        id = in.readInt();
-        name = in.readString();
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(name);
-    }
-
-    @SuppressWarnings("unused")
-    public static final Parcelable.Creator<Role> CREATOR = new Parcelable.Creator<Role>() {
-        @Override
-        public Role createFromParcel(Parcel in) {
-            return new Role(in);
-        }
-
-        @Override
-        public Role[] newArray(int size) {
-            return new Role[size];
-        }
-    };
 
 }

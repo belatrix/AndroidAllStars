@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.allstars.ui.stars;
 
+import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.entities.Star;
 import com.belatrixsf.allstars.ui.common.AllStarsView;
 
@@ -32,5 +33,6 @@ public interface StarsListView extends AllStarsView {
 
     void showStars(List<Star> stars);
     void showCurrentPage(int currentPage);
+    void goToKeywordContacts(Keyword keyword);
 
 }

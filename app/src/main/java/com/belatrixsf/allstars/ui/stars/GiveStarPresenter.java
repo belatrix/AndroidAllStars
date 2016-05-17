@@ -77,7 +77,6 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
 
     public void loadSelectedUser(Employee employee) {
         if (employee != null) {
-            checkRecommendationEnabled();
             if (employee.getFullName() != null && !employee.getFullName().isEmpty()) {
                 view.showUserFullName(employee.getFullName());
             }
@@ -89,6 +88,7 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
             }
             this.selectedEmployee = employee;
             view.showUser();
+            checkRecommendationEnabled();
         }
     }
 
@@ -148,8 +148,7 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
     }
 
     public void checkRecommendationEnabled() {
-        boolean a = validateFormComplete();
-        view.showDoneMenu(a);
+        view.showDoneMenu(validateFormComplete());
     }
 
     private boolean validateFormComplete() {
