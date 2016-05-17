@@ -75,7 +75,12 @@ public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywo
     }
 
     public void getKeywords() {
-        getKeywords(null);
+        if (keywords == null || keywords.isEmpty()) {
+            getKeywords(null);
+        } else {
+            view.resetList();
+            view.addKeywords(keywords);
+        }
     }
 
     public void getKeywords(String searchText) {
@@ -104,6 +109,29 @@ public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywo
                 showError(serviceError.getErrorMessage());
             }
         });
+    }
+
+    // saving state stuff
+
+    public void load(List<Keyword> keywords, PaginatedResponse keywordsPaging, String searchText) {
+        this.keywords = keywords;
+        this.keywordsPaging = keywordsPaging;
+        this.searchText = searchText;
+        if (searchText != null) {
+            searchKeywords();
+        }
+    }
+
+    public String getSearchText() {
+        return searchText;
+    }
+
+    public PaginatedResponse getKeywordsPaging() {
+        return keywordsPaging;
+    }
+
+    public List<Keyword> getKeywordsSync() {
+        return keywords;
     }
 
 }
