@@ -246,11 +246,11 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     @Override
     public void onClick(View v) {
         photoImageView = ButterKnife.findById(v, R.id.contact_photo);
-        contactsListPresenter.onContactClicked(v.getTag());
+        contactsListPresenter.onContactSelected(v.getTag());
     }
 
     @Override
-    public void goContactProfile(Integer id) {
+    public void goToContactProfile(Integer id) {
         AccountActivity.startActivityAnimatingProfilePic(getActivity(), photoImageView, id);
     }
 

@@ -95,7 +95,7 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
     }
 
     public void startActionMode(){
-        if (!inActionMode){//Start
+        if (!inActionMode){
             inActionMode = true;
         }
     }
@@ -151,11 +151,11 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
         }
     }
 
-    public void onContactClicked(Object object) {
+    public void onContactSelected(Object object) {
         if (object != null && object instanceof Employee) {
             Employee employee = (Employee) object;
             if (profileEnabled) {
-                view.goContactProfile(employee.getPk());
+                view.goToContactProfile(employee.getPk());
             } else {
                 view.selectContact(employee);
             }
