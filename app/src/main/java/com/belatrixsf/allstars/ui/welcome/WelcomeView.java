@@ -18,16 +18,16 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.login;
+package com.belatrixsf.allstars.ui.welcome;
 
 import com.belatrixsf.allstars.ui.common.AllStarsView;
 
 /**
- * Created by gyosida on 4/11/16.
+ * Created by icerrate on 17/05/16.
  */
-public interface LoginView extends AllStarsView {
+public interface WelcomeView extends AllStarsView {
 
-    void goHome();
-    void enableLogin(boolean enable);
+    void showLogin();
+    void showSignUp();
 
 }

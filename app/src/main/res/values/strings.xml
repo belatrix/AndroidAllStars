@@ -22,8 +22,10 @@
     <string name="hint_email">Email</string>
 
     <!-- Button -->
+    <string name="button_log_in_view">Log In</string>
+    <string name="button_sign_up_view">Sign Up</string>
     <string name="button_log_in">Log In</string>
-    <string name="button_sign_up">Send</string>
+    <string name="button_sign_up">Get Started</string>
 
     <!-- Title -->
     <string name="title_belatrix">Belatrix</string>

@@ -9,6 +9,7 @@
     <color name="divider">#E6ECEF</color>
 
     <color name="white">#FFFFFF</color>
+    <color name="softGrey">#DDDDDD</color>
     <color name="belatrix">#FF8F03</color>
     <color name="darkAccent">#105CB3</color>
     <color name="lightAccent">#3985DB</color>

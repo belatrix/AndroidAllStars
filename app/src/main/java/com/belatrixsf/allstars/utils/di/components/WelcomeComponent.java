@@ -18,16 +18,28 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.login;
+package com.belatrixsf.allstars.utils.di.components;
 
-import com.belatrixsf.allstars.ui.common.AllStarsView;
+import com.belatrixsf.allstars.ui.welcome.WelcomeActivity;
+import com.belatrixsf.allstars.utils.di.modules.presenters.WelcomePresenterModule;
+import com.belatrixsf.allstars.utils.di.scopes.UIScope;
+
+import dagger.Component;
 
 /**
- * Created by gyosida on 4/11/16.
+ * Created by icerrate on 17/05/16.
  */
-public interface LoginView extends AllStarsView {
+@UIScope
+@Component(
+        modules = {
+                WelcomePresenterModule.class
+        },
+        dependencies = {
+                ApplicationComponent.class
+        }
+)
+public interface WelcomeComponent {
 
-    void goHome();
-    void enableLogin(boolean enable);
+    void inject(WelcomeActivity welcomeActivity);
 
 }

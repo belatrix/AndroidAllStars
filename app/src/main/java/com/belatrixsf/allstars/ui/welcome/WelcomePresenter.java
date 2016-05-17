@@ -18,16 +18,42 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.login;
+package com.belatrixsf.allstars.ui.welcome;
 
-import com.belatrixsf.allstars.ui.common.AllStarsView;
+import com.belatrixsf.allstars.managers.EmployeeManager;
+import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
+
+import javax.inject.Inject;
 
 /**
- * Created by gyosida on 4/11/16.
+ * Created by icerrate on 17/05/16.
  */
-public interface LoginView extends AllStarsView {
+public class WelcomePresenter extends AllStarsPresenter<WelcomeView> {
 
-    void goHome();
-    void enableLogin(boolean enable);
+    static final int TYPE_LOGIN = 0;
+    static final int TYPE_SIGNUP = 1;
+
+    private EmployeeManager employeeManager;
+    private int lastViewType = 0;
+
+    @Inject
+    public WelcomePresenter(WelcomeView view, EmployeeManager employeeManager) {
+        super(view);
+        this.employeeManager = employeeManager;
+    }
+
+    public void loginViewButtonClicked(){
+        if (lastViewType == TYPE_SIGNUP){
+            lastViewType = TYPE_LOGIN;
+            view.showLogin();
+        }
+    }
+
+    public void signUpViewButtonClicked(){
+        if (lastViewType == TYPE_LOGIN){
+            lastViewType = TYPE_SIGNUP;
+            view.showSignUp();
+        }
+    }
 
 }

@@ -31,7 +31,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
@@ -49,7 +48,6 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
     @Bind(R.id.username) EditText usernameEditText;
     @Bind(R.id.password) EditText passwordEditText;
     @Bind(R.id.log_in) Button logInButton;
-    @Bind(R.id.sign_up) TextView signUpTextView;
 
     private LoginPresenter loginPresenter;
 
@@ -102,12 +100,6 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
     }
 
     @Override
-    public void goSignUp() {
-        Intent intent = new Intent(getActivity(), SignUpActivity.class);
-        startActivity(intent);
-    }
-
-    @Override
     public void enableLogin(boolean enable) {
         logInButton.setEnabled(enable);
     }
@@ -117,11 +109,6 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
         loginPresenter.login(username, password);
-    }
-
-    @OnClick(R.id.sign_up)
-    public void signUpClicked() {
-        loginPresenter.signUp();
     }
 
     private TextWatcher formFieldWatcher = new TextWatcher() {

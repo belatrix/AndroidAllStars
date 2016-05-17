@@ -32,6 +32,7 @@
 
     <dimen name="text_margin">3dp</dimen>
 
+    <dimen name="welcome_divider">1dp</dimen>
     <dimen name="keyword_stroke">1dp</dimen>
 
     <!-- Defaults -->
