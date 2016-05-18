@@ -61,6 +61,7 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void shouldShowActionMode() {
         if (inActionMode) {
             view.startActionMode();
@@ -73,12 +74,17 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
     public List<Employee> getLoadedContacts(){
         return contacts;
 >>>>>>> develop
+=======
+    public List<Employee> getLoadedContacts(){
+        return contacts;
+>>>>>>> develop
     }
 
     public boolean isInActionMode() {
         return inActionMode;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public void loadSavedContacts(List<Employee> employees) {
         this.employees = employees;
@@ -108,6 +114,12 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
         return currentPage;
     }
 
+=======
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+>>>>>>> develop
     public String getSearchTerm() {
         return searchTerm;
     }
@@ -121,12 +133,16 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
         this.searchTerm = searchTerm;
         if (inActionMode){
             view.startActionMode();
+<<<<<<< HEAD
+>>>>>>> develop
+=======
 >>>>>>> develop
         }
         view.showCurrentPage(currentPage);
         view.showContacts(contacts);
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public void onSearchTermChange(String newSearchTerm) {
         if (newSearchTerm.length() > 0) {
@@ -164,6 +180,14 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
         }
     }
 
+=======
+    public void startActionMode(){
+        if (!inActionMode){//Start
+            inActionMode = true;
+        }
+    }
+
+>>>>>>> develop
     public void finishActionMode(){
         inActionMode = false;
         currentPage = 1;
@@ -210,6 +234,9 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
                     showError(serviceError.getErrorMessage());
                 }
             });
+<<<<<<< HEAD
+>>>>>>> develop
+=======
 >>>>>>> develop
         }
     }

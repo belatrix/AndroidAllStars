@@ -73,10 +73,14 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
 
     public void keywordSelectionClicked() {
 <<<<<<< HEAD
+<<<<<<< HEAD
         //TODO: Remove this
         selectedKeyword = new Keyword();
         selectedKeyword.setData(1, "Android");
         loadSelectedKeyword(selectedKeyword);
+=======
+        view.goSelectKeyword();
+>>>>>>> develop
 =======
         view.goSelectKeyword();
 >>>>>>> develop

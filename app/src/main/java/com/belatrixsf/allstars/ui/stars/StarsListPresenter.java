@@ -86,6 +86,7 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void getStars(Integer page) {
         if (starPaginatedResponse.getNext() != null || page == 1) {
             currentPage = page;
@@ -110,6 +111,11 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
                             showError(serviceError.getErrorMessage());
                         }
                     });
+=======
+    public void callNextPage() {
+        if (starPaginatedResponse.getNext() != null) {
+            getStars();
+>>>>>>> develop
 =======
     public void callNextPage() {
         if (starPaginatedResponse.getNext() != null) {

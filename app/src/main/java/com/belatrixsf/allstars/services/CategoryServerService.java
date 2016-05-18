@@ -45,6 +45,14 @@ public class CategoryServerService extends AllStarsService implements CategorySe
         enqueue(requestTag, categoryAPI.getSubcategories(categoryId), new RetrofitCallback<List<SubCategory>>(callback));
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+    @Override
+    public void getKeywords(AllStarsCallback<List<Keyword>> callback) {
+        categoryAPI.getKeywords().enqueue(new RetrofitCallback<List<Keyword>>(callback));
+    }
+>>>>>>> develop
 }
 =======
 

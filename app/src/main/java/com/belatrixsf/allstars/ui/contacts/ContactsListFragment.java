@@ -48,7 +48,11 @@ import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.ContactsListAdapter;
 import com.belatrixsf.allstars.entities.Employee;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.belatrixsf.allstars.services.AllStarsService;
+=======
+import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
+>>>>>>> develop
 =======
 import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
 >>>>>>> develop
@@ -257,6 +261,7 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
                 }
             });
 <<<<<<< HEAD
+<<<<<<< HEAD
             searchTermEditText.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -286,6 +291,9 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
             mode.setCustomView(customView);
             searchTermEditText.requestFocus();
             KeyboardUtils.showKeyboard(getActivity(), searchTermEditText);
+=======
+            mode.setCustomView(searchingView);
+>>>>>>> develop
 =======
             mode.setCustomView(searchingView);
 >>>>>>> develop
@@ -329,6 +337,7 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     @Override
     public void showCleanButton() {
         cleanImageButton.setVisibility(View.VISIBLE);
@@ -344,6 +353,8 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
         AllStarsService.cancel(REQUEST_TAG);
         super.onDestroyView();
     }
+=======
+>>>>>>> develop
 =======
 >>>>>>> develop
 }

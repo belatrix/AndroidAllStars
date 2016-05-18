@@ -2,7 +2,10 @@ package com.belatrixsf.allstars.networking.retrofit.api;
 
 import com.belatrixsf.allstars.networking.retrofit.requests.StarRequest;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> develop
 import com.belatrixsf.allstars.networking.retrofit.responses.StarKeywordTopListResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarsByKeywordsResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarsResponse;

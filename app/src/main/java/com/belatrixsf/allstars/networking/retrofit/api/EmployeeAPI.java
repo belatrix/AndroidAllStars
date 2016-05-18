@@ -41,6 +41,9 @@ import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.Path;
 import retrofit.http.Query;
+<<<<<<< HEAD
+>>>>>>> develop
+=======
 >>>>>>> develop
 
 /**

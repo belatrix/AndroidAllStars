@@ -36,6 +36,9 @@ public interface CategoryService {
 =======
     void getSubcategories(int categoryId, AllStarsCallback<List<Category>> callback);
     void getKeywords(AllStarsCallback<List<Keyword>> callback);
+<<<<<<< HEAD
+>>>>>>> develop
+=======
 >>>>>>> develop
 
 }

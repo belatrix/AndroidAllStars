@@ -44,7 +44,11 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
     public static final int RQ_COMMENT = 101;
     public static final int RQ_SUBCATEGORY = 102;
 <<<<<<< HEAD
+<<<<<<< HEAD
     public static final String REQUEST_TAG = GiveStarFragment.class.getSimpleName();
+=======
+    public static final int RQ_KEYWORD = 103;
+>>>>>>> develop
 =======
     public static final int RQ_KEYWORD = 103;
 >>>>>>> develop
