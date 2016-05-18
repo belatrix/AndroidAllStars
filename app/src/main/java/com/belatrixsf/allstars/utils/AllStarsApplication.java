@@ -40,6 +40,9 @@ public class AllStarsApplication extends Application {
         super.onCreate();
         context = this;
         applicationComponent = DaggerApplicationComponent.create();
+        if (Constants.IS_IN_DEVELOPMENT) {
+            // TODO Implement crashlytics (Ivan Cerrate)
+        }
     }
 
     public ApplicationComponent getApplicationComponent() {

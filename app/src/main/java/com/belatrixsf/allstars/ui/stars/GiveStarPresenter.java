@@ -74,7 +74,7 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
     public void keywordSelectionClicked() {
         //TODO: Remove this
         selectedKeyword = new Keyword();
-        selectedKeyword.setData(1,"Android");
+        selectedKeyword.setData(1, "Android");
         loadSelectedKeyword(selectedKeyword);
     }
 
@@ -108,7 +108,7 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
     }
 
     public void loadSelectedSubCategory(SubCategory subCategory) {
-        if(subCategory != null && subCategory.getName() != null && !subCategory.getName().isEmpty()){
+        if (subCategory != null && subCategory.getName() != null && !subCategory.getName().isEmpty()) {
             selectedSubCategory = subCategory;
             view.showCategory(subCategory.getName());
             checkRecommendationEnabled();
@@ -125,22 +125,27 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
 
     public void makeRecommendation() {
         view.showProgressDialog(getString(R.string.making_recommendation));
-        employeeManager.getLoggedInEmployee(new AllStarsCallback<Employee>() {
+        employeeManager.getLoggedInEmployee(GiveStarFragment.REQUEST_TAG, new AllStarsCallback<Employee>() {
             @Override
             public void onSuccess(Employee fromEmployee) {
                 StarRequest starRequest = new StarRequest(selectedSubCategory.getParentCategory().getId(), selectedSubCategory.getId(), selectedComment, selectedKeyword.getId());
-                starService.star(fromEmployee.getPk(), selectedEmployee.getPk(), starRequest, new AllStarsCallback<StarResponse>() {
-                    @Override
-                    public void onSuccess(StarResponse starResponse) {
-                        view.dismissProgressDialog();
-                        view.finishRecommendation();
-                    }
+                starService.star(
+                        GiveStarFragment.REQUEST_TAG,
+                        fromEmployee.getPk(),
+                        selectedEmployee.getPk(),
+                        starRequest,
+                        new AllStarsCallback<StarResponse>() {
+                            @Override
+                            public void onSuccess(StarResponse starResponse) {
+                                view.dismissProgressDialog();
+                                view.finishRecommendation();
+                            }
 
-                    @Override
-                    public void onFailure(ServiceError serviceError) {
-                        view.showError(serviceError.getErrorMessage());
-                    }
-                });
+                            @Override
+                            public void onFailure(ServiceError serviceError) {
+                                view.showError(serviceError.getErrorMessage());
+                            }
+                        });
             }
 
             @Override

@@ -43,13 +43,13 @@ public class EmployeeManager {
         this.employeeService = employeeService;
     }
 
-    public void login(String username, String password, final AllStarsCallback<Void> callback) {
-        employeeService.authenticate(username, password, new AllStarsCallback<AuthenticationResponse>() {
+    public void login(final String requestTag, String username, String password, final AllStarsCallback<Void> callback) {
+        employeeService.authenticate(requestTag, username, password, new AllStarsCallback<AuthenticationResponse>() {
             @Override
             public void onSuccess(AuthenticationResponse authenticationResponse) {
                 PreferencesManager.get().saveToken(authenticationResponse.getToken());
                 PreferencesManager.get().saveEmployeeId(authenticationResponse.getEmployeeId());
-                employeeService.getEmployee(authenticationResponse.getEmployeeId(), new AllStarsCallback<Employee>() {
+                employeeService.getEmployee(requestTag, authenticationResponse.getEmployeeId(), new AllStarsCallback<Employee>() {
                     @Override
                     public void onSuccess(Employee employee) {
                         EmployeeManager.this.employee = employee;
@@ -70,10 +70,10 @@ public class EmployeeManager {
         });
     }
 
-    public void getLoggedInEmployee(final AllStarsCallback<Employee> callback) {
+    public void getLoggedInEmployee(String requestTag, final AllStarsCallback<Employee> callback) {
         if (employee == null) {
             int storedEmployeeId = PreferencesManager.get().getEmployeeId();
-            employeeService.getEmployee(storedEmployeeId, new AllStarsCallback<Employee>() {
+            employeeService.getEmployee(requestTag, storedEmployeeId, new AllStarsCallback<Employee>() {
                 @Override
                 public void onSuccess(Employee employee) {
                     EmployeeManager.this.employee = employee;

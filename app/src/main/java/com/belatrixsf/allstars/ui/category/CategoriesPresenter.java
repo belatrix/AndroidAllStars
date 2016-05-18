@@ -61,7 +61,7 @@ public class CategoriesPresenter extends AllStarsPresenter<CategoriesView> {
     }
 
     public void init() {
-        view.setTitle(viewPresentsCategories()? getString(R.string.title_select_category) : getString(R.string.title_select_subcategory));
+        view.setTitle(viewPresentsCategories() ? getString(R.string.title_select_category) : getString(R.string.title_select_subcategory));
     }
 
     public void getCategories() {
@@ -69,10 +69,10 @@ public class CategoriesPresenter extends AllStarsPresenter<CategoriesView> {
             if (viewPresentsCategories()) {
                 if (employeeManager != null && employeeService != null) {
                     view.showProgressIndicator();
-                    employeeManager.getLoggedInEmployee(new AllStarsCallback<Employee>() {
+                    employeeManager.getLoggedInEmployee(CategoriesFragment.REQUEST_TAG, new AllStarsCallback<Employee>() {
                         @Override
                         public void onSuccess(Employee employee) {
-                            employeeService.getEmployeeCategories(employee.getPk(), categoriesCallback);
+                            employeeService.getEmployeeCategories(CategoriesFragment.REQUEST_TAG, employee.getPk(), categoriesCallback);
                         }
 
                         @Override
@@ -84,7 +84,7 @@ public class CategoriesPresenter extends AllStarsPresenter<CategoriesView> {
             } else {
                 if (categoryService != null) {
                     view.showProgressIndicator();
-                    categoryService.getSubcategories(category.getId(), categoriesCallback);
+                    categoryService.getSubcategories(CategoriesFragment.REQUEST_TAG, category.getId(), categoriesCallback);
                 }
             }
         } else {

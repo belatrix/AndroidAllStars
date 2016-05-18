@@ -47,6 +47,7 @@ import android.widget.TextView;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.ContactsListAdapter;
 import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.services.AllStarsService;
 import com.belatrixsf.allstars.ui.account.AccountActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
@@ -79,6 +80,8 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     private EditText searchTermEditText;
     private ImageButton cleanImageButton;
     private ImageView photoImageView;
+
+    public static final String REQUEST_TAG = ContactsListFragment.class.getSimpleName();
 
     @Bind(R.id.employees)
     RecyclerView contactsRecyclerView;
@@ -304,4 +307,9 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
         cleanImageButton.setVisibility(View.INVISIBLE);
     }
 
+    @Override
+    public void onDestroyView() {
+        AllStarsService.cancel(REQUEST_TAG);
+        super.onDestroyView();
+    }
 }

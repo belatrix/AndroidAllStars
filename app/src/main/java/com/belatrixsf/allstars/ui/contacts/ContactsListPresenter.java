@@ -57,68 +57,73 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
     }
 
     public void shouldShowActionMode() {
-        if (inActionMode){
+        if (inActionMode) {
             view.startActionMode();
         }
     }
 
-    public List<Employee> getContacts(){
+    public List<Employee> getContacts() {
         return employees;
     }
 
-    public boolean isInActionMode(){
+    public boolean isInActionMode() {
         return inActionMode;
     }
 
-    public void loadSavedContacts(List<Employee> employees){
+    public void loadSavedContacts(List<Employee> employees) {
         this.employees = employees;
     }
 
     public void getContacts(boolean force) {
         if (force || employees == null || employees.isEmpty()) {
             view.showProgressIndicator();
-            employeeService.getEmployees(new AllStarsCallback<SearchEmployeeResponse>() {
-                @Override
-                public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
-                    employees = searchEmployeeResponse.getEmployeeList();
-                    view.showContacts(searchEmployeeResponse.getEmployeeList());
-                }
+            employeeService.getEmployees(
+                    ContactsListFragment.REQUEST_TAG,
+                    new AllStarsCallback<SearchEmployeeResponse>() {
+                        @Override
+                        public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
+                            employees = searchEmployeeResponse.getEmployeeList();
+                            view.showContacts(searchEmployeeResponse.getEmployeeList());
+                        }
 
-                @Override
-                public void onFailure(ServiceError serviceError) {
-                    showError(serviceError.getErrorMessage());
-                }
-            });
-        }else{
+                        @Override
+                        public void onFailure(ServiceError serviceError) {
+                            showError(serviceError.getErrorMessage());
+                        }
+                    });
+        } else {
             view.showContacts(employees);
         }
     }
 
-    public void onSearchTermChange(String newSearchTerm){
-        if (newSearchTerm.length()>0){
+    public void onSearchTermChange(String newSearchTerm) {
+        if (newSearchTerm.length() > 0) {
             view.showCleanButton();
-        }else{
+        } else {
             view.hideCleanButton();
         }
     }
 
-    public void submitSearchTerm(String searchTerm){
+    public void submitSearchTerm(String searchTerm) {
         if (!searchTerm.isEmpty()) {
             //view.showProgressIndicator();
-            employeeService.getEmployeeSearchList(searchTerm, new AllStarsCallback<SearchEmployeeResponse>() {
-                @Override
-                public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
-                    employees = searchEmployeeResponse.getEmployeeList();
-                    //view.hideProgressIndicator();
-                    view.showContacts(searchEmployeeResponse.getEmployeeList());
-                }
+            employeeService.getEmployeeSearchList(
+                    ContactsListFragment.REQUEST_TAG,
+                    searchTerm,
+                    new AllStarsCallback<SearchEmployeeResponse>() {
+                        @Override
+                        public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
+                            employees = searchEmployeeResponse.getEmployeeList();
+                            //view.hideProgressIndicator();
+                            view.showContacts(searchEmployeeResponse.getEmployeeList());
+                        }
 
-                @Override
-                public void onFailure(ServiceError serviceError) {
-                    showError(serviceError.getErrorMessage());
-                }
-            });
-        }else{
+                        @Override
+                        public void onFailure(ServiceError serviceError) {
+                            showError(serviceError.getErrorMessage());
+                        }
+                    });
+        } else {
             showError(getString(R.string.empty_search_term));
         }
     }

@@ -25,6 +25,7 @@ import com.belatrixsf.allstars.entities.Star;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarsResponse;
 import com.belatrixsf.allstars.services.StarService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
+import com.belatrixsf.allstars.ui.contacts.ContactsListFragment;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
 
@@ -63,7 +64,7 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
         return starPaginatedResponse;
     }
 
-    public List<Star> getLoadedStars(){
+    public List<Star> getLoadedStars() {
         return stars;
     }
 
@@ -93,21 +94,26 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
         if (starPaginatedResponse.getNext() != null || page == 1) {
             currentPage = page;
             view.showProgressIndicator();
-            starService.getStars(employeeId, subCategoryId, page, new AllStarsCallback<StarsResponse>() {
-                @Override
-                public void onSuccess(StarsResponse starsResponse) {
-                    stars.addAll(starsResponse.getStarList());
-                    starPaginatedResponse.setNext(starsResponse.getNext());
-                    view.hideProgressIndicator();
-                    view.showStars(stars);
-                }
+            starService.getStars(
+                    ContactsListFragment.REQUEST_TAG,
+                    employeeId,
+                    subCategoryId,
+                    page,
+                    new AllStarsCallback<StarsResponse>() {
+                        @Override
+                        public void onSuccess(StarsResponse starsResponse) {
+                            stars.addAll(starsResponse.getStarList());
+                            starPaginatedResponse.setNext(starsResponse.getNext());
+                            view.hideProgressIndicator();
+                            view.showStars(stars);
+                        }
 
-                @Override
-                public void onFailure(ServiceError serviceError) {
-                    view.hideProgressIndicator();
-                    showError(serviceError.getErrorMessage());
-                }
-            });
+                        @Override
+                        public void onFailure(ServiceError serviceError) {
+                            view.hideProgressIndicator();
+                            showError(serviceError.getErrorMessage());
+                        }
+                    });
         }
     }
 

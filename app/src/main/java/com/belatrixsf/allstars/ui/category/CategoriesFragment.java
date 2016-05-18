@@ -15,6 +15,7 @@ import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.CategoriesAdapter;
 import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.SubCategory;
+import com.belatrixsf.allstars.services.AllStarsService;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
@@ -34,14 +35,16 @@ public class CategoriesFragment extends AllStarsFragment implements CategoriesVi
 
     private static final String CATEGORY_KEY = "category_key";
     private static final String CATEGORIES_KEY = "categories_key";
+    public static final String REQUEST_TAG = CategoriesFragment.class.getSimpleName();
 
     private SubcategorySelectionListener subcategorySelectionListener;
     private CategoriesAdapter categoriesAdapter;
 
-    @Inject CategoriesPresenter categoriesPresenter;
+    @Inject
+    CategoriesPresenter categoriesPresenter;
 
-    @Bind(R.id.categories) RecyclerView categoriesRecyclerView;
-
+    @Bind(R.id.categories)
+    RecyclerView categoriesRecyclerView;
 
     public CategoriesFragment() {
         // Required empty public constructor
@@ -162,4 +165,9 @@ public class CategoriesFragment extends AllStarsFragment implements CategoriesVi
         void onSubcategorySelected(Category subcategory);
     }
 
+    @Override
+    public void onDestroyView() {
+        AllStarsService.cancel(REQUEST_TAG);
+        super.onDestroyView();
+    }
 }

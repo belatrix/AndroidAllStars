@@ -72,31 +72,34 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
             }
         };
         if (employeeId == null) {
-            employeeManager.getLoggedInEmployee(employeeAllStarsCallback);
-        } else{
-            employeeService.getEmployee(employeeId, employeeAllStarsCallback);
+            employeeManager.getLoggedInEmployee(AccountFragment.REQUEST_TAG, employeeAllStarsCallback);
+        } else {
+            employeeService.getEmployee(AccountFragment.REQUEST_TAG, employeeId, employeeAllStarsCallback);
         }
     }
 
     private void loadSubCategoriesStar() {
-        starService.getEmployeeSubCategoriesStars(employee.getPk(), new AllStarsCallback<StarSubCategoryResponse>() {
-            @Override
-            public void onSuccess(StarSubCategoryResponse starSubCategoryResponse) {
-                view.hideProgressIndicator();
-                if (starSubCategoryResponse.getSubCategories().isEmpty()) {
-                    view.showNoDataView();
-                } else {
-                    view.hideNoDataView();
-                    view.showSubCategories(starSubCategoryResponse.getSubCategories());
-                }
-            }
+        starService.getEmployeeSubCategoriesStars(
+                AccountFragment.REQUEST_TAG,
+                employee.getPk(),
+                new AllStarsCallback<StarSubCategoryResponse>() {
+                    @Override
+                    public void onSuccess(StarSubCategoryResponse starSubCategoryResponse) {
+                        view.hideProgressIndicator();
+                        if (starSubCategoryResponse.getSubCategories().isEmpty()) {
+                            view.showNoDataView();
+                        } else {
+                            view.hideNoDataView();
+                            view.showSubCategories(starSubCategoryResponse.getSubCategories());
+                        }
+                    }
 
-            @Override
-            public void onFailure(ServiceError serviceError) {
-                view.hideProgressIndicator();
-                showError(serviceError.getErrorMessage());
-            }
-        });
+                    @Override
+                    public void onFailure(ServiceError serviceError) {
+                        view.hideProgressIndicator();
+                        showError(serviceError.getErrorMessage());
+                    }
+                });
     }
 
     public void setUserId(Integer employeeId) {

@@ -11,10 +11,10 @@ import com.belatrixsf.allstars.utils.AllStarsCallback;
  */
 public interface StarService {
 
-    void getEmployeeSubCategoriesStars(int employeeId, AllStarsCallback<StarSubCategoryResponse> callback);
+    void getEmployeeSubCategoriesStars(String requestTag, int employeeId, AllStarsCallback<StarSubCategoryResponse> callback);
 
-    void star(int fromEmployeeId, int toEmployeeId, StarRequest starRequest, AllStarsCallback<StarResponse> callback);
+    void star(String requestTag, int fromEmployeeId, int toEmployeeId, StarRequest starRequest, AllStarsCallback<StarResponse> callback);
 
-    void getStars(int employeeId, int subcategory, Integer page, AllStarsCallback<StarsResponse> callback);
+    void getStars(String requestTag, int employeeId, int subcategory, Integer page, AllStarsCallback<StarsResponse> callback);
 
 }

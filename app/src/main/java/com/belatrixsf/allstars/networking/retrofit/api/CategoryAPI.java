@@ -24,9 +24,9 @@ import com.belatrixsf.allstars.entities.SubCategory;
 
 import java.util.List;
 
-import retrofit.Call;
-import retrofit.http.GET;
-import retrofit.http.Path;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 /**
  * Created by gyosida on 4/26/16.
@@ -35,6 +35,5 @@ public interface CategoryAPI {
 
     @GET(ServerPaths.SUBCATEGORIES_BY_CATEGORY_ID)
     Call<List<SubCategory>> getSubcategories(@Path(ServerPaths.CATEGORY_ID) int categoryId);
-
 
 }

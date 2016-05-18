@@ -21,12 +21,11 @@
 package com.belatrixsf.allstars.ui.common;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.View;
 
-import com.belatrixsf.allstars.services.AllStarsService;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 
 import butterknife.ButterKnife;
@@ -69,7 +68,6 @@ public abstract class AllStarsFragment extends Fragment implements AllStarsView 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        AllStarsService.cancel();
         ButterKnife.unbind(this);
     }
 

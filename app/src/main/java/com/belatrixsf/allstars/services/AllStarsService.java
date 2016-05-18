@@ -26,29 +26,37 @@ import android.os.NetworkOnMainThreadException;
 import com.belatrixsf.allstars.networking.retrofit.RetrofitCallback;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import retrofit.Call;
+import retrofit2.Call;
+
 
 /**
  * @author Carlos Piñan
  */
 public abstract class AllStarsService {
 
-    private static List<Call> callList;
-    public static boolean cancelling = false;
+    private static HashMap<String, List<Call>> callHashMap;
 
-    protected static void enqueue(Call call, RetrofitCallback callback) {
-        if (callList == null) {
-            callList = new ArrayList<>();
+    protected static void enqueue(String tag, Call call, RetrofitCallback callback) {
+        if (callHashMap == null) {
+            callHashMap = new HashMap<>();
         }
-        callList.add(call);
+        if (callHashMap.containsKey(tag)) {
+            callHashMap.get(tag).add(call);
+        } else {
+            List<Call> callList = new ArrayList<>();
+            callList.add(call);
+            callHashMap.put(tag, callList);
+        }
         call.enqueue(callback);
     }
 
-    public static void cancel() {
-        if (callList != null && !callList.isEmpty()) {
-            cancelling = true;
+    public static void cancel(String tag) {
+        if (tag != null && callHashMap != null && !callHashMap.isEmpty() && callHashMap.containsKey(tag)) {
+            List<Call> callList = callHashMap.get(tag);
             try {
                 for (Call call : callList) {
                     call.cancel();
@@ -57,6 +65,16 @@ public abstract class AllStarsService {
                 e.printStackTrace();
             }
             callList.clear();
+            callHashMap.remove(tag);
+        }
+    }
+
+    public static void cancelAll() {
+        if (callHashMap != null && !callHashMap.isEmpty()) {
+            for (Map.Entry<String, List<Call>> entry : callHashMap.entrySet()) {
+                cancel(entry.getKey());
+            }
+            callHashMap.clear();
         }
     }
 }

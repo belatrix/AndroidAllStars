@@ -18,18 +18,28 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.services;
 
-import com.belatrixsf.allstars.entities.Category;
-import com.belatrixsf.allstars.utils.AllStarsCallback;
+package com.belatrixsf.allstars.utils;
 
-import java.util.List;
+
+import okhttp3.OkHttpClient;
 
 /**
- * Created by gyosida on 4/27/16.
+ * @author Carlos Piñan
+ * @doc Class designed to have a single okhttp instance in all the application.
+ * @source http://stackoverflow.com/questions/25853019/android-correct-way-to-use-okhttp-singleton-for-parallel-queries-with-cookies
  */
-public interface CategoryService {
+public class OkHttpSingleton {
 
-    void getSubcategories(String requestTag, int categoryId, AllStarsCallback<List<Category>> callback);
+    private static OkHttpClient okHttpClient;
+
+    private OkHttpSingleton() { /* UNUSED */ }
+
+    public static OkHttpClient getOkHttpClient() {
+        if (okHttpClient == null) {
+            okHttpClient = new OkHttpClient();
+        }
+        return okHttpClient;
+    }
 
 }

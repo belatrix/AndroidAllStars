@@ -44,6 +44,7 @@ import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.AccountSubCategoriesAdapter;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.SubCategory;
+import com.belatrixsf.allstars.services.AllStarsService;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
@@ -69,6 +70,7 @@ import static com.belatrixsf.allstars.ui.stars.GiveStarFragment.SELECTED_USER_KE
 public class AccountFragment extends AllStarsFragment implements AccountView, RecyclerOnItemClickListener {
 
     public static final int RQ_GIVE_STAR = 99;
+    public static final String REQUEST_TAG = AccountFragment.class.getSimpleName();
 
     private AccountPresenter accountPresenter;
     private AccountSubCategoriesAdapter accountCategoriesAdapter;
@@ -329,4 +331,9 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
         accountPresenter.loadEmployeeAccount();
     }
 
+    @Override
+    public void onDestroyView() {
+        AllStarsService.cancel(REQUEST_TAG);
+        super.onDestroyView();
+    }
 }

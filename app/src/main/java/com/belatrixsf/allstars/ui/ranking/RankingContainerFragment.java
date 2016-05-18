@@ -1,17 +1,16 @@
 package com.belatrixsf.allstars.ui.ranking;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.belatrixsf.allstars.R;
-import com.belatrixsf.allstars.services.AllStarsService;
 import com.belatrixsf.allstars.utils.Constants;
 
 /**
@@ -78,9 +77,4 @@ public class RankingContainerFragment extends Fragment {
         transaction.commit();
     }
 
-    @Override
-    public void onDestroyView() {
-        AllStarsService.cancel();
-        super.onDestroyView();
-    }
 }

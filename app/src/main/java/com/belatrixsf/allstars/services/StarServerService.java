@@ -20,17 +20,17 @@ public class StarServerService extends AllStarsService implements StarService {
     }
 
     @Override
-    public void getEmployeeSubCategoriesStars(int employeeId, AllStarsCallback<StarSubCategoryResponse> callback) {
-        enqueue(starAPI.getEmployeeSubCategoriesStars(employeeId), new RetrofitCallback<StarSubCategoryResponse>(callback));
+    public void getEmployeeSubCategoriesStars(String requestTag, int employeeId, AllStarsCallback<StarSubCategoryResponse> callback) {
+        enqueue(requestTag, starAPI.getEmployeeSubCategoriesStars(employeeId), new RetrofitCallback<StarSubCategoryResponse>(callback));
     }
 
     @Override
-    public void star(int fromEmployeeId, int toEmployeeId, StarRequest starRequest, AllStarsCallback<StarResponse> callback) {
-        enqueue(starAPI.star(fromEmployeeId, toEmployeeId, starRequest), new RetrofitCallback<StarResponse>(callback));
+    public void star(String requestTag, int fromEmployeeId, int toEmployeeId, StarRequest starRequest, AllStarsCallback<StarResponse> callback) {
+        enqueue(requestTag, starAPI.star(fromEmployeeId, toEmployeeId, starRequest), new RetrofitCallback<StarResponse>(callback));
     }
 
     @Override
-    public void getStars(int employeeId, int subcategory, Integer page, AllStarsCallback<StarsResponse> callback) {
-        enqueue(starAPI.getStars(employeeId, subcategory, page), new RetrofitCallback<StarsResponse>(callback));
+    public void getStars(String requestTag, int employeeId, int subcategory, Integer page, AllStarsCallback<StarsResponse> callback) {
+        enqueue(requestTag, starAPI.getStars(employeeId, subcategory, page), new RetrofitCallback<StarsResponse>(callback));
     }
 }

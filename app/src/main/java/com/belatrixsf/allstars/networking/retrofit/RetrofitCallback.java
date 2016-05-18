@@ -22,15 +22,14 @@ package com.belatrixsf.allstars.networking.retrofit;
 
 import android.util.Log;
 
-import com.belatrixsf.allstars.services.AllStarsService;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
 
 import java.io.IOException;
 
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.belatrixsf.allstars.utils.ServiceError.*;
 
@@ -39,6 +38,8 @@ import static com.belatrixsf.allstars.utils.ServiceError.*;
  */
 public class RetrofitCallback<T> implements Callback<T> {
 
+    private static final String TAG = RetrofitCallback.class.getSimpleName();
+
     private AllStarsCallback<T> callback;
 
     public RetrofitCallback(AllStarsCallback callback) {
@@ -46,15 +47,15 @@ public class RetrofitCallback<T> implements Callback<T> {
     }
 
     @Override
-    public void onResponse(Response<T> response, Retrofit retrofit) {
-        if (response.isSuccess()) {
+    public void onResponse(Call<T> call, Response<T> response) {
+        if (response.isSuccessful()) {
             callback.onSuccess(response.body());
         } else {
             // TODO Send correct error message. Now only sending generic error til server is ready
             ServiceError serviceError = new ServiceError(UNKNOWN, "Be sure everything is fine.");
             try {
                 if (response.errorBody() != null) {
-                    Log.d("RetrofitCallback", "onResponse: " + response.errorBody().string());
+                    Log.d(TAG, "onResponse: " + response.errorBody().string());
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -64,13 +65,10 @@ public class RetrofitCallback<T> implements Callback<T> {
     }
 
     @Override
-    public void onFailure(Throwable t) {
-        // TODO handle exception
-        // Boolean validation to prevent call the onFailure when is cancelling the service.
-        if (!AllStarsService.cancelling) {
-            Log.d("RetrofitCallback", "onFailure: " + t.getMessage());
+    public void onFailure(Call<T> call, Throwable t) {
+        if (!call.isCanceled()) {
+            Log.d(TAG, "onFailure: " + t.getMessage());
             callback.onFailure(new ServiceError(UNKNOWN, "Unknown error"));
         }
-        AllStarsService.cancelling = false;
     }
 }

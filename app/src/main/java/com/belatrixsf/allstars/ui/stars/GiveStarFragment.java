@@ -15,6 +15,7 @@ import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.entities.SubCategory;
+import com.belatrixsf.allstars.services.AllStarsService;
 import com.belatrixsf.allstars.ui.category.CategoriesActivity;
 import com.belatrixsf.allstars.ui.common.views.KeywordSelectionView;
 import com.belatrixsf.allstars.ui.stars.comment.CommentActivity;
@@ -41,14 +42,19 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
     public static final int RQ_CONTACT = 100;
     public static final int RQ_COMMENT = 101;
     public static final int RQ_SUBCATEGORY = 102;
+    public static final String REQUEST_TAG = GiveStarFragment.class.getSimpleName();
 
     private GiveStarPresenter giveStarPresenter;
     private MenuItem menuDone;
 
-    @Bind(R.id.account_selection) AccountSelectionView accountSelectionView;
-    @Bind(R.id.category_selection) DataSelectionView categorySelectionView;
-    @Bind(R.id.comment_selection) DataSelectionView commentSelectionView;
-    @Bind(R.id.keyword_selection) KeywordSelectionView keywordSelectionView;
+    @Bind(R.id.account_selection)
+    AccountSelectionView accountSelectionView;
+    @Bind(R.id.category_selection)
+    DataSelectionView categorySelectionView;
+    @Bind(R.id.comment_selection)
+    DataSelectionView commentSelectionView;
+    @Bind(R.id.keyword_selection)
+    KeywordSelectionView keywordSelectionView;
 
     public static GiveStarFragment newInstance(Employee employee) {
         Bundle bundle = new Bundle();
@@ -82,7 +88,7 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
         super.onViewCreated(view, savedInstanceState);
         if (savedInstanceState != null) {
             restoreState(savedInstanceState);
-        }else if (getArguments() != null && getArguments().containsKey(SELECTED_USER_KEY)) {
+        } else if (getArguments() != null && getArguments().containsKey(SELECTED_USER_KEY)) {
             Employee employee = getArguments().getParcelable(SELECTED_USER_KEY);
             giveStarPresenter.initWithUser(employee);
         }
@@ -273,6 +279,12 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
         if (menuDone != null) {
             menuDone.setEnabled(show);
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        AllStarsService.cancel(REQUEST_TAG);
+        super.onDestroyView();
     }
 
 }
