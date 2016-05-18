@@ -68,7 +68,6 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     public static final String CONTACTS_KEY = "_employees_key";
     public static final String ACTION_MODE_KEY = "_action_mode_key";
     public static final String PAGINATION_RESPONSE_KEY = "_pagination_response_key";
-    public static final String CURRENT_PAGE_KEY = "_current_page_key";
     public static final String SEARCH_TERM_KEY = "_search_term_key";
 
     private ContactsListPresenter contactsListPresenter;
@@ -128,21 +127,17 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     private void restoreState(Bundle savedInstanceState) {
         List<Employee> savedContacts = savedInstanceState.getParcelableArrayList(CONTACTS_KEY);
         boolean actionModeEnabled = savedInstanceState.getBoolean(ACTION_MODE_KEY);
-        Integer currentPage = savedInstanceState.getInt(CURRENT_PAGE_KEY);
         PaginatedResponse paginatedResponse = savedInstanceState.getParcelable(PAGINATION_RESPONSE_KEY);
         String searchTerm = savedInstanceState.getString(SEARCH_TERM_KEY);
         boolean profileEnabled = savedInstanceState.getBoolean(PROFILE_ENABLED_KEY);
         contactsListPresenter.setProfileEnabled(profileEnabled);
-        contactsListPresenter.setLoadedContacts(actionModeEnabled, savedContacts, currentPage, paginatedResponse, searchTerm);
+        contactsListPresenter.setLoadedContacts(actionModeEnabled, savedContacts, paginatedResponse, searchTerm);
     }
 
     private void saveState(Bundle outState) {
         List<Employee> contactsList = contactsListPresenter.getLoadedContacts();
-        if (contactsList != null && contactsList instanceof ArrayList) {
-            outState.putParcelableArrayList(CONTACTS_KEY, (ArrayList<Employee>) contactsList);
-        }
+        outState.putParcelableArrayList(CONTACTS_KEY, (ArrayList<Employee>) contactsList);
         outState.putBoolean(ACTION_MODE_KEY, contactsListPresenter.isInActionMode());
-        outState.putInt(CURRENT_PAGE_KEY, contactsListPresenter.getCurrentPage());
         outState.putParcelable(PAGINATION_RESPONSE_KEY, contactsListPresenter.getContactPaginatedResponse());
         outState.putString(SEARCH_TERM_KEY, contactsListPresenter.getSearchTerm());
         outState.putBoolean(PROFILE_ENABLED_KEY, contactsListPresenter.getProfileEnabled());
@@ -156,7 +151,7 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
         endlessRecyclerOnScrollListener = new EndlessRecyclerOnScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int currentPage) {
-                contactsListPresenter.getContacts(currentPage);
+                contactsListPresenter.callNextPage();
             }
         };
         contactsRecyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);

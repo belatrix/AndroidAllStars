@@ -43,7 +43,6 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
     private boolean inActionMode = false;
     private boolean profileEnabled = true;
     private PaginatedResponse contactPaginatedResponse = new PaginatedResponse();
-    private int currentPage = 1;
     private String searchTerm = "";
 
     @Inject
@@ -68,25 +67,19 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
         return inActionMode;
     }
 
-    public int getCurrentPage() {
-        return currentPage;
-    }
-
     public String getSearchTerm() {
         return searchTerm;
     }
 
-    public void setLoadedContacts(boolean inActionMode, List<Employee> contacts, int currentPage, PaginatedResponse contactPaginatedResponse, String searchTerm){
-        if (contacts != null) {
-            this.contacts = contacts;
-        }
-        this.currentPage = currentPage;
+    public void setLoadedContacts(boolean inActionMode, List<Employee> contacts, PaginatedResponse contactPaginatedResponse, String searchTerm){
+        this.contacts = contacts;
         this.contactPaginatedResponse = contactPaginatedResponse;
         this.searchTerm = searchTerm;
+        this.inActionMode = inActionMode;
         if (inActionMode){
-            view.showSearchActionMode();
+            searchContacts();
         }
-        view.showCurrentPage(currentPage);
+        view.showCurrentPage(contactPaginatedResponse.getNextPage() == null ? 1 : contactPaginatedResponse.getNextPage());
         view.showContacts(contacts);
     }
 
@@ -94,7 +87,7 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
         view.showSearchActionMode();
     }
 
-    public void startActionMode(){
+    public void startActionMode() {
         if (!inActionMode){
             inActionMode = true;
         }
@@ -102,53 +95,48 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
 
     public void stopSearchingContacts(){
         inActionMode = false;
-        currentPage = 1;
-        searchTerm = "";
-        view.showCurrentPage(currentPage);
-        getContactsInternal(currentPage, "");
+        contactPaginatedResponse = new PaginatedResponse();
+        getContacts();
     }
 
     public void getContacts() {
-        currentPage = 1;
         searchTerm = "";
-        getContactsInternal(currentPage, searchTerm);
-    }
-
-    public void getContacts(int currentPage) {
-        getContactsInternal(currentPage, searchTerm);
+        getContactsInternal();
     }
 
     public void getContacts(String searchTerm) {
         this.searchTerm = searchTerm;
-        currentPage = 1;
         contactPaginatedResponse = new PaginatedResponse();
-        view.showCurrentPage(currentPage);
-        getContactsInternal(currentPage, searchTerm);
+        view.showCurrentPage(1);
+        getContactsInternal();
     }
 
-    public void getContactsInternal(Integer page, String searchTerm){
-        currentPage = page;
-        if (contactPaginatedResponse.getNext() != null || page == 1) {
-            view.showProgressIndicator();
-            employeeService.getEmployeeSearchList(searchTerm, page, new AllStarsCallback<SearchEmployeeResponse>() {
-                @Override
-                public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
-                    if (currentPage == 1){
-                        contacts.clear();
-                    }
-                    contacts.addAll(searchEmployeeResponse.getEmployeeList());
-                    contactPaginatedResponse.setNext(searchEmployeeResponse.getNext());
-                    view.hideProgressIndicator();
-                    view.showContacts(contacts);
-                }
-
-                @Override
-                public void onFailure(ServiceError serviceError) {
-                    view.hideProgressIndicator();
-                    showError(serviceError.getErrorMessage());
-                }
-            });
+    public void callNextPage() {
+        if (contactPaginatedResponse.getNextPage() != null) {
+            getContactsInternal();
         }
+    }
+
+    public void getContactsInternal(){
+        view.showProgressIndicator();
+        employeeService.getEmployeeSearchList(searchTerm, contactPaginatedResponse.getNextPage(), new AllStarsCallback<SearchEmployeeResponse>() {
+            @Override
+            public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
+                if (contactPaginatedResponse.getNextPage() == null){
+                    contacts.clear();
+                }
+                contacts.addAll(searchEmployeeResponse.getEmployeeList());
+                contactPaginatedResponse.setNext(searchEmployeeResponse.getNext());
+                view.hideProgressIndicator();
+                view.showContacts(contacts);
+            }
+
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                view.hideProgressIndicator();
+                showError(serviceError.getErrorMessage());
+            }
+        });
     }
 
     public void onContactSelected(Object object) {
