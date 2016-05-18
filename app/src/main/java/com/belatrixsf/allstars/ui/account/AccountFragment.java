@@ -270,7 +270,9 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
 
     @Override
     public void showEditProfileButton(boolean show) {
-        editProfileMenuItem.setVisible(show);
+        if (editProfileMenuItem != null) {
+            editProfileMenuItem.setVisible(show);
+        }
     }
 
     @Override

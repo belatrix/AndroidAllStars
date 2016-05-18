@@ -10,8 +10,8 @@
 
     <item
         android:id="@+id/action_edit_profile"
-        android:title="@string/edit_profile"
         android:visible="false"
+        android:icon="@drawable/ic_edit"
         app:showAsAction="ifRoom"/>
 
 </menu>

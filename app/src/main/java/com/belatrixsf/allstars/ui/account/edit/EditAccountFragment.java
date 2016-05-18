@@ -13,14 +13,19 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.entities.Location;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.modules.presenters.EditAccountPresenterModule;
 import com.belatrixsf.allstars.utils.media.ImageFactory;
 import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
+
+import java.util.List;
 
 import butterknife.Bind;
 
@@ -37,6 +42,7 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
     @Bind(R.id.firstName) EditText firstNameEditText;
     @Bind(R.id.lastName) EditText lastNameEditText;
     @Bind(R.id.skypeId) EditText skypeIdEditText;
+    @Bind(R.id.locationRadioGroup) RadioGroup locationRadioGroup;
 
     private EditAccountPresenter editAccountPresenter;
 
@@ -159,6 +165,13 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
         Intent intent = new Intent();
         fragmentListener.setActivityResult(Activity.RESULT_OK, intent);
         fragmentListener.closeActivity();
+    }
+
+    @Override
+    public void addLocation(String location) {
+        RadioButton radioButton = new RadioButton(getActivity());
+        radioButton.setText(location);
+        locationRadioGroup.addView(radioButton);
     }
 
 }

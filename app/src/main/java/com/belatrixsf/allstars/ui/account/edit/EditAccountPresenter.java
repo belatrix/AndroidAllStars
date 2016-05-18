@@ -2,10 +2,13 @@ package com.belatrixsf.allstars.ui.account.edit;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.entities.Location;
 import com.belatrixsf.allstars.services.EmployeeService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -15,6 +18,7 @@ import javax.inject.Inject;
 public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
 
     private Employee employee;
+    private List<Location> locationList;
     protected EmployeeService employeeService;
 
     @Inject
@@ -29,6 +33,28 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
         view.showFirstName(employee.getFirstName());
         view.showLastName(employee.getLastName());
         view.showSkypeId(employee.getSkypeId());
+        obtainLocations();
+    }
+
+    public void obtainLocations() {
+        employeeService.getEmployeeLocations(new AllStarsCallback<List<Location>>() {
+            @Override
+            public void onSuccess(List<Location> locationList) {
+                EditAccountPresenter.this.locationList = locationList;
+                loadLocations();
+            }
+
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                showError(serviceError.getErrorMessage());
+            }
+        });
+    }
+
+    private void loadLocations() {
+        for (Location location : locationList) {
+            view.addLocation(location.getName());
+        }
     }
 
     public void finishEdit(String firstName, String lastName, String skypeId) {
@@ -75,6 +101,10 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
         } else {
             return true;
         }
+    }
+
+    public List<Location> getLocationList() {
+        return locationList;
     }
 
 }

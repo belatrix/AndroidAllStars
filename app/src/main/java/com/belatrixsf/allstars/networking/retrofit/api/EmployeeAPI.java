@@ -22,6 +22,7 @@ package com.belatrixsf.allstars.networking.retrofit.api;
 
 import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.entities.Location;
 import com.belatrixsf.allstars.networking.retrofit.requests.AuthenticationRequest;
 import com.belatrixsf.allstars.networking.retrofit.requests.UpdateEmployeeRequest;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
@@ -59,5 +60,8 @@ public interface EmployeeAPI {
 
     @PATCH(ServerPaths.EMPLOYEE_UPDATE)
     Call<Employee> updateEmployee(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Body UpdateEmployeeRequest updateEmployeeRequest);
+
+    @GET(ServerPaths.EMPLOYEE_LOCATION_LIST)
+    Call<List<Location>> getEmployeeLocations();
 
 }
