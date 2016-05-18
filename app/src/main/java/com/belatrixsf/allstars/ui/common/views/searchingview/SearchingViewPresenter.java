@@ -20,8 +20,6 @@
 */
 package com.belatrixsf.allstars.ui.common.views.searchingview;
 
-import android.view.View;
-
 /**
  * Created by gyosida on 5/10/16.
  */
@@ -38,8 +36,8 @@ public class SearchingViewPresenter {
         searchableView.notifyTextTyped(searchingText);
     }
 
-    public void editorAction(View view, int actionId){
-        searchableView.editorAction(view, actionId);
+    public void editorAction(int actionId){
+        searchableView.editorAction(actionId);
     }
 
     public void clearSearching() {

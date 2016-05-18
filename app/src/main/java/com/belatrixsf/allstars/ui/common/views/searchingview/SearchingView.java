@@ -94,7 +94,7 @@ public class SearchingView extends LinearLayout implements SearchableView {
         searchingEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
-                searchingViewPresenter.editorAction(view, actionId);
+                searchingViewPresenter.editorAction(actionId);
                 return false;
             }
         });
@@ -123,9 +123,9 @@ public class SearchingView extends LinearLayout implements SearchableView {
     }
 
     @Override
-    public void editorAction(View view, int actionId) {
+    public void editorAction(int actionId) {
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-            KeyboardUtils.hideKeyboard((Activity) getContext(), view);
+            KeyboardUtils.hideKeyboard((Activity) getContext(), searchingEditText);
         }
     }
 
