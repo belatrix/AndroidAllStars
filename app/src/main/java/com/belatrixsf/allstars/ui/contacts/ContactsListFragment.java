@@ -47,15 +47,7 @@ import android.widget.TextView;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.ContactsListAdapter;
 import com.belatrixsf.allstars.entities.Employee;
-<<<<<<< HEAD
-<<<<<<< HEAD
-import com.belatrixsf.allstars.services.AllStarsService;
-=======
 import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
->>>>>>> develop
-=======
-import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
->>>>>>> develop
 import com.belatrixsf.allstars.ui.account.AccountActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.EndlessRecyclerOnScrollListener;
@@ -92,8 +84,6 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     private EndlessRecyclerOnScrollListener endlessRecyclerOnScrollListener;
 
     private ImageView photoImageView;
-
-    public static final String REQUEST_TAG = ContactsListFragment.class.getSimpleName();
 
     @Bind(R.id.employees)
     RecyclerView contactsRecyclerView;
@@ -152,7 +142,7 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
         boolean hasArguments = (getArguments() != null && getArguments().containsKey(PROFILE_ENABLED_KEY));
         if (savedInstanceState != null) {
             restoreState(savedInstanceState);
-        } else if (hasArguments){
+        } else if (hasArguments) {
             contactsListPresenter.setProfileEnabled(getArguments().getBoolean(PROFILE_ENABLED_KEY));
             contactsListPresenter.getContacts();
         }
@@ -260,43 +250,7 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
                     contactsListPresenter.getContacts(searchText);
                 }
             });
-<<<<<<< HEAD
-<<<<<<< HEAD
-            searchTermEditText.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    contactsListPresenter.onSearchTermChange(s.toString());
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-            });
-            searchTermEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                @Override
-                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                    if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                        contactsListPresenter.submitSearchTerm(v.getText().toString());
-                        KeyboardUtils.hideKeyboard(getActivity(), getView());
-                    }
-                    return false;
-                }
-            });
-            mode.setCustomView(customView);
-            searchTermEditText.requestFocus();
-            KeyboardUtils.showKeyboard(getActivity(), searchTermEditText);
-=======
             mode.setCustomView(searchingView);
->>>>>>> develop
-=======
-            mode.setCustomView(searchingView);
->>>>>>> develop
             return true;
         }
 
@@ -336,25 +290,4 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
         fragmentListener.closeActivity();
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    @Override
-    public void showCleanButton() {
-        cleanImageButton.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideCleanButton() {
-        cleanImageButton.setVisibility(View.INVISIBLE);
-    }
-
-    @Override
-    public void onDestroyView() {
-        AllStarsService.cancel(REQUEST_TAG);
-        super.onDestroyView();
-    }
-=======
->>>>>>> develop
-=======
->>>>>>> develop
 }

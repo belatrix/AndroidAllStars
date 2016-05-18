@@ -38,7 +38,7 @@ public interface AccountView extends AllStarsView {
     void showLevel(String level);
     void showSkypeId(String skypeID);
     void showEmployeeName(String employeName);
-    void showEmail(String role);
+    void showRole(String role);
     void showProfilePicture(String profilePicture);
     void showRecommendMenu(boolean show);
     void goToGiveStar(Employee employee);

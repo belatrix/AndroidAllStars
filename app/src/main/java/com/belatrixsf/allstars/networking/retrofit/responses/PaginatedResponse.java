@@ -23,27 +23,14 @@ package com.belatrixsf.allstars.networking.retrofit.responses;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.belatrixsf.allstars.utils.Utils;
-
 /**
  * Created by gyosida on 5/9/16.
  */
 public class PaginatedResponse implements Parcelable {
 
-    private static final String PARAM_PAGE = "page";
-
     private int count;
     private String next;
     private String previous;
-    private Integer nextPage;
-
-    public PaginatedResponse() {}
-
-    protected PaginatedResponse(Parcel in) {
-        count = in.readInt();
-        next = in.readString();
-        previous = in.readString();
-    }
 
     public int getCount() {
         return count;
@@ -59,65 +46,25 @@ public class PaginatedResponse implements Parcelable {
 
     public void setNext(String next) {
         this.next = next;
-        parseNextPage();
     }
 
     public void setCount(int count) {
         this.count = count;
     }
 
-    private void parseNextPage() {
-        if (next != null) {
-            String[] queryParams = extractQueryParams(next);
-            if (queryParams != null) {
-                String queryParam = extractQueryParam(queryParams, PARAM_PAGE);
-                if (queryParam != null) {
-                    String value = getQueryParamValue(queryParam);
-                    if (Utils.isNumeric(value)) {
-                        nextPage = Integer.parseInt(value);
-                    }
-                }
-            }
-        } else {
-            nextPage = null;
-        }
-    }
-
-    private String[] extractQueryParams(String url) {
-        String[] splitResult = url.split("\\?");
-        if (splitResult.length > 1) {
-            String queryParams = splitResult[1];
-            return queryParams.split("&");
-        }
-        return null;
-    }
-
-    private String extractQueryParam(String[] queryParams, String key) {
-        for (String queryParam : queryParams) {
-            if (queryParam.contains(key)) {
-                return queryParam;
-            }
-        }
-        return null;
-    }
-
-    private String getQueryParamValue(String queryParam) {
-        int equalIndex = queryParam.indexOf("=");
-        if (equalIndex != -1) {
-            return queryParam.substring(equalIndex + 1, queryParam.length());
-        }
-        return null;
-    }
-
-    public Integer getNextPage() {
-        return nextPage;
-    }
-
     public void reset() {
         count = 0;
         next = null;
         previous = null;
-        nextPage = null;
+    }
+
+    public PaginatedResponse() {
+    }
+
+    protected PaginatedResponse(Parcel in) {
+        count = in.readInt();
+        next = in.readString();
+        previous = in.readString();
     }
 
     @Override

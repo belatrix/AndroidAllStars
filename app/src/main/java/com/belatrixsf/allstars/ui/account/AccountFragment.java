@@ -75,7 +75,6 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     private AccountPresenter accountPresenter;
     private AccountSubCategoriesAdapter accountCategoriesAdapter;
 
-<<<<<<< HEAD
     @Bind(R.id.account_recommendations)
     RecyclerView recommendationRecyclerView;
     @Bind(R.id.skype_id)
@@ -98,19 +97,6 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     ProgressBar subCategoriesProgressBar;
     @Bind(R.id.no_data_textview)
     TextView noDataTextView;
-=======
-    @Bind(R.id.account_recommendations) RecyclerView recommendationRecyclerView;
-    @Bind(R.id.skype_id) TextView skypeIdTextView;
-    @Bind(R.id.current_month_score) TextView currentMonthScoreTextView;
-    @Bind(R.id.level) TextView levelTextView;
-    @Bind(R.id.score) TextView scoreTextView;
-    @Bind(R.id.profile_name) TextView nameTextView;
-    @Bind(R.id.profile_email) TextView emailTextView;
-    @Bind(R.id.profile_picture) ImageView pictureImageView;
-    @Bind(R.id.account_swipe_refresh) SwipeRefreshLayout accountSwipeRefresh;
-    @Bind(R.id.subcategories_progress_bar) ProgressBar subCategoriesProgressBar;
-    @Bind(R.id.no_data_textview) TextView noDataTextView;
->>>>>>> develop
 
     private MenuItem recommendMenuItem;
 
@@ -241,8 +227,8 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     }
 
     @Override
-    public void showEmail(String role) {
-        emailTextView.setText(role);
+    public void showRole(String role) {
+        roleTextView.setText(role);
     }
 
     @Override

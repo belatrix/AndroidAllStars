@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.utils.Constants;
 import com.belatrixsf.allstars.utils.media.ImageFactory;
 import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
 
@@ -41,10 +42,6 @@ import butterknife.OnClick;
  * Created by icerrate on 28/04/2016.
  */
 public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.EmployeeViewHolder> {
-
-    static final int FIRST_POSITION = 1;
-    static final int SECOND_POSITION = 2;
-    static final int THIRD_POSITION = 3;
 
     private List<Employee> rankingList;
     private RankingListClickListener rankingListClickListener;
@@ -70,13 +67,13 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
         int place = position + 1;
         int cupResourceId;
         switch (place) {
-            case FIRST_POSITION:
+            case Constants.FIRST_POSITION:
                 cupResourceId = R.drawable.ic_first_place_cup;
                 break;
-            case SECOND_POSITION:
+            case Constants.SECOND_POSITION:
                 cupResourceId = R.drawable.ic_second_place_cup;
                 break;
-            case THIRD_POSITION:
+            case Constants.THIRD_POSITION:
                 cupResourceId = R.drawable.ic_third_place_cup;
                 break;
             default:

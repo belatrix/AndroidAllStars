@@ -72,18 +72,7 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
     }
 
     public void keywordSelectionClicked() {
-<<<<<<< HEAD
-<<<<<<< HEAD
-        //TODO: Remove this
-        selectedKeyword = new Keyword();
-        selectedKeyword.setData(1, "Android");
-        loadSelectedKeyword(selectedKeyword);
-=======
         view.goSelectKeyword();
->>>>>>> develop
-=======
-        view.goSelectKeyword();
->>>>>>> develop
     }
 
     public void loadSelectedUser(Employee employee) {
@@ -133,27 +122,22 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
 
     public void makeRecommendation() {
         view.showProgressDialog(getString(R.string.making_recommendation));
-        employeeManager.getLoggedInEmployee(GiveStarFragment.REQUEST_TAG, new AllStarsCallback<Employee>() {
+        employeeManager.getLoggedInEmployee(new AllStarsCallback<Employee>() {
             @Override
             public void onSuccess(Employee fromEmployee) {
                 StarRequest starRequest = new StarRequest(selectedSubCategory.getParentCategory().getId(), selectedSubCategory.getId(), selectedComment, selectedKeyword.getId());
-                starService.star(
-                        GiveStarFragment.REQUEST_TAG,
-                        fromEmployee.getPk(),
-                        selectedEmployee.getPk(),
-                        starRequest,
-                        new AllStarsCallback<StarResponse>() {
-                            @Override
-                            public void onSuccess(StarResponse starResponse) {
-                                view.dismissProgressDialog();
-                                view.finishRecommendation();
-                            }
+                starService.star(fromEmployee.getPk(), selectedEmployee.getPk(), starRequest, new AllStarsCallback<StarResponse>() {
+                    @Override
+                    public void onSuccess(StarResponse starResponse) {
+                        view.dismissProgressDialog();
+                        view.finishRecommendation();
+                    }
 
-                            @Override
-                            public void onFailure(ServiceError serviceError) {
-                                view.showError(serviceError.getErrorMessage());
-                            }
-                        });
+                    @Override
+                    public void onFailure(ServiceError serviceError) {
+                        view.showError(serviceError.getErrorMessage());
+                    }
+                });
             }
 
             @Override

@@ -15,7 +15,6 @@ import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.entities.SubCategory;
-import com.belatrixsf.allstars.services.AllStarsService;
 import com.belatrixsf.allstars.ui.category.CategoriesActivity;
 import com.belatrixsf.allstars.ui.common.views.KeywordSelectionView;
 import com.belatrixsf.allstars.ui.stars.keyword.KeywordsActivity;
@@ -43,15 +42,7 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
     public static final int RQ_CONTACT = 100;
     public static final int RQ_COMMENT = 101;
     public static final int RQ_SUBCATEGORY = 102;
-<<<<<<< HEAD
-<<<<<<< HEAD
-    public static final String REQUEST_TAG = GiveStarFragment.class.getSimpleName();
-=======
     public static final int RQ_KEYWORD = 103;
->>>>>>> develop
-=======
-    public static final int RQ_KEYWORD = 103;
->>>>>>> develop
 
     private GiveStarPresenter giveStarPresenter;
     private MenuItem menuDone;
@@ -290,12 +281,6 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
         if (menuDone != null) {
             menuDone.setEnabled(show);
         }
-    }
-
-    @Override
-    public void onDestroyView() {
-        AllStarsService.cancel(REQUEST_TAG);
-        super.onDestroyView();
     }
 
 }

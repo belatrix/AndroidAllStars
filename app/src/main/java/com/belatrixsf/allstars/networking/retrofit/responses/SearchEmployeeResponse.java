@@ -28,10 +28,25 @@ import java.util.List;
 /**
  * Created by gyosida on 4/11/16.
  */
-public class SearchEmployeeResponse extends PaginatedResponse {
+public class SearchEmployeeResponse {
 
+    private int count;
+    private String next;
+    private String previous;
     @SerializedName("results")
     private List<Employee> employeeList;
+
+    public int getCount() {
+        return count;
+    }
+
+    public String getNext() {
+        return next;
+    }
+
+    public String getPrevious() {
+        return previous;
+    }
 
     public List<Employee> getEmployeeList() {
         return employeeList;

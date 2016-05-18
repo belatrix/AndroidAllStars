@@ -31,6 +31,8 @@ import com.belatrixsf.allstars.utils.AllStarsCallback;
 
 import java.util.List;
 
+import retrofit2.http.HEAD;
+
 
 /**
  * Created by gyosida on 4/12/16.
@@ -55,23 +57,8 @@ public class EmployeeServerService extends AllStarsService implements EmployeeSe
     }
 
     @Override
-<<<<<<< HEAD
-<<<<<<< HEAD
-    public void getEmployees(String requestTag, AllStarsCallback<SearchEmployeeResponse> callback) {
-        enqueue(requestTag, employeeAPI.getEmployees(), new RetrofitCallback<SearchEmployeeResponse>(callback));
-    }
-
-    @Override
     public void getEmployeeSearchList(String requestTag, String searchTerm, AllStarsCallback<SearchEmployeeResponse> callback) {
         enqueue(requestTag, employeeAPI.getEmployeeSearchList(searchTerm), new RetrofitCallback<SearchEmployeeResponse>(callback));
-=======
-    public void getEmployeeSearchList(String searchTerm, Integer page, AllStarsCallback<SearchEmployeeResponse> callback) {
-        employeeAPI.getEmployeeSearchList(searchTerm, page).enqueue(new RetrofitCallback<SearchEmployeeResponse>(callback));
->>>>>>> develop
-=======
-    public void getEmployeeSearchList(String searchTerm, Integer page, AllStarsCallback<SearchEmployeeResponse> callback) {
-        employeeAPI.getEmployeeSearchList(searchTerm, page).enqueue(new RetrofitCallback<SearchEmployeeResponse>(callback));
->>>>>>> develop
     }
 
     @Override
@@ -79,18 +66,8 @@ public class EmployeeServerService extends AllStarsService implements EmployeeSe
         enqueue(requestTag, employeeAPI.getRankingList(kind, quantity), new RetrofitCallback<List<Employee>>(callback));
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     public void getEmployeeCategories(String requestTag, int employeeId, AllStarsCallback<List<Category>> callback) {
         enqueue(requestTag, employeeAPI.getEmployeeCategories(employeeId), new RetrofitCallback<List<Category>>(callback));
-
-=======
-=======
->>>>>>> develop
-    @Override
-    public void getEmployeeCategories(int employeeId, AllStarsCallback<List<Category>> callback) {
-        employeeAPI.getEmployeeCategories(employeeId).enqueue(new RetrofitCallback<List<Category>>(callback));
->>>>>>> develop
     }
-
 }

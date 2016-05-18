@@ -51,19 +51,16 @@
                                 android:id="@+id/profile_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:gravity="center"
                                 android:layout_marginTop="@dimen/dimen_3_5"
-                                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                                android:layout_marginLeft="@dimen/activity_horizontal_margin"
                                 tools:text="Pedro Carrillo"
                                 style="@android:style/TextAppearance.Large" />
 
                             <TextView
-                                android:id="@+id/profile_email"
+                                android:id="@+id/profile_role"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/dimen_1_5"
-                                tools:text="fakeemail@email.com" />
+                                tools:text="Senior Android Developer" />
 
                             <TextView
                                 android:id="@+id/skype_id"

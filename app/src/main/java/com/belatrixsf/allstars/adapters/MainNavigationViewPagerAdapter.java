@@ -26,7 +26,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.belatrixsf.allstars.ui.account.AccountFragment;
 import com.belatrixsf.allstars.ui.contacts.ContactsListFragment;
-import com.belatrixsf.allstars.ui.keywords.SearchingKeywordsFragment;
 import com.belatrixsf.allstars.ui.ranking.RankingContainerFragment;
 
 /**
@@ -34,7 +33,7 @@ import com.belatrixsf.allstars.ui.ranking.RankingContainerFragment;
  */
 public class MainNavigationViewPagerAdapter extends FragmentPagerAdapter {
 
-    public static final int NUM_TABS = 4;
+    public static final int NUM_TABS = 3;
 
     public MainNavigationViewPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -50,7 +49,7 @@ public class MainNavigationViewPagerAdapter extends FragmentPagerAdapter {
             case 2:
                 return ContactsListFragment.newInstance(true);
             default:
-                return SearchingKeywordsFragment.newInstance();
+                return AccountFragment.newInstance(null);
         }
     }
 
@@ -64,7 +63,7 @@ public class MainNavigationViewPagerAdapter extends FragmentPagerAdapter {
             case 2:
                 return "Contacts";
             default:
-                return "Keywords";
+                return "Account";
         }
     }
 

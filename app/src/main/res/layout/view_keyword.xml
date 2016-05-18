@@ -4,6 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/selector_background_keyword"
+    android:clickable="true"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingBottom="@dimen/dimen_1_5"

@@ -130,10 +130,10 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
         if (employee.getSkypeId() != null && !employee.getSkypeId().isEmpty()) {
             view.showSkypeId(employee.getSkypeId());
         }
-        if (employee.getEmail() != null && !employee.getEmail().isEmpty()) {
-            view.showEmail(employee.getEmail());
+        if (employee.getRole() != null) {
+            view.showRole(employee.getRole().getName());
         } else {
-            view.showEmail(getString(R.string.no_data));
+            view.showRole(getString(R.string.no_data));
         }
         if (employee.getAvatar() != null) {
             view.showProfilePicture(employee.getAvatar());
