@@ -1,6 +1,12 @@
 package com.belatrixsf.allstars.networking.retrofit.api;
 
 import com.belatrixsf.allstars.networking.retrofit.requests.StarRequest;
+<<<<<<< HEAD
+=======
+import com.belatrixsf.allstars.networking.retrofit.responses.StarKeywordTopListResponse;
+import com.belatrixsf.allstars.networking.retrofit.responses.StarsByKeywordsResponse;
+import com.belatrixsf.allstars.networking.retrofit.responses.StarsResponse;
+>>>>>>> develop
 import com.belatrixsf.allstars.networking.retrofit.responses.StarResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarSubCategoryResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarsResponse;
@@ -25,5 +31,11 @@ public interface StarAPI {
 
     @GET(ServerPaths.STARS_BY_EMPLOYEE_AND_SUBCATEGORY)
     Call<StarsResponse> getStars(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Path(ServerPaths.SUBCATEGORY_ID) int subcategoryId, @Query(ServerPaths.QUERY_PAGE) Integer page);
+
+    @GET(ServerPaths.STARS_BY_KEYWORD)
+    Call<StarsByKeywordsResponse> getStarsByKeywords(@Query(ServerPaths.QUERY_SEARCH) String search, @Query(ServerPaths.QUERY_PAGE) Integer nextPage);
+
+    @GET(ServerPaths.STARS_KEYWORD_TOP)
+    Call<StarKeywordTopListResponse> getStarsKeywordTop(@Path(ServerPaths.KEYWORD_ID) int keywordId, @Query(ServerPaths.QUERY_PAGE) Integer page);
 
 }

@@ -85,6 +85,11 @@ public abstract class LoadMoreBaseAdapter<T> extends RecyclerView.Adapter<Recycl
         notifyDataSetChanged();
     }
 
+    public void setData(List<T> moreData) {
+        this.data = moreData;
+        notifyDataSetChanged();
+    }
+
     public void clear() {
         data.clear();
         notifyDataSetChanged();

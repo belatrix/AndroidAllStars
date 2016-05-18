@@ -37,5 +37,4 @@ public class StarsResponse extends PaginatedResponse {
         return starList;
     }
 
-
 }

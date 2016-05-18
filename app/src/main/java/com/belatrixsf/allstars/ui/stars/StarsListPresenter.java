@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.allstars.ui.stars;
 
+import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.allstars.entities.Star;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarsResponse;
@@ -44,7 +45,6 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
     private int subCategoryId;
     private PaginatedResponse starPaginatedResponse = new PaginatedResponse();
     private List<Star> stars = new ArrayList<>();
-    private int currentPage = 1;
 
     @Inject
     public StarsListPresenter(StarsListView view, StarService starService) {
@@ -68,28 +68,24 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
         return stars;
     }
 
-    public int getCurrentPage() {
-        return currentPage;
-    }
-
-    public void setLoadedStars(int employeeId, int subCategoryId, List<Star> stars, int currentPage, PaginatedResponse starPaginatedResponse) {
+    public void setLoadedStars(int employeeId, int subCategoryId, List<Star> stars, PaginatedResponse starPaginatedResponse) {
         if (stars != null) {
             this.stars = stars;
         }
         this.employeeId = employeeId;
         this.subCategoryId = subCategoryId;
         this.starPaginatedResponse = starPaginatedResponse;
-        this.currentPage = currentPage;
-        view.showCurrentPage(currentPage);
+        view.showCurrentPage(starPaginatedResponse.getNextPage() == null ? 1 : starPaginatedResponse.getNextPage());
         view.showStars(stars);
     }
 
     public void getStars(int employeeId, int subcategoryId) {
         this.employeeId = employeeId;
         this.subCategoryId = subcategoryId;
-        getStars(currentPage);
+        getStars();
     }
 
+<<<<<<< HEAD
     public void getStars(Integer page) {
         if (starPaginatedResponse.getNext() != null || page == 1) {
             currentPage = page;
@@ -114,7 +110,35 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
                             showError(serviceError.getErrorMessage());
                         }
                     });
+=======
+    public void callNextPage() {
+        if (starPaginatedResponse.getNext() != null) {
+            getStars();
+>>>>>>> develop
         }
     }
 
+    public void getStars() {
+        view.showProgressIndicator();
+        starService.getStars(employeeId, subCategoryId, starPaginatedResponse.getNextPage(), new AllStarsCallback<StarsResponse>() {
+            @Override
+            public void onSuccess(StarsResponse starsResponse) {
+                stars.addAll(starsResponse.getStarList());
+                starPaginatedResponse.setNext(starsResponse.getNext());
+                view.hideProgressIndicator();
+                view.showStars(stars);
+            }
+
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                view.hideProgressIndicator();
+                showError(serviceError.getErrorMessage());
+            }
+        });
+    }
+
+    public void onKeywordSelected(int position) {
+        Keyword keyword = stars.get(position).getKeyword();
+        view.goToKeywordContacts(keyword);
+    }
 }

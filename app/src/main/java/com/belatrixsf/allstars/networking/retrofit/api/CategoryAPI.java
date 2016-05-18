@@ -21,6 +21,7 @@
 package com.belatrixsf.allstars.networking.retrofit.api;
 
 import com.belatrixsf.allstars.entities.SubCategory;
+import com.belatrixsf.allstars.entities.Keyword;
 
 import java.util.List;
 
@@ -36,4 +37,11 @@ public interface CategoryAPI {
     @GET(ServerPaths.SUBCATEGORIES_BY_CATEGORY_ID)
     Call<List<SubCategory>> getSubcategories(@Path(ServerPaths.CATEGORY_ID) int categoryId);
 
+<<<<<<< HEAD
 }
+=======
+    @GET(ServerPaths.CATEGORY_KEYWORD_LIST)
+    Call<List<Keyword>> getKeywords();
+
+}
+>>>>>>> develop

@@ -47,11 +47,17 @@ import android.widget.TextView;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.ContactsListAdapter;
 import com.belatrixsf.allstars.entities.Employee;
+<<<<<<< HEAD
 import com.belatrixsf.allstars.services.AllStarsService;
+=======
+import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
+>>>>>>> develop
 import com.belatrixsf.allstars.ui.account.AccountActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
+import com.belatrixsf.allstars.ui.common.EndlessRecyclerOnScrollListener;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
+import com.belatrixsf.allstars.ui.common.views.searchingview.SearchingView;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.KeyboardUtils;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsListPresenterModule;
@@ -70,15 +76,17 @@ import static com.belatrixsf.allstars.ui.stars.GiveStarFragment.SELECTED_USER_KE
 public class ContactsListFragment extends AllStarsFragment implements ContactsListView, RecyclerOnItemClickListener {
 
     public static final String PROFILE_ENABLED_KEY = "_is_search";
-    private static final String EMPLOYEES_KEY = "_employees_key";
-    private static final String ACTION_MODE_KEY = "_action_mode_key";
+    public static final String CONTACTS_KEY = "_employees_key";
+    public static final String ACTION_MODE_KEY = "_action_mode_key";
+    public static final String PAGINATION_RESPONSE_KEY = "_pagination_response_key";
+    public static final String CURRENT_PAGE_KEY = "_current_page_key";
+    public static final String SEARCH_TERM_KEY = "_search_term_key";
 
     private ContactsListPresenter contactsListPresenter;
-    private ContactsListFragmentListener contactsListFragmentListener;
     private ContactsListAdapter contactsListAdapter;
+    private ContactsListFragmentListener contactsListFragmentListener;
+    private EndlessRecyclerOnScrollListener endlessRecyclerOnScrollListener;
 
-    private EditText searchTermEditText;
-    private ImageButton cleanImageButton;
     private ImageView photoImageView;
 
     public static final String REQUEST_TAG = ContactsListFragment.class.getSimpleName();
@@ -131,20 +139,19 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
         contactsListPresenter = allStarsApplication.getApplicationComponent()
                 .contactsListComponent(new ContactsListPresenterModule(this))
                 .contactsListPresenter();
-        if (getArguments() != null && getArguments().containsKey(PROFILE_ENABLED_KEY)) {
-            contactsListPresenter.setProfileEnabled(getArguments().getBoolean(PROFILE_ENABLED_KEY));
-        }
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews();
+        boolean hasArguments = (getArguments() != null && getArguments().containsKey(PROFILE_ENABLED_KEY));
         if (savedInstanceState != null) {
             restoreState(savedInstanceState);
-            contactsListPresenter.shouldShowActionMode();
+        } else if (hasArguments){
+            contactsListPresenter.setProfileEnabled(getArguments().getBoolean(PROFILE_ENABLED_KEY));
+            contactsListPresenter.getContacts();
         }
-        contactsListPresenter.getContacts(false);
     }
 
     @Override
@@ -154,31 +161,65 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     }
 
     private void restoreState(Bundle savedInstanceState) {
-        List<Employee> savedContacts = savedInstanceState.getParcelableArrayList(EMPLOYEES_KEY);
+        List<Employee> savedContacts = savedInstanceState.getParcelableArrayList(CONTACTS_KEY);
         boolean actionModeEnabled = savedInstanceState.getBoolean(ACTION_MODE_KEY);
-        contactsListPresenter.loadSavedContacts(savedContacts);
-        contactsListPresenter.setInActionMode(actionModeEnabled);
+        Integer currentPage = savedInstanceState.getInt(CURRENT_PAGE_KEY);
+        PaginatedResponse paginatedResponse = savedInstanceState.getParcelable(PAGINATION_RESPONSE_KEY);
+        String searchTerm = savedInstanceState.getString(SEARCH_TERM_KEY);
+        boolean profileEnabled = savedInstanceState.getBoolean(PROFILE_ENABLED_KEY);
+        contactsListPresenter.setProfileEnabled(profileEnabled);
+        contactsListPresenter.setLoadedContacts(actionModeEnabled, savedContacts, currentPage, paginatedResponse, searchTerm);
     }
 
     private void saveState(Bundle outState) {
-        List<Employee> forSavingContacts = contactsListPresenter.getContacts();
-        boolean forSavingActionMode = contactsListPresenter.isInActionMode();
-        if (forSavingContacts != null && forSavingContacts instanceof ArrayList) {
-            outState.putParcelableArrayList(EMPLOYEES_KEY, (ArrayList<Employee>) forSavingContacts);
-            outState.putBoolean(ACTION_MODE_KEY, forSavingActionMode);
+        List<Employee> contactsList = contactsListPresenter.getLoadedContacts();
+        if (contactsList != null && contactsList instanceof ArrayList) {
+            outState.putParcelableArrayList(CONTACTS_KEY, (ArrayList<Employee>) contactsList);
         }
+        outState.putBoolean(ACTION_MODE_KEY, contactsListPresenter.isInActionMode());
+        outState.putInt(CURRENT_PAGE_KEY, contactsListPresenter.getCurrentPage());
+        outState.putParcelable(PAGINATION_RESPONSE_KEY, contactsListPresenter.getContactPaginatedResponse());
+        outState.putString(SEARCH_TERM_KEY, contactsListPresenter.getSearchTerm());
+        outState.putBoolean(PROFILE_ENABLED_KEY, contactsListPresenter.getProfileEnabled());
     }
 
     private void initViews() {
         contactsListAdapter = new ContactsListAdapter(this);
         contactsRecyclerView.setAdapter(contactsListAdapter);
-        contactsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        contactsRecyclerView.setLayoutManager(linearLayoutManager);
+        endlessRecyclerOnScrollListener = new EndlessRecyclerOnScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int currentPage) {
+                contactsListPresenter.getContacts(currentPage);
+            }
+        };
+        contactsRecyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);
         contactsRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
     }
 
     @Override
     public void showContacts(List<Employee> contacts) {
         contactsListAdapter.updateData(contacts);
+    }
+
+    @Override
+    public void showProgressIndicator() {
+        super.showProgressIndicator();
+        contactsListAdapter.setLoading(true);
+        endlessRecyclerOnScrollListener.setLoading(true);
+    }
+
+    @Override
+    public void hideProgressIndicator() {
+        super.hideProgressIndicator();
+        contactsListAdapter.setLoading(false);
+        endlessRecyclerOnScrollListener.setLoading(false);
+    }
+
+    @Override
+    public void showCurrentPage(int currentPage) {
+        endlessRecyclerOnScrollListener.setCurrentPage(currentPage);
     }
 
     @Override
@@ -194,10 +235,8 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
         switch (item.getItemId()) {
             case R.id.action_search:
-                //ActionMode
                 contactsListFragmentListener.setActionMode(actionModeCallback);
                 return true;
             default:
@@ -207,23 +246,17 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
 
     private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
 
-        // Called when the action mode is created; startActionMode() was called
         @Override
         public boolean onCreateActionMode(final ActionMode mode, Menu menu) {
-            contactsListPresenter.setInActionMode(true);
-            LayoutInflater inflater = getActivity().getLayoutInflater();
-            View customView = inflater.inflate(R.layout.item_action_mode, null);
-
-            searchTermEditText = (EditText) customView.findViewById(R.id.search_term);
-            cleanImageButton = (ImageButton) customView.findViewById(R.id.clean);
-
-            cleanImageButton.setOnClickListener(new View.OnClickListener() {
+            contactsListPresenter.startActionMode();
+            SearchingView searchingView = new SearchingView(getActivity());
+            searchingView.setSearchingListener(new SearchingView.SearchingListener() {
                 @Override
-                public void onClick(View v) {
-                    searchTermEditText.setText("");
-                    searchTermEditText.requestFocus();
+                public void onSearchingTextTyped(String searchText) {
+                    contactsListPresenter.getContacts(searchText);
                 }
             });
+<<<<<<< HEAD
             searchTermEditText.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -253,27 +286,25 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
             mode.setCustomView(customView);
             searchTermEditText.requestFocus();
             KeyboardUtils.showKeyboard(getActivity(), searchTermEditText);
+=======
+            mode.setCustomView(searchingView);
+>>>>>>> develop
             return true;
         }
 
-        // Called each time the action mode is shown. Always called after onCreateActionMode, but
-        // may be called multiple times if the mode is invalidated.
         @Override
         public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            return false; // Return false if nothing is done
+            return false;
         }
 
-        // Called when the user selects a contextual menu item
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             return false;
         }
 
-        // Called when the user exits the action mode
         @Override
         public void onDestroyActionMode(ActionMode mode) {
-            contactsListPresenter.setInActionMode(false);
-            contactsListPresenter.getContacts(true);
+            contactsListPresenter.finishActionMode();
             KeyboardUtils.hideKeyboard(getActivity(), getView());
         }
     };
@@ -297,6 +328,7 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
         fragmentListener.closeActivity();
     }
 
+<<<<<<< HEAD
     @Override
     public void showCleanButton() {
         cleanImageButton.setVisibility(View.VISIBLE);
@@ -312,4 +344,6 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
         AllStarsService.cancel(REQUEST_TAG);
         super.onDestroyView();
     }
+=======
+>>>>>>> develop
 }

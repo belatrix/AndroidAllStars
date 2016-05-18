@@ -24,6 +24,7 @@ package com.belatrixsf.allstars.utils.media.loaders;
 import android.content.Context;
 import android.widget.ImageView;
 
+import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.utils.media.transformations.glide.BorderedCircleGlideTransformation;
 import com.belatrixsf.allstars.utils.media.transformations.glide.CircleGlideTransformation;
 import com.bumptech.glide.DrawableTypeRequest;
@@ -68,6 +69,7 @@ public class GlideLoader implements ImageLoader {
             final Callback callback
     ) {
         load.fitCenter();
+        load.placeholder(R.drawable.ic_user);
         if (context != null && transformation != null) {
             switch (transformation) {
                 case BORDERED_CIRCLE:

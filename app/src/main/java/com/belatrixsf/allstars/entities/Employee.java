@@ -40,7 +40,6 @@ public class Employee implements Parcelable {
     private String firstName;
     @SerializedName("last_name")
     private String lastName;
-    private Role role;
     @SerializedName("skype_id")
     private String skypeId;
     @SerializedName("total_score")
@@ -61,6 +60,8 @@ public class Employee implements Parcelable {
     @SerializedName("last_login")
     private String lastLogin;
     private String avatar;
+    @SerializedName("num_stars")
+    private Integer numStars;
 
     public Integer getPk() {
         return pk;
@@ -80,10 +81,6 @@ public class Employee implements Parcelable {
 
     public String getLastName() {
         return lastName;
-    }
-
-    public Role getRole() {
-        return role;
     }
 
     public String getSkypeId() {
@@ -131,10 +128,11 @@ public class Employee implements Parcelable {
     }
 
     public String getAvatar() {
-        if (avatar == null) {
-            avatar = "https://pbs.twimg.com/profile_images/616076655547682816/6gMRtQyY.jpg";
-        }
         return avatar;
+    }
+
+    public Integer getNumStars() {
+        return numStars;
     }
 
     public String getFullName() {
@@ -152,7 +150,6 @@ public class Employee implements Parcelable {
         email = in.readString();
         firstName = in.readString();
         lastName = in.readString();
-        role = (Role) in.readValue(Role.class.getClassLoader());
         skypeId = in.readString();
         totalScore = in.readByte() == 0x00 ? null : in.readInt();
         lastMonthScore = in.readByte() == 0x00 ? null : in.readInt();
@@ -170,6 +167,7 @@ public class Employee implements Parcelable {
         active = in.readByte() != 0x00;
         lastLogin = in.readString();
         avatar = in.readString();
+        numStars = in.readByte() == 0x00 ? null : in.readInt();
     }
 
     @Override
@@ -189,7 +187,6 @@ public class Employee implements Parcelable {
         dest.writeString(email);
         dest.writeString(firstName);
         dest.writeString(lastName);
-        dest.writeValue(role);
         dest.writeString(skypeId);
         if (totalScore == null) {
             dest.writeByte((byte) (0x00));
@@ -242,6 +239,12 @@ public class Employee implements Parcelable {
         dest.writeByte((byte) (active ? 0x01 : 0x00));
         dest.writeString(lastLogin);
         dest.writeString(avatar);
+        if (numStars == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(numStars);
+        }
     }
 
     @SuppressWarnings("unused")

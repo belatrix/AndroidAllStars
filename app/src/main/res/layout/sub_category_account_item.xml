@@ -6,7 +6,7 @@
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:padding="@dimen/activity_horizontal_margin"
-    style="@style/ItemListStyle">
+    style="@style/ItemList">
 
     <TextView
         android:id="@+id/title"

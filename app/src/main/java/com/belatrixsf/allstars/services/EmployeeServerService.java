@@ -55,6 +55,7 @@ public class EmployeeServerService extends AllStarsService implements EmployeeSe
     }
 
     @Override
+<<<<<<< HEAD
     public void getEmployees(String requestTag, AllStarsCallback<SearchEmployeeResponse> callback) {
         enqueue(requestTag, employeeAPI.getEmployees(), new RetrofitCallback<SearchEmployeeResponse>(callback));
     }
@@ -62,6 +63,10 @@ public class EmployeeServerService extends AllStarsService implements EmployeeSe
     @Override
     public void getEmployeeSearchList(String requestTag, String searchTerm, AllStarsCallback<SearchEmployeeResponse> callback) {
         enqueue(requestTag, employeeAPI.getEmployeeSearchList(searchTerm), new RetrofitCallback<SearchEmployeeResponse>(callback));
+=======
+    public void getEmployeeSearchList(String searchTerm, Integer page, AllStarsCallback<SearchEmployeeResponse> callback) {
+        employeeAPI.getEmployeeSearchList(searchTerm, page).enqueue(new RetrofitCallback<SearchEmployeeResponse>(callback));
+>>>>>>> develop
     }
 
     @Override
@@ -69,8 +74,15 @@ public class EmployeeServerService extends AllStarsService implements EmployeeSe
         enqueue(requestTag, employeeAPI.getRankingList(kind, quantity), new RetrofitCallback<List<Employee>>(callback));
     }
 
+<<<<<<< HEAD
     public void getEmployeeCategories(String requestTag, int employeeId, AllStarsCallback<List<Category>> callback) {
         enqueue(requestTag, employeeAPI.getEmployeeCategories(employeeId), new RetrofitCallback<List<Category>>(callback));
 
+=======
+    @Override
+    public void getEmployeeCategories(int employeeId, AllStarsCallback<List<Category>> callback) {
+        employeeAPI.getEmployeeCategories(employeeId).enqueue(new RetrofitCallback<List<Category>>(callback));
+>>>>>>> develop
     }
+
 }

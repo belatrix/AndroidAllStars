@@ -18,6 +18,7 @@ import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.services.AllStarsService;
 import com.belatrixsf.allstars.ui.category.CategoriesActivity;
 import com.belatrixsf.allstars.ui.common.views.KeywordSelectionView;
+import com.belatrixsf.allstars.ui.stars.keyword.KeywordsActivity;
 import com.belatrixsf.allstars.ui.stars.comment.CommentActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.views.AccountSelectionView;
@@ -42,7 +43,11 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
     public static final int RQ_CONTACT = 100;
     public static final int RQ_COMMENT = 101;
     public static final int RQ_SUBCATEGORY = 102;
+<<<<<<< HEAD
     public static final String REQUEST_TAG = GiveStarFragment.class.getSimpleName();
+=======
+    public static final int RQ_KEYWORD = 103;
+>>>>>>> develop
 
     private GiveStarPresenter giveStarPresenter;
     private MenuItem menuDone;
@@ -237,7 +242,7 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
 
     @Override
     public void goSelectKeyword() {
-        //TODO: go to select keyboard view.
+        startActivityForResult(new Intent(getActivity(), KeywordsActivity.class), RQ_KEYWORD);
     }
 
     @Override
@@ -256,6 +261,8 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
                 giveStarPresenter.loadSelectedComment(data.getStringExtra(COMMENT_KEY));
             } else if (requestCode == RQ_SUBCATEGORY) {
                 giveStarPresenter.loadSelectedSubCategory((SubCategory) data.getParcelableExtra(CategoriesActivity.SUBCATEGORY_KEY));
+            } else if (requestCode == RQ_KEYWORD) {
+                giveStarPresenter.loadSelectedKeyword((Keyword) data.getParcelableExtra(KeywordsActivity.KEYWORD_KEY));
             }
         }
     }

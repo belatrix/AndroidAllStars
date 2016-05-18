@@ -21,6 +21,7 @@
 package com.belatrixsf.allstars.services;
 
 import com.belatrixsf.allstars.entities.Category;
+import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 
 import java.util.List;
@@ -30,6 +31,11 @@ import java.util.List;
  */
 public interface CategoryService {
 
+<<<<<<< HEAD
     void getSubcategories(String requestTag, int categoryId, AllStarsCallback<List<Category>> callback);
+=======
+    void getSubcategories(int categoryId, AllStarsCallback<List<Category>> callback);
+    void getKeywords(AllStarsCallback<List<Keyword>> callback);
+>>>>>>> develop
 
 }
