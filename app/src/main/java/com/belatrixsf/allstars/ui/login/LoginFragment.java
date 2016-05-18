@@ -33,7 +33,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.belatrixsf.allstars.R;
-import com.belatrixsf.allstars.services.AllStarsService;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.home.MainActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
@@ -44,8 +43,6 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 public class LoginFragment extends AllStarsFragment implements LoginView {
-
-    public static final String REQUEST_TAG = LoginFragment.class.getSimpleName();
 
     @Bind(R.id.username)
     EditText usernameEditText;
@@ -84,7 +81,7 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
 
     @Override
     public void onDestroyView() {
-        AllStarsService.cancel(REQUEST_TAG);
+        loginPresenter.cancelRequests();
         super.onDestroyView();
         loginPresenter = null;
     }

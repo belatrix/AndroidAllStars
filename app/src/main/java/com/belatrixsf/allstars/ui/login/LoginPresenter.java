@@ -51,7 +51,7 @@ public class LoginPresenter extends AllStarsPresenter<LoginView> {
     public void login(String username, String password) {
         view.showProgressDialog();
         employeeManager.login(
-                LoginFragment.REQUEST_TAG,
+                requestTag,
                 username,
                 password,
                 new AllStarsCallback<Void>() {

@@ -36,6 +36,7 @@ import retrofit2.Call;
 /**
  * @author Carlos Piñan
  */
+// TODO Implement a way to clean the callHashMap every X time.
 public abstract class AllStarsService {
 
     private static HashMap<String, List<Call>> callHashMap;

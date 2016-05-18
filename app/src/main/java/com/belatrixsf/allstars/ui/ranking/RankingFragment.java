@@ -35,7 +35,6 @@ import android.widget.ProgressBar;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.RankingListAdapter;
 import com.belatrixsf.allstars.entities.Employee;
-import com.belatrixsf.allstars.services.AllStarsService;
 import com.belatrixsf.allstars.ui.account.AccountActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
@@ -64,9 +63,6 @@ public class RankingFragment extends AllStarsFragment implements RankingView, Ra
     ProgressBar loadingProgressBar;
     @Bind(R.id.ranking_swipe_refresh)
     SwipeRefreshLayout rankingSwipeRefresh;
-
-    // This request tag must not be a constant because there are different types.
-    private String requestTag;
 
     public static RankingFragment newInstance(String kind) {
         Bundle bundle = new Bundle();
@@ -102,7 +98,6 @@ public class RankingFragment extends AllStarsFragment implements RankingView, Ra
             initViews();
             String kind = getArguments().getString(RANKING_KIND_KEY);
             rankingPresenter.getRankingList(kind, Constants.DEFAULT_QUANTITY, false);
-            requestTag = String.format("%s_%s", RankingFragment.class.getSimpleName(), kind);
         }
     }
 
@@ -156,7 +151,7 @@ public class RankingFragment extends AllStarsFragment implements RankingView, Ra
 
     @Override
     public void onDestroyView() {
-        AllStarsService.cancel(requestTag);
+        rankingPresenter.cancelRequests();
         super.onDestroyView();
     }
 }

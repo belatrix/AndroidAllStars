@@ -37,13 +37,13 @@ public class StarServerService extends AllStarsService implements StarService {
     }
 
     @Override
-    public void getStarsKeywordTopList(int keywordId, Integer page, AllStarsCallback<StarKeywordTopListResponse> callback) {
-        starAPI.getStarsKeywordTop(keywordId, page).enqueue(new RetrofitCallback<StarKeywordTopListResponse>(callback));
+    public void getStarsKeywordTopList(String requestTag, int keywordId, Integer page, AllStarsCallback<StarKeywordTopListResponse> callback) {
+        enqueue(requestTag, starAPI.getStarsKeywordTop(keywordId, page), new RetrofitCallback<StarKeywordTopListResponse>(callback));
     }
 
     @Override
-    public void getStarsByKeywords(String search, Integer next, AllStarsCallback<StarsByKeywordsResponse> callback) {
-        starAPI.getStarsByKeywords(search, next).enqueue(new RetrofitCallback<StarsByKeywordsResponse>(callback));
+    public void getStarsByKeywords(String requestTag, String search, Integer next, AllStarsCallback<StarsByKeywordsResponse> callback) {
+        enqueue(requestTag, starAPI.getStarsByKeywords(search, next), new RetrofitCallback<StarsByKeywordsResponse>(callback));
     }
 
 }

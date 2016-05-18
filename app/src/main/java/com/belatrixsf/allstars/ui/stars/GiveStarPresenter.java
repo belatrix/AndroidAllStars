@@ -123,13 +123,13 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
     public void makeRecommendation() {
         view.showProgressDialog(getString(R.string.making_recommendation));
         employeeManager.getLoggedInEmployee(
-                GiveStarFragment.REQUEST_TAG,
+                requestTag,
                 new AllStarsCallback<Employee>() {
                     @Override
                     public void onSuccess(Employee fromEmployee) {
                         StarRequest starRequest = new StarRequest(selectedSubCategory.getParentCategory().getId(), selectedSubCategory.getId(), selectedComment, selectedKeyword.getId());
                         starService.star(
-                                GiveStarFragment.REQUEST_TAG,
+                                requestTag,
                                 fromEmployee.getPk(),
                                 selectedEmployee.getPk(),
                                 starRequest,

@@ -93,7 +93,7 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
     public void getStars() {
         view.showProgressIndicator();
         starService.getStars(
-                StarsListFragment.REQUEST_TAG,
+                requestTag,
                 employeeId,
                 subCategoryId,
                 starPaginatedResponse.getNextPage(),

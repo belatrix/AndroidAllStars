@@ -43,7 +43,6 @@ public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywo
     private PaginatedResponse keywordsPaging = new PaginatedResponse();
     private String searchText;
 
-
     @Inject
     public SearchingKeywordsPresenter(SearchingKeywordsView searchingKeywordsView, StarService starService) {
         super(searchingKeywordsView);
@@ -89,21 +88,25 @@ public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywo
 
     private void getKeywordsInternal() {
         view.showProgressIndicator();
-        starService.getStarsByKeywords(searchText, keywordsPaging.getNextPage(), new AllStarsCallback<StarsByKeywordsResponse>() {
-            @Override
-            public void onSuccess(StarsByKeywordsResponse starsByKeywordsResponse) {
-                keywordsPaging.setCount(starsByKeywordsResponse.getCount());
-                keywordsPaging.setNext(starsByKeywordsResponse.getNext());
-                keywords.addAll(starsByKeywordsResponse.getKeywords());
-                view.addKeywords(starsByKeywordsResponse.getKeywords());
-                view.hideProgressIndicator();
-            }
+        starService.getStarsByKeywords(
+                requestTag,
+                searchText,
+                keywordsPaging.getNextPage(),
+                new AllStarsCallback<StarsByKeywordsResponse>() {
+                    @Override
+                    public void onSuccess(StarsByKeywordsResponse starsByKeywordsResponse) {
+                        keywordsPaging.setCount(starsByKeywordsResponse.getCount());
+                        keywordsPaging.setNext(starsByKeywordsResponse.getNext());
+                        keywords.addAll(starsByKeywordsResponse.getKeywords());
+                        view.addKeywords(starsByKeywordsResponse.getKeywords());
+                        view.hideProgressIndicator();
+                    }
 
-            @Override
-            public void onFailure(ServiceError serviceError) {
-                showError(serviceError.getErrorMessage());
-            }
-        });
+                    @Override
+                    public void onFailure(ServiceError serviceError) {
+                        showError(serviceError.getErrorMessage());
+                    }
+                });
     }
 
 }

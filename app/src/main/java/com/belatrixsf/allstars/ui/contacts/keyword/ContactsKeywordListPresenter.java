@@ -68,21 +68,25 @@ public class ContactsKeywordListPresenter extends AllStarsPresenter<ContactsKeyw
 
     public void getEmployeesByStarKeywords() {
         view.showProgressIndicator();
-        starService.getStarsKeywordTopList(keyword.getId(), starPaginatedResponse.getNextPage(), new AllStarsCallback<StarKeywordTopListResponse>() {
-            @Override
-            public void onSuccess(StarKeywordTopListResponse starKeywordTopListResponse) {
-                employeeList.addAll(starKeywordTopListResponse.getEmployees());
-                starPaginatedResponse.setNext(starKeywordTopListResponse.getNext());
-                view.hideProgressIndicator();
-                view.showEmployees(employeeList);
-            }
+        starService.getStarsKeywordTopList(
+                requestTag,
+                keyword.getId(),
+                starPaginatedResponse.getNextPage(),
+                new AllStarsCallback<StarKeywordTopListResponse>() {
+                    @Override
+                    public void onSuccess(StarKeywordTopListResponse starKeywordTopListResponse) {
+                        employeeList.addAll(starKeywordTopListResponse.getEmployees());
+                        starPaginatedResponse.setNext(starKeywordTopListResponse.getNext());
+                        view.hideProgressIndicator();
+                        view.showEmployees(employeeList);
+                    }
 
-            @Override
-            public void onFailure(ServiceError serviceError) {
-                view.hideProgressIndicator();
-                showError(serviceError.getErrorMessage());
-            }
-        });
+                    @Override
+                    public void onFailure(ServiceError serviceError) {
+                        view.hideProgressIndicator();
+                        showError(serviceError.getErrorMessage());
+                    }
+                });
     }
 
     public void onContactClicked(Object contact) {

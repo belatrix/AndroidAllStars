@@ -125,7 +125,7 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
         if (contactPaginatedResponse.getNext() != null || page == 1) {
             view.showProgressIndicator();
             employeeService.getEmployeeSearchList(
-                    ContactsListFragment.REQUEST_TAG,
+                    requestTag,
                     searchTerm,
                     page,
                     new AllStarsCallback<SearchEmployeeResponse>() {

@@ -34,7 +34,6 @@ import com.belatrixsf.allstars.adapters.StarsListAdapter;
 import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.entities.Star;
 import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
-import com.belatrixsf.allstars.services.AllStarsService;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.EndlessRecyclerOnScrollListener;
 import com.belatrixsf.allstars.ui.contacts.keyword.ContactsKeywordListActivity;
@@ -50,8 +49,6 @@ import butterknife.Bind;
  * Created by icerrate on 25/04/2016.
  */
 public class StarsListFragment extends AllStarsFragment implements StarsListView, StarsListAdapter.KeywordClickListener {
-
-    public static final String REQUEST_TAG = StarsListFragment.class.getSimpleName();
 
     public static final String STARS_KEY = "_stars_key";
     public static final String EMPLOYEE_ID_KEY = "_employee_id_key";
@@ -181,7 +178,7 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
 
     @Override
     public void onDestroyView() {
-        AllStarsService.cancel(REQUEST_TAG);
+        starsListPresenter.cancelRequests();
         super.onDestroyView();
     }
 }

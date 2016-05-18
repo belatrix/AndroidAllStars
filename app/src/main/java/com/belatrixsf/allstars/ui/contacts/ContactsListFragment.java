@@ -41,7 +41,6 @@ import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.ContactsListAdapter;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
-import com.belatrixsf.allstars.services.AllStarsService;
 import com.belatrixsf.allstars.ui.account.AccountActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.EndlessRecyclerOnScrollListener;
@@ -64,8 +63,6 @@ import static com.belatrixsf.allstars.ui.stars.GiveStarFragment.SELECTED_USER_KE
  * Created by icerrate on 15/04/2016.
  */
 public class ContactsListFragment extends AllStarsFragment implements ContactsListView, RecyclerOnItemClickListener {
-
-    public static final String REQUEST_TAG = ContactsListFragment.class.getSimpleName();
 
     public static final String PROFILE_ENABLED_KEY = "_is_search";
     public static final String CONTACTS_KEY = "_employees_key";
@@ -288,7 +285,7 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
 
     @Override
     public void onDestroyView() {
-        AllStarsService.cancel(REQUEST_TAG);
+        contactsListPresenter.cancelRequests();
         super.onDestroyView();
     }
 }

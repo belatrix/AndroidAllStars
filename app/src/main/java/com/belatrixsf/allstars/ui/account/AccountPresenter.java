@@ -72,15 +72,15 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
             }
         };
         if (employeeId == null) {
-            employeeManager.getLoggedInEmployee(AccountFragment.REQUEST_TAG, employeeAllStarsCallback);
+            employeeManager.getLoggedInEmployee(requestTag, employeeAllStarsCallback);
         } else {
-            employeeService.getEmployee(AccountFragment.REQUEST_TAG, employeeId, employeeAllStarsCallback);
+            employeeService.getEmployee(requestTag, employeeId, employeeAllStarsCallback);
         }
     }
 
     private void loadSubCategoriesStar() {
         starService.getEmployeeSubCategoriesStars(
-                AccountFragment.REQUEST_TAG,
+                requestTag,
                 employee.getPk(),
                 new AllStarsCallback<StarSubCategoryResponse>() {
                     @Override

@@ -18,10 +18,10 @@ public interface StarService {
 
     void star(String requestTag, int fromEmployeeId, int toEmployeeId, StarRequest starRequest, AllStarsCallback<StarResponse> callback);
 
-    void getStarsByKeywords(String search, Integer next, AllStarsCallback<StarsByKeywordsResponse> callback);
+    void getStarsByKeywords(String requestTag, String search, Integer next, AllStarsCallback<StarsByKeywordsResponse> callback);
 
     void getStars(String requestTag, int employeeId, int subcategory, Integer page, AllStarsCallback<StarsResponse> callback);
 
-    void getStarsKeywordTopList(int keywordId, Integer page, AllStarsCallback<StarKeywordTopListResponse> callback);
+    void getStarsKeywordTopList(String requestTag, int keywordId, Integer page, AllStarsCallback<StarKeywordTopListResponse> callback);
 
 }

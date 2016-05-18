@@ -20,19 +20,23 @@
 */
 package com.belatrixsf.allstars.ui.common;
 
+import com.belatrixsf.allstars.services.AllStarsService;
+
 /**
  * @author gyosida
- *
- * AllStarsPresenter is the base clase for every presenter created
- * on the project, will hold the reference to the view and any common
- * interaction with it
+ *         AllStarsPresenter is the base clase for every presenter created
+ *         on the project, will hold the reference to the view and any common
+ *         interaction with it
  */
 public class AllStarsPresenter<T extends AllStarsView> {
 
+    protected String requestTag = AllStarsPresenter.class.getSimpleName();
     protected T view;
 
     protected AllStarsPresenter(T view) {
         this.view = view;
+        // Request Tag Auto generated Id.
+        requestTag = String.format("%s_%d", AllStarsPresenter.class.getSimpleName(), System.currentTimeMillis());
     }
 
     protected String getString(int resId) {
@@ -45,6 +49,10 @@ public class AllStarsPresenter<T extends AllStarsView> {
 
     protected void showError(String message) {
         view.showError(message);
+    }
+
+    public void cancelRequests() {
+        AllStarsService.cancel(requestTag);
     }
 
 }
