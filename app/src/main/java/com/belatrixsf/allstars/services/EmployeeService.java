@@ -34,10 +34,13 @@ import java.util.List;
 public interface EmployeeService {
 
     void authenticate(String requestTag, String username, String password, AllStarsCallback<AuthenticationResponse> callback);
+
     void getEmployee(String requestTag, int employeeId, AllStarsCallback<Employee> callback);
-    void getEmployees(String requestTag, AllStarsCallback<SearchEmployeeResponse> callback);
-    void getEmployeeSearchList(String requestTag, String searchTerm, AllStarsCallback<SearchEmployeeResponse> callback);
+
+    void getEmployeeSearchList(String requestTag, String searchTerm, Integer page, AllStarsCallback<SearchEmployeeResponse> callback);
+
     void getRankingList(String requestTag, String kind, int quantity, AllStarsCallback<List<Employee>> callback);
+
     void getEmployeeCategories(String requestTag, int employeeId, AllStarsCallback<List<Category>> callback);
 
 }

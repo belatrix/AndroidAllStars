@@ -49,6 +49,5 @@ public class CategoryServerService extends AllStarsService implements CategorySe
     public void getKeywords(AllStarsCallback<List<Keyword>> callback) {
         categoryAPI.getKeywords().enqueue(new RetrofitCallback<List<Keyword>>(callback));
     }
-
 }
 

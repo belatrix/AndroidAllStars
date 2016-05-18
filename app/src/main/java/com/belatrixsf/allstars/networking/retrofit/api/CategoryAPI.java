@@ -37,14 +37,7 @@ public interface CategoryAPI {
     @GET(ServerPaths.SUBCATEGORIES_BY_CATEGORY_ID)
     Call<List<SubCategory>> getSubcategories(@Path(ServerPaths.CATEGORY_ID) int categoryId);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-}
-=======
-=======
->>>>>>> develop
     @GET(ServerPaths.CATEGORY_KEYWORD_LIST)
     Call<List<Keyword>> getKeywords();
 
 }
->>>>>>> develop

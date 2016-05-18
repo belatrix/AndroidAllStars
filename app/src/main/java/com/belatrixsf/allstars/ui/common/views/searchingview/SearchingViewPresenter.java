@@ -18,54 +18,26 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.entities;
-
-import android.os.Parcel;
-import android.os.Parcelable;
+package com.belatrixsf.allstars.ui.common.views.searchingview;
 
 /**
- * Created by PedroCarrillo on 4/15/16.
+ * Created by gyosida on 5/10/16.
  */
-public class Role implements Parcelable {
+public class SearchingViewPresenter {
 
-    private int id;
-    private String name;
+    private SearchableView searchableView;
 
-    public int getId() {
-        return id;
+    public SearchingViewPresenter(SearchableView searchableView) {
+        this.searchableView = searchableView;
     }
 
-    public String getName() {
-        return name;
+    public void searchingTextTyped(String searchingText) {
+        searchableView.changeClearButtonVisibility(searchingText.length() > 0);
+        searchableView.notifyTextTyped(searchingText);
     }
 
-    protected Role(Parcel in) {
-        id = in.readInt();
-        name = in.readString();
+    public void clearSearching() {
+        searchableView.clearSearching();
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(name);
-    }
-
-    @SuppressWarnings("unused")
-    public static final Parcelable.Creator<Role> CREATOR = new Parcelable.Creator<Role>() {
-        @Override
-        public Role createFromParcel(Parcel in) {
-            return new Role(in);
-        }
-
-        @Override
-        public Role[] newArray(int size) {
-            return new Role[size];
-        }
-    };
 
 }

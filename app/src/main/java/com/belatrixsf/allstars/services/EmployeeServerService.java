@@ -31,8 +31,6 @@ import com.belatrixsf.allstars.utils.AllStarsCallback;
 
 import java.util.List;
 
-import retrofit2.http.HEAD;
-
 
 /**
  * Created by gyosida on 4/12/16.
@@ -57,8 +55,8 @@ public class EmployeeServerService extends AllStarsService implements EmployeeSe
     }
 
     @Override
-    public void getEmployeeSearchList(String requestTag, String searchTerm, AllStarsCallback<SearchEmployeeResponse> callback) {
-        enqueue(requestTag, employeeAPI.getEmployeeSearchList(searchTerm), new RetrofitCallback<SearchEmployeeResponse>(callback));
+    public void getEmployeeSearchList(String requestTag, String searchTerm, Integer page, AllStarsCallback<SearchEmployeeResponse> callback) {
+        enqueue(requestTag, employeeAPI.getEmployeeSearchList(searchTerm, page), new RetrofitCallback<SearchEmployeeResponse>(callback));
     }
 
     @Override
@@ -66,8 +64,8 @@ public class EmployeeServerService extends AllStarsService implements EmployeeSe
         enqueue(requestTag, employeeAPI.getRankingList(kind, quantity), new RetrofitCallback<List<Employee>>(callback));
     }
 
-
     public void getEmployeeCategories(String requestTag, int employeeId, AllStarsCallback<List<Category>> callback) {
         enqueue(requestTag, employeeAPI.getEmployeeCategories(employeeId), new RetrofitCallback<List<Category>>(callback));
     }
+
 }

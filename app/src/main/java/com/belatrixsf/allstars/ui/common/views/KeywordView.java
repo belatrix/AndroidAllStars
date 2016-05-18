@@ -115,4 +115,5 @@ public class KeywordView extends LinearLayout {
             }
         };
     }
+
 }

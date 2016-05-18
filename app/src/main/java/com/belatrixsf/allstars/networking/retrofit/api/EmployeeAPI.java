@@ -28,23 +28,12 @@ import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeRespo
 
 import java.util.List;
 
-<<<<<<< HEAD
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
-=======
-import retrofit.Call;
-import retrofit.http.Body;
-import retrofit.http.GET;
-import retrofit.http.POST;
-import retrofit.http.Path;
-import retrofit.http.Query;
-<<<<<<< HEAD
->>>>>>> develop
-=======
->>>>>>> develop
+import retrofit2.http.Query;
 
 /**
  * Created by gyosida on 4/11/16.

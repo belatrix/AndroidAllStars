@@ -32,6 +32,6 @@ import java.util.List;
 public interface CategoryService {
 
     void getSubcategories(String requestTag, int categoryId, AllStarsCallback<List<Category>> callback);
-
+    
     void getKeywords(AllStarsCallback<List<Keyword>> callback);
 }
