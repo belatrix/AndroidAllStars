@@ -23,7 +23,6 @@ package com.belatrixsf.allstars.ui.welcome;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.belatrixsf.allstars.R;
@@ -37,7 +36,6 @@ import com.belatrixsf.allstars.utils.di.modules.presenters.WelcomePresenterModul
 import javax.inject.Inject;
 
 import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * Created by icerrate on 17/05/16.
@@ -47,8 +45,6 @@ public class WelcomeActivity extends AllStarsActivity implements WelcomeView {
     @Inject WelcomePresenter welcomePresenter;
 
     @Bind(R.id.main_frame) FrameLayout mainFrame;
-    @Bind(R.id.login_view) Button loginViewButton;
-    @Bind(R.id.sign_up_view) Button signUpViewButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,18 +60,12 @@ public class WelcomeActivity extends AllStarsActivity implements WelcomeView {
 
     public void setViews(){
         setFragment();
-        setButtons();
     }
 
     public void setFragment(){
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.main_frame, new LoginFragment())
                 .commit();
-    }
-
-    public void setButtons(){
-        loginViewButton.setSelected(true);
-        signUpViewButton.setSelected(false);
     }
 
     private void setupDependencies() {
@@ -100,20 +90,6 @@ public class WelcomeActivity extends AllStarsActivity implements WelcomeView {
                 .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
                 .replace(R.id.main_frame, new SignUpFragment())
                 .commit();
-    }
-
-    @OnClick(R.id.login_view)
-    public void loginViewClicked(){
-        loginViewButton.setSelected(true);
-        signUpViewButton.setSelected(false);
-        welcomePresenter.loginViewButtonClicked();
-    }
-
-    @OnClick(R.id.sign_up_view)
-    public void setSignUpViewClicked(){
-        signUpViewButton.setSelected(true);
-        loginViewButton.setSelected(false);
-        welcomePresenter.signUpViewButtonClicked();
     }
 
     @Override
