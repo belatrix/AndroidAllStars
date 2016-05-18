@@ -124,24 +124,28 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
         currentPage = page;
         if (contactPaginatedResponse.getNext() != null || page == 1) {
             view.showProgressIndicator();
-            employeeService.getEmployeeSearchList(searchTerm, page, new AllStarsCallback<SearchEmployeeResponse>() {
-                @Override
-                public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
-                    if (currentPage == 1) {
-                        contacts.clear();
-                    }
-                    contacts.addAll(searchEmployeeResponse.getEmployeeList());
-                    contactPaginatedResponse.setNext(searchEmployeeResponse.getNext());
-                    view.hideProgressIndicator();
-                    view.showContacts(contacts);
-                }
+            employeeService.getEmployeeSearchList(
+                    ContactsListFragment.REQUEST_TAG,
+                    searchTerm,
+                    page,
+                    new AllStarsCallback<SearchEmployeeResponse>() {
+                        @Override
+                        public void onSuccess(SearchEmployeeResponse searchEmployeeResponse) {
+                            if (currentPage == 1) {
+                                contacts.clear();
+                            }
+                            contacts.addAll(searchEmployeeResponse.getEmployeeList());
+                            contactPaginatedResponse.setNext(searchEmployeeResponse.getNext());
+                            view.hideProgressIndicator();
+                            view.showContacts(contacts);
+                        }
 
-                @Override
-                public void onFailure(ServiceError serviceError) {
-                    view.hideProgressIndicator();
-                    showError(serviceError.getErrorMessage());
-                }
-            });
+                        @Override
+                        public void onFailure(ServiceError serviceError) {
+                            view.hideProgressIndicator();
+                            showError(serviceError.getErrorMessage());
+                        }
+                    });
         }
     }
 

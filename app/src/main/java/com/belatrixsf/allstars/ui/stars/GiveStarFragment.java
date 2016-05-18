@@ -15,6 +15,7 @@ import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.entities.SubCategory;
+import com.belatrixsf.allstars.services.AllStarsService;
 import com.belatrixsf.allstars.ui.category.CategoriesActivity;
 import com.belatrixsf.allstars.ui.common.views.KeywordSelectionView;
 import com.belatrixsf.allstars.ui.stars.keyword.KeywordsActivity;
@@ -33,6 +34,8 @@ import butterknife.OnClick;
  * Created by PedroCarrillo on 4/22/16.
  */
 public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
+
+    public static final String REQUEST_TAG = GiveStarFragment.class.getSimpleName();
 
     public static final String SELECTED_USER_KEY = "_selected_user_key";
     public static final String SELECTED_KEYWORD_KEY = "_selected_keyword_key";
@@ -283,4 +286,9 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
         }
     }
 
+    @Override
+    public void onDestroyView() {
+        AllStarsService.cancel(REQUEST_TAG);
+        super.onDestroyView();
+    }
 }

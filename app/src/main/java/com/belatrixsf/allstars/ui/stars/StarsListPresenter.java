@@ -92,21 +92,26 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
 
     public void getStars() {
         view.showProgressIndicator();
-        starService.getStars(employeeId, subCategoryId, starPaginatedResponse.getNextPage(), new AllStarsCallback<StarsResponse>() {
-            @Override
-            public void onSuccess(StarsResponse starsResponse) {
-                stars.addAll(starsResponse.getStarList());
-                starPaginatedResponse.setNext(starsResponse.getNext());
-                view.hideProgressIndicator();
-                view.showStars(stars);
-            }
+        starService.getStars(
+                StarsListFragment.REQUEST_TAG,
+                employeeId,
+                subCategoryId,
+                starPaginatedResponse.getNextPage(),
+                new AllStarsCallback<StarsResponse>() {
+                    @Override
+                    public void onSuccess(StarsResponse starsResponse) {
+                        stars.addAll(starsResponse.getStarList());
+                        starPaginatedResponse.setNext(starsResponse.getNext());
+                        view.hideProgressIndicator();
+                        view.showStars(stars);
+                    }
 
-            @Override
-            public void onFailure(ServiceError serviceError) {
-                view.hideProgressIndicator();
-                showError(serviceError.getErrorMessage());
-            }
-        });
+                    @Override
+                    public void onFailure(ServiceError serviceError) {
+                        view.hideProgressIndicator();
+                        showError(serviceError.getErrorMessage());
+                    }
+                });
     }
 
     public void onKeywordSelected(int position) {

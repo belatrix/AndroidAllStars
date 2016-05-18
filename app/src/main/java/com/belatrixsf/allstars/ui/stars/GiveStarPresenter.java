@@ -122,15 +122,29 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
 
     public void makeRecommendation() {
         view.showProgressDialog(getString(R.string.making_recommendation));
-        employeeManager.getLoggedInEmployee(new AllStarsCallback<Employee>() {
-            @Override
-            public void onSuccess(Employee fromEmployee) {
-                StarRequest starRequest = new StarRequest(selectedSubCategory.getParentCategory().getId(), selectedSubCategory.getId(), selectedComment, selectedKeyword.getId());
-                starService.star(fromEmployee.getPk(), selectedEmployee.getPk(), starRequest, new AllStarsCallback<StarResponse>() {
+        employeeManager.getLoggedInEmployee(
+                GiveStarFragment.REQUEST_TAG,
+                new AllStarsCallback<Employee>() {
                     @Override
-                    public void onSuccess(StarResponse starResponse) {
-                        view.dismissProgressDialog();
-                        view.finishRecommendation();
+                    public void onSuccess(Employee fromEmployee) {
+                        StarRequest starRequest = new StarRequest(selectedSubCategory.getParentCategory().getId(), selectedSubCategory.getId(), selectedComment, selectedKeyword.getId());
+                        starService.star(
+                                GiveStarFragment.REQUEST_TAG,
+                                fromEmployee.getPk(),
+                                selectedEmployee.getPk(),
+                                starRequest,
+                                new AllStarsCallback<StarResponse>() {
+                                    @Override
+                                    public void onSuccess(StarResponse starResponse) {
+                                        view.dismissProgressDialog();
+                                        view.finishRecommendation();
+                                    }
+
+                                    @Override
+                                    public void onFailure(ServiceError serviceError) {
+                                        view.showError(serviceError.getErrorMessage());
+                                    }
+                                });
                     }
 
                     @Override
@@ -138,13 +152,6 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
                         view.showError(serviceError.getErrorMessage());
                     }
                 });
-            }
-
-            @Override
-            public void onFailure(ServiceError serviceError) {
-                view.showError(serviceError.getErrorMessage());
-            }
-        });
     }
 
     public void checkRecommendationEnabled() {

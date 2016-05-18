@@ -177,7 +177,6 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
         linearLayoutManager.setAutoMeasureEnabled(true);
         recommendationRecyclerView.setNestedScrollingEnabled(false);
         recommendationRecyclerView.setLayoutManager(linearLayoutManager);
-
         accountSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

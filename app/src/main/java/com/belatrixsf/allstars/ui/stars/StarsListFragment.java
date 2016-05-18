@@ -34,6 +34,7 @@ import com.belatrixsf.allstars.adapters.StarsListAdapter;
 import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.entities.Star;
 import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
+import com.belatrixsf.allstars.services.AllStarsService;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.EndlessRecyclerOnScrollListener;
 import com.belatrixsf.allstars.ui.contacts.keyword.ContactsKeywordListActivity;
@@ -50,6 +51,8 @@ import butterknife.Bind;
  */
 public class StarsListFragment extends AllStarsFragment implements StarsListView, StarsListAdapter.KeywordClickListener {
 
+    public static final String REQUEST_TAG = StarsListFragment.class.getSimpleName();
+
     public static final String STARS_KEY = "_stars_key";
     public static final String EMPLOYEE_ID_KEY = "_employee_id_key";
     public static final String SUBCATEGORY_ID_KEY = "_sub_category_id_key";
@@ -59,7 +62,8 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
     private StarsListAdapter starsListAdapter;
     private EndlessRecyclerOnScrollListener endlessRecyclerOnScrollListener;
 
-    @Bind(R.id.stars) RecyclerView starsRecyclerView;
+    @Bind(R.id.stars)
+    RecyclerView starsRecyclerView;
 
     public static StarsListFragment newInstance(Integer userId, Integer categoryId) {
         Bundle bundle = new Bundle();
@@ -97,9 +101,9 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
         if (savedInstanceState != null) {
             restoreState(savedInstanceState);
         } else if (hasArguments) {
-                Integer userId = getArguments().getInt(StarsListActivity.USER_ID);
-                Integer categoryId = getArguments().getInt(StarsListActivity.SUBCATEGORY_ID);
-                starsListPresenter.getStars(userId, categoryId);
+            Integer userId = getArguments().getInt(StarsListActivity.USER_ID);
+            Integer categoryId = getArguments().getInt(StarsListActivity.SUBCATEGORY_ID);
+            starsListPresenter.getStars(userId, categoryId);
         }
     }
 
@@ -175,5 +179,10 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
         startActivity(intent);
     }
 
+    @Override
+    public void onDestroyView() {
+        AllStarsService.cancel(REQUEST_TAG);
+        super.onDestroyView();
+    }
 }
 
