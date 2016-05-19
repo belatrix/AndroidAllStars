@@ -22,9 +22,11 @@ package com.belatrixsf.allstars.services;
 
 import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.entities.Location;
 import com.belatrixsf.allstars.networking.retrofit.RetrofitCallback;
 import com.belatrixsf.allstars.networking.retrofit.api.EmployeeAPI;
 import com.belatrixsf.allstars.networking.retrofit.requests.AuthenticationRequest;
+import com.belatrixsf.allstars.networking.retrofit.requests.UpdateEmployeeRequest;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
@@ -67,6 +69,17 @@ public class EmployeeServerService implements EmployeeService {
     @Override
     public void getEmployeeCategories(int employeeId, AllStarsCallback<List<Category>> callback) {
         employeeAPI.getEmployeeCategories(employeeId).enqueue(new RetrofitCallback<List<Category>>(callback));
+    }
+
+    @Override
+    public void updateEmployee(int employeeId, String firstName, String lastName, String skypeId, int locationId, AllStarsCallback<Employee> callback) {
+        UpdateEmployeeRequest updateEmployeeRequest = new UpdateEmployeeRequest(firstName, lastName, skypeId, locationId);
+        employeeAPI.updateEmployee(employeeId, updateEmployeeRequest).enqueue(new RetrofitCallback<Employee>(callback));
+    }
+
+    @Override
+    public void getEmployeeLocations(AllStarsCallback<List<Location>> callback) {
+        employeeAPI.getEmployeeLocations().enqueue(new RetrofitCallback<List<Location>>(callback));
     }
 
 }

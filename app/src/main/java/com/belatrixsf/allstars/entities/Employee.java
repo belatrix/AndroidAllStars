@@ -62,6 +62,7 @@ public class Employee implements Parcelable {
     private String avatar;
     @SerializedName("num_stars")
     private Integer numStars;
+    private Location location;
 
     public Integer getPk() {
         return pk;
@@ -135,6 +136,10 @@ public class Employee implements Parcelable {
         return numStars;
     }
 
+    public Location getLocation() {
+        return location;
+    }
+
     public String getFullName() {
         StringBuilder stringBuilder = new StringBuilder(firstName);
         if (lastName != null && !lastName.isEmpty()){
@@ -168,6 +173,7 @@ public class Employee implements Parcelable {
         lastLogin = in.readString();
         avatar = in.readString();
         numStars = in.readByte() == 0x00 ? null : in.readInt();
+        location = (Location) in.readValue(Location.class.getClassLoader());
     }
 
     @Override
@@ -245,6 +251,7 @@ public class Employee implements Parcelable {
             dest.writeByte((byte) (0x01));
             dest.writeInt(numStars);
         }
+        dest.writeValue(location);
     }
 
     @SuppressWarnings("unused")

@@ -90,6 +90,10 @@ public class EmployeeManager {
         }
     }
 
+    public void refreshEmployee() {
+        this.employee = null;
+    }
+
     public void logout() {
         employee = null;
         PreferencesManager.get().clearEmployeeId();

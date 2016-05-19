@@ -25,7 +25,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -44,6 +46,7 @@ import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.AccountSubCategoriesAdapter;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.SubCategory;
+import com.belatrixsf.allstars.ui.account.edit.EditAccountActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
@@ -62,6 +65,7 @@ import butterknife.Bind;
 
 import static com.belatrixsf.allstars.ui.account.AccountActivity.USER_ID_KEY;
 import static com.belatrixsf.allstars.ui.stars.GiveStarFragment.SELECTED_USER_KEY;
+import static com.belatrixsf.allstars.ui.account.edit.EditAccountFragment.RQ_EDIT_ACCOUNT;
 
 /**
  * Created by pedrocarrillo on 4/9/16.
@@ -69,7 +73,6 @@ import static com.belatrixsf.allstars.ui.stars.GiveStarFragment.SELECTED_USER_KE
 public class AccountFragment extends AllStarsFragment implements AccountView, RecyclerOnItemClickListener {
 
     public static final int RQ_GIVE_STAR = 99;
-    public static final String MESSAGE_KEY = "_message_key";
 
     private AccountPresenter accountPresenter;
     private AccountSubCategoriesAdapter accountCategoriesAdapter;
@@ -82,11 +85,13 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     @Bind(R.id.profile_name) TextView nameTextView;
     @Bind(R.id.profile_email) TextView emailTextView;
     @Bind(R.id.profile_picture) ImageView pictureImageView;
+    @Bind(R.id.profile_location_logo) ImageView profileLocationImageView;
     @Bind(R.id.account_swipe_refresh) SwipeRefreshLayout accountSwipeRefresh;
     @Bind(R.id.subcategories_progress_bar) ProgressBar subCategoriesProgressBar;
     @Bind(R.id.no_data_textview) TextView noDataTextView;
 
     private MenuItem recommendMenuItem;
+    private MenuItem editProfileMenuItem;
 
     public static AccountFragment newInstance(Integer userId) {
         Bundle bundle = new Bundle();
@@ -137,13 +142,9 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_account, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
         recommendMenuItem = menu.findItem(R.id.action_recommend);
-        super.onPrepareOptionsMenu(menu);
+        editProfileMenuItem = menu.findItem(R.id.action_edit_profile);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -151,6 +152,9 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
         switch (item.getItemId()) {
             case R.id.action_recommend:
                 accountPresenter.startRecommendation();
+                return true;
+            case R.id.action_edit_profile:
+                accountPresenter.startEditProfile();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -244,11 +248,19 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
         );
     }
 
+    @Override
+    public void showLocationFlag(String locationIcon) {
+        ImageFactory.getLoader().loadFromUrl(
+                locationIcon,
+                profileLocationImageView
+        );
+    }
+
     private void startPostponedEnterTransition() {
-        recommendationRecyclerView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+        pictureImageView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {
-                recommendationRecyclerView.getViewTreeObserver().removeOnPreDrawListener(this);
+                pictureImageView.getViewTreeObserver().removeOnPreDrawListener(this);
                 ActivityCompat.startPostponedEnterTransition(getActivity());
                 return false;
             }
@@ -261,6 +273,22 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     }
 
     @Override
+    public void showEditProfileButton(boolean show) {
+        if (editProfileMenuItem != null) {
+            editProfileMenuItem.setVisible(show);
+        }
+    }
+
+    @Override
+    public void goToEditProfile(Employee employee) {
+        Intent intent = new Intent(getActivity(), EditAccountActivity.class);
+        intent.putExtra(EditAccountActivity.EMPLOYEE_KEY, employee);
+        ViewCompat.setTransitionName(pictureImageView, getActivity().getString(R.string.transition_photo));
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), pictureImageView, getActivity().getString(R.string.transition_photo));
+        getActivity().startActivityForResult(intent, RQ_EDIT_ACCOUNT, options.toBundle());
+    }
+
+    @Override
     public void goToGiveStar(Employee employee) {
         Intent intent = new Intent(getActivity(), GiveStarActivity.class);
         intent.putExtra(SELECTED_USER_KEY, employee);
@@ -270,13 +298,15 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK && data != null) {
+        if (requestCode == RQ_GIVE_STAR && resultCode == Activity.RESULT_OK && data != null) {
             DialogUtils.createInformationDialog(getActivity(), data.getStringExtra(GiveStarFragment.MESSAGE_KEY), getString(R.string.app_name), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     //Do Nothing
                 }
             }).show();
+        } else if (requestCode == RQ_EDIT_ACCOUNT && resultCode == Activity.RESULT_OK) {
+            accountPresenter.refreshEmployee();
         }
     }
 
