@@ -45,15 +45,15 @@ import butterknife.OnClick;
 /**
  * Created by icerrate on 16/05/16.
  */
-public class SignUpFragment extends AllStarsFragment implements SignUpView {
+public class SignUppFragment extends AllStarsFragment implements SignUppView {
 
     @Bind(R.id.email) EditText emailEditText;
     @Bind(R.id.send) Button sendButton;
 
-    private SignUpPresenter signUpPresenter;
+    private SignUppPresenter signUppPresenter;
     private SignUpFragmentListener signUpFragmentListener;
 
-    public SignUpFragment() {
+    public SignUppFragment() {
         // Required empty public constructor
     }
 
@@ -89,7 +89,7 @@ public class SignUpFragment extends AllStarsFragment implements SignUpView {
         super.onViewCreated(view, savedInstanceState);
         initViews();
         if (savedInstanceState == null) {
-            signUpPresenter.init();
+            signUppPresenter.init();
         }
     }
 
@@ -100,12 +100,12 @@ public class SignUpFragment extends AllStarsFragment implements SignUpView {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        signUpPresenter = null;
+        signUppPresenter = null;
     }
 
     @Override
     protected void initDependencies(AllStarsApplication allStarsApplication) {
-        signUpPresenter = allStarsApplication.getApplicationComponent()
+        signUppPresenter = allStarsApplication.getApplicationComponent()
                 .signUpComponent(new SignUpPresenterModule(this))
                 .signUpPresenter();
     }
@@ -123,7 +123,7 @@ public class SignUpFragment extends AllStarsFragment implements SignUpView {
     @OnClick(R.id.send)
     public void sendClicked() {
         String email = emailEditText.getText().toString();
-        signUpPresenter.signUp(email);
+        signUppPresenter.signUp(email);
     }
 
     @Override
@@ -131,7 +131,7 @@ public class SignUpFragment extends AllStarsFragment implements SignUpView {
         DialogUtils.createInformationDialog(getActivity(), message, getString(R.string.app_name), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                signUpPresenter.confirmMessage();
+                signUppPresenter.confirmMessage();
             }
         }).show();
     }
@@ -151,7 +151,7 @@ public class SignUpFragment extends AllStarsFragment implements SignUpView {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             String email = emailEditText.getText().toString();
-            signUpPresenter.checkIfEmailIsValid(email);
+            signUppPresenter.checkIfEmailIsValid(email);
         }
 
         @Override
