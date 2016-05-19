@@ -45,7 +45,7 @@ import butterknife.OnClick;
 /**
  * Created by icerrate on 16/05/16.
  */
-public class SignUupFragment extends AllStarsFragment implements SignUpView {
+public class SignUpFragment extends AllStarsFragment implements SignUpView {
 
     @Bind(R.id.email) EditText emailEditText;
     @Bind(R.id.send) Button sendButton;
@@ -53,7 +53,7 @@ public class SignUupFragment extends AllStarsFragment implements SignUpView {
     private SignUpPresenter signUpPresenter;
     private SignUpFragmentListener signUpFragmentListener;
 
-    public SignUupFragment() {
+    public SignUpFragment() {
         // Required empty public constructor
     }
 
