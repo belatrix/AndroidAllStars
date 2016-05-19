@@ -36,6 +36,7 @@ import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.modules.presenters.KeywordsListModule;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -46,6 +47,8 @@ import butterknife.Bind;
  * Created by gyosida on 5/12/16.
  */
 public class KeywordsListFragment extends AllStarsFragment implements KeywordsListView, KeywordsListAdapter.KeywordListener {
+
+    private static final String KEYWORDS_KEY = "keywords_key";
 
     private KeywordsListAdapter keywordsListAdapter;
 
@@ -74,7 +77,28 @@ public class KeywordsListFragment extends AllStarsFragment implements KeywordsLi
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews();
+        if (savedInstanceState != null) {
+            restorePresenterState(savedInstanceState);
+        }
         keywordsListPresenter.getKeywords();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        savePresenterState(outState);
+        super.onSaveInstanceState(outState);
+    }
+
+    private void restorePresenterState(Bundle savedInstanceState) {
+        List<Keyword> keywords = savedInstanceState.getParcelableArrayList(KEYWORDS_KEY);
+        keywordsListPresenter.load(keywords);
+    }
+
+    private void savePresenterState(Bundle outState) {
+        List<Keyword> keywords = keywordsListPresenter.getKeywordsSync();
+        if (keywords != null && keywords instanceof ArrayList) {
+            outState.putParcelableArrayList(KEYWORDS_KEY, (ArrayList<Keyword>) keywords);
+        }
     }
 
     private void initViews() {

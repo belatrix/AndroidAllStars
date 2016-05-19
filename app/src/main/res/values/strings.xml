@@ -19,6 +19,10 @@
     <!-- Hint -->
     <string name="hint_username">Username</string>
     <string name="hint_password">Password</string>
+    <string name="hint_first_name">First Name</string>
+    <string name="hint_last_name">Last Name</string>
+    <string name="hint_skype_id">Skype Id</string>
+    <string name="hint_keyword">Select a Keyword</string>
 
     <!-- Button -->
     <string name="button_log_in">Log In</string>
@@ -35,6 +39,8 @@
     <string name="title_comment_activity">Write a comment</string>
     <string name="title_keywords_activity">Select a Keyword</string>
     <string name="title_keyword">Keyword</string>
+    <string name="title_contacts_keyword_activity">Keyword Top</string>
+    <string name="title_keyword_top">%s Top</string>
 
     <!-- Login -->
     <string name="title_login">Belatrix All Stars</string>
@@ -47,6 +53,7 @@
     <string name="title_score">Score</string>
     <string name="title_level">Level</string>
     <string name="skype_id_content">Skype : %s</string>
+    <string name="empty_error">Field must not be empty</string>
 
     <!--Give a star-->
     <string name="select_user">Select user</string>
@@ -90,8 +97,8 @@
 
     <!-- Transition names -->
     <string name="transition_photo">transition_photo</string>
-    <string name="select_keyword">Select a Keyword</string>
-    <string name="title_contacts_keyword_activity">Keyword Top</string>
-    <string name="keyword_top">%s Top</string>
+    <string name="edit_profile">Edit</string>
+    <string name="title_edit_profile_activity">Edit Profile</string>
+    <string name="location_head">Location:</string>
 
 </resources>

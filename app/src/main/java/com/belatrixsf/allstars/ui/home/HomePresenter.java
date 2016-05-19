@@ -54,4 +54,9 @@ public class HomePresenter extends AllStarsPresenter<HomeView> {
             employeeManager.getEmployeeService().cancel();
         }
     }
+
+    public void refreshEmployee() {
+        employeeManager.refreshEmployee();
+    }
+
 }
