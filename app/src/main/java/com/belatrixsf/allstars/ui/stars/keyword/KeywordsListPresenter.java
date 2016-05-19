@@ -46,20 +46,24 @@ public class KeywordsListPresenter extends AllStarsPresenter<KeywordsListView> {
     }
 
     public void getKeywords() {
-        view.showProgressIndicator();
-        categoryService.getKeywords(new AllStarsCallback<List<Keyword>>() {
-            @Override
-            public void onSuccess(List<Keyword> keywords) {
-                KeywordsListPresenter.this.keywords.addAll(keywords);
-                view.showKeywords(keywords);
-                view.hideProgressIndicator();
-            }
+        if (keywords.isEmpty()) {
+            view.showProgressIndicator();
+            categoryService.getKeywords(new AllStarsCallback<List<Keyword>>() {
+                @Override
+                public void onSuccess(List<Keyword> keywords) {
+                    KeywordsListPresenter.this.keywords.addAll(keywords);
+                    view.showKeywords(keywords);
+                    view.hideProgressIndicator();
+                }
 
-            @Override
-            public void onFailure(ServiceError serviceError) {
-                showError(serviceError.getErrorMessage());
-            }
-        });
+                @Override
+                public void onFailure(ServiceError serviceError) {
+                    showError(serviceError.getErrorMessage());
+                }
+            });
+        } else {
+            view.showKeywords(keywords);
+        }
     }
 
     public void onKeywordSelected(int position) {
@@ -67,5 +71,17 @@ public class KeywordsListPresenter extends AllStarsPresenter<KeywordsListView> {
             Keyword keyword = keywords.get(position);
             view.deliverKeywordAsResult(keyword);
         }
+    }
+
+    // saving state stuff
+
+    public void load(List<Keyword> keywords) {
+        if (keywords != null) {
+            this.keywords.addAll(keywords);
+        }
+    }
+
+    public List<Keyword> getKeywordsSync() {
+        return keywords;
     }
 }
