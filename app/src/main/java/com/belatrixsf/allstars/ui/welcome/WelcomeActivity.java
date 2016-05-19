@@ -28,7 +28,9 @@ import android.widget.FrameLayout;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.ui.common.AllStarsActivity;
 import com.belatrixsf.allstars.ui.login.LoginFragment;
-import com.belatrixsf.allstars.ui.signup.SignUpFragment;
+import com.belatrixsf.allstars.ui.login.LoginFragmentListener;
+import com.belatrixsf.allstars.ui.signup.SignUupFragment;
+import com.belatrixsf.allstars.ui.signup.SignUpFragmentListener;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.components.DaggerWelcomeComponent;
 import com.belatrixsf.allstars.utils.di.modules.presenters.WelcomePresenterModule;
@@ -40,7 +42,7 @@ import butterknife.Bind;
 /**
  * Created by icerrate on 17/05/16.
  */
-public class WelcomeActivity extends AllStarsActivity implements WelcomeView {
+public class WelcomeActivity extends AllStarsActivity implements WelcomeView, LoginFragmentListener, SignUpFragmentListener {
 
     @Inject WelcomePresenter welcomePresenter;
 
@@ -88,7 +90,7 @@ public class WelcomeActivity extends AllStarsActivity implements WelcomeView {
     public void showSignUp() {
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-                .replace(R.id.main_frame, new SignUpFragment())
+                .replace(R.id.main_frame, new SignUupFragment())
                 .commit();
     }
 
@@ -105,5 +107,15 @@ public class WelcomeActivity extends AllStarsActivity implements WelcomeView {
     @Override
     public void hideProgressIndicator() {
 
+    }
+
+    @Override
+    public void loginButtonClicked() {
+        welcomePresenter.loadLoginView();
+    }
+
+    @Override
+    public void signUpButtonClicked() {
+        welcomePresenter.loadSignUpView();
     }
 }

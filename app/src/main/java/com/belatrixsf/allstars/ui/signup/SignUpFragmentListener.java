@@ -18,32 +18,14 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.welcome;
+package com.belatrixsf.allstars.ui.signup;
 
-import com.belatrixsf.allstars.managers.EmployeeManager;
-import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
-
-import javax.inject.Inject;
 
 /**
- * Created by icerrate on 17/05/16.
+ * Created by icerrate on 19/05/2016.
  */
-public class WelcomePresenter extends AllStarsPresenter<WelcomeView> {
+public interface SignUpFragmentListener {
 
-    private EmployeeManager employeeManager;
-
-    @Inject
-    public WelcomePresenter(WelcomeView view, EmployeeManager employeeManager) {
-        super(view);
-        this.employeeManager = employeeManager;
-    }
-
-    public void loadLoginView(){
-        view.showLogin();
-    }
-
-    public void loadSignUpView(){
-        view.showSignUp();
-    }
+    void loginButtonClicked();
 
 }

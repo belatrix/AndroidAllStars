@@ -21,6 +21,8 @@
 package com.belatrixsf.allstars.ui.login;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -35,7 +37,6 @@ import android.widget.EditText;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.home.MainActivity;
-import com.belatrixsf.allstars.ui.signup.SignUpActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.components.DaggerLoginComponent;
 import com.belatrixsf.allstars.utils.di.modules.presenters.LoginPresenterModule;
@@ -48,11 +49,33 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
     @Bind(R.id.username) EditText usernameEditText;
     @Bind(R.id.password) EditText passwordEditText;
     @Bind(R.id.log_in) Button logInButton;
+    @Bind(R.id.sign_up) Button signUpButton;
 
     private LoginPresenter loginPresenter;
+    private LoginFragmentListener loginFragmentListener;
 
     public LoginFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        castOrThrowException(activity);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        castOrThrowException(context);
+    }
+
+    private void castOrThrowException(Context context) {
+        try {
+            loginFragmentListener = (LoginFragmentListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement LoginFragmentListener");
+        }
     }
 
     @Override
@@ -109,6 +132,11 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
         loginPresenter.login(username, password);
+    }
+
+    @OnClick(R.id.sign_up)
+    public void signUpClicked() {
+        loginFragmentListener.signUpButtonClicked();
     }
 
     private TextWatcher formFieldWatcher = new TextWatcher() {

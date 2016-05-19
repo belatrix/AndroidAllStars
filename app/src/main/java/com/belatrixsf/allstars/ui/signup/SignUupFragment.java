@@ -21,6 +21,8 @@
 package com.belatrixsf.allstars.ui.signup;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
@@ -43,15 +45,36 @@ import butterknife.OnClick;
 /**
  * Created by icerrate on 16/05/16.
  */
-public class SignUpFragment extends AllStarsFragment implements SignUpView {
+public class SignUupFragment extends AllStarsFragment implements SignUpView {
 
     @Bind(R.id.email) EditText emailEditText;
     @Bind(R.id.send) Button sendButton;
 
     private SignUpPresenter signUpPresenter;
+    private SignUpFragmentListener signUpFragmentListener;
 
-    public SignUpFragment() {
+    public SignUupFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        castOrThrowException(activity);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        castOrThrowException(context);
+    }
+
+    private void castOrThrowException(Context context) {
+        try {
+            signUpFragmentListener = (SignUpFragmentListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement SignUpFragmentListener");
+        }
     }
 
     @Override
@@ -113,6 +136,11 @@ public class SignUpFragment extends AllStarsFragment implements SignUpView {
         }).show();
     }
 
+    @OnClick(R.id.log_in)
+    public void logInClicked() {
+        signUpFragmentListener.loginButtonClicked();
+    }
+
     private TextWatcher formFieldWatcher = new TextWatcher() {
 
         @Override
@@ -130,7 +158,6 @@ public class SignUpFragment extends AllStarsFragment implements SignUpView {
         public void afterTextChanged(Editable s) {
 
         }
-
     };
 
 }
