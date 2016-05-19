@@ -33,10 +33,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.home.MainActivity;
+import com.belatrixsf.allstars.ui.signup.SignUpActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.components.DaggerLoginComponent;
 import com.belatrixsf.allstars.utils.di.modules.presenters.LoginPresenterModule;
@@ -49,10 +51,9 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
     @Bind(R.id.username) EditText usernameEditText;
     @Bind(R.id.password) EditText passwordEditText;
     @Bind(R.id.log_in) Button logInButton;
-    @Bind(R.id.sign_up) Button signUpButton;
+    @Bind(R.id.sign_up) TextView signUpButton;
 
     private LoginPresenter loginPresenter;
-    private LoginFragmentListener loginFragmentListener;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -61,21 +62,11 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        castOrThrowException(activity);
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        castOrThrowException(context);
-    }
-
-    private void castOrThrowException(Context context) {
-        try {
-            loginFragmentListener = (LoginFragmentListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement LoginFragmentListener");
-        }
     }
 
     @Override
@@ -103,7 +94,6 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        loginPresenter = null;
     }
 
     @Override
@@ -136,7 +126,8 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
 
     @OnClick(R.id.sign_up)
     public void signUpClicked() {
-        loginFragmentListener.signUpButtonClicked();
+        Intent intent = new Intent(getActivity(), SignUpActivity.class);
+        startActivity(intent);
     }
 
     private TextWatcher formFieldWatcher = new TextWatcher() {

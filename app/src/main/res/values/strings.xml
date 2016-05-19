@@ -24,7 +24,7 @@
     <!-- Button -->
     <string name="button_log_in">Log In</string>
     <string name="button_sign_up">Sign Up</string>
-    <string name="button_sign_up_action">Send</string>
+    <string name="button_sign_up_action">Register</string>
 
     <!-- Title -->
     <string name="title_belatrix">Belatrix</string>
@@ -97,5 +97,7 @@
     <string name="select_keyword">Select a Keyword</string>
     <string name="title_contacts_keyword_activity">Keyword Top</string>
     <string name="keyword_top">%s Top</string>
+    <string name="let_s_get_started">Let\'s get started</string>
+    <string name="enter_your_email_address_to_receive_your_temporary_password">Enter your email address to receive your temporary password</string>
 
 </resources>

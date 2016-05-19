@@ -20,11 +20,9 @@
 */
 package com.belatrixsf.allstars.ui.signup;
 
-
-import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -49,32 +47,12 @@ public class SignUpFragment extends AllStarsFragment implements SignUpView {
 
     @Bind(R.id.email) EditText emailEditText;
     @Bind(R.id.send) Button sendButton;
+    @Bind(R.id.toolbar) Toolbar toolbar;
 
     private SignUpPresenter signUpPresenter;
-    private SignUpFragmentListener signUpFragmentListener;
 
     public SignUpFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        castOrThrowException(activity);
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        castOrThrowException(context);
-    }
-
-    private void castOrThrowException(Context context) {
-        try {
-            signUpFragmentListener = (SignUpFragmentListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement SignUpFragmentListener");
-        }
     }
 
     @Override
@@ -95,6 +73,8 @@ public class SignUpFragment extends AllStarsFragment implements SignUpView {
 
     private void initViews() {
         emailEditText.addTextChangedListener(formFieldWatcher);
+        fragmentListener.setToolbar(toolbar);
+        fragmentListener.setTitle("");
     }
 
     @Override
@@ -134,11 +114,6 @@ public class SignUpFragment extends AllStarsFragment implements SignUpView {
                 signUpPresenter.confirmMessage();
             }
         }).show();
-    }
-
-    @OnClick(R.id.log_in)
-    public void logInClicked() {
-        signUpFragmentListener.loginButtonClicked();
     }
 
     private TextWatcher formFieldWatcher = new TextWatcher() {

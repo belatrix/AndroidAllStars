@@ -59,7 +59,7 @@ public class LoginPresenter extends AllStarsPresenter<LoginView> {
 
             @Override
             public void onFailure(ServiceError serviceError) {
-                showError(serviceError.getErrorMessage());
+                showError(serviceError.getDetail());
             }
         });
     }

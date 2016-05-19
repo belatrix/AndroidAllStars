@@ -21,7 +21,7 @@
     <color name="recycler_view_normal">#ffffff</color>
     <color name="recycler_view_press">#20424242</color>
 
-    <color name="translucent">#70FFFFFF</color>
+    <color name="translucent">#A6FFFFFF</color>
 
     <color name="first_place">#DCB93C</color>
     <color name="second_place">#B7BDC0</color>

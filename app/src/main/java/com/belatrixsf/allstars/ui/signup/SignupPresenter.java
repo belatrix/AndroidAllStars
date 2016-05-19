@@ -62,7 +62,7 @@ public class SignUpPresenter extends AllStarsPresenter<SignUpView> {
 
             @Override
             public void onFailure(ServiceError serviceError) {
-                showError(serviceError.getErrorMessage());
+                showError(serviceError.getDetail());
             }
         });
     }
