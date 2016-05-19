@@ -23,9 +23,12 @@
     <string name="hint_last_name">Last Name</string>
     <string name="hint_skype_id">Skype Id</string>
     <string name="hint_keyword">Select a Keyword</string>
+    <string name="hint_old_password">Old Password</string>
+    <string name="hint_new_password">New Password</string>
 
     <!-- Button -->
     <string name="button_log_in">Log In</string>
+    <string name="button_reset">Reset</string>
 
     <!-- Title -->
     <string name="title_belatrix">Belatrix</string>

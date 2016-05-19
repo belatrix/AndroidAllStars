@@ -28,9 +28,11 @@ import com.belatrixsf.allstars.utils.ServiceError;
 import javax.inject.Inject;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by icerrate on 19/05/16.
  */
 public class ResetPasswordPresenter extends AllStarsPresenter<ResetPasswordView> {
+
+    static final int MIN_PASSWORD_LENGHT = 4;
 
     private EmployeeManager employeeManager;
 
@@ -40,21 +42,21 @@ public class ResetPasswordPresenter extends AllStarsPresenter<ResetPasswordView>
         this.employeeManager = employeeManager;
     }
 
-    public void checkIfInputsAreValid(String username, String password) {
-        view.enableLogin(username != null && password != null && !username.isEmpty() && !password.isEmpty());
+    public void checkIfInputsAreValid(String oldPassword, String newPassword) {
+        view.enableReset(oldPassword != null && newPassword != null && !oldPassword.isEmpty() && !newPassword.isEmpty() && newPassword.length() >= MIN_PASSWORD_LENGHT);
     }
 
     public void init() {
-        view.enableLogin(false);
+        view.enableReset(false);
     }
 
-    public void login(String username, String password) {
+    public void reset(String oldPassword, String newPassword) {
         view.showProgressDialog();
-        employeeManager.login(username, password, new AllStarsCallback<Void>() {
+        employeeManager.resetPassword(oldPassword, newPassword, new AllStarsCallback<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 view.dismissProgressDialog();
-                view.goHome();
+                view.goEditProfile();
             }
 
             @Override

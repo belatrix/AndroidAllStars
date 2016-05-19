@@ -18,28 +18,16 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.resetpassword;
-
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-
-import com.belatrixsf.allstars.R;
-import com.belatrixsf.allstars.ui.common.AllStarsActivity;
+package com.belatrixsf.allstars.networking.retrofit.responses;
 
 /**
  * Created by icerrate on 19/05/16.
  */
-public class ResetPasswordActivity extends AllStarsActivity {
+public class ResetPasswordResponse {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reset_password);
+    private String data;
+
+    public String getData() {
+        return data;
     }
-
-    public static Intent makeIntent(Context context) {
-        return new Intent(context, ResetPasswordActivity.class);
-    }
-
 }

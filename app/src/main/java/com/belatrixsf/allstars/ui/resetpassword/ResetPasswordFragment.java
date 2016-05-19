@@ -27,6 +27,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -42,11 +43,14 @@ import com.belatrixsf.allstars.utils.di.modules.presenters.ResetPasswordPresente
 import butterknife.Bind;
 import butterknife.OnClick;
 
+/**
+ * Created by icerrate on 19/05/16.
+ */
 public class ResetPasswordFragment extends AllStarsFragment implements ResetPasswordView {
 
-    @Bind(R.id.username) EditText usernameEditText;
-    @Bind(R.id.password) EditText passwordEditText;
-    @Bind(R.id.log_in) Button logInButton;
+    @Bind(R.id.old_password) EditText oldPasswordEditText;
+    @Bind(R.id.new_password) EditText newPasswordEditText;
+    @Bind(R.id.reset) Button resetButton;
 
     private ResetPasswordPresenter resetPasswordPresenter;
 
@@ -58,7 +62,7 @@ public class ResetPasswordFragment extends AllStarsFragment implements ResetPass
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        return inflater.inflate(R.layout.fragment_reset_password, container, false);
     }
 
     @Override
@@ -71,9 +75,9 @@ public class ResetPasswordFragment extends AllStarsFragment implements ResetPass
     }
 
     private void initViews() {
-        passwordEditText.setTransformationMethod(new PasswordTransformationMethod());
-        usernameEditText.addTextChangedListener(formFieldWatcher);
-        passwordEditText.addTextChangedListener(formFieldWatcher);
+        newPasswordEditText.setTransformationMethod(new PasswordTransformationMethod());
+        oldPasswordEditText.setTransformationMethod(new PasswordTransformationMethod());
+        oldPasswordEditText.addTextChangedListener(formFieldWatcher);
     }
 
     @Override
@@ -92,22 +96,33 @@ public class ResetPasswordFragment extends AllStarsFragment implements ResetPass
     }
 
     @Override
-    public void goHome() {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.home:
+                getActivity().finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void goEditProfile() {
         Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
         fragmentListener.closeActivity();
     }
 
     @Override
-    public void enableLogin(boolean enable) {
-        logInButton.setEnabled(enable);
+    public void enableReset(boolean enable) {
+        resetButton.setEnabled(enable);
     }
 
-    @OnClick(R.id.log_in)
-    public void loginClicked() {
-        String username = usernameEditText.getText().toString();
-        String password = passwordEditText.getText().toString();
-        resetPasswordPresenter.login(username, password);
+    @OnClick(R.id.reset)
+    public void resetClicked() {
+        String oldPassword = oldPasswordEditText.getText().toString();
+        String newPassword = newPasswordEditText.getText().toString();
+        resetPasswordPresenter.reset(oldPassword, newPassword);
     }
 
     private TextWatcher formFieldWatcher = new TextWatcher() {
@@ -119,9 +134,9 @@ public class ResetPasswordFragment extends AllStarsFragment implements ResetPass
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            String username = usernameEditText.getText().toString();
-            String password = passwordEditText.getText().toString();
-            resetPasswordPresenter.checkIfInputsAreValid(username, password);
+            String oldPassword = oldPasswordEditText.getText().toString();
+            String newPassword = newPasswordEditText.getText().toString();
+            resetPasswordPresenter.checkIfInputsAreValid(oldPassword, newPassword);
         }
 
         @Override

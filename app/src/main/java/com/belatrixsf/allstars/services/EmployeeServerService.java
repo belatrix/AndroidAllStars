@@ -26,8 +26,10 @@ import com.belatrixsf.allstars.entities.Location;
 import com.belatrixsf.allstars.networking.retrofit.RetrofitCallback;
 import com.belatrixsf.allstars.networking.retrofit.api.EmployeeAPI;
 import com.belatrixsf.allstars.networking.retrofit.requests.AuthenticationRequest;
+import com.belatrixsf.allstars.networking.retrofit.requests.ResetPasswordRequest;
 import com.belatrixsf.allstars.networking.retrofit.requests.UpdateEmployeeRequest;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
+import com.belatrixsf.allstars.networking.retrofit.responses.ResetPasswordResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 
@@ -49,6 +51,12 @@ public class EmployeeServerService implements EmployeeService {
     public void authenticate(String username, String password, AllStarsCallback<AuthenticationResponse> callback) {
         AuthenticationRequest request = new AuthenticationRequest(username, password);
         employeeAPI.authenticate(request).enqueue(new RetrofitCallback<AuthenticationResponse>(callback));
+    }
+
+    @Override
+    public void resetPassword(int employeeId, String oldPassword, String newPassword, AllStarsCallback<ResetPasswordResponse> callback) {
+        ResetPasswordRequest request = new ResetPasswordRequest(oldPassword, newPassword);
+        employeeAPI.resetPassword(employeeId, request).enqueue(new RetrofitCallback<ResetPasswordResponse>(callback));
     }
 
     @Override

@@ -22,6 +22,7 @@ package com.belatrixsf.allstars.managers;
 
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
+import com.belatrixsf.allstars.networking.retrofit.responses.ResetPasswordResponse;
 import com.belatrixsf.allstars.services.EmployeeService;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
@@ -68,6 +69,23 @@ public class EmployeeManager {
                 callback.onFailure(serviceError);
             }
         });
+    }
+
+    public void resetPassword(String oldPassword, String newPassword, final AllStarsCallback<Void> callback) {
+        if (employee == null) {
+            int storedEmployeeId = PreferencesManager.get().getEmployeeId();
+            employeeService.resetPassword(storedEmployeeId, oldPassword, newPassword, new AllStarsCallback<ResetPasswordResponse>() {
+                @Override
+                public void onSuccess(ResetPasswordResponse resetPasswordResponse) {
+
+                }
+
+                @Override
+                public void onFailure(ServiceError serviceError) {
+                    callback.onFailure(serviceError);
+                }
+            });
+        }
     }
 
     public void getLoggedInEmployee(final AllStarsCallback<Employee> callback) {

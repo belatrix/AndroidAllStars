@@ -23,11 +23,11 @@ package com.belatrixsf.allstars.ui.resetpassword;
 import com.belatrixsf.allstars.ui.common.AllStarsView;
 
 /**
- * Created by gyosida on 4/11/16.
+ * Created by icerrate on 19/05/16.
  */
 public interface ResetPasswordView extends AllStarsView {
 
-    void goHome();
-    void enableLogin(boolean enable);
+    void goEditProfile();
+    void enableReset(boolean enable);
 
 }
