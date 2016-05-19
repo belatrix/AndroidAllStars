@@ -50,9 +50,6 @@ public class HomePresenter extends AllStarsPresenter<HomeView> {
 
     @Override
     public void cancelRequests() {
-        if (employeeManager != null && employeeManager.getEmployeeService() != null) {
-            employeeManager.getEmployeeService().cancel();
-        }
     }
 
     public void refreshEmployee() {

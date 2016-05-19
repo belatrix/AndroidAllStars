@@ -69,8 +69,5 @@ public class LoginPresenter extends AllStarsPresenter<LoginView> {
 
     @Override
     public void cancelRequests() {
-        if (employeeManager != null && employeeManager.getEmployeeService() != null) {
-            employeeManager.getEmployeeService().cancel();
-        }
     }
 }

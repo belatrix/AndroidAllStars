@@ -100,7 +100,4 @@ public class EmployeeManager {
         PreferencesManager.get().clearToken();
     }
 
-    public EmployeeService getEmployeeService() {
-        return employeeService;
-    }
 }
