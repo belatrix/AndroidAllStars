@@ -69,10 +69,10 @@ public class CategoriesPresenter extends AllStarsPresenter<CategoriesView> {
             if (viewPresentsCategories()) {
                 if (employeeManager != null && employeeService != null) {
                     view.showProgressIndicator();
-                    employeeManager.getLoggedInEmployee(requestTag, new AllStarsCallback<Employee>() {
+                    employeeManager.getLoggedInEmployee(new AllStarsCallback<Employee>() {
                         @Override
                         public void onSuccess(Employee employee) {
-                            employeeService.getEmployeeCategories(requestTag, employee.getPk(), categoriesCallback);
+                            employeeService.getEmployeeCategories(employee.getPk(), categoriesCallback);
                         }
 
                         @Override
@@ -84,7 +84,7 @@ public class CategoriesPresenter extends AllStarsPresenter<CategoriesView> {
             } else {
                 if (categoryService != null) {
                     view.showProgressIndicator();
-                    categoryService.getSubcategories(requestTag, category.getId(), categoriesCallback);
+                    categoryService.getSubcategories(category.getId(), categoriesCallback);
                 }
             }
         } else {
@@ -136,4 +136,9 @@ public class CategoriesPresenter extends AllStarsPresenter<CategoriesView> {
         }
     };
 
+    @Override
+    public void cancelRequests() {
+        categoryService.cancel();
+        employeeService.cancel();
+    }
 }

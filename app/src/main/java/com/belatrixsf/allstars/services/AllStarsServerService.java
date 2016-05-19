@@ -18,40 +18,45 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.home;
 
-import com.belatrixsf.allstars.R;
-import com.belatrixsf.allstars.managers.EmployeeManager;
-import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
+package com.belatrixsf.allstars.services;
 
-import javax.inject.Inject;
+import android.os.NetworkOnMainThreadException;
+
+import com.belatrixsf.allstars.networking.retrofit.RetrofitCallback;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+
 
 /**
- * Created by gyosida on 4/28/16.
+ * @author Carlos Piñan
  */
-public class HomePresenter extends AllStarsPresenter<HomeView> {
+public abstract class AllStarsServerService implements AllStarsService {
 
-    private EmployeeManager employeeManager;
+    private List<Call> callList;
 
-    @Inject
-    public HomePresenter(HomeView view, EmployeeManager employeeManager) {
-        super(view);
-        this.employeeManager = employeeManager;
-    }
-
-    public void wantToLogout() {
-        view.showLogoutConfirmationDialog(getString(R.string.dialog_confirmation_logout));
-    }
-
-    public void confirmLogout() {
-        employeeManager.logout();
-        view.goToLogin();
+    protected void enqueue(Call call, RetrofitCallback callback) {
+        if (callList == null) {
+            callList = new ArrayList<>();
+        }
+        callList.add(call);
+        call.enqueue(callback);
     }
 
     @Override
-    public void cancelRequests() {
-        if (employeeManager != null && employeeManager.getEmployeeService() != null) {
-            employeeManager.getEmployeeService().cancel();
+    public void cancel() {
+        if (callList != null && !callList.isEmpty()) {
+            try {
+                for (Call call : callList) {
+                    call.cancel();
+                }
+            } catch (NetworkOnMainThreadException e) {
+                e.printStackTrace();
+            }
+            callList.clear();
         }
     }
 }

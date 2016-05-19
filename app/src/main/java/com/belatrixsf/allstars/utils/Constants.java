@@ -26,8 +26,6 @@ package com.belatrixsf.allstars.utils;
  */
 public class Constants {
 
-    public static final boolean IS_IN_DEVELOPMENT = true;
-
     public static final String KIND_TOTAL_SCORE = "total_score";
     public static final String KIND_CURRENT_MONTH = "current_month_score";
     public static final String KIND_LAST_MONTH_SCORE = "last_month_score";

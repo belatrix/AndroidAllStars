@@ -31,16 +31,16 @@ import java.util.List;
 /**
  * Created by gyosida on 4/12/16.
  */
-public interface EmployeeService {
+public interface EmployeeService extends AllStarsService {
 
-    void authenticate(String requestTag, String username, String password, AllStarsCallback<AuthenticationResponse> callback);
+    void authenticate(String username, String password, AllStarsCallback<AuthenticationResponse> callback);
 
-    void getEmployee(String requestTag, int employeeId, AllStarsCallback<Employee> callback);
+    void getEmployee(int employeeId, AllStarsCallback<Employee> callback);
 
-    void getEmployeeSearchList(String requestTag, String searchTerm, Integer page, AllStarsCallback<SearchEmployeeResponse> callback);
+    void getEmployeeSearchList(String searchTerm, Integer page, AllStarsCallback<SearchEmployeeResponse> callback);
 
-    void getRankingList(String requestTag, String kind, int quantity, AllStarsCallback<List<Employee>> callback);
+    void getRankingList(String kind, int quantity, AllStarsCallback<List<Employee>> callback);
 
-    void getEmployeeCategories(String requestTag, int employeeId, AllStarsCallback<List<Category>> callback);
+    void getEmployeeCategories(int employeeId, AllStarsCallback<List<Category>> callback);
 
 }

@@ -48,7 +48,6 @@ public class KeywordsListPresenter extends AllStarsPresenter<KeywordsListView> {
     public void getKeywords() {
         view.showProgressIndicator();
         categoryService.getKeywords(
-                requestTag,
                 new AllStarsCallback<List<Keyword>>() {
                     @Override
                     public void onSuccess(List<Keyword> keywords) {
@@ -69,5 +68,10 @@ public class KeywordsListPresenter extends AllStarsPresenter<KeywordsListView> {
             Keyword keyword = keywords.get(position);
             view.deliverKeywordAsResult(keyword);
         }
+    }
+
+    @Override
+    public void cancelRequests() {
+        categoryService.cancel();
     }
 }

@@ -93,7 +93,6 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
     public void getStars() {
         view.showProgressIndicator();
         starService.getStars(
-                requestTag,
                 employeeId,
                 subCategoryId,
                 starPaginatedResponse.getNextPage(),
@@ -117,5 +116,10 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
     public void onKeywordSelected(int position) {
         Keyword keyword = stars.get(position).getKeyword();
         view.goToKeywordContacts(keyword);
+    }
+
+    @Override
+    public void cancelRequests() {
+        starService.cancel();
     }
 }

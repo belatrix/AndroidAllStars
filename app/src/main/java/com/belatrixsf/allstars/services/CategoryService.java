@@ -29,9 +29,9 @@ import java.util.List;
 /**
  * Created by gyosida on 4/27/16.
  */
-public interface CategoryService {
+public interface CategoryService extends AllStarsService {
 
-    void getSubcategories(String requestTag, int categoryId, AllStarsCallback<List<Category>> callback);
-    
-    void getKeywords(String requestTag, AllStarsCallback<List<Keyword>> callback);
+    void getSubcategories(int categoryId, AllStarsCallback<List<Category>> callback);
+
+    void getKeywords(AllStarsCallback<List<Keyword>> callback);
 }

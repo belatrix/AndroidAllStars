@@ -69,7 +69,6 @@ public class ContactsKeywordListPresenter extends AllStarsPresenter<ContactsKeyw
     public void getEmployeesByStarKeywords() {
         view.showProgressIndicator();
         starService.getStarsKeywordTopList(
-                requestTag,
                 keyword.getId(),
                 starPaginatedResponse.getNextPage(),
                 new AllStarsCallback<StarKeywordTopListResponse>() {
@@ -96,4 +95,8 @@ public class ContactsKeywordListPresenter extends AllStarsPresenter<ContactsKeyw
         }
     }
 
+    @Override
+    public void cancelRequests() {
+        starService.cancel();
+    }
 }

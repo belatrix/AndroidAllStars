@@ -13,7 +13,7 @@ import com.belatrixsf.allstars.utils.AllStarsCallback;
 /**
  * Created by PedroCarrillo on 4/26/16.
  */
-public class StarServerService extends AllStarsService implements StarService {
+public class StarServerService extends AllStarsServerService implements StarService {
 
     private StarAPI starAPI;
 
@@ -22,28 +22,28 @@ public class StarServerService extends AllStarsService implements StarService {
     }
 
     @Override
-    public void getEmployeeSubCategoriesStars(String requestTag, int employeeId, AllStarsCallback<StarSubCategoryResponse> callback) {
-        enqueue(requestTag, starAPI.getEmployeeSubCategoriesStars(employeeId), new RetrofitCallback<StarSubCategoryResponse>(callback));
+    public void getEmployeeSubCategoriesStars(int employeeId, AllStarsCallback<StarSubCategoryResponse> callback) {
+        enqueue(starAPI.getEmployeeSubCategoriesStars(employeeId), new RetrofitCallback<StarSubCategoryResponse>(callback));
     }
 
     @Override
-    public void star(String requestTag, int fromEmployeeId, int toEmployeeId, StarRequest starRequest, AllStarsCallback<StarResponse> callback) {
-        enqueue(requestTag, starAPI.star(fromEmployeeId, toEmployeeId, starRequest), new RetrofitCallback<StarResponse>(callback));
+    public void star(int fromEmployeeId, int toEmployeeId, StarRequest starRequest, AllStarsCallback<StarResponse> callback) {
+        enqueue(starAPI.star(fromEmployeeId, toEmployeeId, starRequest), new RetrofitCallback<StarResponse>(callback));
     }
 
     @Override
-    public void getStars(String requestTag, int employeeId, int subcategory, Integer page, AllStarsCallback<StarsResponse> callback) {
-        enqueue(requestTag, starAPI.getStars(employeeId, subcategory, page), new RetrofitCallback<StarsResponse>(callback));
+    public void getStars(int employeeId, int subcategory, Integer page, AllStarsCallback<StarsResponse> callback) {
+        enqueue(starAPI.getStars(employeeId, subcategory, page), new RetrofitCallback<StarsResponse>(callback));
     }
 
     @Override
-    public void getStarsKeywordTopList(String requestTag, int keywordId, Integer page, AllStarsCallback<StarKeywordTopListResponse> callback) {
-        enqueue(requestTag, starAPI.getStarsKeywordTop(keywordId, page), new RetrofitCallback<StarKeywordTopListResponse>(callback));
+    public void getStarsKeywordTopList(int keywordId, Integer page, AllStarsCallback<StarKeywordTopListResponse> callback) {
+        enqueue(starAPI.getStarsKeywordTop(keywordId, page), new RetrofitCallback<StarKeywordTopListResponse>(callback));
     }
 
     @Override
-    public void getStarsByKeywords(String requestTag, String search, Integer next, AllStarsCallback<StarsByKeywordsResponse> callback) {
-        enqueue(requestTag, starAPI.getStarsByKeywords(search, next), new RetrofitCallback<StarsByKeywordsResponse>(callback));
+    public void getStarsByKeywords(String search, Integer next, AllStarsCallback<StarsByKeywordsResponse> callback) {
+        enqueue(starAPI.getStarsByKeywords(search, next), new RetrofitCallback<StarsByKeywordsResponse>(callback));
     }
 
 }

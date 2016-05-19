@@ -11,17 +11,17 @@ import com.belatrixsf.allstars.utils.AllStarsCallback;
 /**
  * Created by PedroCarrillo on 4/26/16.
  */
-public interface StarService {
+public interface StarService extends AllStarsService {
 
 
-    void getEmployeeSubCategoriesStars(String requestTag, int employeeId, AllStarsCallback<StarSubCategoryResponse> callback);
+    void getEmployeeSubCategoriesStars(int employeeId, AllStarsCallback<StarSubCategoryResponse> callback);
 
-    void star(String requestTag, int fromEmployeeId, int toEmployeeId, StarRequest starRequest, AllStarsCallback<StarResponse> callback);
+    void star(int fromEmployeeId, int toEmployeeId, StarRequest starRequest, AllStarsCallback<StarResponse> callback);
 
-    void getStarsByKeywords(String requestTag, String search, Integer next, AllStarsCallback<StarsByKeywordsResponse> callback);
+    void getStarsByKeywords(String search, Integer next, AllStarsCallback<StarsByKeywordsResponse> callback);
 
-    void getStars(String requestTag, int employeeId, int subcategory, Integer page, AllStarsCallback<StarsResponse> callback);
+    void getStars(int employeeId, int subcategory, Integer page, AllStarsCallback<StarsResponse> callback);
 
-    void getStarsKeywordTopList(String requestTag, int keywordId, Integer page, AllStarsCallback<StarKeywordTopListResponse> callback);
+    void getStarsKeywordTopList(int keywordId, Integer page, AllStarsCallback<StarKeywordTopListResponse> callback);
 
 }

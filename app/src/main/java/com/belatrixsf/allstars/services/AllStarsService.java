@@ -21,61 +21,11 @@
 
 package com.belatrixsf.allstars.services;
 
-import android.os.NetworkOnMainThreadException;
-
-import com.belatrixsf.allstars.networking.retrofit.RetrofitCallback;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import retrofit2.Call;
-
-
 /**
  * @author Carlos Piñan
  */
-// TODO Implement a way to clean the callHashMap every X time.
-public abstract class AllStarsService {
+public interface AllStarsService {
 
-    private static HashMap<String, List<Call>> callHashMap;
+    void cancel();
 
-    protected static void enqueue(String tag, Call call, RetrofitCallback callback) {
-        if (callHashMap == null) {
-            callHashMap = new HashMap<>();
-        }
-        if (callHashMap.containsKey(tag)) {
-            callHashMap.get(tag).add(call);
-        } else {
-            List<Call> callList = new ArrayList<>();
-            callList.add(call);
-            callHashMap.put(tag, callList);
-        }
-        call.enqueue(callback);
-    }
-
-    public static void cancel(String tag) {
-        if (tag != null && callHashMap != null && !callHashMap.isEmpty() && callHashMap.containsKey(tag)) {
-            List<Call> callList = callHashMap.get(tag);
-            try {
-                for (Call call : callList) {
-                    call.cancel();
-                }
-            } catch (NetworkOnMainThreadException e) {
-                e.printStackTrace();
-            }
-            callList.clear();
-            callHashMap.remove(tag);
-        }
-    }
-
-    public static void cancelAll() {
-        if (callHashMap != null && !callHashMap.isEmpty()) {
-            for (Map.Entry<String, List<Call>> entry : callHashMap.entrySet()) {
-                cancel(entry.getKey());
-            }
-            callHashMap.clear();
-        }
-    }
 }

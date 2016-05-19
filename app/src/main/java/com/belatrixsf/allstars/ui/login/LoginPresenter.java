@@ -51,7 +51,6 @@ public class LoginPresenter extends AllStarsPresenter<LoginView> {
     public void login(String username, String password) {
         view.showProgressDialog();
         employeeManager.login(
-                requestTag,
                 username,
                 password,
                 new AllStarsCallback<Void>() {
@@ -66,5 +65,12 @@ public class LoginPresenter extends AllStarsPresenter<LoginView> {
                         showError(serviceError.getErrorMessage());
                     }
                 });
+    }
+
+    @Override
+    public void cancelRequests() {
+        if (employeeManager != null && employeeManager.getEmployeeService() != null) {
+            employeeManager.getEmployeeService().cancel();
+        }
     }
 }

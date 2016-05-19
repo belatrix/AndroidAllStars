@@ -49,7 +49,6 @@ public class RankingPresenter extends AllStarsPresenter<RankingView> {
             view.showProgressIndicator();
         }
         employeeService.getRankingList(
-                requestTag,
                 kind,
                 quantity,
                 new AllStarsCallback<List<Employee>>() {
@@ -80,4 +79,8 @@ public class RankingPresenter extends AllStarsPresenter<RankingView> {
         view.goToEmployeeProfile(rankingEmployees.get(position).getPk());
     }
 
+    @Override
+    public void cancelRequests() {
+        employeeService.cancel();
+    }
 }

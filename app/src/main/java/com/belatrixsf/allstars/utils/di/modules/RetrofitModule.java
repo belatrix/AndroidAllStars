@@ -26,8 +26,6 @@ import com.belatrixsf.allstars.managers.PreferencesManager;
 import com.belatrixsf.allstars.networking.retrofit.api.CategoryAPI;
 import com.belatrixsf.allstars.networking.retrofit.api.EmployeeAPI;
 import com.belatrixsf.allstars.networking.retrofit.api.StarAPI;
-import com.belatrixsf.allstars.utils.Constants;
-import com.belatrixsf.allstars.utils.OkHttpSingleton;
 
 import java.io.IOException;
 
@@ -52,9 +50,9 @@ public class RetrofitModule {
 
     @Singleton
     @Provides
-    public Retrofit provideRetrofit() {
-        OkHttpClient.Builder builder = OkHttpSingleton.getOkHttpClient().newBuilder();
-        if (Constants.IS_IN_DEVELOPMENT) {
+    public Retrofit provideRetrofit(OkHttpClient okHttpClient) {
+        OkHttpClient.Builder builder = okHttpClient.newBuilder();
+        if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             builder.addInterceptor(loggingInterceptor);

@@ -125,7 +125,6 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
         if (contactPaginatedResponse.getNext() != null || page == 1) {
             view.showProgressIndicator();
             employeeService.getEmployeeSearchList(
-                    requestTag,
                     searchTerm,
                     page,
                     new AllStarsCallback<SearchEmployeeResponse>() {
@@ -162,5 +161,10 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
 
     public boolean getProfileEnabled() {
         return profileEnabled;
+    }
+
+    @Override
+    public void cancelRequests() {
+        employeeService.cancel();
     }
 }

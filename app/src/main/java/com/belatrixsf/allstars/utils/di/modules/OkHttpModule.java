@@ -19,27 +19,24 @@
 * SOFTWARE.
 */
 
-package com.belatrixsf.allstars.utils;
+package com.belatrixsf.allstars.utils.di.modules;
 
+import javax.inject.Singleton;
 
+import dagger.Module;
+import dagger.Provides;
 import okhttp3.OkHttpClient;
 
 /**
  * @author Carlos Piñan
- * @doc Class designed to have a single okhttp instance in all the application.
- * @source http://stackoverflow.com/questions/25853019/android-correct-way-to-use-okhttp-singleton-for-parallel-queries-with-cookies
  */
-public class OkHttpSingleton {
+@Module
+public class OkHttpModule {
 
-    private static OkHttpClient okHttpClient;
-
-    private OkHttpSingleton() { /* UNUSED */ }
-
-    public static OkHttpClient getOkHttpClient() {
-        if (okHttpClient == null) {
-            okHttpClient = new OkHttpClient();
-        }
-        return okHttpClient;
+    @Singleton
+    @Provides
+    public OkHttpClient providesOkHttpClient() {
+        return new OkHttpClient();
     }
 
 }

@@ -89,7 +89,6 @@ public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywo
     private void getKeywordsInternal() {
         view.showProgressIndicator();
         starService.getStarsByKeywords(
-                requestTag,
                 searchText,
                 keywordsPaging.getNextPage(),
                 new AllStarsCallback<StarsByKeywordsResponse>() {
@@ -109,4 +108,8 @@ public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywo
                 });
     }
 
+    @Override
+    public void cancelRequests() {
+        starService.cancel();
+    }
 }

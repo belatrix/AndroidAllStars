@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * Created by gyosida on 4/27/16.
  */
-public class CategoryServerService extends AllStarsService implements CategoryService {
+public class CategoryServerService extends AllStarsServerService implements CategoryService {
 
     private CategoryAPI categoryAPI;
 
@@ -41,13 +41,12 @@ public class CategoryServerService extends AllStarsService implements CategorySe
     }
 
     @Override
-    public void getSubcategories(String requestTag, int categoryId, AllStarsCallback<List<Category>> callback) {
-        enqueue(requestTag, categoryAPI.getSubcategories(categoryId), new RetrofitCallback<List<SubCategory>>(callback));
+    public void getSubcategories(int categoryId, AllStarsCallback<List<Category>> callback) {
+        enqueue(categoryAPI.getSubcategories(categoryId), new RetrofitCallback<List<SubCategory>>(callback));
     }
 
     @Override
-    public void getKeywords(String requestTag, AllStarsCallback<List<Keyword>> callback) {
-        enqueue(requestTag, categoryAPI.getKeywords(), new RetrofitCallback<List<Keyword>>(callback));
+    public void getKeywords(AllStarsCallback<List<Keyword>> callback) {
+        enqueue(categoryAPI.getKeywords(), new RetrofitCallback<List<Keyword>>(callback));
     }
 }
-
