@@ -19,6 +19,7 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
 
     private Employee employee;
     private List<Location> locationList;
+    private Location locationSelected;
     protected EmployeeService employeeService;
 
     @Inject
@@ -33,6 +34,7 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
         view.showFirstName(employee.getFirstName());
         view.showLastName(employee.getLastName());
         view.showSkypeId(employee.getSkypeId());
+        locationSelected = employee.getLocation();
         obtainLocations();
     }
 
@@ -52,18 +54,22 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
     }
 
     private void loadLocations() {
-        for (Location location : locationList) {
+        Location employeeLocation = employee.getLocation();
+        for (int i = 0; i < locationList.size(); i++) {
+            Location location = locationList.get(i);
             view.addLocation(location.getName());
+            if (employeeLocation != null && employeeLocation.getName().equalsIgnoreCase(location.getName())) {
+                view.showLocation(i);
+            }
         }
     }
 
     public void finishEdit(String firstName, String lastName, String skypeId) {
         if (checkValidFirstName(firstName) && checkValidLastName(lastName) && checkValidSkypeId(skypeId)) {
             view.showProgressDialog();
-            employeeService.updateEmployee(employee.getPk(), firstName, lastName, skypeId, 1, new AllStarsCallback<Employee>() {
+            employeeService.updateEmployee(employee.getPk(), firstName, lastName, skypeId, locationSelected.getPk(), new AllStarsCallback<Employee>() {
                 @Override
                 public void onSuccess(Employee employee) {
-                    //SUCCESS
                     view.dismissProgressDialog();
                     view.endSuccessfulEdit();
                 }
@@ -105,6 +111,10 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
 
     public List<Location> getLocationList() {
         return locationList;
+    }
+
+    public void selectLocation(int position) {
+        locationSelected = locationList.get(position);
     }
 
 }

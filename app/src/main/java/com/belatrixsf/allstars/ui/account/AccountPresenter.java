@@ -104,6 +104,9 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
     }
 
     private void showEmployeeData() {
+        if (employee.getLocation() != null) {
+            view.showLocationFlag(employee.getLocation().getIcon());
+        }
         if (employee.getLevel() != null) {
             view.showLevel(String.valueOf(employee.getLevel()));
         } else {

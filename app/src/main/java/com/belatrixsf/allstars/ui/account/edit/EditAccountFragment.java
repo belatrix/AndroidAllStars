@@ -74,7 +74,19 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
         if (getArguments() != null && getArguments().containsKey(EMPLOYEE_KEY)) {
             Employee employee = getArguments().getParcelable(EMPLOYEE_KEY);
             editAccountPresenter.init(employee);
+            initViews();
         }
+    }
+
+    private void initViews() {
+        locationRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton radioButton = (RadioButton) group.findViewById(checkedId);
+                int position = locationRadioGroup.indexOfChild(radioButton);
+                editAccountPresenter.selectLocation(position);
+            }
+        });
     }
 
     @Override
@@ -174,4 +186,9 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
         locationRadioGroup.addView(radioButton);
     }
 
+    @Override
+    public void showLocation(int position) {
+        RadioButton radioButton = (RadioButton) locationRadioGroup.getChildAt(position);
+        radioButton.setChecked(true);
+    }
 }

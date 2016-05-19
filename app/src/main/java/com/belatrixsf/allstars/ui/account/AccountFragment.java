@@ -85,6 +85,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     @Bind(R.id.profile_name) TextView nameTextView;
     @Bind(R.id.profile_email) TextView emailTextView;
     @Bind(R.id.profile_picture) ImageView pictureImageView;
+    @Bind(R.id.profile_location_logo) ImageView profileLocationImageView;
     @Bind(R.id.account_swipe_refresh) SwipeRefreshLayout accountSwipeRefresh;
     @Bind(R.id.subcategories_progress_bar) ProgressBar subCategoriesProgressBar;
     @Bind(R.id.no_data_textview) TextView noDataTextView;
@@ -249,6 +250,14 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
                         startPostponedEnterTransition();
                     }
                 }
+        );
+    }
+
+    @Override
+    public void showLocationFlag(String locationIcon) {
+        ImageFactory.getLoader().loadFromUrl(
+                locationIcon,
+                profileLocationImageView
         );
     }
 

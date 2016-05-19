@@ -34,6 +34,7 @@ public interface AccountView extends AllStarsView {
     void goSubCategoryDetail(Integer categoryId, Integer employeeId);
     void showCurrentMonthScore(String skypeId);
     void showScore(String score);
+    void showLocationFlag(String locationIcon);
     void showSubCategories(List<SubCategory> subCategories);
     void showLevel(String level);
     void showSkypeId(String skypeID);
