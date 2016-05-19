@@ -142,14 +142,9 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_account, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
         recommendMenuItem = menu.findItem(R.id.action_recommend);
         editProfileMenuItem = menu.findItem(R.id.action_edit_profile);
-        super.onPrepareOptionsMenu(menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override

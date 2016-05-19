@@ -99,5 +99,6 @@
     <string name="transition_photo">transition_photo</string>
     <string name="edit_profile">Edit</string>
     <string name="title_edit_profile_activity">Edit Profile</string>
+    <string name="location_head">Location:</string>
 
 </resources>

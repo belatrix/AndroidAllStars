@@ -29,13 +29,24 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
     }
 
     public void init(Employee employee) {
+        showEmployeeData(employee);
+        obtainLocations();
+    }
+
+    public void loadData(Employee employee, Location locationSelected, List<Location> locations) {
+        showEmployeeData(employee);
+        this.locationSelected = locationSelected;
+        this.locationList = locations;
+        loadLocations();
+    }
+
+    public void showEmployeeData(Employee employee) {
         this.employee = employee;
         view.showProfileImage(employee.getAvatar());
         view.showFirstName(employee.getFirstName());
         view.showLastName(employee.getLastName());
         view.showSkypeId(employee.getSkypeId());
         locationSelected = employee.getLocation();
-        obtainLocations();
     }
 
     public void obtainLocations() {
@@ -54,11 +65,10 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
     }
 
     private void loadLocations() {
-        Location employeeLocation = employee.getLocation();
         for (int i = 0; i < locationList.size(); i++) {
             Location location = locationList.get(i);
             view.addLocation(location.getName());
-            if (employeeLocation != null && employeeLocation.getName().equalsIgnoreCase(location.getName())) {
+            if (locationSelected != null && locationSelected.getName().equalsIgnoreCase(location.getName())) {
                 view.showLocation(i);
             }
         }
@@ -115,6 +125,14 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
 
     public void selectLocation(int position) {
         locationSelected = locationList.get(position);
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public Location getLocationSelected() {
+        return locationSelected;
     }
 
 }

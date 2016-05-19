@@ -25,6 +25,7 @@ import com.belatrixsf.allstars.utils.di.modules.presenters.EditAccountPresenterM
 import com.belatrixsf.allstars.utils.media.ImageFactory;
 import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -37,6 +38,8 @@ import static com.belatrixsf.allstars.ui.account.edit.EditAccountActivity.EMPLOY
 public class EditAccountFragment extends AllStarsFragment implements EditAccountView {
 
     public static final int RQ_EDIT_ACCOUNT = 22;
+    public static final String LOCATION_KEY = "_location_key";
+    public static final String LOCATIONS_KEY = "_locations_key";
 
     @Bind(R.id.profile_picture) ImageView pictureImageView;
     @Bind(R.id.firstName) EditText firstNameEditText;
@@ -71,11 +74,36 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (getArguments() != null && getArguments().containsKey(EMPLOYEE_KEY)) {
+        if (savedInstanceState != null) {
+            restoreState(savedInstanceState);
+        } else if (getArguments() != null && getArguments().containsKey(EMPLOYEE_KEY)) {
             Employee employee = getArguments().getParcelable(EMPLOYEE_KEY);
             editAccountPresenter.init(employee);
             initViews();
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        saveState(outState);
+        super.onSaveInstanceState(outState);
+    }
+
+
+    private void restoreState(Bundle savedInstanceState) {
+        Employee employee = savedInstanceState.getParcelable(EMPLOYEE_KEY);
+        Location locationSelected = savedInstanceState.getParcelable(LOCATION_KEY);
+        List<Location> locations = savedInstanceState.getParcelableArrayList(LOCATIONS_KEY);
+        editAccountPresenter.loadData(employee, locationSelected, locations);
+    }
+
+    private void saveState(Bundle outState) {
+        Employee employee = editAccountPresenter.getEmployee();
+        Location locationSelected = editAccountPresenter.getLocationSelected();
+        List<Location> locations = editAccountPresenter.getLocationList();
+        outState.putParcelable(EMPLOYEE_KEY, employee);
+        outState.putParcelable(LOCATION_KEY, locationSelected);
+        outState.putParcelableArrayList(LOCATIONS_KEY, new ArrayList<>(locations));
     }
 
     private void initViews() {
@@ -191,4 +219,5 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
         RadioButton radioButton = (RadioButton) locationRadioGroup.getChildAt(position);
         radioButton.setChecked(true);
     }
+
 }
