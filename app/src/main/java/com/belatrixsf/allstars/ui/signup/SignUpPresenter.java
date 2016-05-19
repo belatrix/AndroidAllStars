@@ -33,12 +33,12 @@ import javax.inject.Inject;
 /**
  * Created by icerrate on 16/05/16.
  */
-public class SignUppPresenter extends AllStarsPresenter<SignUppView> {
+public class SignUpPresenter extends AllStarsPresenter<SignUpView> {
 
     private EmployeeService employeeService;
 
     @Inject
-    public SignUppPresenter(SignUppView view, EmployeeService employeeService) {
+    public SignUpPresenter(SignUpView view, EmployeeService employeeService) {
         super(view);
         this.employeeService = employeeService;
     }

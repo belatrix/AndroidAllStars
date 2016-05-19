@@ -20,7 +20,7 @@
 */
 package com.belatrixsf.allstars.utils.di.modules.presenters;
 
-import com.belatrixsf.allstars.ui.signup.SignUppView;
+import com.belatrixsf.allstars.ui.signup.SignUpView;
 
 import dagger.Module;
 import dagger.Provides;
@@ -31,14 +31,14 @@ import dagger.Provides;
 @Module
 public class SignUpPresenterModule {
 
-    private SignUppView view;
+    private SignUpView view;
 
-    public SignUpPresenterModule(SignUppView view) {
+    public SignUpPresenterModule(SignUpView view) {
         this.view = view;
     }
 
     @Provides
-    public SignUppView providesView() {
+    public SignUpView providesView() {
         return view;
     }
 

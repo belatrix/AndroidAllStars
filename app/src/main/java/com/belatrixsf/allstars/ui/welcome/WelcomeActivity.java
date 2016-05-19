@@ -29,7 +29,7 @@ import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.ui.common.AllStarsActivity;
 import com.belatrixsf.allstars.ui.login.LoginFragment;
 import com.belatrixsf.allstars.ui.login.LoginFragmentListener;
-import com.belatrixsf.allstars.ui.signup.SignUppFragment;
+import com.belatrixsf.allstars.ui.signup.SignUpFragment;
 import com.belatrixsf.allstars.ui.signup.SignUpFragmentListener;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.components.DaggerWelcomeComponent;
@@ -90,7 +90,7 @@ public class WelcomeActivity extends AllStarsActivity implements WelcomeView, Lo
     public void showSignUp() {
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-                .replace(R.id.main_frame, new SignUppFragment())
+                .replace(R.id.main_frame, new SignUpFragment())
                 .commit();
     }
 
