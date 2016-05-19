@@ -3,7 +3,7 @@
 
     <item
         android:drawable="@color/white"
-        android:state_selected="false"/>
+        android:state_enabled="false"/>
 
     <item
         android:drawable="@drawable/ripple_primary"/>

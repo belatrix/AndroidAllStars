@@ -3,6 +3,6 @@
     android:color="?android:attr/colorControlHighlight">
 
     <item
-        android:drawable="@color/colorPrimary"/>
+        android:drawable="@color/white"/>
 
 </ripple>
