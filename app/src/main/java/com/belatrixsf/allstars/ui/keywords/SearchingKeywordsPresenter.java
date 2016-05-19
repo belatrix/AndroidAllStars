@@ -42,6 +42,7 @@ public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywo
     private List<Keyword> keywords = new ArrayList<>();
     private PaginatedResponse keywordsPaging = new PaginatedResponse();
     private String searchText;
+    private boolean searching = false;
 
 
     @Inject
@@ -59,12 +60,15 @@ public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywo
 
     public void searchKeywords() {
         view.showSearchActionMode();
+        searching = true;
     }
 
     public void stopSearchingKeywords() {
         searchText = null;
+        searching = false;
         view.resetList();
         keywordsPaging.reset();
+        keywords.clear();
         getKeywordsInternal();
     }
 
@@ -75,20 +79,19 @@ public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywo
     }
 
     public void getKeywords() {
-        if (keywords == null || keywords.isEmpty()) {
-            getKeywords(null);
+        view.resetList();
+        if (keywords.isEmpty()) {
+            getKeywordsInternal();
         } else {
-            view.resetList();
             view.addKeywords(keywords);
         }
     }
 
     public void getKeywords(String searchText) {
         this.searchText = searchText;
+        keywords.clear();
         view.resetList();
-        if (searchText != null) {
-            keywordsPaging.reset();
-        }
+        keywordsPaging.reset();
         getKeywordsInternal();
     }
 
@@ -113,11 +116,14 @@ public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywo
 
     // saving state stuff
 
-    public void load(List<Keyword> keywords, PaginatedResponse keywordsPaging, String searchText) {
-        this.keywords = keywords;
+    public void load(List<Keyword> keywords, PaginatedResponse keywordsPaging, String searchText, boolean searching) {
+        if (keywords != null) {
+            this.keywords.addAll(keywords);
+        }
         this.keywordsPaging = keywordsPaging;
         this.searchText = searchText;
-        if (searchText != null) {
+        this.searching = searching;
+        if (searching) {
             searchKeywords();
         }
     }
@@ -132,6 +138,10 @@ public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywo
 
     public List<Keyword> getKeywordsSync() {
         return keywords;
+    }
+
+    public boolean isSearching() {
+        return searching;
     }
 
 }

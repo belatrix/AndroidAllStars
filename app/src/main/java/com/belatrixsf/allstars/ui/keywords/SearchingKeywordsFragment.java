@@ -41,6 +41,7 @@ public class SearchingKeywordsFragment extends AllStarsFragment implements Searc
     private static final String KEYWORDS_KEY = "keywords_key";
     private static final String SEARCH_TEXT_KEY = "search_text_key";
     private static final String PAGING_KEY = "paging_key";
+    private static final String SEARCHING_KEY = "searching_key";
 
     private KeywordsListAdapter keywordsListAdapter;
     private EndlessRecyclerOnScrollListener endlessRecyclerOnScrollListener;
@@ -102,12 +103,14 @@ public class SearchingKeywordsFragment extends AllStarsFragment implements Searc
         List<Keyword> keywords = savedInstanceState.getParcelableArrayList(KEYWORDS_KEY);
         PaginatedResponse paging = savedInstanceState.getParcelable(PAGING_KEY);
         String searchText = savedInstanceState.getString(SEARCH_TEXT_KEY, null);
-        keywordsPresenter.load(keywords, paging, searchText);
+        boolean searching = savedInstanceState.getBoolean(SEARCHING_KEY, false);
+        keywordsPresenter.load(keywords, paging, searchText, searching);
     }
 
     private void savePresenterState(Bundle outState) {
         outState.putString(SEARCH_TEXT_KEY, keywordsPresenter.getSearchText());
         outState.putParcelable(PAGING_KEY, keywordsPresenter.getKeywordsPaging());
+        outState.putBoolean(SEARCHING_KEY, keywordsPresenter.isSearching());
         List<Keyword> keywords = keywordsPresenter.getKeywordsSync();
         if (keywords != null && keywords instanceof ArrayList) {
             outState.putParcelableArrayList(KEYWORDS_KEY, (ArrayList<Keyword>) keywords);
