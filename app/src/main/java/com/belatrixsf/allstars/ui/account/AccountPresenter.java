@@ -26,7 +26,8 @@ import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.managers.PreferencesManager;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarSubCategoryResponse;
-import com.belatrixsf.allstars.services.EmployeeService;
+import com.belatrixsf.allstars.services.ServiceRequest;
+import com.belatrixsf.allstars.services.contracts.EmployeeService;
 import com.belatrixsf.allstars.services.StarService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
@@ -172,8 +173,8 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
 
     @Override
     public void cancelRequests() {
-        employeeService.cancel();
-        starService.cancel();
+        employeeService.cancelAll();
+        starService.cancelAll();
     }
 
 }

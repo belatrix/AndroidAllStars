@@ -23,7 +23,7 @@ package com.belatrixsf.allstars.ui.signup;
 import android.text.TextUtils;
 
 import com.belatrixsf.allstars.networking.retrofit.responses.CreateEmployeeResponse;
-import com.belatrixsf.allstars.services.EmployeeService;
+import com.belatrixsf.allstars.services.contracts.EmployeeService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
@@ -69,5 +69,10 @@ public class SignUpPresenter extends AllStarsPresenter<SignUpView> {
 
     public void confirmMessage(){
         view.backToLogin();
+    }
+
+    @Override
+    public void cancelRequests() {
+        employeeService.cancelAll();
     }
 }

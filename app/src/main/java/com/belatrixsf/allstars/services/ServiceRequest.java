@@ -20,33 +20,15 @@
 */
 package com.belatrixsf.allstars.services;
 
-import com.belatrixsf.allstars.entities.Category;
-import com.belatrixsf.allstars.entities.Keyword;
-import com.belatrixsf.allstars.entities.SubCategory;
-import com.belatrixsf.allstars.networking.retrofit.RetrofitCallback;
-import com.belatrixsf.allstars.networking.retrofit.api.CategoryAPI;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 
-import java.util.List;
-
 /**
- * Created by gyosida on 4/27/16.
+ * Created by gyosida on 5/20/16.
  */
-public class CategoryServerService extends AllStarsServerService implements CategoryService {
+public abstract class ServiceRequest<T> {
 
-    private CategoryAPI categoryAPI;
+    abstract void enqueue(AllStarsCallback<T> allStarsCallback);
 
-    public CategoryServerService(CategoryAPI categoryAPI) {
-        this.categoryAPI = categoryAPI;
-    }
+    public abstract void cancel();
 
-    @Override
-    public void getSubcategories(int categoryId, AllStarsCallback<List<Category>> callback) {
-        enqueue(categoryAPI.getSubcategories(categoryId), new RetrofitCallback<List<SubCategory>>(callback));
-    }
-
-    @Override
-    public void getKeywords(AllStarsCallback<List<Keyword>> callback) {
-        enqueue(categoryAPI.getKeywords(), new RetrofitCallback<List<Keyword>>(callback));
-    }
 }

@@ -18,39 +18,22 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils.di.modules.presenters;
+package com.belatrixsf.allstars.services.contracts;
 
 import com.belatrixsf.allstars.entities.Category;
-import com.belatrixsf.allstars.managers.EmployeeManager;
-import com.belatrixsf.allstars.services.contracts.CategoryService;
-import com.belatrixsf.allstars.services.contracts.EmployeeService;
-import com.belatrixsf.allstars.ui.category.CategoriesPresenter;
-import com.belatrixsf.allstars.ui.category.CategoriesView;
+import com.belatrixsf.allstars.entities.Keyword;
+import com.belatrixsf.allstars.entities.SubCategory;
+import com.belatrixsf.allstars.services.ServiceRequest;
+import com.belatrixsf.allstars.utils.AllStarsCallback;
 
-import dagger.Module;
-import dagger.Provides;
+import java.util.List;
 
 /**
  * Created by gyosida on 4/27/16.
  */
-@Module
-public class CategoriesListModule {
+public interface CategoryService extends AllStarsService {
 
-    private CategoriesView categoriesView;
-    private Category category;
+    ServiceRequest getSubcategories(int categoryId, AllStarsCallback<List<Category>> callback);
 
-    public CategoriesListModule(CategoriesView categoriesView, Category category) {
-        this.categoriesView = categoriesView;
-        this.category = category;
-    }
-
-    @Provides
-    public CategoriesPresenter provideCategoriesPresenter(EmployeeManager employeeManager, EmployeeService employeeService, CategoryService categoryService) {
-        if (category == null) {
-            return new CategoriesPresenter(categoriesView, employeeManager, employeeService);
-        } else {
-            return new CategoriesPresenter(categoriesView, categoryService, category);
-        }
-    }
-
+    ServiceRequest getKeywords(AllStarsCallback<List<Keyword>> callback);
 }

@@ -21,7 +21,7 @@
 package com.belatrixsf.allstars.ui.stars.keyword;
 
 import com.belatrixsf.allstars.entities.Keyword;
-import com.belatrixsf.allstars.services.CategoryService;
+import com.belatrixsf.allstars.services.contracts.CategoryService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
@@ -58,7 +58,7 @@ public class KeywordsListPresenter extends AllStarsPresenter<KeywordsListView> {
 
                     @Override
                     public void onFailure(ServiceError serviceError) {
-                        showError(serviceError.getErrorMessage());
+                        showError(serviceError.getDetail());
                     }
                 });
         if (keywords.isEmpty()) {
@@ -100,6 +100,6 @@ public class KeywordsListPresenter extends AllStarsPresenter<KeywordsListView> {
 
     @Override
     public void cancelRequests() {
-        categoryService.cancel();
+        categoryService.cancelAll();
     }
 }

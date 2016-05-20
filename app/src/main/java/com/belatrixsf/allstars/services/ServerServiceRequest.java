@@ -18,14 +18,31 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-
 package com.belatrixsf.allstars.services;
 
+import com.belatrixsf.allstars.networking.retrofit.RetrofitCallback;
+import com.belatrixsf.allstars.utils.AllStarsCallback;
+
+import retrofit2.Call;
+
 /**
- * @author Carlos Piñan
+ * Created by gyosida on 5/20/16.
  */
-public interface AllStarsService {
+public class ServerServiceRequest<T> extends ServiceRequest<T> {
 
-    void cancel();
+    private Call<T> call;
 
+    public ServerServiceRequest(Call<T> call) {
+        this.call = call;
+    }
+
+    @Override
+    void enqueue(AllStarsCallback<T> allStarsCallback) {
+        call.enqueue(new RetrofitCallback<T>(allStarsCallback));
+    }
+
+    @Override
+    public void cancel() {
+        call.cancel();
+    }
 }

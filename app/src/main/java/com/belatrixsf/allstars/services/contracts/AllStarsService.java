@@ -19,44 +19,13 @@
 * SOFTWARE.
 */
 
-package com.belatrixsf.allstars.services;
-
-import android.os.NetworkOnMainThreadException;
-
-import com.belatrixsf.allstars.networking.retrofit.RetrofitCallback;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-
+package com.belatrixsf.allstars.services.contracts;
 
 /**
  * @author Carlos Piñan
  */
-public abstract class AllStarsServerService implements AllStarsService {
+public interface AllStarsService {
 
-    private List<Call> callList;
+    void cancelAll();
 
-    protected void enqueue(Call call, RetrofitCallback callback) {
-        if (callList == null) {
-            callList = new ArrayList<>();
-        }
-        callList.add(call);
-        call.enqueue(callback);
-    }
-
-    @Override
-    public void cancel() {
-        if (callList != null && !callList.isEmpty()) {
-            try {
-                for (Call call : callList) {
-                    call.cancel();
-                }
-            } catch (NetworkOnMainThreadException e) {
-                e.printStackTrace();
-            }
-            callList.clear();
-        }
-    }
 }

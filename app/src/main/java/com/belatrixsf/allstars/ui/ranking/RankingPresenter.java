@@ -21,7 +21,7 @@
 package com.belatrixsf.allstars.ui.ranking;
 
 import com.belatrixsf.allstars.entities.Employee;
-import com.belatrixsf.allstars.services.EmployeeService;
+import com.belatrixsf.allstars.services.contracts.EmployeeService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
@@ -81,6 +81,6 @@ public class RankingPresenter extends AllStarsPresenter<RankingView> {
 
     @Override
     public void cancelRequests() {
-        employeeService.cancel();
+        employeeService.cancelAll();
     }
 }

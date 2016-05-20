@@ -97,6 +97,6 @@ public class ContactsKeywordListPresenter extends AllStarsPresenter<ContactsKeyw
 
     @Override
     public void cancelRequests() {
-        starService.cancel();
+        starService.cancelAll();
     }
 }

@@ -172,6 +172,6 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
 
     @Override
     public void cancelRequests() {
-        starService.cancel();
+        starService.cancelAll();
     }
 }

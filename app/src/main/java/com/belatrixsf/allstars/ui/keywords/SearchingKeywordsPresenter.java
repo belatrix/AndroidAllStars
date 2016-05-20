@@ -118,7 +118,7 @@ public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywo
 
     @Override
     public void cancelRequests() {
-        starService.cancel();
+        starService.cancelAll();
     }
 
     // saving state stuff

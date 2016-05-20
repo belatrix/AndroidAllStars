@@ -6,6 +6,7 @@ import com.belatrixsf.allstars.networking.retrofit.responses.StarKeywordTopListR
 import com.belatrixsf.allstars.networking.retrofit.responses.StarsResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarSubCategoryResponse;
+import com.belatrixsf.allstars.services.contracts.AllStarsService;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 
 /**
@@ -14,14 +15,14 @@ import com.belatrixsf.allstars.utils.AllStarsCallback;
 public interface StarService extends AllStarsService {
 
 
-    void getEmployeeSubCategoriesStars(int employeeId, AllStarsCallback<StarSubCategoryResponse> callback);
+    ServiceRequest getEmployeeSubCategoriesStars(int employeeId, AllStarsCallback<StarSubCategoryResponse> callback);
 
-    void star(int fromEmployeeId, int toEmployeeId, StarRequest starRequest, AllStarsCallback<StarResponse> callback);
+    ServiceRequest star(int fromEmployeeId, int toEmployeeId, StarRequest starRequest, AllStarsCallback<StarResponse> callback);
 
-    void getStarsByKeywords(String search, Integer next, AllStarsCallback<StarsByKeywordsResponse> callback);
+    ServiceRequest getStarsByKeywords(String search, Integer next, AllStarsCallback<StarsByKeywordsResponse> callback);
 
-    void getStars(int employeeId, int subcategory, Integer page, AllStarsCallback<StarsResponse> callback);
+    ServiceRequest getStars(int employeeId, int subcategory, Integer page, AllStarsCallback<StarsResponse> callback);
 
-    void getStarsKeywordTopList(int keywordId, Integer page, AllStarsCallback<StarKeywordTopListResponse> callback);
+    ServiceRequest getStarsKeywordTopList(int keywordId, Integer page, AllStarsCallback<StarKeywordTopListResponse> callback);
 
 }

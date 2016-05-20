@@ -120,6 +120,6 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
 
     @Override
     public void cancelRequests() {
-        starService.cancel();
+        starService.cancelAll();
     }
 }

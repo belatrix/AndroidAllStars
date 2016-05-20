@@ -18,20 +18,40 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
+
 package com.belatrixsf.allstars.services;
 
-import com.belatrixsf.allstars.entities.Category;
-import com.belatrixsf.allstars.entities.Keyword;
+
+import com.belatrixsf.allstars.services.contracts.AllStarsService;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 
+import java.util.ArrayList;
 import java.util.List;
 
+
 /**
- * Created by gyosida on 4/27/16.
+ * @author Carlos Piñan
  */
-public interface CategoryService extends AllStarsService {
+public abstract class AllStarsBaseService implements AllStarsService {
 
-    void getSubcategories(int categoryId, AllStarsCallback<List<Category>> callback);
+    private List<ServiceRequest> serviceRequestList;
 
-    void getKeywords(AllStarsCallback<List<Keyword>> callback);
+    protected <T> void enqueue(ServiceRequest<T> serviceRequest, AllStarsCallback<T> allStarsCallback) {
+        if (serviceRequestList == null) {
+            serviceRequestList = new ArrayList<>();
+        }
+        serviceRequestList.add(serviceRequest);
+        serviceRequest.enqueue(allStarsCallback);
+    }
+
+    @Override
+    public void cancelAll() {
+        if (serviceRequestList != null && !serviceRequestList.isEmpty()) {
+            for (ServiceRequest serviceRequest : serviceRequestList) {
+                serviceRequest.cancel();
+            }
+            serviceRequestList.clear();
+        }
+    }
+
 }
