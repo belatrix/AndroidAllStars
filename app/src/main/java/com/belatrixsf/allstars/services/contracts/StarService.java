@@ -1,4 +1,4 @@
-package com.belatrixsf.allstars.services;
+package com.belatrixsf.allstars.services.contracts;
 
 import com.belatrixsf.allstars.networking.retrofit.requests.StarRequest;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarsByKeywordsResponse;
@@ -6,6 +6,7 @@ import com.belatrixsf.allstars.networking.retrofit.responses.StarKeywordTopListR
 import com.belatrixsf.allstars.networking.retrofit.responses.StarsResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarSubCategoryResponse;
+import com.belatrixsf.allstars.services.ServiceRequest;
 import com.belatrixsf.allstars.services.contracts.AllStarsService;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 

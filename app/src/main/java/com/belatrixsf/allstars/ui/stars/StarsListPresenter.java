@@ -24,7 +24,7 @@ import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.allstars.entities.Star;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarsResponse;
-import com.belatrixsf.allstars.services.StarService;
+import com.belatrixsf.allstars.services.contracts.StarService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;

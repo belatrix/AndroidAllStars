@@ -28,7 +28,7 @@ import com.belatrixsf.allstars.services.contracts.CategoryService;
 import com.belatrixsf.allstars.services.server.EmployeeServerService;
 import com.belatrixsf.allstars.services.contracts.EmployeeService;
 import com.belatrixsf.allstars.services.server.StarServerService;
-import com.belatrixsf.allstars.services.StarService;
+import com.belatrixsf.allstars.services.contracts.StarService;
 
 import dagger.Module;
 import dagger.Provides;

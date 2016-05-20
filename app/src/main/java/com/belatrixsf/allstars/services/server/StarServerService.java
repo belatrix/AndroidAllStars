@@ -9,7 +9,7 @@ import com.belatrixsf.allstars.networking.retrofit.responses.StarResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarSubCategoryResponse;
 import com.belatrixsf.allstars.services.AllStarsBaseService;
 import com.belatrixsf.allstars.services.ServiceRequest;
-import com.belatrixsf.allstars.services.StarService;
+import com.belatrixsf.allstars.services.contracts.StarService;
 import com.belatrixsf.allstars.services.ServerServiceRequest;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 

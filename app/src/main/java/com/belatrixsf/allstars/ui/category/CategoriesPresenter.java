@@ -138,7 +138,11 @@ public class CategoriesPresenter extends AllStarsPresenter<CategoriesView> {
 
     @Override
     public void cancelRequests() {
-        categoryService.cancelAll();
-        employeeService.cancelAll();
+        if (categoryService != null) {
+            categoryService.cancelAll();
+        }
+        if (employeeService != null) {
+            employeeService.cancelAll();
+        }
     }
 }
