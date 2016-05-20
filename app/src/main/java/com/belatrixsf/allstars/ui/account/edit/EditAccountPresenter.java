@@ -3,6 +3,7 @@ package com.belatrixsf.allstars.ui.account.edit;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.Location;
+import com.belatrixsf.allstars.managers.PreferencesManager;
 import com.belatrixsf.allstars.services.EmployeeService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
@@ -77,7 +78,8 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
     public void finishEdit(String firstName, String lastName, String skypeId) {
         if (checkValidFirstName(firstName) && checkValidLastName(lastName) && checkValidSkypeId(skypeId)) {
             view.showProgressDialog();
-            employeeService.updateEmployee(employee.getPk(), firstName, lastName, skypeId, locationSelected.getPk(), new AllStarsCallback<Employee>() {
+            int employeeId = PreferencesManager.get().getEmployeeId();
+            employeeService.updateEmployee(employeeId, firstName, lastName, skypeId, locationSelected.getPk(), new AllStarsCallback<Employee>() {
                 @Override
                 public void onSuccess(Employee employee) {
                     view.dismissProgressDialog();
