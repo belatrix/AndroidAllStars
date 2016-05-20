@@ -18,6 +18,7 @@
         android:id="@+id/contact_photo"
         android:layout_width="@dimen/dimen_10_6"
         android:layout_height="@dimen/dimen_10_6"
+        android:contentDescription="@string/profile_image_content_desc"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         tools:src="@drawable/ic_user"/>
 
@@ -41,6 +42,7 @@
             android:id="@+id/score_cup"
             android:layout_width="@dimen/dimen_5_5"
             android:layout_height="@dimen/dimen_5_5"
+            android:importantForAccessibility="no"
             android:scaleType="centerCrop"/>
 
         <TextView

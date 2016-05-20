@@ -18,9 +18,12 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.login;
+package com.belatrixsf.allstars.ui.signup;
 
-import com.belatrixsf.allstars.managers.EmployeeManager;
+import android.text.TextUtils;
+
+import com.belatrixsf.allstars.networking.retrofit.responses.CreateEmployeeResponse;
+import com.belatrixsf.allstars.services.EmployeeService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
@@ -28,33 +31,33 @@ import com.belatrixsf.allstars.utils.ServiceError;
 import javax.inject.Inject;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by icerrate on 16/05/16.
  */
-public class LoginPresenter extends AllStarsPresenter<LoginView> {
+public class SignUpPresenter extends AllStarsPresenter<SignUpView> {
 
-    private EmployeeManager employeeManager;
+    private EmployeeService employeeService;
 
     @Inject
-    public LoginPresenter(LoginView view, EmployeeManager employeeManager) {
+    public SignUpPresenter(SignUpView view, EmployeeService employeeService) {
         super(view);
-        this.employeeManager = employeeManager;
+        this.employeeService = employeeService;
     }
 
-    public void checkIfInputsAreValid(String username, String password) {
-        view.enableLogin(username != null && password != null && !username.isEmpty() && !password.isEmpty());
+    public void checkIfEmailIsValid(String email) {
+        view.enableSend(!TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches());
     }
 
     public void init() {
-        view.enableLogin(false);
+        view.enableSend(false);
     }
 
-    public void login(String username, String password) {
+    public void signUp(String email) {
         view.showProgressDialog();
-        employeeManager.login(username, password, new AllStarsCallback<Void>() {
+        employeeService.createEmployee(email, new AllStarsCallback<CreateEmployeeResponse>() {
             @Override
-            public void onSuccess(Void aVoid) {
+            public void onSuccess(CreateEmployeeResponse response) {
                 view.dismissProgressDialog();
-                view.goHome();
+                view.showMessage(response.getDetail());
             }
 
             @Override
@@ -62,5 +65,9 @@ public class LoginPresenter extends AllStarsPresenter<LoginView> {
                 showError(serviceError.getDetail());
             }
         });
+    }
+
+    public void confirmMessage(){
+        view.backToLogin();
     }
 }

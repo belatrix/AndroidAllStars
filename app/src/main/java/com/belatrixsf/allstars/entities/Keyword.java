@@ -81,9 +81,4 @@ public class Keyword implements Parcelable {
         }
     };
 
-    //TODO: REMOVE
-    public void setData(int i, String name) {
-        this.id = i;
-        this.name = name;
-    }
 }

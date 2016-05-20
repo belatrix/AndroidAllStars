@@ -24,6 +24,7 @@ import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.Location;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
+import com.belatrixsf.allstars.networking.retrofit.responses.CreateEmployeeResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 
@@ -35,6 +36,7 @@ import java.util.List;
 public interface EmployeeService {
 
     void authenticate(String username, String password, AllStarsCallback<AuthenticationResponse> callback);
+    void createEmployee(String email, AllStarsCallback<CreateEmployeeResponse> callback);
     void getEmployee(int employeeId, AllStarsCallback<Employee> callback);
     void getEmployeeSearchList(String searchTerm, Integer page, AllStarsCallback<SearchEmployeeResponse> callback);
     void getRankingList(String kind, int quantity, AllStarsCallback<List<Employee>> callback);

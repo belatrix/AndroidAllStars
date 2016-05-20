@@ -22,6 +22,7 @@ package com.belatrixsf.allstars.ui.common;
 
 import android.support.v4.app.Fragment;
 import android.content.Intent;
+import android.support.v7.widget.Toolbar;
 
 /**
  * Created by PedroCarrillo on 4/8/16.
@@ -38,5 +39,6 @@ public interface FragmentListener {
     void setActivityResult(int resultCode);
     void setActivityResult(int resultCode, Intent resultIntent);
     void setTitle(String title);
+    void setToolbar(Toolbar toolbar);
 
 }

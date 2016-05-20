@@ -18,33 +18,22 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils;
+package com.belatrixsf.allstars.ui.signup;
+
+import android.os.Bundle;
+
+import com.belatrixsf.allstars.R;
+import com.belatrixsf.allstars.ui.common.AllStarsActivity;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by icerrate on 16/05/16.
  */
-public class ServiceError {
+public class SignUpActivity extends AllStarsActivity {
 
-    public static final int UNKNOWN = 0;
-
-    private int responseCode;
-    private String detail;
-
-    public ServiceError(int responseCode, String errorMessage) {
-        this.responseCode = responseCode;
-        this.detail = errorMessage;
-    }
-
-    public void setResponseCode(int responseCode) {
-        this.responseCode = responseCode;
-    }
-
-    public int getResponseCode() {
-        return responseCode;
-    }
-
-    public String getDetail() {
-        return detail;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sign_up);
     }
 
 }

@@ -1,7 +1,7 @@
 package com.belatrixsf.allstars.ui;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.belatrixsf.allstars.managers.PreferencesManager;
 import com.belatrixsf.allstars.ui.home.MainActivity;

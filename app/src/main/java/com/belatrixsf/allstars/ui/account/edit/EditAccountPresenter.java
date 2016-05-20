@@ -59,7 +59,7 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
 
             @Override
             public void onFailure(ServiceError serviceError) {
-                showError(serviceError.getErrorMessage());
+                showError(serviceError.getDetail());
             }
         });
     }
@@ -86,7 +86,7 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
 
                 @Override
                 public void onFailure(ServiceError serviceError) {
-                    view.showError(serviceError.getErrorMessage());
+                    view.showError(serviceError.getDetail());
                 }
             });
         }
