@@ -36,6 +36,10 @@ public class SearchingViewPresenter {
         searchableView.notifyTextTyped(searchingText);
     }
 
+    public void editorAction(int actionId){
+        searchableView.editorAction(actionId);
+    }
+
     public void clearSearching() {
         searchableView.clearSearching();
     }
