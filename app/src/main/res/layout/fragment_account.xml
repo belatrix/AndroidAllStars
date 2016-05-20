@@ -23,60 +23,101 @@
                 android:focusableInTouchMode="true"
                 android:orientation="vertical">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/belatrix_placeholder"
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_height="@dimen/dimen_10_8"
+                        android:background="@color/colorPrimaryLight">
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_25_10"
-                        android:background="@color/white"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:paddingBottom="@dimen/activity_horizontal_margin"
                         android:orientation="vertical">
 
-                        <View
-                            android:id="@+id/belatrix_placeholder"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight=".2"
-                            android:background="@color/colorPrimaryLight" />
+                        <TextView
+                            android:id="@+id/profile_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_marginTop="@dimen/dimen_15_5"
+                            tools:text="Pedro Carrillo"
+                            style="@android:style/TextAppearance.Large" />
+
+                        <TextView
+                            android:id="@+id/profile_email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dimen_1_5"
+                            tools:text="fakeemail@email.com" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight=".3"
+                            android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="vertical">
 
-                            <TextView
-                                android:id="@+id/profile_name"
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/dimen_1_5"
+                                android:gravity="center"
+                                android:layout_weight=".5">
+
+                                <ImageView
+                                    android:layout_width="@dimen/dimen_16"
+                                    android:layout_height="@dimen/dimen_16"
+                                    android:background="@drawable/ic_skype" />
+
+                                <TextView
+                                    android:id="@+id/skype_id"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/dimen_1_5"
+                                    tools:text="fake skype id" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:layout_marginTop="@dimen/dimen_3_5"
-                                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                                tools:text="Pedro Carrillo"
-                                style="@android:style/TextAppearance.Large" />
+                                android:layout_weight=".5">
 
-                            <TextView
-                                android:id="@+id/profile_email"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/dimen_1_5"
-                                tools:text="fakeemail@email.com" />
+                                <ImageView
+                                    android:id="@+id/profile_location_logo"
+                                    android:layout_width="@dimen/dimen_9_2"
+                                    android:contentDescription="@string/location_content_desc"
+                                    android:layout_height="@dimen/dimen_9_2"
+                                    android:background="@drawable/ic_location"
+                                    android:adjustViewBounds="true"/>
 
-                            <TextView
-                                android:id="@+id/skype_id"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/dimen_1_5"
-                                tools:text="fake skype id" />
+                                <TextView
+                                    android:id="@+id/location_name"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/dimen_1_5"
+                                    android:layout_marginStart="@dimen/dimen_1_5"
+                                    tools:text="Lima, Peru" />
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
                     </LinearLayout>
 
-                </RelativeLayout>
+                </LinearLayout>
 
                 <View style="@style/horizontalDivider" />
 
@@ -105,6 +146,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginTop="@dimen/dimen_2_5"
+                            android:textSize="@dimen/text_16"
                             android:gravity="center"
                             android:textColor="@android:color/black"
                             tools:text="122" />
@@ -133,6 +175,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginTop="@dimen/dimen_2_5"
                             android:gravity="center"
+                            android:textSize="@dimen/text_16"
                             android:textColor="@android:color/black"
                             tools:text="1233" />
 
@@ -158,8 +201,9 @@
                             android:id="@+id/level"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="@dimen/dimen_2_5"
                             android:gravity="center"
+                            android:textSize="@dimen/text_16"
                             android:textColor="@android:color/black"
                             tools:text="9000+" />
 
@@ -203,8 +247,9 @@
 
                 <ImageView
                     android:id="@+id/profile_picture"
-                    android:layout_width="@dimen/dimen_10_10"
-                    android:layout_height="@dimen/dimen_10_10"
+                    android:layout_width="@dimen/dimen_15_10"
+                    android:layout_height="@dimen/dimen_15_10"
+                    android:contentDescription="@string/profile_image_content_desc"
                     android:transitionName="@string/transition_photo"/>
 
             </FrameLayout>

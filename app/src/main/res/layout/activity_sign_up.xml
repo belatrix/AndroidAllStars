@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:name="com.belatrixsf.allstars.ui.signup.SignUpFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:name="com.belatrixsf.allstars.ui.stars.StarsListFragment"
-    tools:context=".ui.stars.StarsListActivity"
-    tools:layout="@layout/fragment_stars_list">
-</fragment>
+    tools:context=".ui.signup.SignUpActivity"
+    tools:layout="@layout/fragment_sign_up"/>

@@ -135,14 +135,14 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
 
                     @Override
                     public void onFailure(ServiceError serviceError) {
-                        view.showError(serviceError.getErrorMessage());
+                        view.showError(serviceError.getDetail());
                     }
                 });
             }
 
             @Override
             public void onFailure(ServiceError serviceError) {
-                view.showError(serviceError.getErrorMessage());
+                view.showError(serviceError.getDetail());
             }
         });
     }

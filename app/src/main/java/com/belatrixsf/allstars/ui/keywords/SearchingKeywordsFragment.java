@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,6 +20,7 @@ import android.view.ViewGroup;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.KeywordsListAdapter;
 import com.belatrixsf.allstars.entities.Keyword;
+import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.EndlessRecyclerOnScrollListener;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
@@ -28,6 +30,7 @@ import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.KeyboardUtils;
 import com.belatrixsf.allstars.utils.di.modules.presenters.KeywordsListModule;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -36,12 +39,18 @@ import butterknife.Bind;
 
 public class SearchingKeywordsFragment extends AllStarsFragment implements SearchingKeywordsView, KeywordsListAdapter.KeywordListener {
 
+    private static final String KEYWORDS_KEY = "keywords_key";
+    private static final String SEARCH_TEXT_KEY = "search_text_key";
+    private static final String PAGING_KEY = "paging_key";
+    private static final String SEARCHING_KEY = "searching_key";
+
     private KeywordsListAdapter keywordsListAdapter;
     private EndlessRecyclerOnScrollListener endlessRecyclerOnScrollListener;
 
     @Inject SearchingKeywordsPresenter keywordsPresenter;
 
-    @Bind(R.id.keywords) RecyclerView keywords;
+    @Bind(R.id.keywords) RecyclerView keywordsRecyclerView;
+    @Bind(R.id.refresh_keywords) SwipeRefreshLayout keywordsRefreshLayout;
 
 
     public SearchingKeywordsFragment() {
@@ -63,6 +72,9 @@ public class SearchingKeywordsFragment extends AllStarsFragment implements Searc
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews();
+        if (savedInstanceState != null) {
+            restorePresenterState(savedInstanceState);
+        }
         keywordsPresenter.getKeywords();
     }
 
@@ -83,6 +95,30 @@ public class SearchingKeywordsFragment extends AllStarsFragment implements Searc
         }
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        savePresenterState(outState);
+        super.onSaveInstanceState(outState);
+    }
+
+    private void restorePresenterState(Bundle savedInstanceState) {
+        List<Keyword> keywords = savedInstanceState.getParcelableArrayList(KEYWORDS_KEY);
+        PaginatedResponse paging = savedInstanceState.getParcelable(PAGING_KEY);
+        String searchText = savedInstanceState.getString(SEARCH_TEXT_KEY, null);
+        boolean searching = savedInstanceState.getBoolean(SEARCHING_KEY, false);
+        keywordsPresenter.load(keywords, paging, searchText, searching);
+    }
+
+    private void savePresenterState(Bundle outState) {
+        outState.putString(SEARCH_TEXT_KEY, keywordsPresenter.getSearchText());
+        outState.putParcelable(PAGING_KEY, keywordsPresenter.getKeywordsPaging());
+        outState.putBoolean(SEARCHING_KEY, keywordsPresenter.isSearching());
+        List<Keyword> keywords = keywordsPresenter.getKeywordsSync();
+        if (keywords != null && keywords instanceof ArrayList) {
+            outState.putParcelableArrayList(KEYWORDS_KEY, (ArrayList<Keyword>) keywords);
+        }
+    }
+
     private void initViews() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         endlessRecyclerOnScrollListener = new EndlessRecyclerOnScrollListener(linearLayoutManager) {
@@ -93,10 +129,16 @@ public class SearchingKeywordsFragment extends AllStarsFragment implements Searc
         };
         keywordsListAdapter = new KeywordsListAdapter();
         keywordsListAdapter.setKeywordListener(this);
-        keywords.addOnScrollListener(endlessRecyclerOnScrollListener);
-        keywords.setAdapter(keywordsListAdapter);
-        keywords.setLayoutManager(linearLayoutManager);
-        keywords.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
+        keywordsRecyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);
+        keywordsRecyclerView.setAdapter(keywordsListAdapter);
+        keywordsRecyclerView.setLayoutManager(linearLayoutManager);
+        keywordsRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
+        keywordsRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                keywordsPresenter.refreshKeywords();
+            }
+        });
     }
 
     @Override
@@ -117,6 +159,7 @@ public class SearchingKeywordsFragment extends AllStarsFragment implements Searc
     public void hideProgressIndicator() {
         keywordsListAdapter.setLoading(false);
         endlessRecyclerOnScrollListener.setLoading(false);
+        keywordsRefreshLayout.setRefreshing(false);
     }
 
     @Override

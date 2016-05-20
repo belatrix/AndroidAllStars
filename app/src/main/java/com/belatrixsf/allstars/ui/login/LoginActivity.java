@@ -23,6 +23,7 @@ package com.belatrixsf.allstars.ui.login;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.ui.common.AllStarsActivity;
 

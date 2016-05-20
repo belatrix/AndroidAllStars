@@ -104,7 +104,7 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
             @Override
             public void onFailure(ServiceError serviceError) {
                 view.hideProgressIndicator();
-                showError(serviceError.getErrorMessage());
+                showError(serviceError.getDetail());
             }
         });
     }

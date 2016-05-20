@@ -44,10 +44,13 @@ public interface ServerPaths {
     String QUERY_SEARCH = "search";
 
     String EMPLOYEE_AUTHENTICATE = EMPLOYEE + "/authenticate/";
+    String EMPLOYEE_CREATE = EMPLOYEE + "/create/";
     String EMPLOYEE_LIST = EMPLOYEE + "/list/";
     String EMPLOYEE_BY_ID = EMPLOYEE + "/{" + EMPLOYEE_ID + "}";
     String EMPLOYEE_CATEGORIES = EMPLOYEE + "/{" + EMPLOYEE_ID + "}/category/list";
     String EMPLOYEE_SUBCATEGORY_LIST = STAR + "/{" + EMPLOYEE_ID + "}" + "/subcategory/list";
+    String EMPLOYEE_UPDATE = EMPLOYEE + "/{" + EMPLOYEE_ID + "}/update/";
+    String EMPLOYEE_LOCATION_LIST = EMPLOYEE + "/location/list";
 
     String STAR_EMPLOYEE = STAR + "/{" + FROM_EMPLOYEE + "}" + "/give/star/to/{" + TO_EMPLOYEE + "}/" ;
     String STARS_BY_EMPLOYEE_AND_SUBCATEGORY = STAR + "/{" + EMPLOYEE_ID + "}/subcategory" + "/{" + SUBCATEGORY_ID + "}/list";

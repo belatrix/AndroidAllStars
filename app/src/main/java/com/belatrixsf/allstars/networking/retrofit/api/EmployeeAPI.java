@@ -22,8 +22,12 @@ package com.belatrixsf.allstars.networking.retrofit.api;
 
 import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.entities.Location;
 import com.belatrixsf.allstars.networking.retrofit.requests.AuthenticationRequest;
+import com.belatrixsf.allstars.networking.retrofit.requests.CreateEmployeeRequest;
+import com.belatrixsf.allstars.networking.retrofit.requests.UpdateEmployeeRequest;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
+import com.belatrixsf.allstars.networking.retrofit.responses.CreateEmployeeResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
 
 import java.util.List;
@@ -31,6 +35,7 @@ import java.util.List;
 import retrofit.Call;
 import retrofit.http.Body;
 import retrofit.http.GET;
+import retrofit.http.PATCH;
 import retrofit.http.POST;
 import retrofit.http.Path;
 import retrofit.http.Query;
@@ -43,6 +48,9 @@ public interface EmployeeAPI {
     @POST(ServerPaths.EMPLOYEE_AUTHENTICATE)
     Call<AuthenticationResponse> authenticate(@Body AuthenticationRequest request);
 
+    @POST(ServerPaths.EMPLOYEE_CREATE)
+    Call<CreateEmployeeResponse> createEmployee(@Body CreateEmployeeRequest request);
+
     @GET(ServerPaths.EMPLOYEE_BY_ID)
     Call<Employee> getEmployee(@Path(ServerPaths.EMPLOYEE_ID) int employeeId);
 
@@ -54,5 +62,11 @@ public interface EmployeeAPI {
 
     @GET(ServerPaths.EMPLOYEE_CATEGORIES)
     Call<List<Category>> getEmployeeCategories(@Path(ServerPaths.EMPLOYEE_ID) int employeeId);
+
+    @PATCH(ServerPaths.EMPLOYEE_UPDATE)
+    Call<Employee> updateEmployee(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Body UpdateEmployeeRequest updateEmployeeRequest);
+
+    @GET(ServerPaths.EMPLOYEE_LOCATION_LIST)
+    Call<List<Location>> getEmployeeLocations();
 
 }

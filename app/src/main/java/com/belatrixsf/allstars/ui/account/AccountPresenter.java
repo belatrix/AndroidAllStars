@@ -68,12 +68,12 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
             @Override
             public void onFailure(ServiceError serviceError) {
                 view.dismissProgressDialog();
-                showError(serviceError.getErrorMessage());
+                showError(serviceError.getDetail());
             }
         };
         if (employeeId == null) {
             employeeManager.getLoggedInEmployee(employeeAllStarsCallback);
-        } else{
+        } else {
             employeeService.getEmployee(employeeId, employeeAllStarsCallback);
         }
     }
@@ -94,7 +94,7 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
             @Override
             public void onFailure(ServiceError serviceError) {
                 view.hideProgressIndicator();
-                showError(serviceError.getErrorMessage());
+                showError(serviceError.getDetail());
             }
         });
     }
@@ -104,6 +104,9 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
     }
 
     private void showEmployeeData() {
+        if (employee.getLocation() != null) {
+            view.showLocation(employee.getLocation().getName());
+        }
         if (employee.getLevel() != null) {
             view.showLevel(String.valueOf(employee.getLevel()));
         } else {
@@ -148,6 +151,8 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
     public void checkRecommendationEnabled() {
         if (PreferencesManager.get().getEmployeeId() != employee.getPk()) {
             view.showRecommendMenu(true);
+        } else {
+            view.showEditProfileButton(true);
         }
     }
 
@@ -155,4 +160,11 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
         view.goToGiveStar(employee);
     }
 
+    public void startEditProfile() {
+        view.goToEditProfile(employee);
+    }
+
+    public void refreshEmployee() {
+        employeeManager.refreshEmployee();
+    }
 }
