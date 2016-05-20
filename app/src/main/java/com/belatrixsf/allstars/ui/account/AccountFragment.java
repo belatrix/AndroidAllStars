@@ -77,30 +77,18 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     private AccountPresenter accountPresenter;
     private AccountSubCategoriesAdapter accountCategoriesAdapter;
 
-    @Bind(R.id.account_recommendations)
-    RecyclerView recommendationRecyclerView;
-    @Bind(R.id.skype_id)
-    TextView skypeIdTextView;
-    @Bind(R.id.current_month_score)
-    TextView currentMonthScoreTextView;
-    @Bind(R.id.level)
-    TextView levelTextView;
-    @Bind(R.id.score)
-    TextView scoreTextView;
-    @Bind(R.id.profile_name)
-    TextView nameTextView;
-    @Bind(R.id.profile_email)
-    TextView emailTextView;
-    @Bind(R.id.profile_picture)
-    ImageView pictureImageView;
-    @Bind(R.id.profile_location_logo)
-    ImageView profileLocationImageView;
-    @Bind(R.id.account_swipe_refresh)
-    SwipeRefreshLayout accountSwipeRefresh;
-    @Bind(R.id.subcategories_progress_bar)
-    ProgressBar subCategoriesProgressBar;
-    @Bind(R.id.no_data_textview)
-    TextView noDataTextView;
+    @Bind(R.id.account_recommendations) RecyclerView recommendationRecyclerView;
+    @Bind(R.id.skype_id) TextView skypeIdTextView;
+    @Bind(R.id.current_month_score) TextView currentMonthScoreTextView;
+    @Bind(R.id.level) TextView levelTextView;
+    @Bind(R.id.score) TextView scoreTextView;
+    @Bind(R.id.profile_name) TextView nameTextView;
+    @Bind(R.id.profile_email) TextView emailTextView;
+    @Bind(R.id.profile_picture) ImageView pictureImageView;
+    @Bind(R.id.location_name) TextView profileLocationImageView;
+    @Bind(R.id.account_swipe_refresh) SwipeRefreshLayout accountSwipeRefresh;
+    @Bind(R.id.subcategories_progress_bar) ProgressBar subCategoriesProgressBar;
+    @Bind(R.id.no_data_textview) TextView noDataTextView;
 
     private MenuItem recommendMenuItem;
     private MenuItem editProfileMenuItem;
@@ -236,7 +224,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
 
     @Override
     public void showSkypeId(String skypeID) {
-        skypeIdTextView.setText(getResources().getString(R.string.skype_id_content, skypeID));
+        skypeIdTextView.setText(skypeID);
     }
 
     @Override
@@ -260,11 +248,8 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     }
 
     @Override
-    public void showLocationFlag(String locationIcon) {
-        ImageFactory.getLoader().loadFromUrl(
-                locationIcon,
-                profileLocationImageView
-        );
+    public void showLocation(String location) {
+        profileLocationImageView.setText(location);
     }
 
     private void startPostponedEnterTransition() {
