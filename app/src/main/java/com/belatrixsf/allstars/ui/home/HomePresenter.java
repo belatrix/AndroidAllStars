@@ -48,4 +48,8 @@ public class HomePresenter extends AllStarsPresenter<HomeView> {
         view.goToLogin();
     }
 
+    public void refreshEmployee() {
+        employeeManager.refreshEmployee();
+    }
+
 }

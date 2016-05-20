@@ -39,6 +39,8 @@ public interface ImageLoader {
         CIRCLE
     }
 
+    void loadFromUrl(String url, ImageView imageView);
+
     void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation);
 
     void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation, ImageLoader.Callback callback);

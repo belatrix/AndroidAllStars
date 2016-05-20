@@ -20,6 +20,10 @@
     <string name="hint_username">Username</string>
     <string name="hint_password">Password</string>
     <string name="hint_email">Email</string>
+    <string name="hint_first_name">First Name</string>
+    <string name="hint_last_name">Last Name</string>
+    <string name="hint_skype_id">Skype Id</string>
+    <string name="hint_keyword">Select a Keyword</string>
 
     <!-- Button -->
     <string name="button_log_in">Log In</string>
@@ -39,9 +43,14 @@
     <string name="title_comment_activity">Write a comment</string>
     <string name="title_keywords_activity">Select a Keyword</string>
     <string name="title_keyword">Keyword</string>
+    <string name="title_contacts_keyword_activity">Keyword Top</string>
+    <string name="title_keyword_top">%s Top</string>
+    <string name="title_edit_profile_activity">Edit Profile</string>
 
-    <!-- Login -->
+    <!-- Login and Register -->
     <string name="title_login">Belatrix All Stars</string>
+    <string name="let_s_get_started">Let\'s get started</string>
+    <string name="enter_your_email_address_to_receive_your_temporary_password">Enter your email address to receive your temporary password</string>
 
     <!--Account-->
     <string name="title_skype_id">Skype Id</string>
@@ -51,6 +60,11 @@
     <string name="title_score">Score</string>
     <string name="title_level">Level</string>
     <string name="skype_id_content">Skype : %s</string>
+    <string name="empty_error">Field must not be empty</string>
+
+    <!--Edit account-->
+    <string name="edit_profile">Edit</string>
+    <string name="location_head">Location:</string>
 
     <!--Give a star-->
     <string name="select_user">Select user</string>
@@ -86,6 +100,10 @@
     <string name="level_placeholder">No data</string>
     <string name="hashtag">#</string>
 
+    <!--Keyword-->
+    <string name="select_keyword">Select a Keyword</string>
+    <string name="keyword_top">%s Top</string>
+
     <!--Actions-->
     <string name="action_recommend">Recommend</string>
     <string name="action_search">Search</string>
@@ -94,10 +112,5 @@
 
     <!-- Transition names -->
     <string name="transition_photo">transition_photo</string>
-    <string name="select_keyword">Select a Keyword</string>
-    <string name="title_contacts_keyword_activity">Keyword Top</string>
-    <string name="keyword_top">%s Top</string>
-    <string name="let_s_get_started">Let\'s get started</string>
-    <string name="enter_your_email_address_to_receive_your_temporary_password">Enter your email address to receive your temporary password</string>
 
 </resources>

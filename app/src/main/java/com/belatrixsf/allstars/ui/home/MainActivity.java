@@ -51,6 +51,7 @@ import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.DialogUtils;
 import com.belatrixsf.allstars.utils.di.components.DaggerHomeComponent;
 import com.belatrixsf.allstars.utils.di.modules.presenters.HomePresenterModule;
+import static com.belatrixsf.allstars.ui.account.edit.EditAccountFragment.RQ_EDIT_ACCOUNT;
 
 import javax.inject.Inject;
 
@@ -224,13 +225,15 @@ public class MainActivity extends AllStarsActivity implements ContactsListFragme
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK && data != null) {
+        if (requestCode == RQ_GIVE_STAR && resultCode == Activity.RESULT_OK && data != null) {
             DialogUtils.createInformationDialog(this, data.getStringExtra(GiveStarFragment.MESSAGE_KEY), getString(R.string.app_name), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     //Do Nothing
                 }
             }).show();
+        } else if (requestCode == RQ_EDIT_ACCOUNT && resultCode == Activity.RESULT_OK && data != null) {
+            homePresenter.refreshEmployee();
         }
     }
 
