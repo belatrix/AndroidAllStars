@@ -25,14 +25,11 @@ import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.utils.KeyboardUtils;
@@ -91,14 +88,6 @@ public class SearchingView extends LinearLayout implements SearchableView {
 
             }
         });
-        searchingEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
-                searchingViewPresenter.editorAction(actionId);
-                return false;
-            }
-        });
-
         clearImageButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,13 +109,6 @@ public class SearchingView extends LinearLayout implements SearchableView {
     @Override
     public void notifyTextTyped(String typedText) {
         searchingListener.onSearchingTextTyped(typedText);
-    }
-
-    @Override
-    public void editorAction(int actionId) {
-        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-            KeyboardUtils.hideKeyboard((Activity) getContext(), searchingEditText);
-        }
     }
 
     public void setSearchingListener(SearchingListener searchingListener) {

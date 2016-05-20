@@ -28,6 +28,5 @@ public interface SearchableView {
     void changeClearButtonVisibility(boolean show);
     void notifyTextTyped(String typedText);
     void clearSearching();
-    void editorAction(int actionId);
 
 }
