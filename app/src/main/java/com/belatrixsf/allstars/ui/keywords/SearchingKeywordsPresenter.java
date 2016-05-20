@@ -66,9 +66,7 @@ public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywo
     public void stopSearchingKeywords() {
         searchText = null;
         searching = false;
-        view.resetList();
-        keywordsPaging.reset();
-        keywords.clear();
+        reset();
         getKeywordsInternal();
     }
 
@@ -89,9 +87,12 @@ public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywo
 
     public void getKeywords(String searchText) {
         this.searchText = searchText;
-        keywords.clear();
-        view.resetList();
-        keywordsPaging.reset();
+        reset();
+        getKeywordsInternal();
+    }
+
+    public void refreshKeywords() {
+        reset();
         getKeywordsInternal();
     }
 
@@ -112,6 +113,12 @@ public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywo
                 showError(serviceError.getDetail());
             }
         });
+    }
+
+    private void reset() {
+        keywords.clear();
+        view.resetList();
+        keywordsPaging.reset();
     }
 
     // saving state stuff
