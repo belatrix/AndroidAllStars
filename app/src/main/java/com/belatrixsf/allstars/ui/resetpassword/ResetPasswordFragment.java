@@ -109,6 +109,7 @@ public class ResetPasswordFragment extends AllStarsFragment implements ResetPass
         intent.putExtra(EditAccountActivity.EMPLOYEE_KEY, employee);
         intent.putExtra(IS_CREATION, true);
         startActivity(intent);
+        fragmentListener.closeActivity();
     }
 
     @Override
