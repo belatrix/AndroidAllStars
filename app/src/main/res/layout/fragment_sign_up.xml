@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:adjustViewBounds="true"
+            android:contentDescription="@string/email_content_desc"
             android:src="@drawable/ic_mail" />
 
         <TextView

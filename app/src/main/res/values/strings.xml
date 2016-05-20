@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">All Stars Belatrix</string>
-    <string name="title_activity_example">ExampleActivity</string>
-    <string name="categories">Categories</string>
     <string name="no_data">No data found</string>
     <string name="no_data_option">-</string>
 
@@ -31,9 +29,6 @@
     <string name="button_sign_up_action">Register</string>
 
     <!-- Title -->
-    <string name="title_belatrix">Belatrix</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="title_sign_up"><u>Sign Up</u></string>
     <string name="title_select_category">Select Category</string>
     <string name="title_select_subcategory">Select Subcategory</string>
     <string name="title_account_activity">Profile</string>
@@ -53,10 +48,7 @@
     <string name="enter_your_email_address_to_receive_your_temporary_password">Enter your email address to receive your temporary password</string>
 
     <!--Account-->
-    <string name="title_skype_id">Skype Id</string>
     <string name="title_current_month_score">Month score</string>
-    <string name="title_full_name">Full Name</string>
-    <string name="title_category">Category</string>
     <string name="title_score">Score</string>
     <string name="title_level">Level</string>
     <string name="skype_id_content">Skype : %s</string>
@@ -71,7 +63,6 @@
     <string name="select_category">Select Category</string>
     <string name="option_select_a_user">Select a user</string>
     <string name="hint_comment">Add a comment (up to 100 characters)</string>
-    <string name="comment_no_empty_error">Comment cannot be empty</string>
     <string name="success_recommendation">Recommendation completed</string>
 
     <!--Contacts-->
@@ -84,25 +75,14 @@
     <string name="tab_all_time">All Time</string>
 
     <!--Messages-->
-    <string name="empty_search_term">Must write something</string>
     <string name="making_recommendation">Making recommendation</string>
     <string name="no_data_found">No data found</string>
 
     <!--Recommendation-->
-    <string name="title_user">User</string>
-    <string name="title_message">Message</string>
-    <string name="title_content_from">From:</string>
-    <string name="title_content_message">Message:</string>
-    <string name="title_content_category">Category:</string>
-    <string name="title_content_date">Date:</string>
     <string name="message_placeholder">No message</string>
     <string name="fullname_placeholder">Anonymous</string>
     <string name="level_placeholder">No data</string>
     <string name="hashtag">#</string>
-
-    <!--Keyword-->
-    <string name="select_keyword">Select a Keyword</string>
-    <string name="keyword_top">%s Top</string>
 
     <!--Actions-->
     <string name="action_recommend">Recommend</string>
@@ -112,5 +92,9 @@
 
     <!-- Transition names -->
     <string name="transition_photo">transition_photo</string>
+    <string name="profile_image_content_desc">Profile image</string>
+    <string name="close_content_desc">Close button</string>
+    <string name="email_content_desc">Email icon</string>
+    <string name="location_content_desc">Location icon</string>
 
 </resources>

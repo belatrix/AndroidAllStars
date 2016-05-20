@@ -20,6 +20,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/white"
         android:src="@drawable/ic_close"
+        android:contentDescription="@string/close_content_desc"
         android:visibility="invisible" />
 
 </merge>

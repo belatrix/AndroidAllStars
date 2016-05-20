@@ -32,6 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:tint="@color/grey"
+        android:importantForAccessibility="no"
         android:backgroundTint="@color/grey"
         android:src="@drawable/ic_chevron_right"/>
 
