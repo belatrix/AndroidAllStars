@@ -146,4 +146,17 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
         }
     }
 
+    @Override
+    public void setToolbar(Toolbar customToolbar) {
+        setSupportActionBar(customToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (customToolbar != null) {
+            customToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
+        }
+    }
 }

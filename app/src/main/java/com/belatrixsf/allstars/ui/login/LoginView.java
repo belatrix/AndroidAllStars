@@ -28,6 +28,7 @@ import com.belatrixsf.allstars.ui.common.AllStarsView;
 public interface LoginView extends AllStarsView {
 
     void goHome();
+    void goResetPassword();
     void enableLogin(boolean enable);
 
 }

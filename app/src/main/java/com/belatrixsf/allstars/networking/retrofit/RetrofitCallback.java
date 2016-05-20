@@ -24,6 +24,8 @@ import android.util.Log;
 
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import java.io.IOException;
 
@@ -49,14 +51,18 @@ public class RetrofitCallback<T> implements Callback<T> {
         if (response.isSuccess()) {
             callback.onSuccess(response.body());
         } else {
-            // TODO Send correct error message. Now only sending generic error til server is ready
-            ServiceError serviceError = new ServiceError(UNKNOWN, "Be sure everything is fine.");
+            ServiceError serviceError = null;
             try {
                 if (response.errorBody() != null) {
-                    Log.d("RetrofitCallback", "onResponse: " + response.errorBody().string());
+                    Gson gson = new Gson();
+                    serviceError = gson.fromJson(response.errorBody().string(), ServiceError.class);
+                    serviceError.setResponseCode(response.code());
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+            if (serviceError == null) {
+                serviceError = new ServiceError(UNKNOWN, "Be sure everything is fine.");
             }
             callback.onFailure(serviceError);
         }

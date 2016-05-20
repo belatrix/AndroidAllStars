@@ -24,9 +24,11 @@ import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.Location;
 import com.belatrixsf.allstars.networking.retrofit.requests.AuthenticationRequest;
+import com.belatrixsf.allstars.networking.retrofit.requests.CreateEmployeeRequest;
 import com.belatrixsf.allstars.networking.retrofit.requests.ResetPasswordRequest;
 import com.belatrixsf.allstars.networking.retrofit.requests.UpdateEmployeeRequest;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
+import com.belatrixsf.allstars.networking.retrofit.responses.CreateEmployeeResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.ResetPasswordResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
 
@@ -47,6 +49,9 @@ public interface EmployeeAPI {
 
     @POST(ServerPaths.EMPLOYEE_AUTHENTICATE)
     Call<AuthenticationResponse> authenticate(@Body AuthenticationRequest request);
+
+    @POST(ServerPaths.EMPLOYEE_CREATE)
+    Call<CreateEmployeeResponse> createEmployee(@Body CreateEmployeeRequest request);
 
     @POST(ServerPaths.EMPLOYEE_RESET_PASSWORD)
     Call<ResetPasswordResponse> resetPassword(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Body ResetPasswordRequest request);

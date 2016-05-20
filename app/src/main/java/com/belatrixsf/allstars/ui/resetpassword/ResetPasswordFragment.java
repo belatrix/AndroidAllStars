@@ -23,11 +23,11 @@ package com.belatrixsf.allstars.ui.resetpassword;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -48,8 +48,11 @@ import butterknife.OnClick;
  */
 public class ResetPasswordFragment extends AllStarsFragment implements ResetPasswordView {
 
+    @Bind(R.id.new_password_input) TextInputLayout newPasswordInputLayout;
+    @Bind(R.id.repeat_new_password_input) TextInputLayout repeatNewPasswordInputLayout;
     @Bind(R.id.old_password) EditText oldPasswordEditText;
     @Bind(R.id.new_password) EditText newPasswordEditText;
+    @Bind(R.id.repeat_new_password) EditText repeatNewPasswordEditText;
     @Bind(R.id.reset) Button resetButton;
 
     private ResetPasswordPresenter resetPasswordPresenter;
@@ -75,9 +78,12 @@ public class ResetPasswordFragment extends AllStarsFragment implements ResetPass
     }
 
     private void initViews() {
-        newPasswordEditText.setTransformationMethod(new PasswordTransformationMethod());
         oldPasswordEditText.setTransformationMethod(new PasswordTransformationMethod());
+        newPasswordEditText.setTransformationMethod(new PasswordTransformationMethod());
+        repeatNewPasswordEditText.setTransformationMethod(new PasswordTransformationMethod());
         oldPasswordEditText.addTextChangedListener(formFieldWatcher);
+        newPasswordEditText.addTextChangedListener(formFieldWatcher);
+        repeatNewPasswordEditText.addTextChangedListener(formFieldWatcher);
     }
 
     @Override
@@ -96,17 +102,6 @@ public class ResetPasswordFragment extends AllStarsFragment implements ResetPass
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.home:
-                getActivity().finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
     public void goEditProfile() {
         Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
@@ -116,6 +111,20 @@ public class ResetPasswordFragment extends AllStarsFragment implements ResetPass
     @Override
     public void enableReset(boolean enable) {
         resetButton.setEnabled(enable);
+    }
+
+    @Override
+    public void newPasswordError(String message) {
+        newPasswordInputLayout.setErrorEnabled(true);
+        repeatNewPasswordInputLayout.setErrorEnabled(true);
+        newPasswordInputLayout.setError(message);
+        repeatNewPasswordInputLayout.setError(message);
+    }
+
+    @Override
+    public void cleanNewPasswordError() {
+        newPasswordInputLayout.setErrorEnabled(false);
+        repeatNewPasswordInputLayout.setErrorEnabled(false);
     }
 
     @OnClick(R.id.reset)
@@ -136,7 +145,8 @@ public class ResetPasswordFragment extends AllStarsFragment implements ResetPass
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             String oldPassword = oldPasswordEditText.getText().toString();
             String newPassword = newPasswordEditText.getText().toString();
-            resetPasswordPresenter.checkIfInputsAreValid(oldPassword, newPassword);
+            String repeatNewPassword = repeatNewPasswordEditText.getText().toString();
+            resetPasswordPresenter.checkIfInputsAreValid(oldPassword, newPassword, repeatNewPassword);
         }
 
         @Override

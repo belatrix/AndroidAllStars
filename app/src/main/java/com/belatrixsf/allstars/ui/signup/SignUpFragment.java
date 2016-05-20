@@ -18,63 +18,48 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.login;
+package com.belatrixsf.allstars.ui.signup;
 
-
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
-import com.belatrixsf.allstars.ui.home.MainActivity;
-import com.belatrixsf.allstars.ui.resetpassword.ResetPasswordActivity;
-import com.belatrixsf.allstars.ui.signup.SignUpActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
-import com.belatrixsf.allstars.utils.di.components.DaggerLoginComponent;
-import com.belatrixsf.allstars.utils.di.modules.presenters.LoginPresenterModule;
+import com.belatrixsf.allstars.utils.DialogUtils;
+import com.belatrixsf.allstars.utils.di.modules.presenters.SignUpPresenterModule;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class LoginFragment extends AllStarsFragment implements LoginView {
+/**
+ * Created by icerrate on 16/05/16.
+ */
+public class SignUpFragment extends AllStarsFragment implements SignUpView {
 
-    @Bind(R.id.username) EditText usernameEditText;
-    @Bind(R.id.password) EditText passwordEditText;
-    @Bind(R.id.log_in) Button logInButton;
-    @Bind(R.id.sign_up) TextView signUpButton;
+    @Bind(R.id.email) EditText emailEditText;
+    @Bind(R.id.send) Button sendButton;
+    @Bind(R.id.toolbar) Toolbar toolbar;
 
-    private LoginPresenter loginPresenter;
+    private SignUpPresenter signUpPresenter;
 
-    public LoginFragment() {
+    public SignUpFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        return inflater.inflate(R.layout.fragment_sign_up, container, false);
     }
 
     @Override
@@ -82,59 +67,53 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
         super.onViewCreated(view, savedInstanceState);
         initViews();
         if (savedInstanceState == null) {
-            loginPresenter.init();
+            signUpPresenter.init();
         }
     }
 
     private void initViews() {
-        passwordEditText.setTransformationMethod(new PasswordTransformationMethod());
-        usernameEditText.addTextChangedListener(formFieldWatcher);
-        passwordEditText.addTextChangedListener(formFieldWatcher);
+        emailEditText.addTextChangedListener(formFieldWatcher);
+        fragmentListener.setToolbar(toolbar);
+        fragmentListener.setTitle("");
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        signUpPresenter = null;
     }
 
     @Override
     protected void initDependencies(AllStarsApplication allStarsApplication) {
-        loginPresenter = DaggerLoginComponent.builder()
-                .applicationComponent(allStarsApplication.getApplicationComponent())
-                .loginPresenterModule(new LoginPresenterModule(this))
-                .build()
-                .loginPresenter();
+        signUpPresenter = allStarsApplication.getApplicationComponent()
+                .signUpComponent(new SignUpPresenterModule(this))
+                .signUpPresenter();
     }
 
     @Override
-    public void goHome() {
-        Intent intent = new Intent(getActivity(), MainActivity.class);
-        startActivity(intent);
+    public void backToLogin() {
         fragmentListener.closeActivity();
     }
 
     @Override
-    public void goResetPassword() {
-        Intent intent = new Intent(getActivity(), ResetPasswordActivity.class);
-        startActivity(intent);
+    public void enableSend(boolean enable) {
+        sendButton.setEnabled(enable);
+    }
+
+    @OnClick(R.id.send)
+    public void sendClicked() {
+        String email = emailEditText.getText().toString();
+        signUpPresenter.signUp(email);
     }
 
     @Override
-    public void enableLogin(boolean enable) {
-        logInButton.setEnabled(enable);
-    }
-
-    @OnClick(R.id.log_in)
-    public void loginClicked() {
-        String username = usernameEditText.getText().toString();
-        String password = passwordEditText.getText().toString();
-        loginPresenter.login(username, password);
-    }
-
-    @OnClick(R.id.sign_up)
-    public void signUpClicked() {
-        Intent intent = new Intent(getActivity(), SignUpActivity.class);
-        startActivity(intent);
+    public void showMessage(String message){
+        DialogUtils.createInformationDialog(getActivity(), message, getString(R.string.app_name), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                signUpPresenter.confirmMessage();
+            }
+        }).show();
     }
 
     private TextWatcher formFieldWatcher = new TextWatcher() {
@@ -146,16 +125,14 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            String username = usernameEditText.getText().toString();
-            String password = passwordEditText.getText().toString();
-            loginPresenter.checkIfInputsAreValid(username, password);
+            String email = emailEditText.getText().toString();
+            signUpPresenter.checkIfEmailIsValid(email);
         }
 
         @Override
         public void afterTextChanged(Editable s) {
 
         }
-
     };
 
 }

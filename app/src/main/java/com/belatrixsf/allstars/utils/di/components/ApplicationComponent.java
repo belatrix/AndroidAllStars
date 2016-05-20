@@ -27,10 +27,12 @@ import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModul
 import com.belatrixsf.allstars.utils.di.modules.presenters.CategoriesListModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsKeywordPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsListPresenterModule;
+import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.EditAccountPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.KeywordsListModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.RankingPresenterModule;
+import com.belatrixsf.allstars.utils.di.modules.presenters.SignUpPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.StarsListPresenterModule;
 
 import javax.inject.Singleton;
@@ -50,6 +52,7 @@ import dagger.Component;
 public interface ApplicationComponent {
 
     EmployeeManager employeeManager();
+    SignUpComponent signUpComponent(SignUpPresenterModule signUpPresenterModule);
     AccountComponent accountComponent(AccountPresenterModule accountPresenterModule);
     ContactsListComponent contactsListComponent(ContactsListPresenterModule contactsListPresenterModule);
     StarsListComponent starsListComponent(StarsListPresenterModule StarsListPresenterModule);

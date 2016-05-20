@@ -29,5 +29,7 @@ public interface ResetPasswordView extends AllStarsView {
 
     void goEditProfile();
     void enableReset(boolean enable);
+    void newPasswordError(String message);
+    void cleanNewPasswordError();
 
 }

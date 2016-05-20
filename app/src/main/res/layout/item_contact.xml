@@ -10,7 +10,8 @@
         android:id="@+id/contact_photo"
         android:layout_width="@dimen/dimen_10_6"
         android:layout_height="@dimen/dimen_10_6"
-        tools:src="@drawable/ic_user" />
+        tools:src="@drawable/ic_user"
+        android:contentDescription="@string/profile_image_content_desc"/>
 
     <LinearLayout
         android:layout_width="match_parent"

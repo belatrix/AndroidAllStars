@@ -18,33 +18,23 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils;
+package com.belatrixsf.allstars.utils.di.components;
+
+import com.belatrixsf.allstars.ui.signup.SignUpPresenter;
+import com.belatrixsf.allstars.utils.di.modules.presenters.SignUpPresenterModule;
+import com.belatrixsf.allstars.utils.di.scopes.UIScope;
+
+import dagger.Subcomponent;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by icerrate on 16/05/16.
  */
-public class ServiceError {
+@UIScope
+@Subcomponent(
+        modules = SignUpPresenterModule.class
+)
+public interface SignUpComponent {
 
-    public static final int UNKNOWN = 0;
-
-    private int responseCode;
-    private String detail;
-
-    public ServiceError(int responseCode, String errorMessage) {
-        this.responseCode = responseCode;
-        this.detail = errorMessage;
-    }
-
-    public void setResponseCode(int responseCode) {
-        this.responseCode = responseCode;
-    }
-
-    public int getResponseCode() {
-        return responseCode;
-    }
-
-    public String getDetail() {
-        return detail;
-    }
+    SignUpPresenter signUpPresenter();
 
 }

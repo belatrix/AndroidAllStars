@@ -18,10 +18,12 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.resetpassword;
+package com.belatrixsf.allstars.ui.signup;
 
-import com.belatrixsf.allstars.R;
-import com.belatrixsf.allstars.managers.EmployeeManager;
+import android.text.TextUtils;
+
+import com.belatrixsf.allstars.networking.retrofit.responses.CreateEmployeeResponse;
+import com.belatrixsf.allstars.services.EmployeeService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
@@ -29,48 +31,33 @@ import com.belatrixsf.allstars.utils.ServiceError;
 import javax.inject.Inject;
 
 /**
- * Created by icerrate on 19/05/16.
+ * Created by icerrate on 16/05/16.
  */
-public class ResetPasswordPresenter extends AllStarsPresenter<ResetPasswordView> {
+public class SignUpPresenter extends AllStarsPresenter<SignUpView> {
 
-    static final int MIN_PASSWORD_LENGHT = 4;
-
-    private EmployeeManager employeeManager;
+    private EmployeeService employeeService;
 
     @Inject
-    public ResetPasswordPresenter(ResetPasswordView view, EmployeeManager employeeManager) {
+    public SignUpPresenter(SignUpView view, EmployeeService employeeService) {
         super(view);
-        this.employeeManager = employeeManager;
+        this.employeeService = employeeService;
     }
 
-    public void checkIfInputsAreValid(String oldPassword, String newPassword, String repeatNewPassword) {
-        boolean valid = false;
-        if (!oldPassword.isEmpty() && !newPassword.isEmpty() && !repeatNewPassword.isEmpty()){
-            if (newPassword.equals(repeatNewPassword)){
-                if (newPassword.length() >= MIN_PASSWORD_LENGHT) {
-                    view.cleanNewPasswordError();
-                    valid = true;
-                }else{
-                    view.newPasswordError(String.format(getString(R.string.new_password_length_error), MIN_PASSWORD_LENGHT));
-                }
-            }else{
-                view.newPasswordError(getString(R.string.new_password_repeat_error));
-            }
-        }
-        view.enableReset(valid);
+    public void checkIfEmailIsValid(String email) {
+        view.enableSend(!TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches());
     }
 
     public void init() {
-        view.enableReset(false);
+        view.enableSend(false);
     }
 
-    public void reset(String oldPassword, String newPassword) {
+    public void signUp(String email) {
         view.showProgressDialog();
-        employeeManager.resetPassword(oldPassword, newPassword, new AllStarsCallback<Void>() {
+        employeeService.createEmployee(email, new AllStarsCallback<CreateEmployeeResponse>() {
             @Override
-            public void onSuccess(Void aVoid) {
+            public void onSuccess(CreateEmployeeResponse response) {
                 view.dismissProgressDialog();
-                view.goEditProfile();
+                view.showMessage(response.getDetail());
             }
 
             @Override
@@ -78,5 +65,9 @@ public class ResetPasswordPresenter extends AllStarsPresenter<ResetPasswordView>
                 showError(serviceError.getDetail());
             }
         });
+    }
+
+    public void confirmMessage(){
+        view.backToLogin();
     }
 }

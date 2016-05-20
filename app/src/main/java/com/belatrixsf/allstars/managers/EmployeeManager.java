@@ -44,24 +44,28 @@ public class EmployeeManager {
         this.employeeService = employeeService;
     }
 
-    public void login(String username, String password, final AllStarsCallback<Void> callback) {
+    public void login(String username, String password, final AllStarsCallback<Boolean> callback) {
         employeeService.authenticate(username, password, new AllStarsCallback<AuthenticationResponse>() {
             @Override
             public void onSuccess(AuthenticationResponse authenticationResponse) {
                 PreferencesManager.get().saveToken(authenticationResponse.getToken());
                 PreferencesManager.get().saveEmployeeId(authenticationResponse.getEmployeeId());
-                employeeService.getEmployee(authenticationResponse.getEmployeeId(), new AllStarsCallback<Employee>() {
-                    @Override
-                    public void onSuccess(Employee employee) {
-                        EmployeeManager.this.employee = employee;
-                        callback.onSuccess(null);
-                    }
+                if (authenticationResponse.getResetPasswordCode() == null){
+                    callback.onSuccess(false);
+                }else{
+                    employeeService.getEmployee(authenticationResponse.getEmployeeId(), new AllStarsCallback<Employee>() {
+                        @Override
+                        public void onSuccess(Employee employee) {
+                            EmployeeManager.this.employee = employee;
+                            callback.onSuccess(true);
+                        }
 
-                    @Override
-                    public void onFailure(ServiceError serviceError) {
-                        callback.onFailure(serviceError);
-                    }
-                });
+                        @Override
+                        public void onFailure(ServiceError serviceError) {
+                            callback.onFailure(serviceError);
+                        }
+                    });
+                }
             }
 
             @Override
