@@ -51,8 +51,6 @@ public class EmployeeManager {
                 PreferencesManager.get().saveToken(authenticationResponse.getToken());
                 PreferencesManager.get().saveEmployeeId(authenticationResponse.getEmployeeId());
                 if (authenticationResponse.getResetPasswordCode() == null){
-                    callback.onSuccess(false);
-                }else{
                     employeeService.getEmployee(authenticationResponse.getEmployeeId(), new AllStarsCallback<Employee>() {
                         @Override
                         public void onSuccess(Employee employee) {
@@ -65,6 +63,8 @@ public class EmployeeManager {
                             callback.onFailure(serviceError);
                         }
                     });
+                }else{
+                    callback.onSuccess(false);
                 }
             }
 
@@ -81,7 +81,7 @@ public class EmployeeManager {
             employeeService.resetPassword(storedEmployeeId, oldPassword, newPassword, new AllStarsCallback<ResetPasswordResponse>() {
                 @Override
                 public void onSuccess(ResetPasswordResponse resetPasswordResponse) {
-
+                    callback.onSuccess(null);
                 }
 
                 @Override
