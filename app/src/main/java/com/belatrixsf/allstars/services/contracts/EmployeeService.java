@@ -18,15 +18,15 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.services;
+package com.belatrixsf.allstars.services.contracts;
 
 import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.Location;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.CreateEmployeeResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.ResetPasswordResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
+import com.belatrixsf.allstars.services.ServiceRequest;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 
 import java.util.List;
@@ -34,16 +34,24 @@ import java.util.List;
 /**
  * Created by gyosida on 4/12/16.
  */
-public interface EmployeeService {
+public interface EmployeeService extends AllStarsService {
 
-    void authenticate(String username, String password, AllStarsCallback<AuthenticationResponse> callback);
-    void createEmployee(String email, AllStarsCallback<CreateEmployeeResponse> callback);
-    void resetPassword(int employeeId, String oldePassword, String newPassword, AllStarsCallback<Employee> callback);
-    void getEmployee(int employeeId, AllStarsCallback<Employee> callback);
-    void getEmployeeSearchList(String searchTerm, Integer page, AllStarsCallback<SearchEmployeeResponse> callback);
-    void getRankingList(String kind, int quantity, AllStarsCallback<List<Employee>> callback);
-    void getEmployeeCategories(int employeeId, AllStarsCallback<List<Category>> callback);
-    void updateEmployee(int employeeId, String firstName, String lastName, String skypeId, int locationId, AllStarsCallback<Employee> callback);
-    void getEmployeeLocations(AllStarsCallback<List<Location>> callback);
+    ServiceRequest authenticate(String username, String password, AllStarsCallback<AuthenticationResponse> callback);
+
+    ServiceRequest createEmployee(String email, AllStarsCallback<CreateEmployeeResponse> callback);
+
+    ServiceRequest getEmployee(int employeeId, AllStarsCallback<Employee> callback);
+
+    ServiceRequest getEmployeeSearchList(String searchTerm, Integer page, AllStarsCallback<SearchEmployeeResponse> callback);
+
+    ServiceRequest getRankingList(String kind, int quantity, AllStarsCallback<List<Employee>> callback);
+
+    ServiceRequest getEmployeeCategories(int employeeId, AllStarsCallback<List<Category>> callback);
+
+    ServiceRequest updateEmployee(int employeeId, String firstName, String lastName, String skypeId, int locationId, AllStarsCallback<Employee> callback);
+
+    ServiceRequest getEmployeeLocations(AllStarsCallback<List<Location>> callback);
+
+    ServiceRequest resetPassword(int employeeId, String oldePassword, String newPassword, AllStarsCallback<Employee> callback);
 
 }

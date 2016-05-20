@@ -21,7 +21,7 @@
 package com.belatrixsf.allstars.ui.stars.keyword;
 
 import com.belatrixsf.allstars.entities.Keyword;
-import com.belatrixsf.allstars.services.CategoryService;
+import com.belatrixsf.allstars.services.contracts.CategoryService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
@@ -46,6 +46,21 @@ public class KeywordsListPresenter extends AllStarsPresenter<KeywordsListView> {
     }
 
     public void getKeywords() {
+        view.showProgressIndicator();
+        categoryService.getKeywords(
+                new AllStarsCallback<List<Keyword>>() {
+                    @Override
+                    public void onSuccess(List<Keyword> keywords) {
+                        KeywordsListPresenter.this.keywords.addAll(keywords);
+                        view.showKeywords(keywords);
+                        view.hideProgressIndicator();
+                    }
+
+                    @Override
+                    public void onFailure(ServiceError serviceError) {
+                        showError(serviceError.getDetail());
+                    }
+                });
         if (keywords.isEmpty()) {
             view.showProgressIndicator();
             categoryService.getKeywords(new AllStarsCallback<List<Keyword>>() {
@@ -73,8 +88,6 @@ public class KeywordsListPresenter extends AllStarsPresenter<KeywordsListView> {
         }
     }
 
-    // saving state stuff
-
     public void load(List<Keyword> keywords) {
         if (keywords != null) {
             this.keywords.addAll(keywords);
@@ -83,5 +96,10 @@ public class KeywordsListPresenter extends AllStarsPresenter<KeywordsListView> {
 
     public List<Keyword> getKeywordsSync() {
         return keywords;
+    }
+
+    @Override
+    public void cancelRequests() {
+        categoryService.cancelAll();
     }
 }

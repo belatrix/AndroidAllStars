@@ -23,6 +23,7 @@ package com.belatrixsf.allstars.utils;
 import android.app.Application;
 import android.content.Context;
 
+import com.belatrixsf.allstars.BuildConfig;
 import com.belatrixsf.allstars.utils.di.components.ApplicationComponent;
 import com.belatrixsf.allstars.utils.di.components.DaggerApplicationComponent;
 
@@ -40,6 +41,9 @@ public class AllStarsApplication extends Application {
         super.onCreate();
         context = this;
         applicationComponent = DaggerApplicationComponent.create();
+        if (!BuildConfig.DEBUG) {
+            // TODO Implement crashlytics (Ivan Cerrate)
+        }
     }
 
     public ApplicationComponent getApplicationComponent() {

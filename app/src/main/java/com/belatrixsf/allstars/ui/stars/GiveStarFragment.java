@@ -16,13 +16,13 @@ import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.ui.category.CategoriesActivity;
-import com.belatrixsf.allstars.ui.common.views.KeywordSelectionView;
-import com.belatrixsf.allstars.ui.stars.keyword.KeywordsActivity;
-import com.belatrixsf.allstars.ui.stars.comment.CommentActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.views.AccountSelectionView;
 import com.belatrixsf.allstars.ui.common.views.DataSelectionView;
+import com.belatrixsf.allstars.ui.common.views.KeywordSelectionView;
 import com.belatrixsf.allstars.ui.contacts.ContactsListActivity;
+import com.belatrixsf.allstars.ui.stars.comment.CommentActivity;
+import com.belatrixsf.allstars.ui.stars.keyword.KeywordsActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
 
@@ -47,10 +47,14 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
     private GiveStarPresenter giveStarPresenter;
     private MenuItem menuDone;
 
-    @Bind(R.id.account_selection) AccountSelectionView accountSelectionView;
-    @Bind(R.id.category_selection) DataSelectionView categorySelectionView;
-    @Bind(R.id.comment_selection) DataSelectionView commentSelectionView;
-    @Bind(R.id.keyword_selection) KeywordSelectionView keywordSelectionView;
+    @Bind(R.id.account_selection)
+    AccountSelectionView accountSelectionView;
+    @Bind(R.id.category_selection)
+    DataSelectionView categorySelectionView;
+    @Bind(R.id.comment_selection)
+    DataSelectionView commentSelectionView;
+    @Bind(R.id.keyword_selection)
+    KeywordSelectionView keywordSelectionView;
 
     public static GiveStarFragment newInstance(Employee employee) {
         Bundle bundle = new Bundle();
@@ -279,4 +283,9 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
         }
     }
 
+    @Override
+    public void onDestroyView() {
+        giveStarPresenter.cancelRequests();
+        super.onDestroyView();
+    }
 }

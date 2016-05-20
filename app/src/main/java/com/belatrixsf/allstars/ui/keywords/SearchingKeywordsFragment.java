@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
@@ -48,7 +49,8 @@ public class SearchingKeywordsFragment extends AllStarsFragment implements Searc
 
     @Inject SearchingKeywordsPresenter keywordsPresenter;
 
-    @Bind(R.id.keywords) RecyclerView keywords;
+    @Bind(R.id.keywords) RecyclerView keywordsRecyclerView;
+    @Bind(R.id.refresh_keywords) SwipeRefreshLayout keywordsRefreshLayout;
 
 
     public SearchingKeywordsFragment() {
@@ -127,10 +129,16 @@ public class SearchingKeywordsFragment extends AllStarsFragment implements Searc
         };
         keywordsListAdapter = new KeywordsListAdapter();
         keywordsListAdapter.setKeywordListener(this);
-        keywords.addOnScrollListener(endlessRecyclerOnScrollListener);
-        keywords.setAdapter(keywordsListAdapter);
-        keywords.setLayoutManager(linearLayoutManager);
-        keywords.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
+        keywordsRecyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);
+        keywordsRecyclerView.setAdapter(keywordsListAdapter);
+        keywordsRecyclerView.setLayoutManager(linearLayoutManager);
+        keywordsRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
+        keywordsRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                keywordsPresenter.refreshKeywords();
+            }
+        });
     }
 
     @Override
@@ -151,6 +159,7 @@ public class SearchingKeywordsFragment extends AllStarsFragment implements Searc
     public void hideProgressIndicator() {
         keywordsListAdapter.setLoading(false);
         endlessRecyclerOnScrollListener.setLoading(false);
+        keywordsRefreshLayout.setRefreshing(false);
     }
 
     @Override

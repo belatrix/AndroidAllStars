@@ -4,7 +4,7 @@ import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarKeywordTopListResponse;
-import com.belatrixsf.allstars.services.StarService;
+import com.belatrixsf.allstars.services.contracts.StarService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
@@ -68,21 +68,24 @@ public class ContactsKeywordListPresenter extends AllStarsPresenter<ContactsKeyw
 
     public void getEmployeesByStarKeywords() {
         view.showProgressIndicator();
-        starService.getStarsKeywordTopList(keyword.getId(), starPaginatedResponse.getNextPage(), new AllStarsCallback<StarKeywordTopListResponse>() {
-            @Override
-            public void onSuccess(StarKeywordTopListResponse starKeywordTopListResponse) {
-                employeeList.addAll(starKeywordTopListResponse.getEmployees());
-                starPaginatedResponse.setNext(starKeywordTopListResponse.getNext());
-                view.hideProgressIndicator();
-                view.showEmployees(employeeList);
-            }
+        starService.getStarsKeywordTopList(
+                keyword.getId(),
+                starPaginatedResponse.getNextPage(),
+                new AllStarsCallback<StarKeywordTopListResponse>() {
+                    @Override
+                    public void onSuccess(StarKeywordTopListResponse starKeywordTopListResponse) {
+                        employeeList.addAll(starKeywordTopListResponse.getEmployees());
+                        starPaginatedResponse.setNext(starKeywordTopListResponse.getNext());
+                        view.hideProgressIndicator();
+                        view.showEmployees(employeeList);
+                    }
 
-            @Override
-            public void onFailure(ServiceError serviceError) {
-                view.hideProgressIndicator();
-                showError(serviceError.getDetail());
-            }
-        });
+                    @Override
+                    public void onFailure(ServiceError serviceError) {
+                        view.hideProgressIndicator();
+                        showError(serviceError.getDetail());
+                    }
+                });
     }
 
     public void onContactClicked(Object contact) {
@@ -92,4 +95,8 @@ public class ContactsKeywordListPresenter extends AllStarsPresenter<ContactsKeyw
         }
     }
 
+    @Override
+    public void cancelRequests() {
+        starService.cancelAll();
+    }
 }

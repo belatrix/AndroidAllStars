@@ -82,4 +82,8 @@ public class ResetPasswordPresenter extends AllStarsPresenter<ResetPasswordView>
         });
     }
 
+    @Override
+    public void cancelRequests() {
+
+    }
 }

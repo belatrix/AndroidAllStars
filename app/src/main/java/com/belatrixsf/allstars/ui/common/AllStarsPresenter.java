@@ -22,12 +22,11 @@ package com.belatrixsf.allstars.ui.common;
 
 /**
  * @author gyosida
- *
- * AllStarsPresenter is the base clase for every presenter created
- * on the project, will hold the reference to the view and any common
- * interaction with it
+ *         AllStarsPresenter is the base clase for every presenter created
+ *         on the project, will hold the reference to the view and any common
+ *         interaction with it
  */
-public class AllStarsPresenter<T extends AllStarsView> {
+public abstract class AllStarsPresenter<T extends AllStarsView> {
 
     protected T view;
 
@@ -46,5 +45,7 @@ public class AllStarsPresenter<T extends AllStarsView> {
     protected void showError(String message) {
         view.showError(message);
     }
+
+    public abstract void cancelRequests();
 
 }

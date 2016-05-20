@@ -29,20 +29,13 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.ContactsListAdapter;
@@ -85,7 +78,8 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
 
     private ImageView photoImageView;
 
-    @Bind(R.id.employees) RecyclerView contactsRecyclerView;
+    @Bind(R.id.employees)
+    RecyclerView contactsRecyclerView;
 
     public static ContactsListFragment newInstance(boolean profileEnabled) {
         Bundle bundle = new Bundle();
@@ -141,7 +135,7 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
         boolean hasArguments = (getArguments() != null && getArguments().containsKey(PROFILE_ENABLED_KEY));
         if (savedInstanceState != null) {
             restoreState(savedInstanceState);
-        } else if (hasArguments){
+        } else if (hasArguments) {
             contactsListPresenter.setProfileEnabled(getArguments().getBoolean(PROFILE_ENABLED_KEY));
             contactsListPresenter.getContacts();
         }
@@ -260,7 +254,7 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
 
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-            return  false;
+            return false;
         }
 
         @Override
@@ -289,4 +283,9 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
         fragmentListener.closeActivity();
     }
 
+    @Override
+    public void onDestroyView() {
+        contactsListPresenter.cancelRequests();
+        super.onDestroyView();
+    }
 }
