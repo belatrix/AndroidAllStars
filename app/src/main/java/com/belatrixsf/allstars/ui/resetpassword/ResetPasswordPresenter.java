@@ -21,7 +21,9 @@
 package com.belatrixsf.allstars.ui.resetpassword;
 
 import com.belatrixsf.allstars.R;
+import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.managers.EmployeeManager;
+import com.belatrixsf.allstars.managers.PreferencesManager;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
@@ -66,11 +68,11 @@ public class ResetPasswordPresenter extends AllStarsPresenter<ResetPasswordView>
 
     public void reset(String oldPassword, String newPassword) {
         view.showProgressDialog();
-        employeeManager.resetPassword(oldPassword, newPassword, new AllStarsCallback<Void>() {
+        employeeManager.resetPassword(oldPassword, newPassword, new AllStarsCallback<Employee>() {
             @Override
-            public void onSuccess(Void aVoid) {
+            public void onSuccess(Employee employee) {
                 view.dismissProgressDialog();
-                view.goEditProfile();
+                view.goEditProfile(employee);
             }
 
             @Override
@@ -79,4 +81,5 @@ public class ResetPasswordPresenter extends AllStarsPresenter<ResetPasswordView>
             }
         });
     }
+
 }

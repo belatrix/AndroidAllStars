@@ -63,7 +63,7 @@ public class EmployeeManager {
                             callback.onFailure(serviceError);
                         }
                     });
-                }else{
+                } else {
                     callback.onSuccess(false);
                 }
             }
@@ -75,13 +75,13 @@ public class EmployeeManager {
         });
     }
 
-    public void resetPassword(String oldPassword, String newPassword, final AllStarsCallback<Void> callback) {
+    public void resetPassword(String oldPassword, String newPassword, final AllStarsCallback<Employee> callback) {
         if (employee == null) {
             int storedEmployeeId = PreferencesManager.get().getEmployeeId();
-            employeeService.resetPassword(storedEmployeeId, oldPassword, newPassword, new AllStarsCallback<ResetPasswordResponse>() {
+            employeeService.resetPassword(storedEmployeeId, oldPassword, newPassword, new AllStarsCallback<Employee>() {
                 @Override
-                public void onSuccess(ResetPasswordResponse resetPasswordResponse) {
-                    callback.onSuccess(null);
+                public void onSuccess(Employee employee) {
+                    callback.onSuccess(employee);
                 }
 
                 @Override

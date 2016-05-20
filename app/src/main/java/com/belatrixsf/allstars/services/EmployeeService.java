@@ -38,7 +38,7 @@ public interface EmployeeService {
 
     void authenticate(String username, String password, AllStarsCallback<AuthenticationResponse> callback);
     void createEmployee(String email, AllStarsCallback<CreateEmployeeResponse> callback);
-    void resetPassword(int employeeId, String oldePassword, String newPassword, AllStarsCallback<ResetPasswordResponse> callback);
+    void resetPassword(int employeeId, String oldePassword, String newPassword, AllStarsCallback<Employee> callback);
     void getEmployee(int employeeId, AllStarsCallback<Employee> callback);
     void getEmployeeSearchList(String searchTerm, Integer page, AllStarsCallback<SearchEmployeeResponse> callback);
     void getRankingList(String kind, int quantity, AllStarsCallback<List<Employee>> callback);

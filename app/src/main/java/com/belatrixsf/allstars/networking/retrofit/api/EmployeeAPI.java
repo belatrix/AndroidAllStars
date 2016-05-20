@@ -54,7 +54,7 @@ public interface EmployeeAPI {
     Call<CreateEmployeeResponse> createEmployee(@Body CreateEmployeeRequest request);
 
     @POST(ServerPaths.EMPLOYEE_RESET_PASSWORD)
-    Call<ResetPasswordResponse> resetPassword(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Body ResetPasswordRequest request);
+    Call<Employee> resetPassword(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Body ResetPasswordRequest request);
 
     @GET(ServerPaths.EMPLOYEE_BY_ID)
     Call<Employee> getEmployee(@Path(ServerPaths.EMPLOYEE_ID) int employeeId);

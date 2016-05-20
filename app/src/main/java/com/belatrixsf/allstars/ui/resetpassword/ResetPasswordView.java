@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.allstars.ui.resetpassword;
 
+import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.ui.common.AllStarsView;
 
 /**
@@ -27,7 +28,7 @@ import com.belatrixsf.allstars.ui.common.AllStarsView;
  */
 public interface ResetPasswordView extends AllStarsView {
 
-    void goEditProfile();
+    void goEditProfile(Employee employee);
     void enableReset(boolean enable);
     void newPasswordError(String message);
     void cleanNewPasswordError();

@@ -62,9 +62,9 @@ public class EmployeeServerService implements EmployeeService {
     }
 
     @Override
-    public void resetPassword(int employeeId, String oldPassword, String newPassword, AllStarsCallback<ResetPasswordResponse> callback) {
+    public void resetPassword(int employeeId, String oldPassword, String newPassword, AllStarsCallback<Employee> callback) {
         ResetPasswordRequest request = new ResetPasswordRequest(oldPassword, newPassword);
-        employeeAPI.resetPassword(employeeId, request).enqueue(new RetrofitCallback<ResetPasswordResponse>(callback));
+        employeeAPI.resetPassword(employeeId, request).enqueue(new RetrofitCallback<Employee>(callback));
     }
 
     @Override

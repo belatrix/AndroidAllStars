@@ -34,11 +34,13 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.belatrixsf.allstars.R;
+import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.ui.account.edit.EditAccountActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.components.DaggerResetPasswordComponent;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ResetPasswordPresenterModule;
+import static com.belatrixsf.allstars.ui.account.edit.EditAccountFragment.IS_CREATION;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -102,10 +104,11 @@ public class ResetPasswordFragment extends AllStarsFragment implements ResetPass
     }
 
     @Override
-    public void goEditProfile() {
+    public void goEditProfile(Employee employee) {
         Intent intent = new Intent(getActivity(), EditAccountActivity.class);
+        intent.putExtra(EditAccountActivity.EMPLOYEE_KEY, employee);
+        intent.putExtra(IS_CREATION, true);
         startActivity(intent);
-        fragmentListener.closeActivity();
     }
 
     @Override
