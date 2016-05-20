@@ -24,7 +24,7 @@ import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.allstars.entities.Star;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarsResponse;
-import com.belatrixsf.allstars.services.StarService;
+import com.belatrixsf.allstars.services.contracts.StarService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
@@ -63,7 +63,7 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
         return starPaginatedResponse;
     }
 
-    public List<Star> getLoadedStars(){
+    public List<Star> getLoadedStars() {
         return stars;
     }
 
@@ -92,25 +92,34 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
 
     public void getStars() {
         view.showProgressIndicator();
-        starService.getStars(employeeId, subCategoryId, starPaginatedResponse.getNextPage(), new AllStarsCallback<StarsResponse>() {
-            @Override
-            public void onSuccess(StarsResponse starsResponse) {
-                stars.addAll(starsResponse.getStarList());
-                starPaginatedResponse.setNext(starsResponse.getNext());
-                view.hideProgressIndicator();
-                view.showStars(stars);
-            }
+        starService.getStars(
+                employeeId,
+                subCategoryId,
+                starPaginatedResponse.getNextPage(),
+                new AllStarsCallback<StarsResponse>() {
+                    @Override
+                    public void onSuccess(StarsResponse starsResponse) {
+                        stars.addAll(starsResponse.getStarList());
+                        starPaginatedResponse.setNext(starsResponse.getNext());
+                        view.hideProgressIndicator();
+                        view.showStars(stars);
+                    }
 
-            @Override
-            public void onFailure(ServiceError serviceError) {
-                view.hideProgressIndicator();
-                showError(serviceError.getDetail());
-            }
-        });
+                    @Override
+                    public void onFailure(ServiceError serviceError) {
+                        view.hideProgressIndicator();
+                        showError(serviceError.getDetail());
+                    }
+                });
     }
 
     public void onKeywordSelected(int position) {
         Keyword keyword = stars.get(position).getKeyword();
         view.goToKeywordContacts(keyword);
+    }
+
+    @Override
+    public void cancelRequests() {
+        starService.cancelAll();
     }
 }

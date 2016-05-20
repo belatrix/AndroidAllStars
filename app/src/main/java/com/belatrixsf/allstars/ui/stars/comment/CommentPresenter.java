@@ -1,6 +1,5 @@
 package com.belatrixsf.allstars.ui.stars.comment;
 
-import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 
 import javax.inject.Inject;
@@ -19,7 +18,7 @@ public class CommentPresenter extends AllStarsPresenter<CommentView> {
 //        if (comment.isEmpty()) {
 //            view.showError(getString(R.string.comment_no_empty_error));
 //        } else {
-            view.selectComment(comment);
+        view.selectComment(comment);
 //        }
     }
 
@@ -29,4 +28,9 @@ public class CommentPresenter extends AllStarsPresenter<CommentView> {
         }
     }
 
+
+    @Override
+    public void cancelRequests() {
+        // TODO Implement cancel request for the required services.
+    }
 }

@@ -51,15 +51,25 @@ import dagger.Component;
 public interface ApplicationComponent {
 
     EmployeeManager employeeManager();
+
     SignUpComponent signUpComponent(SignUpPresenterModule signUpPresenterModule);
+
     AccountComponent accountComponent(AccountPresenterModule accountPresenterModule);
+
     ContactsListComponent contactsListComponent(ContactsListPresenterModule contactsListPresenterModule);
+
     StarsListComponent starsListComponent(StarsListPresenterModule StarsListPresenterModule);
+
     RankingComponent rankingComponent(RankingPresenterModule rankingPresenterModule);
+
     GiveStarComponent giveStarComponent(GiveStarPresenterModule giveStarPresenterModule);
+
     CategoriesListComponent categoriesListComponent(CategoriesListModule categoriesListModule);
+
     ContactsKeywordListComponent contactsKeywordListComponent(ContactsKeywordPresenterModule contactsKeywordPresenterModule);
+
     KeywordsComponent keywordsListComponent(KeywordsListModule keywordsListModule);
+
     EditAccountComponent editAccountComponent(EditAccountPresenterModule editAccountPresenterModule);
 
 }

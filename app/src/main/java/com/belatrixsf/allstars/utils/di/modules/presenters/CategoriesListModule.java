@@ -22,8 +22,8 @@ package com.belatrixsf.allstars.utils.di.modules.presenters;
 
 import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.managers.EmployeeManager;
-import com.belatrixsf.allstars.services.CategoryService;
-import com.belatrixsf.allstars.services.EmployeeService;
+import com.belatrixsf.allstars.services.contracts.CategoryService;
+import com.belatrixsf.allstars.services.contracts.EmployeeService;
 import com.belatrixsf.allstars.ui.category.CategoriesPresenter;
 import com.belatrixsf.allstars.ui.category.CategoriesView;
 

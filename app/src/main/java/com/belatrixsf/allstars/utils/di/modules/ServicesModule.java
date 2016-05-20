@@ -23,12 +23,12 @@ package com.belatrixsf.allstars.utils.di.modules;
 import com.belatrixsf.allstars.networking.retrofit.api.CategoryAPI;
 import com.belatrixsf.allstars.networking.retrofit.api.EmployeeAPI;
 import com.belatrixsf.allstars.networking.retrofit.api.StarAPI;
-import com.belatrixsf.allstars.services.CategoryServerService;
-import com.belatrixsf.allstars.services.CategoryService;
-import com.belatrixsf.allstars.services.EmployeeServerService;
-import com.belatrixsf.allstars.services.EmployeeService;
-import com.belatrixsf.allstars.services.StarServerService;
-import com.belatrixsf.allstars.services.StarService;
+import com.belatrixsf.allstars.services.server.CategoryServerService;
+import com.belatrixsf.allstars.services.contracts.CategoryService;
+import com.belatrixsf.allstars.services.server.EmployeeServerService;
+import com.belatrixsf.allstars.services.contracts.EmployeeService;
+import com.belatrixsf.allstars.services.server.StarServerService;
+import com.belatrixsf.allstars.services.contracts.StarService;
 
 import dagger.Module;
 import dagger.Provides;

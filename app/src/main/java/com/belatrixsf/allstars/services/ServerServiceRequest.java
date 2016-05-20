@@ -18,42 +18,31 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.home;
+package com.belatrixsf.allstars.services;
 
-import com.belatrixsf.allstars.R;
-import com.belatrixsf.allstars.managers.EmployeeManager;
-import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
+import com.belatrixsf.allstars.networking.retrofit.RetrofitCallback;
+import com.belatrixsf.allstars.utils.AllStarsCallback;
 
-import javax.inject.Inject;
+import retrofit2.Call;
 
 /**
- * Created by gyosida on 4/28/16.
+ * Created by gyosida on 5/20/16.
  */
-public class HomePresenter extends AllStarsPresenter<HomeView> {
+public class ServerServiceRequest<T> extends ServiceRequest<T> {
 
-    private EmployeeManager employeeManager;
+    private Call<T> call;
 
-    @Inject
-    public HomePresenter(HomeView view, EmployeeManager employeeManager) {
-        super(view);
-        this.employeeManager = employeeManager;
-    }
-
-    public void wantToLogout() {
-        view.showLogoutConfirmationDialog(getString(R.string.dialog_confirmation_logout));
-    }
-
-    public void confirmLogout() {
-        employeeManager.logout();
-        view.goToLogin();
+    public ServerServiceRequest(Call<T> call) {
+        this.call = call;
     }
 
     @Override
-    public void cancelRequests() {
+    void enqueue(AllStarsCallback<T> allStarsCallback) {
+        call.enqueue(new RetrofitCallback<T>(allStarsCallback));
     }
 
-    public void refreshEmployee() {
-        employeeManager.refreshEmployee();
+    @Override
+    public void cancel() {
+        call.cancel();
     }
-
 }

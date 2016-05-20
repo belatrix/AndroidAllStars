@@ -18,42 +18,22 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.home;
+package com.belatrixsf.allstars.services.contracts;
 
-import com.belatrixsf.allstars.R;
-import com.belatrixsf.allstars.managers.EmployeeManager;
-import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
+import com.belatrixsf.allstars.entities.Category;
+import com.belatrixsf.allstars.entities.Keyword;
+import com.belatrixsf.allstars.entities.SubCategory;
+import com.belatrixsf.allstars.services.ServiceRequest;
+import com.belatrixsf.allstars.utils.AllStarsCallback;
 
-import javax.inject.Inject;
+import java.util.List;
 
 /**
- * Created by gyosida on 4/28/16.
+ * Created by gyosida on 4/27/16.
  */
-public class HomePresenter extends AllStarsPresenter<HomeView> {
+public interface CategoryService extends AllStarsService {
 
-    private EmployeeManager employeeManager;
+    ServiceRequest getSubcategories(int categoryId, AllStarsCallback<List<Category>> callback);
 
-    @Inject
-    public HomePresenter(HomeView view, EmployeeManager employeeManager) {
-        super(view);
-        this.employeeManager = employeeManager;
-    }
-
-    public void wantToLogout() {
-        view.showLogoutConfirmationDialog(getString(R.string.dialog_confirmation_logout));
-    }
-
-    public void confirmLogout() {
-        employeeManager.logout();
-        view.goToLogin();
-    }
-
-    @Override
-    public void cancelRequests() {
-    }
-
-    public void refreshEmployee() {
-        employeeManager.refreshEmployee();
-    }
-
+    ServiceRequest getKeywords(AllStarsCallback<List<Keyword>> callback);
 }

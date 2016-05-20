@@ -25,8 +25,8 @@ import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.managers.EmployeeManager;
-import com.belatrixsf.allstars.services.CategoryService;
-import com.belatrixsf.allstars.services.EmployeeService;
+import com.belatrixsf.allstars.services.contracts.CategoryService;
+import com.belatrixsf.allstars.services.contracts.EmployeeService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
@@ -61,7 +61,7 @@ public class CategoriesPresenter extends AllStarsPresenter<CategoriesView> {
     }
 
     public void init() {
-        view.setTitle(viewPresentsCategories()? getString(R.string.title_select_category) : getString(R.string.title_select_subcategory));
+        view.setTitle(viewPresentsCategories() ? getString(R.string.title_select_category) : getString(R.string.title_select_subcategory));
     }
 
     public void getCategories() {
@@ -136,4 +136,13 @@ public class CategoriesPresenter extends AllStarsPresenter<CategoriesView> {
         }
     };
 
+    @Override
+    public void cancelRequests() {
+        if (categoryService != null) {
+            categoryService.cancelAll();
+        }
+        if (employeeService != null) {
+            employeeService.cancelAll();
+        }
+    }
 }

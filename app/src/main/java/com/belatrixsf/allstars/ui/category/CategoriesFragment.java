@@ -38,10 +38,11 @@ public class CategoriesFragment extends AllStarsFragment implements CategoriesVi
     private SubcategorySelectionListener subcategorySelectionListener;
     private CategoriesAdapter categoriesAdapter;
 
-    @Inject CategoriesPresenter categoriesPresenter;
+    @Inject
+    CategoriesPresenter categoriesPresenter;
 
-    @Bind(R.id.categories) RecyclerView categoriesRecyclerView;
-
+    @Bind(R.id.categories)
+    RecyclerView categoriesRecyclerView;
 
     public CategoriesFragment() {
         // Required empty public constructor
@@ -162,4 +163,9 @@ public class CategoriesFragment extends AllStarsFragment implements CategoriesVi
         void onSubcategorySelected(Category subcategory);
     }
 
+    @Override
+    public void onDestroyView() {
+        categoriesPresenter.cancelRequests();
+        super.onDestroyView();
+    }
 }

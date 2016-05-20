@@ -3,7 +3,7 @@ package com.belatrixsf.allstars.ui.account.edit;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.Location;
-import com.belatrixsf.allstars.services.EmployeeService;
+import com.belatrixsf.allstars.services.contracts.EmployeeService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
@@ -135,4 +135,8 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
         return locationSelected;
     }
 
+    @Override
+    public void cancelRequests() {
+        employeeService.cancelAll();
+    }
 }

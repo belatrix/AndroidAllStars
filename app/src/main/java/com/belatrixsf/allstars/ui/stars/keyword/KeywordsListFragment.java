@@ -52,10 +52,11 @@ public class KeywordsListFragment extends AllStarsFragment implements KeywordsLi
 
     private KeywordsListAdapter keywordsListAdapter;
 
-    @Inject KeywordsListPresenter keywordsListPresenter;
+    @Inject
+    KeywordsListPresenter keywordsListPresenter;
 
-    @Bind(R.id.keywords) RecyclerView keywords;
-
+    @Bind(R.id.keywords)
+    RecyclerView keywords;
 
     public KeywordsListFragment() {
         // Required empty public constructor
@@ -135,5 +136,11 @@ public class KeywordsListFragment extends AllStarsFragment implements KeywordsLi
 
     interface KeywordsListListener {
         void onKeywordSelectedForDispatching(Keyword keyword);
+    }
+
+    @Override
+    public void onDestroyView() {
+        keywordsListPresenter.cancelRequests();
+        super.onDestroyView();
     }
 }

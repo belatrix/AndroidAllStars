@@ -23,7 +23,8 @@ package com.belatrixsf.allstars.ui.keywords;
 import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarsByKeywordsResponse;
-import com.belatrixsf.allstars.services.StarService;
+import com.belatrixsf.allstars.services.ServiceRequest;
+import com.belatrixsf.allstars.services.contracts.StarService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
@@ -41,9 +42,9 @@ public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywo
     private StarService starService;
     private List<Keyword> keywords = new ArrayList<>();
     private PaginatedResponse keywordsPaging = new PaginatedResponse();
+    private ServiceRequest searchingServiceRequest;
     private String searchText;
     private boolean searching = false;
-
 
     @Inject
     public SearchingKeywordsPresenter(SearchingKeywordsView searchingKeywordsView, StarService starService) {
@@ -86,6 +87,9 @@ public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywo
     }
 
     public void getKeywords(String searchText) {
+        if (searchingServiceRequest != null) {
+            searchingServiceRequest.cancel();
+        }
         this.searchText = searchText;
         reset();
         getKeywordsInternal();
@@ -98,21 +102,29 @@ public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywo
 
     private void getKeywordsInternal() {
         view.showProgressIndicator();
-        starService.getStarsByKeywords(searchText, keywordsPaging.getNextPage(), new AllStarsCallback<StarsByKeywordsResponse>() {
-            @Override
-            public void onSuccess(StarsByKeywordsResponse starsByKeywordsResponse) {
-                keywordsPaging.setCount(starsByKeywordsResponse.getCount());
-                keywordsPaging.setNext(starsByKeywordsResponse.getNext());
-                keywords.addAll(starsByKeywordsResponse.getKeywords());
-                view.addKeywords(starsByKeywordsResponse.getKeywords());
-                view.hideProgressIndicator();
-            }
+        searchingServiceRequest = starService.getStarsByKeywords(
+                searchText,
+                keywordsPaging.getNextPage(),
+                new AllStarsCallback<StarsByKeywordsResponse>() {
+                    @Override
+                    public void onSuccess(StarsByKeywordsResponse starsByKeywordsResponse) {
+                        keywordsPaging.setCount(starsByKeywordsResponse.getCount());
+                        keywordsPaging.setNext(starsByKeywordsResponse.getNext());
+                        keywords.addAll(starsByKeywordsResponse.getKeywords());
+                        view.addKeywords(starsByKeywordsResponse.getKeywords());
+                        view.hideProgressIndicator();
+                    }
 
-            @Override
-            public void onFailure(ServiceError serviceError) {
-                showError(serviceError.getDetail());
-            }
-        });
+                    @Override
+                    public void onFailure(ServiceError serviceError) {
+                        showError(serviceError.getDetail());
+                    }
+                });
+    }
+
+    @Override
+    public void cancelRequests() {
+        starService.cancelAll();
     }
 
     private void reset() {

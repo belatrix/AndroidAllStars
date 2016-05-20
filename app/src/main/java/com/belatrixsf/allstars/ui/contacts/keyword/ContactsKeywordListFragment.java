@@ -1,7 +1,6 @@
 package com.belatrixsf.allstars.ui.contacts.keyword;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,7 +19,6 @@ import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.EndlessRecyclerOnScrollListener;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
-import com.belatrixsf.allstars.ui.stars.StarsListActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsKeywordPresenterModule;
 
@@ -44,7 +42,8 @@ public class ContactsKeywordListFragment extends AllStarsFragment implements Con
     public static final String PAGINATED_RESPONSE_KEY = "_paginated_response_key";
     public static final String EMPLOYEE_LIST_KEY = "_employee_list_key";
 
-    @Bind(R.id.employees) RecyclerView employeesRecyclerView;
+    @Bind(R.id.employees)
+    RecyclerView employeesRecyclerView;
     ImageView photoImageView;
 
     public static ContactsKeywordListFragment newInstance(Keyword keyword) {
@@ -155,4 +154,9 @@ public class ContactsKeywordListFragment extends AllStarsFragment implements Con
         contactsKeywordListPresenter.onContactClicked(v.getTag());
     }
 
+    @Override
+    public void onDestroyView() {
+        contactsKeywordListPresenter.cancelRequests();
+        super.onDestroyView();
+    }
 }

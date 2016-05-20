@@ -8,7 +8,7 @@ import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.networking.retrofit.requests.StarRequest;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarResponse;
-import com.belatrixsf.allstars.services.StarService;
+import com.belatrixsf.allstars.services.contracts.StarService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
@@ -105,7 +105,7 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
     }
 
     public void loadSelectedSubCategory(SubCategory subCategory) {
-        if(subCategory != null && subCategory.getName() != null && !subCategory.getName().isEmpty()){
+        if (subCategory != null && subCategory.getName() != null && !subCategory.getName().isEmpty()) {
             selectedSubCategory = subCategory;
             view.showCategory(subCategory.getName());
             checkRecommendationEnabled();
@@ -122,15 +122,27 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
 
     public void makeRecommendation() {
         view.showProgressDialog(getString(R.string.making_recommendation));
-        employeeManager.getLoggedInEmployee(new AllStarsCallback<Employee>() {
-            @Override
-            public void onSuccess(Employee fromEmployee) {
-                StarRequest starRequest = new StarRequest(selectedSubCategory.getParentCategory().getId(), selectedSubCategory.getId(), selectedComment, selectedKeyword.getId());
-                starService.star(fromEmployee.getPk(), selectedEmployee.getPk(), starRequest, new AllStarsCallback<StarResponse>() {
+        employeeManager.getLoggedInEmployee(
+                new AllStarsCallback<Employee>() {
                     @Override
-                    public void onSuccess(StarResponse starResponse) {
-                        view.dismissProgressDialog();
-                        view.finishRecommendation();
+                    public void onSuccess(Employee fromEmployee) {
+                        StarRequest starRequest = new StarRequest(selectedSubCategory.getParentCategory().getId(), selectedSubCategory.getId(), selectedComment, selectedKeyword.getId());
+                        starService.star(
+                                fromEmployee.getPk(),
+                                selectedEmployee.getPk(),
+                                starRequest,
+                                new AllStarsCallback<StarResponse>() {
+                                    @Override
+                                    public void onSuccess(StarResponse starResponse) {
+                                        view.dismissProgressDialog();
+                                        view.finishRecommendation();
+                                    }
+
+                                    @Override
+                                    public void onFailure(ServiceError serviceError) {
+                                        view.showError(serviceError.getDetail());
+                                    }
+                                });
                     }
 
                     @Override
@@ -138,13 +150,6 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
                         view.showError(serviceError.getDetail());
                     }
                 });
-            }
-
-            @Override
-            public void onFailure(ServiceError serviceError) {
-                view.showError(serviceError.getDetail());
-            }
-        });
     }
 
     public void checkRecommendationEnabled() {
@@ -165,4 +170,8 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
         return true;
     }
 
+    @Override
+    public void cancelRequests() {
+        starService.cancelAll();
+    }
 }

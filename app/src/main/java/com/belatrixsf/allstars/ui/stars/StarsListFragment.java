@@ -59,7 +59,8 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
     private StarsListAdapter starsListAdapter;
     private EndlessRecyclerOnScrollListener endlessRecyclerOnScrollListener;
 
-    @Bind(R.id.stars) RecyclerView starsRecyclerView;
+    @Bind(R.id.stars)
+    RecyclerView starsRecyclerView;
 
     public static StarsListFragment newInstance(Integer userId, Integer categoryId) {
         Bundle bundle = new Bundle();
@@ -97,9 +98,9 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
         if (savedInstanceState != null) {
             restoreState(savedInstanceState);
         } else if (hasArguments) {
-                Integer userId = getArguments().getInt(StarsListActivity.USER_ID);
-                Integer categoryId = getArguments().getInt(StarsListActivity.SUBCATEGORY_ID);
-                starsListPresenter.getStars(userId, categoryId);
+            Integer userId = getArguments().getInt(StarsListActivity.USER_ID);
+            Integer categoryId = getArguments().getInt(StarsListActivity.SUBCATEGORY_ID);
+            starsListPresenter.getStars(userId, categoryId);
         }
     }
 
@@ -175,5 +176,10 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
         startActivity(intent);
     }
 
+    @Override
+    public void onDestroyView() {
+        starsListPresenter.cancelRequests();
+        super.onDestroyView();
+    }
 }
 

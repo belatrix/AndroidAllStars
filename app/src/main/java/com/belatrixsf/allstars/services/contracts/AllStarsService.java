@@ -18,35 +18,14 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.services;
 
-import com.belatrixsf.allstars.entities.Category;
-import com.belatrixsf.allstars.entities.Keyword;
-import com.belatrixsf.allstars.entities.SubCategory;
-import com.belatrixsf.allstars.networking.retrofit.RetrofitCallback;
-import com.belatrixsf.allstars.networking.retrofit.api.CategoryAPI;
-import com.belatrixsf.allstars.utils.AllStarsCallback;
-
-import java.util.List;
+package com.belatrixsf.allstars.services.contracts;
 
 /**
- * Created by gyosida on 4/27/16.
+ * @author Carlos Piñan
  */
-public class CategoryServerService implements CategoryService {
+public interface AllStarsService {
 
-    private CategoryAPI categoryAPI;
+    void cancelAll();
 
-    public CategoryServerService(CategoryAPI categoryAPI) {
-        this.categoryAPI = categoryAPI;
-    }
-
-    @Override
-    public void getSubcategories(int categoryId, AllStarsCallback<List<Category>> callback) {
-        categoryAPI.getSubcategories(categoryId).enqueue(new RetrofitCallback<List<SubCategory>>(callback));
-    }
-
-    @Override
-    public void getKeywords(AllStarsCallback<List<Keyword>> callback) {
-        categoryAPI.getKeywords().enqueue(new RetrofitCallback<List<Keyword>>(callback));
-    }
 }
