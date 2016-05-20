@@ -18,26 +18,16 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.common.views.searchingview;
+package com.belatrixsf.allstars.ui.contacts;
+
+
+import android.support.v7.view.ActionMode;
 
 /**
- * Created by gyosida on 5/10/16.
+ * Created by icerrate on 19/04/2016.
  */
-public class SearchingViewPresenter {
+public interface ContactsListFragmentListener {
 
-    private SearchableView searchableView;
-
-    public SearchingViewPresenter(SearchableView searchableView) {
-        this.searchableView = searchableView;
-    }
-
-    public void searchingTextTyped(String searchingText) {
-        searchableView.changeClearButtonVisibility(searchingText.length() > 0);
-        searchableView.notifyTextTyped(searchingText);
-    }
-
-    public void clearSearching() {
-        searchableView.clearSearching();
-    }
+    void setActionMode(ActionMode.Callback callback);
 
 }
