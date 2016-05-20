@@ -21,7 +21,6 @@
 package com.belatrixsf.allstars.utils.di.components;
 
 import com.belatrixsf.allstars.managers.EmployeeManager;
-import com.belatrixsf.allstars.utils.di.modules.OkHttpModule;
 import com.belatrixsf.allstars.utils.di.modules.RetrofitModule;
 import com.belatrixsf.allstars.utils.di.modules.ServicesModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModule;
@@ -45,7 +44,6 @@ import dagger.Component;
 @Singleton
 @Component(
         modules = {
-                OkHttpModule.class,
                 RetrofitModule.class,
                 ServicesModule.class
         }

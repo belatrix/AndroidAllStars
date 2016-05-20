@@ -50,6 +50,12 @@ public class RetrofitModule {
 
     @Singleton
     @Provides
+    public OkHttpClient providesOkHttpClient() {
+        return new OkHttpClient();
+    }
+
+    @Singleton
+    @Provides
     public Retrofit provideRetrofit(OkHttpClient okHttpClient) {
         OkHttpClient.Builder builder = okHttpClient.newBuilder();
         if (BuildConfig.DEBUG) {

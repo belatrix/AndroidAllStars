@@ -94,13 +94,13 @@ public class EmployeeServerService extends AllStarsBaseService implements Employ
         return serviceRequest;
     }
 
+    @Override
     public ServiceRequest getEmployeeCategories(int employeeId, AllStarsCallback<List<Category>> callback) {
         Call<List<Category>> call = employeeAPI.getEmployeeCategories(employeeId);
         ServiceRequest<List<Category>> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
         return serviceRequest;
     }
-
 
     @Override
     public ServiceRequest updateEmployee(int employeeId, String firstName, String lastName, String skypeId, int locationId, AllStarsCallback<Employee> callback) {
