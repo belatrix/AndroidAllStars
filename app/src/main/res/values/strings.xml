@@ -25,7 +25,7 @@
 
     <!-- Button -->
     <string name="button_log_in">Log In</string>
-    <string name="button_sign_up">Sign Up</string>
+    <string name="button_sign_up">New user? Sign Up!</string>
     <string name="button_sign_up_action">Register</string>
 
     <!-- Title -->
