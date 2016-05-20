@@ -13,6 +13,8 @@
     <color name="white">#FFFFFF</color>
     <color name="softGrey">#DDDDDD</color>
     <color name="belatrix">#FF8F03</color>
+    <color name="darkerBelatrix">#F28905</color>
+    <color name="lightBelatrix">#FFA12B</color>
     <color name="grey">#9E9E9E</color>
 
     <color name="recycler_view_normal">#ffffff</color>
