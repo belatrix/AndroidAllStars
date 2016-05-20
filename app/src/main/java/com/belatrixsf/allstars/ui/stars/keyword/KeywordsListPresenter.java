@@ -73,7 +73,7 @@ public class KeywordsListPresenter extends AllStarsPresenter<KeywordsListView> {
 
                 @Override
                 public void onFailure(ServiceError serviceError) {
-                    showError(serviceError.getErrorMessage());
+                    showError(serviceError.getDetail());
                 }
             });
         } else {

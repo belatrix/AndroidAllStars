@@ -68,7 +68,7 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
             @Override
             public void onFailure(ServiceError serviceError) {
                 view.dismissProgressDialog();
-                showError(serviceError.getErrorMessage());
+                showError(serviceError.getDetail());
             }
         };
         if (employeeId == null) {
@@ -96,7 +96,7 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
                     @Override
                     public void onFailure(ServiceError serviceError) {
                         view.hideProgressIndicator();
-                        showError(serviceError.getErrorMessage());
+                        showError(serviceError.getDetail());
                     }
                 });
     }

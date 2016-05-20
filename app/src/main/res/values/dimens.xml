@@ -8,6 +8,7 @@
     <dimen name="dimen_8">8dp</dimen>
     <dimen name="dimen_2_5">10dp</dimen>
     <dimen name="dimen_3_5">15dp</dimen>
+    <dimen name="dimen_4_5">20dp</dimen>
     <dimen name="dimen_5_5">25dp</dimen>
     <dimen name="dimen_6_5">30dp</dimen>
     <dimen name="dimen_8_5">40dp</dimen>
@@ -31,8 +32,7 @@
     <dimen name="text_20">20sp</dimen>
     <dimen name="text_28">28sp</dimen>
 
-    <dimen name="text_margin">3dp</dimen>
-
+    <dimen name="welcome_divider">1dp</dimen>
     <dimen name="keyword_stroke">1dp</dimen>
 
     <!-- Defaults -->

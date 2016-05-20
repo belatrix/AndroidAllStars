@@ -83,7 +83,7 @@ public class ContactsKeywordListPresenter extends AllStarsPresenter<ContactsKeyw
                     @Override
                     public void onFailure(ServiceError serviceError) {
                         view.hideProgressIndicator();
-                        showError(serviceError.getErrorMessage());
+                        showError(serviceError.getDetail());
                     }
                 });
     }

@@ -142,7 +142,7 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
                         @Override
                         public void onFailure(ServiceError serviceError) {
                             view.hideProgressIndicator();
-                            showError(serviceError.getErrorMessage());
+                            showError(serviceError.getDetail());
                         }
                     });
         }

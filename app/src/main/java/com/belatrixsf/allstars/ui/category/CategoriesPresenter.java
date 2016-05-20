@@ -77,7 +77,7 @@ public class CategoriesPresenter extends AllStarsPresenter<CategoriesView> {
 
                         @Override
                         public void onFailure(ServiceError serviceError) {
-                            showError(serviceError.getErrorMessage());
+                            showError(serviceError.getDetail());
                         }
                     });
                 }
@@ -132,7 +132,7 @@ public class CategoriesPresenter extends AllStarsPresenter<CategoriesView> {
 
         @Override
         public void onFailure(ServiceError serviceError) {
-            showError(serviceError.getErrorMessage());
+            showError(serviceError.getDetail());
         }
     };
 

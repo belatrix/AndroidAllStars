@@ -70,7 +70,7 @@ public class RankingPresenter extends AllStarsPresenter<RankingView> {
                         } else {
                             view.hideRefreshData();
                         }
-                        showError(serviceError.getErrorMessage());
+                        showError(serviceError.getDetail());
                     }
                 });
     }

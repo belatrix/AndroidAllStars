@@ -111,9 +111,14 @@ public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywo
 
                     @Override
                     public void onFailure(ServiceError serviceError) {
-                        showError(serviceError.getErrorMessage());
+                        showError(serviceError.getDetail());
                     }
                 });
+    }
+
+    @Override
+    public void cancelRequests() {
+        starService.cancel();
     }
 
     // saving state stuff
@@ -144,11 +149,6 @@ public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywo
 
     public boolean isSearching() {
         return searching;
-    }
-
-    @Override
-    public void cancelRequests() {
-        starService.cancel();
     }
 
 }
