@@ -29,7 +29,6 @@ import com.belatrixsf.allstars.networking.retrofit.requests.ResetPasswordRequest
 import com.belatrixsf.allstars.networking.retrofit.requests.UpdateEmployeeRequest;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.CreateEmployeeResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.ResetPasswordResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
 
 import java.util.List;

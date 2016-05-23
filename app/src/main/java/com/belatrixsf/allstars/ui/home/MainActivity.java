@@ -184,8 +184,6 @@ public class MainActivity extends AllStarsActivity implements ContactsListFragme
         return this;
     }
 
-    // ContactsListFragmentListener
-
     @Override
     public void setActionMode(ActionMode.Callback callback) {
         startSupportActionMode(callback);
