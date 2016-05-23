@@ -172,6 +172,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
         accountSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                accountPresenter.refreshEmployee();
                 loadData();
             }
         });

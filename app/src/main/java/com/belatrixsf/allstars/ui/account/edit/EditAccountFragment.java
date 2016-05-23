@@ -1,9 +1,15 @@
 package com.belatrixsf.allstars.ui.account.edit;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -21,14 +28,21 @@ import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.Location;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
+import com.belatrixsf.allstars.utils.Utils;
 import com.belatrixsf.allstars.utils.di.modules.presenters.EditAccountPresenterModule;
 import com.belatrixsf.allstars.utils.media.ImageFactory;
 import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
+import com.belatrixsf.allstars.utils.media.transformations.glide.BorderedCircleGlideTransformation;
+import com.bumptech.glide.Glide;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 import static com.belatrixsf.allstars.ui.account.edit.EditAccountActivity.EMPLOYEE_KEY;
 
@@ -38,6 +52,8 @@ import static com.belatrixsf.allstars.ui.account.edit.EditAccountActivity.EMPLOY
 public class EditAccountFragment extends AllStarsFragment implements EditAccountView {
 
     public static final int RQ_EDIT_ACCOUNT = 22;
+    public static final int RQ_CAMERA = 23;
+    public static final int RQ_GALLERY = 24;
     public static final String LOCATION_KEY = "_location_key";
     public static final String LOCATIONS_KEY = "_locations_key";
 
@@ -48,6 +64,7 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
     @Bind(R.id.locationRadioGroup) RadioGroup locationRadioGroup;
 
     private EditAccountPresenter editAccountPresenter;
+    private String mProfilePicturePath;
 
     public static EditAccountFragment newInstance(Employee employee) {
         Bundle bundle = new Bundle();
@@ -220,4 +237,74 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
         radioButton.setChecked(true);
     }
 
+    @OnClick({R.id.edit_image, R.id.profile_picture})
+    public void onEditPictureClicked() {
+        editAccountPresenter.onEditImageClicked();
+    }
+
+    @Override
+    public void showEditProfileImagePicker() {
+        final List<Object> choiceList = Arrays.asList(new Object[]{getString(R.string.photo_option), getString(R.string.gallery_option)});
+        ArrayAdapter<Object> arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, choiceList);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(R.string.select_photo_title);
+        builder.setAdapter(arrayAdapter, new Dialog.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (choiceList.get(which).toString().equalsIgnoreCase(getString(R.string.photo_option))) {
+                    editAccountPresenter.onPhotoPickerSelected();
+                } else if (choiceList.get(which).toString().equalsIgnoreCase(getString(R.string.gallery_option))) {
+                    editAccountPresenter.onGalleryPickedSelected();
+                }
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    @Override
+    public void showGalleryPicker() {
+        Intent intent = new Intent(
+                Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/*");
+        startActivityForResult(
+                Intent.createChooser(intent, getActivity().getString(R.string.select_image_title)), RQ_GALLERY);
+    }
+
+    @Override
+    public void showPhotoPicker() {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (cameraIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            File photoFile = null;
+            try {
+                photoFile = Utils.createLocalImage("allstars_local_profile");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            if (photoFile != null) {
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+                        Uri.fromFile(photoFile));
+                mProfilePicturePath = Utils.getImageFilePath(photoFile);
+                Log.d(TAG, "onActivityResult: "+ mProfilePicturePath);
+                startActivityForResult(cameraIntent, RQ_CAMERA);
+            }
+        }
+    }
+
+    public static final String TAG = "as";
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && requestCode == RQ_GALLERY) {
+            if (data != null) {
+                Uri selectedImageUri = data.getData();
+                mProfilePicturePath = Utils.getFilePathFromMediaUri(getActivity(), selectedImageUri);
+                editAccountPresenter.uploadImage(new File(mProfilePicturePath));
+            }
+        } else if (resultCode == Activity.RESULT_OK && requestCode == RQ_CAMERA) {
+            editAccountPresenter.uploadImage(new File(mProfilePicturePath));
+        }
+    }
 }

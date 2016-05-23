@@ -32,11 +32,14 @@ import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeRespo
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -68,5 +71,9 @@ public interface EmployeeAPI {
 
     @GET(ServerPaths.EMPLOYEE_LOCATION_LIST)
     Call<List<Location>> getEmployeeLocations();
+
+    @Multipart
+    @POST(ServerPaths.EMPLOYEE_IMAGE)
+    Call<Void> updateEmployeeImage(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Part MultipartBody.Part file);
 
 }

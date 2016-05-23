@@ -93,6 +93,7 @@
         <!-- Wrapping Imageview in a FrameLayout as a
         workaround for allowing the transition to happen when the view is anchored -->
         <FrameLayout
+            android:id="@+id/profile_picture_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_anchor="@+id/belatrix_placeholder"
@@ -106,6 +107,14 @@
                 android:transitionName="@string/transition_photo"/>
 
         </FrameLayout>
+
+        <ImageView
+            android:id="@+id/edit_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_add_a_photo"
+            app:layout_anchor="@+id/profile_picture_container"
+            app:layout_anchorGravity="bottom|end"/>
 
     </android.support.design.widget.CoordinatorLayout>
 

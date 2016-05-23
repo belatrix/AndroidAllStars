@@ -96,5 +96,9 @@
     <string name="close_content_desc">Close button</string>
     <string name="email_content_desc">Email icon</string>
     <string name="location_content_desc">Location icon</string>
+    <string name="photo_option">Take a photo</string>
+    <string name="gallery_option">Pick from gallery</string>
+    <string name="select_photo_title">Upload a picture</string>
+    <string name="select_image_title">Select an image</string>
 
 </resources>

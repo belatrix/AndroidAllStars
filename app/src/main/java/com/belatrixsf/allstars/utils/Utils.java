@@ -20,10 +20,51 @@
 */
 package com.belatrixsf.allstars.utils;
 
+import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
+
+import java.io.File;
+import java.io.IOException;
+
 /**
  * Created by gyosida on 5/12/16.
  */
 public class Utils {
+
+    public static File createLocalImage(String fileName) throws IOException {
+        File storageDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                fileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+        return image;
+    }
+
+    public static String getImageFilePath(File image) {
+        return "file:" + image.getAbsolutePath();
+    }
+
+    public static String getFilePathFromMediaUri(Context context, Uri uri) {
+        if ( uri == null ) {
+            return null;
+        }
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = context.getContentResolver().query(
+                uri, projection, null, null, null);
+        String path = "";
+        if (cursor != null) {
+            cursor.moveToFirst();
+            int columnIndex = cursor.getColumnIndex(projection[0]);
+            path = cursor.getString(columnIndex);
+            cursor.close();
+        }
+        return path;
+    }
 
     public static boolean isNumeric(String numericText) {
         for (char digit : numericText.toCharArray()) {

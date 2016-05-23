@@ -1,5 +1,7 @@
 package com.belatrixsf.allstars.ui.account.edit;
 
+import android.util.Log;
+
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.Location;
@@ -8,6 +10,7 @@ import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
 
+import java.io.File;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -119,6 +122,10 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
         }
     }
 
+    public void onEditImageClicked() {
+        view.showEditProfileImagePicker();
+    }
+
     public List<Location> getLocationList() {
         return locationList;
     }
@@ -138,5 +145,29 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
     @Override
     public void cancelRequests() {
         employeeService.cancelAll();
+    }
+
+    public void onGalleryPickedSelected() {
+        view.showGalleryPicker();
+    }
+
+    public void onPhotoPickerSelected() {
+        view.showPhotoPicker();
+    }
+
+    public void uploadImage(File file) {
+        if (file != null) {
+            employeeService.updateEmployeeImage(employee.getPk(), file, new AllStarsCallback<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Log.d("onSu", "onSuccess: Asdas");
+                }
+
+                @Override
+                public void onFailure(ServiceError serviceError) {
+                    Log.d("onError", "onSuccess: Asdas");
+                }
+            });
+        }
     }
 }

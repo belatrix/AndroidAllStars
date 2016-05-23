@@ -29,6 +29,7 @@ import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeRespo
 import com.belatrixsf.allstars.services.ServiceRequest;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -51,5 +52,7 @@ public interface EmployeeService extends AllStarsService {
     ServiceRequest updateEmployee(int employeeId, String firstName, String lastName, String skypeId, int locationId, AllStarsCallback<Employee> callback);
 
     ServiceRequest getEmployeeLocations(AllStarsCallback<List<Location>> callback);
+
+    ServiceRequest updateEmployeeImage(int employeeId, File file, AllStarsCallback<Void> callback);
 
 }
