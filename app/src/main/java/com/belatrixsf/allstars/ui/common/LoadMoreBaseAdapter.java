@@ -80,7 +80,7 @@ public abstract class LoadMoreBaseAdapter<T> extends RecyclerView.Adapter<Recycl
         return hasLoadingFooter;
     }
 
-    public void updateData(List<T> moreData) {
+    public void update(List<T> moreData) {
         this.data.addAll(moreData);
         notifyDataSetChanged();
     }

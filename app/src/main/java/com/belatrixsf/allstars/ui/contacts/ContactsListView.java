@@ -30,9 +30,9 @@ import java.util.List;
  */
 public interface ContactsListView extends AllStarsView {
 
-    void showContacts(List<Employee> contacts);
-    void showCurrentPage(int currentPage);
-    void startActionMode();
+    void addContacts(List<Employee> keywords);
+    void showSearchActionMode();
+    void resetList();
     void goContactProfile(Integer id);
     void selectContact(Employee contact);
 

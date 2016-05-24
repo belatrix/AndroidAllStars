@@ -144,7 +144,7 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
 
     @Override
     public void showStars(List<Star> stars) {
-        starsListAdapter.updateData(stars);
+        starsListAdapter.update(stars);
     }
 
     @Override
