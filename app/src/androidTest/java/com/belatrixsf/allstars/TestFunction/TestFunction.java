@@ -12,7 +12,11 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
+import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
+import static android.support.test.espresso.matcher.ViewMatchers.isSelected;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 
@@ -37,8 +41,17 @@ public class TestFunction {
     public void checktWithIdAndText(int id, String keyName){
         onView(ViewMatchers.withId(id)).check(matches(withText(keyName)));
     }
-    public void checktIfElementIsDisplayed(int id){
+    public void checkIfElementIsDisplayed(int id){
         onView(ViewMatchers.withId(id)).check(matches(isDisplayed()));
+    }
+    public void checkIfElemenIsEnablet(int id){
+        onView(ViewMatchers.withId(id)).check(matches(isEnabled()));
+    }
+    public void checkIfElemenIsChecked(int id){
+        onView(ViewMatchers.withId(id)).check(matches(isChecked()));
+    }
+    public void checkIfElemenisClickable(int id){
+        onView(ViewMatchers.withId(id)).check(matches(isClickable()));
     }
 
 }

@@ -42,7 +42,7 @@ public class LoginTest extends TestFunction{
         tapOnOverFlowMenu();
         findNameAndTap(R.string.menu_item_logout);
         findNameAndTap(R.string.dialog_option_positive);
-        checktIfElementIsDisplayed(R.id.login);
+        checkIfElementIsDisplayed(R.id.login);
     }
 
 }

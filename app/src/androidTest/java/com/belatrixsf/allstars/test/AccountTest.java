@@ -22,12 +22,15 @@ public class AccountTest extends LoginTest{
     public ActivityTestRule<LoginActivity> mActivityRule = new ActivityTestRule<>(
             LoginActivity.class);
     @Test
-    public void accountTest() {
+    public void accountViewTest() {
         loginTest();
         checktWithIdAndText(R.id.profile_name,Constants.FULLNAME);
+        checktIfElementIsDisplayed(R.id.profile_email);
+        checktIfElementIsDisplayed(R.id.skype_id);
+        checktIfElementIsDisplayed(R.id.location_name);
         checktIfElementIsDisplayed(R.id.current_month_score);
+        checktIfElementIsDisplayed(R.id.start_recommendation);
         checktIfElementIsDisplayed(R.id.score);
         checktIfElementIsDisplayed(R.id.level);
-
     }
 }

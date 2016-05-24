@@ -6,9 +6,9 @@ package com.belatrixsf.allstars.util;
 
 public class Constants {
 
-    public static final String USERNAME = "sinfante";
-    public static final String PASSWORD = "belatrix";
-    public static final String FULLNAME="Sergio Infante Montero";
+    public static final String USERNAME = "USERTEST";
+    public static final String PASSWORD = "USERTEST";
+    public static final String FULLNAME="USERTEST";
 
 
     //TAB BARS
