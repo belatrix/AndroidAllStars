@@ -23,4 +23,6 @@ public interface EditAccountView extends AllStarsView {
     void showEditProfileImagePicker();
     void showGalleryPicker();
     void showPhotoPicker();
+    void disableEditProfilePicture();
+
 }

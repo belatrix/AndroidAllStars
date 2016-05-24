@@ -23,6 +23,7 @@ package com.belatrixsf.allstars.utils;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.support.v4.app.FragmentActivity;
 
 import com.belatrixsf.allstars.R;
 import static android.content.DialogInterface.OnClickListener;
@@ -66,4 +67,5 @@ public class DialogUtils {
         progressDialog.setCancelable(false);
         return progressDialog;
     }
+
 }

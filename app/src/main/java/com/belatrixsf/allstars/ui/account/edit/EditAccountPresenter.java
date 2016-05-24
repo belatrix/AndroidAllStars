@@ -170,4 +170,9 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
             });
         }
     }
+
+    public void onPermissionDenied() {
+        view.disableEditProfilePicture();
+    }
+    
 }

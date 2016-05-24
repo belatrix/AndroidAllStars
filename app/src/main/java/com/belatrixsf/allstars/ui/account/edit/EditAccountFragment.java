@@ -1,13 +1,17 @@
 package com.belatrixsf.allstars.ui.account.edit;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,12 +32,12 @@ import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.Location;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
-import com.belatrixsf.allstars.utils.Utils;
+import com.belatrixsf.allstars.utils.DialogUtils;
+import com.belatrixsf.allstars.utils.MediaUtils;
+import com.belatrixsf.allstars.utils.PermissionHelper;
 import com.belatrixsf.allstars.utils.di.modules.presenters.EditAccountPresenterModule;
 import com.belatrixsf.allstars.utils.media.ImageFactory;
 import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
-import com.belatrixsf.allstars.utils.media.transformations.glide.BorderedCircleGlideTransformation;
-import com.bumptech.glide.Glide;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,6 +58,7 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
     public static final int RQ_EDIT_ACCOUNT = 22;
     public static final int RQ_CAMERA = 23;
     public static final int RQ_GALLERY = 24;
+    public static final int RQ_PERMISSIONS_REQUEST = 25;
     public static final String LOCATION_KEY = "_location_key";
     public static final String LOCATIONS_KEY = "_locations_key";
 
@@ -62,6 +67,7 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
     @Bind(R.id.lastName) EditText lastNameEditText;
     @Bind(R.id.skypeId) EditText skypeIdEditText;
     @Bind(R.id.locationRadioGroup) RadioGroup locationRadioGroup;
+    @Bind(R.id.edit_image) ImageView editPictureImageView;
 
     private EditAccountPresenter editAccountPresenter;
     private String mProfilePicturePath;
@@ -237,13 +243,27 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
         radioButton.setChecked(true);
     }
 
-    @OnClick({R.id.edit_image, R.id.profile_picture})
+    @OnClick(R.id.edit_image)
     public void onEditPictureClicked() {
         editAccountPresenter.onEditImageClicked();
     }
 
     @Override
     public void showEditProfileImagePicker() {
+        checkPermissions();
+    }
+
+    @Override
+    public void showGalleryPicker() {
+        Intent intent = new Intent(
+                Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/*");
+        startActivityForResult(
+                Intent.createChooser(intent, getActivity().getString(R.string.select_image_title)), RQ_GALLERY);
+    }
+
+    public void startPicker() {
         final List<Object> choiceList = Arrays.asList(new Object[]{getString(R.string.photo_option), getString(R.string.gallery_option)});
         ArrayAdapter<Object> arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, choiceList);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -262,14 +282,30 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
         dialog.show();
     }
 
+    private void checkPermissions() {
+        String[] mediaPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        if (!PermissionHelper.checkPermissions(getActivity(), mediaPermissions)) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),Manifest.permission.CAMERA) || ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                DialogUtils.createInformationDialog(getActivity(), getString(R.string.app_name), getString(R.string.permission_profile), null);
+            } else {
+                ActivityCompat.requestPermissions(getActivity(), mediaPermissions ,
+                        RQ_PERMISSIONS_REQUEST);
+            }
+        } else {
+            startPicker();
+        }
+    }
+
     @Override
-    public void showGalleryPicker() {
-        Intent intent = new Intent(
-                Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        intent.setType("image/*");
-        startActivityForResult(
-                Intent.createChooser(intent, getActivity().getString(R.string.select_image_title)), RQ_GALLERY);
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == RQ_PERMISSIONS_REQUEST) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startPicker();
+            } else {
+                editAccountPresenter.onPermissionDenied();
+            }
+        }
     }
 
     @Override
@@ -278,21 +314,18 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
         if (cameraIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             File photoFile = null;
             try {
-                photoFile = Utils.createLocalImage("allstars_local_profile");
+                photoFile = MediaUtils.get().createLocalProfilePicture();
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
             if (photoFile != null) {
                 cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,
                         Uri.fromFile(photoFile));
-                mProfilePicturePath = Utils.getImageFilePath(photoFile);
-                Log.d(TAG, "onActivityResult: "+ mProfilePicturePath);
+                mProfilePicturePath = photoFile.getAbsolutePath();
                 startActivityForResult(cameraIntent, RQ_CAMERA);
             }
         }
     }
-
-    public static final String TAG = "as";
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -300,11 +333,18 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
         if (resultCode == Activity.RESULT_OK && requestCode == RQ_GALLERY) {
             if (data != null) {
                 Uri selectedImageUri = data.getData();
-                mProfilePicturePath = Utils.getFilePathFromMediaUri(getActivity(), selectedImageUri);
-                editAccountPresenter.uploadImage(new File(mProfilePicturePath));
+                mProfilePicturePath = MediaUtils.get().getFilePathFromMediaUri(getActivity(), selectedImageUri);
+                editAccountPresenter.uploadImage(MediaUtils.get().getReducedProfilePictureBitmapFile(mProfilePicturePath));
             }
         } else if (resultCode == Activity.RESULT_OK && requestCode == RQ_CAMERA) {
-            editAccountPresenter.uploadImage(new File(mProfilePicturePath));
+            editAccountPresenter.uploadImage(MediaUtils.get().getReducedProfilePictureBitmapFile(mProfilePicturePath));
         }
     }
+
+    @Override
+    public void disableEditProfilePicture() {
+        editPictureImageView.setVisibility(View.INVISIBLE);
+        editPictureImageView.setEnabled(false);
+    }
+
 }
