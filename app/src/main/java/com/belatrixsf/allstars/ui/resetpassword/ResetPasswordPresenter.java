@@ -26,6 +26,7 @@ import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
+import static com.belatrixsf.allstars.utils.Constants.MIN_PASSWORD_LENGTH;
 
 import javax.inject.Inject;
 
@@ -33,8 +34,6 @@ import javax.inject.Inject;
  * Created by icerrate on 19/05/16.
  */
 public class ResetPasswordPresenter extends AllStarsPresenter<ResetPasswordView> {
-
-    static final int MIN_PASSWORD_LENGTH = 4;
 
     private EmployeeManager employeeManager;
 
@@ -46,15 +45,15 @@ public class ResetPasswordPresenter extends AllStarsPresenter<ResetPasswordView>
 
     public void checkIfInputsAreValid(String oldPassword, String newPassword, String repeatNewPassword) {
         boolean valid = false;
-        if (!oldPassword.isEmpty() && !newPassword.isEmpty() && !repeatNewPassword.isEmpty()){
+        if (!oldPassword.isEmpty() && !newPassword.isEmpty() && !repeatNewPassword.isEmpty()) {
             if (newPassword.equals(repeatNewPassword)){
                 if (newPassword.length() >= MIN_PASSWORD_LENGTH) {
                     view.cleanNewPasswordError();
                     valid = true;
-                }else{
+                } else {
                     view.newPasswordError(String.format(getString(R.string.new_password_length_error), MIN_PASSWORD_LENGTH));
                 }
-            }else{
+            } else {
                 view.newPasswordError(getString(R.string.new_password_repeat_error));
             }
         }
