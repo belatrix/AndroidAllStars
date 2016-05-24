@@ -6,15 +6,13 @@ package com.belatrixsf.allstars.TestFunction;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.matcher.ViewMatchers;
-
-import com.belatrixsf.allstars.util.Constants;
-
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 
@@ -33,8 +31,14 @@ public class TestFunction {
     public void findNameAndTap(int id){
         onView(ViewMatchers.withText(id)).perform(click());
     }
-    public void assertWithIdAndText(int id, String keyName){
+    public void findTextAndTap(String keyName){
+        onView(ViewMatchers.withText(keyName)).perform(click());
+    }
+    public void checktWithIdAndText(int id, String keyName){
         onView(ViewMatchers.withId(id)).check(matches(withText(keyName)));
+    }
+    public void checktIfElementIsDisplayed(int id){
+        onView(ViewMatchers.withId(id)).check(matches(isDisplayed()));
     }
 
 }
