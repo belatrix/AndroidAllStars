@@ -131,6 +131,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
             }
         }
         accountPresenter.setUserId(userId);
+
     }
 
     @Override
@@ -144,6 +145,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
         inflater.inflate(R.menu.menu_account, menu);
         recommendMenuItem = menu.findItem(R.id.action_recommend);
         editProfileMenuItem = menu.findItem(R.id.action_edit_profile);
+        accountPresenter.checkRecommendationEnabled();
         super.onCreateOptionsMenu(menu, inflater);
     }
 

@@ -151,10 +151,12 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
     }
 
     public void checkRecommendationEnabled() {
-        if (PreferencesManager.get().getEmployeeId() != employee.getPk()) {
-            view.showRecommendMenu(true);
-        } else {
-            view.showEditProfileButton(true);
+        if (employee != null) {
+            if (PreferencesManager.get().getEmployeeId() != employee.getPk()) {
+                view.showRecommendMenu(true);
+            } else {
+                view.showEditProfileButton(true);
+            }
         }
     }
 
