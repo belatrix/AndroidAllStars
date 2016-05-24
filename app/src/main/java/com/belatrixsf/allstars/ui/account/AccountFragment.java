@@ -204,7 +204,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
 
     @Override
     public void showSubCategories(List<SubCategory> subCategories) {
-        accountCategoriesAdapter.updateData(subCategories);
+        accountCategoriesAdapter.update(subCategories);
     }
 
     @Override

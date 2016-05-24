@@ -22,10 +22,10 @@ package com.belatrixsf.allstars.ui.contacts;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -66,14 +66,13 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
 
     public static final String PROFILE_ENABLED_KEY = "_is_search";
     public static final String CONTACTS_KEY = "_employees_key";
-    public static final String ACTION_MODE_KEY = "_action_mode_key";
-    public static final String PAGINATION_RESPONSE_KEY = "_pagination_response_key";
-    public static final String CURRENT_PAGE_KEY = "_current_page_key";
-    public static final String SEARCH_TERM_KEY = "_search_term_key";
+    //public static final String CURRENT_PAGE_KEY = "_current_page_key";
+    public static final String SEARCH_TEXT_KEY = "_search_text_key";
+    public static final String PAGING_KEY = "_paging_key";
+    public static final String SEARCHING_KEY = "_searching_key";
 
     private ContactsListPresenter contactsListPresenter;
     private ContactsListAdapter contactsListAdapter;
-    private ContactsListFragmentListener contactsListFragmentListener;
     private EndlessRecyclerOnScrollListener endlessRecyclerOnScrollListener;
 
     private ImageView photoImageView;
@@ -90,34 +89,14 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        castOrThrowException(activity);
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        castOrThrowException(context);
-    }
-
-    private void castOrThrowException(Context context) {
-        try {
-            contactsListFragmentListener = (ContactsListFragmentListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement ContactsListFragmentListener");
-        }
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment_contacts_list, container, false);
     }
 
@@ -134,84 +113,11 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
         initViews();
         boolean hasArguments = (getArguments() != null && getArguments().containsKey(PROFILE_ENABLED_KEY));
         if (savedInstanceState != null) {
-            restoreState(savedInstanceState);
+            restorePresenterState(savedInstanceState);
         } else if (hasArguments) {
             contactsListPresenter.setProfileEnabled(getArguments().getBoolean(PROFILE_ENABLED_KEY));
-            contactsListPresenter.getContacts();
         }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        saveState(outState);
-        super.onSaveInstanceState(outState);
-    }
-
-    private void restoreState(Bundle savedInstanceState) {
-        List<Employee> savedContacts = savedInstanceState.getParcelableArrayList(CONTACTS_KEY);
-        boolean actionModeEnabled = savedInstanceState.getBoolean(ACTION_MODE_KEY);
-        Integer currentPage = savedInstanceState.getInt(CURRENT_PAGE_KEY);
-        PaginatedResponse paginatedResponse = savedInstanceState.getParcelable(PAGINATION_RESPONSE_KEY);
-        String searchTerm = savedInstanceState.getString(SEARCH_TERM_KEY);
-        boolean profileEnabled = savedInstanceState.getBoolean(PROFILE_ENABLED_KEY);
-        contactsListPresenter.setProfileEnabled(profileEnabled);
-        contactsListPresenter.setLoadedContacts(actionModeEnabled, savedContacts, currentPage, paginatedResponse, searchTerm);
-    }
-
-    private void saveState(Bundle outState) {
-        List<Employee> contactsList = contactsListPresenter.getLoadedContacts();
-        if (contactsList != null && contactsList instanceof ArrayList) {
-            outState.putParcelableArrayList(CONTACTS_KEY, (ArrayList<Employee>) contactsList);
-        }
-        outState.putBoolean(ACTION_MODE_KEY, contactsListPresenter.isInActionMode());
-        outState.putInt(CURRENT_PAGE_KEY, contactsListPresenter.getCurrentPage());
-        outState.putParcelable(PAGINATION_RESPONSE_KEY, contactsListPresenter.getContactPaginatedResponse());
-        outState.putString(SEARCH_TERM_KEY, contactsListPresenter.getSearchTerm());
-        outState.putBoolean(PROFILE_ENABLED_KEY, contactsListPresenter.getProfileEnabled());
-    }
-
-    private void initViews() {
-        contactsListAdapter = new ContactsListAdapter(this);
-        contactsRecyclerView.setAdapter(contactsListAdapter);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        contactsRecyclerView.setLayoutManager(linearLayoutManager);
-        endlessRecyclerOnScrollListener = new EndlessRecyclerOnScrollListener(linearLayoutManager) {
-            @Override
-            public void onLoadMore(int currentPage) {
-                contactsListPresenter.getContacts(currentPage);
-            }
-        };
-        contactsRecyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);
-        contactsRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
-    }
-
-    @Override
-    public void showContacts(List<Employee> contacts) {
-        contactsListAdapter.updateData(contacts);
-    }
-
-    @Override
-    public void showProgressIndicator() {
-        super.showProgressIndicator();
-        contactsListAdapter.setLoading(true);
-        endlessRecyclerOnScrollListener.setLoading(true);
-    }
-
-    @Override
-    public void hideProgressIndicator() {
-        super.hideProgressIndicator();
-        contactsListAdapter.setLoading(false);
-        endlessRecyclerOnScrollListener.setLoading(false);
-    }
-
-    @Override
-    public void showCurrentPage(int currentPage) {
-        endlessRecyclerOnScrollListener.setCurrentPage(currentPage);
-    }
-
-    @Override
-    public void startActionMode() {
-        contactsListFragmentListener.setActionMode(actionModeCallback);
+        contactsListPresenter.getContacts();
     }
 
     @Override
@@ -224,18 +130,88 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
-                contactsListFragmentListener.setActionMode(actionModeCallback);
+                contactsListPresenter.searchContacts();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        savePresenterState(outState);
+        super.onSaveInstanceState(outState);
+    }
+
+    private void restorePresenterState(Bundle savedInstanceState) {
+        List<Employee> contacts = savedInstanceState.getParcelableArrayList(CONTACTS_KEY);
+        boolean searching = savedInstanceState.getBoolean(SEARCHING_KEY, false);
+        PaginatedResponse paging = savedInstanceState.getParcelable(PAGING_KEY);
+        String searchText = savedInstanceState.getString(SEARCH_TEXT_KEY, null);
+        boolean profileEnabled = savedInstanceState.getBoolean(PROFILE_ENABLED_KEY);
+        contactsListPresenter.setProfileEnabled(profileEnabled);
+        contactsListPresenter.load(contacts, paging, searchText, searching);
+    }
+
+    private void savePresenterState(Bundle outState) {
+        outState.putBoolean(PROFILE_ENABLED_KEY, contactsListPresenter.getProfileEnabled());
+        outState.putBoolean(SEARCHING_KEY, contactsListPresenter.isSearching());
+        outState.putParcelable(PAGING_KEY, contactsListPresenter.getContactsPaging());
+        outState.putString(SEARCH_TEXT_KEY, contactsListPresenter.getSearchText());
+        List<Employee> contacts = contactsListPresenter.getContactsSync();
+        if (contacts != null && contacts instanceof ArrayList) {
+            outState.putParcelableArrayList(CONTACTS_KEY, (ArrayList<Employee>) contacts);
+        }
+    }
+
+    private void initViews() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        endlessRecyclerOnScrollListener = new EndlessRecyclerOnScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int currentPage) {
+                contactsListPresenter.callNextPage();
+            }
+        };
+        contactsListAdapter = new ContactsListAdapter(this);
+        contactsRecyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);
+        contactsRecyclerView.setAdapter(contactsListAdapter);
+        contactsRecyclerView.setLayoutManager(linearLayoutManager);
+        contactsRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
+    }
+
+    @Override
+    public void showProgressIndicator() {
+        contactsListAdapter.setLoading(true);
+        endlessRecyclerOnScrollListener.setLoading(true);
+    }
+
+    @Override
+    public void hideProgressIndicator() {
+        contactsListAdapter.setLoading(false);
+        endlessRecyclerOnScrollListener.setLoading(false);
+    }
+
+    @Override
+    public void addContacts(List<Employee> contacts) {
+        contactsListAdapter.add(contacts);
+    }
+
+    @Override
+    public void showSearchActionMode() {
+        if (getActivity() instanceof AppCompatActivity) {
+            ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
+        }
+    }
+
+    @Override
+    public void resetList() {
+        contactsListAdapter.reset();
+    }
+
     private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
 
         @Override
         public boolean onCreateActionMode(final ActionMode mode, Menu menu) {
-            contactsListPresenter.startActionMode();
             SearchingView searchingView = new SearchingView(getActivity());
             searchingView.setSearchingListener(new SearchingView.SearchingListener() {
                 @Override
@@ -259,7 +235,7 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
 
         @Override
         public void onDestroyActionMode(ActionMode mode) {
-            contactsListPresenter.finishActionMode();
+            contactsListPresenter.stopSearchingContacts();
             KeyboardUtils.hideKeyboard(getActivity(), getView());
         }
     };
