@@ -18,30 +18,24 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.networking.retrofit.responses;
+package com.belatrixsf.allstars.utils.di.components;
 
-import com.google.gson.annotations.SerializedName;
+import com.belatrixsf.allstars.ui.resetpassword.ResetPasswordPresenter;
+import com.belatrixsf.allstars.utils.di.modules.presenters.ResetPasswordPresenterModule;
+import com.belatrixsf.allstars.utils.di.scopes.UIScope;
+
+import dagger.Component;
 
 /**
- * Created by gyosida on 4/11/16.
+ * Created by icerrate on 19/05/16.
  */
-public class AuthenticationResponse {
+@UIScope
+@Component(
+        dependencies = ApplicationComponent.class,
+        modules = ResetPasswordPresenterModule.class
+)
+public interface ResetPasswordComponent {
 
-    @SerializedName("user_id")
-    private int employeeId;
-    private String token;
-    @SerializedName("reset_password_code")
-    private String resetPasswordCode;
+    ResetPasswordPresenter resetPasswordPresenter();
 
-    public int getEmployeeId() {
-        return employeeId;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public String getResetPasswordCode() {
-        return resetPasswordCode;
-    }
 }

@@ -18,30 +18,19 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.networking.retrofit.responses;
+package com.belatrixsf.allstars.ui.resetpassword;
 
-import com.google.gson.annotations.SerializedName;
+import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.ui.common.AllStarsView;
 
 /**
- * Created by gyosida on 4/11/16.
+ * Created by icerrate on 19/05/16.
  */
-public class AuthenticationResponse {
+public interface ResetPasswordView extends AllStarsView {
 
-    @SerializedName("user_id")
-    private int employeeId;
-    private String token;
-    @SerializedName("reset_password_code")
-    private String resetPasswordCode;
+    void goEditProfile(Employee employee);
+    void enableReset(boolean enable);
+    void newPasswordError(String message);
+    void cleanNewPasswordError();
 
-    public int getEmployeeId() {
-        return employeeId;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public String getResetPasswordCode() {
-        return resetPasswordCode;
-    }
 }

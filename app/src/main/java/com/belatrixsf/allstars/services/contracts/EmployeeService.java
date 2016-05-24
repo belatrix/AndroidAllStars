@@ -52,4 +52,6 @@ public interface EmployeeService extends AllStarsService {
 
     ServiceRequest getEmployeeLocations(AllStarsCallback<List<Location>> callback);
 
+    ServiceRequest resetPassword(int employeeId, String oldePassword, String newPassword, AllStarsCallback<Employee> callback);
+
 }

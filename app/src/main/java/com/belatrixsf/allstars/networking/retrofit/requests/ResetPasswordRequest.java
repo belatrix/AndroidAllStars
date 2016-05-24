@@ -18,30 +18,23 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.networking.retrofit.responses;
+package com.belatrixsf.allstars.networking.retrofit.requests;
 
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by gyosida on 4/11/16.
+ * Created by icerrate on 19/05/16.
  */
-public class AuthenticationResponse {
+public class ResetPasswordRequest {
 
-    @SerializedName("user_id")
-    private int employeeId;
-    private String token;
-    @SerializedName("reset_password_code")
-    private String resetPasswordCode;
+    @SerializedName("current_password")
+    private String oldPassword;
+    @SerializedName("new_password")
+    private String newPassword;
 
-    public int getEmployeeId() {
-        return employeeId;
+    public ResetPasswordRequest(String oldPassword, String newPassword) {
+        this.oldPassword = oldPassword;
+        this.newPassword = newPassword;
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public String getResetPasswordCode() {
-        return resetPasswordCode;
-    }
 }

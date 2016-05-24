@@ -53,11 +53,15 @@ public class LoginPresenter extends AllStarsPresenter<LoginView> {
         employeeManager.login(
                 username,
                 password,
-                new AllStarsCallback<Void>() {
+                new AllStarsCallback<Boolean>() {
                     @Override
-                    public void onSuccess(Void aVoid) {
+                    public void onSuccess(Boolean goHome) {
                         view.dismissProgressDialog();
-                        view.goHome();
+                        if (goHome){
+                            view.goHome();
+                        } else {
+                            view.goResetPassword();
+                        }
                     }
 
                     @Override
@@ -70,4 +74,5 @@ public class LoginPresenter extends AllStarsPresenter<LoginView> {
     @Override
     public void cancelRequests() {
     }
+
 }

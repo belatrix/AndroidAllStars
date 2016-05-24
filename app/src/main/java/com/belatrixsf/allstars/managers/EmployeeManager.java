@@ -43,24 +43,28 @@ public class EmployeeManager {
         this.employeeService = employeeService;
     }
 
-    public void login(String username, String password, final AllStarsCallback<Void> callback) {
+    public void login(String username, String password, final AllStarsCallback<Boolean> callback) {
         employeeService.authenticate(username, password, new AllStarsCallback<AuthenticationResponse>() {
             @Override
             public void onSuccess(AuthenticationResponse authenticationResponse) {
                 PreferencesManager.get().saveToken(authenticationResponse.getToken());
                 PreferencesManager.get().saveEmployeeId(authenticationResponse.getEmployeeId());
-                employeeService.getEmployee(authenticationResponse.getEmployeeId(), new AllStarsCallback<Employee>() {
-                    @Override
-                    public void onSuccess(Employee employee) {
-                        EmployeeManager.this.employee = employee;
-                        callback.onSuccess(null);
-                    }
+                if (authenticationResponse.getResetPasswordCode() == null){
+                    employeeService.getEmployee(authenticationResponse.getEmployeeId(), new AllStarsCallback<Employee>() {
+                        @Override
+                        public void onSuccess(Employee employee) {
+                            EmployeeManager.this.employee = employee;
+                            callback.onSuccess(true);
+                        }
 
-                    @Override
-                    public void onFailure(ServiceError serviceError) {
-                        callback.onFailure(serviceError);
-                    }
-                });
+                        @Override
+                        public void onFailure(ServiceError serviceError) {
+                            callback.onFailure(serviceError);
+                        }
+                    });
+                } else {
+                    callback.onSuccess(false);
+                }
             }
 
             @Override
@@ -68,6 +72,23 @@ public class EmployeeManager {
                 callback.onFailure(serviceError);
             }
         });
+    }
+
+    public void resetPassword(String oldPassword, String newPassword, final AllStarsCallback<Employee> callback) {
+        if (employee == null) {
+            int storedEmployeeId = PreferencesManager.get().getEmployeeId();
+            employeeService.resetPassword(storedEmployeeId, oldPassword, newPassword, new AllStarsCallback<Employee>() {
+                @Override
+                public void onSuccess(Employee employee) {
+                    callback.onSuccess(employee);
+                }
+
+                @Override
+                public void onFailure(ServiceError serviceError) {
+                    callback.onFailure(serviceError);
+                }
+            });
+        }
     }
 
     public void getLoggedInEmployee(final AllStarsCallback<Employee> callback) {

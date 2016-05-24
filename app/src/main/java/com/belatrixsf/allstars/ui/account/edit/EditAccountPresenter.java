@@ -20,6 +20,7 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
     private Employee employee;
     private List<Location> locationList;
     private Location locationSelected;
+    private boolean isCreation;
     protected EmployeeService employeeService;
 
     @Inject
@@ -28,13 +29,15 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
         this.employeeService = employeeAPI;
     }
 
-    public void init(Employee employee) {
+    public void init(Employee employee, boolean isCreation) {
+        this.isCreation = isCreation;
         showEmployeeData(employee);
         obtainLocations();
     }
 
-    public void loadData(Employee employee, Location locationSelected, List<Location> locations) {
+    public void loadData(Employee employee, Location locationSelected, List<Location> locations, boolean isCreation) {
         showEmployeeData(employee);
+        this.isCreation = isCreation;
         this.locationSelected = locationSelected;
         this.locationList = locations;
         loadLocations();
@@ -81,7 +84,11 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
                 @Override
                 public void onSuccess(Employee employee) {
                     view.dismissProgressDialog();
-                    view.endSuccessfulEdit();
+                    if (isCreation) {
+                        view.endSuccessfulCreation();
+                    } else {
+                        view.endSuccessfulEdit();
+                    }
                 }
 
                 @Override
@@ -133,6 +140,10 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
 
     public Location getLocationSelected() {
         return locationSelected;
+    }
+
+    public boolean isCreation() {
+        return isCreation;
     }
 
     @Override

@@ -51,13 +51,14 @@
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/email"
-                style="@style/EditText"
                 android:drawableLeft="@drawable/ic_person_outline"
                 android:drawablePadding="@dimen/dimen_3_5"
                 android:background="@drawable/selector_edittext"
                 android:hint="@string/hint_email"
-                android:imeOptions="actionNext"
-                android:paddingLeft="0dp" />
+                android:inputType="textEmailAddress"
+                android:imeOptions="actionDone"
+                android:paddingLeft="0dp"
+                style="@style/EditText" />
 
         </android.support.design.widget.TextInputLayout>
 
