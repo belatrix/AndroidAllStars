@@ -7,15 +7,18 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionModeOverlay">true</item>
-        <item name="android:actionModeBackground">@color/white</item>
-        <item name="android:actionModeCloseDrawable">@drawable/ic_arrow_back</item>
-        <item name="android:actionModeSplitBackground">@color/colorPrimary</item>
-        <item name="android:actionModeCloseButtonStyle">@color/colorPrimary</item>
+        <!-- Override the ActionMode Style -->
+        <item name="actionModeStyle">@style/ActionMode</item>
+        <item name="actionModeCloseDrawable">@drawable/ic_arrow_back</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="ActionMode" parent="Widget.AppCompat.ActionMode">
+        <item name="background">@color/white</item>
     </style>
 
     <style name="TextView" parent="android:TextAppearance">

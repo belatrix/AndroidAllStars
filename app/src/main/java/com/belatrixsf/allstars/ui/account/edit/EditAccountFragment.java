@@ -11,9 +11,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,6 +29,7 @@ import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.Location;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
+import com.belatrixsf.allstars.ui.home.MainActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.DialogUtils;
 import com.belatrixsf.allstars.utils.MediaUtils;
@@ -61,6 +60,7 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
     public static final int RQ_PERMISSIONS_REQUEST = 25;
     public static final String LOCATION_KEY = "_location_key";
     public static final String LOCATIONS_KEY = "_locations_key";
+    public static final String IS_CREATION = "_is_creation_key";
 
     @Bind(R.id.profile_picture) ImageView pictureImageView;
     @Bind(R.id.firstName) EditText firstNameEditText;
@@ -72,10 +72,11 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
     private EditAccountPresenter editAccountPresenter;
     private String mProfilePicturePath;
 
-    public static EditAccountFragment newInstance(Employee employee) {
+    public static EditAccountFragment newInstance(Employee employee, boolean isCreation) {
         Bundle bundle = new Bundle();
         if (employee != null) {
             bundle.putParcelable(EMPLOYEE_KEY, employee);
+            bundle.putBoolean(IS_CREATION, isCreation);
         }
         EditAccountFragment editAccountFragment = new EditAccountFragment();
         editAccountFragment.setArguments(bundle);
@@ -101,7 +102,8 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
             restoreState(savedInstanceState);
         } else if (getArguments() != null && getArguments().containsKey(EMPLOYEE_KEY)) {
             Employee employee = getArguments().getParcelable(EMPLOYEE_KEY);
-            editAccountPresenter.init(employee);
+            boolean isCreation = getArguments().getBoolean(IS_CREATION);
+            editAccountPresenter.init(employee, isCreation);
             initViews();
         }
     }
@@ -112,18 +114,19 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
         super.onSaveInstanceState(outState);
     }
 
-
     private void restoreState(Bundle savedInstanceState) {
         Employee employee = savedInstanceState.getParcelable(EMPLOYEE_KEY);
         Location locationSelected = savedInstanceState.getParcelable(LOCATION_KEY);
+        boolean isCreation = savedInstanceState.getBoolean(IS_CREATION);
         List<Location> locations = savedInstanceState.getParcelableArrayList(LOCATIONS_KEY);
-        editAccountPresenter.loadData(employee, locationSelected, locations);
+        editAccountPresenter.loadData(employee, locationSelected, locations, isCreation);
     }
 
     private void saveState(Bundle outState) {
         Employee employee = editAccountPresenter.getEmployee();
         Location locationSelected = editAccountPresenter.getLocationSelected();
         List<Location> locations = editAccountPresenter.getLocationList();
+        outState.putBoolean(IS_CREATION, editAccountPresenter.isCreation());
         outState.putParcelable(EMPLOYEE_KEY, employee);
         outState.putParcelable(LOCATION_KEY, locationSelected);
         outState.putParcelableArrayList(LOCATIONS_KEY, new ArrayList<>(locations));
@@ -345,6 +348,12 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
     public void disableEditProfilePicture() {
         editPictureImageView.setVisibility(View.INVISIBLE);
         editPictureImageView.setEnabled(false);
+    }
+
+    @Override
+    public void endSuccessfulCreation() {
+        startActivity(MainActivity.makeIntent(getActivity()));
+        fragmentListener.closeActivity();
     }
 
 }

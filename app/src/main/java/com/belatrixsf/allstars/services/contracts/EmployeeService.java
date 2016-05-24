@@ -55,4 +55,6 @@ public interface EmployeeService extends AllStarsService {
 
     ServiceRequest updateEmployeeImage(int employeeId, File file, AllStarsCallback<Void> callback);
 
+    ServiceRequest resetPassword(int employeeId, String oldPassword, String newPassword, AllStarsCallback<Employee> callback);
+
 }

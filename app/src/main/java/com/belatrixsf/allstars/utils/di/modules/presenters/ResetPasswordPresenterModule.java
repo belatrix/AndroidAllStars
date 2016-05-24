@@ -18,22 +18,28 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.contacts;
+package com.belatrixsf.allstars.utils.di.modules.presenters;
 
-import com.belatrixsf.allstars.entities.Employee;
-import com.belatrixsf.allstars.ui.common.AllStarsView;
+import com.belatrixsf.allstars.ui.resetpassword.ResetPasswordView;
 
-import java.util.List;
+import dagger.Module;
+import dagger.Provides;
 
 /**
- * Created by icerrate on 15/04/2016.
+ * Created by icerrate on 19/05/16.
  */
-public interface ContactsListView extends AllStarsView {
+@Module
+public class ResetPasswordPresenterModule {
 
-    void addContacts(List<Employee> keywords);
-    void showSearchActionMode();
-    void resetList();
-    void goContactProfile(Integer id);
-    void selectContact(Employee contact);
+    private ResetPasswordView view;
+
+    public ResetPasswordPresenterModule(ResetPasswordView view) {
+        this.view = view;
+    }
+
+    @Provides
+    public ResetPasswordView providesView() {
+        return view;
+    }
 
 }

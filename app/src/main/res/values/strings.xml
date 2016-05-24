@@ -22,13 +22,19 @@
     <string name="hint_last_name">Last Name</string>
     <string name="hint_skype_id">Skype Id</string>
     <string name="hint_keyword">Select a Keyword</string>
+    <string name="hint_old_password">Old Password</string>
+    <string name="hint_new_password">New Password</string>
+    <string name="hint_repeat_new_password">Repeat New Password</string>
 
     <!-- Button -->
     <string name="button_log_in">Log In</string>
     <string name="button_sign_up">New user? Sign Up!</string>
     <string name="button_sign_up_action">Register</string>
+    <string name="button_reset">Reset</string>
 
     <!-- Title -->
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_reset_password_activity">Reset Password</string>
     <string name="title_select_category">Select Category</string>
     <string name="title_select_subcategory">Select Subcategory</string>
     <string name="title_account_activity">Profile</string>
@@ -50,6 +56,12 @@
     <string name="title_login">Belatrix All Stars</string>
     <string name="let_s_get_started">Let\'s get started</string>
     <string name="enter_your_email_address_to_receive_your_temporary_password">Enter your email address to receive your temporary password</string>
+
+    <!-- Reset Password -->
+    <string name="secure_your_account">Secure you account</string>
+    <string name="change_your_password">Change your password so you can remember it</string>
+    <string name="new_password_length_error">At least %s characters</string>
+    <string name="new_password_repeat_error">Must be the same</string>
 
     <!--Account-->
     <string name="title_current_month_score">Month score</string>

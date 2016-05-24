@@ -16,6 +16,7 @@
     <color name="darkerBelatrix">#F28905</color>
     <color name="lightBelatrix">#FFA12B</color>
     <color name="grey">#9E9E9E</color>
+    <color name="red">#ff4040</color>
 
     <color name="recycler_view_normal">#ffffff</color>
     <color name="recycler_view_press">#20424242</color>

@@ -45,6 +45,7 @@ public interface ServerPaths {
 
     String EMPLOYEE_AUTHENTICATE = EMPLOYEE + "/authenticate/";
     String EMPLOYEE_CREATE = EMPLOYEE + "/create/";
+    String EMPLOYEE_RESET_PASSWORD = EMPLOYEE + "/{" + EMPLOYEE_ID + "}" + "/update/password/";
     String EMPLOYEE_LIST = EMPLOYEE + "/list/";
     String EMPLOYEE_BY_ID = EMPLOYEE + "/{" + EMPLOYEE_ID + "}";
     String EMPLOYEE_CATEGORIES = EMPLOYEE + "/{" + EMPLOYEE_ID + "}/category/list";

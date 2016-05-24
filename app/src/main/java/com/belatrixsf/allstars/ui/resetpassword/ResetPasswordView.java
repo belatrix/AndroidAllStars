@@ -18,22 +18,19 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.contacts;
+package com.belatrixsf.allstars.ui.resetpassword;
 
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.ui.common.AllStarsView;
 
-import java.util.List;
-
 /**
- * Created by icerrate on 15/04/2016.
+ * Created by icerrate on 19/05/16.
  */
-public interface ContactsListView extends AllStarsView {
+public interface ResetPasswordView extends AllStarsView {
 
-    void addContacts(List<Employee> keywords);
-    void showSearchActionMode();
-    void resetList();
-    void goContactProfile(Integer id);
-    void selectContact(Employee contact);
+    void goEditProfile(Employee employee);
+    void enableReset(boolean enable);
+    void newPasswordError(String message);
+    void cleanNewPasswordError();
 
 }

@@ -91,7 +91,7 @@ public class StarsListAdapter extends LoadMoreBaseAdapter<Star> {
         return VIEW_TYPE_STAR_ITEM;
     }
 
-    public void updateData(List<Star> stars) {
+    public void update(List<Star> stars) {
         data.clear();
         data.addAll(stars);
         notifyDataSetChanged();

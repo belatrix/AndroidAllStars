@@ -24,5 +24,6 @@ public interface EditAccountView extends AllStarsView {
     void showGalleryPicker();
     void showPhotoPicker();
     void disableEditProfilePicture();
+    void endSuccessfulCreation();
 
 }

@@ -83,9 +83,19 @@ public class ContactsListAdapter extends LoadMoreBaseAdapter<Employee> {
         return TYPE_EMPLOYEE;
     }
 
-    public void updateData(List<Employee> contacts) {
+    public void update(List<Employee> contacts) {
         data.clear();
         data.addAll(contacts);
+        notifyDataSetChanged();
+    }
+
+    public void add(List<Employee> contacts) {
+        this.data.addAll(contacts);
+        notifyDataSetChanged();
+    }
+
+    public void reset() {
+        data.clear();
         notifyDataSetChanged();
     }
 

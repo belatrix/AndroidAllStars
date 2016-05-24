@@ -18,22 +18,23 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.contacts;
+package com.belatrixsf.allstars.networking.retrofit.requests;
 
-import com.belatrixsf.allstars.entities.Employee;
-import com.belatrixsf.allstars.ui.common.AllStarsView;
-
-import java.util.List;
+import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by icerrate on 15/04/2016.
+ * Created by icerrate on 19/05/16.
  */
-public interface ContactsListView extends AllStarsView {
+public class ResetPasswordRequest {
 
-    void addContacts(List<Employee> keywords);
-    void showSearchActionMode();
-    void resetList();
-    void goContactProfile(Integer id);
-    void selectContact(Employee contact);
+    @SerializedName("current_password")
+    private String oldPassword;
+    @SerializedName("new_password")
+    private String newPassword;
+
+    public ResetPasswordRequest(String oldPassword, String newPassword) {
+        this.oldPassword = oldPassword;
+        this.newPassword = newPassword;
+    }
 
 }

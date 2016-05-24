@@ -66,7 +66,7 @@ public class ContactsKeywordListAdapter extends LoadMoreBaseAdapter<Employee> {
         return VIEW_TYPE_CONTACT_ITEM;
     }
 
-    public void updateData(List<Employee> employeeList) {
+    public void update(List<Employee> employeeList) {
         data.clear();
         data.addAll(employeeList);
         notifyDataSetChanged();

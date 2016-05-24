@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:text="@string/button_sign_up"
-        android:layout_marginTop="@dimen/dimen_2_5"
+        android:layout_marginTop="@dimen/dimen_4_5"
         android:gravity="center"
         android:textColor="@color/colorAccent"/>
 

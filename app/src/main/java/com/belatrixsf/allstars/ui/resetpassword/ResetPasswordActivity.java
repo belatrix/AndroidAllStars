@@ -18,22 +18,23 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.contacts;
+package com.belatrixsf.allstars.ui.resetpassword;
 
-import com.belatrixsf.allstars.entities.Employee;
-import com.belatrixsf.allstars.ui.common.AllStarsView;
+import android.os.Bundle;
 
-import java.util.List;
+import com.belatrixsf.allstars.R;
+import com.belatrixsf.allstars.ui.common.AllStarsActivity;
 
 /**
- * Created by icerrate on 15/04/2016.
+ * Created by icerrate on 19/05/16.
  */
-public interface ContactsListView extends AllStarsView {
+public class ResetPasswordActivity extends AllStarsActivity {
 
-    void addContacts(List<Employee> keywords);
-    void showSearchActionMode();
-    void resetList();
-    void goContactProfile(Integer id);
-    void selectContact(Employee contact);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_reset_password);
+        setNavigationToolbar();
+    }
 
 }

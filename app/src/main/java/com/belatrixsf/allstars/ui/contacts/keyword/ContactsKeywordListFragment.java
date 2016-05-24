@@ -121,7 +121,7 @@ public class ContactsKeywordListFragment extends AllStarsFragment implements Con
 
     @Override
     public void showEmployees(List<Employee> contacts) {
-        contactsKeywordListAdapter.updateData(contacts);
+        contactsKeywordListAdapter.update(contacts);
     }
 
 
