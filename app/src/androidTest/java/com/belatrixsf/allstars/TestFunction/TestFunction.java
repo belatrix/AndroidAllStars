@@ -1,0 +1,40 @@
+package com.belatrixsf.allstars.TestFunction;
+
+/**
+ * Created by joyep on 5/24/16.
+ */
+
+import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.matcher.ViewMatchers;
+
+import com.belatrixsf.allstars.util.Constants;
+
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static android.support.test.espresso.action.ViewActions.typeText;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+
+
+public class TestFunction {
+
+    public void findIdAndWrite(int id, String keyName){
+        onView(ViewMatchers.withId(id))
+         .perform(typeText(keyName), closeSoftKeyboard());
+    }
+    public void findIdAndTap(int id){
+        onView(ViewMatchers.withId(id)).perform(click());
+    }
+    public void tapOnOverFlowMenu(){
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+    }
+    public void findNameAndTap(int id){
+        onView(ViewMatchers.withText(id)).perform(click());
+    }
+    public void assertWithIdAndText(int id, String keyName){
+        onView(ViewMatchers.withId(id)).check(matches(withText(keyName)));
+    }
+
+}
