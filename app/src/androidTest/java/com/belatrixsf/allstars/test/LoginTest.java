@@ -39,8 +39,8 @@ public class LoginTest extends TestFunction{
     public void logoutTest(){
         loginTest();
         tapOnOverFlowMenu();
-        findNameAndTap(R.string.menu_item_logout);
-        findNameAndTap(R.string.dialog_option_positive);
+        findTextAndTap("Logout");
+        findTextAndTap("Yes");
         checkIfElementIsDisplayed(R.id.login);
     }
 

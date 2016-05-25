@@ -32,7 +32,6 @@ public class AccountTest extends LoginTest{
         checkIfElementIsDisplayed(R.id.start_recommendation);
         checkIfElementIsDisplayed(R.id.score);
         checkIfElementIsDisplayed(R.id.level);
-        checkIfElementIsDisplayed(R.id.no_data_textview);
         findIdAndTap(R.id.start_recommendation);
     }
 }

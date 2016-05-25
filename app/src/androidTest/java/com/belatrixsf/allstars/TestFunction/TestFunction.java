@@ -7,6 +7,7 @@ package com.belatrixsf.allstars.testFunction;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.matcher.ViewMatchers;
 
+import com.belatrixsf.allstars.util.Constants;
 import com.belatrixsf.allstars.util.ViewActionUtils;
 
 import static android.support.test.espresso.Espresso.onView;
@@ -25,39 +26,46 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 public class TestFunction extends ViewActionUtils{
     public void findIdAndWrite(int id, String keyName){
+        onView(isRoot()).perform(waitId(id, Constants.MILISECONDS));
         onView(ViewMatchers.withId(id))
          .perform(typeText(keyName), closeSoftKeyboard());
     }
     public void findIdAndTap(int id){
+        onView(isRoot()).perform(waitId(id, Constants.MILISECONDS));
         onView(ViewMatchers.withId(id)).perform(click());
     }
     public void tapOnOverFlowMenu(){
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
     }
     public void findNameAndTap(int id){
+        onView(isRoot()).perform(waitId(id, Constants.MILISECONDS));
         onView(ViewMatchers.withText(id)).perform(click());
     }
     public void findTextAndTap(String keyName){
+        onView(isRoot()).perform(waitString(keyName, Constants.MILISECONDS));
         onView(ViewMatchers.withText(keyName)).perform(click());
     }
     public void checktWithIdAndText(int id, String keyName){
-        onView(isRoot()).perform(waitId(id, 6000));
+        onView(isRoot()).perform(waitId(id, Constants.MILISECONDS));
         onView(ViewMatchers.withId(id)).check(matches(withText(keyName)));
     }
     public void checkIfElementIsDisplayed(int id){
-        onView(isRoot()).perform(waitId(id, 6000));
+        onView(isRoot()).perform(waitId(id, Constants.MILISECONDS));
         onView(ViewMatchers.withId(id)).check(matches(isDisplayed()));
     }
     public void checkIfElementIsDisplayedWithText(String keyName){
         onView(ViewMatchers.withText(keyName)).check(matches(isDisplayed()));
     }
     public void checkIfElementIsEnabled(int id){
+        onView(isRoot()).perform(waitId(id, Constants.MILISECONDS));
         onView(ViewMatchers.withId(id)).check(matches(isEnabled()));
     }
     public void checkIfElementIsChecked(int id){
+        onView(isRoot()).perform(waitId(id, Constants.MILISECONDS));
         onView(ViewMatchers.withId(id)).check(matches(isChecked()));
     }
     public void checkIfElementIsClickable(int id) {
+        onView(isRoot()).perform(waitId(id, Constants.MILISECONDS));
         onView(ViewMatchers.withId(id)).check(matches(isClickable()));
     }
 }

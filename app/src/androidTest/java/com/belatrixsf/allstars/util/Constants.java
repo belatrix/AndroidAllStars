@@ -9,7 +9,9 @@ public class Constants {
     public static final String USERNAME = "USERTEST";
     public static final String PASSWORD = "USERTEST";
     public static final String FULLNAME="USERTEST";
-
+    
+    //WAIT PROPERTY
+    public static final int MILISECONDS=70000;
 
     //TAB BARS
     public static final String ACCOUNT = "Account";
