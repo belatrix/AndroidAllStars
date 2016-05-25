@@ -24,7 +24,7 @@
     <string name="hint_first_name">First Name</string>
     <string name="hint_last_name">Last Name</string>
     <string name="hint_skype_id">Skype Id</string>
-    <string name="hint_keyword">Select a Keyword</string>
+    <string name="hint_keyword">Select a Tag</string>
     <string name="hint_old_password">Old Password</string>
     <string name="hint_new_password">New Password</string>
     <string name="hint_repeat_new_password">Repeat New Password</string>
@@ -45,9 +45,9 @@
     <string name="title_recommendation_activity">Recommendations</string>
     <string name="title_give_star_activity">Give a recommendation</string>
     <string name="title_comment_activity">Write a comment</string>
-    <string name="title_keywords_activity">Select a Keyword</string>
-    <string name="title_keyword">Keyword</string>
-    <string name="title_contacts_keyword_activity">Keyword Top</string>
+    <string name="title_keywords_activity">Select a Tag</string>
+    <string name="title_keyword">Tag</string>
+    <string name="title_contacts_keyword_activity">Tag Top</string>
     <string name="title_keyword_top">%s Top</string>
     <string name="title_edit_profile_activity">Edit Profile</string>
 

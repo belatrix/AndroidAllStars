@@ -64,7 +64,7 @@ public class MainNavigationViewPagerAdapter extends FragmentPagerAdapter {
             case 2:
                 return "Contacts";
             default:
-                return "Keywords";
+                return "Tags";
         }
     }
 

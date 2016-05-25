@@ -26,6 +26,6 @@
         android:lines="1"
         android:textColor="@color/selector_text_keyword"
         android:textSize="@dimen/text_12"
-        tools:text="Keyword" />
+        tools:text="Tag" />
 
 </LinearLayout>
