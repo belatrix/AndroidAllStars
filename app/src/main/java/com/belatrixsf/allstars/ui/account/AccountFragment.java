@@ -64,7 +64,7 @@ import java.util.List;
 import butterknife.Bind;
 
 import static com.belatrixsf.allstars.ui.account.AccountActivity.USER_ID_KEY;
-import static com.belatrixsf.allstars.ui.account.edit.EditAccountFragment.IS_CREATION;
+import static com.belatrixsf.allstars.ui.account.edit.EditAccountFragment.IS_NEW_USER;
 import static com.belatrixsf.allstars.ui.stars.GiveStarFragment.SELECTED_USER_KEY;
 import static com.belatrixsf.allstars.ui.account.edit.EditAccountFragment.RQ_EDIT_ACCOUNT;
 
@@ -282,8 +282,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     @Override
     public void goToEditProfile(Employee employee) {
         Intent intent = new Intent(getActivity(), EditAccountActivity.class);
-        intent.putExtra(EditAccountActivity.EMPLOYEE_KEY, employee);
-        intent.putExtra(IS_CREATION, false);
+        intent.putExtra(IS_NEW_USER, false);
         ViewCompat.setTransitionName(pictureImageView, getActivity().getString(R.string.transition_photo));
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), pictureImageView, getActivity().getString(R.string.transition_photo));
         getActivity().startActivityForResult(intent, RQ_EDIT_ACCOUNT, options.toBundle());
@@ -306,7 +305,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
                     //Do Nothing
                 }
             }).show();
-        } else if (requestCode == RQ_EDIT_ACCOUNT && resultCode == Activity.RESULT_OK) {
+        } else if (requestCode == RQ_EDIT_ACCOUNT) {
             accountPresenter.refreshEmployee();
         }
     }

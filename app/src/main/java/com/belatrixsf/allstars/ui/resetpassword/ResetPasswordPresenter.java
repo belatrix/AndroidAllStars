@@ -70,7 +70,7 @@ public class ResetPasswordPresenter extends AllStarsPresenter<ResetPasswordView>
             @Override
             public void onSuccess(Employee employee) {
                 view.dismissProgressDialog();
-                view.goEditProfile(employee);
+                view.goEditProfile();
             }
 
             @Override

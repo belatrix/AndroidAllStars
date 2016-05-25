@@ -2,7 +2,7 @@
 <android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:fillViewport="true">
 
@@ -20,7 +20,7 @@
             <View
                 android:id="@+id/belatrix_placeholder"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_10_8"
+                android:layout_height="@dimen/dimen_10_10"
                 android:background="@color/colorPrimaryLight" />
 
             <LinearLayout
@@ -30,7 +30,8 @@
                 android:paddingStart="@dimen/activity_horizontal_margin"
                 android:paddingEnd="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="@dimen/dimen_15_5"
+                android:layout_marginTop="@dimen/dimen_10_9"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
                 android:orientation="vertical">
 
                 <android.support.design.widget.TextInputLayout
@@ -78,12 +79,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_3_5"
-                    android:text="@string/location_head"/>
+                    android:layout_marginLeft="@dimen/dimen_12"
+                    android:layout_marginStart="@dimen/dimen_12"
+                    android:text="@string/location_head"
+                    android:textSize="@dimen/text_16"
+                    android:id="@+id/textView" />
 
                 <RadioGroup
                     android:id="@+id/locationRadioGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_12"
+                    android:layout_marginStart="@dimen/dimen_12"
                     android:layout_marginTop="@dimen/dimen_3_5"/>
 
             </LinearLayout>
@@ -106,15 +113,24 @@
                 android:contentDescription="@string/profile_image_content_desc"
                 android:transitionName="@string/transition_photo"/>
 
-        </FrameLayout>
 
-        <ImageView
-            android:id="@+id/edit_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_add_a_photo"
-            app:layout_anchor="@+id/profile_picture_container"
-            app:layout_anchorGravity="bottom|end"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circular_shape"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="6dp"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/edit_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_add_a_photo"/>
+
+            </LinearLayout>
+
+        </FrameLayout>
 
     </android.support.design.widget.CoordinatorLayout>
 

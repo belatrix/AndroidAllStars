@@ -52,7 +52,7 @@ public interface ServerPaths {
     String EMPLOYEE_SUBCATEGORY_LIST = STAR + "/{" + EMPLOYEE_ID + "}" + "/subcategory/list";
     String EMPLOYEE_UPDATE = EMPLOYEE + "/{" + EMPLOYEE_ID + "}/update/";
     String EMPLOYEE_LOCATION_LIST = EMPLOYEE + "/location/list";
-    String EMPLOYEE_IMAGE = EMPLOYEE + "/{" + EMPLOYEE_ID + "}/image/";
+    String EMPLOYEE_AVATAR = EMPLOYEE + "/{" + EMPLOYEE_ID + "}/avatar/";
 
     String STAR_EMPLOYEE = STAR + "/{" + FROM_EMPLOYEE + "}" + "/give/star/to/{" + TO_EMPLOYEE + "}/" ;
     String STARS_BY_EMPLOYEE_AND_SUBCATEGORY = STAR + "/{" + EMPLOYEE_ID + "}/subcategory" + "/{" + SUBCATEGORY_ID + "}/list";

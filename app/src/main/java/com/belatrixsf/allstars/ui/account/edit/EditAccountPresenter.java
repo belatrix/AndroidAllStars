@@ -5,6 +5,7 @@ import android.util.Log;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.Location;
+import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.services.contracts.EmployeeService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
@@ -23,32 +24,55 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
     private Employee employee;
     private List<Location> locationList;
     private Location locationSelected;
-    private boolean isCreation;
+    private boolean isNewUser;
+    private File selectedFile;
     protected EmployeeService employeeService;
+    protected EmployeeManager employeeManager;
 
     @Inject
-    protected EditAccountPresenter(EditAccountView view, EmployeeService employeeAPI) {
+    protected EditAccountPresenter(EditAccountView view, EmployeeService employeeAPI, EmployeeManager employeeManager) {
         super(view);
         this.employeeService = employeeAPI;
+        this.employeeManager = employeeManager;
     }
 
-    public void init(Employee employee, boolean isCreation) {
-        this.isCreation = isCreation;
-        showEmployeeData(employee);
+    public void init(boolean isNewUser) {
+        this.isNewUser = isNewUser;
+        loadEmployeeData();
         obtainLocations();
     }
 
-    public void loadData(Employee employee, Location locationSelected, List<Location> locations, boolean isCreation) {
-        showEmployeeData(employee);
-        this.isCreation = isCreation;
+    private void loadEmployeeData() {
+        employeeManager.getLoggedInEmployee(new AllStarsCallback<Employee>() {
+            @Override
+            public void onSuccess(Employee employee) {
+                EditAccountPresenter.this.employee = employee;
+                showEmployeeData();
+            }
+
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                showError(serviceError.getDetail());
+            }
+        });
+    }
+
+    public void loadData(Employee employee, Location locationSelected, List<Location> locations, boolean isCreation, File selectedFile) {
+        this.employee = employee;
+        this.isNewUser = isCreation;
         this.locationSelected = locationSelected;
         this.locationList = locations;
+        this.selectedFile = selectedFile;
+        showEmployeeData();
         loadLocations();
     }
 
-    public void showEmployeeData(Employee employee) {
-        this.employee = employee;
-        view.showProfileImage(employee.getAvatar());
+    public void showEmployeeData() {
+        if (selectedFile != null) {
+            view.showProfileImage(selectedFile.getAbsolutePath());
+        } else {
+            view.showProfileImage(employee.getAvatar());
+        }
         view.showFirstName(employee.getFirstName());
         view.showLastName(employee.getLastName());
         view.showSkypeId(employee.getSkypeId());
@@ -87,7 +111,7 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
                 @Override
                 public void onSuccess(Employee employee) {
                     view.dismissProgressDialog();
-                    if (isCreation) {
+                    if (isNewUser) {
                         view.endSuccessfulCreation();
                     } else {
                         view.endSuccessfulEdit();
@@ -137,6 +161,10 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
         return locationList;
     }
 
+    public File getSelectedFile() {
+        return selectedFile;
+    }
+
     public void selectLocation(int position) {
         locationSelected = locationList.get(position);
     }
@@ -149,8 +177,8 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
         return locationSelected;
     }
 
-    public boolean isCreation() {
-        return isCreation;
+    public boolean isNewUser() {
+        return isNewUser;
     }
 
     @Override
@@ -166,17 +194,18 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
         view.showPhotoPicker();
     }
 
-    public void uploadImage(File file) {
+    public void uploadImage(final File file) {
         if (file != null) {
-            employeeService.updateEmployeeImage(employee.getPk(), file, new AllStarsCallback<Void>() {
+            selectedFile = file;
+            view.showProfileImage(selectedFile.getAbsolutePath());
+            employeeService.updateEmployeeImage(employee.getPk(), selectedFile, new AllStarsCallback<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    Log.d("onSu", "onSuccess: Asdas");
                 }
 
                 @Override
                 public void onFailure(ServiceError serviceError) {
-                    Log.d("onError", "onSuccess: Asdas");
+                    showError(serviceError.getDetail());
                 }
             });
         }

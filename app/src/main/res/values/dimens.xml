@@ -41,5 +41,6 @@
     <!-- Defaults -->
     <dimen name="default_corner_radius">4dp</dimen>
     <dimen name="default_picture_stroke_width">7dp</dimen>
+    <dimen name="dimen_12">12dp</dimen>
 
 </resources>

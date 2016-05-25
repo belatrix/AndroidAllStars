@@ -60,7 +60,8 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
     public static final int RQ_PERMISSIONS_REQUEST = 25;
     public static final String LOCATION_KEY = "_location_key";
     public static final String LOCATIONS_KEY = "_locations_key";
-    public static final String IS_CREATION = "_is_creation_key";
+    public static final String IS_NEW_USER = "_is_creation_key";
+    public static final String FILE_KEY = "_selected_file_key";
 
     @Bind(R.id.profile_picture) ImageView pictureImageView;
     @Bind(R.id.firstName) EditText firstNameEditText;
@@ -72,12 +73,9 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
     private EditAccountPresenter editAccountPresenter;
     private String mProfilePicturePath;
 
-    public static EditAccountFragment newInstance(Employee employee, boolean isCreation) {
+    public static EditAccountFragment newInstance(boolean isNewUser) {
         Bundle bundle = new Bundle();
-        if (employee != null) {
-            bundle.putParcelable(EMPLOYEE_KEY, employee);
-            bundle.putBoolean(IS_CREATION, isCreation);
-        }
+        bundle.putBoolean(IS_NEW_USER, isNewUser);
         EditAccountFragment editAccountFragment = new EditAccountFragment();
         editAccountFragment.setArguments(bundle);
         return editAccountFragment;
@@ -92,7 +90,7 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_update_profile, container, false);
+        return inflater.inflate(R.layout.fragment_edit_account, container, false);
     }
 
     @Override
@@ -100,10 +98,9 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
         super.onViewCreated(view, savedInstanceState);
         if (savedInstanceState != null) {
             restoreState(savedInstanceState);
-        } else if (getArguments() != null && getArguments().containsKey(EMPLOYEE_KEY)) {
-            Employee employee = getArguments().getParcelable(EMPLOYEE_KEY);
-            boolean isCreation = getArguments().getBoolean(IS_CREATION);
-            editAccountPresenter.init(employee, isCreation);
+        } else if (getArguments() != null && getArguments().containsKey(IS_NEW_USER)) {
+            boolean isNewUser = getArguments().getBoolean(IS_NEW_USER);
+            editAccountPresenter.init(isNewUser);
             initViews();
         }
     }
@@ -117,19 +114,21 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
     private void restoreState(Bundle savedInstanceState) {
         Employee employee = savedInstanceState.getParcelable(EMPLOYEE_KEY);
         Location locationSelected = savedInstanceState.getParcelable(LOCATION_KEY);
-        boolean isCreation = savedInstanceState.getBoolean(IS_CREATION);
+        boolean isCreation = savedInstanceState.getBoolean(IS_NEW_USER);
         List<Location> locations = savedInstanceState.getParcelableArrayList(LOCATIONS_KEY);
-        editAccountPresenter.loadData(employee, locationSelected, locations, isCreation);
+        File file = (File) savedInstanceState.getSerializable(FILE_KEY);
+        editAccountPresenter.loadData(employee, locationSelected, locations, isCreation, file);
     }
 
     private void saveState(Bundle outState) {
         Employee employee = editAccountPresenter.getEmployee();
         Location locationSelected = editAccountPresenter.getLocationSelected();
         List<Location> locations = editAccountPresenter.getLocationList();
-        outState.putBoolean(IS_CREATION, editAccountPresenter.isCreation());
+        outState.putBoolean(IS_NEW_USER, editAccountPresenter.isNewUser());
         outState.putParcelable(EMPLOYEE_KEY, employee);
         outState.putParcelable(LOCATION_KEY, locationSelected);
         outState.putParcelableArrayList(LOCATIONS_KEY, new ArrayList<>(locations));
+        outState.putSerializable(FILE_KEY, editAccountPresenter.getSelectedFile());
     }
 
     private void initViews() {
