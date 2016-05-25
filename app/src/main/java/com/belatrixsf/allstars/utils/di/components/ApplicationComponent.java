@@ -29,6 +29,7 @@ import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsKeywordPresen
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsListPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.EditAccountPresenterModule;
+import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.KeywordsListModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.RankingPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.SignUpPresenterModule;

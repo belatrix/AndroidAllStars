@@ -66,7 +66,7 @@ public class RankingContainerFragment extends Fragment {
         try {
             rankingFragmentListener = (RankingFragmentListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement ContactsListFragmentListener");
+            throw new ClassCastException(context.toString() + " must implement RankingFragmentListener");
         }
     }
 

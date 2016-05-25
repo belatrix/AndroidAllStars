@@ -26,6 +26,7 @@ import com.belatrixsf.allstars.entities.Location;
 import com.belatrixsf.allstars.networking.retrofit.api.EmployeeAPI;
 import com.belatrixsf.allstars.networking.retrofit.requests.AuthenticationRequest;
 import com.belatrixsf.allstars.networking.retrofit.requests.CreateEmployeeRequest;
+import com.belatrixsf.allstars.networking.retrofit.requests.ResetPasswordRequest;
 import com.belatrixsf.allstars.networking.retrofit.requests.UpdateEmployeeRequest;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.CreateEmployeeResponse;
@@ -115,6 +116,15 @@ public class EmployeeServerService extends AllStarsBaseService implements Employ
     public ServiceRequest getEmployeeLocations(AllStarsCallback<List<Location>> callback) {
         Call<List<Location>> call = employeeAPI.getEmployeeLocations();
         ServiceRequest<List<Location>> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
+    @Override
+    public ServiceRequest resetPassword(int employeeId, String oldPassword, String newPassword, AllStarsCallback<Employee> callback) {
+        ResetPasswordRequest request = new ResetPasswordRequest(oldPassword, newPassword);
+        Call<Employee> call = employeeAPI.resetPassword(employeeId, request);
+        ServiceRequest<Employee> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
         return serviceRequest;
     }

@@ -18,6 +18,9 @@
             android:name=".ui.signup.SignUpActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
+            android:name=".ui.resetpassword.ResetPasswordActivity"
+            android:label="@string/title_reset_password_activity"/>
+        <activity
             android:name=".ui.home.MainActivity"/>
         <activity
             android:name=".ui.stars.StarsListActivity"

@@ -18,22 +18,20 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.contacts;
-
-import com.belatrixsf.allstars.entities.Employee;
-import com.belatrixsf.allstars.ui.common.AllStarsView;
-
-import java.util.List;
+package com.belatrixsf.allstars.utils;
 
 /**
- * Created by icerrate on 15/04/2016.
+ * Created by gyosida on 5/12/16.
  */
-public interface ContactsListView extends AllStarsView {
+public class NumericUtils {
 
-    void addContacts(List<Employee> keywords);
-    void showSearchActionMode();
-    void resetList();
-    void goContactProfile(Integer id);
-    void selectContact(Employee contact);
+    public static boolean isNumeric(String numericText) {
+        for (char digit : numericText.toCharArray()) {
+            if (!Character.isDigit(digit)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 }

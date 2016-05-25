@@ -18,20 +18,24 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils;
+package com.belatrixsf.allstars.utils.di.components;
+
+import com.belatrixsf.allstars.ui.resetpassword.ResetPasswordPresenter;
+import com.belatrixsf.allstars.utils.di.modules.presenters.ResetPasswordPresenterModule;
+import com.belatrixsf.allstars.utils.di.scopes.UIScope;
+
+import dagger.Component;
 
 /**
- * Created by gyosida on 5/12/16.
+ * Created by icerrate on 19/05/16.
  */
-public class Utils {
+@UIScope
+@Component(
+        dependencies = ApplicationComponent.class,
+        modules = ResetPasswordPresenterModule.class
+)
+public interface ResetPasswordComponent {
 
-    public static boolean isNumeric(String numericText) {
-        for (char digit : numericText.toCharArray()) {
-            if (!Character.isDigit(digit)) {
-                return false;
-            }
-        }
-        return true;
-    }
+    ResetPasswordPresenter resetPasswordPresenter();
 
 }

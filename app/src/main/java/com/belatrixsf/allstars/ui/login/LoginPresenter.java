@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.allstars.ui.login;
 
+import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
@@ -41,7 +42,7 @@ public class LoginPresenter extends AllStarsPresenter<LoginView> {
     }
 
     public void checkIfInputsAreValid(String username, String password) {
-        view.enableLogin(username != null && password != null && !username.isEmpty() && !password.isEmpty());
+        view.enableLogin(areFieldsFilled(username, password));
     }
 
     public void init() {
@@ -49,25 +50,38 @@ public class LoginPresenter extends AllStarsPresenter<LoginView> {
     }
 
     public void login(String username, String password) {
-        view.showProgressDialog();
-        employeeManager.login(
-                username,
-                password,
-                new AllStarsCallback<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        view.dismissProgressDialog();
-                        view.goHome();
-                    }
+        if (areFieldsFilled(username, password)) {
+            view.showProgressDialog();
+            employeeManager.login(
+                    username,
+                    password,
+                    new AllStarsCallback<Boolean>() {
+                        @Override
+                        public void onSuccess(Boolean goHome) {
+                            view.dismissProgressDialog();
+                            if (goHome){
+                                view.goHome();
+                            } else {
+                                view.goResetPassword();
+                            }
+                        }
 
-                    @Override
-                    public void onFailure(ServiceError serviceError) {
-                        showError(serviceError.getDetail());
-                    }
-                });
+                        @Override
+                        public void onFailure(ServiceError serviceError) {
+                            showError(serviceError.getDetail());
+                        }
+                    });
+        } else {
+            showError(R.string.error_incorrect_fields);
+        }
+    }
+
+    private boolean areFieldsFilled(String username, String password) {
+        return username != null && password != null && !username.isEmpty() && !password.isEmpty();
     }
 
     @Override
     public void cancelRequests() {
     }
+
 }

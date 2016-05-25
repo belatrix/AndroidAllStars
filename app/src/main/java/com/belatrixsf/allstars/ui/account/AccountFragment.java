@@ -64,6 +64,7 @@ import java.util.List;
 import butterknife.Bind;
 
 import static com.belatrixsf.allstars.ui.account.AccountActivity.USER_ID_KEY;
+import static com.belatrixsf.allstars.ui.account.edit.EditAccountFragment.IS_CREATION;
 import static com.belatrixsf.allstars.ui.stars.GiveStarFragment.SELECTED_USER_KEY;
 import static com.belatrixsf.allstars.ui.account.edit.EditAccountFragment.RQ_EDIT_ACCOUNT;
 
@@ -131,6 +132,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
             }
         }
         accountPresenter.setUserId(userId);
+
     }
 
     @Override
@@ -144,6 +146,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
         inflater.inflate(R.menu.menu_account, menu);
         recommendMenuItem = menu.findItem(R.id.action_recommend);
         editProfileMenuItem = menu.findItem(R.id.action_edit_profile);
+        accountPresenter.checkRecommendationEnabled();
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -204,7 +207,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
 
     @Override
     public void showSubCategories(List<SubCategory> subCategories) {
-        accountCategoriesAdapter.updateData(subCategories);
+        accountCategoriesAdapter.update(subCategories);
     }
 
     @Override
@@ -279,6 +282,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     public void goToEditProfile(Employee employee) {
         Intent intent = new Intent(getActivity(), EditAccountActivity.class);
         intent.putExtra(EditAccountActivity.EMPLOYEE_KEY, employee);
+        intent.putExtra(IS_CREATION, false);
         ViewCompat.setTransitionName(pictureImageView, getActivity().getString(R.string.transition_photo));
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), pictureImageView, getActivity().getString(R.string.transition_photo));
         getActivity().startActivityForResult(intent, RQ_EDIT_ACCOUNT, options.toBundle());

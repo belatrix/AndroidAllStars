@@ -18,16 +18,28 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.contacts;
+package com.belatrixsf.allstars.utils.di.modules.presenters;
 
+import com.belatrixsf.allstars.ui.resetpassword.ResetPasswordView;
 
-import android.support.v7.view.ActionMode;
+import dagger.Module;
+import dagger.Provides;
 
 /**
- * Created by icerrate on 19/04/2016.
+ * Created by icerrate on 19/05/16.
  */
-public interface ContactsListFragmentListener {
+@Module
+public class ResetPasswordPresenterModule {
 
-    void setActionMode(ActionMode.Callback callback);
+    private ResetPasswordView view;
+
+    public ResetPasswordPresenterModule(ResetPasswordView view) {
+        this.view = view;
+    }
+
+    @Provides
+    public ResetPasswordView providesView() {
+        return view;
+    }
 
 }
