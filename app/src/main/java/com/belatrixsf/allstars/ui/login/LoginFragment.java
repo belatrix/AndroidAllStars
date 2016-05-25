@@ -21,16 +21,16 @@
 package com.belatrixsf.allstars.ui.login;
 
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -80,6 +80,18 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
         passwordEditText.setTransformationMethod(new PasswordTransformationMethod());
         usernameEditText.addTextChangedListener(formFieldWatcher);
         passwordEditText.addTextChangedListener(formFieldWatcher);
+        passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    String username = usernameEditText.getText().toString();
+                    String password = passwordEditText.getText().toString();
+                    loginPresenter.login(username, password);
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override

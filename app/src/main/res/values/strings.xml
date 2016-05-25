@@ -14,6 +14,9 @@
     <string name="dialog_option_negative">No</string>
     <string name="dialog_option_confirm">Got it!</string>
 
+    <!-- Error -->
+    <string name="error_incorrect_fields">Make sure the fields are filled correctly</string>
+
     <!-- Hint -->
     <string name="hint_username">Username</string>
     <string name="hint_password">Password</string>

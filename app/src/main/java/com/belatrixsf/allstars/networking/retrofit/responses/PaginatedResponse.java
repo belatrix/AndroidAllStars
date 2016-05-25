@@ -23,7 +23,7 @@ package com.belatrixsf.allstars.networking.retrofit.responses;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.belatrixsf.allstars.utils.Utils;
+import com.belatrixsf.allstars.utils.NumericUtils;
 
 /**
  * Created by gyosida on 5/9/16.
@@ -73,7 +73,7 @@ public class PaginatedResponse implements Parcelable {
                 String queryParam = extractQueryParam(queryParams, PARAM_PAGE);
                 if (queryParam != null) {
                     String value = getQueryParamValue(queryParam);
-                    if (Utils.isNumeric(value)) {
+                    if (NumericUtils.isNumeric(value)) {
                         nextPage = Integer.parseInt(value);
                     }
                 }
