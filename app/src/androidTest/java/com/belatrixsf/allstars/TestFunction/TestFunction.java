@@ -1,4 +1,4 @@
-package com.belatrixsf.allstars.TestFunction;
+package com.belatrixsf.allstars.testFunction;
 
 /**
  * Created by joyep on 5/24/16.

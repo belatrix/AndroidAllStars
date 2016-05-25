@@ -5,7 +5,6 @@ package com.belatrixsf.allstars.test;
  */
 
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +14,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 import com.belatrixsf.allstars.R;
-import com.belatrixsf.allstars.TestFunction.TestFunction;
+import com.belatrixsf.allstars.testFunction.TestFunction;
 import com.belatrixsf.allstars.ui.login.LoginActivity;
 import com.belatrixsf.allstars.util.Constants;
 
