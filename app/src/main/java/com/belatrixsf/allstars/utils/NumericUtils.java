@@ -23,7 +23,7 @@ package com.belatrixsf.allstars.utils;
 /**
  * Created by gyosida on 5/12/16.
  */
-public class Utils {
+public class NumericUtils {
 
     public static boolean isNumeric(String numericText) {
         for (char digit : numericText.toCharArray()) {
