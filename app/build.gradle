@@ -18,6 +18,7 @@ android {
 
         debug {
             buildConfigField "String", "BASE_URL", serverProps["baseDevelopUrl"]
+            buildConfigField "String", "FB_ID", serverProps["facebookId"]
         }
         release {
             minifyEnabled false
@@ -27,7 +28,7 @@ android {
     }
 }
 
-def supportLibrariesVersion = "23.3.0"
+def supportLibrariesVersion = "23.4.0"
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -49,4 +50,5 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.aurelhubert:ahbottomnavigation:1.1.8'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.facebook.android:facebook-android-sdk:4.0.1'
 }

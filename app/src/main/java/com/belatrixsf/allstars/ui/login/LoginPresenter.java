@@ -25,6 +25,9 @@ import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import javax.inject.Inject;
 
 /**
@@ -69,6 +72,18 @@ public class LoginPresenter extends AllStarsPresenter<LoginView> {
                         showError(serviceError.getDetail());
                     }
                 });
+    }
+
+    public void loginWithFacebook(JSONObject json){
+        try {
+            String id = json.getString("id");
+            String email = json.getString("email");
+            String firstName = json.getString("first_name");
+            String lastName = json.getString("last_name");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

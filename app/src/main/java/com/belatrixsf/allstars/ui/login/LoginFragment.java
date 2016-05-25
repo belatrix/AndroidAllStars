@@ -21,13 +21,12 @@
 package com.belatrixsf.allstars.ui.login;
 
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +34,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.belatrixsf.allstars.BuildConfig;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.home.MainActivity;
@@ -43,6 +43,18 @@ import com.belatrixsf.allstars.ui.signup.SignUpActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.components.DaggerLoginComponent;
 import com.belatrixsf.allstars.utils.di.modules.presenters.LoginPresenterModule;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+
+import org.json.JSONObject;
+
+import java.util.Arrays;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -53,8 +65,11 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
     @Bind(R.id.password) EditText passwordEditText;
     @Bind(R.id.log_in) Button logInButton;
     @Bind(R.id.sign_up) TextView signUpButton;
+    @Bind(R.id.facebook_log_in)
+    LoginButton facebookLogInButton;
 
     private LoginPresenter loginPresenter;
+    private CallbackManager callbackManager;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -63,6 +78,9 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        FacebookSdk.setApplicationId(BuildConfig.FB_ID);
+        FacebookSdk.sdkInitialize(getActivity());
+        callbackManager = CallbackManager.Factory.create();
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_login, container, false);
     }
@@ -80,6 +98,36 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
         passwordEditText.setTransformationMethod(new PasswordTransformationMethod());
         usernameEditText.addTextChangedListener(formFieldWatcher);
         passwordEditText.addTextChangedListener(formFieldWatcher);
+
+        facebookLogInButton.setReadPermissions(Arrays.asList("email", "public_profile "));
+        facebookLogInButton.setFragment(this);
+        facebookLogInButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d("FACEBOOK","On success");
+                GraphRequest request = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject json, GraphResponse response) {
+                                loginPresenter.loginWithFacebook(json);
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,first_name,last_name,email");
+                request.setParameters(parameters);
+                request.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d("FACEBOOK","On cancel");
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                Log.d("FACEBOOK",exception.toString());
+            }
+        });
     }
 
     @Override
@@ -149,5 +197,12 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
         }
 
     };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
 
 }

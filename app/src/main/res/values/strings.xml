@@ -50,6 +50,7 @@
 
     <!-- Login and Register -->
     <string name="title_login">Belatrix All Stars</string>
+    <string name="or">Or</string>
     <string name="let_s_get_started">Let\'s get started</string>
     <string name="enter_your_email_address_to_receive_your_temporary_password">Enter your email address to receive your temporary password</string>
 
