@@ -6,6 +6,9 @@ package com.belatrixsf.allstars.TestFunction;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.matcher.ViewMatchers;
+
+import com.belatrixsf.allstars.util.ViewActionUtils;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -16,12 +19,11 @@ import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
-import static android.support.test.espresso.matcher.ViewMatchers.isSelected;
+import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 
-public class TestFunction {
-
+public class TestFunction extends ViewActionUtils{
     public void findIdAndWrite(int id, String keyName){
         onView(ViewMatchers.withId(id))
          .perform(typeText(keyName), closeSoftKeyboard());
@@ -39,19 +41,23 @@ public class TestFunction {
         onView(ViewMatchers.withText(keyName)).perform(click());
     }
     public void checktWithIdAndText(int id, String keyName){
+        onView(isRoot()).perform(waitId(id, 6000));
         onView(ViewMatchers.withId(id)).check(matches(withText(keyName)));
     }
     public void checkIfElementIsDisplayed(int id){
+        onView(isRoot()).perform(waitId(id, 6000));
         onView(ViewMatchers.withId(id)).check(matches(isDisplayed()));
     }
-    public void checkIfElemenIsEnablet(int id){
+    public void checkIfElementIsDisplayedWithText(String keyName){
+        onView(ViewMatchers.withText(keyName)).check(matches(isDisplayed()));
+    }
+    public void checkIfElementIsEnabled(int id){
         onView(ViewMatchers.withId(id)).check(matches(isEnabled()));
     }
-    public void checkIfElemenIsChecked(int id){
+    public void checkIfElementIsChecked(int id){
         onView(ViewMatchers.withId(id)).check(matches(isChecked()));
     }
-    public void checkIfElemenisClickable(int id){
+    public void checkIfElementIsClickable(int id) {
         onView(ViewMatchers.withId(id)).check(matches(isClickable()));
     }
-
 }

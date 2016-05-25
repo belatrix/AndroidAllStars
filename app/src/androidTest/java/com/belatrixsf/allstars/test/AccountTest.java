@@ -25,12 +25,14 @@ public class AccountTest extends LoginTest{
     public void accountViewTest() {
         loginTest();
         checktWithIdAndText(R.id.profile_name,Constants.FULLNAME);
-        checktIfElementIsDisplayed(R.id.profile_email);
-        checktIfElementIsDisplayed(R.id.skype_id);
-        checktIfElementIsDisplayed(R.id.location_name);
-        checktIfElementIsDisplayed(R.id.current_month_score);
-        checktIfElementIsDisplayed(R.id.start_recommendation);
-        checktIfElementIsDisplayed(R.id.score);
-        checktIfElementIsDisplayed(R.id.level);
+        checkIfElementIsDisplayed(R.id.profile_email);
+        checkIfElementIsDisplayed(R.id.skype_id);
+        checkIfElementIsDisplayed(R.id.location_name);
+        checkIfElementIsDisplayed(R.id.current_month_score);
+        checkIfElementIsDisplayed(R.id.start_recommendation);
+        checkIfElementIsDisplayed(R.id.score);
+        checkIfElementIsDisplayed(R.id.level);
+        checkIfElementIsDisplayed(R.id.no_data_textview);
+        findIdAndTap(R.id.start_recommendation);
     }
 }
