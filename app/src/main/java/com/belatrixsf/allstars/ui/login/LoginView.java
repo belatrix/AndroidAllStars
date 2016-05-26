@@ -29,6 +29,7 @@ public interface LoginView extends AllStarsView {
 
     void goHome();
     void goResetPassword();
+    void goEditProfile();
     void enableLogin(boolean enable);
 
 }

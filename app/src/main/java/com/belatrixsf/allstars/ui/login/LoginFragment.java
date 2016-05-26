@@ -36,6 +36,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
+import com.belatrixsf.allstars.ui.account.edit.EditAccountActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.home.MainActivity;
 import com.belatrixsf.allstars.ui.resetpassword.ResetPasswordActivity;
@@ -46,6 +47,8 @@ import com.belatrixsf.allstars.utils.di.modules.presenters.LoginPresenterModule;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+
+import static com.belatrixsf.allstars.ui.account.edit.EditAccountFragment.IS_NEW_USER;
 
 public class LoginFragment extends AllStarsFragment implements LoginView {
 
@@ -119,6 +122,14 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
     @Override
     public void goResetPassword() {
         Intent intent = new Intent(getActivity(), ResetPasswordActivity.class);
+        startActivity(intent);
+        fragmentListener.closeActivity();
+    }
+
+    @Override
+    public void goEditProfile() {
+        Intent intent = new Intent(getActivity(), EditAccountActivity.class);
+        intent.putExtra(IS_NEW_USER, false);
         startActivity(intent);
         fragmentListener.closeActivity();
     }
