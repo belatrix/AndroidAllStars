@@ -337,14 +337,11 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && requestCode == RQ_GALLERY) {
             if (data != null) {
-                Uri selectedImageUri = data.getData();
-                Intent intent = CropImage.activity(selectedImageUri).setGuidelines(CropImageView.Guidelines.ON).setMinCropResultSize(500,500).setCropShape(CropImageView.CropShape.RECTANGLE).getIntent(getActivity());
-                startActivityForResult(intent, CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE);
+                initCropImageActivity(data.getData());
             }
         } else if (resultCode == Activity.RESULT_OK && requestCode == RQ_CAMERA) {
             Uri selectedPhotoUri = Uri.fromFile(new File(mProfilePicturePath));
-            Intent intent = CropImage.activity(selectedPhotoUri).setGuidelines(CropImageView.Guidelines.ON).setMinCropResultSize(500,500).setCropShape(CropImageView.CropShape.RECTANGLE).getIntent(getActivity());
-            startActivityForResult(intent, CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE);
+            initCropImageActivity(selectedPhotoUri);
         } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == Activity.RESULT_OK) {
@@ -353,6 +350,11 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
                 editAccountPresenter.uploadImage(MediaUtils.get().getReducedBitmapFile(croppedImageUri));
             }
         }
+    }
+
+    public void initCropImageActivity(Uri uri) {
+        Intent intent = CropImage.activity(uri).setGuidelines(CropImageView.Guidelines.ON).setMinCropResultSize(500,500).setCropShape(CropImageView.CropShape.RECTANGLE).getIntent(getActivity());
+        startActivityForResult(intent, CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE);
     }
 
     @Override
