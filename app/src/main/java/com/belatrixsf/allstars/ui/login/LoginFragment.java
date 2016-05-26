@@ -129,7 +129,7 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
     @Override
     public void goEditProfile() {
         Intent intent = new Intent(getActivity(), EditAccountActivity.class);
-        intent.putExtra(IS_NEW_USER, false);
+        intent.putExtra(IS_NEW_USER, true);
         startActivity(intent);
         fragmentListener.closeActivity();
     }
