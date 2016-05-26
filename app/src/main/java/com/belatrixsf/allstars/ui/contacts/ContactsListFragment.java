@@ -66,7 +66,6 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
 
     public static final String PROFILE_ENABLED_KEY = "_is_search";
     public static final String CONTACTS_KEY = "_employees_key";
-    //public static final String CURRENT_PAGE_KEY = "_current_page_key";
     public static final String SEARCH_TEXT_KEY = "_search_text_key";
     public static final String PAGING_KEY = "_paging_key";
     public static final String SEARCHING_KEY = "_searching_key";
