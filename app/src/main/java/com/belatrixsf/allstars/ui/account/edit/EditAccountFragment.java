@@ -37,6 +37,8 @@ import com.belatrixsf.allstars.utils.PermissionHelper;
 import com.belatrixsf.allstars.utils.di.modules.presenters.EditAccountPresenterModule;
 import com.belatrixsf.allstars.utils.media.ImageFactory;
 import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,6 +49,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.OnClick;
 
+import static android.content.Context.POWER_SERVICE;
 import static com.belatrixsf.allstars.ui.account.edit.EditAccountActivity.EMPLOYEE_KEY;
 
 /**
@@ -335,11 +338,21 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
         if (resultCode == Activity.RESULT_OK && requestCode == RQ_GALLERY) {
             if (data != null) {
                 Uri selectedImageUri = data.getData();
-                mProfilePicturePath = MediaUtils.get().getFilePathFromMediaUri(getActivity(), selectedImageUri);
-                editAccountPresenter.uploadImage(MediaUtils.get().getReducedProfilePictureBitmapFile(mProfilePicturePath));
+                Intent intent = CropImage.activity(selectedImageUri).setGuidelines(CropImageView.Guidelines.ON).setMinCropResultSize(500,500).setCropShape(CropImageView.CropShape.RECTANGLE).getIntent(getActivity());
+                startActivityForResult(intent, CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE);
             }
         } else if (resultCode == Activity.RESULT_OK && requestCode == RQ_CAMERA) {
-            editAccountPresenter.uploadImage(MediaUtils.get().getReducedProfilePictureBitmapFile(mProfilePicturePath));
+            Uri selectedPhotoUri = Uri.fromFile(new File(mProfilePicturePath));
+            Intent intent = CropImage.activity(selectedPhotoUri).setGuidelines(CropImageView.Guidelines.ON).setMinCropResultSize(500,500).setCropShape(CropImageView.CropShape.RECTANGLE).getIntent(getActivity());
+            startActivityForResult(intent, CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE);
+        } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == Activity.RESULT_OK) {
+                Uri croppedImageUri = result.getUri();
+                mProfilePicturePath = croppedImageUri.getPath();
+//                editAccountPresenter.uploadImage(MediaUtils.get().getReducedBitmapFile(mProfilePicturePath, croppedImageUri.getLastPathSegment()));
+                editAccountPresenter.uploadImage(new File(mProfilePicturePath));
+            }
         }
     }
 
