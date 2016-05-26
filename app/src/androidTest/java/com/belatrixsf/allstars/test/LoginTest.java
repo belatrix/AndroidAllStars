@@ -15,12 +15,13 @@ import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.testFunction.TestFunction;
+import com.belatrixsf.allstars.ui.LauncherActivity;
+import com.belatrixsf.allstars.ui.home.MainActivity;
 import com.belatrixsf.allstars.ui.login.LoginActivity;
 import com.belatrixsf.allstars.util.Constants;
 
 
 @RunWith(AndroidJUnit4.class)
-@LargeTest
 public class LoginTest extends TestFunction{
 
     @Rule
@@ -33,6 +34,12 @@ public class LoginTest extends TestFunction{
         findIdAndWrite(R.id.password,Constants.PASSWORD);
         findIdAndTap(R.id.log_in);
         checktWithIdAndText(R.id.profile_name,Constants.FULLNAME);
+    }
+
+    @Test
+    public void loginTestEnterFromKeyboard() {
+        findIdAndWrite(R.id.username,Constants.USERNAME);
+        findIdAndWriteDoneEvent(R.id.password,Constants.PASSWORD);
     }
 
     @Test
