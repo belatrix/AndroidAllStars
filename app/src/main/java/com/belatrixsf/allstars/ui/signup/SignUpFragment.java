@@ -111,6 +111,7 @@ public class SignUpFragment extends AllStarsFragment implements SignUpView {
         DialogUtils.createInformationDialog(getActivity(), message, getString(R.string.app_name), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
                 signUpPresenter.confirmMessage();
             }
         }).show();

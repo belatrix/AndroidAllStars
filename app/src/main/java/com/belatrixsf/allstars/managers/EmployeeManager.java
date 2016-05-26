@@ -116,7 +116,7 @@ public class EmployeeManager {
     }
 
     public void logout() {
-        employee = null;
+        refreshEmployee();
         PreferencesManager.get().clearEmployeeId();
         PreferencesManager.get().clearToken();
     }

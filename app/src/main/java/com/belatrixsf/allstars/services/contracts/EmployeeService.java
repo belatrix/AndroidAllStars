@@ -29,6 +29,7 @@ import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeRespo
 import com.belatrixsf.allstars.services.ServiceRequest;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -52,6 +53,8 @@ public interface EmployeeService extends AllStarsService {
 
     ServiceRequest getEmployeeLocations(AllStarsCallback<List<Location>> callback);
 
-    ServiceRequest resetPassword(int employeeId, String oldePassword, String newPassword, AllStarsCallback<Employee> callback);
+    ServiceRequest updateEmployeeImage(int employeeId, File file, AllStarsCallback<Void> callback);
+
+    ServiceRequest resetPassword(int employeeId, String oldPassword, String newPassword, AllStarsCallback<Employee> callback);
 
 }

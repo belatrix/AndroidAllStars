@@ -80,9 +80,7 @@ public class StarsListAdapter extends LoadMoreBaseAdapter<Star> {
             starViewHolder.starMessageTextView.setText(message);
             starViewHolder.starCategoryTextView.setText(star.getCategory().getName());
             starViewHolder.starKeywordView.setKeyword(keyword);
-            if (star.getFromUser().getAvatar() != null) {
-                ImageFactory.getLoader().loadFromUrl(star.getFromUser().getAvatar(), starViewHolder.photoImageView, ImageLoader.ImageTransformation.CIRCLE);
-            }
+            ImageFactory.getLoader().loadFromUrl(star.getFromUser().getAvatar(), starViewHolder.photoImageView, ImageLoader.ImageTransformation.CIRCLE);
         }
     }
 

@@ -50,6 +50,10 @@
     <string name="title_contacts_keyword_activity">Tag Top</string>
     <string name="title_keyword_top">%s Top</string>
     <string name="title_edit_profile_activity">Edit Profile</string>
+    <string name="tab_account_title">Account</string>
+    <string name="tab_ranking_title">Ranking</string>
+    <string name="tab_contacts_title">Contacts</string>
+    <string name="tab_keywords_title">Tags</string>
 
     <!-- Login and Register -->
     <string name="title_login">Belatrix All Stars</string>
@@ -72,6 +76,11 @@
     <!--Edit account-->
     <string name="edit_profile">Edit</string>
     <string name="location_head">Location:</string>
+    <string name="photo_option">Take a photo</string>
+    <string name="gallery_option">Pick from gallery</string>
+    <string name="select_photo_title">Upload a picture</string>
+    <string name="select_image_title">Select an image</string>
+    <string name="permission_profile">The application needs write and camera permissions to be able to edit your profile picture</string>
 
     <!--Give a star-->
     <string name="select_user">Select user</string>
@@ -107,9 +116,11 @@
 
     <!-- Transition names -->
     <string name="transition_photo">transition_photo</string>
+
+    <!--Content description-->
+    <string name="location_content_desc">Location icon</string>
     <string name="profile_image_content_desc">Profile image</string>
     <string name="close_content_desc">Close button</string>
     <string name="email_content_desc">Email icon</string>
-    <string name="location_content_desc">Location icon</string>
 
 </resources>
