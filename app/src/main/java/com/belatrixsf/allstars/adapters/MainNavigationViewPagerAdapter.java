@@ -20,14 +20,18 @@
 */
 package com.belatrixsf.allstars.adapters;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.ui.account.AccountFragment;
 import com.belatrixsf.allstars.ui.contacts.ContactsListFragment;
 import com.belatrixsf.allstars.ui.keywords.SearchingKeywordsFragment;
 import com.belatrixsf.allstars.ui.ranking.RankingContainerFragment;
+
+import java.lang.ref.WeakReference;
 
 /**
  * Created by PedroCarrillo on 4/14/16.
@@ -35,9 +39,11 @@ import com.belatrixsf.allstars.ui.ranking.RankingContainerFragment;
 public class MainNavigationViewPagerAdapter extends FragmentPagerAdapter {
 
     public static final int NUM_TABS = 4;
+    private WeakReference<Context> contextWeakReference;
 
-    public MainNavigationViewPagerAdapter(FragmentManager fm) {
+    public MainNavigationViewPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
+        contextWeakReference = new WeakReference<>(context);
     }
 
     @Override
@@ -58,13 +64,13 @@ public class MainNavigationViewPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "Account";
+                return contextWeakReference.get().getString(R.string.tab_account_title);
             case 1:
-                return "Ranking";
+                return contextWeakReference.get().getString(R.string.tab_ranking_title);
             case 2:
-                return "Contacts";
+                return contextWeakReference.get().getString(R.string.tab_contacts_title);
             default:
-                return "Keywords";
+                return contextWeakReference.get().getString(R.string.tab_keywords_title);
         }
     }
 

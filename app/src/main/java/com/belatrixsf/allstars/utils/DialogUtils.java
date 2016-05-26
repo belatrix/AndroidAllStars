@@ -66,4 +66,5 @@ public class DialogUtils {
         progressDialog.setCancelable(false);
         return progressDialog;
     }
+
 }

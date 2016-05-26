@@ -37,8 +37,12 @@ import com.belatrixsf.allstars.services.ServiceRequest;
 import com.belatrixsf.allstars.services.contracts.EmployeeService;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 
+import java.io.File;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 
 
@@ -116,6 +120,16 @@ public class EmployeeServerService extends AllStarsBaseService implements Employ
     public ServiceRequest getEmployeeLocations(AllStarsCallback<List<Location>> callback) {
         Call<List<Location>> call = employeeAPI.getEmployeeLocations();
         ServiceRequest<List<Location>> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
+    @Override
+    public ServiceRequest updateEmployeeImage(int employeeId, File file, AllStarsCallback<Void> callback) {
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+        Call<Void> call = employeeAPI.updateEmployeeImage(employeeId, body);
+        ServiceRequest<Void> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
         return serviceRequest;
     }

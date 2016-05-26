@@ -7,7 +7,7 @@ import android.support.v4.app.ActivityCompat;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.ui.common.AllStarsActivity;
-import static com.belatrixsf.allstars.ui.account.edit.EditAccountFragment.IS_CREATION;
+import static com.belatrixsf.allstars.ui.account.edit.EditAccountFragment.IS_NEW_USER;
 
 /**
  * Created by PedroCarrillo on 5/17/16.
@@ -23,9 +23,8 @@ public class EditAccountActivity extends AllStarsActivity {
         ActivityCompat.postponeEnterTransition(this);
         setNavigationToolbar();
         if (savedInstanceState == null) {
-            Employee user = getIntent().getParcelableExtra(EMPLOYEE_KEY);
-            boolean isCreation = getIntent().getBooleanExtra(IS_CREATION, false);
-            replaceFragment(EditAccountFragment.newInstance(user, isCreation), false);
+            boolean isCreation = getIntent().getBooleanExtra(IS_NEW_USER, false);
+            replaceFragment(EditAccountFragment.newInstance(isCreation), false);
         }
     }
 

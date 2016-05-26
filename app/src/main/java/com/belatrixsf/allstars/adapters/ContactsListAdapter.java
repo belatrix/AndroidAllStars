@@ -73,9 +73,7 @@ public class ContactsListAdapter extends LoadMoreBaseAdapter<Employee> {
             contactViewHolder.contactFullNameTextView.setText(fullName);
             contactViewHolder.contactLevelTextView.setText(level);
             contactViewHolder.itemView.setTag(contact);
-            if (contact.getAvatar() != null) {
-                ImageFactory.getLoader().loadFromUrl(contact.getAvatar(), contactViewHolder.photoImageView, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
-            }
+            ImageFactory.getLoader().loadFromUrl(contact.getAvatar(), contactViewHolder.photoImageView, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
         }
     }
     @Override
