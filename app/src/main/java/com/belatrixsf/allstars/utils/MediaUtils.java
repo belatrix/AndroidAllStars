@@ -101,7 +101,7 @@ public class MediaUtils {
     }
 
     public File getReducedBitmapFile(String imagePath, String fileName){
-        Bitmap reducedBitmap = getResizedBitmap(imagePath);c
+        Bitmap reducedBitmap = getResizedBitmap(imagePath);
 
         int degree = getRotationFromImageFile(imagePath);
 
