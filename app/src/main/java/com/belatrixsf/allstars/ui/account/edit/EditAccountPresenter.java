@@ -60,19 +60,19 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
     public void loadData(Employee employee, Location locationSelected, List<Location> locations, boolean isCreation, File selectedFile) {
         this.employee = employee;
         this.isNewUser = isCreation;
-        this.locationSelected = locationSelected;
         this.locationList = locations;
         this.selectedFile = selectedFile;
-        showEmployeeData();
-        loadLocations();
-    }
-
-    public void showEmployeeData() {
+        this.locationSelected = locationSelected;
         if (selectedFile != null) {
             view.showProfileImage(selectedFile.getAbsolutePath());
         } else {
             view.showProfileImage(employee.getAvatar());
         }
+        loadLocations();
+    }
+
+    public void showEmployeeData() {
+        view.showProfileImage(employee.getAvatar());
         view.showFirstName(employee.getFirstName());
         view.showLastName(employee.getLastName());
         view.showSkypeId(employee.getSkypeId());
