@@ -119,8 +119,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/circular_shape"
                 android:layout_gravity="bottom|end"
-                android:layout_margin="6dp"
-                android:padding="10dp">
+                android:layout_margin="@dimen/dimen_6"
+                android:padding="@dimen/dimen_2_5">
 
                 <ImageView
                     android:id="@+id/edit_image"
