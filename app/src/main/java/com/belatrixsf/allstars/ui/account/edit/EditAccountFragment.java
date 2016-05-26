@@ -49,7 +49,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.OnClick;
 
-import static android.content.Context.POWER_SERVICE;
 import static com.belatrixsf.allstars.ui.account.edit.EditAccountActivity.EMPLOYEE_KEY;
 
 /**
