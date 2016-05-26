@@ -350,8 +350,7 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
             if (resultCode == Activity.RESULT_OK) {
                 Uri croppedImageUri = result.getUri();
                 mProfilePicturePath = croppedImageUri.getPath();
-//                editAccountPresenter.uploadImage(MediaUtils.get().getReducedBitmapFile(mProfilePicturePath, croppedImageUri.getLastPathSegment()));
-                editAccountPresenter.uploadImage(new File(mProfilePicturePath));
+                editAccountPresenter.uploadImage(MediaUtils.get().getReducedBitmapFile(croppedImageUri));
             }
         }
     }

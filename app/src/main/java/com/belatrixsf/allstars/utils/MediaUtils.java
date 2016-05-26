@@ -100,6 +100,11 @@ public class MediaUtils {
         }
     }
 
+    public File getReducedBitmapFile(Uri uri) {
+        File file = new File(uri.getPath());
+        return getReducedBitmapFile(file.getAbsolutePath(), file.getName());
+    }
+
     public File getReducedBitmapFile(String imagePath, String fileName){
         Bitmap reducedBitmap = getResizedBitmap(imagePath);
 
