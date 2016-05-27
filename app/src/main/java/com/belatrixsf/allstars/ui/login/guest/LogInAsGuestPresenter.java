@@ -18,43 +18,47 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils;
+package com.belatrixsf.allstars.ui.login.guest;
 
-import android.app.Application;
-import android.content.Context;
+import com.belatrixsf.allstars.services.contracts.EmployeeService;
+import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 
-import com.belatrixsf.allstars.utils.di.components.ApplicationComponent;
-import com.belatrixsf.allstars.utils.di.components.DaggerApplicationComponent;
-import com.crashlytics.android.Crashlytics;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import io.fabric.sdk.android.Fabric;
-
+import javax.inject.Inject;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by icerrate on 27/05/16.
  */
-public class AllStarsApplication extends Application {
+public class LogInAsGuestPresenter extends AllStarsPresenter<LogInAsGuestView> {
 
-    private ApplicationComponent applicationComponent;
-    private static Context context;
+    private EmployeeService employeeService;
+
+    @Inject
+    public LogInAsGuestPresenter(LogInAsGuestView view, EmployeeService employeeService) {
+        super(view);
+        this.employeeService = employeeService;
+    }
+
+    public void init() {
+
+    }
+
+    public void loginWithFacebook(JSONObject json){
+        try {
+            String id = json.getString("id");
+            String email = json.getString("email");
+            String firstName = json.getString("first_name");
+            String lastName = json.getString("last_name");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
-    public void onCreate() {
-        super.onCreate();
-        context = this;
-        applicationComponent = DaggerApplicationComponent.create();
-        //TODO uncomment when production ready
-        // if (!BuildConfig.DEBUG) {
-        Fabric.with(this, new Crashlytics());
-        // }
+    public void cancelRequests() {
+        employeeService.cancelAll();
     }
-
-    public ApplicationComponent getApplicationComponent() {
-        return applicationComponent;
-    }
-
-    public static Context getContext() {
-        return context;
-    }
-
 }

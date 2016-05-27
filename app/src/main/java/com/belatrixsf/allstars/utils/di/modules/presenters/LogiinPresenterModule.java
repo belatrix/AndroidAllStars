@@ -18,24 +18,28 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils.di.components;
+package com.belatrixsf.allstars.utils.di.modules.presenters;
 
-import com.belatrixsf.allstars.ui.login.LoginPresenter;
-import com.belatrixsf.allstars.utils.di.modules.presenters.LoginPresenterModule;
-import com.belatrixsf.allstars.utils.di.scopes.UIScope;
+import com.belatrixsf.allstars.ui.login.LogiinView;
 
-import dagger.Component;
+import dagger.Module;
+import dagger.Provides;
 
 /**
  * Created by gyosida on 4/12/16.
  */
-@UIScope
-@Component(
-        dependencies = ApplicationComponent.class,
-        modules = LoginPresenterModule.class
-)
-public interface LoginComponent {
+@Module
+public class LogiinPresenterModule {
 
-    LoginPresenter loginPresenter();
+    private LogiinView view;
+
+    public LogiinPresenterModule(LogiinView view) {
+        this.view = view;
+    }
+
+    @Provides
+    public LogiinView providesView() {
+        return view;
+    }
 
 }

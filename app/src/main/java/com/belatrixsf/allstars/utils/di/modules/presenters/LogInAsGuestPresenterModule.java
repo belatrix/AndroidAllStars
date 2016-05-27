@@ -18,43 +18,28 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils;
+package com.belatrixsf.allstars.utils.di.modules.presenters;
 
-import android.app.Application;
-import android.content.Context;
+import com.belatrixsf.allstars.ui.login.guest.LogInAsGuestView;
 
-import com.belatrixsf.allstars.utils.di.components.ApplicationComponent;
-import com.belatrixsf.allstars.utils.di.components.DaggerApplicationComponent;
-import com.crashlytics.android.Crashlytics;
-
-import io.fabric.sdk.android.Fabric;
-
+import dagger.Module;
+import dagger.Provides;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by icerrate on 27/05/16.
  */
-public class AllStarsApplication extends Application {
+@Module
+public class LogInAsGuestPresenterModule {
 
-    private ApplicationComponent applicationComponent;
-    private static Context context;
+    private LogInAsGuestView view;
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        context = this;
-        applicationComponent = DaggerApplicationComponent.create();
-        //TODO uncomment when production ready
-        // if (!BuildConfig.DEBUG) {
-        Fabric.with(this, new Crashlytics());
-        // }
+    public LogInAsGuestPresenterModule(LogInAsGuestView view) {
+        this.view = view;
     }
 
-    public ApplicationComponent getApplicationComponent() {
-        return applicationComponent;
-    }
-
-    public static Context getContext() {
-        return context;
+    @Provides
+    public LogInAsGuestView providesView() {
+        return view;
     }
 
 }

@@ -60,6 +60,8 @@
     <string name="or">Or</string>
     <string name="let_s_get_started">Let\'s get started</string>
     <string name="enter_your_email_address_to_receive_your_temporary_password">Enter your email address to receive your temporary password</string>
+    <string name="log_in_as_guest">Log In as Guest</string>
+    <string name="guest_message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
 
     <!-- Reset Password -->
     <string name="secure_your_account">Secure you account</string>

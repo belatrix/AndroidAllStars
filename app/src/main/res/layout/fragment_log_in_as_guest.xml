@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -31,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/dimen_3_5"
-            android:text="@string/let_s_get_started"
+            android:text="@string/log_in_as_guest"
             android:textStyle="bold"
             android:textSize="@dimen/text_16" />
 
@@ -40,33 +39,24 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginTop="@dimen/dimen_1_5"
-            android:text="@string/enter_your_email_address_to_receive_your_temporary_password"
+            android:text="@string/guest_message"
             android:textSize="@dimen/text_12" />
 
-        <android.support.design.widget.TextInputLayout
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/facebook_log_in"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_5_5"
-            app:hintTextAppearance="@style/TextInputLayout">
+            android:paddingTop="@dimen/dimen_2_5"
+            android:paddingBottom="@dimen/dimen_2_5"
+            android:layout_marginTop="@dimen/dimen_4_5"
+            tools:text="Log in with Facebook" />
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/email"
-                android:drawableLeft="@drawable/ic_person_outline"
-                android:drawablePadding="@dimen/dimen_3_5"
-                android:background="@drawable/selector_edittext"
-                android:hint="@string/hint_email"
-                android:inputType="textEmailAddress"
-                android:imeOptions="actionDone"
-                android:paddingLeft="0dp"
-                style="@style/EditText" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <Button
-            android:id="@+id/send"
-            style="@style/Button.Primary"
-            android:layout_marginTop="@dimen/dimen_9_5"
-            android:text="@string/button_sign_up_action"/>
+        <com.twitter.sdk.android.core.identity.TwitterLoginButton
+            android:id="@+id/twitter_log_in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_4_5"
+            android:clickable="true" />
 
     </LinearLayout>
 

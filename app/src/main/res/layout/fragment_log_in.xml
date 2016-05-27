@@ -8,7 +8,7 @@
     android:gravity="center"
     android:focusableInTouchMode="true"
     android:padding="@dimen/activity_horizontal_margin"
-    tools:context="com.belatrixsf.allstars.ui.login.LoginFragment">
+    tools:context=".ui.login.LogiinFragment">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -70,15 +70,6 @@
         android:layout_marginTop="@dimen/dimen_9_5"
         android:text="@string/button_log_in"
         style="@style/Button.Primary"/>
-
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/facebook_log_in"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/dimen_2_5"
-        android:paddingBottom="@dimen/dimen_2_5"
-        android:layout_marginTop="@dimen/dimen_4_5"
-        tools:text="Log in with Facebook" />
 
     <TextView
         android:id="@+id/sign_up"

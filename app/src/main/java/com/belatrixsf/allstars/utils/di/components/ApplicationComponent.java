@@ -27,10 +27,10 @@ import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModul
 import com.belatrixsf.allstars.utils.di.modules.presenters.CategoriesListModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsKeywordPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsListPresenterModule;
-import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.EditAccountPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.KeywordsListModule;
+import com.belatrixsf.allstars.utils.di.modules.presenters.LogInAsGuestPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.RankingPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.SignUpPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.StarsListPresenterModule;
@@ -54,6 +54,8 @@ public interface ApplicationComponent {
     EmployeeManager employeeManager();
 
     SignUpComponent signUpComponent(SignUpPresenterModule signUpPresenterModule);
+
+    LogInAsGuestComponent logInAsGuestComponent(LogInAsGuestPresenterModule LogInAsGuestPresenterModule);
 
     AccountComponent accountComponent(AccountPresenterModule accountPresenterModule);
 

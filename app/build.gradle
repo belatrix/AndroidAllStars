@@ -1,5 +1,21 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        // The Fabric Gradle plugin uses an open ended version to react
+        // quickly to Android tooling updates
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
 
 android {
     compileSdkVersion 23
@@ -15,15 +31,20 @@ android {
     buildTypes {
         def Properties serverProps = new Properties()
         serverProps.load(new FileInputStream(file('../server.properties')))
+        def fabricApiKey = serverProps.getProperty("fabricApiKey")
 
         debug {
             buildConfigField "String", "BASE_URL", serverProps["baseDevelopUrl"]
+            manifestPlaceholders = [fabric_io_api_key: fabricApiKey]
             buildConfigField "String", "FB_ID", serverProps["facebookId"]
+            buildConfigField "String", "TWITTER_ID", serverProps["twitterId"]
+            buildConfigField "String", "TWITTER_SECRET", serverProps["twitterSecret"]
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String", "BASE_URL", serverProps["baseReleaseUrl"]
+            manifestPlaceholders = [fabric_io_api_key: fabricApiKey]
         }
     }
 }
@@ -52,4 +73,7 @@ dependencies {
     compile 'com.aurelhubert:ahbottomnavigation:1.1.8'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.facebook.android:facebook-android-sdk:4.0.1'
+    compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
+        transitive = true;
+    }
 }

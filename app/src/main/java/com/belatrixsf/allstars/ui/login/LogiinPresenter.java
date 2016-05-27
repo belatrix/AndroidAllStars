@@ -34,7 +34,7 @@ import javax.inject.Inject;
 /**
  * Created by gyosida on 4/12/16.
  */
-public class LoginPresenter extends AllStarsPresenter<LoginView> {
+public class LogiinPresenter extends AllStarsPresenter<LogiinView> {
 
     public static final int DEST_HOME = 0;
     public static final int DEST_RESET_PASSWORD = 1;
@@ -44,7 +44,7 @@ public class LoginPresenter extends AllStarsPresenter<LoginView> {
     private EmployeeManager employeeManager;
 
     @Inject
-    public LoginPresenter(LoginView view, EmployeeManager employeeManager) {
+    public LogiinPresenter(LogiinView view, EmployeeManager employeeManager) {
         super(view);
         this.employeeManager = employeeManager;
     }
@@ -89,18 +89,6 @@ public class LoginPresenter extends AllStarsPresenter<LoginView> {
 
     private boolean areFieldsFilled(String username, String password) {
         return username != null && password != null && !username.isEmpty() && !password.isEmpty();
-    }
-
-    public void loginWithFacebook(JSONObject json){
-        try {
-            String id = json.getString("id");
-            String email = json.getString("email");
-            String firstName = json.getString("first_name");
-            String lastName = json.getString("last_name");
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
