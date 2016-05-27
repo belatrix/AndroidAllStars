@@ -24,6 +24,8 @@ public class RecommendTest extends LoginTest{
 
     @Test
     public void RecommedActionTest(){
+        String name1="", name2="";
+
         loginTest();
         findIdAndTap(R.id.start_recommendation);
         checkIfElementIsDisplayedWithText("Give a recommendation");
