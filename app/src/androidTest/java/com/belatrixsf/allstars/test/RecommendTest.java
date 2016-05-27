@@ -33,7 +33,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.squareup.picasso.Utils.getResources;
 
 /**
  * Created by gcuzcano on 5/25/16.
@@ -56,7 +55,6 @@ public class RecommendTest extends LoginTest{
         checkIfElementIsDisplayedWithText("Select an user");
         findTextAndTap("amy noe");
         checkIfMatches(R.id.contact_full_name,R.id.contact_full_name);
-        name1 = getResources().getString(R.idFirst);
         System.out.println(name1);
     }
 

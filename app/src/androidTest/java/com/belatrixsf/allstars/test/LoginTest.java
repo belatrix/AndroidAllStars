@@ -51,7 +51,8 @@ public class LoginTest extends TestFunction{
         findIdAndWrite(R.id.username,Constants.USERNAME);
         findIdAndWrite(R.id.password,Constants.PASSWORD);
         findIdAndTap(R.id.log_in);
-        checktWithIdAndText(R.id.profile_name,Constants.FULLNAME);
+        checkIfElementIsDisplayed(R.id.profile_picture);
+        findIdAndTap(R.id.action_done);
     }
 
     @Test

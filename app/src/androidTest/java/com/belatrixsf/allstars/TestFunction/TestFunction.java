@@ -81,10 +81,6 @@ public class TestFunction extends ViewActionUtils{
 
         onView(isRoot()).perform(waitId(idSecond, Constants.MILISECONDS));
         onView(ViewMatchers.withId(idFirst)).check(matches(ViewMatchers.withId(idSecond)));
-
-        System.out.println(ViewMatchers.withId(idFirst));
-        System.out.println(getResorces().getString(idFirst));
-        System.out.println(ViewMatchers.withId(idSecond));
     }
 
 
