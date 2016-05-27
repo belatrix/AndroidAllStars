@@ -137,9 +137,7 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
         } else {
             view.showEmail(getString(R.string.no_data));
         }
-        if (employee.getAvatar() != null) {
-            view.showProfilePicture(employee.getAvatar());
-        }
+        view.showProfilePicture(employee.getAvatar());
         checkRecommendationEnabled();
     }
 

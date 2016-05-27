@@ -27,15 +27,18 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.belatrixsf.allstars.BuildConfig;
 import com.belatrixsf.allstars.R;
+import com.belatrixsf.allstars.ui.account.edit.EditAccountActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.home.MainActivity;
 import com.belatrixsf.allstars.ui.resetpassword.ResetPasswordActivity;
@@ -59,14 +62,15 @@ import java.util.Arrays;
 import butterknife.Bind;
 import butterknife.OnClick;
 
+import static com.belatrixsf.allstars.ui.account.edit.EditAccountFragment.IS_NEW_USER;
+
 public class LoginFragment extends AllStarsFragment implements LoginView {
 
     @Bind(R.id.username) EditText usernameEditText;
     @Bind(R.id.password) EditText passwordEditText;
     @Bind(R.id.log_in) Button logInButton;
     @Bind(R.id.sign_up) TextView signUpButton;
-    @Bind(R.id.facebook_log_in)
-    LoginButton facebookLogInButton;
+    @Bind(R.id.facebook_log_in) LoginButton facebookLogInButton;
 
     private LoginPresenter loginPresenter;
     private CallbackManager callbackManager;
@@ -98,6 +102,18 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
         passwordEditText.setTransformationMethod(new PasswordTransformationMethod());
         usernameEditText.addTextChangedListener(formFieldWatcher);
         passwordEditText.addTextChangedListener(formFieldWatcher);
+        passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    String username = usernameEditText.getText().toString();
+                    String password = passwordEditText.getText().toString();
+                    loginPresenter.login(username, password);
+                    return true;
+                }
+                return false;
+            }
+        });
 
         facebookLogInButton.setReadPermissions(Arrays.asList("email", "public_profile "));
         facebookLogInButton.setFragment(this);
@@ -155,6 +171,14 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
     @Override
     public void goResetPassword() {
         Intent intent = new Intent(getActivity(), ResetPasswordActivity.class);
+        startActivity(intent);
+        fragmentListener.closeActivity();
+    }
+
+    @Override
+    public void goEditProfile() {
+        Intent intent = new Intent(getActivity(), EditAccountActivity.class);
+        intent.putExtra(IS_NEW_USER, true);
         startActivity(intent);
         fragmentListener.closeActivity();
     }

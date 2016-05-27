@@ -26,9 +26,10 @@ import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
-import static com.belatrixsf.allstars.utils.Constants.MIN_PASSWORD_LENGTH;
 
 import javax.inject.Inject;
+
+import static com.belatrixsf.allstars.utils.Constants.MIN_PASSWORD_LENGTH;
 
 /**
  * Created by icerrate on 19/05/16.
@@ -70,7 +71,7 @@ public class ResetPasswordPresenter extends AllStarsPresenter<ResetPasswordView>
             @Override
             public void onSuccess(Employee employee) {
                 view.dismissProgressDialog();
-                view.goEditProfile(employee);
+                view.goEditProfile();
             }
 
             @Override

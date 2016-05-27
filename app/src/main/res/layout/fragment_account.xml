@@ -33,7 +33,7 @@
                         android:id="@+id/belatrix_placeholder"
                         android:layout_width="match_parent"
                         android:orientation="horizontal"
-                        android:layout_height="@dimen/dimen_10_8"
+                        android:layout_height="@dimen/dimen_10_10"
                         android:background="@color/colorPrimaryLight">
 
                     </LinearLayout>
@@ -51,7 +51,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:layout_marginTop="@dimen/dimen_15_5"
+                            android:layout_marginTop="@dimen/dimen_10_8"
                             tools:text="Pedro Carrillo"
                             style="@android:style/TextAppearance.Large" />
 

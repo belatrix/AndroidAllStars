@@ -32,6 +32,8 @@ public class PreferencesManager {
 
     private static final String TOKEN_KEY = "token_key";
     private static final String EMPLOYEE_ID_KEY = "employee_id_key";
+    private static final String RESET_PASSWORD_KEY = "reset_password_key";
+    private static final String EDIT_PROFILE_KEY = "edit_profile_key";
     private static PreferencesManager preferencesManager;
 
     private SharedPreferences sharedPreferences;
@@ -73,6 +75,34 @@ public class PreferencesManager {
 
     public int getEmployeeId() {
         return sharedPreferences.getInt(EMPLOYEE_ID_KEY, 0);
+    }
+
+    public void setResetPassword() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(RESET_PASSWORD_KEY, true);
+        editor.apply();
+    }
+
+    public void clearResetPassword() {
+        sharedPreferences.edit().remove(RESET_PASSWORD_KEY).apply();
+    }
+
+    public boolean isResetPassword() {
+        return sharedPreferences.getBoolean(RESET_PASSWORD_KEY, false);
+    }
+
+    public void setEditProfile() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(EDIT_PROFILE_KEY, true);
+        editor.apply();
+    }
+
+    public void clearEditProfile() {
+        sharedPreferences.edit().remove(EDIT_PROFILE_KEY).apply();
+    }
+
+    public boolean isEditProfile() {
+        return sharedPreferences.getBoolean(EDIT_PROFILE_KEY, false);
     }
 
 }
