@@ -38,7 +38,8 @@
             android:label="@string/title_contact_activity"/>
         <activity
             android:name=".ui.stars.comment.CommentActivity"
-            android:label="@string/title_comment_activity"/>
+            android:label="@string/title_comment_activity"
+            android:windowSoftInputMode="stateAlwaysVisible"/>
         <activity
             android:name=".ui.category.CategoriesActivity"/>
         <activity
