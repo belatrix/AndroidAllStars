@@ -44,9 +44,10 @@ public class AllStarsApplication extends Application {
         super.onCreate();
         context = this;
         applicationComponent = DaggerApplicationComponent.create();
-        if (BuildConfig.DEBUG) {
+        //TODO uncomment when production ready
+        // if (!BuildConfig.DEBUG) {
             Fabric.with(this, new Crashlytics());
-        }
+        // }
     }
 
     public ApplicationComponent getApplicationComponent() {
