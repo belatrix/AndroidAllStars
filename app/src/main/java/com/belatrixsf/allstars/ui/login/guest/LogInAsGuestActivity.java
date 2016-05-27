@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.allstars.ui.login.guest;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.belatrixsf.allstars.R;
@@ -36,4 +37,12 @@ public class LogInAsGuestActivity extends AllStarsActivity {
         setContentView(R.layout.activity_log_in_as_guest);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        LogInAsGuestFragment fragment = (LogInAsGuestFragment) getSupportFragmentManager().findFragmentById(R.id.content);
+        if (fragment != null) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 }

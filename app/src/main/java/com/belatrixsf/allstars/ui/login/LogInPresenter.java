@@ -26,15 +26,12 @@ import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import javax.inject.Inject;
 
 /**
  * Created by gyosida on 4/12/16.
  */
-public class LogiinPresenter extends AllStarsPresenter<LogiinView> {
+public class LogInPresenter extends AllStarsPresenter<LogInView> {
 
     public static final int DEST_HOME = 0;
     public static final int DEST_RESET_PASSWORD = 1;
@@ -44,7 +41,7 @@ public class LogiinPresenter extends AllStarsPresenter<LogiinView> {
     private EmployeeManager employeeManager;
 
     @Inject
-    public LogiinPresenter(LogiinView view, EmployeeManager employeeManager) {
+    public LogInPresenter(LogInView view, EmployeeManager employeeManager) {
         super(view);
         this.employeeManager = employeeManager;
     }

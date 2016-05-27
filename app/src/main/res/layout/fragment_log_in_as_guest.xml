@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical"
-    tools:context=".ui.signup.SignUpFragment">
+    tools:context=".ui.login.guest.LogInAsGuestActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -23,7 +23,7 @@
             android:layout_gravity="center"
             android:adjustViewBounds="true"
             android:contentDescription="@string/email_content_desc"
-            android:src="@drawable/ic_mail" />
+            android:src="@drawable/ic_people" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -46,16 +46,18 @@
             android:id="@+id/facebook_log_in"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/dimen_2_5"
-            android:paddingBottom="@dimen/dimen_2_5"
-            android:layout_marginTop="@dimen/dimen_4_5"
+            android:paddingTop="@dimen/dimen_3_5"
+            android:paddingBottom="@dimen/dimen_3_5"
+            android:layout_marginTop="@dimen/dimen_6_5"
             tools:text="Log in with Facebook" />
 
         <com.twitter.sdk.android.core.identity.TwitterLoginButton
             android:id="@+id/twitter_log_in"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dimen_8_5"
+            android:textSize="@dimen/text_16"
             android:layout_marginTop="@dimen/dimen_4_5"
+            android:layout_gravity="center"
             android:clickable="true" />
 
     </LinearLayout>

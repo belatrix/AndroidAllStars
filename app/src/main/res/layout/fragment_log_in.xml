@@ -8,7 +8,7 @@
     android:gravity="center"
     android:focusableInTouchMode="true"
     android:padding="@dimen/activity_horizontal_margin"
-    tools:context=".ui.login.LogiinFragment">
+    tools:context=".ui.login.LogInFragment">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -70,6 +70,12 @@
         android:layout_marginTop="@dimen/dimen_9_5"
         android:text="@string/button_log_in"
         style="@style/Button.Primary"/>
+
+    <Button
+        android:id="@+id/log_in_as_guest"
+        android:layout_marginTop="@dimen/dimen_5_5"
+        android:text="@string/button_log_in_as_guest"
+        style="@style/Button.Accent"/>
 
     <TextView
         android:id="@+id/sign_up"

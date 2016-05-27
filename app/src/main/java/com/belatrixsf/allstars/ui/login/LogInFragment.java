@@ -39,11 +39,12 @@ import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.ui.account.edit.EditAccountActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.home.MainActivity;
+import com.belatrixsf.allstars.ui.login.guest.LogInAsGuestActivity;
 import com.belatrixsf.allstars.ui.resetpassword.ResetPasswordActivity;
 import com.belatrixsf.allstars.ui.signup.SignUpActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
-import com.belatrixsf.allstars.utils.di.components.DaggerLogiinComponent;
-import com.belatrixsf.allstars.utils.di.modules.presenters.LogiinPresenterModule;
+import com.belatrixsf.allstars.utils.di.components.DaggerLogInComponent;
+import com.belatrixsf.allstars.utils.di.modules.presenters.LogInPresenterModule;
 import com.facebook.CallbackManager;
 
 import butterknife.Bind;
@@ -51,17 +52,18 @@ import butterknife.OnClick;
 
 import static com.belatrixsf.allstars.ui.account.edit.EditAccountFragment.IS_NEW_USER;
 
-public class LogiinFragment extends AllStarsFragment implements LogiinView {
+public class LogInFragment extends AllStarsFragment implements LogInView {
 
     @Bind(R.id.username) EditText usernameEditText;
     @Bind(R.id.password) EditText passwordEditText;
     @Bind(R.id.log_in) Button logInButton;
+    @Bind(R.id.log_in_as_guest) Button logInAsGuestButton;
     @Bind(R.id.sign_up) TextView signUpButton;
 
-    private LogiinPresenter logiinPresenter;
+    private LogInPresenter logInPresenter;
     private CallbackManager callbackManager;
 
-    public LogiinFragment() {
+    public LogInFragment() {
         // Required empty public constructor
     }
 
@@ -77,7 +79,7 @@ public class LogiinFragment extends AllStarsFragment implements LogiinView {
         super.onViewCreated(view, savedInstanceState);
         initViews();
         if (savedInstanceState == null) {
-            logiinPresenter.init();
+            logInPresenter.init();
         }
     }
 
@@ -91,7 +93,7 @@ public class LogiinFragment extends AllStarsFragment implements LogiinView {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     String username = usernameEditText.getText().toString();
                     String password = passwordEditText.getText().toString();
-                    logiinPresenter.login(username, password);
+                    logInPresenter.login(username, password);
                     return true;
                 }
                 return false;
@@ -101,15 +103,15 @@ public class LogiinFragment extends AllStarsFragment implements LogiinView {
 
     @Override
     public void onDestroyView() {
-        logiinPresenter.cancelRequests();
+        logInPresenter.cancelRequests();
         super.onDestroyView();
     }
 
     @Override
     protected void initDependencies(AllStarsApplication allStarsApplication) {
-        logiinPresenter = DaggerLogiinComponent.builder()
+        logInPresenter = DaggerLogInComponent.builder()
                 .applicationComponent(allStarsApplication.getApplicationComponent())
-                .logiinPresenterModule(new LogiinPresenterModule(this))
+                .logInPresenterModule(new LogInPresenterModule(this))
                 .build()
                 .loginPresenter();
     }
@@ -142,10 +144,16 @@ public class LogiinFragment extends AllStarsFragment implements LogiinView {
     }
 
     @OnClick(R.id.log_in)
-    public void loginClicked() {
+    public void logInClicked() {
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
-        logiinPresenter.login(username, password);
+        logInPresenter.login(username, password);
+    }
+
+    @OnClick(R.id.log_in_as_guest)
+    public void logInAsGuestClicked() {
+        Intent intent = new Intent(getActivity(), LogInAsGuestActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.sign_up)
@@ -165,7 +173,7 @@ public class LogiinFragment extends AllStarsFragment implements LogiinView {
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             String username = usernameEditText.getText().toString();
             String password = passwordEditText.getText().toString();
-            logiinPresenter.checkIfInputsAreValid(username, password);
+            logInPresenter.checkIfInputsAreValid(username, password);
         }
 
         @Override

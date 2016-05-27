@@ -42,19 +42,27 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-i
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterLoginButton;
+import com.twitter.sdk.android.core.models.User;
 
 import org.json.JSONObject;
 
 import java.util.Arrays;
 
 import butterknife.Bind;
-import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by icerrate on 27/05/16.
  */
 public class LogInAsGuestFragment extends AllStarsFragment implements LogInAsGuestView {
+
+    public static final int FACEBOOK_RQ = 64206;
+    public static final int TWITTER_RQ = 140;
 
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.facebook_log_in) LoginButton facebookLogInButton;
@@ -70,7 +78,7 @@ public class LogInAsGuestFragment extends AllStarsFragment implements LogInAsGue
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        prepareSocialLogins();
+        prepareFacebookSDK();
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_log_in_as_guest, container, false);
     }
@@ -84,21 +92,16 @@ public class LogInAsGuestFragment extends AllStarsFragment implements LogInAsGue
         }
     }
 
-    private void prepareSocialLogins(){
-        //Facebook
+    private void prepareFacebookSDK(){
         FacebookSdk.setApplicationId(BuildConfig.FB_ID);
         FacebookSdk.sdkInitialize(getActivity());
-        callbackManager = CallbackManager.Factory.create();
-        //Twitter
-        TwitterAuthConfig authConfig = new TwitterAuthConfig(BuildConfig.TWITTER_ID, BuildConfig.TWITTER_SECRET);
-        Fabric.with(getActivity(), new Twitter(authConfig));
-
     }
 
     private void initViews() {
         fragmentListener.setToolbar(toolbar);
         fragmentListener.setTitle("");
 
+        callbackManager = CallbackManager.Factory.create();
         facebookLogInButton.setReadPermissions(Arrays.asList("email", "public_profile "));
         facebookLogInButton.setFragment(this);
         facebookLogInButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -129,15 +132,29 @@ public class LogInAsGuestFragment extends AllStarsFragment implements LogInAsGue
             }
         });
 
-        twitterLogInButton.setCallback(new Callback() {
+        twitterLogInButton.setCallback(new Callback<TwitterSession>() {
             @Override
-            public void success(Result result) {
-                Toast.makeText(getActivity().getApplicationContext(),
-                        getResources().getString(R.string.app_name),
-                        Toast.LENGTH_SHORT).show();
-                TweetComposer.Builder builder = new TweetComposer.Builder(getActivity())
-                        .text("Just setting up my Fabric!");
-                builder.show();
+            public void success(Result<TwitterSession> result) {
+                Log.e("Twitter", result.toString());
+                TwitterSession session = Twitter.getSessionManager().getActiveSession();
+                Twitter.getApiClient(session).getAccountService()
+                        .verifyCredentials(true, false, new Callback<User>() {
+                            @Override
+                            public void success(Result<User> userResult) {
+                                User user = userResult.data;
+                                String imageUrl = user.profileImageUrl;
+                                String email = user.email;
+                                String userName = user.name;
+                                System.out.println(imageUrl);
+                                System.out.println(email);
+                                System.out.println(userName);
+                            }
+                            @Override
+                            public void failure(TwitterException e) {
+
+                            }
+
+                        });
             }
 
             @Override
@@ -171,8 +188,12 @@ public class LogInAsGuestFragment extends AllStarsFragment implements LogInAsGue
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-        twitterLogInButton.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == FACEBOOK_RQ){
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+        } else if (requestCode == TWITTER_RQ) {
+            twitterLogInButton.onActivityResult(requestCode, resultCode, data);
+        }
+
 
     }
 
