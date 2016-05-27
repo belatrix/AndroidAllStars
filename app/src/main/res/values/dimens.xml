@@ -3,21 +3,26 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="left_divider_margin">65dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="dimen_1_5">5dp</dimen>
+
+    <dimen name="dimen_6">6dp</dimen>
     <dimen name="dimen_8">8dp</dimen>
-    <dimen name="dimen_2_5">10dp</dimen>
-    <dimen name="dimen_3_5">15dp</dimen>
+    <dimen name="dimen_12">12dp</dimen>
     <dimen name="dimen_16">16dp</dimen>
     <dimen name="dimen_9_2">18dp</dimen>
+    <dimen name="dimen_10_4">40dp</dimen>
+    <dimen name="dimen_7_8">56dp</dimen>
+
+    <dimen name="dimen_1_5">5dp</dimen>
+    <dimen name="dimen_2_5">10dp</dimen>
+    <dimen name="dimen_3_5">15dp</dimen>
     <dimen name="dimen_4_5">20dp</dimen>
     <dimen name="dimen_5_5">25dp</dimen>
     <dimen name="dimen_6_5">30dp</dimen>
     <dimen name="dimen_8_5">40dp</dimen>
     <dimen name="dimen_9_5">45dp</dimen>
     <dimen name="dimen_11_5">55dp</dimen>
-    <dimen name="dimen_7_8">56dp</dimen>
-    <dimen name="dimen_10_4">40dp</dimen>
     <dimen name="dimen_10_5">50dp</dimen>
     <dimen name="dimen_10_6">60dp</dimen>
     <dimen name="dimen_10_7">70dp</dimen>

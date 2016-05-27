@@ -27,6 +27,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 
+
 public class TestFunction extends ViewActionUtils{
     public void findIdAndWrite(int id, String keyName){
         onView(isRoot()).perform(waitId(id, Constants.MILISECONDS));
@@ -77,9 +78,14 @@ public class TestFunction extends ViewActionUtils{
         onView(ViewMatchers.withId(id)).check(matches(isClickable()));
     }
     public void checkIfMatches(int idFirst, int idSecond){
+
         onView(isRoot()).perform(waitId(idSecond, Constants.MILISECONDS));
         onView(ViewMatchers.withId(idFirst)).check(matches(ViewMatchers.withId(idSecond)));
+
         System.out.println(ViewMatchers.withId(idFirst));
+        System.out.println(getResorces().getString(idFirst));
         System.out.println(ViewMatchers.withId(idSecond));
     }
+
+
 }

@@ -33,6 +33,11 @@ import javax.inject.Inject;
  */
 public class LoginPresenter extends AllStarsPresenter<LoginView> {
 
+    public static final int DEST_HOME = 0;
+    public static final int DEST_RESET_PASSWORD = 1;
+    public static final int DEST_EDIT_PROFILE = 2;
+
+
     private EmployeeManager employeeManager;
 
     @Inject
@@ -52,25 +57,28 @@ public class LoginPresenter extends AllStarsPresenter<LoginView> {
     public void login(String username, String password) {
         if (areFieldsFilled(username, password)) {
             view.showProgressDialog();
-            employeeManager.login(
-                    username,
-                    password,
-                    new AllStarsCallback<Boolean>() {
-                        @Override
-                        public void onSuccess(Boolean goHome) {
-                            view.dismissProgressDialog();
-                            if (goHome){
-                                view.goHome();
-                            } else {
-                                view.goResetPassword();
-                            }
-                        }
+            employeeManager.login(username, password, new AllStarsCallback<Integer>() {
+                @Override
+                public void onSuccess(Integer destination) {
+                    view.dismissProgressDialog();
+                    switch (destination) {
+                        case DEST_HOME:
+                            view.goHome();
+                            break;
+                        case DEST_RESET_PASSWORD:
+                            view.goResetPassword();
+                            break;
+                        case DEST_EDIT_PROFILE:
+                            view.goEditProfile();
+                            break;
+                    }
+                }
 
-                        @Override
-                        public void onFailure(ServiceError serviceError) {
-                            showError(serviceError.getDetail());
-                        }
-                    });
+                @Override
+                public void onFailure(ServiceError serviceError) {
+                    showError(serviceError.getDetail());
+                }
+            });
         } else {
             showError(R.string.error_incorrect_fields);
         }

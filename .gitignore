@@ -133,3 +133,5 @@ hs_err_pid*
 server.properties
 
 server.properties
+
+.DS_Store

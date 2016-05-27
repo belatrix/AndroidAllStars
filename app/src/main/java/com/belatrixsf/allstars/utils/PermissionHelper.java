@@ -18,23 +18,22 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.networking.retrofit.responses;
+package com.belatrixsf.allstars.utils;
 
-import com.belatrixsf.allstars.entities.Employee;
-import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.support.v4.content.ContextCompat;
 
 /**
- * Created by PedroCarrillo on 5/12/16.
+ * Created by PedroCarrillo on 5/24/16.
  */
-public class StarKeywordTopListResponse extends PaginatedResponse {
+public class PermissionHelper {
 
-    @SerializedName("results")
-    List<Employee> employeeList;
-
-    public List<Employee> getEmployees() {
-        return employeeList;
+    public static boolean checkPermissions(Context context, String[] permissions) {
+        for (String permission : permissions) {
+            if (ContextCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) return false;
+        }
+        return true;
     }
 
 }

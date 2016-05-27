@@ -18,7 +18,6 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-
 package com.belatrixsf.allstars.utils.di.modules;
 
 import com.belatrixsf.allstars.BuildConfig;

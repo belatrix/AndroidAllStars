@@ -112,7 +112,7 @@ public class MainActivity extends AllStarsActivity implements HomeView, RankingF
     }
 
     private void setupTabs() {
-        MainNavigationViewPagerAdapter mainNavigationViewPagerAdapter = new MainNavigationViewPagerAdapter(getSupportFragmentManager());
+        MainNavigationViewPagerAdapter mainNavigationViewPagerAdapter = new MainNavigationViewPagerAdapter(this, getSupportFragmentManager());
         mainViewPager.setAdapter(mainNavigationViewPagerAdapter);
         mainViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

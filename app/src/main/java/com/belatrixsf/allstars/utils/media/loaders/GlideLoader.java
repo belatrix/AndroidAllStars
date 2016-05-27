@@ -18,7 +18,6 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-
 package com.belatrixsf.allstars.utils.media.loaders;
 
 import android.content.Context;
@@ -42,7 +41,7 @@ public class GlideLoader implements ImageLoader {
 
     @Override
     public void loadFromUrl(String url, ImageView imageView) {
-        Glide.with(imageView.getContext()).load(url).into(imageView);
+        Glide.with(imageView.getContext()).load(url).placeholder(R.drawable.ic_user).into(imageView);
     }
 
     @Override

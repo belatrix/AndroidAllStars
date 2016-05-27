@@ -19,7 +19,6 @@
 * SOFTWARE.
 */
 package com.belatrixsf.allstars.utils;
-
 /**
  * Created by gyosida on 5/12/16.
  */
