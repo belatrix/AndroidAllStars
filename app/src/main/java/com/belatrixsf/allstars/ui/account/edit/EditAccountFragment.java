@@ -37,6 +37,8 @@ import com.belatrixsf.allstars.utils.PermissionHelper;
 import com.belatrixsf.allstars.utils.di.modules.presenters.EditAccountPresenterModule;
 import com.belatrixsf.allstars.utils.media.ImageFactory;
 import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.File;
 import java.io.IOException;
@@ -334,13 +336,24 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && requestCode == RQ_GALLERY) {
             if (data != null) {
-                Uri selectedImageUri = data.getData();
-                mProfilePicturePath = MediaUtils.get().getFilePathFromMediaUri(getActivity(), selectedImageUri);
-                editAccountPresenter.uploadImage(MediaUtils.get().getReducedProfilePictureBitmapFile(mProfilePicturePath));
+                initCropImageActivity(data.getData());
             }
         } else if (resultCode == Activity.RESULT_OK && requestCode == RQ_CAMERA) {
-            editAccountPresenter.uploadImage(MediaUtils.get().getReducedProfilePictureBitmapFile(mProfilePicturePath));
+            Uri selectedPhotoUri = Uri.fromFile(new File(mProfilePicturePath));
+            initCropImageActivity(selectedPhotoUri);
+        } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == Activity.RESULT_OK) {
+                Uri croppedImageUri = result.getUri();
+                mProfilePicturePath = croppedImageUri.getPath();
+                editAccountPresenter.uploadImage(MediaUtils.get().getReducedBitmapFile(croppedImageUri));
+            }
         }
+    }
+
+    public void initCropImageActivity(Uri uri) {
+        Intent intent = CropImage.activity(uri).setGuidelines(CropImageView.Guidelines.ON).setMinCropResultSize(500,500).setCropShape(CropImageView.CropShape.RECTANGLE).getIntent(getActivity());
+        startActivityForResult(intent, CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE);
     }
 
     @Override
