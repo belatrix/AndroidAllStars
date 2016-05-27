@@ -41,14 +41,4 @@ public class LoginTest extends TestFunction{
         findIdAndWrite(R.id.username,Constants.USERNAME);
         findIdAndWriteDoneEvent(R.id.password,Constants.PASSWORD);
     }
-
-    @Test
-    public void logoutTest(){
-        loginTest();
-        tapOnOverFlowMenu();
-        findTextAndTap("Logout");
-        findTextAndTap("Yes");
-        checkIfElementIsDisplayed(R.id.login);
-    }
-
 }
