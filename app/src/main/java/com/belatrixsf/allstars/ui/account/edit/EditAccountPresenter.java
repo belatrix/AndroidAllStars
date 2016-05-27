@@ -1,7 +1,5 @@
 package com.belatrixsf.allstars.ui.account.edit;
 
-import android.util.Log;
-
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.Location;
@@ -112,6 +110,7 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
                 public void onSuccess(Employee employee) {
                     view.dismissProgressDialog();
                     if (isNewUser) {
+                        employeeManager.refreshEmployee();
                         view.endSuccessfulCreation();
                     } else {
                         view.endSuccessfulEdit();

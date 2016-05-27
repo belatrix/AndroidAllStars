@@ -23,6 +23,7 @@ package com.belatrixsf.allstars.managers;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.allstars.services.contracts.EmployeeService;
+import com.belatrixsf.allstars.ui.login.LoginPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
 
@@ -43,10 +44,10 @@ public class EmployeeManager {
         this.employeeService = employeeService;
     }
 
-    public void login(String username, String password, final AllStarsCallback<Boolean> callback) {
+    public void login(String username, String password, final AllStarsCallback<Integer> callback) {
         employeeService.authenticate(username, password, new AllStarsCallback<AuthenticationResponse>() {
             @Override
-            public void onSuccess(AuthenticationResponse authenticationResponse) {
+            public void onSuccess(final AuthenticationResponse authenticationResponse) {
                 PreferencesManager.get().saveToken(authenticationResponse.getToken());
                 PreferencesManager.get().saveEmployeeId(authenticationResponse.getEmployeeId());
                 if (authenticationResponse.getResetPasswordCode() == null){
@@ -54,7 +55,11 @@ public class EmployeeManager {
                         @Override
                         public void onSuccess(Employee employee) {
                             EmployeeManager.this.employee = employee;
-                            callback.onSuccess(true);
+                            if (authenticationResponse.isBaseProfileComplete()){
+                                callback.onSuccess(LoginPresenter.DEST_HOME);
+                            } else {
+                                callback.onSuccess(LoginPresenter.DEST_EDIT_PROFILE);
+                            }
                         }
 
                         @Override
@@ -63,7 +68,7 @@ public class EmployeeManager {
                         }
                     });
                 } else {
-                    callback.onSuccess(false);
+                    callback.onSuccess(LoginPresenter.DEST_RESET_PASSWORD);
                 }
             }
 
@@ -119,6 +124,8 @@ public class EmployeeManager {
         refreshEmployee();
         PreferencesManager.get().clearEmployeeId();
         PreferencesManager.get().clearToken();
+        PreferencesManager.get().clearResetPassword();
+        PreferencesManager.get().clearEditProfile();
     }
 
 }
