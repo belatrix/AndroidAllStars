@@ -53,7 +53,7 @@ public class RecommendTest extends TestFunction{
         Context activityContext = mActivityRule.getActivity();
         checkIfElementIsDisplayedWithText(activityContext.getResources().getString(R.string.title_give_star_activity)); //Give a recommendation
         checkIfElementIsDisplayedWithText(activityContext.getResources().getString(R.string.select_user)); //Select user
-        checkIfElementIsDisplayedWithText(activityContext.getResources().getString(R.string.title_comment_activity)); //Write a comment
+        checkIfElementIsDisplayedWithText(activityContext.getResources().getString(R.string.hint_write_comment)); //Write a comment
         checkIfElementIsDisplayedWithText(activityContext.getResources().getString(R.string.select_category)); //Select category
         checkIfElementIsDisplayedWithText(activityContext.getResources().getString(R.string.hint_keyword)); //Select a Tag
     }
@@ -61,14 +61,14 @@ public class RecommendTest extends TestFunction{
     @Test
     public void RecommendActionTest(){
         loginTest.loginTest();
-        String name1="", name2="";
         findIdAndTap(R.id.start_recommendation);
         Context activityContext = mActivityRule.getActivity();
         findTextAndTap(activityContext.getResources().getString(R.string.select_user));
-        findItemOnRecyclerViewAndTap(R.id.employees,3);
-
-
-
+        findItemOnRecyclerViewAndTap(R.id.employees,0);
+        findTextAndTap(activityContext.getResources().getString(R.string.select_category));
+        findItemOnRecyclerViewAndTap(R.id.categories,0);
+        findTextAndTap(activityContext.getResources().getString(R.string.hint_keyword));
+        findItemOnRecyclerViewAndTap(R.id.keyword,0);
     }
 
 }
