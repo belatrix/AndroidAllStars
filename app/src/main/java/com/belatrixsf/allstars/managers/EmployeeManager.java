@@ -23,7 +23,6 @@ package com.belatrixsf.allstars.managers;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.allstars.services.contracts.EmployeeService;
-import com.belatrixsf.allstars.ui.login.LoginPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
 
@@ -36,6 +35,12 @@ import javax.inject.Singleton;
 @Singleton
 public class EmployeeManager {
 
+    public enum State {
+        PROFILE_COMPLETE,
+        PROFILE_INCOMPLETE,
+        PASSWORD_RESET_INCOMPLETE
+    }
+
     private EmployeeService employeeService;
     private Employee employee;
 
@@ -44,7 +49,7 @@ public class EmployeeManager {
         this.employeeService = employeeService;
     }
 
-    public void login(String username, String password, final AllStarsCallback<Integer> callback) {
+    public void login(String username, String password, final AllStarsCallback<State> callback) {
         employeeService.authenticate(username, password, new AllStarsCallback<AuthenticationResponse>() {
             @Override
             public void onSuccess(final AuthenticationResponse authenticationResponse) {
@@ -58,10 +63,10 @@ public class EmployeeManager {
                             EmployeeManager.this.employee = employee;
                             if (authenticationResponse.isBaseProfileComplete()){
                                 PreferencesManager.get().setEditProfile(true);
-                                callback.onSuccess(LoginPresenter.DEST_HOME);
+                                callback.onSuccess(State.PROFILE_COMPLETE);
                             } else {
                                 PreferencesManager.get().setEditProfile(false);
-                                callback.onSuccess(LoginPresenter.DEST_EDIT_PROFILE);
+                                callback.onSuccess(State.PROFILE_INCOMPLETE);
                             }
                         }
 
@@ -72,7 +77,7 @@ public class EmployeeManager {
                     });
                 } else {
                     PreferencesManager.get().setResetPassword(false);
-                    callback.onSuccess(LoginPresenter.DEST_RESET_PASSWORD);
+                    callback.onSuccess(State.PASSWORD_RESET_INCOMPLETE);
                 }
             }
 
