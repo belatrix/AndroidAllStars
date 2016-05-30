@@ -9,7 +9,7 @@ public class Constants {
     public static final String USERNAME = "USERTEST";
     public static final String PASSWORD = "USERTEST";
     public static final String FULLNAME="USERTEST";
-    
+    public static final String EMAIL="USERTEST";
     //WAIT PROPERTY
     public static final int MILISECONDS=70000;
 

@@ -5,8 +5,10 @@ package com.belatrixsf.allstars.testFunction;
  */
 
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 
+import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.util.Constants;
 import com.belatrixsf.allstars.util.ViewActionUtils;
 
@@ -22,6 +24,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 
@@ -81,4 +84,13 @@ public class TestFunction extends ViewActionUtils{
         onView(isRoot()).perform(waitId(idSecond, Constants.MILISECONDS));
         onView(ViewMatchers.withId(idFirst)).check(matches(ViewMatchers.withId(idSecond)));
     }
+<<<<<<< HEAD
+=======
+    public void findItemOnRecyclerViewAndTap(int id, int position){
+        onView(isRoot()).perform(waitId(id, Constants.MILISECONDS));
+        onView(withId(id)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+    }
+
+
+>>>>>>> 191d125c60f82ddccd1187c5fa24d3d3da9e68d3
 }
