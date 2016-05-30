@@ -55,7 +55,7 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
 
     public void loadEmployeeAccount() {
         view.showProgressDialog();
-        AllStarsCallback<Employee> employeeAllStarsCallback = new AllStarsCallback<Employee>() {
+        AllStarsCallback<Employee> employeeAllStarsCallback = new PresenterCallback<Employee>() {
             @Override
             public void onSuccess(Employee employee) {
                 AccountPresenter.this.employee = employee;
@@ -68,7 +68,7 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
             @Override
             public void onFailure(ServiceError serviceError) {
                 view.dismissProgressDialog();
-                showError(serviceError.getDetail());
+                super.onFailure(serviceError);
             }
         };
         if (employeeId == null) {
@@ -81,7 +81,7 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
     private void loadSubCategoriesStar() {
         starService.getEmployeeSubCategoriesStars(
                 employee.getPk(),
-                new AllStarsCallback<StarSubCategoryResponse>() {
+                new PresenterCallback<StarSubCategoryResponse>() {
                     @Override
                     public void onSuccess(StarSubCategoryResponse starSubCategoryResponse) {
                         view.hideProgressIndicator();
@@ -96,7 +96,7 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
                     @Override
                     public void onFailure(ServiceError serviceError) {
                         view.hideProgressIndicator();
-                        showError(serviceError.getDetail());
+                        super.onFailure(serviceError);
                     }
                 });
     }

@@ -46,34 +46,14 @@ public class KeywordsListPresenter extends AllStarsPresenter<KeywordsListView> {
     }
 
     public void getKeywords() {
-        view.showProgressIndicator();
-        categoryService.getKeywords(
-                new AllStarsCallback<List<Keyword>>() {
-                    @Override
-                    public void onSuccess(List<Keyword> keywords) {
-                        KeywordsListPresenter.this.keywords.addAll(keywords);
-                        view.showKeywords(keywords);
-                        view.hideProgressIndicator();
-                    }
-
-                    @Override
-                    public void onFailure(ServiceError serviceError) {
-                        showError(serviceError.getDetail());
-                    }
-                });
         if (keywords.isEmpty()) {
             view.showProgressIndicator();
-            categoryService.getKeywords(new AllStarsCallback<List<Keyword>>() {
+            categoryService.getKeywords(new PresenterCallback<List<Keyword>>() {
                 @Override
                 public void onSuccess(List<Keyword> keywords) {
                     KeywordsListPresenter.this.keywords.addAll(keywords);
                     view.showKeywords(keywords);
                     view.hideProgressIndicator();
-                }
-
-                @Override
-                public void onFailure(ServiceError serviceError) {
-                    showError(serviceError.getDetail());
                 }
             });
         } else {

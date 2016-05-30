@@ -57,7 +57,7 @@ public class LoginPresenter extends AllStarsPresenter<LoginView> {
     public void login(String username, String password) {
         if (areFieldsFilled(username, password)) {
             view.showProgressDialog();
-            employeeManager.login(username, password, new AllStarsCallback<Integer>() {
+            employeeManager.login(username, password, new PresenterCallback<Integer>() {
                 @Override
                 public void onSuccess(Integer destination) {
                     view.dismissProgressDialog();
@@ -72,11 +72,6 @@ public class LoginPresenter extends AllStarsPresenter<LoginView> {
                             view.goEditProfile();
                             break;
                     }
-                }
-
-                @Override
-                public void onFailure(ServiceError serviceError) {
-                    showError(serviceError.getDetail());
                 }
             });
         } else {

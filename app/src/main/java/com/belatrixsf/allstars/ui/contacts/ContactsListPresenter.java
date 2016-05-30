@@ -100,11 +100,6 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
         getContactsInternal();
     }
 
-    public void refreshKeywords() {
-        reset();
-        getContactsInternal();
-    }
-
     private void getContactsInternal() {
         view.showProgressIndicator();
         searchingServiceRequest = employeeService.getEmployeeSearchList(
