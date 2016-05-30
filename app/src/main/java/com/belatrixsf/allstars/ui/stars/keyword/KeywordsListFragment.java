@@ -82,7 +82,7 @@ public class KeywordsListFragment extends AllStarsFragment implements KeywordsLi
         if (savedInstanceState != null) {
             restorePresenterState(savedInstanceState);
         }
-        keywordsListPresenter.getKeywordsInternal();
+        keywordsListPresenter.getKeywords();
     }
 
     @Override

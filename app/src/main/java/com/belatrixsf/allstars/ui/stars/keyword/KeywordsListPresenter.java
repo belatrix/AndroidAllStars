@@ -45,6 +45,15 @@ public class KeywordsListPresenter extends AllStarsPresenter<KeywordsListView> {
         this.categoryService = categoryService;
     }
 
+    public void getKeywords() {
+        view.resetList();
+        if (keywords.isEmpty()) {
+            getKeywordsInternal();
+        } else {
+            view.showKeywords(keywords);
+        }
+    }
+
     public void refreshKeywords() {
         reset();
         getKeywordsInternal();
