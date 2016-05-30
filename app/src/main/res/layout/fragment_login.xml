@@ -8,7 +8,7 @@
     android:gravity="center"
     android:focusableInTouchMode="true"
     android:padding="@dimen/activity_horizontal_margin"
-    tools:context=".ui.login.LogInFragment">
+    tools:context=".ui.login.LogiinFragment">
 
     <ImageView
         android:layout_width="wrap_content"

@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.belatrixsf.allstars.managers.PreferencesManager;
 import com.belatrixsf.allstars.ui.home.MainActivity;
-import com.belatrixsf.allstars.ui.login.LogInActivity;
+import com.belatrixsf.allstars.ui.login.LogiinActivity;
 
 public class LauncherActivity extends AppCompatActivity {
 
@@ -20,7 +20,7 @@ public class LauncherActivity extends AppCompatActivity {
             PreferencesManager.get().clearToken();
             PreferencesManager.get().clearResetPassword();
             PreferencesManager.get().clearEditProfile();
-            startActivity(LogInActivity.makeIntent(this));
+            startActivity(LogiinActivity.makeIntent(this));
         }
         finish();
     }
