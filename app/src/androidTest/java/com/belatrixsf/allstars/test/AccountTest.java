@@ -25,6 +25,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 import com.belatrixsf.allstars.R;
+import com.belatrixsf.allstars.testFunction.TestFunction;
 import com.belatrixsf.allstars.ui.login.LoginActivity;
 import com.belatrixsf.allstars.util.Constants;
 
@@ -38,13 +39,14 @@ import org.junit.runner.RunWith;
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 
-public class AccountTest extends LoginTest{
+public class AccountTest extends TestFunction{
+    LoginTest loginTest=new LoginTest();
     @Rule
     public ActivityTestRule<LoginActivity> mActivityRule = new ActivityTestRule<>(
             LoginActivity.class);
     @Test
     public void accountViewTest() {
-        loginTest();
+        loginTest.loginTest();
         checktWithIdAndText(R.id.profile_name,Constants.FULLNAME);
         checkIfElementIsDisplayed(R.id.profile_email);
         checkIfElementIsDisplayed(R.id.skype_id);

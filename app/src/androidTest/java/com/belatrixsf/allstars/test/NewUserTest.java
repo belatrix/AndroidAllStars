@@ -23,7 +23,6 @@ package com.belatrixsf.allstars.test;
 
 import android.support.test.rule.ActivityTestRule;
 
-import com.belatrixsf.allstars.*;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.testFunction.TestFunction;
 import com.belatrixsf.allstars.ui.login.LoginActivity;

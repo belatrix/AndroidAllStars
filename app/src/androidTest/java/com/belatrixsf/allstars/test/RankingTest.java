@@ -23,6 +23,7 @@ package com.belatrixsf.allstars.test;
 
 import android.support.test.rule.ActivityTestRule;
 
+import com.belatrixsf.allstars.testFunction.TestFunction;
 import com.belatrixsf.allstars.ui.login.LoginActivity;
 
 import org.junit.Rule;
@@ -32,13 +33,15 @@ import org.junit.Test;
  * Created by joyep on 5/24/16.
  */
 
-public class RankingTest extends LoginTest {
+public class RankingTest extends TestFunction {
+    LoginTest loginTest=new LoginTest();
+
     @Rule
     public ActivityTestRule<LoginActivity> mActivityRule = new ActivityTestRule<>(
             LoginActivity.class);
     @Test
     public void rankingViewTest() {
-        loginTest();
+        loginTest.loginTest();
         findTextAndTap("Ranking");
         checkIfElementIsDisplayedWithText("Current Month");
         checkIfElementIsDisplayedWithText("Last Month");

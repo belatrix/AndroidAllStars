@@ -22,7 +22,8 @@
 package com.belatrixsf.allstars.test;
 
 import android.support.test.rule.ActivityTestRule;
-
+import com.belatrixsf.allstars.R;
+import com.belatrixsf.allstars.testFunction.TestFunction;
 import com.belatrixsf.allstars.ui.login.LoginActivity;
 
 import org.junit.Rule;
@@ -32,14 +33,16 @@ import org.junit.Test;
  * Created by joyep on 5/26/16.
  */
 
-public class LogoutTest extends LoginTest{
+public class LogoutTest extends TestFunction{
+    LoginTest loginTest=new LoginTest();
+
     @Rule
     public ActivityTestRule<LoginActivity> mActivityRule = new ActivityTestRule<>(
             LoginActivity.class);
 
     @Test
     public void logoutTest(){
-        loginTest();
+        loginTest.loginTest();
         tapOnOverFlowMenu();
         findTextAndTap("Logout");
         findTextAndTap("Yes");
