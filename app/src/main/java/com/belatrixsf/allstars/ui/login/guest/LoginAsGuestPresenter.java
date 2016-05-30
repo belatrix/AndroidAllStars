@@ -18,25 +18,47 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.login;
+package com.belatrixsf.allstars.ui.login.guest;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
+import com.belatrixsf.allstars.services.contracts.EmployeeService;
+import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 
-import com.belatrixsf.allstars.R;
-import com.belatrixsf.allstars.ui.common.AllStarsActivity;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class LogiinActivity extends AllStarsActivity {
+import javax.inject.Inject;
+
+/**
+ * Created by icerrate on 27/05/16.
+ */
+public class LoginAsGuestPresenter extends AllStarsPresenter<LoginAsGuestView> {
+
+    private EmployeeService employeeService;
+
+    @Inject
+    public LoginAsGuestPresenter(LoginAsGuestView view, EmployeeService employeeService) {
+        super(view);
+        this.employeeService = employeeService;
+    }
+
+    public void init() {
+
+    }
+
+    public void loginWithFacebook(JSONObject json){
+        try {
+            String id = json.getString("id");
+            String email = json.getString("email");
+            String firstName = json.getString("first_name");
+            String lastName = json.getString("last_name");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+    public void cancelRequests() {
+        employeeService.cancelAll();
     }
-
-    public static Intent makeIntent(Context context) {
-        return new Intent(context, LogiinActivity.class);
-    }
-
 }

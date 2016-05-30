@@ -18,31 +18,23 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.login.guest;
+package com.belatrixsf.allstars.utils.di.components;
 
-import android.content.Intent;
-import android.os.Bundle;
+import com.belatrixsf.allstars.ui.login.guest.LoginAsGuestPresenter;
+import com.belatrixsf.allstars.utils.di.modules.presenters.LoginAsGuestPresenterModule;
+import com.belatrixsf.allstars.utils.di.scopes.UIScope;
 
-import com.belatrixsf.allstars.R;
-import com.belatrixsf.allstars.ui.common.AllStarsActivity;
+import dagger.Subcomponent;
 
 /**
  * Created by icerrate on 27/05/16.
  */
-public class LogiinAsGuestActivity extends AllStarsActivity {
+@UIScope
+@Subcomponent(
+        modules = LoginAsGuestPresenterModule.class
+)
+public interface LoginAsGuestComponent {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_log_in_as_guest);
-    }
+    LoginAsGuestPresenter logiinAsGuestPresenter();
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        LogiinAsGuestFragment fragment = (LogiinAsGuestFragment) getSupportFragmentManager().findFragmentById(R.id.content);
-        if (fragment != null) {
-            fragment.onActivityResult(requestCode, resultCode, data);
-        }
-    }
 }

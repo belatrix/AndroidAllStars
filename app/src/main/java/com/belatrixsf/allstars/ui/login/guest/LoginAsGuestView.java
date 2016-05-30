@@ -18,28 +18,15 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils.di.modules.presenters;
+package com.belatrixsf.allstars.ui.login.guest;
 
-import com.belatrixsf.allstars.ui.login.guest.LogiinAsGuestView;
-
-import dagger.Module;
-import dagger.Provides;
+import com.belatrixsf.allstars.ui.common.AllStarsView;
 
 /**
  * Created by icerrate on 27/05/16.
  */
-@Module
-public class LogiinAsGuestPresenterModule {
+public interface LoginAsGuestView extends AllStarsView {
 
-    private LogiinAsGuestView view;
-
-    public LogiinAsGuestPresenterModule(LogiinAsGuestView view) {
-        this.view = view;
-    }
-
-    @Provides
-    public LogiinAsGuestView providesView() {
-        return view;
-    }
+    void backToLogin();
 
 }

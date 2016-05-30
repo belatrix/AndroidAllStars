@@ -23,15 +23,13 @@ package com.belatrixsf.allstars.ui.login;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
-import com.belatrixsf.allstars.utils.AllStarsCallback;
-import com.belatrixsf.allstars.utils.ServiceError;
 
 import javax.inject.Inject;
 
 /**
  * Created by gyosida on 4/12/16.
  */
-public class LogiinPresenter extends AllStarsPresenter<LogiinView> {
+public class LoginPresenter extends AllStarsPresenter<LoginView> {
 
     public static final int DEST_HOME = 0;
     public static final int DEST_RESET_PASSWORD = 1;
@@ -41,7 +39,7 @@ public class LogiinPresenter extends AllStarsPresenter<LogiinView> {
     private EmployeeManager employeeManager;
 
     @Inject
-    public LogiinPresenter(LogiinView view, EmployeeManager employeeManager) {
+    public LoginPresenter(LoginView view, EmployeeManager employeeManager) {
         super(view);
         this.employeeManager = employeeManager;
     }
@@ -57,7 +55,7 @@ public class LogiinPresenter extends AllStarsPresenter<LogiinView> {
     public void login(String username, String password) {
         if (areFieldsFilled(username, password)) {
             view.showProgressDialog();
-            employeeManager.login(username, password, new AllStarsCallback<Integer>() {
+            employeeManager.login(username, password, new PresenterCallback<Integer>() {
                 @Override
                 public void onSuccess(Integer destination) {
                     view.dismissProgressDialog();
@@ -72,11 +70,6 @@ public class LogiinPresenter extends AllStarsPresenter<LogiinView> {
                             view.goEditProfile();
                             break;
                     }
-                }
-
-                @Override
-                public void onFailure(ServiceError serviceError) {
-                    showError(serviceError.getDetail());
                 }
             });
         } else {

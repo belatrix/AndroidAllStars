@@ -69,15 +69,10 @@ public class CategoriesPresenter extends AllStarsPresenter<CategoriesView> {
             if (viewPresentsCategories()) {
                 if (employeeManager != null && employeeService != null) {
                     view.showProgressIndicator();
-                    employeeManager.getLoggedInEmployee(new AllStarsCallback<Employee>() {
+                    employeeManager.getLoggedInEmployee(new PresenterCallback<Employee>() {
                         @Override
                         public void onSuccess(Employee employee) {
                             employeeService.getEmployeeCategories(employee.getPk(), categoriesCallback);
-                        }
-
-                        @Override
-                        public void onFailure(ServiceError serviceError) {
-                            showError(serviceError.getDetail());
                         }
                     });
                 }
@@ -122,17 +117,12 @@ public class CategoriesPresenter extends AllStarsPresenter<CategoriesView> {
         return category == null;
     }
 
-    private AllStarsCallback<List<Category>> categoriesCallback = new AllStarsCallback<List<Category>>() {
+    private AllStarsCallback<List<Category>> categoriesCallback = new PresenterCallback<List<Category>>() {
         @Override
         public void onSuccess(List<Category> categories) {
             CategoriesPresenter.this.categories = categories;
             showItemsAndNotifyIfAreSubcategories();
             view.hideProgressIndicator();
-        }
-
-        @Override
-        public void onFailure(ServiceError serviceError) {
-            showError(serviceError.getDetail());
         }
     };
 

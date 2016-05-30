@@ -30,8 +30,6 @@ import com.belatrixsf.allstars.networking.retrofit.requests.StarRequest;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarResponse;
 import com.belatrixsf.allstars.services.contracts.StarService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
-import com.belatrixsf.allstars.utils.AllStarsCallback;
-import com.belatrixsf.allstars.utils.ServiceError;
 
 import javax.inject.Inject;
 
@@ -143,7 +141,7 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
     public void makeRecommendation() {
         view.showProgressDialog(getString(R.string.making_recommendation));
         employeeManager.getLoggedInEmployee(
-                new AllStarsCallback<Employee>() {
+                new PresenterCallback<Employee>() {
                     @Override
                     public void onSuccess(Employee fromEmployee) {
                         StarRequest starRequest = new StarRequest(selectedSubCategory.getParentCategory().getId(), selectedSubCategory.getId(), selectedComment, selectedKeyword.getId());
@@ -151,23 +149,13 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
                                 fromEmployee.getPk(),
                                 selectedEmployee.getPk(),
                                 starRequest,
-                                new AllStarsCallback<StarResponse>() {
+                                new PresenterCallback<StarResponse>() {
                                     @Override
                                     public void onSuccess(StarResponse starResponse) {
                                         view.dismissProgressDialog();
                                         view.finishRecommendation();
                                     }
-
-                                    @Override
-                                    public void onFailure(ServiceError serviceError) {
-                                        view.showError(serviceError.getDetail());
-                                    }
                                 });
-                    }
-
-                    @Override
-                    public void onFailure(ServiceError serviceError) {
-                        view.showError(serviceError.getDetail());
                     }
                 });
     }

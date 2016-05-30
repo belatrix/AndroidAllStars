@@ -18,18 +18,31 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.login;
+package com.belatrixsf.allstars.ui.login.guest;
 
-import com.belatrixsf.allstars.ui.common.AllStarsView;
+import android.content.Intent;
+import android.os.Bundle;
+
+import com.belatrixsf.allstars.R;
+import com.belatrixsf.allstars.ui.common.AllStarsActivity;
 
 /**
- * Created by gyosida on 4/11/16.
+ * Created by icerrate on 27/05/16.
  */
-public interface LogiinView extends AllStarsView {
+public class LoginAsGuestActivity extends AllStarsActivity {
 
-    void goHome();
-    void goResetPassword();
-    void goEditProfile();
-    void enableLogin(boolean enable);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login_as_guest);
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        LoginAsGuestFragment fragment = (LoginAsGuestFragment) getSupportFragmentManager().findFragmentById(R.id.content);
+        if (fragment != null) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 }

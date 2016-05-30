@@ -22,6 +22,7 @@ package com.belatrixsf.allstars.ui.stars.keyword;
 
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -51,6 +52,7 @@ public class KeywordsListFragment extends AllStarsFragment implements KeywordsLi
     private static final String KEYWORDS_KEY = "keywords_key";
 
     private KeywordsListAdapter keywordsListAdapter;
+    @Bind(R.id.refresh_keywords) SwipeRefreshLayout keywordsRefreshLayout;
 
     @Inject
     KeywordsListPresenter keywordsListPresenter;
@@ -102,11 +104,18 @@ public class KeywordsListFragment extends AllStarsFragment implements KeywordsLi
     }
 
     private void initViews() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         keywordsListAdapter = new KeywordsListAdapter();
         keywordsListAdapter.setKeywordListener(this);
-        keywords.setLayoutManager(new LinearLayoutManager(getActivity()));
+        keywords.setLayoutManager(linearLayoutManager);
         keywords.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
         keywords.setAdapter(keywordsListAdapter);
+        keywordsRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                keywordsListPresenter.refreshKeywords();
+            }
+        });
     }
 
     @Override
@@ -136,6 +145,22 @@ public class KeywordsListFragment extends AllStarsFragment implements KeywordsLi
 
     interface KeywordsListListener {
         void onKeywordSelectedForDispatching(Keyword keyword);
+    }
+
+    @Override
+    public void showProgressIndicator() {
+        keywordsListAdapter.setLoading(true);
+    }
+
+    @Override
+    public void hideProgressIndicator() {
+        keywordsListAdapter.setLoading(false);
+        keywordsRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void resetList() {
+        keywordsListAdapter.reset();
     }
 
     @Override

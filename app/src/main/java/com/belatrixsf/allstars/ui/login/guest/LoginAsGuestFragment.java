@@ -33,7 +33,7 @@ import com.belatrixsf.allstars.BuildConfig;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
-import com.belatrixsf.allstars.utils.di.modules.presenters.LogiinAsGuestPresenterModule;
+import com.belatrixsf.allstars.utils.di.modules.presenters.LoginAsGuestPresenterModule;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -59,7 +59,7 @@ import butterknife.Bind;
 /**
  * Created by icerrate on 27/05/16.
  */
-public class LogiinAsGuestFragment extends AllStarsFragment implements LogiinAsGuestView {
+public class LoginAsGuestFragment extends AllStarsFragment implements LoginAsGuestView {
 
     public static final int FACEBOOK_RQ = 64206;
     public static final int TWITTER_RQ = 140;
@@ -68,10 +68,10 @@ public class LogiinAsGuestFragment extends AllStarsFragment implements LogiinAsG
     @Bind(R.id.facebook_log_in) LoginButton facebookLogInButton;
     @Bind(R.id.twitter_log_in) TwitterLoginButton twitterLogInButton;
 
-    private LogiinAsGuestPresenter logiinAsGuestPresenter;
+    private LoginAsGuestPresenter loginAsGuestPresenter;
     private CallbackManager callbackManager;
 
-    public LogiinAsGuestFragment() {
+    public LoginAsGuestFragment() {
         // Required empty public constructor
     }
 
@@ -88,7 +88,7 @@ public class LogiinAsGuestFragment extends AllStarsFragment implements LogiinAsG
         super.onViewCreated(view, savedInstanceState);
         initViews();
         if (savedInstanceState == null) {
-            logiinAsGuestPresenter.init();
+            loginAsGuestPresenter.init();
         }
     }
 
@@ -112,7 +112,7 @@ public class LogiinAsGuestFragment extends AllStarsFragment implements LogiinAsG
                         loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                             @Override
                             public void onCompleted(JSONObject json, GraphResponse response) {
-                                logiinAsGuestPresenter.loginWithFacebook(json);
+                                loginAsGuestPresenter.loginWithFacebook(json);
                             }
                         });
                 Bundle parameters = new Bundle();
@@ -169,13 +169,13 @@ public class LogiinAsGuestFragment extends AllStarsFragment implements LogiinAsG
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        logiinAsGuestPresenter = null;
+        loginAsGuestPresenter = null;
     }
 
     @Override
     protected void initDependencies(AllStarsApplication allStarsApplication) {
-        logiinAsGuestPresenter = allStarsApplication.getApplicationComponent()
-                .logiinAsGuestComponent(new LogiinAsGuestPresenterModule(this))
+        loginAsGuestPresenter = allStarsApplication.getApplicationComponent()
+                .loginAsGuestComponent(new LoginAsGuestPresenterModule(this))
                 .logiinAsGuestPresenter();
     }
 

@@ -31,7 +31,9 @@ public class PermissionHelper {
 
     public static boolean checkPermissions(Context context, String[] permissions) {
         for (String permission : permissions) {
-            if (ContextCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) return false;
+            if (ContextCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
         }
         return true;
     }

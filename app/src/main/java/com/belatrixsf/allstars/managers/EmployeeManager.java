@@ -23,7 +23,7 @@ package com.belatrixsf.allstars.managers;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.allstars.services.contracts.EmployeeService;
-import com.belatrixsf.allstars.ui.login.LogiinPresenter;
+import com.belatrixsf.allstars.ui.login.LoginPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
 
@@ -51,14 +51,17 @@ public class EmployeeManager {
                 PreferencesManager.get().saveToken(authenticationResponse.getToken());
                 PreferencesManager.get().saveEmployeeId(authenticationResponse.getEmployeeId());
                 if (authenticationResponse.getResetPasswordCode() == null){
+                    PreferencesManager.get().setResetPassword(true);
                     employeeService.getEmployee(authenticationResponse.getEmployeeId(), new AllStarsCallback<Employee>() {
                         @Override
                         public void onSuccess(Employee employee) {
                             EmployeeManager.this.employee = employee;
                             if (authenticationResponse.isBaseProfileComplete()){
-                                callback.onSuccess(LogiinPresenter.DEST_HOME);
+                                PreferencesManager.get().setEditProfile(true);
+                                callback.onSuccess(LoginPresenter.DEST_HOME);
                             } else {
-                                callback.onSuccess(LogiinPresenter.DEST_EDIT_PROFILE);
+                                PreferencesManager.get().setEditProfile(false);
+                                callback.onSuccess(LoginPresenter.DEST_EDIT_PROFILE);
                             }
                         }
 
@@ -68,7 +71,8 @@ public class EmployeeManager {
                         }
                     });
                 } else {
-                    callback.onSuccess(LogiinPresenter.DEST_RESET_PASSWORD);
+                    PreferencesManager.get().setResetPassword(false);
+                    callback.onSuccess(LoginPresenter.DEST_RESET_PASSWORD);
                 }
             }
 

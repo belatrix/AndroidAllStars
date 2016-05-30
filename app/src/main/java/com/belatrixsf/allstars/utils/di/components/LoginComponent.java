@@ -20,21 +20,22 @@
 */
 package com.belatrixsf.allstars.utils.di.components;
 
-import com.belatrixsf.allstars.ui.login.guest.LogiinAsGuestPresenter;
-import com.belatrixsf.allstars.utils.di.modules.presenters.LogiinAsGuestPresenterModule;
+import com.belatrixsf.allstars.ui.login.LoginPresenter;
+import com.belatrixsf.allstars.utils.di.modules.presenters.LoginPresenterModule;
 import com.belatrixsf.allstars.utils.di.scopes.UIScope;
 
-import dagger.Subcomponent;
+import dagger.Component;
 
 /**
- * Created by icerrate on 27/05/16.
+ * Created by gyosida on 4/12/16.
  */
 @UIScope
-@Subcomponent(
-        modules = LogiinAsGuestPresenterModule.class
+@Component(
+        dependencies = ApplicationComponent.class,
+        modules = LoginPresenterModule.class
 )
-public interface LogiinAsGuestComponent {
+public interface LoginComponent {
 
-    LogiinAsGuestPresenter logiinAsGuestPresenter();
+    LoginPresenter loginPresenter();
 
 }

@@ -31,9 +31,6 @@ import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterCore;
 
 import io.fabric.sdk.android.Fabric;
-import com.crashlytics.android.Crashlytics;
-
-import io.fabric.sdk.android.Fabric;
 
 
 /**
