@@ -38,7 +38,7 @@ public class EmployeeManager {
     public enum State {
         PROFILE_COMPLETE,
         PROFILE_INCOMPLETE,
-        PASSWORD_RESET
+        PASSWORD_RESET_INCOMPLETE
     }
 
     private EmployeeService employeeService;
@@ -77,7 +77,7 @@ public class EmployeeManager {
                     });
                 } else {
                     PreferencesManager.get().setResetPassword(false);
-                    callback.onSuccess(State.PASSWORD_RESET);
+                    callback.onSuccess(State.PASSWORD_RESET_INCOMPLETE);
                 }
             }
 

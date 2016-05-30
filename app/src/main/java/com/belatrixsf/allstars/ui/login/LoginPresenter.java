@@ -63,11 +63,11 @@ public class LoginPresenter extends AllStarsPresenter<LoginView> {
                         case PROFILE_COMPLETE:
                             view.goHome();
                             break;
-                        case PASSWORD_RESET:
-                            view.goResetPassword();
-                            break;
                         case PROFILE_INCOMPLETE:
                             view.goEditProfile();
+                            break;
+                        case PASSWORD_RESET_INCOMPLETE:
+                            view.goResetPassword();
                             break;
                     }
                 }
