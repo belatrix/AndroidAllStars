@@ -257,6 +257,9 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     }
 
     private void startPostponedEnterTransition() {
+        if (pictureImageView == null) {
+            return;
+        }
         pictureImageView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {

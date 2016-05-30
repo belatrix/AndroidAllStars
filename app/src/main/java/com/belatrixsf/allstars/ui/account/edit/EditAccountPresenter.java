@@ -61,16 +61,11 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
     }
 
     private void loadEmployeeData() {
-        employeeManager.getLoggedInEmployee(new AllStarsCallback<Employee>() {
+        employeeManager.getLoggedInEmployee(new PresenterCallback<Employee>() {
             @Override
             public void onSuccess(Employee employee) {
                 EditAccountPresenter.this.employee = employee;
                 showEmployeeData();
-            }
-
-            @Override
-            public void onFailure(ServiceError serviceError) {
-                showError(serviceError.getDetail());
             }
         });
     }
@@ -98,16 +93,11 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
     }
 
     public void obtainLocations() {
-        employeeService.getEmployeeLocations(new AllStarsCallback<List<Location>>() {
+        employeeService.getEmployeeLocations(new PresenterCallback<List<Location>>() {
             @Override
             public void onSuccess(List<Location> locationList) {
                 EditAccountPresenter.this.locationList = locationList;
                 loadLocations();
-            }
-
-            @Override
-            public void onFailure(ServiceError serviceError) {
-                showError(serviceError.getDetail());
             }
         });
     }
@@ -125,7 +115,7 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
     public void finishEdit(String firstName, String lastName, String skypeId) {
         if (checkValidFirstName(firstName) && checkValidLastName(lastName) && checkValidSkypeId(skypeId)) {
             view.showProgressDialog();
-            employeeService.updateEmployee(employee.getPk(), firstName, lastName, skypeId, locationSelected.getPk(), new AllStarsCallback<Employee>() {
+            employeeService.updateEmployee(employee.getPk(), firstName, lastName, skypeId, locationSelected.getPk(), new PresenterCallback<Employee>() {
                 @Override
                 public void onSuccess(Employee employee) {
                     view.dismissProgressDialog();
@@ -135,11 +125,6 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
                     } else {
                         view.endSuccessfulEdit();
                     }
-                }
-
-                @Override
-                public void onFailure(ServiceError serviceError) {
-                    view.showError(serviceError.getDetail());
                 }
             });
         }
@@ -217,14 +202,9 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
         if (file != null) {
             selectedFile = file;
             view.showProfileImage(selectedFile.getAbsolutePath());
-            employeeService.updateEmployeeImage(employee.getPk(), selectedFile, new AllStarsCallback<Void>() {
+            employeeService.updateEmployeeImage(employee.getPk(), selectedFile, new PresenterCallback<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                }
-
-                @Override
-                public void onFailure(ServiceError serviceError) {
-                    showError(serviceError.getDetail());
                 }
             });
         }

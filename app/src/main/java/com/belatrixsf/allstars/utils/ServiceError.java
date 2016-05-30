@@ -26,6 +26,7 @@ package com.belatrixsf.allstars.utils;
 public class ServiceError {
 
     public static final int UNKNOWN = 0;
+    public static final int CANCELLED = 1;
 
     private int responseCode;
     private String detail;

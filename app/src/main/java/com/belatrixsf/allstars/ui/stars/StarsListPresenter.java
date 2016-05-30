@@ -96,7 +96,7 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
                 employeeId,
                 subCategoryId,
                 starPaginatedResponse.getNextPage(),
-                new AllStarsCallback<StarsResponse>() {
+                new PresenterCallback<StarsResponse>() {
                     @Override
                     public void onSuccess(StarsResponse starsResponse) {
                         stars.addAll(starsResponse.getStarList());
@@ -108,7 +108,7 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
                     @Override
                     public void onFailure(ServiceError serviceError) {
                         view.hideProgressIndicator();
-                        showError(serviceError.getDetail());
+                        super.onFailure(serviceError);
                     }
                 });
     }

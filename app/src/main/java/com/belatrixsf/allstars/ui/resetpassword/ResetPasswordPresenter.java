@@ -67,16 +67,11 @@ public class ResetPasswordPresenter extends AllStarsPresenter<ResetPasswordView>
 
     public void reset(String oldPassword, String newPassword) {
         view.showProgressDialog();
-        employeeManager.resetPassword(oldPassword, newPassword, new AllStarsCallback<Employee>() {
+        employeeManager.resetPassword(oldPassword, newPassword, new PresenterCallback<Employee>() {
             @Override
             public void onSuccess(Employee employee) {
                 view.dismissProgressDialog();
                 view.goEditProfile();
-            }
-
-            @Override
-            public void onFailure(ServiceError serviceError) {
-                showError(serviceError.getDetail());
             }
         });
     }
