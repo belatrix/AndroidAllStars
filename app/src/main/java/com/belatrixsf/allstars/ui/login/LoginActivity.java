@@ -20,16 +20,23 @@
 */
 package com.belatrixsf.allstars.ui.login;
 
-import com.belatrixsf.allstars.ui.common.AllStarsView;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 
-/**
- * Created by gyosida on 4/11/16.
- */
-public interface LogInView extends AllStarsView {
+import com.belatrixsf.allstars.R;
+import com.belatrixsf.allstars.ui.common.AllStarsActivity;
 
-    void goHome();
-    void goResetPassword();
-    void goEditProfile();
-    void enableLogin(boolean enable);
+public class LoginActivity extends AllStarsActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+    }
+
+    public static Intent makeIntent(Context context) {
+        return new Intent(context, LoginActivity.class);
+    }
 
 }

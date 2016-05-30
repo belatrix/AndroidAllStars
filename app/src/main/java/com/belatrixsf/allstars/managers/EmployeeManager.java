@@ -23,7 +23,7 @@ package com.belatrixsf.allstars.managers;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.allstars.services.contracts.EmployeeService;
-import com.belatrixsf.allstars.ui.login.LogInPresenter;
+import com.belatrixsf.allstars.ui.login.LoginPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
 
@@ -58,10 +58,10 @@ public class EmployeeManager {
                             EmployeeManager.this.employee = employee;
                             if (authenticationResponse.isBaseProfileComplete()){
                                 PreferencesManager.get().setEditProfile(true);
-                                callback.onSuccess(LogInPresenter.DEST_HOME);
+                                callback.onSuccess(LoginPresenter.DEST_HOME);
                             } else {
                                 PreferencesManager.get().setEditProfile(false);
-                                callback.onSuccess(LogInPresenter.DEST_EDIT_PROFILE);
+                                callback.onSuccess(LoginPresenter.DEST_EDIT_PROFILE);
                             }
                         }
 
@@ -72,7 +72,7 @@ public class EmployeeManager {
                     });
                 } else {
                     PreferencesManager.get().setResetPassword(false);
-                    callback.onSuccess(LogInPresenter.DEST_RESET_PASSWORD);
+                    callback.onSuccess(LoginPresenter.DEST_RESET_PASSWORD);
                 }
             }
 

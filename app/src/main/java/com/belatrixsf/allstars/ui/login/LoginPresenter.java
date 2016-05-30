@@ -31,7 +31,7 @@ import javax.inject.Inject;
 /**
  * Created by gyosida on 4/12/16.
  */
-public class LogInPresenter extends AllStarsPresenter<LogInView> {
+public class LoginPresenter extends AllStarsPresenter<LoginView> {
 
     public static final int DEST_HOME = 0;
     public static final int DEST_RESET_PASSWORD = 1;
@@ -41,7 +41,7 @@ public class LogInPresenter extends AllStarsPresenter<LogInView> {
     private EmployeeManager employeeManager;
 
     @Inject
-    public LogInPresenter(LogInView view, EmployeeManager employeeManager) {
+    public LoginPresenter(LoginView view, EmployeeManager employeeManager) {
         super(view);
         this.employeeManager = employeeManager;
     }

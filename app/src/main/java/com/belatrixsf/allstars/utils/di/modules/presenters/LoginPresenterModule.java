@@ -20,7 +20,7 @@
 */
 package com.belatrixsf.allstars.utils.di.modules.presenters;
 
-import com.belatrixsf.allstars.ui.login.LogInView;
+import com.belatrixsf.allstars.ui.login.LoginView;
 
 import dagger.Module;
 import dagger.Provides;
@@ -29,16 +29,16 @@ import dagger.Provides;
  * Created by gyosida on 4/12/16.
  */
 @Module
-public class LogInPresenterModule {
+public class LoginPresenterModule {
 
-    private LogInView view;
+    private LoginView view;
 
-    public LogInPresenterModule(LogInView view) {
+    public LoginPresenterModule(LoginView view) {
         this.view = view;
     }
 
     @Provides
-    public LogInView providesView() {
+    public LoginView providesView() {
         return view;
     }
 
