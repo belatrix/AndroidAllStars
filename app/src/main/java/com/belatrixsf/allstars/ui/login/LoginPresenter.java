@@ -31,11 +31,6 @@ import javax.inject.Inject;
  */
 public class LoginPresenter extends AllStarsPresenter<LoginView> {
 
-    public static final int DEST_HOME = 0;
-    public static final int DEST_RESET_PASSWORD = 1;
-    public static final int DEST_EDIT_PROFILE = 2;
-
-
     private EmployeeManager employeeManager;
 
     @Inject
