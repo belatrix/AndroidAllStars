@@ -21,42 +21,50 @@
 
 package com.belatrixsf.allstars.test;
 
-
+import android.content.Context;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
 import com.belatrixsf.allstars.R;
+import com.belatrixsf.allstars.testFunction.TestFunction;
 import com.belatrixsf.allstars.ui.login.LoginActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-
 /**
  * Created by gcuzcano on 5/25/16.
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class RecommendTest extends LoginTest{
+public class RecommendTest extends TestFunction{
+
+    LoginTest loginTest = new LoginTest();
 
     @Rule
     public ActivityTestRule<LoginActivity> mActivityRule = new ActivityTestRule<>(LoginActivity.class);
 
     @Test
-    public void RecommedActionTest(){
-        String name1="", name2="";
-
-        loginTest();
+    public void RecommendUiTest(){
+        loginTest.loginTest();
         findIdAndTap(R.id.start_recommendation);
-        checkIfElementIsDisplayedWithText("Give a recommendation");
-        findTextAndTap("Select user");
-        checkIfElementIsDisplayedWithText("Select an user");
-        findTextAndTap("amy noe");
-        checkIfMatches(R.id.contact_full_name,R.id.contact_full_name);
-        System.out.println(name1);
+        Context activityContext = mActivityRule.getActivity();
+        checkIfElementIsDisplayedWithText(activityContext.getResources().getString(R.string.title_give_star_activity)); //Give a recommendation
+        checkIfElementIsDisplayedWithText(activityContext.getResources().getString(R.string.select_user)); //Select user
+        checkIfElementIsDisplayedWithText(activityContext.getResources().getString(R.string.title_comment_activity)); //Write a comment
+        checkIfElementIsDisplayedWithText(activityContext.getResources().getString(R.string.select_category)); //Select category
+        checkIfElementIsDisplayedWithText(activityContext.getResources().getString(R.string.hint_keyword)); //Select a Tag
     }
 
+    @Test
+    public void RecommendActionTest(){
+        String name1="", name2="";
+        findIdAndTap(R.id.start_recommendation);
+        Context activityContext = mActivityRule.getActivity();
+        findIdAndTap(R.string.select_user);
+        String selectUser = activityContext.getResources().getString(R.string.select_user);
+    }
 
 }

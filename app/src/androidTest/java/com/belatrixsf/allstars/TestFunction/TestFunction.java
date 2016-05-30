@@ -78,7 +78,6 @@ public class TestFunction extends ViewActionUtils{
         onView(ViewMatchers.withId(id)).check(matches(isClickable()));
     }
     public void checkIfMatches(int idFirst, int idSecond){
-
         onView(isRoot()).perform(waitId(idSecond, Constants.MILISECONDS));
         onView(ViewMatchers.withId(idFirst)).check(matches(ViewMatchers.withId(idSecond)));
     }
