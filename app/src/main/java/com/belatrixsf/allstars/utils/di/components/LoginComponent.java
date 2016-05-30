@@ -20,8 +20,8 @@
 */
 package com.belatrixsf.allstars.utils.di.components;
 
-import com.belatrixsf.allstars.ui.login.LogiinPresenter;
-import com.belatrixsf.allstars.utils.di.modules.presenters.LogiinPresenterModule;
+import com.belatrixsf.allstars.ui.login.LoginPresenter;
+import com.belatrixsf.allstars.utils.di.modules.presenters.LoginPresenterModule;
 import com.belatrixsf.allstars.utils.di.scopes.UIScope;
 
 import dagger.Component;
@@ -32,10 +32,10 @@ import dagger.Component;
 @UIScope
 @Component(
         dependencies = ApplicationComponent.class,
-        modules = LogiinPresenterModule.class
+        modules = LoginPresenterModule.class
 )
-public interface LogiinComponent {
+public interface LoginComponent {
 
-    LogiinPresenter logiinPresenter();
+    LoginPresenter loginPresenter();
 
 }

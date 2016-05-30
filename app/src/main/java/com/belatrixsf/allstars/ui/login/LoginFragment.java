@@ -42,24 +42,24 @@ import com.belatrixsf.allstars.ui.home.MainActivity;
 import com.belatrixsf.allstars.ui.resetpassword.ResetPasswordActivity;
 import com.belatrixsf.allstars.ui.signup.SignUpActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
-import com.belatrixsf.allstars.utils.di.components.DaggerLogiinComponent;
-import com.belatrixsf.allstars.utils.di.modules.presenters.LogiinPresenterModule;
+import com.belatrixsf.allstars.utils.di.components.DaggerLoginComponent;
+import com.belatrixsf.allstars.utils.di.modules.presenters.LoginPresenterModule;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 
 import static com.belatrixsf.allstars.ui.account.edit.EditAccountFragment.IS_NEW_USER;
 
-public class LogiinFragment extends AllStarsFragment implements LogiinView {
+public class LoginFragment extends AllStarsFragment implements LoginView {
 
     @Bind(R.id.username) EditText usernameEditText;
     @Bind(R.id.password) EditText passwordEditText;
     @Bind(R.id.log_in) Button logInButton;
     @Bind(R.id.sign_up) TextView signUpButton;
 
-    private LogiinPresenter logiinPresenter;
+    private LoginPresenter loginPresenter;
 
-    public LogiinFragment() {
+    public LoginFragment() {
         // Required empty public constructor
     }
 
@@ -75,7 +75,7 @@ public class LogiinFragment extends AllStarsFragment implements LogiinView {
         super.onViewCreated(view, savedInstanceState);
         initViews();
         if (savedInstanceState == null) {
-            logiinPresenter.init();
+            loginPresenter.init();
         }
     }
 
@@ -89,7 +89,7 @@ public class LogiinFragment extends AllStarsFragment implements LogiinView {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     String username = usernameEditText.getText().toString();
                     String password = passwordEditText.getText().toString();
-                    logiinPresenter.login(username, password);
+                    loginPresenter.login(username, password);
                     return true;
                 }
                 return false;
@@ -99,17 +99,17 @@ public class LogiinFragment extends AllStarsFragment implements LogiinView {
 
     @Override
     public void onDestroyView() {
-        logiinPresenter.cancelRequests();
+        loginPresenter.cancelRequests();
         super.onDestroyView();
     }
 
     @Override
     protected void initDependencies(AllStarsApplication allStarsApplication) {
-        logiinPresenter = DaggerLogiinComponent.builder()
+        loginPresenter = DaggerLoginComponent.builder()
                 .applicationComponent(allStarsApplication.getApplicationComponent())
-                .logiinPresenterModule(new LogiinPresenterModule(this))
+                .loginPresenterModule(new LoginPresenterModule(this))
                 .build()
-                .logiinPresenter();
+                .loginPresenter();
     }
 
     @Override
@@ -143,7 +143,7 @@ public class LogiinFragment extends AllStarsFragment implements LogiinView {
     public void loginClicked() {
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
-        logiinPresenter.login(username, password);
+        loginPresenter.login(username, password);
     }
 
     @OnClick(R.id.sign_up)
@@ -163,7 +163,7 @@ public class LogiinFragment extends AllStarsFragment implements LogiinView {
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             String username = usernameEditText.getText().toString();
             String password = passwordEditText.getText().toString();
-            logiinPresenter.checkIfInputsAreValid(username, password);
+            loginPresenter.checkIfInputsAreValid(username, password);
         }
 
         @Override
