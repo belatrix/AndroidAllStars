@@ -53,16 +53,11 @@ public class SignUpPresenter extends AllStarsPresenter<SignUpView> {
 
     public void signUp(String email) {
         view.showProgressDialog();
-        employeeService.createEmployee(email, new AllStarsCallback<CreateEmployeeResponse>() {
+        employeeService.createEmployee(email, new PresenterCallback<CreateEmployeeResponse>() {
             @Override
             public void onSuccess(CreateEmployeeResponse response) {
                 view.dismissProgressDialog();
                 view.showMessage(response.getDetail());
-            }
-
-            @Override
-            public void onFailure(ServiceError serviceError) {
-                showError(serviceError.getDetail());
             }
         });
     }

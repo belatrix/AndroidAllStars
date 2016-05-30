@@ -51,7 +51,7 @@ public class RankingPresenter extends AllStarsPresenter<RankingView> {
         employeeService.getRankingList(
                 kind,
                 quantity,
-                new AllStarsCallback<List<Employee>>() {
+                new PresenterCallback<List<Employee>>() {
                     @Override
                     public void onSuccess(List<Employee> rankingResponse) {
                         rankingEmployees = rankingResponse;
@@ -70,7 +70,7 @@ public class RankingPresenter extends AllStarsPresenter<RankingView> {
                         } else {
                             view.hideRefreshData();
                         }
-                        showError(serviceError.getDetail());
+                        super.onFailure(serviceError);
                     }
                 });
     }

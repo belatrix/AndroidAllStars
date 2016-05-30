@@ -105,7 +105,7 @@ public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywo
         searchingServiceRequest = starService.getStarsByKeywords(
                 searchText,
                 keywordsPaging.getNextPage(),
-                new AllStarsCallback<StarsByKeywordsResponse>() {
+                new PresenterCallback<StarsByKeywordsResponse>() {
                     @Override
                     public void onSuccess(StarsByKeywordsResponse starsByKeywordsResponse) {
                         keywordsPaging.setCount(starsByKeywordsResponse.getCount());
@@ -113,11 +113,6 @@ public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywo
                         keywords.addAll(starsByKeywordsResponse.getKeywords());
                         view.addKeywords(starsByKeywordsResponse.getKeywords());
                         view.hideProgressIndicator();
-                    }
-
-                    @Override
-                    public void onFailure(ServiceError serviceError) {
-                        showError(serviceError.getDetail());
                     }
                 });
     }

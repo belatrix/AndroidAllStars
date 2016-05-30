@@ -23,6 +23,7 @@ package com.belatrixsf.allstars.services;
 
 import com.belatrixsf.allstars.services.contracts.AllStarsService;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
+import com.belatrixsf.allstars.utils.ServiceError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +36,28 @@ public abstract class AllStarsBaseService implements AllStarsService {
 
     private List<ServiceRequest> serviceRequestList;
 
-    protected <T> void enqueue(ServiceRequest<T> serviceRequest, AllStarsCallback<T> allStarsCallback) {
+    protected <T> void enqueue(final ServiceRequest<T> serviceRequest, final AllStarsCallback<T> allStarsCallback) {
         if (serviceRequestList == null) {
             serviceRequestList = new ArrayList<>();
         }
         serviceRequestList.add(serviceRequest);
-        serviceRequest.enqueue(allStarsCallback);
+        serviceRequest.enqueue(new AllStarsCallback<T>() {
+            @Override
+            public void onSuccess(T t) {
+                deque(serviceRequest);
+                allStarsCallback.onSuccess(t);
+            }
+
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                deque(serviceRequest);
+                allStarsCallback.onFailure(serviceError);
+            }
+        });
+    }
+
+    protected void deque(ServiceRequest serviceRequest) {
+        serviceRequestList.remove(serviceRequest);
     }
 
     @Override

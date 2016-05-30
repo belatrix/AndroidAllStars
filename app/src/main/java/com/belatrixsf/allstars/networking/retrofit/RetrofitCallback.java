@@ -43,7 +43,7 @@ public class RetrofitCallback<T> implements Callback<T> {
 
     private AllStarsCallback<T> callback;
 
-    public RetrofitCallback(AllStarsCallback callback) {
+    public RetrofitCallback(AllStarsCallback<T> callback) {
         this.callback = callback;
     }
 
@@ -71,9 +71,13 @@ public class RetrofitCallback<T> implements Callback<T> {
 
     @Override
     public void onFailure(Call<T> call, Throwable t) {
-        if (!call.isCanceled()) {
-            Log.d(TAG, "onFailure: " + t.getMessage());
-            callback.onFailure(new ServiceError(UNKNOWN, "Unknown error"));
+        Log.d(TAG, "onFailure: " + t.getMessage());
+        ServiceError serviceError;
+        if (call.isCanceled()) {
+            serviceError = new ServiceError(CANCELLED, "Request cancelled by client");
+        } else {
+            serviceError = new ServiceError(UNKNOWN, "Unknown error");
         }
+        callback.onFailure(serviceError);
     }
 }
