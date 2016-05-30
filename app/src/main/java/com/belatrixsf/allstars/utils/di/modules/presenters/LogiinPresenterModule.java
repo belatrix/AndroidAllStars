@@ -18,25 +18,28 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.login;
+package com.belatrixsf.allstars.utils.di.modules.presenters;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
+import com.belatrixsf.allstars.ui.login.LogiinView;
 
-import com.belatrixsf.allstars.R;
-import com.belatrixsf.allstars.ui.common.AllStarsActivity;
+import dagger.Module;
+import dagger.Provides;
 
-public class LoginActivity extends AllStarsActivity {
+/**
+ * Created by gyosida on 4/12/16.
+ */
+@Module
+public class LogiinPresenterModule {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+    private LogiinView view;
+
+    public LogiinPresenterModule(LogiinView view) {
+        this.view = view;
     }
 
-    public static Intent makeIntent(Context context) {
-        return new Intent(context, LoginActivity.class);
+    @Provides
+    public LogiinView providesView() {
+        return view;
     }
 
 }

@@ -23,7 +23,7 @@ package com.belatrixsf.allstars.managers;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.allstars.services.contracts.EmployeeService;
-import com.belatrixsf.allstars.ui.login.LoginPresenter;
+import com.belatrixsf.allstars.ui.login.LogiinPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
 
@@ -56,9 +56,9 @@ public class EmployeeManager {
                         public void onSuccess(Employee employee) {
                             EmployeeManager.this.employee = employee;
                             if (authenticationResponse.isBaseProfileComplete()){
-                                callback.onSuccess(LoginPresenter.DEST_HOME);
+                                callback.onSuccess(LogiinPresenter.DEST_HOME);
                             } else {
-                                callback.onSuccess(LoginPresenter.DEST_EDIT_PROFILE);
+                                callback.onSuccess(LogiinPresenter.DEST_EDIT_PROFILE);
                             }
                         }
 
@@ -68,7 +68,7 @@ public class EmployeeManager {
                         }
                     });
                 } else {
-                    callback.onSuccess(LoginPresenter.DEST_RESET_PASSWORD);
+                    callback.onSuccess(LogiinPresenter.DEST_RESET_PASSWORD);
                 }
             }
 

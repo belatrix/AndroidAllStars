@@ -42,24 +42,24 @@ import com.belatrixsf.allstars.ui.home.MainActivity;
 import com.belatrixsf.allstars.ui.resetpassword.ResetPasswordActivity;
 import com.belatrixsf.allstars.ui.signup.SignUpActivity;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
-import com.belatrixsf.allstars.utils.di.components.DaggerLoginComponent;
-import com.belatrixsf.allstars.utils.di.modules.presenters.LoginPresenterModule;
+import com.belatrixsf.allstars.utils.di.components.DaggerLogiinComponent;
+import com.belatrixsf.allstars.utils.di.modules.presenters.LogiinPresenterModule;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 
 import static com.belatrixsf.allstars.ui.account.edit.EditAccountFragment.IS_NEW_USER;
 
-public class LoginFragment extends AllStarsFragment implements LoginView {
+public class LogiinFragment extends AllStarsFragment implements LogiinView {
 
     @Bind(R.id.username) EditText usernameEditText;
     @Bind(R.id.password) EditText passwordEditText;
     @Bind(R.id.log_in) Button logInButton;
     @Bind(R.id.sign_up) TextView signUpButton;
 
-    private LoginPresenter loginPresenter;
+    private LogiinPresenter logiinPresenter;
 
-    public LoginFragment() {
+    public LogiinFragment() {
         // Required empty public constructor
     }
 
@@ -67,7 +67,7 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        return inflater.inflate(R.layout.fragment_log_in, container, false);
     }
 
     @Override
@@ -75,7 +75,7 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
         super.onViewCreated(view, savedInstanceState);
         initViews();
         if (savedInstanceState == null) {
-            loginPresenter.init();
+            logiinPresenter.init();
         }
     }
 
@@ -89,7 +89,7 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     String username = usernameEditText.getText().toString();
                     String password = passwordEditText.getText().toString();
-                    loginPresenter.login(username, password);
+                    logiinPresenter.login(username, password);
                     return true;
                 }
                 return false;
@@ -99,17 +99,17 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
 
     @Override
     public void onDestroyView() {
-        loginPresenter.cancelRequests();
+        logiinPresenter.cancelRequests();
         super.onDestroyView();
     }
 
     @Override
     protected void initDependencies(AllStarsApplication allStarsApplication) {
-        loginPresenter = DaggerLoginComponent.builder()
+        logiinPresenter = DaggerLogiinComponent.builder()
                 .applicationComponent(allStarsApplication.getApplicationComponent())
-                .loginPresenterModule(new LoginPresenterModule(this))
+                .logiinPresenterModule(new LogiinPresenterModule(this))
                 .build()
-                .loginPresenter();
+                .logiinPresenter();
     }
 
     @Override
@@ -143,7 +143,7 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
     public void loginClicked() {
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
-        loginPresenter.login(username, password);
+        logiinPresenter.login(username, password);
     }
 
     @OnClick(R.id.sign_up)
@@ -163,7 +163,7 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             String username = usernameEditText.getText().toString();
             String password = passwordEditText.getText().toString();
-            loginPresenter.checkIfInputsAreValid(username, password);
+            logiinPresenter.checkIfInputsAreValid(username, password);
         }
 
         @Override

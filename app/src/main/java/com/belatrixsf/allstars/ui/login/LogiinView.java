@@ -18,28 +18,18 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils.di.modules.presenters;
+package com.belatrixsf.allstars.ui.login;
 
-import com.belatrixsf.allstars.ui.login.LoginView;
-
-import dagger.Module;
-import dagger.Provides;
+import com.belatrixsf.allstars.ui.common.AllStarsView;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by gyosida on 4/11/16.
  */
-@Module
-public class LoginPresenterModule {
+public interface LogiinView extends AllStarsView {
 
-    private LoginView view;
-
-    public LoginPresenterModule(LoginView view) {
-        this.view = view;
-    }
-
-    @Provides
-    public LoginView providesView() {
-        return view;
-    }
+    void goHome();
+    void goResetPassword();
+    void goEditProfile();
+    void enableLogin(boolean enable);
 
 }
