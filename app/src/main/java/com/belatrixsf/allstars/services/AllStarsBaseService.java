@@ -44,19 +44,19 @@ public abstract class AllStarsBaseService implements AllStarsService {
         serviceRequest.enqueue(new AllStarsCallback<T>() {
             @Override
             public void onSuccess(T t) {
-                deque(serviceRequest);
+                dequeue(serviceRequest);
                 allStarsCallback.onSuccess(t);
             }
 
             @Override
             public void onFailure(ServiceError serviceError) {
-                deque(serviceRequest);
+                dequeue(serviceRequest);
                 allStarsCallback.onFailure(serviceError);
             }
         });
     }
 
-    protected void deque(ServiceRequest serviceRequest) {
+    protected void dequeue(ServiceRequest serviceRequest) {
         serviceRequestList.remove(serviceRequest);
     }
 
