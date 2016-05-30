@@ -40,6 +40,7 @@ import org.junit.runner.RunWith;
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class RecommendTest extends LoginTest{
+    LoginTest loginTest=new LoginTest();
 
     @Rule
     public ActivityTestRule<LoginActivity> mActivityRule = new ActivityTestRule<>(LoginActivity.class);
@@ -48,7 +49,7 @@ public class RecommendTest extends LoginTest{
     public void RecommedActionTest(){
         String name1="", name2="";
 
-        loginTest();
+        loginTest.loginTest();
         findIdAndTap(R.id.start_recommendation);
         checkIfElementIsDisplayedWithText("Give a recommendation");
         findTextAndTap("Select user");

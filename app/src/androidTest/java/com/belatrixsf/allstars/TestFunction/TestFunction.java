@@ -6,7 +6,6 @@ package com.belatrixsf.allstars.testFunction;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.matcher.ViewMatchers;
-import android.view.inputmethod.EditorInfo;
 
 import com.belatrixsf.allstars.util.Constants;
 import com.belatrixsf.allstars.util.ViewActionUtils;
@@ -16,7 +15,6 @@ import static android.support.test.espresso.Espresso.openActionBarOverflowOrOpti
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.pressImeActionButton;
-import static android.support.test.espresso.action.ViewActions.pressKey;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
@@ -29,6 +27,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 
 public class TestFunction extends ViewActionUtils{
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
     public void findIdAndWrite(int id, String keyName){
         onView(isRoot()).perform(waitId(id, Constants.MILISECONDS));
         onView(ViewMatchers.withId(id))
@@ -40,7 +40,7 @@ public class TestFunction extends ViewActionUtils{
                 .perform(typeText(keyName), pressImeActionButton());
     }
     public void findIdAndTap(int id){
-        //onView(isRoot()).perform(waitId(id, Constants.MILISECONDS));
+        onView(isRoot()).perform(waitId(id, Constants.MILISECONDS));
         onView(ViewMatchers.withId(id)).perform(click());
     }
     public void tapOnOverFlowMenu(){
@@ -78,10 +78,7 @@ public class TestFunction extends ViewActionUtils{
         onView(ViewMatchers.withId(id)).check(matches(isClickable()));
     }
     public void checkIfMatches(int idFirst, int idSecond){
-
         onView(isRoot()).perform(waitId(idSecond, Constants.MILISECONDS));
         onView(ViewMatchers.withId(idFirst)).check(matches(ViewMatchers.withId(idSecond)));
     }
-
-
 }
