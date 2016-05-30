@@ -51,13 +51,16 @@ public class EmployeeManager {
                 PreferencesManager.get().saveToken(authenticationResponse.getToken());
                 PreferencesManager.get().saveEmployeeId(authenticationResponse.getEmployeeId());
                 if (authenticationResponse.getResetPasswordCode() == null){
+                    PreferencesManager.get().setResetPassword(true);
                     employeeService.getEmployee(authenticationResponse.getEmployeeId(), new AllStarsCallback<Employee>() {
                         @Override
                         public void onSuccess(Employee employee) {
                             EmployeeManager.this.employee = employee;
                             if (authenticationResponse.isBaseProfileComplete()){
+                                PreferencesManager.get().setEditProfile(true);
                                 callback.onSuccess(LogInPresenter.DEST_HOME);
                             } else {
+                                PreferencesManager.get().setEditProfile(false);
                                 callback.onSuccess(LogInPresenter.DEST_EDIT_PROFILE);
                             }
                         }
@@ -68,6 +71,7 @@ public class EmployeeManager {
                         }
                     });
                 } else {
+                    PreferencesManager.get().setResetPassword(false);
                     callback.onSuccess(LogInPresenter.DEST_RESET_PASSWORD);
                 }
             }

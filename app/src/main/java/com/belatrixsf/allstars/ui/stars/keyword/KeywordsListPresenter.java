@@ -45,7 +45,12 @@ public class KeywordsListPresenter extends AllStarsPresenter<KeywordsListView> {
         this.categoryService = categoryService;
     }
 
-    public void getKeywords() {
+    public void refreshKeywords() {
+        reset();
+        getKeywordsInternal();
+    }
+
+    public void getKeywordsInternal() {
         view.showProgressIndicator();
         categoryService.getKeywords(
                 new AllStarsCallback<List<Keyword>>() {
@@ -79,6 +84,11 @@ public class KeywordsListPresenter extends AllStarsPresenter<KeywordsListView> {
         } else {
             view.showKeywords(keywords);
         }
+    }
+
+    private void reset() {
+        keywords.clear();
+        view.resetList();
     }
 
     public void onKeywordSelected(int position) {
