@@ -60,11 +60,15 @@ public class RecommendTest extends TestFunction{
 
     @Test
     public void RecommendActionTest(){
+        loginTest.loginTest();
         String name1="", name2="";
         findIdAndTap(R.id.start_recommendation);
         Context activityContext = mActivityRule.getActivity();
-        findIdAndTap(R.string.select_user);
-        String selectUser = activityContext.getResources().getString(R.string.select_user);
+        findTextAndTap(activityContext.getResources().getString(R.string.select_user));
+        findItemOnRecyclerViewAndTap(R.id.employees,3);
+
+
+
     }
 
 }
