@@ -25,6 +25,7 @@ import android.util.Log;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 import java.io.IOException;
 
@@ -59,6 +60,8 @@ public class RetrofitCallback<T> implements Callback<T> {
                     serviceError = gson.fromJson(response.errorBody().string(), ServiceError.class);
                     serviceError.setResponseCode(response.code());
                 }
+            } catch (JsonSyntaxException e ) {
+                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }

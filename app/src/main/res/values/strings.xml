@@ -28,6 +28,7 @@
     <string name="hint_old_password">Old Password</string>
     <string name="hint_new_password">New Password</string>
     <string name="hint_repeat_new_password">Repeat New Password</string>
+    <string name="hint_write_comment">Write a comment</string>
 
     <!-- Button -->
     <string name="button_log_in">Log In</string>
@@ -51,6 +52,7 @@
     <string name="title_contacts_keyword_activity">Tag Top</string>
     <string name="title_keyword_top">%s Top</string>
     <string name="title_edit_profile_activity">Edit Profile</string>
+    <string name="title_full_name">Full Name</string>
     <string name="tab_account_title">Account</string>
     <string name="tab_ranking_title">Ranking</string>
     <string name="tab_contacts_title">Contacts</string>

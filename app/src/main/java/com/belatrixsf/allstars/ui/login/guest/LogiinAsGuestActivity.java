@@ -20,45 +20,29 @@
 */
 package com.belatrixsf.allstars.ui.login.guest;
 
-import com.belatrixsf.allstars.services.contracts.EmployeeService;
-import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
+import android.content.Intent;
+import android.os.Bundle;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import javax.inject.Inject;
+import com.belatrixsf.allstars.R;
+import com.belatrixsf.allstars.ui.common.AllStarsActivity;
 
 /**
  * Created by icerrate on 27/05/16.
  */
-public class LogInAsGuestPresenter extends AllStarsPresenter<LogInAsGuestView> {
+public class LogiinAsGuestActivity extends AllStarsActivity {
 
-    private EmployeeService employeeService;
-
-    @Inject
-    public LogInAsGuestPresenter(LogInAsGuestView view, EmployeeService employeeService) {
-        super(view);
-        this.employeeService = employeeService;
-    }
-
-    public void init() {
-
-    }
-
-    public void loginWithFacebook(JSONObject json){
-        try {
-            String id = json.getString("id");
-            String email = json.getString("email");
-            String firstName = json.getString("first_name");
-            String lastName = json.getString("last_name");
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_log_in_as_guest);
     }
 
     @Override
-    public void cancelRequests() {
-        employeeService.cancelAll();
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        LogiinAsGuestFragment fragment = (LogiinAsGuestFragment) getSupportFragmentManager().findFragmentById(R.id.content);
+        if (fragment != null) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

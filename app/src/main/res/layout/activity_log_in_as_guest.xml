@@ -2,8 +2,8 @@
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content"
-    android:name="com.belatrixsf.allstars.ui.login.guest.LogInAsGuestFragment"
+    android:name="com.belatrixsf.allstars.ui.login.guest.LogiinAsGuestFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.login.guest.LogInAsGuestActivity"
+    tools:context=".ui.login.guest.LogiinAsGuestActivity"
     tools:layout="@layout/fragment_log_in_as_guest"/>

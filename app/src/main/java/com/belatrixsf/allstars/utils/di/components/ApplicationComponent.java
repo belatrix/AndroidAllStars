@@ -30,7 +30,7 @@ import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsListPresenter
 import com.belatrixsf.allstars.utils.di.modules.presenters.EditAccountPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.KeywordsListModule;
-import com.belatrixsf.allstars.utils.di.modules.presenters.LogInAsGuestPresenterModule;
+import com.belatrixsf.allstars.utils.di.modules.presenters.LogiinAsGuestPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.RankingPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.SignUpPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.StarsListPresenterModule;
@@ -55,7 +55,7 @@ public interface ApplicationComponent {
 
     SignUpComponent signUpComponent(SignUpPresenterModule signUpPresenterModule);
 
-    LogInAsGuestComponent logInAsGuestComponent(LogInAsGuestPresenterModule LogInAsGuestPresenterModule);
+    LogiinAsGuestComponent logiinAsGuestComponent(LogiinAsGuestPresenterModule LogiinAsGuestPresenterModule);
 
     AccountComponent accountComponent(AccountPresenterModule accountPresenterModule);
 

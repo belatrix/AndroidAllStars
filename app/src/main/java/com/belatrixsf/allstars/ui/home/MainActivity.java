@@ -42,7 +42,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.MainNavigationViewPagerAdapter;
 import com.belatrixsf.allstars.ui.common.AllStarsActivity;
-import com.belatrixsf.allstars.ui.login.LogInActivity;
+import com.belatrixsf.allstars.ui.login.LogiinActivity;
 import com.belatrixsf.allstars.ui.ranking.RankingFragmentListener;
 import com.belatrixsf.allstars.ui.stars.GiveStarActivity;
 import com.belatrixsf.allstars.ui.stars.GiveStarFragment;
@@ -164,7 +164,7 @@ public class MainActivity extends AllStarsActivity implements HomeView, RankingF
 
     @Override
     public void goToLogin() {
-        startActivity(LogInActivity.makeIntent(this));
+        startActivity(LogiinActivity.makeIntent(this));
         finish();
     }
 

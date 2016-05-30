@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical"
-    tools:context=".ui.login.guest.LogInAsGuestActivity">
+    tools:context=".ui.login.guest.LogiinAsGuestActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
