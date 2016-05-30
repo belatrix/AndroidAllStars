@@ -28,6 +28,7 @@
     <string name="hint_old_password">Old Password</string>
     <string name="hint_new_password">New Password</string>
     <string name="hint_repeat_new_password">Repeat New Password</string>
+    <string name="hint_write_comment">Write a comment</string>
 
     <!-- Button -->
     <string name="button_log_in">Log In</string>
