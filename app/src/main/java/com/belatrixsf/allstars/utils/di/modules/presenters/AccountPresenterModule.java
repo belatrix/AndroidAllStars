@@ -21,7 +21,6 @@
 package com.belatrixsf.allstars.utils.di.modules.presenters;
 
 import com.belatrixsf.allstars.ui.account.AccountView;
-import com.belatrixsf.allstars.ui.login.LoginView;
 
 import dagger.Module;
 import dagger.Provides;

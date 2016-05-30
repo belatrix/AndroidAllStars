@@ -5,5 +5,5 @@
     android:name="com.belatrixsf.allstars.ui.login.LoginFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.belatrixsf.allstars.ui.login.LoginActivity"
+    tools:context=".ui.login.LoginActivity"
     tools:layout="@layout/fragment_login"/>
