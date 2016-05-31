@@ -50,11 +50,11 @@ public class LoginPresenter extends AllStarsPresenter<LoginView> {
     public void login(String username, String password) {
         if (areFieldsFilled(username, password)) {
             view.showProgressDialog();
-            employeeManager.login(username, password, new PresenterCallback<EmployeeManager.State>() {
+            employeeManager.login(username, password, new PresenterCallback<EmployeeManager.LoginResponseState>() {
                 @Override
-                public void onSuccess(EmployeeManager.State state) {
+                public void onSuccess(EmployeeManager.LoginResponseState loginResponseState) {
                     view.dismissProgressDialog();
-                    switch (state) {
+                    switch (loginResponseState) {
                         case PROFILE_COMPLETE:
                             view.goHome();
                             break;

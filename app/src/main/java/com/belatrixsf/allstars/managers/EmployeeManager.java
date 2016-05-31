@@ -35,7 +35,7 @@ import javax.inject.Singleton;
 @Singleton
 public class EmployeeManager {
 
-    public enum State {
+    public enum LoginResponseState {
         PROFILE_COMPLETE,
         PROFILE_INCOMPLETE,
         PASSWORD_RESET_INCOMPLETE
@@ -49,7 +49,7 @@ public class EmployeeManager {
         this.employeeService = employeeService;
     }
 
-    public void login(String username, String password, final AllStarsCallback<State> callback) {
+    public void login(String username, String password, final AllStarsCallback<LoginResponseState> callback) {
         employeeService.authenticate(username, password, new AllStarsCallback<AuthenticationResponse>() {
             @Override
             public void onSuccess(final AuthenticationResponse authenticationResponse) {
@@ -63,10 +63,10 @@ public class EmployeeManager {
                             EmployeeManager.this.employee = employee;
                             if (authenticationResponse.isBaseProfileComplete()){
                                 PreferencesManager.get().setEditProfile(true);
-                                callback.onSuccess(State.PROFILE_COMPLETE);
+                                callback.onSuccess(LoginResponseState.PROFILE_COMPLETE);
                             } else {
                                 PreferencesManager.get().setEditProfile(false);
-                                callback.onSuccess(State.PROFILE_INCOMPLETE);
+                                callback.onSuccess(LoginResponseState.PROFILE_INCOMPLETE);
                             }
                         }
 
@@ -77,7 +77,7 @@ public class EmployeeManager {
                     });
                 } else {
                     PreferencesManager.get().setResetPassword(false);
-                    callback.onSuccess(State.PASSWORD_RESET_INCOMPLETE);
+                    callback.onSuccess(LoginResponseState.PASSWORD_RESET_INCOMPLETE);
                 }
             }
 
