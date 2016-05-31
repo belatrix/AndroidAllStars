@@ -344,7 +344,9 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     }
 
     public void setProgressViewVisibility(int visibility) {
-        subCategoriesProgressBar.setVisibility(visibility);
+        if (subCategoriesProgressBar != null) {
+            subCategoriesProgressBar.setVisibility(visibility);
+        }
     }
 
     public void loadData() {

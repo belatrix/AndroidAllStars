@@ -105,7 +105,7 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
         searchingServiceRequest = employeeService.getEmployeeSearchList(
                 searchText,
                 contactsPaging.getNextPage(),
-                new AllStarsCallback<SearchEmployeeResponse>() {
+                new PresenterCallback<SearchEmployeeResponse>() {
                     @Override
                     public void onSuccess(SearchEmployeeResponse starsByKeywordsResponse) {
                         contactsPaging.setCount(starsByKeywordsResponse.getCount());
@@ -113,11 +113,6 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
                         contacts.addAll(starsByKeywordsResponse.getEmployeeList());
                         view.addContacts(starsByKeywordsResponse.getEmployeeList());
                         view.hideProgressIndicator();
-                    }
-
-                    @Override
-                    public void onFailure(ServiceError serviceError) {
-                        showError(serviceError.getDetail());
                     }
                 });
     }
