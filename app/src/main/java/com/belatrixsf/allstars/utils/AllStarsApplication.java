@@ -27,6 +27,7 @@ import com.belatrixsf.allstars.BuildConfig;
 import com.belatrixsf.allstars.utils.di.components.ApplicationComponent;
 import com.belatrixsf.allstars.utils.di.components.DaggerApplicationComponent;
 import com.crashlytics.android.Crashlytics;
+import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterCore;
 
@@ -49,7 +50,7 @@ public class AllStarsApplication extends Application {
         //TODO uncomment when production ready
         // if (!BuildConfig.DEBUG) {
         TwitterAuthConfig authConfig = new TwitterAuthConfig(BuildConfig.TWITTER_ID, BuildConfig.TWITTER_SECRET);
-        Fabric.with(this, new TwitterCore(authConfig), new Crashlytics());
+        Fabric.with(this, new Crashlytics(), new Twitter(authConfig),new TwitterCore(authConfig));
         // }
     }
 
