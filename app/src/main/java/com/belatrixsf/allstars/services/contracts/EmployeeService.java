@@ -53,7 +53,7 @@ public interface EmployeeService extends AllStarsService {
 
     ServiceRequest getEmployeeLocations(AllStarsCallback<List<Location>> callback);
 
-    ServiceRequest updateEmployeeImage(int employeeId, File file, AllStarsCallback<Void> callback);
+    ServiceRequest updateEmployeeImage(int employeeId, File file, AllStarsCallback<Employee> callback);
 
     ServiceRequest resetPassword(int employeeId, String oldPassword, String newPassword, AllStarsCallback<Employee> callback);
 
