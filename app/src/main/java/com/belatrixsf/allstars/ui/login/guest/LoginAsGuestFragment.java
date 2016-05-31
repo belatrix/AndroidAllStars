@@ -136,7 +136,7 @@ public class LoginAsGuestFragment extends AllStarsFragment implements LoginAsGue
             @Override
             public void success(Result<TwitterSession> result) {
                 Log.e("Twitter", result.toString());
-                TwitterSession session = Twitter.getSessionManager().getActiveSession();
+                TwitterSession session = result.data;
                 Twitter.getApiClient(session).getAccountService()
                         .verifyCredentials(true, false, new Callback<User>() {
                             @Override
