@@ -125,11 +125,11 @@ public class EmployeeServerService extends AllStarsBaseService implements Employ
     }
 
     @Override
-    public ServiceRequest updateEmployeeImage(int employeeId, File file, AllStarsCallback<Void> callback) {
+    public ServiceRequest updateEmployeeImage(int employeeId, File file, AllStarsCallback<Employee> callback) {
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
-        Call<Void> call = employeeAPI.updateEmployeeImage(employeeId, body);
-        ServiceRequest<Void> serviceRequest = new ServerServiceRequest<>(call);
+        Call<Employee> call = employeeAPI.updateEmployeeImage(employeeId, body);
+        ServiceRequest<Employee> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
         return serviceRequest;
     }

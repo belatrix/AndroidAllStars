@@ -26,8 +26,6 @@ import com.belatrixsf.allstars.entities.Location;
 import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.services.contracts.EmployeeService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
-import com.belatrixsf.allstars.utils.AllStarsCallback;
-import com.belatrixsf.allstars.utils.ServiceError;
 
 import java.io.File;
 import java.util.List;
@@ -113,7 +111,7 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
     }
 
     public void finishEdit(String firstName, String lastName, String skypeId) {
-        if (checkValidFirstName(firstName) && checkValidLastName(lastName) && checkValidSkypeId(skypeId)) {
+        if (checkValidFirstName(firstName) && checkValidLastName(lastName) && checkValidSkypeId(skypeId) && checkImageUploaded()) {
             view.showProgressDialog();
             employeeService.updateEmployee(employee.getPk(), firstName, lastName, skypeId, locationSelected.getPk(), new PresenterCallback<Employee>() {
                 @Override
@@ -127,6 +125,15 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
                     }
                 }
             });
+        }
+    }
+
+    private boolean checkImageUploaded() {
+        if (isNewUser && employee.getAvatar() != null) {
+            return true;
+        } else {
+            showError(getString(R.string.profile_pic_needed));
+            return false;
         }
     }
 
@@ -202,9 +209,11 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
         if (file != null) {
             selectedFile = file;
             view.showProfileImage(selectedFile.getAbsolutePath());
-            employeeService.updateEmployeeImage(employee.getPk(), selectedFile, new PresenterCallback<Void>() {
+            employeeManager.updateEmployeeImage(selectedFile, new PresenterCallback<Employee>() {
                 @Override
-                public void onSuccess(Void aVoid) {
+                public void onSuccess(Employee employee) {
+                    EditAccountPresenter.this.employee = employee;
+                    view.showProfileImage(employee.getAvatar());
                 }
             });
         }
