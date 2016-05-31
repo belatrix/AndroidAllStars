@@ -47,7 +47,7 @@ public class RecommendTest extends TestFunction{
     public ActivityTestRule<LoginActivity> mActivityRule = new ActivityTestRule<>(LoginActivity.class);
 
     @Test
-    public void RecommendUiTest(){
+    public void recommendViewTest(){
         loginTest.loginTest();
         findIdAndTap(R.id.start_recommendation);
         Context activityContext = mActivityRule.getActivity();
@@ -59,7 +59,7 @@ public class RecommendTest extends TestFunction{
     }
 
     @Test
-    public void RecommendActionTest(){
+    public void recommendActionTest(){
         loginTest.loginTest();
         findIdAndTap(R.id.start_recommendation);
         Context activityContext = mActivityRule.getActivity();

@@ -21,9 +21,31 @@
 
 package com.belatrixsf.allstars.test;
 
+import android.content.Context;
+import android.support.test.rule.ActivityTestRule;
+
+import com.belatrixsf.allstars.R;
+import com.belatrixsf.allstars.testFunction.TestFunction;
+import com.belatrixsf.allstars.ui.login.LoginActivity;
+
+import org.junit.Rule;
+import org.junit.Test;
+
 /**
- * Created by joyep on 5/25/16.
+ * Created by gcuzcano on 5/31/16.
  */
 
-public class KeywordsTest {
+public class KeywordsTest extends TestFunction {
+    LoginTest loginTest = new LoginTest();
+
+    @Rule
+    public ActivityTestRule<LoginActivity> mActivityRule = new ActivityTestRule<>(LoginActivity.class);
+
+    @Test
+    public void keywordsViewTest(){
+        loginTest.loginTest();
+        Context activityContext = mActivityRule.getActivity();
+        findTextAndTap(activityContext.getResources().getString(R.string.tab_keywords_title));
+        checkIfElementIsDisplayed(R.id.refresh_keywords);
+    }
 }
