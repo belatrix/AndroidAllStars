@@ -64,11 +64,15 @@ public class RecommendTest extends TestFunction{
         findIdAndTap(R.id.start_recommendation);
         Context activityContext = mActivityRule.getActivity();
         findTextAndTap(activityContext.getResources().getString(R.string.select_user));
-        findItemOnRecyclerViewAndTap(R.id.employees,0);
+        findItemOnRecyclerViewAndTap(R.id.employees,3);
         findTextAndTap(activityContext.getResources().getString(R.string.select_category));
         findItemOnRecyclerViewAndTap(R.id.categories,0);
+        findItemOnRecyclerViewAndTap(R.id.categories,0);
         findTextAndTap(activityContext.getResources().getString(R.string.hint_keyword));
-        findItemOnRecyclerViewAndTap(R.id.keyword,0);
+        findItemOnRecyclerViewAndTap(R.id.keywords,0);
+        findIdAndTap(R.id.action_done);
+        checkIfElementIsDisplayedWithText(activityContext.getResources().getString(R.string.success_recommendation));
+        findTextAndTap(activityContext.getResources().getString(R.string.dialog_option_confirm));
     }
 
 }
