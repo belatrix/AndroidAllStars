@@ -129,11 +129,11 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
     }
 
     private boolean checkImageUploaded() {
-        if (isNewUser && employee.getAvatar() != null) {
-            return true;
-        } else {
+        if (isNewUser && employee.getAvatar() == null) {
             showError(getString(R.string.profile_pic_needed));
             return false;
+        } else {
+            return true;
         }
     }
 
