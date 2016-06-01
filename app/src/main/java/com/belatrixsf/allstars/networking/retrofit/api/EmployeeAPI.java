@@ -78,6 +78,6 @@ public interface EmployeeAPI {
 
     @Multipart
     @POST(ServerPaths.EMPLOYEE_AVATAR)
-    Call<Void> updateEmployeeImage(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Part MultipartBody.Part file);
+    Call<Employee> updateEmployeeImage(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Part MultipartBody.Part file);
 
 }

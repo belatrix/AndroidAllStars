@@ -23,8 +23,12 @@ package com.belatrixsf.allstars.managers;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.allstars.services.contracts.EmployeeService;
+import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
+import com.belatrixsf.allstars.ui.login.LoginPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
+
+import java.io.File;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -123,6 +127,21 @@ public class EmployeeManager {
         } else {
             callback.onSuccess(employee);
         }
+    }
+
+    public void updateEmployeeImage(File selectedFile, final AllStarsCallback<Employee> callback) {
+        employeeService.updateEmployeeImage(employee.getPk(), selectedFile, new AllStarsCallback<Employee>() {
+            @Override
+            public void onSuccess(Employee employee) {
+                EmployeeManager.this.employee = employee;
+                callback.onSuccess(employee);
+            }
+
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                callback.onFailure(serviceError);
+            }
+        });
     }
 
     public void refreshEmployee() {
