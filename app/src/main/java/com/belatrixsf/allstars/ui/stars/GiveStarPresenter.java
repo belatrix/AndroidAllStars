@@ -30,8 +30,6 @@ import com.belatrixsf.allstars.networking.retrofit.requests.StarRequest;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarResponse;
 import com.belatrixsf.allstars.services.contracts.StarService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
-import com.belatrixsf.allstars.utils.AllStarsCallback;
-import com.belatrixsf.allstars.utils.ServiceError;
 
 import javax.inject.Inject;
 
@@ -103,9 +101,7 @@ public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
             if (employee.getLevel() != null && !employee.getLevel().toString().isEmpty()) {
                 view.showUserLevel(String.valueOf(employee.getLevel()));
             }
-            if (employee.getAvatar() != null) {
-                view.showUserProfileImage(employee.getAvatar());
-            }
+            view.showUserProfileImage(employee.getAvatar());
             this.selectedEmployee = employee;
             view.showUser();
             checkRecommendationEnabled();
