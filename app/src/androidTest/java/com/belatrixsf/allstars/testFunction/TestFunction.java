@@ -28,7 +28,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-
+import static org.hamcrest.core.IsNot.not;
 
 
 public class TestFunction extends ViewActionUtils {
@@ -82,6 +82,10 @@ public class TestFunction extends ViewActionUtils {
     public void checkIfElementIsEnabled(int id) {
         onView(isRoot()).perform(waitId(id, Constants.MILISECONDS));
         onView(ViewMatchers.withId(id)).check(matches(isEnabled()));
+    }
+    public void checkIfElementIsNotEnabled(int id) {
+        onView(isRoot()).perform(waitId(id, Constants.MILISECONDS));
+        onView(ViewMatchers.withId(id)).check(matches(not(isEnabled())));
     }
 
     public void checkIfElementIsChecked(int id) {

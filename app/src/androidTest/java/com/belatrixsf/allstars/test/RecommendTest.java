@@ -56,6 +56,7 @@ public class RecommendTest extends TestFunction{
         checkIfElementIsDisplayedWithText(activityContext.getResources().getString(R.string.hint_write_comment)); //Write a comment
         checkIfElementIsDisplayedWithText(activityContext.getResources().getString(R.string.select_category)); //Select category
         checkIfElementIsDisplayedWithText(activityContext.getResources().getString(R.string.hint_keyword)); //Select a Tag
+        checkIfElementIsNotEnabled(R.id.action_done);
     }
 
     @Test

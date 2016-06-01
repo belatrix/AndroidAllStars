@@ -23,13 +23,19 @@ package com.belatrixsf.allstars.test;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.test.espresso.intent.Intents;
 import android.support.test.rule.ActivityTestRule;
+
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.testFunction.TestFunction;
 import com.belatrixsf.allstars.ui.login.LoginActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
+
+import static android.support.test.espresso.intent.Intents.intended;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.toPackage;
 
 /**
  * Created by gcuzcano on 5/31/16.
@@ -43,11 +49,13 @@ public class EditProfile extends TestFunction {
 
     @Test
     public void takePhotoTest(){
+        Intents.init();
+        mActivityRule.launchActivity(new Intent());
         loginTest.loginTest();
         Context activityContext = mActivityRule.getActivity();
         findIdAndTap(R.id.edit_image);
         findTextAndTap(activityContext.getResources().getString(R.string.photo_option));
-        
+        intended(toPackage("com.motorola.camera"));
     }
 
 }
