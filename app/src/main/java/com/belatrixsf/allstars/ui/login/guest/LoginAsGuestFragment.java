@@ -23,11 +23,9 @@ package com.belatrixsf.allstars.ui.login.guest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.belatrixsf.allstars.BuildConfig;
 import com.belatrixsf.allstars.R;
@@ -47,6 +45,7 @@ import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterAuthClient;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 import com.twitter.sdk.android.core.models.User;
 
@@ -107,7 +106,6 @@ public class LoginAsGuestFragment extends AllStarsFragment implements LoginAsGue
         facebookLogInButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.d("FACEBOOK","On success");
                 GraphRequest request = GraphRequest.newMeRequest(
                         loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                             @Override
@@ -123,45 +121,60 @@ public class LoginAsGuestFragment extends AllStarsFragment implements LoginAsGue
 
             @Override
             public void onCancel() {
-                Log.d("FACEBOOK","On cancel");
             }
 
             @Override
             public void onError(FacebookException exception) {
-                Log.d("FACEBOOK",exception.toString());
+                loginAsGuestPresenter.facebookFailure();
             }
         });
 
         twitterLogInButton.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
-                Log.e("Twitter", result.toString());
-                TwitterSession session = result.data;
-                Twitter.getApiClient(session).getAccountService()
-                        .verifyCredentials(true, false, new Callback<User>() {
-                            @Override
-                            public void success(Result<User> userResult) {
-                                User user = userResult.data;
-                                String imageUrl = user.profileImageUrl;
-                                String email = user.email;
-                                String userName = user.name;
-                                System.out.println(imageUrl);
-                                System.out.println(email);
-                                System.out.println(userName);
-                            }
-                            @Override
-                            public void failure(TwitterException e) {
-
-                            }
-
-                        });
+                loginAsGuestPresenter.twitterSessionSuccess();
             }
 
             @Override
             public void failure(TwitterException exception) {
-                Toast.makeText(getActivity().getApplicationContext(),
-                        getResources().getString(R.string.app_name),
-                        Toast.LENGTH_SHORT).show();
+                loginAsGuestPresenter.twitterFailure();
+            }
+        });
+    }
+
+    @Override
+    public void requestEmail() {
+        TwitterAuthClient authClient = new TwitterAuthClient();
+        TwitterSession session = Twitter.getSessionManager().getActiveSession();
+        authClient.requestEmail(session, new Callback<String>() {
+            @Override
+            public void success(Result<String> result) {
+                String email = result.data;
+                loginAsGuestPresenter.twitterEmailSucces(email);
+            }
+
+            @Override
+            public void failure(TwitterException exception) {
+                loginAsGuestPresenter.twitterFailure();
+            }
+        });
+    }
+
+    @Override
+    public void requestUserData() {
+        TwitterSession session = Twitter.getSessionManager().getActiveSession();
+        Twitter.getApiClient(session).getAccountService().verifyCredentials(true, false, new Callback<User>() {
+            @Override
+            public void success(Result<User> userResult) {
+                User user = userResult.data;
+                final String pictureUrl = user.profileImageUrl;
+                final String userName = user.name;
+                loginAsGuestPresenter.twitterUserDataSuccess(pictureUrl, userName);
+            }
+
+            @Override
+            public void failure(TwitterException e) {
+                loginAsGuestPresenter.twitterFailure();
             }
         });
     }

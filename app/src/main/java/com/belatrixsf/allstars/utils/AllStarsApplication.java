@@ -50,7 +50,7 @@ public class AllStarsApplication extends Application {
         //TODO uncomment when production ready
         // if (!BuildConfig.DEBUG) {
         TwitterAuthConfig authConfig = new TwitterAuthConfig(BuildConfig.TWITTER_ID, BuildConfig.TWITTER_SECRET);
-        Fabric.with(this, new Crashlytics(), new Twitter(authConfig),new TwitterCore(authConfig));
+        Fabric.with(this, new Crashlytics(), new Twitter(authConfig), new TwitterCore(authConfig));
         // }
     }
 

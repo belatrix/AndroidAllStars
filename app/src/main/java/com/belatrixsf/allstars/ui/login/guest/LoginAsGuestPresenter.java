@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.allstars.ui.login.guest;
 
+import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.services.contracts.EmployeeService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 
@@ -34,6 +35,9 @@ import javax.inject.Inject;
 public class LoginAsGuestPresenter extends AllStarsPresenter<LoginAsGuestView> {
 
     private EmployeeService employeeService;
+    private String email;
+    private String pictureUrl;
+    private String name;
 
     @Inject
     public LoginAsGuestPresenter(LoginAsGuestView view, EmployeeService employeeService) {
@@ -48,13 +52,44 @@ public class LoginAsGuestPresenter extends AllStarsPresenter<LoginAsGuestView> {
     public void loginWithFacebook(JSONObject json){
         try {
             String id = json.getString("id");
-            String email = json.getString("email");
-            String firstName = json.getString("first_name");
-            String lastName = json.getString("last_name");
-
+            pictureUrl = "https://graph.facebook.com/" + id + "/picture?type=large";
+            email = json.getString("email");
+            name = json.getString("first_name") + json.getString("last_name");
+            if (activeSession()) {
+                //view.loginComplete();
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public void twitterSessionSuccess(){
+        view.requestEmail();
+    }
+
+    public void twitterEmailSucces(String email){
+        this.email = email;
+        view.requestUserData();
+    }
+
+    public void twitterUserDataSuccess(String pictureUrl, String name){
+        this.pictureUrl = pictureUrl;
+        this.name = name;
+        if (activeSession()) {
+            //view.loginComplete();
+        }
+    }
+
+    public void facebookFailure(){
+        view.showError(getString(R.string.error_facebook));
+    }
+
+    public void twitterFailure(){
+        view.showError(getString(R.string.error_twitter));
+    }
+
+    private boolean activeSession(){
+        return  email != null && pictureUrl != null && name != null;
     }
 
     @Override

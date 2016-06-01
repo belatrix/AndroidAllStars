@@ -27,6 +27,8 @@ import com.belatrixsf.allstars.ui.common.AllStarsView;
  */
 public interface LoginAsGuestView extends AllStarsView {
 
+    void requestEmail();
+    void requestUserData();
     void backToLogin();
 
 }
