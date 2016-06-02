@@ -68,6 +68,13 @@
     <string name="new_password_length_error">At least %s characters</string>
     <string name="new_password_repeat_error">Must be the same</string>
 
+    <!-- Menu -->
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="menu_title_home">Home</string>
+    <string name="menu_title_events">Events</string>
+    <string name="menu_title_logout">Logout</string>
+
     <!--Account-->
     <string name="title_current_month_score">Month score</string>
     <string name="title_score">Score</string>

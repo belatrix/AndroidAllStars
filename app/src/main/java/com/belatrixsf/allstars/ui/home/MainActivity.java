@@ -30,12 +30,18 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.view.ActionMode;
-import android.view.Menu;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
@@ -64,6 +70,9 @@ public class MainActivity extends AllStarsActivity implements HomeView, RankingF
 
     @Inject HomePresenter homePresenter;
 
+    @Bind(R.id.drawer) DrawerLayout drawerLayout;
+    @Bind(R.id.navigation) NavigationView navigationView;
+    @Bind(R.id.menu_logout) TextView menuLogoutTextView;
     @Bind(R.id.app_bar_layout) AppBarLayout appBarLayout;
     @Bind(R.id.tab_layout) TabLayout tabLayout;
     @Bind(R.id.main_view_pager) ViewPager mainViewPager;
@@ -71,29 +80,70 @@ public class MainActivity extends AllStarsActivity implements HomeView, RankingF
     @Bind(R.id.main_coordinator) CoordinatorLayout coordinatorLayout;
     @Bind(R.id.bottom_navigation) AHBottomNavigation bottomNavigation;
 
+    ActionBarDrawerToggle actionBarDrawerToggle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setToolbar();
+        setNavigationDrawer();
         setupViews();
         setupDependencies();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_home, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_logout:
-                homePresenter.wantToLogout();
+            case android.R.id.home:
+                drawerLayout.openDrawer(GravityCompat.START);
                 return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+    }
+
+    private void setNavigationDrawer(){
+        menuLogoutTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.closeDrawers();
+                homePresenter.wantToLogout();
+            }
+        });
+
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close){
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+            }
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+            }
+        };
+
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        drawerLayout.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
+        actionBarDrawerToggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(
+            new NavigationView.OnNavigationItemSelectedListener() {
+                @Override public boolean onNavigationItemSelected(MenuItem item) {
+                    item.setChecked(true);
+                    drawerLayout.closeDrawers();
+                    switch (item.getItemId()){
+                        case R.id.menu_home:
+                            Log.e(MainActivity.class.getCanonicalName(), "Home");
+                            break;
+                        case R.id.menu_event:
+                            Log.e(MainActivity.class.getCanonicalName(), "Event");
+                            break;
+                    }
+                    return true;
+                }
+            });
     }
 
     private void setupViews() {
