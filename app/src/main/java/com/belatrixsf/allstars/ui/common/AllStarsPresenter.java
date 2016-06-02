@@ -20,14 +20,16 @@
 */
 package com.belatrixsf.allstars.ui.common;
 
+import com.belatrixsf.allstars.utils.AllStarsCallback;
+import com.belatrixsf.allstars.utils.ServiceError;
+
 /**
  * @author gyosida
- *
- * AllStarsPresenter is the base clase for every presenter created
- * on the project, will hold the reference to the view and any common
- * interaction with it
+ *         AllStarsPresenter is the base clase for every presenter created
+ *         on the project, will hold the reference to the view and any common
+ *         interaction with it
  */
-public class AllStarsPresenter<T extends AllStarsView> {
+public abstract class AllStarsPresenter<T extends AllStarsView> {
 
     protected T view;
 
@@ -45,6 +47,18 @@ public class AllStarsPresenter<T extends AllStarsView> {
 
     protected void showError(String message) {
         view.showError(message);
+    }
+
+    public abstract void cancelRequests();
+
+    protected abstract class PresenterCallback<T> implements AllStarsCallback<T> {
+
+        @Override
+        public void onFailure(ServiceError serviceError) {
+            if (serviceError.getResponseCode() != ServiceError.CANCELLED) {
+                showError(serviceError.getDetail());
+            }
+        }
     }
 
 }

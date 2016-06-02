@@ -20,7 +20,7 @@
 */
 package com.belatrixsf.allstars.utils.di.modules.presenters;
 
-import com.belatrixsf.allstars.ui.givestar.GiveStarView;
+import com.belatrixsf.allstars.ui.stars.GiveStarView;
 
 import dagger.Module;
 import dagger.Provides;

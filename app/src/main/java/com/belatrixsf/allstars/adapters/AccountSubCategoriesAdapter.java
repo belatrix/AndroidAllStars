@@ -40,7 +40,7 @@ import butterknife.ButterKnife;
 /**
  * Created by pedrocarrillo on 4/9/16.
  */
-    public class AccountSubCategoriesAdapter extends LoadMoreBaseAdapter<SubCategory, RecyclerView.ViewHolder> {
+    public class AccountSubCategoriesAdapter extends LoadMoreBaseAdapter<SubCategory> {
 
     public static final int TYPE_SUB_CATEGORY = 1;
 

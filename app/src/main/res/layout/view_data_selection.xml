@@ -28,6 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:tint="@color/grey"
+        android:importantForAccessibility="no"
         android:backgroundTint="@color/grey"
         android:background="@drawable/ic_arrow_right"/>
 

@@ -1,3 +1,23 @@
+/* The MIT License (MIT)
+* Copyright (c) 2016 BELATRIX
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software.
+
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*/
 package com.belatrixsf.allstars.ui.category;
 
 
@@ -14,6 +34,7 @@ import android.view.ViewGroup;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.CategoriesAdapter;
 import com.belatrixsf.allstars.entities.Category;
+import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
@@ -31,25 +52,26 @@ import butterknife.Bind;
  */
 public class CategoriesFragment extends AllStarsFragment implements CategoriesView, CategoriesAdapter.CategoriesListListener {
 
-    private static final String CATEGORY_ID_KEY = "category_id_key";
+    private static final String CATEGORY_KEY = "category_key";
     private static final String CATEGORIES_KEY = "categories_key";
 
     private SubcategorySelectionListener subcategorySelectionListener;
     private CategoriesAdapter categoriesAdapter;
 
-    @Inject CategoriesPresenter categoriesPresenter;
+    @Inject
+    CategoriesPresenter categoriesPresenter;
 
-    @Bind(R.id.categories) RecyclerView categoriesRecyclerView;
-
+    @Bind(R.id.categories)
+    RecyclerView categoriesRecyclerView;
 
     public CategoriesFragment() {
         // Required empty public constructor
     }
 
-    public static CategoriesFragment newInstance(int categoryId) {
+    public static CategoriesFragment newInstance(Category category) {
         CategoriesFragment fragment = new CategoriesFragment();
         Bundle args = new Bundle();
-        args.putInt(CATEGORY_ID_KEY, categoryId);
+        args.putParcelable(CATEGORY_KEY, category);
         fragment.setArguments(args);
         return fragment;
     }
@@ -105,9 +127,9 @@ public class CategoriesFragment extends AllStarsFragment implements CategoriesVi
         categoriesRecyclerView.setAdapter(categoriesAdapter);
     }
 
-    private Integer getCategoryIdIfExists() {
+    private Category getCategoryIfExists() {
         if (getArguments() != null) {
-            return getArguments().getInt(CATEGORY_ID_KEY);
+            return getArguments().getParcelable(CATEGORY_KEY);
         }
         return null;
     }
@@ -128,7 +150,7 @@ public class CategoriesFragment extends AllStarsFragment implements CategoriesVi
     protected void initDependencies(AllStarsApplication allStarsApplication) {
         allStarsApplication
                 .getApplicationComponent()
-                .categoriesListComponent(new CategoriesListModule(this, getCategoryIdIfExists()))
+                .categoriesListComponent(new CategoriesListModule(this, getCategoryIfExists()))
                 .inject(this);
     }
 
@@ -138,7 +160,7 @@ public class CategoriesFragment extends AllStarsFragment implements CategoriesVi
     }
 
     @Override
-    public void notifySelection(Category subcategory) {
+    public void notifySelection(SubCategory subcategory) {
         subcategorySelectionListener.onSubcategorySelected(subcategory);
     }
 
@@ -154,11 +176,16 @@ public class CategoriesFragment extends AllStarsFragment implements CategoriesVi
 
     @Override
     public void showSubcategories(Category category) {
-        fragmentListener.replaceFragment(CategoriesFragment.newInstance(category.getId()), true);
+        fragmentListener.replaceFragment(CategoriesFragment.newInstance(category), true);
     }
 
     public interface SubcategorySelectionListener {
         void onSubcategorySelected(Category subcategory);
     }
 
+    @Override
+    public void onDestroyView() {
+        categoriesPresenter.cancelRequests();
+        super.onDestroyView();
+    }
 }

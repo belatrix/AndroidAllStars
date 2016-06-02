@@ -20,13 +20,14 @@
 */
 package com.belatrixsf.allstars.networking.retrofit.api;
 
-import com.belatrixsf.allstars.entities.Category;
+import com.belatrixsf.allstars.entities.SubCategory;
+import com.belatrixsf.allstars.entities.Keyword;
 
 import java.util.List;
 
-import retrofit.Call;
-import retrofit.http.GET;
-import retrofit.http.Path;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 /**
  * Created by gyosida on 4/26/16.
@@ -34,7 +35,9 @@ import retrofit.http.Path;
 public interface CategoryAPI {
 
     @GET(ServerPaths.SUBCATEGORIES_BY_CATEGORY_ID)
-    Call<List<Category>> getSubcategories(@Path(ServerPaths.CATEGORY_ID) int categoryId);
+    Call<List<SubCategory>> getSubcategories(@Path(ServerPaths.CATEGORY_ID) int categoryId);
 
+    @GET(ServerPaths.CATEGORY_KEYWORD_LIST)
+    Call<List<Keyword>> getKeywords();
 
 }

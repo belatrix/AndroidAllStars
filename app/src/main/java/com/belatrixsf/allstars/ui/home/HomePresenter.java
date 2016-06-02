@@ -48,4 +48,12 @@ public class HomePresenter extends AllStarsPresenter<HomeView> {
         view.goToLogin();
     }
 
+    @Override
+    public void cancelRequests() {
+    }
+
+    public void refreshEmployee() {
+        employeeManager.refreshEmployee();
+    }
+
 }

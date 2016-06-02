@@ -21,19 +21,23 @@
 package com.belatrixsf.allstars.ui.ranking;
 
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.RankingListAdapter;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.ui.account.AccountActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
+import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.Constants;
 import com.belatrixsf.allstars.utils.di.modules.presenters.RankingPresenterModule;
@@ -49,10 +53,16 @@ public class RankingFragment extends AllStarsFragment implements RankingView, Ra
 
     public static final String RANKING_KIND_KEY = "_ranking_kind_key";
 
-    @Bind(R.id.ranking) RecyclerView rankingRecyclerView;
-
     private RankingPresenter rankingPresenter;
     private RankingListAdapter rankingListAdapter;
+
+    private ImageView photoImageView;
+    @Bind(R.id.ranking)
+    RecyclerView rankingRecyclerView;
+    @Bind(R.id.progressBar)
+    ProgressBar loadingProgressBar;
+    @Bind(R.id.ranking_swipe_refresh)
+    SwipeRefreshLayout rankingSwipeRefresh;
 
     public static RankingFragment newInstance(String kind) {
         Bundle bundle = new Bundle();
@@ -84,9 +94,10 @@ public class RankingFragment extends AllStarsFragment implements RankingView, Ra
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initViews();
         if (getArguments() != null && getArguments().containsKey(RANKING_KIND_KEY)) {
-            rankingPresenter.getRankingList(getArguments().getString(RANKING_KIND_KEY), Constants.DEFAULT_QUANTITY);
+            initViews();
+            String kind = getArguments().getString(RANKING_KIND_KEY);
+            rankingPresenter.getRankingList(kind, Constants.DEFAULT_QUANTITY, false);
         }
     }
 
@@ -95,6 +106,14 @@ public class RankingFragment extends AllStarsFragment implements RankingView, Ra
         rankingRecyclerView.setAdapter(rankingListAdapter);
         rankingRecyclerView.setNestedScrollingEnabled(false);
         rankingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rankingRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
+        rankingSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                rankingListAdapter.clear();
+                rankingPresenter.getRankingList(getArguments().getString(RANKING_KIND_KEY), Constants.DEFAULT_QUANTITY, true);
+            }
+        });
     }
 
     @Override
@@ -103,15 +122,36 @@ public class RankingFragment extends AllStarsFragment implements RankingView, Ra
     }
 
     @Override
-    public void onEmployeeClicked(int position) {
+    public void onEmployeeClicked(int position, View view) {
+        photoImageView = (ImageView) view.findViewById(R.id.contact_photo);
         rankingPresenter.employeeSelected(position);
     }
 
     @Override
     public void goToEmployeeProfile(Integer employeeId) {
-        Intent intent = new Intent(getActivity(), AccountActivity.class);
-        intent.putExtra(AccountActivity.USER_ID_KEY, employeeId);
-        startActivity(intent);
+        AccountActivity.startActivityAnimatingProfilePic(getActivity(), photoImageView, employeeId);
     }
 
+    @Override
+    public void showProgressIndicator() {
+        loadingProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressIndicator() {
+        if (loadingProgressBar != null) {
+            loadingProgressBar.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void hideRefreshData() {
+        rankingSwipeRefresh.setRefreshing(false);
+    }
+
+    @Override
+    public void onDestroyView() {
+        rankingPresenter.cancelRequests();
+        super.onDestroyView();
+    }
 }

@@ -22,18 +22,27 @@ package com.belatrixsf.allstars.networking.retrofit.api;
 
 import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.entities.Location;
 import com.belatrixsf.allstars.networking.retrofit.requests.AuthenticationRequest;
+import com.belatrixsf.allstars.networking.retrofit.requests.CreateEmployeeRequest;
+import com.belatrixsf.allstars.networking.retrofit.requests.ResetPasswordRequest;
+import com.belatrixsf.allstars.networking.retrofit.requests.UpdateEmployeeRequest;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.RecommendationResponse;
+import com.belatrixsf.allstars.networking.retrofit.responses.CreateEmployeeResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
 
 import java.util.List;
 
-import retrofit.Call;
-import retrofit.http.Body;
-import retrofit.http.GET;
-import retrofit.http.POST;
-import retrofit.http.Path;
+import okhttp3.MultipartBody;
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.Multipart;
+import retrofit2.http.PATCH;
+import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by gyosida on 4/11/16.
@@ -43,22 +52,32 @@ public interface EmployeeAPI {
     @POST(ServerPaths.EMPLOYEE_AUTHENTICATE)
     Call<AuthenticationResponse> authenticate(@Body AuthenticationRequest request);
 
+    @POST(ServerPaths.EMPLOYEE_CREATE)
+    Call<CreateEmployeeResponse> createEmployee(@Body CreateEmployeeRequest request);
+
+    @POST(ServerPaths.EMPLOYEE_RESET_PASSWORD)
+    Call<Employee> resetPassword(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Body ResetPasswordRequest request);
+
     @GET(ServerPaths.EMPLOYEE_BY_ID)
     Call<Employee> getEmployee(@Path(ServerPaths.EMPLOYEE_ID) int employeeId);
 
     @GET(ServerPaths.EMPLOYEE_LIST)
-    Call<SearchEmployeeResponse> getEmployeeList();
-
-    @GET(ServerPaths.EMPLOYEE_SEARCH_TERM)
-    Call<SearchEmployeeResponse> getEmployeeSearchList(@Path(ServerPaths.SEARCH_TERM) String searchTerm);
-
-    @GET(ServerPaths.RECOMMENDATION_LIST)
-    Call<RecommendationResponse> getRecommendationList(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Path(ServerPaths.SUBCATEGORY_ID) int subcategoryId);
+    Call<SearchEmployeeResponse> getEmployeeSearchList(@Query(ServerPaths.SEARCH_TERM) String searchTerm, @Query(ServerPaths.PAGE) Integer page);
 
     @GET(ServerPaths.RANKING_LIST)
     Call<List<Employee>> getRankingList(@Path(ServerPaths.KIND) String kind, @Path(ServerPaths.QUANTITY) int quantity);
 
     @GET(ServerPaths.EMPLOYEE_CATEGORIES)
     Call<List<Category>> getEmployeeCategories(@Path(ServerPaths.EMPLOYEE_ID) int employeeId);
+
+    @PATCH(ServerPaths.EMPLOYEE_UPDATE)
+    Call<Employee> updateEmployee(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Body UpdateEmployeeRequest updateEmployeeRequest);
+
+    @GET(ServerPaths.EMPLOYEE_LOCATION_LIST)
+    Call<List<Location>> getEmployeeLocations();
+
+    @Multipart
+    @POST(ServerPaths.EMPLOYEE_AVATAR)
+    Call<Employee> updateEmployeeImage(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Part MultipartBody.Part file);
 
 }

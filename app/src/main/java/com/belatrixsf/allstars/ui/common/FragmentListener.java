@@ -20,8 +20,9 @@
 */
 package com.belatrixsf.allstars.ui.common;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
+import android.support.v7.widget.Toolbar;
 
 /**
  * Created by PedroCarrillo on 4/8/16.
@@ -31,8 +32,6 @@ public interface FragmentListener {
     void replaceFragment(Fragment fragment, boolean addToBackStack);
     void replaceFragment(int containerId, Fragment fragment, boolean addToBackStack);
     void showError(String message);
-    void showProgressIndicator();
-    void hideProgressIndicator();
     void showProgressDialog();
     void showProgressDialog(String message);
     void dismissProgressDialog();
@@ -40,5 +39,6 @@ public interface FragmentListener {
     void setActivityResult(int resultCode);
     void setActivityResult(int resultCode, Intent resultIntent);
     void setTitle(String title);
+    void setToolbar(Toolbar toolbar);
 
 }

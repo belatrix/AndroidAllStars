@@ -30,6 +30,10 @@ public class AuthenticationResponse {
     @SerializedName("user_id")
     private int employeeId;
     private String token;
+    @SerializedName("reset_password_code")
+    private String resetPasswordCode;
+    @SerializedName("base_profile_complete")
+    private boolean baseProfileComplete;
 
     public int getEmployeeId() {
         return employeeId;
@@ -37,5 +41,13 @@ public class AuthenticationResponse {
 
     public String getToken() {
         return token;
+    }
+
+    public String getResetPasswordCode() {
+        return resetPasswordCode;
+    }
+
+    public boolean isBaseProfileComplete() {
+        return baseProfileComplete;
     }
 }

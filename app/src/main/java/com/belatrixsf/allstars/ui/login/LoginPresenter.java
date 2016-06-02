@@ -20,10 +20,9 @@
 */
 package com.belatrixsf.allstars.ui.login;
 
+import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
-import com.belatrixsf.allstars.utils.AllStarsCallback;
-import com.belatrixsf.allstars.utils.ServiceError;
 
 import javax.inject.Inject;
 
@@ -41,7 +40,7 @@ public class LoginPresenter extends AllStarsPresenter<LoginView> {
     }
 
     public void checkIfInputsAreValid(String username, String password) {
-        view.enableLogin(username != null && password != null && !username.isEmpty() && !password.isEmpty());
+        view.enableLogin(areFieldsFilled(username, password));
     }
 
     public void init() {
@@ -49,18 +48,36 @@ public class LoginPresenter extends AllStarsPresenter<LoginView> {
     }
 
     public void login(String username, String password) {
-        view.showProgressDialog();
-        employeeManager.login(username, password, new AllStarsCallback<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                view.dismissProgressDialog();
-                view.goHome();
-            }
-
-            @Override
-            public void onFailure(ServiceError serviceError) {
-                showError(serviceError.getErrorMessage());
-            }
-        });
+        if (areFieldsFilled(username, password)) {
+            view.showProgressDialog();
+            employeeManager.login(username, password, new PresenterCallback<EmployeeManager.AccountState>() {
+                @Override
+                public void onSuccess(EmployeeManager.AccountState accountState) {
+                    view.dismissProgressDialog();
+                    switch (accountState) {
+                        case PROFILE_COMPLETE:
+                            view.goHome();
+                            break;
+                        case PROFILE_INCOMPLETE:
+                            view.goEditProfile();
+                            break;
+                        case PASSWORD_RESET_INCOMPLETE:
+                            view.goResetPassword();
+                            break;
+                    }
+                }
+            });
+        } else {
+            showError(R.string.error_incorrect_fields);
+        }
     }
+
+    private boolean areFieldsFilled(String username, String password) {
+        return username != null && password != null && !username.isEmpty() && !password.isEmpty();
+    }
+
+    @Override
+    public void cancelRequests() {
+    }
+
 }

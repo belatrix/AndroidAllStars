@@ -26,20 +26,26 @@ package com.belatrixsf.allstars.utils;
 public class ServiceError {
 
     public static final int UNKNOWN = 0;
+    public static final int CANCELLED = 1;
 
     private int responseCode;
-    private String errorMessage;
+    private String detail;
 
     public ServiceError(int responseCode, String errorMessage) {
         this.responseCode = responseCode;
-        this.errorMessage = errorMessage;
+        this.detail = errorMessage;
+    }
+
+    public void setResponseCode(int responseCode) {
+        this.responseCode = responseCode;
     }
 
     public int getResponseCode() {
         return responseCode;
     }
 
-    public String getErrorMessage() {
-        return errorMessage;
+    public String getDetail() {
+        return detail;
     }
+
 }

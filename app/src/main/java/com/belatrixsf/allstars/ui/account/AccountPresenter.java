@@ -26,8 +26,8 @@ import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.managers.PreferencesManager;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarSubCategoryResponse;
-import com.belatrixsf.allstars.services.EmployeeService;
-import com.belatrixsf.allstars.services.StarService;
+import com.belatrixsf.allstars.services.contracts.EmployeeService;
+import com.belatrixsf.allstars.services.contracts.StarService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
@@ -54,38 +54,51 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
     }
 
     public void loadEmployeeAccount() {
-        AllStarsCallback<Employee> employeeAllStarsCallback = new AllStarsCallback<Employee>() {
+        view.showProgressDialog();
+        AllStarsCallback<Employee> employeeAllStarsCallback = new PresenterCallback<Employee>() {
             @Override
             public void onSuccess(Employee employee) {
                 AccountPresenter.this.employee = employee;
                 loadSubCategoriesStar();
                 showEmployeeData();
+                view.dismissProgressDialog();
+                view.showProgressIndicator();
             }
 
             @Override
             public void onFailure(ServiceError serviceError) {
-                showError(serviceError.getErrorMessage());
+                view.dismissProgressDialog();
+                super.onFailure(serviceError);
             }
         };
         if (employeeId == null) {
             employeeManager.getLoggedInEmployee(employeeAllStarsCallback);
-        } else{
+        } else {
             employeeService.getEmployee(employeeId, employeeAllStarsCallback);
         }
     }
 
     private void loadSubCategoriesStar() {
-        starService.getEmployeeSubCategoriesStars(employee.getPk(), new AllStarsCallback<StarSubCategoryResponse>() {
-            @Override
-            public void onSuccess(StarSubCategoryResponse starSubCategoryResponse) {
-                view.showSubCategories(starSubCategoryResponse.getSubCategories());
-            }
+        starService.getEmployeeSubCategoriesStars(
+                employee.getPk(),
+                new PresenterCallback<StarSubCategoryResponse>() {
+                    @Override
+                    public void onSuccess(StarSubCategoryResponse starSubCategoryResponse) {
+                        view.hideProgressIndicator();
+                        if (starSubCategoryResponse.getSubCategories().isEmpty()) {
+                            view.showNoDataView();
+                        } else {
+                            view.hideNoDataView();
+                            view.showSubCategories(starSubCategoryResponse.getSubCategories());
+                        }
+                    }
 
-            @Override
-            public void onFailure(ServiceError serviceError) {
-                showError(serviceError.getErrorMessage());
-            }
-        });
+                    @Override
+                    public void onFailure(ServiceError serviceError) {
+                        view.hideProgressIndicator();
+                        super.onFailure(serviceError);
+                    }
+                });
     }
 
     public void setUserId(Integer employeeId) {
@@ -93,13 +106,16 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
     }
 
     private void showEmployeeData() {
+        if (employee.getLocation() != null) {
+            view.showLocation(employee.getLocation().getName());
+        }
         if (employee.getLevel() != null) {
             view.showLevel(String.valueOf(employee.getLevel()));
         } else {
             view.showCurrentMonthScore(getString(R.string.no_data_option));
         }
-        if (employee.getScore() != null) {
-            view.showScore(String.valueOf(employee.getScore()));
+        if (employee.getTotalScore() != null) {
+            view.showScore(String.valueOf(employee.getTotalScore()));
         } else {
             view.showCurrentMonthScore(getString(R.string.no_data_option));
         }
@@ -116,14 +132,12 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
         if (employee.getSkypeId() != null && !employee.getSkypeId().isEmpty()) {
             view.showSkypeId(employee.getSkypeId());
         }
-        if (employee.getRole() != null) {
-            view.showRole(employee.getRole().getName());
+        if (employee.getEmail() != null && !employee.getEmail().isEmpty()) {
+            view.showEmail(employee.getEmail());
         } else {
-            view.showRole(getString(R.string.no_data));
+            view.showEmail(getString(R.string.no_data));
         }
-        if (employee.getAvatar() != null) {
-            view.showProfilePicture(employee.getAvatar());
-        }
+        view.showProfilePicture(employee.getAvatar());
         checkRecommendationEnabled();
     }
 
@@ -135,13 +149,31 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
     }
 
     public void checkRecommendationEnabled() {
-        if (PreferencesManager.get().getEmployeeId() != employee.getPk()) {
-            view.showRecommendMenu(true);
+        if (employee != null) {
+            if (PreferencesManager.get().getEmployeeId() != employee.getPk()) {
+                view.showRecommendMenu(true);
+            } else {
+                view.showEditProfileButton(true);
+            }
         }
     }
 
     public void startRecommendation() {
         view.goToGiveStar(employee);
+    }
+
+    public void startEditProfile() {
+        view.goToEditProfile(employee);
+    }
+
+    public void refreshEmployee() {
+        employeeManager.refreshEmployee();
+    }
+
+    @Override
+    public void cancelRequests() {
+        employeeService.cancelAll();
+        starService.cancelAll();
     }
 
 }

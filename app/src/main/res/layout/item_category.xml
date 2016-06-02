@@ -8,18 +8,21 @@
     android:gravity="center_vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    style="@style/ItemListStyle">
+    style="@style/ItemList">
 
     <TextView
         android:id="@+id/category_name"
         android:layout_weight="1"
         tools:text="Coworkers"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         style="@style/SingleLineItemTextView" />
 
     <ImageView
         android:id="@+id/chevron_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:importantForAccessibility="no"
         android:tint="@color/grey"
         android:backgroundTint="@color/grey"
         android:src="@drawable/ic_chevron_right"/>

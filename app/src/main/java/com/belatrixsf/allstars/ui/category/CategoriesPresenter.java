@@ -23,9 +23,10 @@ package com.belatrixsf.allstars.ui.category;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Category;
 import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.managers.EmployeeManager;
-import com.belatrixsf.allstars.services.CategoryService;
-import com.belatrixsf.allstars.services.EmployeeService;
+import com.belatrixsf.allstars.services.contracts.CategoryService;
+import com.belatrixsf.allstars.services.contracts.EmployeeService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
@@ -41,26 +42,26 @@ public class CategoriesPresenter extends AllStarsPresenter<CategoriesView> {
     private EmployeeService employeeService;
     private EmployeeManager employeeManager;
     private List<Category> categories;
-    private Integer categoryId;
+    private Category category;
 
-    public CategoriesPresenter(CategoriesView view, CategoryService categoryService, Integer categoryId) {
-        this(view, null, null, categoryService, categoryId);
+    public CategoriesPresenter(CategoriesView view, CategoryService categoryService, Category category) {
+        this(view, null, null, categoryService, category);
     }
 
     public CategoriesPresenter(CategoriesView view, EmployeeManager employeeManager, EmployeeService employeeService) {
         this(view, employeeManager, employeeService, null, null);
     }
 
-    private CategoriesPresenter(CategoriesView view, EmployeeManager employeeManager, EmployeeService employeeService, CategoryService categoryService, Integer categoryId) {
+    private CategoriesPresenter(CategoriesView view, EmployeeManager employeeManager, EmployeeService employeeService, CategoryService categoryService, Category category) {
         super(view);
         this.categoryService = categoryService;
         this.employeeService = employeeService;
         this.employeeManager = employeeManager;
-        this.categoryId = categoryId;
+        this.category = category;
     }
 
     public void init() {
-        view.setTitle(viewPresentsCategories()? getString(R.string.title_select_category) : getString(R.string.title_select_subcategory));
+        view.setTitle(viewPresentsCategories() ? getString(R.string.title_select_category) : getString(R.string.title_select_subcategory));
     }
 
     public void getCategories() {
@@ -68,22 +69,17 @@ public class CategoriesPresenter extends AllStarsPresenter<CategoriesView> {
             if (viewPresentsCategories()) {
                 if (employeeManager != null && employeeService != null) {
                     view.showProgressIndicator();
-                    employeeManager.getLoggedInEmployee(new AllStarsCallback<Employee>() {
+                    employeeManager.getLoggedInEmployee(new PresenterCallback<Employee>() {
                         @Override
                         public void onSuccess(Employee employee) {
                             employeeService.getEmployeeCategories(employee.getPk(), categoriesCallback);
-                        }
-
-                        @Override
-                        public void onFailure(ServiceError serviceError) {
-                            showError(serviceError.getErrorMessage());
                         }
                     });
                 }
             } else {
                 if (categoryService != null) {
                     view.showProgressIndicator();
-                    categoryService.getSubcategories(categoryId, categoriesCallback);
+                    categoryService.getSubcategories(category.getId(), categoriesCallback);
                 }
             }
         } else {
@@ -95,8 +91,9 @@ public class CategoriesPresenter extends AllStarsPresenter<CategoriesView> {
         if (position >= 0 && position < categories.size()) {
             Category category = categories.get(position);
             if (!viewPresentsCategories()) {
-                category.setParentId(categoryId);
-                view.notifySelection(category);
+                SubCategory subCategory = (SubCategory) category;
+                subCategory.setParentCategory(this.category);
+                view.notifySelection(subCategory);
             } else {
                 view.showSubcategories(category);
             }
@@ -113,25 +110,29 @@ public class CategoriesPresenter extends AllStarsPresenter<CategoriesView> {
 
     private void showItemsAndNotifyIfAreSubcategories() {
         view.showCategories(categories);
-        view.notifyAreSubcategories(categoryId != null);
+        view.notifyAreSubcategories(category != null);
     }
 
     private boolean viewPresentsCategories() {
-        return categoryId == null;
+        return category == null;
     }
 
-    private AllStarsCallback<List<Category>> categoriesCallback = new AllStarsCallback<List<Category>>() {
+    private AllStarsCallback<List<Category>> categoriesCallback = new PresenterCallback<List<Category>>() {
         @Override
         public void onSuccess(List<Category> categories) {
             CategoriesPresenter.this.categories = categories;
             showItemsAndNotifyIfAreSubcategories();
             view.hideProgressIndicator();
         }
-
-        @Override
-        public void onFailure(ServiceError serviceError) {
-            showError(serviceError.getErrorMessage());
-        }
     };
 
+    @Override
+    public void cancelRequests() {
+        if (categoryService != null) {
+            categoryService.cancelAll();
+        }
+        if (employeeService != null) {
+            employeeService.cancelAll();
+        }
+    }
 }

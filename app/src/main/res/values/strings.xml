@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">All Stars Belatrix</string>
-    <string name="title_activity_example">ExampleActivity</string>
-    <string name="categories">Categories</string>
     <string name="no_data">No data found</string>
     <string name="no_data_option">-</string>
 
@@ -14,43 +12,83 @@
     <string name="dialog_confirmation_logout">Are you sure you want to logout?</string>
     <string name="dialog_option_positive">Yes</string>
     <string name="dialog_option_negative">No</string>
+    <string name="dialog_option_confirm">Got it!</string>
+
+    <!-- Error -->
+    <string name="error_incorrect_fields">Make sure the fields are filled correctly</string>
 
     <!-- Hint -->
     <string name="hint_username">Username</string>
     <string name="hint_password">Password</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_first_name">First Name</string>
+    <string name="hint_last_name">Last Name</string>
+    <string name="hint_skype_id">Skype Id</string>
+    <string name="hint_keyword">Select a Tag</string>
+    <string name="hint_old_password">Old Password</string>
+    <string name="hint_new_password">New Password</string>
+    <string name="hint_repeat_new_password">Repeat New Password</string>
+    <string name="hint_write_comment">Write a comment</string>
 
     <!-- Button -->
     <string name="button_log_in">Log In</string>
+    <string name="button_sign_up">New user? Sign Up!</string>
+    <string name="button_sign_up_action">Register</string>
+    <string name="button_reset">Reset</string>
 
     <!-- Title -->
-    <string name="title_belatrix">Belatrix</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="title_reset_password_activity">Reset Password</string>
     <string name="title_select_category">Select Category</string>
     <string name="title_select_subcategory">Select Subcategory</string>
     <string name="title_account_activity">Profile</string>
     <string name="title_contact_activity">Select an user</string>
-    <string name="title_recommendation_activity">Recommendation</string>
+    <string name="title_recommendation_activity">Recommendations</string>
     <string name="title_give_star_activity">Give a recommendation</string>
     <string name="title_comment_activity">Write a comment</string>
+    <string name="title_keywords_activity">Select a Tag</string>
+    <string name="title_keyword">Tag</string>
+    <string name="title_contacts_keyword_activity">Tag Top</string>
+    <string name="title_keyword_top">%s Top</string>
+    <string name="title_edit_profile_activity">Edit Profile</string>
+    <string name="title_full_name">Full Name</string>
+    <string name="tab_account_title">Account</string>
+    <string name="tab_ranking_title">Ranking</string>
+    <string name="tab_contacts_title">Contacts</string>
+    <string name="tab_keywords_title">Tags</string>
 
-    <!-- Login -->
+    <!-- Login and Register -->
     <string name="title_login">Belatrix All Stars</string>
+    <string name="let_s_get_started">Let\'s get started</string>
+    <string name="enter_your_email_address_to_receive_your_temporary_password">Enter your email address to receive your temporary password</string>
+
+    <!-- Reset Password -->
+    <string name="secure_your_account">Secure you account</string>
+    <string name="change_your_password">Change your password so you can remember it</string>
+    <string name="new_password_length_error">At least %s characters</string>
+    <string name="new_password_repeat_error">Must be the same</string>
 
     <!--Account-->
-    <string name="title_skype_id">Skype Id</string>
     <string name="title_current_month_score">Month score</string>
-    <string name="title_full_name">Full Name</string>
-    <string name="title_category">Category</string>
     <string name="title_score">Score</string>
     <string name="title_level">Level</string>
     <string name="skype_id_content">Skype : %s</string>
+    <string name="empty_error">Field must not be empty</string>
+
+    <!--Edit account-->
+    <string name="edit_profile">Edit</string>
+    <string name="location_head">Location:</string>
+    <string name="photo_option">Take a photo</string>
+    <string name="gallery_option">Pick from gallery</string>
+    <string name="select_photo_title">Upload a picture</string>
+    <string name="select_image_title">Select an image</string>
+    <string name="permission_profile">The application needs write and camera permissions to be able to edit your profile picture</string>
 
     <!--Give a star-->
     <string name="select_user">Select user</string>
     <string name="select_category">Select Category</string>
     <string name="option_select_a_user">Select a user</string>
     <string name="hint_comment">Add a comment (up to 100 characters)</string>
-    <string name="comment_no_empty_error">Comment cannot be empty</string>
     <string name="success_recommendation">Recommendation completed</string>
 
     <!--Contacts-->
@@ -63,21 +101,29 @@
     <string name="tab_all_time">All Time</string>
 
     <!--Messages-->
-    <string name="empty_search_term">Must write something</string>
     <string name="making_recommendation">Making recommendation</string>
+    <string name="no_data_found">No data found</string>
 
     <!--Recommendation-->
-    <string name="title_user">User</string>
-    <string name="title_message">Message</string>
-    <string name="title_content_from">From:</string>
-    <string name="title_content_message">Message:</string>
-    <string name="title_content_category">Category:</string>
-    <string name="title_content_date">Date:</string>
     <string name="message_placeholder">No message</string>
+    <string name="fullname_placeholder">Anonymous</string>
+    <string name="level_placeholder">No data</string>
+    <string name="hashtag">#</string>
 
     <!--Actions-->
     <string name="action_recommend">Recommend</string>
     <string name="action_search">Search</string>
     <string name="done">DONE</string>
     <string name="ranking_tag">ranking_tag</string>
+
+    <!-- Transition names -->
+    <string name="transition_photo">transition_photo</string>
+
+    <!--Content description-->
+    <string name="location_content_desc">Location icon</string>
+    <string name="profile_image_content_desc">Profile image</string>
+    <string name="close_content_desc">Close button</string>
+    <string name="email_content_desc">Email icon</string>
+    <string name="profile_pic_needed">You need to upload a profile picture</string>
+
 </resources>

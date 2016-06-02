@@ -6,8 +6,10 @@
 * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 * copies of the Software, and to permit persons to whom the Software is
 * furnished to do so, subject to the following conditions:
+
 * The above copyright notice and this permission notice shall be included in all
 * copies or substantial portions of the Software.
+
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -18,7 +20,6 @@
 */
 package com.belatrixsf.allstars.adapters;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,10 +29,8 @@ import android.widget.TextView;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Employee;
-import com.belatrixsf.allstars.ui.common.views.BorderedCircleTransformation;
-import com.belatrixsf.allstars.ui.common.views.CircleTransformation;
-import com.belatrixsf.allstars.utils.Constants;
-import com.bumptech.glide.Glide;
+import com.belatrixsf.allstars.utils.media.ImageFactory;
+import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +43,10 @@ import butterknife.OnClick;
  * Created by icerrate on 28/04/2016.
  */
 public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.EmployeeViewHolder> {
+
+    static final int FIRST_POSITION = 1;
+    static final int SECOND_POSITION = 2;
+    static final int THIRD_POSITION = 3;
 
     private List<Employee> rankingList;
     private RankingListClickListener rankingListClickListener;
@@ -66,42 +69,29 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
     @Override
     public void onBindViewHolder(EmployeeViewHolder holder, int position) {
         final Employee employee = rankingList.get(position);
-        int place = position + Constants.ONE_UNIT;
+        int place = position + 1;
         int cupResourceId;
-        if (place<=3) {
-            int crownResourceId;
-            switch (place) {
-                case 1:
-                    crownResourceId = R.drawable.ic_first_place;
-                    cupResourceId = R.drawable.ic_first_place_cup;
-                    break;
-                case 2:
-                    crownResourceId = R.drawable.ic_second_place;
-                    cupResourceId = R.drawable.ic_second_place_cup;
-                    break;
-                default:
-                    crownResourceId = R.drawable.ic_third_place;
-                    cupResourceId = R.drawable.ic_third_place_cup;
-                    break;
-            }
-            holder.positionCrown.setBackgroundResource(crownResourceId);
-            holder.positionCrown.setVisibility(View.VISIBLE);
-            holder.positionNumber.setVisibility(View.GONE);
-        }else{
-            cupResourceId = R.drawable.ic_cup;
-            holder.positionNumber.setText(String.valueOf(place));
-            holder.positionCrown.setVisibility(View.GONE);
-            holder.positionNumber.setVisibility(View.VISIBLE);
+        switch (place) {
+            case FIRST_POSITION:
+                cupResourceId = R.drawable.ic_first_place_cup;
+                break;
+            case SECOND_POSITION:
+                cupResourceId = R.drawable.ic_second_place_cup;
+                break;
+            case THIRD_POSITION:
+                cupResourceId = R.drawable.ic_third_place_cup;
+                break;
+            default:
+                cupResourceId = R.drawable.ic_cup;
+                break;
         }
+        holder.positionNumber.setText(String.valueOf(place));
+        holder.positionNumber.setVisibility(View.VISIBLE);
         holder.scoreCup.setBackgroundResource(cupResourceId);
         holder.fullName.setText(employee.getFullName());
-        String levelLabel = String.format(holder.level.getContext().getString(R.string.contact_list_level), String.valueOf(employee.getLevel()));
-        holder.level.setText(levelLabel);
-        holder.score.setText(String.valueOf(employee.getScore()));
-        if (employee.getAvatar() != null) {
-            Context context = holder.photo.getContext();
-            Glide.with(context).load(employee.getAvatar()).fitCenter().transform(new CircleTransformation(context)).into(holder.photo);
-        }
+        String stringScore = String.valueOf(employee.getValue());
+        holder.score.setText(stringScore);
+        ImageFactory.getLoader().loadFromUrl(employee.getAvatar(), holder.photo, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
     }
 
     @Override
@@ -109,21 +99,29 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
         return this.rankingList.size();
     }
 
-    public void updateData(List<Employee> ranking){
+    public void updateData(List<Employee> ranking) {
         rankingList.clear();
         rankingList.addAll(ranking);
         notifyDataSetChanged();
     }
 
-    static class EmployeeViewHolder extends RecyclerView.ViewHolder{
+    public void clear() {
+        rankingList.clear();
+        notifyDataSetChanged();
+    }
 
-        @Bind(R.id.position_number) public TextView positionNumber;
-        @Bind(R.id.position_crown) public ImageView positionCrown;
-        @Bind(R.id.photo) public ImageView photo;
-        @Bind(R.id.full_name) public TextView fullName;
-        @Bind(R.id.level) public TextView level;
-        @Bind(R.id.score_cup) public ImageView scoreCup;
-        @Bind(R.id.score_number) public TextView score;
+    static class EmployeeViewHolder extends RecyclerView.ViewHolder {
+
+        @Bind(R.id.position_number)
+        public TextView positionNumber;
+        @Bind(R.id.contact_photo)
+        public ImageView photo;
+        @Bind(R.id.contact_full_name)
+        public TextView fullName;
+        @Bind(R.id.score_cup)
+        public ImageView scoreCup;
+        @Bind(R.id.score_number)
+        public TextView score;
 
         private RankingListClickListener rankingListClickListener;
 
@@ -134,17 +132,17 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
         }
 
         @OnClick(R.id.layout_container)
-        public void onClick() {
+        public void onClick(View view) {
             if (rankingListClickListener != null) {
-                rankingListClickListener.onEmployeeClicked(getLayoutPosition());
+                rankingListClickListener.onEmployeeClicked(getLayoutPosition(), view);
             }
         }
-
     }
 
     public interface RankingListClickListener {
 
-        void onEmployeeClicked(int position);
+        void onEmployeeClicked(int position, View view);
 
     }
+
 }

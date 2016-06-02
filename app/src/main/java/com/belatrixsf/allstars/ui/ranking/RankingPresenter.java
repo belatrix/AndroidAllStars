@@ -21,7 +21,7 @@
 package com.belatrixsf.allstars.ui.ranking;
 
 import com.belatrixsf.allstars.entities.Employee;
-import com.belatrixsf.allstars.services.EmployeeService;
+import com.belatrixsf.allstars.services.contracts.EmployeeService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
@@ -44,23 +44,43 @@ public class RankingPresenter extends AllStarsPresenter<RankingView> {
         this.employeeService = employeeService;
     }
 
-    public void getRankingList(String kind, int quantity) {
-        employeeService.getRankingList(kind, quantity, new AllStarsCallback<List<Employee>>() {
-            @Override
-            public void onSuccess(List<Employee> rankingResponse) {
-                rankingEmployees = rankingResponse;
-                view.showRankingList(rankingResponse);
-            }
+    public void getRankingList(String kind, int quantity, final boolean isRefresh) {
+        if (!isRefresh) {
+            view.showProgressIndicator();
+        }
+        employeeService.getRankingList(
+                kind,
+                quantity,
+                new PresenterCallback<List<Employee>>() {
+                    @Override
+                    public void onSuccess(List<Employee> rankingResponse) {
+                        rankingEmployees = rankingResponse;
+                        view.showRankingList(rankingResponse);
+                        if (!isRefresh) {
+                            view.hideProgressIndicator();
+                        } else {
+                            view.hideRefreshData();
+                        }
+                    }
 
-            @Override
-            public void onFailure(ServiceError serviceError) {
-                showError(serviceError.getErrorMessage());
-            }
-        });
+                    @Override
+                    public void onFailure(ServiceError serviceError) {
+                        if (!isRefresh) {
+                            view.hideProgressIndicator();
+                        } else {
+                            view.hideRefreshData();
+                        }
+                        super.onFailure(serviceError);
+                    }
+                });
     }
 
     public void employeeSelected(int position) {
         view.goToEmployeeProfile(rankingEmployees.get(position).getPk());
     }
 
+    @Override
+    public void cancelRequests() {
+        employeeService.cancelAll();
+    }
 }

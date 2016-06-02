@@ -32,5 +32,6 @@ public interface RankingView extends AllStarsView {
 
     void showRankingList(List<Employee> rankingList);
     void goToEmployeeProfile(Integer employeeId);
+    void hideRefreshData();
 
 }

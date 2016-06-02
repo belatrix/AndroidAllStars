@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="?attr/listPreferredItemHeightLarge"
+    android:id="@+id/contact_holder"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:padding="@dimen/activity_horizontal_margin"
-    style="@style/ItemListStyle">
+    style="@style/LargeItemList">
 
     <ImageView
-        android:id="@+id/photo"
-        android:layout_width="@dimen/dimen_9_5"
-        android:layout_height="@dimen/dimen_9_5"
-        android:scaleType="centerCrop"
-        tools:src="@drawable/ic_user" />
+        android:id="@+id/contact_photo"
+        android:layout_width="@dimen/dimen_10_6"
+        android:layout_height="@dimen/dimen_10_6"
+        tools:src="@drawable/ic_user"
+        android:contentDescription="@string/profile_image_content_desc"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,20 +21,19 @@
         android:paddingLeft="@dimen/activity_horizontal_margin">
 
         <TextView
-            android:id="@+id/full_name"
+            android:id="@+id/contact_full_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_16"
             tools:text="@string/title_full_name" />
 
         <TextView
-            android:id="@+id/level"
+            android:id="@+id/contact_level"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/grey"
             tools:text="@string/title_level" />
 
     </LinearLayout>
-    <!--<include layout="@layout/view_contact_data" />-->
 
 </LinearLayout>

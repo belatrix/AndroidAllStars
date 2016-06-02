@@ -1,16 +1,35 @@
+/* The MIT License (MIT)
+* Copyright (c) 2016 BELATRIX
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software.
+
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*/
 package com.belatrixsf.allstars.ui.ranking;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.utils.Constants;
 
@@ -20,8 +39,8 @@ import com.belatrixsf.allstars.utils.Constants;
 public class RankingContainerFragment extends Fragment {
 
     private RankingFragmentListener rankingFragmentListener;
-    public static final int TAB_CURRENT_MONTH = 0;
-    public static final int TAB_LAST_MONTH = 1;
+    public static final int TAB_LAST_MONTH = 0;
+    public static final int TAB_CURRENT_MONTH = 1;
     public static final int TAB_ALL_TIME = 2;
 
     public static RankingContainerFragment newInstance() {
@@ -40,12 +59,12 @@ public class RankingContainerFragment extends Fragment {
         rankingFragmentListener.setBottomTabListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position, boolean wasSelected) {
-                if (position == TAB_CURRENT_MONTH && !wasSelected) {
-                    replaceChildFragment(RankingFragment.newInstance(Constants.KIND_CURRENT_MONTH));
-                } else if (position == TAB_LAST_MONTH && !wasSelected) {
+                if (position == TAB_LAST_MONTH && !wasSelected) {
                     replaceChildFragment(RankingFragment.newInstance(Constants.KIND_LAST_MONTH_SCORE));
+                } else if (position == TAB_CURRENT_MONTH && !wasSelected) {
+                    replaceChildFragment(RankingFragment.newInstance(Constants.KIND_CURRENT_MONTH));
                 } else if (position == TAB_ALL_TIME && !wasSelected) {
-                    replaceChildFragment(RankingFragment.newInstance(Constants.KIND_SCORE));
+                    replaceChildFragment(RankingFragment.newInstance(Constants.KIND_TOTAL_SCORE));
                 }
             }
         });
@@ -67,7 +86,7 @@ public class RankingContainerFragment extends Fragment {
         try {
             rankingFragmentListener = (RankingFragmentListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement ContactFragmentListener");
+            throw new ClassCastException(context.toString() + " must implement RankingFragmentListener");
         }
     }
 

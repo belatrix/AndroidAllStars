@@ -7,15 +7,18 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionModeOverlay">true</item>
-        <item name="android:actionModeBackground">@color/white</item>
-        <item name="android:actionModeCloseDrawable">@drawable/ic_arrow_back</item>
-        <item name="android:actionModeSplitBackground">@color/colorPrimary</item>
-        <item name="android:actionModeCloseButtonStyle">@color/colorPrimary</item>
+        <!-- Override the ActionMode Style -->
+        <item name="actionModeStyle">@style/ActionMode</item>
+        <item name="actionModeCloseDrawable">@drawable/ic_arrow_back</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="ActionMode" parent="Widget.AppCompat.ActionMode">
+        <item name="background">@color/white</item>
     </style>
 
     <style name="TextView" parent="android:TextAppearance">
@@ -42,9 +45,21 @@
         <item name="android:background">@drawable/selector_accent_button</item>
     </style>
 
-    <style name="ItemListStyle">
-        <item name="android:background">@drawable/general_selector</item>
-        <item name="android:clickable">true</item>
+    <style name="Button.Primary">
+        <item name="android:textColor">@color/selector_text_primary_button</item>
+        <item name="android:background">@drawable/selector_primary_button</item>
+    </style>
+
+    <style name="ItemList">
+        <item name="android:layout_height">?attr/listPreferredItemHeight</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingLeft">?listPreferredItemPaddingLeft</item>
+        <item name="android:paddingRight">?listPreferredItemPaddingLeft</item>
+        <item name="android:background">@drawable/selector_default_item</item>
+    </style>
+
+    <style name="LargeItemList" parent="ItemList">
+        <item name="android:layout_height">?attr/listPreferredItemHeightLarge</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

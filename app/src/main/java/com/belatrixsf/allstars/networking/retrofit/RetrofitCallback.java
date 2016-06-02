@@ -24,12 +24,14 @@ import android.util.Log;
 
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 import java.io.IOException;
 
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.belatrixsf.allstars.utils.ServiceError.*;
 
@@ -38,34 +40,47 @@ import static com.belatrixsf.allstars.utils.ServiceError.*;
  */
 public class RetrofitCallback<T> implements Callback<T> {
 
+    private static final String TAG = RetrofitCallback.class.getSimpleName();
+
     private AllStarsCallback<T> callback;
 
-    public RetrofitCallback(AllStarsCallback callback) {
+    public RetrofitCallback(AllStarsCallback<T> callback) {
         this.callback = callback;
     }
 
     @Override
-    public void onResponse(Response<T> response, Retrofit retrofit) {
-        if (response.isSuccess()) {
+    public void onResponse(Call<T> call, Response<T> response) {
+        if (response.isSuccessful()) {
             callback.onSuccess(response.body());
         } else {
-            // TODO Send correct error message. Now only sending generic error til server is ready
-            ServiceError serviceError = new ServiceError(UNKNOWN, "Be sure everything is fine.");
+            ServiceError serviceError = null;
             try {
                 if (response.errorBody() != null) {
-                    Log.d("RetrofitCallback", "onResponse: " + response.errorBody().string());
+                    Gson gson = new Gson();
+                    serviceError = gson.fromJson(response.errorBody().string(), ServiceError.class);
+                    serviceError.setResponseCode(response.code());
                 }
+            } catch (JsonSyntaxException e ) {
+                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+            if (serviceError == null) {
+                serviceError = new ServiceError(UNKNOWN, "Be sure everything is fine.");
             }
             callback.onFailure(serviceError);
         }
     }
 
     @Override
-    public void onFailure(Throwable t) {
-        // TODO handle exception
-        Log.d("RetrofitCallback", "onFailure: " + t.getMessage());
-        callback.onFailure(new ServiceError(UNKNOWN, "Unknown error"));
+    public void onFailure(Call<T> call, Throwable t) {
+        Log.d(TAG, "onFailure: " + t.getMessage());
+        ServiceError serviceError;
+        if (call.isCanceled()) {
+            serviceError = new ServiceError(CANCELLED, "Request cancelled by client");
+        } else {
+            serviceError = new ServiceError(UNKNOWN, "Unknown error");
+        }
+        callback.onFailure(serviceError);
     }
 }

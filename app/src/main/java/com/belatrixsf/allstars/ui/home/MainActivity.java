@@ -30,7 +30,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.view.ActionMode;
@@ -43,10 +42,10 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.MainNavigationViewPagerAdapter;
 import com.belatrixsf.allstars.ui.common.AllStarsActivity;
-import com.belatrixsf.allstars.ui.contacts.ContactFragmentListener;
-import com.belatrixsf.allstars.ui.givestar.GiveStarActivity;
 import com.belatrixsf.allstars.ui.login.LoginActivity;
 import com.belatrixsf.allstars.ui.ranking.RankingFragmentListener;
+import com.belatrixsf.allstars.ui.stars.GiveStarActivity;
+import com.belatrixsf.allstars.ui.stars.GiveStarFragment;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.DialogUtils;
 import com.belatrixsf.allstars.utils.di.components.DaggerHomeComponent;
@@ -56,11 +55,12 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 
-public class MainActivity extends AllStarsActivity implements ContactFragmentListener, HomeView, RankingFragmentListener {
+import static com.belatrixsf.allstars.ui.account.edit.EditAccountFragment.RQ_EDIT_ACCOUNT;
+
+public class MainActivity extends AllStarsActivity implements HomeView, RankingFragmentListener {
 
     public static final int RQ_GIVE_STAR = 99;
     public static final int RANKING_TAB = 1;
-    public static final String MESSAGE_KEY = "_message_key";
 
     @Inject HomePresenter homePresenter;
 
@@ -112,7 +112,7 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
     }
 
     private void setupTabs() {
-        MainNavigationViewPagerAdapter mainNavigationViewPagerAdapter = new MainNavigationViewPagerAdapter(getFragmentManager());
+        MainNavigationViewPagerAdapter mainNavigationViewPagerAdapter = new MainNavigationViewPagerAdapter(this, getSupportFragmentManager());
         mainViewPager.setAdapter(mainNavigationViewPagerAdapter);
         mainViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -140,8 +140,8 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
         });
         tabLayout.setupWithViewPager(mainViewPager);
 
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_current_month, R.drawable.ic_whatshot, R.color.colorAccent);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_last_month, R.drawable.ic_event, R.color.colorActiveSmall);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_last_month, R.drawable.ic_event, R.color.colorAccent);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_current_month, R.drawable.ic_whatshot, R.color.colorActiveSmall);
         AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.tab_all_time, R.drawable.ic_star, R.color.colorPrimary);
 
         bottomNavigation.addItem(item1);
@@ -183,22 +183,17 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
         return this;
     }
 
-    // ContactFragmentListener
-
-    @Override
-    public void setActionMode(ActionMode.Callback callback) {
-        startSupportActionMode(callback);
-    }
-
     @Override
     public void onSupportActionModeStarted(@NonNull ActionMode mode) {
         appBarLayout.setExpanded(false, true);
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
-                AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
-                params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
-                toolbar.setVisibility(View.GONE);
+                if (toolbar != null && toolbar.getLayoutParams() != null){
+                    AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
+                    params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
+                    toolbar.setVisibility(View.GONE);
+                }
             }
         }, 300);
         super.onSupportActionModeStarted(mode);
@@ -206,34 +201,32 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
 
     @Override
     public void onSupportActionModeFinished(@NonNull ActionMode mode) {
-        AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
-        params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
-        appBarLayout.setExpanded(true, true);
-        new Handler().postDelayed(new Runnable(){
-            @Override
-            public void run() {
-                toolbar.setVisibility(View.VISIBLE);
-            }
-        }, 300);
+        if (toolbar != null && toolbar.getLayoutParams() != null){
+            AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
+            params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
+            appBarLayout.setExpanded(true, true);
+            new Handler().postDelayed(new Runnable(){
+                @Override
+                public void run() {
+                    toolbar.setVisibility(View.VISIBLE);
+                }
+            }, 300);
+        }
         super.onSupportActionModeFinished(mode);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK && data != null) {
-            Snackbar snackbar = Snackbar.make(coordinatorLayout, data.getStringExtra(MESSAGE_KEY), Snackbar.LENGTH_LONG);
-            snackbar.getView().addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+        if (requestCode == RQ_GIVE_STAR && resultCode == Activity.RESULT_OK && data != null) {
+            DialogUtils.createInformationDialog(this, data.getStringExtra(GiveStarFragment.MESSAGE_KEY), getString(R.string.app_name), new DialogInterface.OnClickListener() {
                 @Override
-                public void onViewAttachedToWindow(View v) {
+                public void onClick(DialogInterface dialog, int which) {
+                    //Do Nothing
                 }
-
-                @Override
-                public void onViewDetachedFromWindow(View v) {
-                    startRecommendationButton.setTranslationY(0);
-                }
-            });
-            snackbar.show();
+            }).show();
+        } else if (requestCode == RQ_EDIT_ACCOUNT && resultCode == Activity.RESULT_OK && data != null) {
+            homePresenter.refreshEmployee();
         }
     }
 
@@ -246,4 +239,13 @@ public class MainActivity extends AllStarsActivity implements ContactFragmentLis
         bottomNavigation.setOnTabSelectedListener(onTabSelectedListener);
     }
 
+    @Override
+    public void showProgressIndicator() {
+
+    }
+
+    @Override
+    public void hideProgressIndicator() {
+
+    }
 }

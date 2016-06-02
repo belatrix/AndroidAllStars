@@ -34,13 +34,18 @@ public interface AccountView extends AllStarsView {
     void goSubCategoryDetail(Integer categoryId, Integer employeeId);
     void showCurrentMonthScore(String skypeId);
     void showScore(String score);
+    void showLocation(String locationIcon);
     void showSubCategories(List<SubCategory> subCategories);
     void showLevel(String level);
     void showSkypeId(String skypeID);
     void showEmployeeName(String employeName);
-    void showRole(String role);
+    void showEmail(String role);
     void showProfilePicture(String profilePicture);
     void showRecommendMenu(boolean show);
+    void showEditProfileButton(boolean show);
+    void goToEditProfile(Employee employee);
     void goToGiveStar(Employee employee);
+    void showNoDataView();
+    void hideNoDataView();
 
 }

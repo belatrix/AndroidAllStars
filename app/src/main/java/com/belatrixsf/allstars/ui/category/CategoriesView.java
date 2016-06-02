@@ -21,6 +21,7 @@
 package com.belatrixsf.allstars.ui.category;
 
 import com.belatrixsf.allstars.entities.Category;
+import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.ui.common.AllStarsView;
 
 import java.util.List;
@@ -31,7 +32,7 @@ import java.util.List;
 public interface CategoriesView extends AllStarsView {
 
     void notifyAreSubcategories(boolean areSubcategories);
-    void notifySelection(Category subcategory);
+    void notifySelection(SubCategory subcategory);
     void showCategories(List<Category> categories);
     void showSubcategories(Category category);
 
