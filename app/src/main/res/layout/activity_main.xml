@@ -49,7 +49,7 @@
         android:fitsSystemWindows="true"
         android:layout_gravity="start"
         android:background="@color/white"
-        app:headerLayout="@layout/header_navview"
+        app:headerLayout="@layout/header_navigation"
         app:menu="@menu/menu_navview">
 
         <LinearLayout
