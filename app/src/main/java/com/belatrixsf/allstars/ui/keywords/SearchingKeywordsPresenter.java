@@ -91,8 +91,7 @@ public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywo
             searchingServiceRequest.cancel();
         }
         this.searchText = searchText;
-        reset();
-        getKeywordsInternal();
+        refreshKeywords();
     }
 
     public void refreshKeywords() {
