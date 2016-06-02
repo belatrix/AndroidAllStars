@@ -47,6 +47,7 @@ android {
     }
 
     def supportLibrariesVersion = "23.3.0"
+    def firebaseLibrariesVersion = "9.0.1"
 
     dependencies {
         compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -57,6 +58,8 @@ android {
         compile "com.android.support:recyclerview-v7:$supportLibrariesVersion"
         compile "com.android.support:support-v13:$supportLibrariesVersion"
         compile 'com.theartofdev.edmodo:android-image-cropper:2.1.4'
+//        compile "com.google.firebase:firebase-core:$firebaseLibrariesVersion"
+        compile 'com.google.firebase:firebase-messaging:9.0.0'
         apt 'com.google.dagger:dagger-compiler:2.0'
         provided 'javax.annotation:jsr250-api:1.0'
         compile 'com.squareup.retrofit2:retrofit:2.0.2'
@@ -74,3 +77,5 @@ android {
         }
     }
 }
+
+apply plugin: 'com.google.gms.google-services'
