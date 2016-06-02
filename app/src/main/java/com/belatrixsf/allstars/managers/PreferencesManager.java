@@ -77,9 +77,9 @@ public class PreferencesManager {
         return sharedPreferences.getInt(EMPLOYEE_ID_KEY, 0);
     }
 
-    public void setResetPassword() {
+    public void setResetPassword(boolean value) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(RESET_PASSWORD_KEY, true);
+        editor.putBoolean(RESET_PASSWORD_KEY, value);
         editor.apply();
     }
 
@@ -91,9 +91,9 @@ public class PreferencesManager {
         return sharedPreferences.getBoolean(RESET_PASSWORD_KEY, false);
     }
 
-    public void setEditProfile() {
+    public void setEditProfile(boolean value) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(EDIT_PROFILE_KEY, true);
+        editor.putBoolean(EDIT_PROFILE_KEY, value);
         editor.apply();
     }
 

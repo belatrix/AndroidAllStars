@@ -23,8 +23,6 @@ package com.belatrixsf.allstars.ui.login;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
-import com.belatrixsf.allstars.utils.AllStarsCallback;
-import com.belatrixsf.allstars.utils.ServiceError;
 
 import javax.inject.Inject;
 
@@ -32,11 +30,6 @@ import javax.inject.Inject;
  * Created by gyosida on 4/12/16.
  */
 public class LoginPresenter extends AllStarsPresenter<LoginView> {
-
-    public static final int DEST_HOME = 0;
-    public static final int DEST_RESET_PASSWORD = 1;
-    public static final int DEST_EDIT_PROFILE = 2;
-
 
     private EmployeeManager employeeManager;
 
@@ -57,19 +50,19 @@ public class LoginPresenter extends AllStarsPresenter<LoginView> {
     public void login(String username, String password) {
         if (areFieldsFilled(username, password)) {
             view.showProgressDialog();
-            employeeManager.login(username, password, new PresenterCallback<Integer>() {
+            employeeManager.login(username, password, new PresenterCallback<EmployeeManager.AccountState>() {
                 @Override
-                public void onSuccess(Integer destination) {
+                public void onSuccess(EmployeeManager.AccountState accountState) {
                     view.dismissProgressDialog();
-                    switch (destination) {
-                        case DEST_HOME:
+                    switch (accountState) {
+                        case PROFILE_COMPLETE:
                             view.goHome();
                             break;
-                        case DEST_RESET_PASSWORD:
-                            view.goResetPassword();
-                            break;
-                        case DEST_EDIT_PROFILE:
+                        case PROFILE_INCOMPLETE:
                             view.goEditProfile();
+                            break;
+                        case PASSWORD_RESET_INCOMPLETE:
+                            view.goResetPassword();
                             break;
                     }
                 }

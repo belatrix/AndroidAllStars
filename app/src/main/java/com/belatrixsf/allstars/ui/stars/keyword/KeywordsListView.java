@@ -32,5 +32,6 @@ public interface KeywordsListView extends AllStarsView {
 
     void deliverKeywordAsResult(Keyword keyword);
     void showKeywords(List<Keyword> keywords);
+    void resetList();
 
 }

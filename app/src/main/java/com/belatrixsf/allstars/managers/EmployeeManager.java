@@ -23,9 +23,10 @@ package com.belatrixsf.allstars.managers;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.allstars.services.contracts.EmployeeService;
-import com.belatrixsf.allstars.ui.login.LoginPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
+
+import java.io.File;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -36,6 +37,12 @@ import javax.inject.Singleton;
 @Singleton
 public class EmployeeManager {
 
+    public enum AccountState {
+        PROFILE_COMPLETE,
+        PROFILE_INCOMPLETE,
+        PASSWORD_RESET_INCOMPLETE
+    }
+
     private EmployeeService employeeService;
     private Employee employee;
 
@@ -44,21 +51,24 @@ public class EmployeeManager {
         this.employeeService = employeeService;
     }
 
-    public void login(String username, String password, final AllStarsCallback<Integer> callback) {
+    public void login(String username, String password, final AllStarsCallback<AccountState> callback) {
         employeeService.authenticate(username, password, new AllStarsCallback<AuthenticationResponse>() {
             @Override
             public void onSuccess(final AuthenticationResponse authenticationResponse) {
                 PreferencesManager.get().saveToken(authenticationResponse.getToken());
                 PreferencesManager.get().saveEmployeeId(authenticationResponse.getEmployeeId());
                 if (authenticationResponse.getResetPasswordCode() == null){
+                    PreferencesManager.get().setResetPassword(true);
                     employeeService.getEmployee(authenticationResponse.getEmployeeId(), new AllStarsCallback<Employee>() {
                         @Override
                         public void onSuccess(Employee employee) {
                             EmployeeManager.this.employee = employee;
                             if (authenticationResponse.isBaseProfileComplete()){
-                                callback.onSuccess(LoginPresenter.DEST_HOME);
+                                PreferencesManager.get().setEditProfile(true);
+                                callback.onSuccess(AccountState.PROFILE_COMPLETE);
                             } else {
-                                callback.onSuccess(LoginPresenter.DEST_EDIT_PROFILE);
+                                PreferencesManager.get().setEditProfile(false);
+                                callback.onSuccess(AccountState.PROFILE_INCOMPLETE);
                             }
                         }
 
@@ -68,7 +78,8 @@ public class EmployeeManager {
                         }
                     });
                 } else {
-                    callback.onSuccess(LoginPresenter.DEST_RESET_PASSWORD);
+                    PreferencesManager.get().setResetPassword(false);
+                    callback.onSuccess(AccountState.PASSWORD_RESET_INCOMPLETE);
                 }
             }
 
@@ -85,6 +96,7 @@ public class EmployeeManager {
             employeeService.resetPassword(storedEmployeeId, oldPassword, newPassword, new AllStarsCallback<Employee>() {
                 @Override
                 public void onSuccess(Employee employee) {
+                    PreferencesManager.get().setResetPassword(true);
                     callback.onSuccess(employee);
                 }
 
@@ -114,6 +126,22 @@ public class EmployeeManager {
         } else {
             callback.onSuccess(employee);
         }
+    }
+
+    public void updateEmployeeImage(File selectedFile, final AllStarsCallback<Employee> callback) {
+        employeeService.updateEmployeeImage(employee.getPk(), selectedFile, new AllStarsCallback<Employee>() {
+            @Override
+            public void onSuccess(Employee employee) {
+                PreferencesManager.get().setEditProfile(true);
+                EmployeeManager.this.employee = employee;
+                callback.onSuccess(employee);
+            }
+
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                callback.onFailure(serviceError);
+            }
+        });
     }
 
     public void refreshEmployee() {
