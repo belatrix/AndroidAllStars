@@ -32,7 +32,8 @@
             android:label="@string/title_give_star_activity"/>
         <activity
             android:name=".ui.account.AccountActivity"
-            android:label="@string/title_account_activity"/>
+            android:label="@string/title_account_activity"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".ui.contacts.ContactsListActivity"
             android:label="@string/title_contact_activity"/>
