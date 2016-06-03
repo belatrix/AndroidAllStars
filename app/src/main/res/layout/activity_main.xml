@@ -6,7 +6,6 @@
     android:id="@+id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context=".ui.home.MainActivity">
 
     <android.support.design.widget.CoordinatorLayout
@@ -67,7 +66,7 @@
             <TextView
                 android:id="@+id/menu_logout"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:padding="@dimen/dimen_16"
                 android:background="@drawable/selector_default_item"
                 android:drawableLeft="@drawable/ic_exit"

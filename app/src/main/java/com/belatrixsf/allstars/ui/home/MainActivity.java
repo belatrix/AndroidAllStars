@@ -27,6 +27,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -74,7 +75,7 @@ public class MainActivity extends AllStarsActivity implements HomeView, RankingF
     @Bind(R.id.navigation) NavigationView navigationView;
     @Bind(R.id.menu_logout) TextView menuLogoutTextView;
     @Bind(R.id.app_bar_layout) AppBarLayout appBarLayout;
-    @Bind(R.id.tab_layout) TabLayout tabLayout;
+    @Nullable @Bind(R.id.tab_layout) TabLayout tabLayout;
     @Bind(R.id.main_view_pager) ViewPager mainViewPager;
     @Bind(R.id.start_recommendation) FloatingActionButton startRecommendationButton;
     @Bind(R.id.main_coordinator) CoordinatorLayout coordinatorLayout;
