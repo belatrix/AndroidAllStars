@@ -105,7 +105,7 @@ public class AccountSelectionView extends DataSelectionView {
         }
         SavedState ss = (SavedState)state;
         super.onRestoreInstanceState(ss.getSuperState());
-        if (ss.fullName != null && ss.level != null && ss.imageUrl != null) {
+        if (ss.fullName != null && ss.level != null) {
             fullNameTextView.setText(ss.fullName);
             levelTextView.setText(ss.level);
             setProfileImage(ss.imageUrl);
