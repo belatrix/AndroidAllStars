@@ -76,7 +76,6 @@ public class KeywordView extends LinearLayout {
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
-        findViewById(R.id.keyword_hashtag).setEnabled(enabled);
         keywordTextView.setEnabled(enabled);
     }
 

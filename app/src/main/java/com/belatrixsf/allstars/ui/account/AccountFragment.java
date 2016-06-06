@@ -325,7 +325,9 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
 
     @Override
     public void dismissProgressDialog() {
-        accountSwipeRefresh.setRefreshing(false);
+        if (accountSwipeRefresh != null) {
+            accountSwipeRefresh.setRefreshing(false);
+        }
     }
 
     @Override
