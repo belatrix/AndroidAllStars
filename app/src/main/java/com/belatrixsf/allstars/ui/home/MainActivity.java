@@ -41,13 +41,14 @@ import android.support.v7.view.ActionMode;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.MainNavigationViewPagerAdapter;
+import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.ui.common.AllStarsActivity;
 import com.belatrixsf.allstars.ui.login.LoginActivity;
 import com.belatrixsf.allstars.ui.ranking.RankingFragmentListener;
@@ -57,6 +58,8 @@ import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.DialogUtils;
 import com.belatrixsf.allstars.utils.di.components.DaggerHomeComponent;
 import com.belatrixsf.allstars.utils.di.modules.presenters.HomePresenterModule;
+import com.belatrixsf.allstars.utils.media.ImageFactory;
+import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
 
 import javax.inject.Inject;
 
@@ -88,9 +91,8 @@ public class MainActivity extends AllStarsActivity implements HomeView, RankingF
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setToolbar();
-        setNavigationDrawer();
-        setupViews();
         setupDependencies();
+        setupViews();
     }
 
     @Override
@@ -104,52 +106,10 @@ public class MainActivity extends AllStarsActivity implements HomeView, RankingF
         }
     }
 
-    private void setNavigationDrawer(){
-        menuLogoutTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawerLayout.closeDrawers();
-                homePresenter.wantToLogout();
-            }
-        });
-
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close){
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-            }
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-            }
-        };
-
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        drawerLayout.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
-        actionBarDrawerToggle.syncState();
-
-        navigationView.setNavigationItemSelectedListener(
-            new NavigationView.OnNavigationItemSelectedListener() {
-                @Override public boolean onNavigationItemSelected(MenuItem item) {
-                    item.setChecked(true);
-                    drawerLayout.closeDrawers();
-                    switch (item.getItemId()){
-                        case R.id.menu_home:
-                            Log.e(MainActivity.class.getCanonicalName(), "Home");
-                            break;
-                        case R.id.menu_event:
-                            Log.e(MainActivity.class.getCanonicalName(), "Event");
-                            break;
-                    }
-                    return true;
-                }
-            });
-    }
-
     private void setupViews() {
         setupActionButton();
         setupTabs();
+        setupNavigationDrawer();
     }
 
     private void setupActionButton() {
@@ -203,6 +163,52 @@ public class MainActivity extends AllStarsActivity implements HomeView, RankingF
 
     }
 
+    private void setupNavigationDrawer(){
+        menuLogoutTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.closeDrawers();
+                homePresenter.wantToLogout();
+            }
+        });
+
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close){
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+            }
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+            }
+        };
+
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override public boolean onNavigationItemSelected(MenuItem item) {
+                        item.setChecked(true);
+                        drawerLayout.closeDrawers();
+                        switch (item.getItemId()){
+                            case R.id.menu_home:
+                                Log.e(MainActivity.class.getCanonicalName(), "Home");
+                                break;
+                            case R.id.menu_event:
+                                Log.e(MainActivity.class.getCanonicalName(), "Event");
+                                break;
+                            case R.id.menu_about:
+                                Log.e(MainActivity.class.getCanonicalName(), "About");
+                                break;
+                        }
+                        return true;
+                    }
+                });
+
+        homePresenter.loadEmployeeData();
+    }
+
     private void setupDependencies() {
         AllStarsApplication allStarsApplication = (AllStarsApplication) getApplicationContext();
         DaggerHomeComponent.builder()
@@ -212,6 +218,16 @@ public class MainActivity extends AllStarsActivity implements HomeView, RankingF
     }
 
     // HomeView
+
+    @Override
+    public void setNavigationDrawerData(Employee employee) {
+        ImageView pictureImageView = (ImageView) navigationView.findViewById(R.id.picture);
+        TextView fullnameTextView = (TextView) navigationView.findViewById(R.id.fullname);
+        TextView emailTextView = (TextView) navigationView.findViewById(R.id.email);
+        ImageFactory.getLoader().loadFromUrl(employee.getAvatar(), pictureImageView, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
+        fullnameTextView.setText(employee.getFullName());
+        emailTextView.setText(employee.getEmail());
+    }
 
     @Override
     public void goToLogin() {

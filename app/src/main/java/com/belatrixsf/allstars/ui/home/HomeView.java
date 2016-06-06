@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.allstars.ui.home;
 
+import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.ui.common.AllStarsView;
 
 /**
@@ -29,5 +30,6 @@ public interface HomeView extends AllStarsView {
 
     void goToLogin();
     void showLogoutConfirmationDialog(String message);
+    void setNavigationDrawerData(Employee employee);
 
 }

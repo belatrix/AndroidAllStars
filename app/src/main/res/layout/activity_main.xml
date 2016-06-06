@@ -6,6 +6,7 @@
     android:id="@+id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".ui.home.MainActivity">
 
     <android.support.design.widget.CoordinatorLayout
@@ -45,7 +46,6 @@
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
         android:layout_gravity="start"
         android:background="@color/white"
         app:headerLayout="@layout/header_navigation"

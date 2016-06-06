@@ -21,6 +21,7 @@
 package com.belatrixsf.allstars.ui.home;
 
 import com.belatrixsf.allstars.R;
+import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 
@@ -46,6 +47,15 @@ public class HomePresenter extends AllStarsPresenter<HomeView> {
     public void confirmLogout() {
         employeeManager.logout();
         view.goToLogin();
+    }
+
+    public void loadEmployeeData(){
+        employeeManager.getLoggedInEmployee(new PresenterCallback<Employee>() {
+            @Override
+            public void onSuccess(Employee employee) {
+                view.setNavigationDrawerData(employee);
+            }
+        });
     }
 
     @Override
