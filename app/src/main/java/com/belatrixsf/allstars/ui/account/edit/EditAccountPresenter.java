@@ -165,7 +165,7 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
     }
 
     private boolean checkValidLocation(int locationIndex) {
-        if (locationIndex == 0) {
+        if (locationIndex == -1) {
             view.showLocationError(getString(R.string.location_error));
             return false;
         } else {
