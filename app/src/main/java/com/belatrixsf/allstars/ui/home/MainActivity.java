@@ -221,12 +221,14 @@ public class MainActivity extends AllStarsActivity implements HomeView, RankingF
 
     @Override
     public void setNavigationDrawerData(Employee employee) {
-        ImageView pictureImageView = (ImageView) navigationView.findViewById(R.id.picture);
-        TextView fullnameTextView = (TextView) navigationView.findViewById(R.id.fullname);
-        TextView emailTextView = (TextView) navigationView.findViewById(R.id.email);
-        ImageFactory.getLoader().loadFromUrl(employee.getAvatar(), pictureImageView, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
-        fullnameTextView.setText(employee.getFullName());
-        emailTextView.setText(employee.getEmail());
+        if (navigationView != null) {
+            ImageView pictureImageView = (ImageView) navigationView.findViewById(R.id.picture);
+            TextView fullnameTextView = (TextView) navigationView.findViewById(R.id.fullname);
+            TextView emailTextView = (TextView) navigationView.findViewById(R.id.email);
+            ImageFactory.getLoader().loadFromUrl(employee.getAvatar(), pictureImageView, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
+            fullnameTextView.setText(employee.getFullName());
+            emailTextView.setText(employee.getEmail());
+        }
     }
 
     @Override
