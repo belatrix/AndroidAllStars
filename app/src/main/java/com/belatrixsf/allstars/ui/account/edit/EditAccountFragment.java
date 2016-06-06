@@ -356,6 +356,7 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
                 ex.printStackTrace();
             }
             if (photoFile != null) {
+                editAccountPresenter.setSelectedFile(photoFile);
                 cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,
                         Uri.fromFile(photoFile));
                 mProfilePicturePath = photoFile.getAbsolutePath();
@@ -372,6 +373,7 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
                 initCropImageActivity(data.getData());
             }
         } else if (resultCode == Activity.RESULT_OK && requestCode == RQ_CAMERA) {
+            mProfilePicturePath = editAccountPresenter.getSelectedFile().getAbsolutePath();
             Uri selectedPhotoUri = Uri.fromFile(new File(mProfilePicturePath));
             initCropImageActivity(selectedPhotoUri);
         } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
