@@ -110,8 +110,8 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
         }
     }
 
-    public void finishEdit(String firstName, String lastName, String skypeId) {
-        if (checkValidFirstName(firstName) && checkValidLastName(lastName) && checkValidSkypeId(skypeId) && checkImageUploaded()) {
+    public void finishEdit(String firstName, String lastName, String skypeId, int locationIndex) {
+        if (checkValidFirstName(firstName) && checkValidLastName(lastName) && checkValidSkypeId(skypeId) && checkImageUploaded() && checkValidLocation(locationIndex)) {
             view.showProgressDialog();
             employeeService.updateEmployee(employee.getPk(), firstName, lastName, skypeId, locationSelected.getPk(), new PresenterCallback<Employee>() {
                 @Override
@@ -158,6 +158,15 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
     private boolean checkValidSkypeId(String skypeId) {
         if (skypeId == null || skypeId.isEmpty()) {
             view.showSkypeIdError(getString(R.string.empty_error));
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private boolean checkValidLocation(int locationIndex) {
+        if (locationIndex == 0) {
+            view.showLocationError(getString(R.string.location_error));
             return false;
         } else {
             return true;
