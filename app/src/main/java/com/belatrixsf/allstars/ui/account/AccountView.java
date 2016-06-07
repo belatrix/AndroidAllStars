@@ -47,5 +47,6 @@ public interface AccountView extends AllStarsView {
     void goToGiveStar(Employee employee);
     void showNoDataView();
     void hideNoDataView();
+    void notifyNavigationRefresh();
 
 }

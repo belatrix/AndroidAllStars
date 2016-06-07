@@ -21,6 +21,7 @@
 package com.belatrixsf.allstars.ui.account;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -65,8 +66,8 @@ import butterknife.Bind;
 
 import static com.belatrixsf.allstars.ui.account.AccountActivity.USER_ID_KEY;
 import static com.belatrixsf.allstars.ui.account.edit.EditAccountFragment.IS_NEW_USER;
-import static com.belatrixsf.allstars.ui.stars.GiveStarFragment.SELECTED_USER_KEY;
 import static com.belatrixsf.allstars.ui.account.edit.EditAccountFragment.RQ_EDIT_ACCOUNT;
+import static com.belatrixsf.allstars.ui.stars.GiveStarFragment.SELECTED_USER_KEY;
 
 /**
  * Created by pedrocarrillo on 4/9/16.
@@ -77,6 +78,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
 
     private AccountPresenter accountPresenter;
     private AccountSubCategoriesAdapter accountCategoriesAdapter;
+    private AccountFragmentListener accountFragmentListener;
 
     @Bind(R.id.account_recommendations) RecyclerView recommendationRecyclerView;
     @Bind(R.id.skype_id) TextView skypeIdTextView;
@@ -102,6 +104,26 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
         AccountFragment accountFragment = new AccountFragment();
         accountFragment.setArguments(bundle);
         return accountFragment;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        castOrThrowException(activity);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        castOrThrowException(context);
+    }
+
+    private void castOrThrowException(Context context) {
+        try {
+            accountFragmentListener = (AccountFragmentListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement AccountFragmentListener");
+        }
     }
 
     @Override
@@ -343,6 +365,11 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     @Override
     public void hideNoDataView() {
         noDataTextView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void notifyNavigationRefresh() {
+        accountFragmentListener.refreshNavigationDrawer();
     }
 
     public void setProgressViewVisibility(int visibility) {

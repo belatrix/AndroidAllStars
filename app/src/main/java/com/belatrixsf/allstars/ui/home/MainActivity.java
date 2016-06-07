@@ -49,6 +49,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.MainNavigationViewPagerAdapter;
 import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.ui.account.AccountFragmentListener;
 import com.belatrixsf.allstars.ui.common.AllStarsActivity;
 import com.belatrixsf.allstars.ui.login.LoginActivity;
 import com.belatrixsf.allstars.ui.ranking.RankingFragmentListener;
@@ -67,7 +68,7 @@ import butterknife.Bind;
 
 import static com.belatrixsf.allstars.ui.account.edit.EditAccountFragment.RQ_EDIT_ACCOUNT;
 
-public class MainActivity extends AllStarsActivity implements HomeView, RankingFragmentListener {
+public class MainActivity extends AllStarsActivity implements HomeView, RankingFragmentListener, AccountFragmentListener {
 
     public static final int RQ_GIVE_STAR = 99;
     public static final int RANKING_TAB = 1;
@@ -205,8 +206,6 @@ public class MainActivity extends AllStarsActivity implements HomeView, RankingF
                         return true;
                     }
                 });
-
-        homePresenter.loadEmployeeData();
     }
 
     private void setupDependencies() {
@@ -220,14 +219,22 @@ public class MainActivity extends AllStarsActivity implements HomeView, RankingF
     // HomeView
 
     @Override
-    public void setNavigationDrawerData(Employee employee) {
+    public void setNavigationDrawerData(final Employee employee) {
         if (navigationView != null) {
-            ImageView pictureImageView = (ImageView) navigationView.findViewById(R.id.picture);
-            TextView fullnameTextView = (TextView) navigationView.findViewById(R.id.fullname);
-            TextView emailTextView = (TextView) navigationView.findViewById(R.id.email);
-            ImageFactory.getLoader().loadFromUrl(employee.getAvatar(), pictureImageView, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
-            fullnameTextView.setText(employee.getFullName());
-            emailTextView.setText(employee.getEmail());
+            navigationView.post(new Runnable() {
+                @Override
+                public void run() {
+                    ImageView pictureImageView = (ImageView) navigationView.findViewById(R.id.picture);
+                    TextView fullnameTextView = (TextView) navigationView.findViewById(R.id.fullname);
+                    TextView emailTextView = (TextView) navigationView.findViewById(R.id.email);
+                    if (pictureImageView != null && fullnameTextView != null && emailTextView != null) {
+                        ImageFactory.getLoader().loadFromUrl(employee.getAvatar(), pictureImageView, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
+                        fullnameTextView.setText(employee.getFullName());
+                        emailTextView.setText(employee.getEmail());
+                    }
+                }
+            });
+
         }
     }
 
@@ -254,6 +261,7 @@ public class MainActivity extends AllStarsActivity implements HomeView, RankingF
 
     @Override
     public void onSupportActionModeStarted(@NonNull ActionMode mode) {
+        drawerLayout.closeDrawers();
         appBarLayout.setExpanded(false, true);
         new Handler().postDelayed(new Runnable(){
             @Override
@@ -316,5 +324,10 @@ public class MainActivity extends AllStarsActivity implements HomeView, RankingF
     @Override
     public void hideProgressIndicator() {
 
+    }
+
+    @Override
+    public void refreshNavigationDrawer() {
+        homePresenter.loadEmployeeData();
     }
 }
