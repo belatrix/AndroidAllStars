@@ -35,7 +35,7 @@ import com.belatrixsf.allstars.ui.common.AllStarsActivity;
 /**
  * Created by pedrocarrillo on 4/26/16.
  */
-public class AccountActivity extends AllStarsActivity {
+public class AccountActivity extends AllStarsActivity implements AccountFragmentListener {
 
     public static final String USER_ID_KEY = "_user_id";
 
@@ -59,4 +59,8 @@ public class AccountActivity extends AllStarsActivity {
         activity.startActivity(intent, options.toBundle());
     }
 
+    @Override
+    public void refreshNavigationDrawer() {
+        // Required empty implementation
+    }
 }
