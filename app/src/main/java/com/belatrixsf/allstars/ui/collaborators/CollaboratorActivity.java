@@ -18,22 +18,27 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.contacts;
+package com.belatrixsf.allstars.ui.collaborators;
 
-import com.belatrixsf.allstars.entities.Employee;
-import com.belatrixsf.allstars.ui.common.AllStarsView;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 
-import java.util.List;
+import com.belatrixsf.allstars.R;
+import com.belatrixsf.allstars.ui.common.AllStarsActivity;
 
 /**
- * Created by icerrate on 15/04/2016.
+ * Created by icerrate on 07/06/2016
  */
-public interface ContactsListView extends AllStarsView {
+public class CollaboratorActivity extends AllStarsActivity {
 
-    void addContacts(List<Employee> contacts);
-    void showSearchActionMode();
-    void resetList();
-    void goContactProfile(Integer id);
-    void selectContact(Employee contact);
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_collaborator);
+        if (savedInstanceState == null) {
+            replaceFragment(CollaboratorFragment.newInstance(), false);
+        }
+        setNavigationToolbar();
+    }
 
 }

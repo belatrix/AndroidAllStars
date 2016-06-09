@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">All Stars Belatrix</string>
+    <string name="app_name">All Stars</string>
     <string name="no_data">No data found</string>
     <string name="no_data_option">-</string>
 
@@ -51,6 +51,7 @@
     <string name="title_contacts_keyword_activity">Tag Top</string>
     <string name="title_keyword_top">%s Top</string>
     <string name="title_edit_profile_activity">Edit Profile</string>
+    <string name="title_collaborators_activity">Collaborators</string>
     <string name="title_full_name">Full Name</string>
     <string name="title_email">Email</string>
     <string name="tab_account_title">Account</string>
@@ -118,6 +119,41 @@
     <string name="fullname_placeholder">Anonymous</string>
     <string name="level_placeholder">No data</string>
     <string name="hashtag">#</string>
+
+    <!--Collaborators-->
+    <string name="collaborators_main_message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="collaborators">\n\n\n\nAll Stars Team! \n\n
+        <b>Android</b> \n
+        Sergio Infante \n
+        Pedro Carrillo \n
+        Gianfranco Yosida \n
+        Ivan Cerrate \n\n
+        <u>iOS</u> \n
+        Sergio Infante \n
+        Pedro Carrillo \n
+        Gianfranco Yosida \n
+        Ivan Cerrate \n\n
+        <u>Backend</u> \n
+        Sergio Infante \n
+        Pedro Carrillo \n
+        Gianfranco Yosida \n
+        Ivan Cerrate \n\n
+        <u>QA</u> \n
+        Sergio Infante \n
+        Pedro Carrillo \n
+        Gianfranco Yosida \n
+        Ivan Cerrate \n\n
+        <u>Beta Testers</u> \n
+        Sergio Infante \n
+        Pedro Carrillo \n
+        Gianfranco Yosida \n
+        Ivan Cerrate \n\n
+        <u>Special thanks</u> \n
+        Sergio Infante \n
+        Pedro Carrillo \n
+        Gianfranco Yosida \n
+        Ivan Cerrate \n
+    </string>
 
     <!--Actions-->
     <string name="action_recommend">Recommend</string>

@@ -18,22 +18,50 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.contacts;
+package com.belatrixsf.allstars.ui.collaborators;
 
 import com.belatrixsf.allstars.entities.Employee;
-import com.belatrixsf.allstars.ui.common.AllStarsView;
+import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Created by icerrate on 15/04/2016.
  */
-public interface ContactsListView extends AllStarsView {
+public class CollaboratorPresenter extends AllStarsPresenter<CollaboratorView> {
 
-    void addContacts(List<Employee> contacts);
-    void showSearchActionMode();
-    void resetList();
-    void goContactProfile(Integer id);
-    void selectContact(Employee contact);
+    private List<Employee> developers = new ArrayList<>();
+    private boolean profileEnabled = true;
 
+    @Inject
+    public CollaboratorPresenter(CollaboratorView view) {
+        super(view);
+    }
+
+
+    @Override
+    public void cancelRequests() {
+
+    }
+
+    // saving state stuff
+
+    public void setProfileEnabled(boolean profileEnabled) {
+        this.profileEnabled = profileEnabled;
+    }
+
+    public boolean getProfileEnabled() {
+        return profileEnabled;
+    }
+
+    public void setDevelopers(List<Employee> developers) {
+        this.developers = developers;
+    }
+
+    public List<Employee> getDevelopersSync() {
+        return developers;
+    }
 }

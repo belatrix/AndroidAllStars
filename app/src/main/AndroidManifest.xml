@@ -53,6 +53,10 @@
         <activity android:name=".ui.account.edit.EditAccountActivity"
             android:label="@string/title_edit_profile_activity"/>
 
+        <activity
+            android:name=".ui.collaborators.CollaboratorActivity"
+            android:label="@string/title_collaborators_activity"/>
+
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
 

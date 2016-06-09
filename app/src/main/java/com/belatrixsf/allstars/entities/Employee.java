@@ -64,6 +64,13 @@ public class Employee implements Parcelable {
     private Integer numStars;
     private Location location;
 
+    public Employee(Integer pk, String firstName, String lastName, String avatar) {
+        this.pk = pk;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.avatar = avatar;
+    }
+
     public Integer getPk() {
         return pk;
     }

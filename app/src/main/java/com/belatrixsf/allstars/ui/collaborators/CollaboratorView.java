@@ -18,22 +18,13 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.contacts;
+package com.belatrixsf.allstars.ui.collaborators;
 
-import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.ui.common.AllStarsView;
-
-import java.util.List;
 
 /**
  * Created by icerrate on 15/04/2016.
  */
-public interface ContactsListView extends AllStarsView {
-
-    void addContacts(List<Employee> contacts);
-    void showSearchActionMode();
-    void resetList();
-    void goContactProfile(Integer id);
-    void selectContact(Employee contact);
+public interface CollaboratorView extends AllStarsView {
 
 }

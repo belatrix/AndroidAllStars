@@ -18,22 +18,23 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.contacts;
+package com.belatrixsf.allstars.utils.di.components;
 
-import com.belatrixsf.allstars.entities.Employee;
-import com.belatrixsf.allstars.ui.common.AllStarsView;
+import com.belatrixsf.allstars.ui.collaborators.CollaboratorPresenter;
+import com.belatrixsf.allstars.utils.di.modules.presenters.CollaboratorPresenterModule;
+import com.belatrixsf.allstars.utils.di.scopes.UIScope;
 
-import java.util.List;
+import dagger.Subcomponent;
 
 /**
- * Created by icerrate on 15/04/2016.
+ * Created by icerrate on 08/06/16.
  */
-public interface ContactsListView extends AllStarsView {
+@UIScope
+@Subcomponent(
+        modules = CollaboratorPresenterModule.class
+)
+public interface CollaboratorComponent {
 
-    void addContacts(List<Employee> contacts);
-    void showSearchActionMode();
-    void resetList();
-    void goContactProfile(Integer id);
-    void selectContact(Employee contact);
+    CollaboratorPresenter collaboratorPresenter();
 
 }

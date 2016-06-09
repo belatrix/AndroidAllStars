@@ -23,11 +23,11 @@ package com.belatrixsf.allstars.utils.di.components;
 import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.utils.di.modules.RetrofitModule;
 import com.belatrixsf.allstars.utils.di.modules.ServicesModule;
+import com.belatrixsf.allstars.utils.di.modules.presenters.CollaboratorPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.CategoriesListModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsKeywordPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsListPresenterModule;
-import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.EditAccountPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.KeywordsListModule;
@@ -72,5 +72,7 @@ public interface ApplicationComponent {
     KeywordsComponent keywordsListComponent(KeywordsListModule keywordsListModule);
 
     EditAccountComponent editAccountComponent(EditAccountPresenterModule editAccountPresenterModule);
+
+    CollaboratorComponent collaboratorComponent(CollaboratorPresenterModule collaboratorPresenterModule);
 
 }
