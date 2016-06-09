@@ -18,23 +18,28 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils.di.components;
+package com.belatrixsf.allstars.utils.di.modules.presenters;
 
-import com.belatrixsf.allstars.ui.collaborators.CollaboratorPresenter;
-import com.belatrixsf.allstars.utils.di.modules.presenters.CollaboratorPresenterModule;
-import com.belatrixsf.allstars.utils.di.scopes.UIScope;
+import com.belatrixsf.allstars.ui.about.AboutView;
 
-import dagger.Subcomponent;
+import dagger.Module;
+import dagger.Provides;
 
 /**
- * Created by icerrate on 08/06/2016.
+ * Created by icerrate on 09/06/2016.
  */
-@UIScope
-@Subcomponent(
-        modules = CollaboratorPresenterModule.class
-)
-public interface CollaboratorComponent {
+@Module
+public class AboutPresenterModule {
 
-    CollaboratorPresenter collaboratorPresenter();
+    private AboutView view;
+
+    public AboutPresenterModule(AboutView view) {
+        this.view = view;
+    }
+
+    @Provides
+    public AboutView providesView() {
+        return view;
+    }
 
 }

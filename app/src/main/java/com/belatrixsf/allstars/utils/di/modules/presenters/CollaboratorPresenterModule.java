@@ -26,7 +26,7 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Created by icerrate on 08/06/16.
+ * Created by icerrate on 08/06/2016.
  */
 @Module
 public class CollaboratorPresenterModule {

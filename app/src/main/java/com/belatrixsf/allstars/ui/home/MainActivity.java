@@ -49,6 +49,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.MainNavigationViewPagerAdapter;
 import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.ui.about.AboutActivity;
 import com.belatrixsf.allstars.ui.collaborators.CollaboratorActivity;
 import com.belatrixsf.allstars.ui.account.AccountFragmentListener;
 import com.belatrixsf.allstars.ui.common.AllStarsActivity;
@@ -204,6 +205,8 @@ public class MainActivity extends AllStarsActivity implements HomeView, RankingF
                                 break;
                             case R.id.menu_about:
                                 Log.e(MainActivity.class.getCanonicalName(), "About");
+                                Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+                                startActivity(intent);
                                 break;
                         }
                         return true;

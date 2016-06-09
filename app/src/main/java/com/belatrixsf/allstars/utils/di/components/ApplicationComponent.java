@@ -23,9 +23,10 @@ package com.belatrixsf.allstars.utils.di.components;
 import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.utils.di.modules.RetrofitModule;
 import com.belatrixsf.allstars.utils.di.modules.ServicesModule;
-import com.belatrixsf.allstars.utils.di.modules.presenters.CollaboratorPresenterModule;
+import com.belatrixsf.allstars.utils.di.modules.presenters.AboutPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.CategoriesListModule;
+import com.belatrixsf.allstars.utils.di.modules.presenters.CollaboratorPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsKeywordPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsListPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.EditAccountPresenterModule;
@@ -74,5 +75,7 @@ public interface ApplicationComponent {
     EditAccountComponent editAccountComponent(EditAccountPresenterModule editAccountPresenterModule);
 
     CollaboratorComponent collaboratorComponent(CollaboratorPresenterModule collaboratorPresenterModule);
+
+    AboutComponent aboutComponent(AboutPresenterModule aboutPresenterModule);
 
 }

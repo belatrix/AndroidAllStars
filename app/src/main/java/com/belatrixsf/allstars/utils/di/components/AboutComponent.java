@@ -20,21 +20,21 @@
 */
 package com.belatrixsf.allstars.utils.di.components;
 
-import com.belatrixsf.allstars.ui.collaborators.CollaboratorPresenter;
-import com.belatrixsf.allstars.utils.di.modules.presenters.CollaboratorPresenterModule;
+import com.belatrixsf.allstars.ui.about.AboutPresenter;
+import com.belatrixsf.allstars.utils.di.modules.presenters.AboutPresenterModule;
 import com.belatrixsf.allstars.utils.di.scopes.UIScope;
 
 import dagger.Subcomponent;
 
 /**
- * Created by icerrate on 08/06/2016.
+ * Created by icerrate on 09/06/2016.
  */
 @UIScope
 @Subcomponent(
-        modules = CollaboratorPresenterModule.class
+        modules = AboutPresenterModule.class
 )
-public interface CollaboratorComponent {
+public interface AboutComponent {
 
-    CollaboratorPresenter collaboratorPresenter();
+    AboutPresenter aboutPresenter();
 
 }

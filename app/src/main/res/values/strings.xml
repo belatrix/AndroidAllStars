@@ -52,6 +52,7 @@
     <string name="title_keyword_top">%s Top</string>
     <string name="title_edit_profile_activity">Edit Profile</string>
     <string name="title_collaborators_activity">Collaborators</string>
+    <string name="title_about_activity">About</string>
     <string name="title_full_name">Full Name</string>
     <string name="title_email">Email</string>
     <string name="tab_account_title">Account</string>
@@ -120,40 +121,70 @@
     <string name="level_placeholder">No data</string>
     <string name="hashtag">#</string>
 
-    <!--Collaborators-->
-    <string name="collaborators_main_message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
-    <string name="collaborators">\n\n\n\nAll Stars Team! \n\n
+    <!--About-->
+    <string name="support_tittle">Support</string>
+    <string name="support_email">sergio.infante@sinfante.com</string>
+    <string name="license_title">License</string>
+    <string name="license">The MIT License (MIT)
+\nCopyright &#169; 2016 BELATRIX
+\nPermission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+\n\nThe above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+\n\nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</string>
+    <string name="collaborators_title">Collaborators</string>
+    <string name="collaborators_group1">
         <b>Android</b> \n
         Sergio Infante \n
         Pedro Carrillo \n
         Gianfranco Yosida \n
-        Ivan Cerrate \n\n
-        <u>iOS</u> \n
+        Ivan Cerrate</string>
+    <string name="collaborators_group2">
+        <b>iOS</b> \n
         Sergio Infante \n
         Pedro Carrillo \n
         Gianfranco Yosida \n
-        Ivan Cerrate \n\n
-        <u>Backend</u> \n
+        Ivan Cerrate</string>
+    <string name="collaborators_group3">
+        <b>Backend</b> \n
         Sergio Infante \n
         Pedro Carrillo \n
         Gianfranco Yosida \n
-        Ivan Cerrate \n\n
-        <u>QA</u> \n
+        Ivan Cerrate</string>
+    <string name="collaborators_group4">
+        <b>QA</b> \n
         Sergio Infante \n
         Pedro Carrillo \n
         Gianfranco Yosida \n
-        Ivan Cerrate \n\n
-        <u>Beta Testers</u> \n
+        Ivan Cerrate</string>
+    <string name="collaborators_group5">
+        <b>Beta Testers</b> \n
         Sergio Infante \n
         Pedro Carrillo \n
         Gianfranco Yosida \n
-        Ivan Cerrate \n\n
-        <u>Special thanks</u> \n
+        Ivan Cerrate</string>
+    <string name="collaborators_group6">
+        <b>Special thanks</b> \n
         Sergio Infante \n
         Pedro Carrillo \n
         Gianfranco Yosida \n
-        Ivan Cerrate \n
-    </string>
+        Ivan Cerrate</string>
+
+    <!--Collaborators-->
+    <string name="collaborators_main_message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+
 
     <!--Actions-->
     <string name="action_recommend">Recommend</string>

@@ -18,7 +18,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.ui.collaborators;
+package com.belatrixsf.allstars.ui.about;
 
 
 import android.os.Bundle;
@@ -28,23 +28,18 @@ import android.view.ViewGroup;
 
 import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
-import com.belatrixsf.allstars.ui.common.views.VerticalMarqueeTextView;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
-import com.belatrixsf.allstars.utils.di.modules.presenters.CollaboratorPresenterModule;
-
-import butterknife.Bind;
+import com.belatrixsf.allstars.utils.di.modules.presenters.AboutPresenterModule;
 
 /**
- * Created by icerrate on 08/06/2016.
+ * Created by icerrate on 09/06/2016.
  */
-public class CollaboratorFragment extends AllStarsFragment implements CollaboratorView {
+public class AboutFragment extends AllStarsFragment implements AboutView {
 
-    private CollaboratorPresenter collaboratorPresenter;
+    private AboutPresenter aboutPresenter;
 
-    @Bind(R.id.collaborators) VerticalMarqueeTextView collaboratorsTextView;
-
-    public static CollaboratorFragment newInstance() {
-        CollaboratorFragment aboutFragment = new CollaboratorFragment();
+    public static AboutFragment newInstance() {
+        AboutFragment aboutFragment = new AboutFragment();
         return aboutFragment;
     }
 
@@ -57,14 +52,14 @@ public class CollaboratorFragment extends AllStarsFragment implements Collaborat
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.fragment_collaborator, container, false);
+        return inflater.inflate(R.layout.fragment_about, container, false);
     }
 
     @Override
     protected void initDependencies(AllStarsApplication allStarsApplication) {
-        collaboratorPresenter = allStarsApplication.getApplicationComponent()
-                .collaboratorComponent(new CollaboratorPresenterModule(this))
-                .collaboratorPresenter();
+        aboutPresenter = allStarsApplication.getApplicationComponent()
+                .aboutComponent(new AboutPresenterModule(this))
+                .aboutPresenter();
     }
 
     @Override
@@ -91,7 +86,7 @@ public class CollaboratorFragment extends AllStarsFragment implements Collaborat
     }
 
     private void initViews() {
-        collaboratorsTextView.setText(getResources().getString(R.string.collaborators_main_message));
+
     }
 
     @Override
