@@ -42,7 +42,7 @@
     <string name="title_select_category">Select Category</string>
     <string name="title_select_subcategory">Select Subcategory</string>
     <string name="title_account_activity">Profile</string>
-    <string name="title_expand_photo_activity">Photo</string>
+    <string name="title_expand_photo_activity"></string>
     <string name="title_contact_activity">Select an user</string>
     <string name="title_recommendation_activity">Recommendations</string>
     <string name="title_give_star_activity">Give a recommendation</string>
