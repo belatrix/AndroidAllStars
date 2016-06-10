@@ -58,5 +58,4 @@ public class AccountActivity extends AllStarsActivity {
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, photoImageView, activity.getString(R.string.transition_photo));
         activity.startActivity(intent, options.toBundle());
     }
-
 }
