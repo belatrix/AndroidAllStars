@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_3_5"
                 android:fontFamily="serif"
-                android:text="@string/collaborators_main_message" />
+                android:text="@string/about_main_message" />
 
         </LinearLayout>
 

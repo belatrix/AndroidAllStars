@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/activity_horizontal_margin"
-        android:text="@string/collaborators_main_message"
+        android:text="@string/about_main_message"
         android:textSize="@dimen/text_16" />
 
     <com.belatrixsf.allstars.ui.common.views.VerticalMarqueeTextView

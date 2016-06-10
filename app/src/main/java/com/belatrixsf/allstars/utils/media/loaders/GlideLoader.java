@@ -40,6 +40,22 @@ import java.io.File;
 public class GlideLoader implements ImageLoader {
 
     @Override
+    public void loadFromRes(int resId, ImageView imageView) {
+        Glide.with(imageView.getContext()).load(resId).placeholder(R.drawable.ic_user).into(imageView);
+    }
+
+    @Override
+    public void loadFromRes(int resId, ImageView imageView, ImageTransformation transformation) {
+        loadFromRes(resId, imageView, transformation, null);
+    }
+
+    @Override
+    public void loadFromRes(int resId, ImageView imageView, ImageTransformation transformation, Callback callback) {
+        Context context = imageView.getContext();
+        load(context, Glide.with(context).load(resId), transformation, callback).into(imageView);
+    }
+
+    @Override
     public void loadFromUrl(String url, ImageView imageView) {
         Glide.with(imageView.getContext()).load(url).placeholder(R.drawable.ic_user).into(imageView);
     }

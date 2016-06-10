@@ -91,7 +91,7 @@ public class CollaboratorFragment extends AllStarsFragment implements Collaborat
     }
 
     private void initViews() {
-        collaboratorsTextView.setText(getResources().getString(R.string.collaborators_main_message));
+        collaboratorsTextView.setText(getResources().getString(R.string.about_main_message));
     }
 
     @Override
