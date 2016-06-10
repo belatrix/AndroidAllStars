@@ -20,7 +20,11 @@
 */
 package com.belatrixsf.allstars.ui.about;
 
+import com.belatrixsf.allstars.entities.Collaborator;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -29,15 +33,29 @@ import javax.inject.Inject;
  */
 public class AboutPresenter extends AllStarsPresenter<AboutView> {
 
+    private List<Collaborator> collaborators = new ArrayList<>();
+
     @Inject
     public AboutPresenter(AboutView view) {
         super(view);
     }
 
+    public void getContacts() {
+        view.resetList();
+        view.addContacts(collaborators);
+    }
 
     @Override
     public void cancelRequests() {
 
+    }
+
+    public List<Collaborator> getCollaboratorsSync() {
+        return collaborators;
+    }
+
+    public void setCollaborators(List<Collaborator> collaborators) {
+        this.collaborators = collaborators;
     }
 
     // saving state stuff

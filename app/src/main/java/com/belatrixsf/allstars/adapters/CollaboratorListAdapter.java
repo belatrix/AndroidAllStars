@@ -12,6 +12,7 @@ import com.belatrixsf.allstars.entities.Collaborator;
 import com.belatrixsf.allstars.utils.media.ImageFactory;
 import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,10 +20,14 @@ import java.util.List;
  */
 public class CollaboratorListAdapter extends RecyclerView.Adapter<CollaboratorListAdapter.ViewHolder> {
 
-    private List<Collaborator> items;
+    private List<Collaborator> collaboratorList;
 
-    public CollaboratorListAdapter(List<Collaborator> items) {
-        this.items = items;
+    public CollaboratorListAdapter() {
+        this(new ArrayList<Collaborator>());
+    }
+
+    public CollaboratorListAdapter(List<Collaborator> collaboratorList) {
+        this.collaboratorList = collaboratorList;
     }
 
     @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -31,14 +36,30 @@ public class CollaboratorListAdapter extends RecyclerView.Adapter<CollaboratorLi
     }
 
     @Override public void onBindViewHolder(ViewHolder holder, int position) {
-        Collaborator collaborator = items.get(position);
+        Collaborator collaborator = collaboratorList.get(position);
         holder.fullname.setText(collaborator.getFullName());
         ImageFactory.getLoader().loadFromRes(collaborator.getDrawable(), holder.photo, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
         holder.itemView.setTag(collaborator);
     }
 
     @Override public int getItemCount() {
-        return items.size();
+        return collaboratorList.size();
+    }
+
+    public void update(List<Collaborator> collaborators) {
+        this.collaboratorList.clear();
+        this.collaboratorList.addAll(collaborators);
+        notifyDataSetChanged();
+    }
+
+    public void add(List<Collaborator> collaborators) {
+        this.collaboratorList.addAll(collaborators);
+        notifyDataSetChanged();
+    }
+
+    public void reset() {
+        collaboratorList.clear();
+        notifyDataSetChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

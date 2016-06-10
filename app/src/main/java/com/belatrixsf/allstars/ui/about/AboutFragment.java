@@ -22,21 +22,36 @@ package com.belatrixsf.allstars.ui.about;
 
 
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.belatrixsf.allstars.R;
+import com.belatrixsf.allstars.adapters.CollaboratorListAdapter;
+import com.belatrixsf.allstars.entities.Collaborator;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.utils.AllStarsApplication;
 import com.belatrixsf.allstars.utils.di.modules.presenters.AboutPresenterModule;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
 
 /**
  * Created by icerrate on 09/06/2016.
  */
 public class AboutFragment extends AllStarsFragment implements AboutView {
 
+    public static final String COLLABORATORS_KEY = "_collaborators_key";
+
     private AboutPresenter aboutPresenter;
+    private CollaboratorListAdapter collaboratorListAdapter;
+
+    @Bind(R.id.collaborators)
+    RecyclerView collaboratorsRecyclerView;
 
     public static AboutFragment newInstance() {
         AboutFragment aboutFragment = new AboutFragment();
@@ -69,6 +84,7 @@ public class AboutFragment extends AllStarsFragment implements AboutView {
         if (savedInstanceState != null) {
             restorePresenterState(savedInstanceState);
         }
+        aboutPresenter.getContacts();
     }
 
     @Override
@@ -78,19 +94,36 @@ public class AboutFragment extends AllStarsFragment implements AboutView {
     }
 
     private void restorePresenterState(Bundle savedInstanceState) {
-
+        List<Collaborator> collaborators = savedInstanceState.getParcelableArrayList(COLLABORATORS_KEY);
+        aboutPresenter.setCollaborators(collaborators);
     }
 
     private void savePresenterState(Bundle outState) {
-
+        List<Collaborator> collaborators = aboutPresenter.getCollaboratorsSync();
+        if (collaborators != null && collaborators instanceof ArrayList) {
+            outState.putParcelableArrayList(COLLABORATORS_KEY, (ArrayList<Collaborator>) collaborators);
+        }
     }
 
     private void initViews() {
-
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
+        collaboratorListAdapter = new CollaboratorListAdapter();
+        collaboratorsRecyclerView.setAdapter(collaboratorListAdapter);
+        collaboratorsRecyclerView.setLayoutManager(gridLayoutManager);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+    }
+
+    @Override
+    public void addContacts(List<Collaborator> collaborators) {
+        collaboratorListAdapter.add(collaborators);
+    }
+
+    @Override
+    public void resetList() {
+        collaboratorListAdapter.reset();
     }
 }

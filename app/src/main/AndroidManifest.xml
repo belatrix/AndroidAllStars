@@ -54,10 +54,6 @@
             android:label="@string/title_edit_profile_activity"/>
 
         <activity
-            android:name=".ui.collaborators.CollaboratorActivity"
-            android:label="@string/title_collaborators_activity"/>
-
-        <activity
             android:name=".ui.about.AboutActivity"
             android:label="@string/title_about_activity"/>
 

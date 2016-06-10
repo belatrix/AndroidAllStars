@@ -20,11 +20,17 @@
 */
 package com.belatrixsf.allstars.ui.about;
 
+import com.belatrixsf.allstars.entities.Collaborator;
 import com.belatrixsf.allstars.ui.common.AllStarsView;
+
+import java.util.List;
 
 /**
  * Created by icerrate on 09/06/2016.
  */
 public interface AboutView extends AllStarsView {
+
+    void addContacts(List<Collaborator> collaborators);
+    void resetList();
 
 }
