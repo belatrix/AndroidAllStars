@@ -18,23 +18,29 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.networking.retrofit.responses;
+package com.belatrixsf.allstars.services;
 
-import com.belatrixsf.allstars.entities.Star;
-import com.google.gson.annotations.SerializedName;
-
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by icerrate on 25/04/2016.
+ * Created by gyosida on 6/8/16.
  */
-public class StarsResponse extends PaginatedResponse {
+public class SearchingHelper {
 
-    @SerializedName("results")
-    private List<Star> starList;
+    public static <T extends Searchable> List<T> search(List<T> list, String search) {
+        List<T> searchables = new ArrayList<>();
+        for (T searchable : list) {
+            String searchableText = searchable.searchableText();
+            if (searchableText != null && searchableText.toLowerCase().contains(search.toLowerCase())) {
+                searchables.add(searchable);
+            }
+        }
+        return searchables;
+    }
 
-    public List<Star> getStarList() {
-        return starList;
+    public interface Searchable {
+        String searchableText();
     }
 
 }

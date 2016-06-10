@@ -18,23 +18,14 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.networking.retrofit.responses;
-
-import com.belatrixsf.allstars.entities.Employee;
-import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
+package com.belatrixsf.allstars.utils.exceptions;
 
 /**
- * Created by PedroCarrillo on 5/12/16.
+ * Created by gyosida on 6/9/16.
  */
-public class StarKeywordTopListResponse extends PaginatedResponse {
+public class InvalidPageException extends Exception {
 
-    @SerializedName("results")
-    List<Employee> employeeList;
-
-    public List<Employee> getEmployees() {
-        return employeeList;
+    public InvalidPageException() {
+        super("Number of page is illegal");
     }
-
 }

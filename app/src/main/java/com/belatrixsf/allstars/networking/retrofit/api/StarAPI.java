@@ -20,10 +20,11 @@
 */
 package com.belatrixsf.allstars.networking.retrofit.api;
 
+import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.entities.Keyword;
+import com.belatrixsf.allstars.entities.Star;
 import com.belatrixsf.allstars.networking.retrofit.requests.StarRequest;
-import com.belatrixsf.allstars.networking.retrofit.responses.StarKeywordTopListResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.StarsByKeywordsResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.StarsResponse;
+import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarSubCategoryResponse;
 
@@ -46,12 +47,12 @@ public interface StarAPI {
     Call<StarResponse> star(@Path(ServerPaths.FROM_EMPLOYEE) int fromEmployeeId, @Path(ServerPaths.TO_EMPLOYEE) int toEmployeeId, @Body StarRequest request);
 
     @GET(ServerPaths.STARS_BY_EMPLOYEE_AND_SUBCATEGORY)
-    Call<StarsResponse> getStars(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Path(ServerPaths.SUBCATEGORY_ID) int subcategoryId, @Query(ServerPaths.QUERY_PAGE) Integer page);
+    Call<PaginatedResponse<Star>> getStars(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Path(ServerPaths.SUBCATEGORY_ID) int subcategoryId, @Query(ServerPaths.QUERY_PAGE) Integer page);
 
     @GET(ServerPaths.STARS_BY_KEYWORD)
-    Call<StarsByKeywordsResponse> getStarsByKeywords(@Query(ServerPaths.QUERY_SEARCH) String search, @Query(ServerPaths.QUERY_PAGE) Integer nextPage);
+    Call<PaginatedResponse<Keyword>> getStarsByKeywords(@Query(ServerPaths.QUERY_SEARCH) String search, @Query(ServerPaths.QUERY_PAGE) Integer nextPage);
 
     @GET(ServerPaths.STARS_KEYWORD_TOP)
-    Call<StarKeywordTopListResponse> getStarsKeywordTop(@Path(ServerPaths.KEYWORD_ID) int keywordId, @Query(ServerPaths.QUERY_PAGE) Integer page);
+    Call<PaginatedResponse<Employee>> getStarsKeywordTop(@Path(ServerPaths.KEYWORD_ID) int keywordId, @Query(ServerPaths.QUERY_PAGE) Integer page);
 
 }

@@ -18,22 +18,31 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.networking.retrofit.responses;
+package com.belatrixsf.allstars.util;
 
-import com.belatrixsf.allstars.entities.Employee;
-import com.google.gson.annotations.SerializedName;
+import com.belatrixsf.allstars.utils.AllStarsCallback;
+import com.belatrixsf.allstars.utils.ServiceError;
 
-import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 /**
- * Created by gyosida on 4/11/16.
+ * Created by gyosida on 6/10/16.
  */
-public class SearchEmployeeResponse extends PaginatedResponse {
+public class TestingAllStarsCallback<T> implements AllStarsCallback<T> {
 
-    @SerializedName("results")
-    private List<Employee> employeeList;
+    private CountDownLatch countDownLatch;
 
-    public List<Employee> getEmployeeList() {
-        return employeeList;
+    public TestingAllStarsCallback(CountDownLatch countDownLatch) {
+        this.countDownLatch = countDownLatch;
+    }
+
+    @Override
+    public void onSuccess(T t) {
+        countDownLatch.countDown();
+    }
+
+    @Override
+    public void onFailure(ServiceError serviceError) {
+        countDownLatch.countDown();
     }
 }

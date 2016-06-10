@@ -18,22 +18,13 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.networking.retrofit.responses;
-
-import com.belatrixsf.allstars.entities.Keyword;
-import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
+package com.belatrixsf.allstars.util;
 
 /**
- * Created by gyosida on 5/9/16.
+ * Created by gyosida on 6/10/16.
  */
-public class StarsByKeywordsResponse extends PaginatedResponse {
-
-    @SerializedName("results")
-    List<Keyword> keywords;
-
-    public List<Keyword> getKeywords() {
-        return keywords;
-    }
+public interface TestConstants {
+    
+    int PAGINATION_ITEMS_PER_PAGE = 10;
+    
 }

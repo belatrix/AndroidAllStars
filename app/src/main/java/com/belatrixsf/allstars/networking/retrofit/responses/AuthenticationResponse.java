@@ -20,6 +20,8 @@
 */
 package com.belatrixsf.allstars.networking.retrofit.responses;
 
+import android.support.annotation.VisibleForTesting;
+
 import com.google.gson.annotations.SerializedName;
 
 /**

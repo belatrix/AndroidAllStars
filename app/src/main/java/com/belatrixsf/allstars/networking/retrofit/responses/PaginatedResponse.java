@@ -25,10 +25,12 @@ import android.os.Parcelable;
 
 import com.belatrixsf.allstars.utils.NumericUtils;
 
+import java.util.List;
+
 /**
  * Created by gyosida on 5/9/16.
  */
-public class PaginatedResponse implements Parcelable {
+public class PaginatedResponse<T> implements Parcelable {
 
     private static final String PARAM_PAGE = "page";
 
@@ -36,6 +38,7 @@ public class PaginatedResponse implements Parcelable {
     private String next;
     private String previous;
     private Integer nextPage;
+    private List<T> results;
 
     public PaginatedResponse() {}
 
@@ -118,6 +121,14 @@ public class PaginatedResponse implements Parcelable {
         next = null;
         previous = null;
         nextPage = null;
+    }
+
+    public List<T> getResults() {
+        return results;
+    }
+
+    public void setResults(List<T> results) {
+        this.results = results;
     }
 
     @Override
