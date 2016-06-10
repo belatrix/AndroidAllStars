@@ -47,6 +47,7 @@ import com.belatrixsf.allstars.adapters.AccountSubCategoriesAdapter;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.ui.account.edit.EditAccountActivity;
+import com.belatrixsf.allstars.ui.account.expanded.ExpandPictureActivity;
 import com.belatrixsf.allstars.ui.common.AllStarsFragment;
 import com.belatrixsf.allstars.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.allstars.ui.common.views.DividerItemDecoration;
@@ -62,11 +63,12 @@ import com.belatrixsf.allstars.utils.media.loaders.ImageLoader;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 import static com.belatrixsf.allstars.ui.account.AccountActivity.USER_ID_KEY;
 import static com.belatrixsf.allstars.ui.account.edit.EditAccountFragment.IS_NEW_USER;
-import static com.belatrixsf.allstars.ui.stars.GiveStarFragment.SELECTED_USER_KEY;
 import static com.belatrixsf.allstars.ui.account.edit.EditAccountFragment.RQ_EDIT_ACCOUNT;
+import static com.belatrixsf.allstars.ui.stars.GiveStarFragment.SELECTED_USER_KEY;
 
 /**
  * Created by pedrocarrillo on 4/9/16.
@@ -270,6 +272,16 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
         });
     }
 
+    @OnClick(R.id.profile_picture)
+    public void profilePictureClicked() {
+        accountPresenter.profilePictureClicked();
+    }
+
+    @Override
+    public void goToExpandPhoto(String url) {
+        ExpandPictureActivity.startActivityAnimatingProfilePic(getActivity(), pictureImageView, url);
+    }
+
     @Override
     public void showRecommendMenu(boolean show) {
         recommendMenuItem.setVisible(show);
@@ -325,7 +337,9 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
 
     @Override
     public void dismissProgressDialog() {
-        accountSwipeRefresh.setRefreshing(false);
+        if (accountSwipeRefresh != null) {
+            accountSwipeRefresh.setRefreshing(false);
+        }
     }
 
     @Override

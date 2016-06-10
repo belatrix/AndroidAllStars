@@ -27,8 +27,8 @@ import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModul
 import com.belatrixsf.allstars.utils.di.modules.presenters.CategoriesListModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsKeywordPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsListPresenterModule;
-import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.EditAccountPresenterModule;
+import com.belatrixsf.allstars.utils.di.modules.presenters.ExpandPicturePresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.KeywordsListModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.RankingPresenterModule;
@@ -56,6 +56,8 @@ public interface ApplicationComponent {
     SignUpComponent signUpComponent(SignUpPresenterModule signUpPresenterModule);
 
     AccountComponent accountComponent(AccountPresenterModule accountPresenterModule);
+
+    ExpandPictureComponent expandPictureComponent(ExpandPicturePresenterModule expandPicturePresenterModule);
 
     ContactsListComponent contactsListComponent(ContactsListPresenterModule contactsListPresenterModule);
 
