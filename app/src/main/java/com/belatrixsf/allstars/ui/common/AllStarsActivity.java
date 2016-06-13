@@ -140,7 +140,7 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onBackPressed();
+                    navigateBack();
                 }
             });
         }
@@ -158,5 +158,9 @@ public class AllStarsActivity extends AppCompatActivity implements FragmentListe
                 }
             });
         }
+    }
+
+    protected void navigateBack() {
+        onBackPressed();
     }
 }
