@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.allstars.ui.about;
 
+import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.entities.Collaborator;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 
@@ -42,7 +43,16 @@ public class AboutPresenter extends AllStarsPresenter<AboutView> {
 
     public void getContacts() {
         view.resetList();
+        prepareCollaborators();
         view.addContacts(collaborators);
+    }
+
+    private void prepareCollaborators() {
+        collaborators.add(new Collaborator("Gianfranco", "Yosida", R.drawable.yosida));
+        collaborators.add(new Collaborator("Pedro", "Perez", R.drawable.ic_user));
+        collaborators.add(new Collaborator("Pedro", "Perez", R.drawable.ic_user));
+        collaborators.add(new Collaborator("Pedro", "Perez", R.drawable.ic_user));
+        collaborators.add(new Collaborator("Pedro", "Perez", R.drawable.ic_user));
     }
 
     @Override

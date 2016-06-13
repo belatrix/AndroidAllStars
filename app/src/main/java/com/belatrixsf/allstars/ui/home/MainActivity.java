@@ -50,7 +50,6 @@ import com.belatrixsf.allstars.R;
 import com.belatrixsf.allstars.adapters.MainNavigationViewPagerAdapter;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.ui.about.AboutActivity;
-import com.belatrixsf.allstars.ui.collaborators.CollaboratorActivity;
 import com.belatrixsf.allstars.ui.account.AccountFragmentListener;
 import com.belatrixsf.allstars.ui.common.AllStarsActivity;
 import com.belatrixsf.allstars.ui.login.LoginActivity;
@@ -88,7 +87,6 @@ public class MainActivity extends AllStarsActivity implements HomeView, RankingF
     @Bind(R.id.bottom_navigation) AHBottomNavigation bottomNavigation;
 
     ActionBarDrawerToggle actionBarDrawerToggle;
-    int tapCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +95,6 @@ public class MainActivity extends AllStarsActivity implements HomeView, RankingF
         setToolbar();
         setupDependencies();
         setupViews();
-        setupEasterEgg();
     }
 
     @Override
@@ -220,29 +217,6 @@ public class MainActivity extends AllStarsActivity implements HomeView, RankingF
                 .applicationComponent(allStarsApplication.getApplicationComponent())
                 .homePresenterModule(new HomePresenterModule(this))
                 .build().inject(this);
-    }
-
-    private void setupEasterEgg() {
-        if (toolbar != null) {
-            toolbar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (tapCount < 4) {
-                        tapCount++;
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                tapCount=0;
-                            }
-                        }, 2500);
-                    } else {
-                        tapCount = 0;
-                        Intent intent = new Intent(MainActivity.this, CollaboratorActivity.class);
-                        startActivity(intent);
-                    }
-                }
-            });
-        }
     }
 
     // HomeView

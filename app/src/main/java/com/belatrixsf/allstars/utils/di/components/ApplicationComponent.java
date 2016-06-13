@@ -73,8 +73,6 @@ public interface ApplicationComponent {
 
     EditAccountComponent editAccountComponent(EditAccountPresenterModule editAccountPresenterModule);
 
-    CollaboratorComponent collaboratorComponent(CollaboratorPresenterModule collaboratorPresenterModule);
-
     AboutComponent aboutComponent(AboutPresenterModule aboutPresenterModule);
 
 }
