@@ -51,6 +51,7 @@ import com.belatrixsf.allstars.adapters.MainNavigationViewPagerAdapter;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.ui.account.AccountFragmentListener;
 import com.belatrixsf.allstars.ui.common.AllStarsActivity;
+import com.belatrixsf.allstars.ui.event.EventListActivity;
 import com.belatrixsf.allstars.ui.login.LoginActivity;
 import com.belatrixsf.allstars.ui.ranking.RankingFragmentListener;
 import com.belatrixsf.allstars.ui.stars.GiveStarActivity;
@@ -198,6 +199,8 @@ public class MainActivity extends AllStarsActivity implements HomeView, RankingF
                                 break;
                             case R.id.menu_event:
                                 Log.e(MainActivity.class.getCanonicalName(), "Event");
+                                Intent intent = new Intent(MainActivity.this, EventListActivity.class);
+                                startActivity(intent);
                                 break;
                             case R.id.menu_about:
                                 Log.e(MainActivity.class.getCanonicalName(), "About");

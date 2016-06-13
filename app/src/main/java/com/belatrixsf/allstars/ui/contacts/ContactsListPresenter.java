@@ -26,8 +26,6 @@ import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeRespo
 import com.belatrixsf.allstars.services.ServiceRequest;
 import com.belatrixsf.allstars.services.contracts.EmployeeService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
-import com.belatrixsf.allstars.utils.AllStarsCallback;
-import com.belatrixsf.allstars.utils.ServiceError;
 
 import java.util.ArrayList;
 import java.util.List;

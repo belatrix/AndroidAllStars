@@ -22,13 +22,16 @@ package com.belatrixsf.allstars.utils.di.modules;
 
 import com.belatrixsf.allstars.networking.retrofit.api.CategoryAPI;
 import com.belatrixsf.allstars.networking.retrofit.api.EmployeeAPI;
+import com.belatrixsf.allstars.networking.retrofit.api.EventAPI;
 import com.belatrixsf.allstars.networking.retrofit.api.StarAPI;
-import com.belatrixsf.allstars.services.server.CategoryServerService;
 import com.belatrixsf.allstars.services.contracts.CategoryService;
-import com.belatrixsf.allstars.services.server.EmployeeServerService;
 import com.belatrixsf.allstars.services.contracts.EmployeeService;
-import com.belatrixsf.allstars.services.server.StarServerService;
+import com.belatrixsf.allstars.services.contracts.EventService;
 import com.belatrixsf.allstars.services.contracts.StarService;
+import com.belatrixsf.allstars.services.server.CategoryServerService;
+import com.belatrixsf.allstars.services.server.EmployeeServerService;
+import com.belatrixsf.allstars.services.server.EventServerService;
+import com.belatrixsf.allstars.services.server.StarServerService;
 
 import dagger.Module;
 import dagger.Provides;
@@ -52,6 +55,11 @@ public class ServicesModule {
     @Provides
     public CategoryService provideCategoryService(CategoryAPI categoryAPI) {
         return new CategoryServerService(categoryAPI);
+    }
+
+    @Provides
+    public EventService provideEventService(EventAPI eventAPI) {
+        return new EventServerService(eventAPI);
     }
 
 }

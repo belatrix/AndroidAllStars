@@ -51,6 +51,7 @@
     <string name="title_contacts_keyword_activity">Tag Top</string>
     <string name="title_keyword_top">%s Top</string>
     <string name="title_edit_profile_activity">Edit Profile</string>
+    <string name="title_event_list_activity">Events</string>
     <string name="title_full_name">Full Name</string>
     <string name="title_email">Email</string>
     <string name="tab_account_title">Account</string>
@@ -118,6 +119,13 @@
     <string name="fullname_placeholder">Anonymous</string>
     <string name="level_placeholder">No data</string>
     <string name="hashtag">#</string>
+
+    <!--Evenr-->
+    <string name="title_title_placeholder">No Title</string>
+    <string name="title_date_placeholder">No Date</string>
+    <string name="title_date">Date</string>
+    <string name="title_title">Title</string>
+    <string name="title_content">Content</string>
 
     <!--Actions-->
     <string name="action_recommend">Recommend</string>

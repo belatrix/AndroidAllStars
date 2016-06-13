@@ -24,6 +24,7 @@ import com.belatrixsf.allstars.BuildConfig;
 import com.belatrixsf.allstars.managers.PreferencesManager;
 import com.belatrixsf.allstars.networking.retrofit.api.CategoryAPI;
 import com.belatrixsf.allstars.networking.retrofit.api.EmployeeAPI;
+import com.belatrixsf.allstars.networking.retrofit.api.EventAPI;
 import com.belatrixsf.allstars.networking.retrofit.api.StarAPI;
 
 import java.io.IOException;
@@ -95,4 +96,8 @@ public class RetrofitModule {
         return retrofit.create(CategoryAPI.class);
     }
 
+    @Provides
+    public EventAPI provideEventAPI(Retrofit retrofit) {
+        return retrofit.create(EventAPI.class);
+    }
 }
