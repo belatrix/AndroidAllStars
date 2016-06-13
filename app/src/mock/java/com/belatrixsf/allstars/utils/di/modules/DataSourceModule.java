@@ -18,44 +18,34 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.networking.retrofit.responses;
+package com.belatrixsf.allstars.utils.di.modules;
 
+import com.belatrixsf.allstars.data.CategoryMockDataSource;
+import com.belatrixsf.allstars.data.EmployeeMockDataSource;
+import com.belatrixsf.allstars.data.StarMockDataSource;
 
-import com.google.gson.annotations.SerializedName;
+import dagger.Module;
+import dagger.Provides;
 
 /**
- * Created by gyosida on 4/11/16.
+ * Created by gyosida on 6/13/16.
  */
-public class AuthenticationResponse {
+@Module
+public class DataSourceModule {
 
-    @SerializedName("user_id")
-    private int employeeId;
-    private String token;
-    @SerializedName("reset_password_code")
-    private String resetPasswordCode;
-    @SerializedName("base_profile_complete")
-    private boolean baseProfileComplete;
-
-    public AuthenticationResponse(int employeeId, String token, String resetPasswordCode, boolean baseProfileComplete) {
-        this.employeeId = employeeId;
-        this.token = token;
-        this.resetPasswordCode = resetPasswordCode;
-        this.baseProfileComplete = baseProfileComplete;
+    @Provides
+    public EmployeeMockDataSource provideEmployeeDataSource() {
+        return new EmployeeMockDataSource(10);
     }
 
-    public int getEmployeeId() {
-        return employeeId;
+    @Provides
+    public CategoryMockDataSource provideCategoryMockDataSource() {
+        return new CategoryMockDataSource();
     }
 
-    public String getToken() {
-        return token;
+    @Provides
+    public StarMockDataSource provideStarMockDataSource() {
+        return new StarMockDataSource();
     }
 
-    public String getResetPasswordCode() {
-        return resetPasswordCode;
-    }
-
-    public boolean isBaseProfileComplete() {
-        return baseProfileComplete;
-    }
 }

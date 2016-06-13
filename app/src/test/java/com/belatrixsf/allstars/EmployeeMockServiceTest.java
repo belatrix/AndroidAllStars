@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.allstars;
 
+import com.belatrixsf.allstars.data.EmployeeMockDataSource;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.allstars.services.contracts.EmployeeService;
@@ -52,8 +53,10 @@ public class EmployeeMockServiceTest {
 
     @Test
     public void GetEmployeeSearchList_NullSearchStringAndNullPage_FirstEmployeesPage() throws Exception {
+        List<Employee> employees = constructEmployees();
+        EmployeeMockDataSource employeeMockDataSource = new EmployeeMockDataSource(employees);
         // inject service with mocked employees
-        EmployeeService employeeService = new EmployeeMockService(constructEmployees());
+        EmployeeService employeeService = new EmployeeMockService(employeeMockDataSource);
         CountDownLatch countDownLatch = new CountDownLatch(1);
         employeeService.getEmployeeSearchList(null, null, new TestingAllStarsCallback<PaginatedResponse<Employee>>(countDownLatch) {
             @Override
@@ -72,8 +75,9 @@ public class EmployeeMockServiceTest {
         List<Employee> employees = constructEmployees();
         // create target employees
         fillInEmployeesWithSearchableText(employees, 3);
+        EmployeeMockDataSource employeeMockDataSource = new EmployeeMockDataSource(employees);
         // inject service and do the search
-        EmployeeService employeeService = new EmployeeMockService(employees);
+        EmployeeService employeeService = new EmployeeMockService(employeeMockDataSource);
         CountDownLatch countDownLatch = new CountDownLatch(1);
         employeeService.getEmployeeSearchList("Test", null, new TestingAllStarsCallback<PaginatedResponse<Employee>>(countDownLatch) {
             @Override
@@ -91,8 +95,9 @@ public class EmployeeMockServiceTest {
     public void GetEmployeeSearchList_SearchStringAndValidPage_EmployeesPage() throws Exception {
         List<Employee> employees = constructEmployees();
         fillInEmployeesWithSearchableText(employees, TestConstants.PAGINATION_ITEMS_PER_PAGE + 3);
+        EmployeeMockDataSource employeeMockDataSource = new EmployeeMockDataSource(employees, TestConstants.PAGINATION_ITEMS_PER_PAGE);
         // inject service with 13 employees (2 pages, 1 full of employees and the other with only 3)
-        EmployeeService employeeService = new EmployeeMockService(employees, TestConstants.PAGINATION_ITEMS_PER_PAGE);
+        EmployeeService employeeService = new EmployeeMockService(employeeMockDataSource);
         CountDownLatch countDownLatch = new CountDownLatch(1);
         employeeService.getEmployeeSearchList("Test", 1, new TestingAllStarsCallback<PaginatedResponse<Employee>>(countDownLatch) {
             @Override
@@ -109,8 +114,9 @@ public class EmployeeMockServiceTest {
     @Test
     public void GetEmployeesSearchList_NotExistingSearchTextNullPage_EmptyEmployeesList() throws Exception {
         List<Employee> employees = constructEmployees();
+        EmployeeMockDataSource employeeMockDataSource = new EmployeeMockDataSource(employees);
         // inject service
-        EmployeeService employeeService = new EmployeeMockService(employees);
+        EmployeeService employeeService = new EmployeeMockService(employeeMockDataSource);
         CountDownLatch countDownLatch = new CountDownLatch(1);
         employeeService.getEmployeeSearchList("NotExisting", null, new TestingAllStarsCallback<PaginatedResponse<Employee>>(countDownLatch) {
             @Override
@@ -126,8 +132,10 @@ public class EmployeeMockServiceTest {
 
     @Test
     public void GetEmployeeSearchList_NullSearchStringInvalidPage_OnFailureCalled() throws Exception {
+        List<Employee> employees = constructEmployees();
+        EmployeeMockDataSource employeeMockDataSource = new EmployeeMockDataSource(employees);
         // inject service with employees
-        EmployeeService employeeService = new EmployeeMockService(constructEmployees());
+        EmployeeService employeeService = new EmployeeMockService(employeeMockDataSource);
         // create count down and send the request
         CountDownLatch countDownLatch = new CountDownLatch(1);
         employeeService.getEmployeeSearchList(null, -3, new TestingAllStarsCallback<PaginatedResponse<Employee>>(countDownLatch) {

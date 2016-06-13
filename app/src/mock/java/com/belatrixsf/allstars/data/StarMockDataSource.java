@@ -18,29 +18,10 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.services;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.belatrixsf.allstars.data;
 
 /**
- * Created by gyosida on 6/8/16.
+ * Created by gyosida on 6/13/16.
  */
-public class SearchingHelper {
-
-    public static <T extends Searchable> List<T> search(List<T> list, String search) {
-        List<T> searchables = new ArrayList<>();
-        for (T searchable : list) {
-            String searchableText = searchable.searchableText();
-            if (searchableText != null && searchableText.toLowerCase().contains(search.toLowerCase())) {
-                searchables.add(searchable);
-            }
-        }
-        return searchables;
-    }
-
-    public interface Searchable {
-        String searchableText();
-    }
-
+public class StarMockDataSource {
 }

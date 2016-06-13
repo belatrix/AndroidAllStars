@@ -18,44 +18,29 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.networking.retrofit.responses;
+package com.belatrixsf.allstars.services;
 
-
-import com.google.gson.annotations.SerializedName;
+import com.belatrixsf.allstars.utils.AllStarsCallback;
 
 /**
- * Created by gyosida on 4/11/16.
+ * Created by gyosida on 6/8/16.
  */
-public class AuthenticationResponse {
+public class MockServiceRequest<T> extends ServiceRequest<T> {
 
-    @SerializedName("user_id")
-    private int employeeId;
-    private String token;
-    @SerializedName("reset_password_code")
-    private String resetPasswordCode;
-    @SerializedName("base_profile_complete")
-    private boolean baseProfileComplete;
+    private T response;
 
-    public AuthenticationResponse(int employeeId, String token, String resetPasswordCode, boolean baseProfileComplete) {
-        this.employeeId = employeeId;
-        this.token = token;
-        this.resetPasswordCode = resetPasswordCode;
-        this.baseProfileComplete = baseProfileComplete;
+    public MockServiceRequest(T response) {
+        this.response = response;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
+    @Override
+    void enqueue(AllStarsCallback<T> allStarsCallback) {
+        allStarsCallback.onSuccess(response);
     }
 
-    public String getToken() {
-        return token;
+    @Override
+    public void cancel() {
+
     }
 
-    public String getResetPasswordCode() {
-        return resetPasswordCode;
-    }
-
-    public boolean isBaseProfileComplete() {
-        return baseProfileComplete;
-    }
 }

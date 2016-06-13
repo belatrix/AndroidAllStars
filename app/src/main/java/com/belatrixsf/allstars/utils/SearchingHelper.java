@@ -18,44 +18,29 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.networking.retrofit.responses;
+package com.belatrixsf.allstars.utils;
 
-
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by gyosida on 4/11/16.
+ * Created by gyosida on 6/8/16.
  */
-public class AuthenticationResponse {
+public class SearchingHelper {
 
-    @SerializedName("user_id")
-    private int employeeId;
-    private String token;
-    @SerializedName("reset_password_code")
-    private String resetPasswordCode;
-    @SerializedName("base_profile_complete")
-    private boolean baseProfileComplete;
-
-    public AuthenticationResponse(int employeeId, String token, String resetPasswordCode, boolean baseProfileComplete) {
-        this.employeeId = employeeId;
-        this.token = token;
-        this.resetPasswordCode = resetPasswordCode;
-        this.baseProfileComplete = baseProfileComplete;
+    public static <T extends Searchable> List<T> search(List<T> list, String search) {
+        List<T> searchables = new ArrayList<>();
+        for (T searchable : list) {
+            String searchableText = searchable.searchableText();
+            if (searchableText != null && searchableText.toLowerCase().contains(search.toLowerCase())) {
+                searchables.add(searchable);
+            }
+        }
+        return searchables;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
+    public interface Searchable {
+        String searchableText();
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public String getResetPasswordCode() {
-        return resetPasswordCode;
-    }
-
-    public boolean isBaseProfileComplete() {
-        return baseProfileComplete;
-    }
 }

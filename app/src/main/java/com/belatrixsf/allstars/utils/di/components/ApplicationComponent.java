@@ -21,7 +21,7 @@
 package com.belatrixsf.allstars.utils.di.components;
 
 import com.belatrixsf.allstars.managers.EmployeeManager;
-import com.belatrixsf.allstars.utils.di.modules.RetrofitModule;
+import com.belatrixsf.allstars.utils.di.modules.DataSourceModule;
 import com.belatrixsf.allstars.utils.di.modules.ServicesModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.AccountPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.CategoriesListModule;
@@ -29,7 +29,6 @@ import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsKeywordPresen
 import com.belatrixsf.allstars.utils.di.modules.presenters.ContactsListPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.EditAccountPresenterModule;
-import com.belatrixsf.allstars.utils.di.modules.presenters.GiveStarPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.KeywordsListModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.RankingPresenterModule;
 import com.belatrixsf.allstars.utils.di.modules.presenters.SignUpPresenterModule;
@@ -45,7 +44,7 @@ import dagger.Component;
 @Singleton
 @Component(
         modules = {
-                RetrofitModule.class,
+                DataSourceModule.class,
                 ServicesModule.class
         }
 )

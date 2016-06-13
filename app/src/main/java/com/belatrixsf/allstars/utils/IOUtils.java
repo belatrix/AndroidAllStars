@@ -24,19 +24,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
 
 /**
  * Created by gyosida on 6/8/16.
  */
 public class IOUtils {
 
-    public static String readFileFromAssets(Object object, String filename) {
+    public static String readFileFromAssets(String filename) {
         String content = null;
         try {
-            ClassLoader classLoader = object.getClass().getClassLoader();
-            URL url = classLoader.getResource(filename);
-            InputStream inputStream = object.getClass().getClassLoader().getResourceAsStream(filename);
+            InputStream inputStream = AllStarsApplication.getContext().getAssets().open(filename);
             if (inputStream != null) {
                 content = IOUtils.readFromStream(inputStream);
             }

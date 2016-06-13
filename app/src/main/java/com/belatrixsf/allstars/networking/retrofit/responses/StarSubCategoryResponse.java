@@ -36,6 +36,10 @@ public class StarSubCategoryResponse {
     @SerializedName("results")
     private List<SubCategory> subCategories;
 
+    public StarSubCategoryResponse(List<SubCategory> subCategories) {
+        this.subCategories = subCategories;
+    }
+
     public int getCount() {
         return count;
     }

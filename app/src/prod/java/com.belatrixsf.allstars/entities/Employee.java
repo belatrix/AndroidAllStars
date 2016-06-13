@@ -23,7 +23,7 @@ package com.belatrixsf.allstars.entities;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.belatrixsf.allstars.services.SearchingHelper;
+import com.belatrixsf.allstars.utils.SearchingHelper;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
