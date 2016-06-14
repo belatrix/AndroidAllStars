@@ -35,6 +35,9 @@
             android:label="@string/title_account_activity"
             android:parentActivityName="com.belatrixsf.allstars.ui.home.MainActivity"/>
         <activity
+            android:name=".ui.account.expanded.ExpandPictureActivity"
+            android:label="@string/title_expand_photo_activity"/>
+        <activity
             android:name=".ui.contacts.ContactsListActivity"
             android:label="@string/title_contact_activity"/>
         <activity
