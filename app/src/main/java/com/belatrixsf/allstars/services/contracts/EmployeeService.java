@@ -25,7 +25,7 @@ import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.Location;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.CreateEmployeeResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
+import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.allstars.services.ServiceRequest;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 
@@ -43,7 +43,7 @@ public interface EmployeeService extends AllStarsService {
 
     ServiceRequest getEmployee(int employeeId, AllStarsCallback<Employee> callback);
 
-    ServiceRequest getEmployeeSearchList(String searchTerm, Integer page, AllStarsCallback<SearchEmployeeResponse> callback);
+    ServiceRequest getEmployeeSearchList(String searchTerm, Integer page, AllStarsCallback<PaginatedResponse<Employee>> callback);
 
     ServiceRequest getRankingList(String kind, int quantity, AllStarsCallback<List<Employee>> callback);
 

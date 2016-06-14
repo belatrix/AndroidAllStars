@@ -20,12 +20,13 @@
 */
 package com.belatrixsf.allstars.networking.retrofit.api;
 
+import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.entities.Keyword;
+import com.belatrixsf.allstars.entities.Star;
+import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.networking.retrofit.requests.StarRequest;
-import com.belatrixsf.allstars.networking.retrofit.responses.StarKeywordTopListResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.StarsByKeywordsResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.StarsResponse;
+import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.StarSubCategoryResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -40,18 +41,18 @@ import retrofit2.http.Query;
 public interface StarAPI {
 
     @GET(ServerPaths.EMPLOYEE_SUBCATEGORY_LIST)
-    Call<StarSubCategoryResponse> getEmployeeSubCategoriesStars(@Path(ServerPaths.EMPLOYEE_ID) int employeeId);
+    Call<PaginatedResponse<SubCategory>> getEmployeeSubCategoriesStars(@Path(ServerPaths.EMPLOYEE_ID) int employeeId);
 
     @POST(ServerPaths.STAR_EMPLOYEE)
     Call<StarResponse> star(@Path(ServerPaths.FROM_EMPLOYEE) int fromEmployeeId, @Path(ServerPaths.TO_EMPLOYEE) int toEmployeeId, @Body StarRequest request);
 
     @GET(ServerPaths.STARS_BY_EMPLOYEE_AND_SUBCATEGORY)
-    Call<StarsResponse> getStars(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Path(ServerPaths.SUBCATEGORY_ID) int subcategoryId, @Query(ServerPaths.QUERY_PAGE) Integer page);
+    Call<PaginatedResponse<Star>> getStars(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Path(ServerPaths.SUBCATEGORY_ID) int subcategoryId, @Query(ServerPaths.QUERY_PAGE) Integer page);
 
     @GET(ServerPaths.STARS_BY_KEYWORD)
-    Call<StarsByKeywordsResponse> getStarsByKeywords(@Query(ServerPaths.QUERY_SEARCH) String search, @Query(ServerPaths.QUERY_PAGE) Integer nextPage);
+    Call<PaginatedResponse<Keyword>> getStarsByKeywords(@Query(ServerPaths.QUERY_SEARCH) String search, @Query(ServerPaths.QUERY_PAGE) Integer nextPage);
 
     @GET(ServerPaths.STARS_KEYWORD_TOP)
-    Call<StarKeywordTopListResponse> getStarsKeywordTop(@Path(ServerPaths.KEYWORD_ID) int keywordId, @Query(ServerPaths.QUERY_PAGE) Integer page);
+    Call<PaginatedResponse<Employee>> getStarsKeywordTop(@Path(ServerPaths.KEYWORD_ID) int keywordId, @Query(ServerPaths.QUERY_PAGE) Integer page);
 
 }

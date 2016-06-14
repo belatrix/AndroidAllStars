@@ -23,7 +23,6 @@ package com.belatrixsf.allstars.ui.contacts.keyword;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.StarKeywordTopListResponse;
 import com.belatrixsf.allstars.services.contracts.StarService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
@@ -91,10 +90,10 @@ public class ContactsKeywordListPresenter extends AllStarsPresenter<ContactsKeyw
         starService.getStarsKeywordTopList(
                 keyword.getId(),
                 starPaginatedResponse.getNextPage(),
-                new AllStarsCallback<StarKeywordTopListResponse>() {
+                new AllStarsCallback<PaginatedResponse<Employee>>() {
                     @Override
-                    public void onSuccess(StarKeywordTopListResponse starKeywordTopListResponse) {
-                        employeeList.addAll(starKeywordTopListResponse.getEmployees());
+                    public void onSuccess(PaginatedResponse<Employee> starKeywordTopListResponse) {
+                        employeeList.addAll(starKeywordTopListResponse.getResults());
                         starPaginatedResponse.setNext(starKeywordTopListResponse.getNext());
                         view.hideProgressIndicator();
                         view.showEmployees(employeeList);
