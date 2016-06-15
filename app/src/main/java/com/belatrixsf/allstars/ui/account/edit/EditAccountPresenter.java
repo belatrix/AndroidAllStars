@@ -219,6 +219,10 @@ public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
         }
     }
 
+    public void setSelectedFile(File selectedFile) {
+        this.selectedFile = selectedFile;
+    }
+
     public void onPermissionDenied() {
         view.disableEditProfilePicture();
     }
