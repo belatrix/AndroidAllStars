@@ -19,4 +19,6 @@
     <color name="recycler_view_normal">#ffffff</color>
     <color name="recycler_view_press">#20424242</color>
 
+    <color name="swipe_refresh">@color/colorPrimary</color>
+
 </resources>

@@ -114,7 +114,7 @@ public class RankingFragment extends AllStarsFragment implements RankingView, Ra
                 rankingPresenter.getRankingList(getArguments().getString(RANKING_KIND_KEY), Constants.DEFAULT_QUANTITY, true);
             }
         });
-        rankingSwipeRefresh.setColorSchemeResources(R.color.colorAccent);
+        rankingSwipeRefresh.setColorSchemeResources(R.color.swipe_refresh);
     }
 
     @Override

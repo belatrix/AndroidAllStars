@@ -116,7 +116,7 @@ public class KeywordsListFragment extends AllStarsFragment implements KeywordsLi
                 keywordsListPresenter.refreshKeywords();
             }
         });
-        keywordsRefreshLayout.setColorSchemeResources(R.color.colorAccent);
+        keywordsRefreshLayout.setColorSchemeResources(R.color.swipe_refresh);
     }
 
     @Override

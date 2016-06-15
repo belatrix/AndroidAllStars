@@ -159,7 +159,7 @@ public class SearchingKeywordsFragment extends AllStarsFragment implements Searc
                 keywordsPresenter.refreshKeywords();
             }
         });
-        keywordsRefreshLayout.setColorSchemeResources(R.color.colorAccent);
+        keywordsRefreshLayout.setColorSchemeResources(R.color.swipe_refresh);
     }
 
     @Override

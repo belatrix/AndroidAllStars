@@ -177,7 +177,7 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
                 loadData();
             }
         });
-        accountSwipeRefresh.setColorSchemeResources(R.color.colorAccent);
+        accountSwipeRefresh.setColorSchemeResources(R.color.swipe_refresh);
     }
 
     @Override
