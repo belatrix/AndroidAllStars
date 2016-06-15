@@ -35,6 +35,7 @@ public interface EditAccountView extends AllStarsView {
     void showFirstNameError(String error);
     void showLastNameError(String error);
     void showSkypeIdError(String error);
+    void showLocationError(String error);
     void addLocation(String location);
     void showLocation(int position);
     void showEditProfileImagePicker();

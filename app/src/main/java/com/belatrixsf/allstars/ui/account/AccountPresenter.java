@@ -170,6 +170,12 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
         employeeManager.refreshEmployee();
     }
 
+    public void profilePictureClicked() {
+        if (employee.getAvatar() != null) {
+            view.goToExpandPhoto(employee.getAvatar());
+        }
+    }
+
     @Override
     public void cancelRequests() {
         employeeService.cancelAll();
