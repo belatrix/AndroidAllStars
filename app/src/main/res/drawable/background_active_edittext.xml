@@ -13,7 +13,7 @@
                 android:color="@android:color/transparent"/>
 
             <stroke
-                android:color="@color/belatrix"
+                android:color="@color/colorPrimary"
                 android:width="2dp"/>
 
         </shape>

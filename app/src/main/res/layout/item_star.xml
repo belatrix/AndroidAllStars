@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dictum, felis vel vulputate laoreet, ante lectus fringilla risus, ac ullamcorper est quam eleifend purus. Aenean eu urna aliquet, posuere lorem nec, laoreet libero. Class aptent taciti sociosqu ad litora torquent per " />
 
-        <com.belatrixsf.allstars.ui.common.views.KeywordView
+        <com.belatrixsf.connect.ui.common.views.KeywordView
             android:id="@+id/star_keyword"
             android:layout_marginTop="@dimen/dimen_3_5"
             android:layout_height="match_parent"

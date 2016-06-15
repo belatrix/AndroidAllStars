@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">All Stars Belatrix</string>
+    <string name="app_name">Belatrix Connect</string>
     <string name="no_data">No data found</string>
     <string name="no_data_option">-</string>
 
@@ -32,7 +32,7 @@
 
     <!-- Button -->
     <string name="button_log_in">Log In</string>
-    <string name="button_sign_up">New user? Sign Up!</string>
+    <string name="button_sign_up">New user? <b>Sign Up!</b></string>
     <string name="button_sign_up_action">Register</string>
     <string name="button_reset">Reset</string>
 
