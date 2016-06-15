@@ -46,6 +46,7 @@ public class PaginatedResponse<T> implements Parcelable {
         count = in.readInt();
         next = in.readString();
         previous = in.readString();
+        results = in.readArrayList(null);
     }
 
     public int getCount() {
@@ -63,6 +64,14 @@ public class PaginatedResponse<T> implements Parcelable {
     public void setNext(String next) {
         this.next = next;
         parseNextPage();
+    }
+
+    public List<T> getResults() {
+        return results;
+    }
+
+    public void setResults(List<T> results) {
+        this.results = results;
     }
 
     public void setCount(int count) {
@@ -123,14 +132,6 @@ public class PaginatedResponse<T> implements Parcelable {
         nextPage = null;
     }
 
-    public List<T> getResults() {
-        return results;
-    }
-
-    public void setResults(List<T> results) {
-        this.results = results;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -141,6 +142,7 @@ public class PaginatedResponse<T> implements Parcelable {
         dest.writeInt(count);
         dest.writeString(next);
         dest.writeString(previous);
+        dest.writeList(results);
     }
 
     @SuppressWarnings("unused")

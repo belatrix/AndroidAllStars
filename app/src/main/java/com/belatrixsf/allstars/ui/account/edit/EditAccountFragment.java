@@ -187,7 +187,10 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_done:
-                editAccountPresenter.finishEdit(firstNameEditText.getText().toString(), lastNameEditText.getText().toString(), skypeIdEditText.getText().toString() );
+                int checkedRadioId = locationRadioGroup.getCheckedRadioButtonId();
+                View radioButton = locationRadioGroup.findViewById(checkedRadioId);
+                int locationIndex = locationRadioGroup.indexOfChild(radioButton);
+                editAccountPresenter.finishEdit(firstNameEditText.getText().toString(), lastNameEditText.getText().toString(), skypeIdEditText.getText().toString(), locationIndex);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -258,6 +261,11 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
     @Override
     public void showSkypeIdError(String error) {
         skypeIdEditText.setError(error);
+    }
+
+    @Override
+    public void showLocationError(String error) {
+        DialogUtils.createErrorDialog(getActivity(), error).show();
     }
 
     @Override

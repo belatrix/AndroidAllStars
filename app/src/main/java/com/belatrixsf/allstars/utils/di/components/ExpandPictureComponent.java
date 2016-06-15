@@ -18,42 +18,23 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.networking.retrofit.responses;
+package com.belatrixsf.allstars.utils.di.components;
 
-import com.belatrixsf.allstars.entities.SubCategory;
-import com.google.gson.annotations.SerializedName;
+import com.belatrixsf.allstars.ui.account.expanded.ExpandPicturePresenter;
+import com.belatrixsf.allstars.utils.di.modules.presenters.ExpandPicturePresenterModule;
+import com.belatrixsf.allstars.utils.di.scopes.UIScope;
 
-import java.util.List;
+import dagger.Subcomponent;
 
 /**
- * Created by PedroCarrillo on 4/26/16.
+ * Created by icerrate on 10/06/2016.
  */
-public class StarSubCategoryResponse {
+@UIScope
+@Subcomponent(
+        modules = ExpandPicturePresenterModule.class
+)
+public interface ExpandPictureComponent {
 
-    private int count;
-    private String next;
-    private String previous;
-    @SerializedName("results")
-    private List<SubCategory> subCategories;
-
-    public StarSubCategoryResponse(List<SubCategory> subCategories) {
-        this.subCategories = subCategories;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public String getNext() {
-        return next;
-    }
-
-    public String getPrevious() {
-        return previous;
-    }
-
-    public List<SubCategory> getSubCategories() {
-        return subCategories;
-    }
+    ExpandPicturePresenter expandPicturePresenter();
 
 }

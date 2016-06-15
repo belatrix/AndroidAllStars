@@ -28,11 +28,9 @@ import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.networking.retrofit.requests.StarRequest;
 import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.StarSubCategoryResponse;
 import com.belatrixsf.allstars.services.ServiceRequest;
 import com.belatrixsf.allstars.services.contracts.StarService;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
-import com.belatrixsf.allstars.utils.ServiceError;
 
 import java.util.ArrayList;
 
@@ -48,9 +46,10 @@ public class StarMockService implements StarService {
     }
 
     @Override
-    public ServiceRequest getEmployeeSubCategoriesStars(int employeeId, AllStarsCallback<StarSubCategoryResponse> callback) {
-        StarSubCategoryResponse starSubCategoryResponse = new StarSubCategoryResponse(new ArrayList<SubCategory>());
-        callback.onSuccess(starSubCategoryResponse);
+    public ServiceRequest getEmployeeSubCategoriesStars(int employeeId, AllStarsCallback<PaginatedResponse<SubCategory>> callback) {
+        PaginatedResponse<SubCategory> paginatedResponse = new PaginatedResponse<>();
+        paginatedResponse.setResults(new ArrayList<SubCategory>());
+        callback.onSuccess(paginatedResponse);
         return null;
     }
 

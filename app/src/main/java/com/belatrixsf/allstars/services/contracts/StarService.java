@@ -23,10 +23,10 @@ package com.belatrixsf.allstars.services.contracts;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.entities.Star;
+import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.networking.retrofit.requests.StarRequest;
 import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.StarSubCategoryResponse;
 import com.belatrixsf.allstars.services.ServiceRequest;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
 
@@ -36,7 +36,7 @@ import com.belatrixsf.allstars.utils.AllStarsCallback;
 public interface StarService extends AllStarsService {
 
 
-    ServiceRequest getEmployeeSubCategoriesStars(int employeeId, AllStarsCallback<StarSubCategoryResponse> callback);
+    ServiceRequest getEmployeeSubCategoriesStars(int employeeId, AllStarsCallback<PaginatedResponse<SubCategory>> callback);
 
     ServiceRequest star(int fromEmployeeId, int toEmployeeId, StarRequest starRequest, AllStarsCallback<StarResponse> callback);
 

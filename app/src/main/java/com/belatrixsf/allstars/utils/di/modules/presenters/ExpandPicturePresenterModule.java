@@ -18,37 +18,28 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.networking.retrofit.responses;
+package com.belatrixsf.allstars.utils.di.modules.presenters;
 
-import com.belatrixsf.allstars.entities.Employee;
-import com.google.gson.annotations.SerializedName;
+import com.belatrixsf.allstars.ui.account.expanded.ExpandPictureView;
 
-import java.util.List;
+import dagger.Module;
+import dagger.Provides;
 
 /**
- * Created by icerrate on 28/04/2016.
+ * Created by icerrate on 10/06/2016.
  */
-public class RankingResponse {
+@Module
+public class ExpandPicturePresenterModule {
 
-    private int count;
-    private String next;
-    private String previous;
-    @SerializedName("results")
-    private List<Employee> rankingList;
+    private ExpandPictureView view;
 
-    public int getCount() {
-        return count;
+    public ExpandPicturePresenterModule(ExpandPictureView view) {
+        this.view = view;
     }
 
-    public String getNext() {
-        return next;
+    @Provides
+    public ExpandPictureView providesView() {
+        return view;
     }
 
-    public String getPrevious() {
-        return previous;
-    }
-
-    public List<Employee> getRankingList() {
-        return rankingList;
-    }
 }

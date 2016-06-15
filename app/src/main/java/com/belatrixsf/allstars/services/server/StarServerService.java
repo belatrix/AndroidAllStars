@@ -23,11 +23,11 @@ package com.belatrixsf.allstars.services.server;
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.entities.Star;
+import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.networking.retrofit.api.StarAPI;
 import com.belatrixsf.allstars.networking.retrofit.requests.StarRequest;
 import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.StarSubCategoryResponse;
 import com.belatrixsf.allstars.services.AllStarsBaseService;
 import com.belatrixsf.allstars.services.ServiceRequest;
 import com.belatrixsf.allstars.services.contracts.StarService;
@@ -48,9 +48,9 @@ public class StarServerService extends AllStarsBaseService implements StarServic
     }
 
     @Override
-    public ServiceRequest getEmployeeSubCategoriesStars(final int employeeId, AllStarsCallback<StarSubCategoryResponse> callback) {
-        Call<StarSubCategoryResponse> call = starAPI.getEmployeeSubCategoriesStars(employeeId);
-        ServiceRequest<StarSubCategoryResponse> serviceRequest = new ServerServiceRequest<>(call);
+    public ServiceRequest getEmployeeSubCategoriesStars(final int employeeId, AllStarsCallback<PaginatedResponse<SubCategory>> callback) {
+        Call<PaginatedResponse<SubCategory>> call = starAPI.getEmployeeSubCategoriesStars(employeeId);
+        ServiceRequest<PaginatedResponse<SubCategory>> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
         return serviceRequest;
     }

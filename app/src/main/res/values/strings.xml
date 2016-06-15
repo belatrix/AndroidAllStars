@@ -42,6 +42,7 @@
     <string name="title_select_category">Select Category</string>
     <string name="title_select_subcategory">Select Subcategory</string>
     <string name="title_account_activity">Profile</string>
+    <string name="title_expand_photo_activity"></string>
     <string name="title_contact_activity">Select an user</string>
     <string name="title_recommendation_activity">Recommendations</string>
     <string name="title_give_star_activity">Give a recommendation</string>
@@ -83,6 +84,7 @@
     <string name="select_photo_title">Upload a picture</string>
     <string name="select_image_title">Select an image</string>
     <string name="permission_profile">The application needs write and camera permissions to be able to edit your profile picture</string>
+    <string name="location_error">Must select location</string>
 
     <!--Give a star-->
     <string name="select_user">Select user</string>
