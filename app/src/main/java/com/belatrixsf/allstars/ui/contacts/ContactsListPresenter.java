@@ -22,12 +22,9 @@ package com.belatrixsf.allstars.ui.contacts;
 
 import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
 import com.belatrixsf.allstars.services.ServiceRequest;
 import com.belatrixsf.allstars.services.contracts.EmployeeService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
-import com.belatrixsf.allstars.utils.AllStarsCallback;
-import com.belatrixsf.allstars.utils.ServiceError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,13 +102,13 @@ public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
         searchingServiceRequest = employeeService.getEmployeeSearchList(
                 searchText,
                 contactsPaging.getNextPage(),
-                new PresenterCallback<SearchEmployeeResponse>() {
+                new PresenterCallback<PaginatedResponse<Employee>>() {
                     @Override
-                    public void onSuccess(SearchEmployeeResponse starsByKeywordsResponse) {
+                    public void onSuccess(PaginatedResponse<Employee> starsByKeywordsResponse) {
                         contactsPaging.setCount(starsByKeywordsResponse.getCount());
                         contactsPaging.setNext(starsByKeywordsResponse.getNext());
-                        contacts.addAll(starsByKeywordsResponse.getEmployeeList());
-                        view.addContacts(starsByKeywordsResponse.getEmployeeList());
+                        contacts.addAll(starsByKeywordsResponse.getResults());
+                        view.addContacts(starsByKeywordsResponse.getResults());
                         view.hideProgressIndicator();
                     }
                 });

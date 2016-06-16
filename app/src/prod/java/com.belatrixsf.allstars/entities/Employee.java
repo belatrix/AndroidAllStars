@@ -23,6 +23,7 @@ package com.belatrixsf.allstars.entities;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.belatrixsf.allstars.utils.SearchingHelper;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ import java.util.List;
 /**
  * Created by gyosida on 4/12/16.
  */
-public class Employee implements Parcelable {
+public class Employee implements Parcelable, SearchingHelper.Searchable {
 
     private Integer pk;
     private String username;
@@ -267,4 +268,8 @@ public class Employee implements Parcelable {
         }
     };
 
+    @Override
+    public String searchableText() {
+        return firstName + lastName;
+    }
 }

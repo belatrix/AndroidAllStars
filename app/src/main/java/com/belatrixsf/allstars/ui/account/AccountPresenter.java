@@ -25,7 +25,7 @@ import com.belatrixsf.allstars.entities.Employee;
 import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.managers.EmployeeManager;
 import com.belatrixsf.allstars.managers.PreferencesManager;
-import com.belatrixsf.allstars.networking.retrofit.responses.StarSubCategoryResponse;
+import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.allstars.services.contracts.EmployeeService;
 import com.belatrixsf.allstars.services.contracts.StarService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
@@ -62,7 +62,6 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
                 loadSubCategoriesStar();
                 showEmployeeData();
                 view.dismissProgressDialog();
-                view.showProgressIndicator();
             }
 
             @Override
@@ -79,17 +78,18 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
     }
 
     private void loadSubCategoriesStar() {
+        view.showProgressIndicator();
         starService.getEmployeeSubCategoriesStars(
                 employee.getPk(),
-                new PresenterCallback<StarSubCategoryResponse>() {
+                new PresenterCallback<PaginatedResponse<SubCategory>>() {
                     @Override
-                    public void onSuccess(StarSubCategoryResponse starSubCategoryResponse) {
+                    public void onSuccess(PaginatedResponse<SubCategory> starSubCategoryResponse) {
                         view.hideProgressIndicator();
-                        if (starSubCategoryResponse.getSubCategories().isEmpty()) {
+                        if (starSubCategoryResponse.getResults().isEmpty()) {
                             view.showNoDataView();
                         } else {
                             view.hideNoDataView();
-                            view.showSubCategories(starSubCategoryResponse.getSubCategories());
+                            view.showSubCategories(starSubCategoryResponse.getResults());
                         }
                     }
 

@@ -18,23 +18,42 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.networking.retrofit.responses;
+package com.belatrixsf.allstars.utils.di.modules;
 
-import com.belatrixsf.allstars.entities.Star;
-import com.google.gson.annotations.SerializedName;
+import com.belatrixsf.allstars.data.CategoryMockDataSource;
+import com.belatrixsf.allstars.data.EmployeeMockDataSource;
+import com.belatrixsf.allstars.data.StarMockDataSource;
+import com.belatrixsf.allstars.data.mappers.EmployeeSubcategoriesStarsMapper;
+import com.belatrixsf.allstars.entities.Employee;
+import com.belatrixsf.allstars.utils.IOUtils;
+import com.belatrixsf.allstars.utils.MockDataProvider;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
 
+import dagger.Module;
+import dagger.Provides;
+
 /**
- * Created by icerrate on 25/04/2016.
+ * Created by gyosida on 6/13/16.
  */
-public class StarsResponse extends PaginatedResponse {
+@Module
+public class DataSourceModule {
 
-    @SerializedName("results")
-    private List<Star> starList;
+    @Provides
+    public EmployeeMockDataSource provideEmployeeDataSource() {
+        return new EmployeeMockDataSource(MockDataProvider.getEmployees());
+    }
 
-    public List<Star> getStarList() {
-        return starList;
+    @Provides
+    public CategoryMockDataSource provideCategoryMockDataSource() {
+        return new CategoryMockDataSource();
+    }
+
+    @Provides
+    public StarMockDataSource provideStarMockDataSource() {
+        return new StarMockDataSource(MockDataProvider.getEmployeesSubcategoriesStarsMapper());
     }
 
 }

@@ -18,37 +18,13 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.networking.retrofit.responses;
-
-import com.belatrixsf.allstars.entities.Employee;
-import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
+package com.belatrixsf.allstars.util;
 
 /**
- * Created by icerrate on 28/04/2016.
+ * Created by gyosida on 6/10/16.
  */
-public class RankingResponse {
-
-    private int count;
-    private String next;
-    private String previous;
-    @SerializedName("results")
-    private List<Employee> rankingList;
-
-    public int getCount() {
-        return count;
-    }
-
-    public String getNext() {
-        return next;
-    }
-
-    public String getPrevious() {
-        return previous;
-    }
-
-    public List<Employee> getRankingList() {
-        return rankingList;
-    }
+public interface TestConstants {
+    
+    int PAGINATION_ITEMS_PER_PAGE = 10;
+    
 }

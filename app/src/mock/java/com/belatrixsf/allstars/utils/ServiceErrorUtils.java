@@ -18,44 +18,23 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.networking.retrofit.responses;
-
-
-import com.google.gson.annotations.SerializedName;
+package com.belatrixsf.allstars.utils;
 
 /**
- * Created by gyosida on 4/11/16.
+ * Created by gyosida on 6/15/16.
  */
-public class AuthenticationResponse {
+public class ServiceErrorUtils {
 
-    @SerializedName("user_id")
-    private int employeeId;
-    private String token;
-    @SerializedName("reset_password_code")
-    private String resetPasswordCode;
-    @SerializedName("base_profile_complete")
-    private boolean baseProfileComplete;
-
-    public AuthenticationResponse(int employeeId, String token, String resetPasswordCode, boolean baseProfileComplete) {
-        this.employeeId = employeeId;
-        this.token = token;
-        this.resetPasswordCode = resetPasswordCode;
-        this.baseProfileComplete = baseProfileComplete;
+    public static ServiceError createNotFoundError(String message) {
+        return new ServiceError(ServiceError.NOT_FOUND, message);
     }
 
-    public int getEmployeeId() {
-        return employeeId;
+    public static ServiceError createBadRequestError(String message) {
+        return new ServiceError(ServiceError.BAD_REQUEST, message);
     }
 
-    public String getToken() {
-        return token;
+    public static ServiceError createUnauthorizedError(String message) {
+        return new ServiceError(ServiceError.UNAUTHORIZED, message);
     }
 
-    public String getResetPasswordCode() {
-        return resetPasswordCode;
-    }
-
-    public boolean isBaseProfileComplete() {
-        return baseProfileComplete;
-    }
 }

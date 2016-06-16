@@ -45,7 +45,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by gyosida on 4/12/16.
  */
 @Module
-public class RetrofitModule {
+public class DataSourceModule {
 
     @Singleton
     @Provides

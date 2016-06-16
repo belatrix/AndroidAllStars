@@ -22,12 +22,9 @@ package com.belatrixsf.allstars.ui.keywords;
 
 import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.StarsByKeywordsResponse;
 import com.belatrixsf.allstars.services.ServiceRequest;
 import com.belatrixsf.allstars.services.contracts.StarService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
-import com.belatrixsf.allstars.utils.AllStarsCallback;
-import com.belatrixsf.allstars.utils.ServiceError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,13 +101,13 @@ public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywo
         searchingServiceRequest = starService.getStarsByKeywords(
                 searchText,
                 keywordsPaging.getNextPage(),
-                new PresenterCallback<StarsByKeywordsResponse>() {
+                new PresenterCallback<PaginatedResponse<Keyword>>() {
                     @Override
-                    public void onSuccess(StarsByKeywordsResponse starsByKeywordsResponse) {
+                    public void onSuccess(PaginatedResponse<Keyword> starsByKeywordsResponse) {
                         keywordsPaging.setCount(starsByKeywordsResponse.getCount());
                         keywordsPaging.setNext(starsByKeywordsResponse.getNext());
-                        keywords.addAll(starsByKeywordsResponse.getKeywords());
-                        view.addKeywords(starsByKeywordsResponse.getKeywords());
+                        keywords.addAll(starsByKeywordsResponse.getResults());
+                        view.addKeywords(starsByKeywordsResponse.getResults());
                         view.hideProgressIndicator();
                     }
                 });

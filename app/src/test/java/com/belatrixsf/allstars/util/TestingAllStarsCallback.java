@@ -18,44 +18,31 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.networking.retrofit.responses;
+package com.belatrixsf.allstars.util;
 
+import com.belatrixsf.allstars.utils.AllStarsCallback;
+import com.belatrixsf.allstars.utils.ServiceError;
 
-import com.google.gson.annotations.SerializedName;
+import java.util.concurrent.CountDownLatch;
 
 /**
- * Created by gyosida on 4/11/16.
+ * Created by gyosida on 6/10/16.
  */
-public class AuthenticationResponse {
+public class TestingAllStarsCallback<T> implements AllStarsCallback<T> {
 
-    @SerializedName("user_id")
-    private int employeeId;
-    private String token;
-    @SerializedName("reset_password_code")
-    private String resetPasswordCode;
-    @SerializedName("base_profile_complete")
-    private boolean baseProfileComplete;
+    private CountDownLatch countDownLatch;
 
-    public AuthenticationResponse(int employeeId, String token, String resetPasswordCode, boolean baseProfileComplete) {
-        this.employeeId = employeeId;
-        this.token = token;
-        this.resetPasswordCode = resetPasswordCode;
-        this.baseProfileComplete = baseProfileComplete;
+    public TestingAllStarsCallback(CountDownLatch countDownLatch) {
+        this.countDownLatch = countDownLatch;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
+    @Override
+    public void onSuccess(T t) {
+        countDownLatch.countDown();
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public String getResetPasswordCode() {
-        return resetPasswordCode;
-    }
-
-    public boolean isBaseProfileComplete() {
-        return baseProfileComplete;
+    @Override
+    public void onFailure(ServiceError serviceError) {
+        countDownLatch.countDown();
     }
 }

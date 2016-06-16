@@ -23,10 +23,8 @@ package com.belatrixsf.allstars.ui.stars;
 import com.belatrixsf.allstars.entities.Keyword;
 import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.allstars.entities.Star;
-import com.belatrixsf.allstars.networking.retrofit.responses.StarsResponse;
 import com.belatrixsf.allstars.services.contracts.StarService;
 import com.belatrixsf.allstars.ui.common.AllStarsPresenter;
-import com.belatrixsf.allstars.utils.AllStarsCallback;
 import com.belatrixsf.allstars.utils.ServiceError;
 
 import java.util.ArrayList;
@@ -96,10 +94,10 @@ public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
                 employeeId,
                 subCategoryId,
                 starPaginatedResponse.getNextPage(),
-                new PresenterCallback<StarsResponse>() {
+                new PresenterCallback<PaginatedResponse<Star>>() {
                     @Override
-                    public void onSuccess(StarsResponse starsResponse) {
-                        stars.addAll(starsResponse.getStarList());
+                    public void onSuccess(PaginatedResponse<Star> starsResponse) {
+                        stars.addAll(starsResponse.getResults());
                         starPaginatedResponse.setNext(starsResponse.getNext());
                         view.hideProgressIndicator();
                         view.showStars(stars);

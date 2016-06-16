@@ -18,22 +18,29 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.networking.retrofit.responses;
+package com.belatrixsf.allstars.services;
 
-import com.belatrixsf.allstars.entities.Employee;
-import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
+import com.belatrixsf.allstars.utils.AllStarsCallback;
 
 /**
- * Created by gyosida on 4/11/16.
+ * Created by gyosida on 6/8/16.
  */
-public class SearchEmployeeResponse extends PaginatedResponse {
+public class MockServiceRequest<T> extends ServiceRequest<T> {
 
-    @SerializedName("results")
-    private List<Employee> employeeList;
+    private T response;
 
-    public List<Employee> getEmployeeList() {
-        return employeeList;
+    public MockServiceRequest(T response) {
+        this.response = response;
     }
+
+    @Override
+    void enqueue(AllStarsCallback<T> allStarsCallback) {
+        allStarsCallback.onSuccess(response);
+    }
+
+    @Override
+    public void cancel() {
+
+    }
+
 }

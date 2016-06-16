@@ -48,6 +48,14 @@ android {
             manifestPlaceholders = [fabric_io_api_key: fabricApiKey]
         }
     }
+    productFlavors {
+        mock {
+            applicationIdSuffix ".mock"
+        }
+        prod {
+
+        }
+    }
 
     def supportLibrariesVersion = "23.3.0"
 
@@ -61,6 +69,7 @@ android {
             exclude group: 'com.android.support', module: 'support-annotations'
         }
         testCompile 'junit:junit:4.12'
+        testCompile 'org.mockito:mockito-core:1.10.19'
         compile "com.android.support:appcompat-v7:$supportLibrariesVersion"
         compile "com.android.support:design:$supportLibrariesVersion"
         compile "com.android.support:cardview-v7:$supportLibrariesVersion"
@@ -92,4 +101,3 @@ android {
 
     }
 }
-

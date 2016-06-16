@@ -18,44 +18,14 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.networking.retrofit.responses;
-
-
-import com.google.gson.annotations.SerializedName;
+package com.belatrixsf.allstars.utils.exceptions;
 
 /**
- * Created by gyosida on 4/11/16.
+ * Created by gyosida on 6/13/16.
  */
-public class AuthenticationResponse {
+public class NotFoundException extends Exception {
 
-    @SerializedName("user_id")
-    private int employeeId;
-    private String token;
-    @SerializedName("reset_password_code")
-    private String resetPasswordCode;
-    @SerializedName("base_profile_complete")
-    private boolean baseProfileComplete;
-
-    public AuthenticationResponse(int employeeId, String token, String resetPasswordCode, boolean baseProfileComplete) {
-        this.employeeId = employeeId;
-        this.token = token;
-        this.resetPasswordCode = resetPasswordCode;
-        this.baseProfileComplete = baseProfileComplete;
-    }
-
-    public int getEmployeeId() {
-        return employeeId;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public String getResetPasswordCode() {
-        return resetPasswordCode;
-    }
-
-    public boolean isBaseProfileComplete() {
-        return baseProfileComplete;
+    public NotFoundException(String object) {
+        super(String.format("The requested %s was not found", object));
     }
 }

@@ -18,44 +18,25 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.networking.retrofit.responses;
+package com.belatrixsf.allstars.data.mappers;
 
+import com.belatrixsf.allstars.entities.SubCategory;
 
-import com.google.gson.annotations.SerializedName;
+import java.util.List;
 
 /**
- * Created by gyosida on 4/11/16.
+ * Created by gyosida on 6/15/16.
  */
-public class AuthenticationResponse {
+public class EmployeeSubcategoriesStarsMapper {
 
-    @SerializedName("user_id")
     private int employeeId;
-    private String token;
-    @SerializedName("reset_password_code")
-    private String resetPasswordCode;
-    @SerializedName("base_profile_complete")
-    private boolean baseProfileComplete;
-
-    public AuthenticationResponse(int employeeId, String token, String resetPasswordCode, boolean baseProfileComplete) {
-        this.employeeId = employeeId;
-        this.token = token;
-        this.resetPasswordCode = resetPasswordCode;
-        this.baseProfileComplete = baseProfileComplete;
-    }
+    private List<SubCategory> subcategories;
 
     public int getEmployeeId() {
         return employeeId;
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public String getResetPasswordCode() {
-        return resetPasswordCode;
-    }
-
-    public boolean isBaseProfileComplete() {
-        return baseProfileComplete;
+    public List<SubCategory> getSubcategories() {
+        return subcategories;
     }
 }

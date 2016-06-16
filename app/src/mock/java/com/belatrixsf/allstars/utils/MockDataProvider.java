@@ -18,38 +18,39 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.networking.retrofit.responses;
+package com.belatrixsf.allstars.utils;
 
-import com.belatrixsf.allstars.entities.SubCategory;
-import com.google.gson.annotations.SerializedName;
+import com.belatrixsf.allstars.data.mappers.EmployeeSubcategoriesStarsMapper;
+import com.belatrixsf.allstars.entities.Employee;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
 
 /**
- * Created by PedroCarrillo on 4/26/16.
+ * Created by gyosida on 6/16/16.
  */
-public class StarSubCategoryResponse {
+public class MockDataProvider {
 
-    private int count;
-    private String next;
-    private String previous;
-    @SerializedName("results")
-    private List<SubCategory> subCategories;
+    private static final String MOCKS_FOLDER = "mocks/";
 
-    public int getCount() {
-        return count;
+    public static List<Employee> getEmployees() {
+        String json = IOUtils.readFileFromAssets(MOCKS_FOLDER + "employees.json");
+        try {
+            return new Gson().fromJson(json, new TypeToken<List<Employee>>(){}.getType());
+        } catch (JsonSyntaxException e) {
+             return null;
+        }
     }
 
-    public String getNext() {
-        return next;
-    }
-
-    public String getPrevious() {
-        return previous;
-    }
-
-    public List<SubCategory> getSubCategories() {
-        return subCategories;
+    public static List<EmployeeSubcategoriesStarsMapper> getEmployeesSubcategoriesStarsMapper() {
+        String json = IOUtils.readFileFromAssets(MOCKS_FOLDER + "employee_subcategories_stars.json");
+        try {
+            return new Gson().fromJson(json, new TypeToken<List<EmployeeSubcategoriesStarsMapper>>(){}.getType());
+        } catch (JsonSyntaxException e) {
+            return null;
+        }
     }
 
 }

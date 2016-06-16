@@ -1,0 +1,294 @@
+[
+  {
+    "pk": 1,
+    "name": "Coworker",
+    "weight": 1,
+    "comment_required": false,
+    "subcategories": [
+      {
+        "pk": 11,
+        "name": "Blogger"
+      },
+      {
+        "pk": 8,
+        "name": "Code Review"
+      },
+      {
+        "pk": 4,
+        "name": "Commitment"
+      },
+      {
+        "pk": 1,
+        "name": "Demo"
+      },
+      {
+        "pk": 5,
+        "name": "Empowerment"
+      },
+      {
+        "pk": 12,
+        "name": "Event collaborator"
+      },
+      {
+        "pk": 2,
+        "name": "Innovation"
+      },
+      {
+        "pk": 10,
+        "name": "Speaker"
+      },
+      {
+        "pk": 3,
+        "name": "Teamwork"
+      },
+      {
+        "pk": 7,
+        "name": "Technical Guidance"
+      },
+      {
+        "pk": 9,
+        "name": "Technical Interview"
+      },
+      {
+        "pk": 13,
+        "name": "Training"
+      },
+      {
+        "pk": 6,
+        "name": "Trust"
+      }
+    ]
+  },
+  {
+    "pk": 2,
+    "name": "SME",
+    "weight": 3,
+    "comment_required": true,
+    "subcategories": [
+      {
+        "pk": 11,
+        "name": "Blogger"
+      },
+      {
+        "pk": 8,
+        "name": "Code Review"
+      },
+      {
+        "pk": 4,
+        "name": "Commitment"
+      },
+      {
+        "pk": 1,
+        "name": "Demo"
+      },
+      {
+        "pk": 5,
+        "name": "Empowerment"
+      },
+      {
+        "pk": 12,
+        "name": "Event collaborator"
+      },
+      {
+        "pk": 2,
+        "name": "Innovation"
+      },
+      {
+        "pk": 10,
+        "name": "Speaker"
+      },
+      {
+        "pk": 3,
+        "name": "Teamwork"
+      },
+      {
+        "pk": 7,
+        "name": "Technical Guidance"
+      },
+      {
+        "pk": 9,
+        "name": "Technical Interview"
+      },
+      {
+        "pk": 13,
+        "name": "Training"
+      },
+      {
+        "pk": 6,
+        "name": "Trust"
+      }
+    ]
+  },
+  {
+    "pk": 3,
+    "name": "Team Leader / Team Manager",
+    "weight": 4,
+    "comment_required": true,
+    "subcategories": [
+      {
+        "pk": 11,
+        "name": "Blogger"
+      },
+      {
+        "pk": 8,
+        "name": "Code Review"
+      },
+      {
+        "pk": 4,
+        "name": "Commitment"
+      },
+      {
+        "pk": 1,
+        "name": "Demo"
+      },
+      {
+        "pk": 5,
+        "name": "Empowerment"
+      },
+      {
+        "pk": 12,
+        "name": "Event collaborator"
+      },
+      {
+        "pk": 2,
+        "name": "Innovation"
+      },
+      {
+        "pk": 10,
+        "name": "Speaker"
+      },
+      {
+        "pk": 3,
+        "name": "Teamwork"
+      },
+      {
+        "pk": 7,
+        "name": "Technical Guidance"
+      },
+      {
+        "pk": 9,
+        "name": "Technical Interview"
+      },
+      {
+        "pk": 13,
+        "name": "Training"
+      },
+      {
+        "pk": 6,
+        "name": "Trust"
+      }
+    ]
+  },
+  {
+    "pk": 4,
+    "name": "Manager",
+    "weight": 5,
+    "comment_required": true,
+    "subcategories": [
+      {
+        "pk": 11,
+        "name": "Blogger"
+      },
+      {
+        "pk": 4,
+        "name": "Commitment"
+      },
+      {
+        "pk": 1,
+        "name": "Demo"
+      },
+      {
+        "pk": 5,
+        "name": "Empowerment"
+      },
+      {
+        "pk": 12,
+        "name": "Event collaborator"
+      },
+      {
+        "pk": 2,
+        "name": "Innovation"
+      },
+      {
+        "pk": 10,
+        "name": "Speaker"
+      },
+      {
+        "pk": 3,
+        "name": "Teamwork"
+      },
+      {
+        "pk": 7,
+        "name": "Technical Guidance"
+      },
+      {
+        "pk": 9,
+        "name": "Technical Interview"
+      },
+      {
+        "pk": 13,
+        "name": "Training"
+      },
+      {
+        "pk": 6,
+        "name": "Trust"
+      }
+    ]
+  },
+  {
+    "pk": 5,
+    "name": "Director",
+    "weight": 10,
+    "comment_required": true,
+    "subcategories": [
+      {
+        "pk": 11,
+        "name": "Blogger"
+      },
+      {
+        "pk": 4,
+        "name": "Commitment"
+      },
+      {
+        "pk": 1,
+        "name": "Demo"
+      },
+      {
+        "pk": 5,
+        "name": "Empowerment"
+      },
+      {
+        "pk": 12,
+        "name": "Event collaborator"
+      },
+      {
+        "pk": 2,
+        "name": "Innovation"
+      },
+      {
+        "pk": 10,
+        "name": "Speaker"
+      },
+      {
+        "pk": 3,
+        "name": "Teamwork"
+      },
+      {
+        "pk": 7,
+        "name": "Technical Guidance"
+      },
+      {
+        "pk": 9,
+        "name": "Technical Interview"
+      },
+      {
+        "pk": 13,
+        "name": "Training"
+      },
+      {
+        "pk": 6,
+        "name": "Trust"
+      }
+    ]
+  }
+]

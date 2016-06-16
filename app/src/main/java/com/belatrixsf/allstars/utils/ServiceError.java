@@ -25,8 +25,12 @@ package com.belatrixsf.allstars.utils;
  */
 public class ServiceError {
 
-    public static final int UNKNOWN = 0;
     public static final int CANCELLED = 1;
+    public static final int BAD_REQUEST = 400;
+    public static final int UNAUTHORIZED = 401;
+    public static final int NOT_FOUND = 404;
+    public static final int UNKNOWN = 500;
+
 
     private int responseCode;
     private String detail;

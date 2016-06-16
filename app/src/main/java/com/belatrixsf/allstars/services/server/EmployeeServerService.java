@@ -30,7 +30,7 @@ import com.belatrixsf.allstars.networking.retrofit.requests.ResetPasswordRequest
 import com.belatrixsf.allstars.networking.retrofit.requests.UpdateEmployeeRequest;
 import com.belatrixsf.allstars.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.CreateEmployeeResponse;
-import com.belatrixsf.allstars.networking.retrofit.responses.SearchEmployeeResponse;
+import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.allstars.services.AllStarsBaseService;
 import com.belatrixsf.allstars.services.ServerServiceRequest;
 import com.belatrixsf.allstars.services.ServiceRequest;
@@ -84,9 +84,9 @@ public class EmployeeServerService extends AllStarsBaseService implements Employ
     }
 
     @Override
-    public ServiceRequest getEmployeeSearchList(String searchTerm, Integer page, AllStarsCallback<SearchEmployeeResponse> callback) {
-        Call<SearchEmployeeResponse> call = employeeAPI.getEmployeeSearchList(searchTerm, page);
-        ServiceRequest<SearchEmployeeResponse> serviceRequest = new ServerServiceRequest<>(call);
+    public ServiceRequest getEmployeeSearchList(String searchTerm, Integer page, AllStarsCallback<PaginatedResponse<Employee>> callback) {
+        Call<PaginatedResponse<Employee>> call = employeeAPI.getEmployeeSearchList(searchTerm, page);
+        ServiceRequest<PaginatedResponse<Employee>> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
         return serviceRequest;
     }
