@@ -20,8 +20,45 @@
 */
 package com.belatrixsf.allstars.data;
 
+import com.belatrixsf.allstars.data.mappers.EmployeeSubcategoriesStarsMapper;
+import com.belatrixsf.allstars.entities.SubCategory;
+import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
+import com.belatrixsf.allstars.utils.exceptions.InvalidPageException;
+import com.belatrixsf.allstars.utils.search.SearchingEngine;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by gyosida on 6/13/16.
  */
 public class StarMockDataSource {
+
+    private List<EmployeeSubcategoriesStarsMapper> employeeSubcategoriesStarsMappers = new ArrayList<>();
+
+    public StarMockDataSource(List<EmployeeSubcategoriesStarsMapper> employeeSubcategoriesStarsMappers) {
+        if (employeeSubcategoriesStarsMappers != null) {
+            this.employeeSubcategoriesStarsMappers.addAll(employeeSubcategoriesStarsMappers);
+        }
+    }
+
+    public PaginatedResponse<SubCategory> getEmployeeSubcategoriesStars(int employeeId, Integer page) throws InvalidPageException {
+        EmployeeSubcategoriesStarsMapper mapper = matchEmployeeSubcategoriesStarsMapper(employeeId);
+        List<SubCategory> subcategories = new ArrayList<>();
+        if (mapper != null) {
+            subcategories.addAll(mapper.getSubcategories());
+        }
+        SearchingEngine<SubCategory> searchingEngine = new SearchingEngine<>(subcategories);
+        return searchingEngine.search(page);
+    }
+
+    private EmployeeSubcategoriesStarsMapper matchEmployeeSubcategoriesStarsMapper(int employeeId) {
+        for(EmployeeSubcategoriesStarsMapper mapper : employeeSubcategoriesStarsMappers) {
+            if (mapper.getEmployeeId() == employeeId) {
+                return mapper;
+            }
+        }
+        return null;
+    }
+
 }

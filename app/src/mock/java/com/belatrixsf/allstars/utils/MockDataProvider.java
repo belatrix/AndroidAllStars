@@ -18,42 +18,39 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils.di.modules;
+package com.belatrixsf.allstars.utils;
 
-import com.belatrixsf.allstars.data.CategoryMockDataSource;
-import com.belatrixsf.allstars.data.EmployeeMockDataSource;
-import com.belatrixsf.allstars.data.StarMockDataSource;
 import com.belatrixsf.allstars.data.mappers.EmployeeSubcategoriesStarsMapper;
 import com.belatrixsf.allstars.entities.Employee;
-import com.belatrixsf.allstars.utils.IOUtils;
-import com.belatrixsf.allstars.utils.MockDataProvider;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
 
-import dagger.Module;
-import dagger.Provides;
-
 /**
- * Created by gyosida on 6/13/16.
+ * Created by gyosida on 6/16/16.
  */
-@Module
-public class DataSourceModule {
+public class MockDataProvider {
 
-    @Provides
-    public EmployeeMockDataSource provideEmployeeDataSource() {
-        return new EmployeeMockDataSource(MockDataProvider.getEmployees());
+    private static final String MOCKS_FOLDER = "mocks/";
+
+    public static List<Employee> getEmployees() {
+        String json = IOUtils.readFileFromAssets(MOCKS_FOLDER + "employees.json");
+        try {
+            return new Gson().fromJson(json, new TypeToken<List<Employee>>(){}.getType());
+        } catch (JsonSyntaxException e) {
+             return null;
+        }
     }
 
-    @Provides
-    public CategoryMockDataSource provideCategoryMockDataSource() {
-        return new CategoryMockDataSource();
-    }
-
-    @Provides
-    public StarMockDataSource provideStarMockDataSource() {
-        return new StarMockDataSource(MockDataProvider.getEmployeesSubcategoriesStarsMapper());
+    public static List<EmployeeSubcategoriesStarsMapper> getEmployeesSubcategoriesStarsMapper() {
+        String json = IOUtils.readFileFromAssets(MOCKS_FOLDER + "employee_subcategories_stars.json");
+        try {
+            return new Gson().fromJson(json, new TypeToken<List<EmployeeSubcategoriesStarsMapper>>(){}.getType());
+        } catch (JsonSyntaxException e) {
+            return null;
+        }
     }
 
 }

@@ -54,7 +54,9 @@ public class PaginationEngine<T> {
     }
 
     public void setItemsPerPage(int itemsPerPage) {
-        this.itemsPerPage = itemsPerPage;
+        if (itemsPerPage >= 0) {
+            this.itemsPerPage = itemsPerPage;
+        }
     }
 
     private int calculateOffset(int page) {

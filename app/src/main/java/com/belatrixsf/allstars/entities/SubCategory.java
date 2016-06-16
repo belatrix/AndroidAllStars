@@ -23,12 +23,13 @@ package com.belatrixsf.allstars.entities;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.belatrixsf.allstars.utils.SearchingHelper;
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by PedroCarrillo on 4/26/16.
  */
-public class SubCategory extends Category implements Parcelable {
+public class SubCategory extends Category implements Parcelable, SearchingHelper.Searchable {
 
     @SerializedName("num_stars")
     private Integer numStars;
@@ -67,6 +68,11 @@ public class SubCategory extends Category implements Parcelable {
             dest.writeInt(numStars);
         }
         dest.writeValue(parentCategory);
+    }
+
+    @Override
+    public String searchableText() {
+        return null;
     }
 
     @SuppressWarnings("unused")

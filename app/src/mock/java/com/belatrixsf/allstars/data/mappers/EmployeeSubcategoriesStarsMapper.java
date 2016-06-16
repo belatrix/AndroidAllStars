@@ -18,42 +18,25 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils.di.modules;
+package com.belatrixsf.allstars.data.mappers;
 
-import com.belatrixsf.allstars.data.CategoryMockDataSource;
-import com.belatrixsf.allstars.data.EmployeeMockDataSource;
-import com.belatrixsf.allstars.data.StarMockDataSource;
-import com.belatrixsf.allstars.data.mappers.EmployeeSubcategoriesStarsMapper;
-import com.belatrixsf.allstars.entities.Employee;
-import com.belatrixsf.allstars.utils.IOUtils;
-import com.belatrixsf.allstars.utils.MockDataProvider;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.belatrixsf.allstars.entities.SubCategory;
 
 import java.util.List;
 
-import dagger.Module;
-import dagger.Provides;
-
 /**
- * Created by gyosida on 6/13/16.
+ * Created by gyosida on 6/15/16.
  */
-@Module
-public class DataSourceModule {
+public class EmployeeSubcategoriesStarsMapper {
 
-    @Provides
-    public EmployeeMockDataSource provideEmployeeDataSource() {
-        return new EmployeeMockDataSource(MockDataProvider.getEmployees());
+    private int employeeId;
+    private List<SubCategory> subcategories;
+
+    public int getEmployeeId() {
+        return employeeId;
     }
 
-    @Provides
-    public CategoryMockDataSource provideCategoryMockDataSource() {
-        return new CategoryMockDataSource();
+    public List<SubCategory> getSubcategories() {
+        return subcategories;
     }
-
-    @Provides
-    public StarMockDataSource provideStarMockDataSource() {
-        return new StarMockDataSource(MockDataProvider.getEmployeesSubcategoriesStarsMapper());
-    }
-
 }

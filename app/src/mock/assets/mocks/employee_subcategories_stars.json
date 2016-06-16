@@ -1,0 +1,32 @@
+[
+  {
+    "employeeId": 9,
+    "subcategories": [
+      {
+        "pk": 11,
+        "name": "Blogger",
+        "num_stars": 3
+      },
+      {
+        "pk": 4,
+        "name": "Commitment",
+        "num_stars": 1
+      },
+      {
+        "pk": 13,
+        "name": "Training",
+        "num_stars": 1
+      }
+    ]
+  },
+  {
+    "employeeId": 3,
+    "subcategories": [
+      {
+        "pk": 13,
+        "name": "Training",
+        "num_stars": 1
+      }
+    ]
+  }
+]

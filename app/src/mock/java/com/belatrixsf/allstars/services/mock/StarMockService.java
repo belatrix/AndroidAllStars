@@ -28,16 +28,19 @@ import com.belatrixsf.allstars.entities.SubCategory;
 import com.belatrixsf.allstars.networking.retrofit.requests.StarRequest;
 import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.allstars.networking.retrofit.responses.StarResponse;
+import com.belatrixsf.allstars.services.AllStarsBaseService;
+import com.belatrixsf.allstars.services.MockServiceRequest;
 import com.belatrixsf.allstars.services.ServiceRequest;
 import com.belatrixsf.allstars.services.contracts.StarService;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
+import com.belatrixsf.allstars.utils.ServiceErrorUtils;
+import com.belatrixsf.allstars.utils.exceptions.InvalidPageException;
 
-import java.util.ArrayList;
 
 /**
  * Created by gyosida on 6/13/16.
  */
-public class StarMockService implements StarService {
+public class StarMockService extends AllStarsBaseService implements StarService  {
 
     private StarMockDataSource starMockDataSource;
 
@@ -47,9 +50,14 @@ public class StarMockService implements StarService {
 
     @Override
     public ServiceRequest getEmployeeSubCategoriesStars(int employeeId, AllStarsCallback<PaginatedResponse<SubCategory>> callback) {
-        PaginatedResponse<SubCategory> paginatedResponse = new PaginatedResponse<>();
-        paginatedResponse.setResults(new ArrayList<SubCategory>());
-        callback.onSuccess(paginatedResponse);
+        try {
+            PaginatedResponse<SubCategory> paginatedResponse = starMockDataSource.getEmployeeSubcategoriesStars(employeeId, null);
+            ServiceRequest<PaginatedResponse<SubCategory>> serviceRequest = new MockServiceRequest<>(paginatedResponse);
+            enqueue(serviceRequest, callback);
+            return serviceRequest;
+        } catch (InvalidPageException e) {
+            callback.onFailure(ServiceErrorUtils.createBadRequestError(e.getMessage()));
+        }
         return null;
     }
 

@@ -21,6 +21,7 @@
 package com.belatrixsf.allstars.utils;
 
 import java.io.BufferedReader;
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -32,13 +33,16 @@ public class IOUtils {
 
     public static String readFileFromAssets(String filename) {
         String content = null;
+        InputStream inputStream = null;
         try {
-            InputStream inputStream = AllStarsApplication.getContext().getAssets().open(filename);
+             inputStream = AllStarsApplication.getContext().getAssets().open(filename);
             if (inputStream != null) {
                 content = IOUtils.readFromStream(inputStream);
             }
         } catch (IOException e) {
             return null;
+        } finally {
+            closeQuietly(inputStream);
         }
         return content;
     }
@@ -59,6 +63,14 @@ public class IOUtils {
             }
         }
         return contentBuilder.toString();
+    }
+
+    private static void closeQuietly(Closeable closeable) {
+        try {
+            closeable.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

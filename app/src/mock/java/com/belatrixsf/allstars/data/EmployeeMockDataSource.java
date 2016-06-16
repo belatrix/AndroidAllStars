@@ -30,7 +30,9 @@ import com.belatrixsf.allstars.utils.search.SearchingEngine;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by gyosida on 6/13/16.
@@ -38,23 +40,17 @@ import java.util.List;
 public class EmployeeMockDataSource {
 
     private SearchingEngine<Employee> searchingEngine;
-    private List<Employee> employees;
+    private List<Employee> employees = new ArrayList<>();
 
     public EmployeeMockDataSource(List<Employee> employees) {
         this(employees, 10);
     }
 
     public EmployeeMockDataSource(List<Employee> employees, int itemsPerPage) {
-        this.employees = employees;
+        if (employees != null) {
+            this.employees.addAll(employees);
+        }
         searchingEngine = new SearchingEngine<>(employees);
-        searchingEngine.setItemsPerPage(itemsPerPage);
-    }
-
-    public EmployeeMockDataSource(int itemsPerPage) {
-        String employeesJSON = IOUtils.readFileFromAssets("mocks/employees.json");
-        List<Employee> parsedEmployees = new Gson().fromJson(employeesJSON, new TypeToken<List<Employee>>(){}.getType());
-        employees = parsedEmployees;
-        searchingEngine = new SearchingEngine<>(parsedEmployees);
         searchingEngine.setItemsPerPage(itemsPerPage);
     }
 
@@ -65,7 +61,7 @@ public class EmployeeMockDataSource {
     public AuthenticationResponse authenticate(String username, String password) throws NotFoundException {
         for (Employee employee : employees) {
             if (employee.getUsername() != null && employee.getPassword() != null && employee.getUsername().equals(username) && employee.getPassword().equals(password)) {
-                return new AuthenticationResponse(employee.getPk(), "0090920302312", null, true);
+                return new AuthenticationResponse(employee.getPk(), String.valueOf(new Random().nextLong()), null, true);
             }
         }
         throw new NotFoundException("employee");

@@ -18,42 +18,23 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.allstars.utils.di.modules;
-
-import com.belatrixsf.allstars.data.CategoryMockDataSource;
-import com.belatrixsf.allstars.data.EmployeeMockDataSource;
-import com.belatrixsf.allstars.data.StarMockDataSource;
-import com.belatrixsf.allstars.data.mappers.EmployeeSubcategoriesStarsMapper;
-import com.belatrixsf.allstars.entities.Employee;
-import com.belatrixsf.allstars.utils.IOUtils;
-import com.belatrixsf.allstars.utils.MockDataProvider;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.util.List;
-
-import dagger.Module;
-import dagger.Provides;
+package com.belatrixsf.allstars.utils;
 
 /**
- * Created by gyosida on 6/13/16.
+ * Created by gyosida on 6/15/16.
  */
-@Module
-public class DataSourceModule {
+public class ServiceErrorUtils {
 
-    @Provides
-    public EmployeeMockDataSource provideEmployeeDataSource() {
-        return new EmployeeMockDataSource(MockDataProvider.getEmployees());
+    public static ServiceError createNotFoundError(String message) {
+        return new ServiceError(ServiceError.NOT_FOUND, message);
     }
 
-    @Provides
-    public CategoryMockDataSource provideCategoryMockDataSource() {
-        return new CategoryMockDataSource();
+    public static ServiceError createBadRequestError(String message) {
+        return new ServiceError(ServiceError.BAD_REQUEST, message);
     }
 
-    @Provides
-    public StarMockDataSource provideStarMockDataSource() {
-        return new StarMockDataSource(MockDataProvider.getEmployeesSubcategoriesStarsMapper());
+    public static ServiceError createUnauthorizedError(String message) {
+        return new ServiceError(ServiceError.UNAUTHORIZED, message);
     }
 
 }

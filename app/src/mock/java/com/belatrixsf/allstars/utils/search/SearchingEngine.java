@@ -43,13 +43,17 @@ public class SearchingEngine<T extends SearchingHelper.Searchable> {
         employeeSearchPagination.setItems(this.items);
     }
 
+    public PaginatedResponse<T> search(Integer page) throws InvalidPageException {
+        return search(null, page);
+    }
+
     public PaginatedResponse<T> search(String text, Integer page) throws InvalidPageException {
         if (!keepSearchingTheSame(text)) {
             List<T> items = text == null? this.items : SearchingHelper.search(this.items, text);
             employeeSearchPagination.setItems(items);
         }
         this.searchText = text;
-        return employeeSearchPagination.getItems(page);
+        return employeeSearchPagination.getItems(page == null? 0 : page);
     }
 
     public void setItemsPerPage(int itemsPerPage) {

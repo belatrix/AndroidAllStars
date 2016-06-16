@@ -29,11 +29,11 @@ import com.belatrixsf.allstars.networking.retrofit.responses.CreateEmployeeRespo
 import com.belatrixsf.allstars.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.allstars.services.AllStarsBaseService;
 import com.belatrixsf.allstars.services.MockServiceRequest;
+import com.belatrixsf.allstars.utils.ServiceErrorUtils;
 import com.belatrixsf.allstars.utils.exceptions.NotFoundException;
 import com.belatrixsf.allstars.services.ServiceRequest;
 import com.belatrixsf.allstars.services.contracts.EmployeeService;
 import com.belatrixsf.allstars.utils.AllStarsCallback;
-import com.belatrixsf.allstars.utils.ServiceError;
 import com.belatrixsf.allstars.utils.exceptions.InvalidPageException;
 
 import java.io.File;
@@ -58,10 +58,9 @@ public class EmployeeMockService extends AllStarsBaseService implements Employee
             enqueue(serviceRequest, callback);
             return serviceRequest;
         } catch (NotFoundException e) {
-            ServiceError serviceError = new ServiceError(401, "Invalid credentials");
-            callback.onFailure(serviceError);
-            return null;
+            callback.onFailure(ServiceErrorUtils.createUnauthorizedError("Invalid credentials"));
         }
+        return null;
     }
 
     @Override
@@ -77,10 +76,9 @@ public class EmployeeMockService extends AllStarsBaseService implements Employee
             enqueue(serviceRequest, callback);
             return serviceRequest;
         } catch (NotFoundException e) {
-            ServiceError serviceError = new ServiceError(404, "Employee not found");
-            callback.onFailure(serviceError);
-            return null;
+            callback.onFailure(ServiceErrorUtils.createNotFoundError("Employee not found"));
         }
+        return null;
     }
 
     @Override
@@ -91,10 +89,9 @@ public class EmployeeMockService extends AllStarsBaseService implements Employee
             enqueue(serviceRequest, callback);
             return serviceRequest;
         } catch (InvalidPageException e) {
-            ServiceError serviceError = new ServiceError(500, "An invalid page was sent, make sure page >= 0");
-            callback.onFailure(serviceError);
-            return null;
+            callback.onFailure(ServiceErrorUtils.createBadRequestError(e.getMessage()));
         }
+        return null;
     }
 
     @Override
