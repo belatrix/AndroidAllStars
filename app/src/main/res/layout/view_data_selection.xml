@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:background="@color/white"
-    android:padding="@dimen/activity_horizontal_margin">
+    android:padding="@dimen/activity_margin">
 
     <TextView
         android:id="@+id/hint_text_view"
