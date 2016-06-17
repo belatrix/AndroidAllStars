@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:focusableInTouchMode="true"
-    android:padding="@dimen/activity_horizontal_margin"
+    android:padding="@dimen/activity_margin"
     tools:context="com.belatrixsf.connect.ui.login.LoginFragment">
 
     <ImageView

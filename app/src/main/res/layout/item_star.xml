@@ -8,7 +8,7 @@
     android:layout_marginLeft="@dimen/dimen_8"
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="true"
-    app:contentPadding="@dimen/activity_horizontal_margin">
+    app:contentPadding="@dimen/activity_margin">
 
     <LinearLayout
         android:layout_width="match_parent"

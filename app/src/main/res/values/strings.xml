@@ -37,7 +37,6 @@
     <string name="button_reset">Reset</string>
 
     <!-- Title -->
-    <string name="title_activity_login">LoginActivity</string>
     <string name="title_reset_password_activity">Reset Password</string>
     <string name="title_select_category">Select Category</string>
     <string name="title_select_subcategory">Select Subcategory</string>
@@ -52,7 +51,6 @@
     <string name="title_contacts_keyword_activity">Tag Top</string>
     <string name="title_keyword_top">%s Top</string>
     <string name="title_edit_profile_activity">Edit Profile</string>
-    <string name="title_full_name">Full Name</string>
     <string name="tab_account_title">Account</string>
     <string name="tab_ranking_title">Ranking</string>
     <string name="tab_contacts_title">Contacts</string>
@@ -73,7 +71,6 @@
     <string name="title_current_month_score">Month score</string>
     <string name="title_score">Score</string>
     <string name="title_level">Level</string>
-    <string name="skype_id_content">Skype : %s</string>
     <string name="empty_error">Field must not be empty</string>
 
     <!--Edit account-->
@@ -110,7 +107,6 @@
     <string name="message_placeholder"></string>
     <string name="fullname_placeholder">Anonymous</string>
     <string name="level_placeholder">No data</string>
-    <string name="hashtag">#</string>
 
     <!--Actions-->
     <string name="action_recommend">Recommend</string>

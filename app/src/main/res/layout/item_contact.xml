@@ -18,7 +18,7 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/activity_horizontal_margin">
+        android:paddingLeft="@dimen/activity_margin">
 
         <TextView
             android:id="@+id/contact_full_name"
