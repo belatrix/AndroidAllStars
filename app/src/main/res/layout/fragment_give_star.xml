@@ -12,7 +12,7 @@
         <View
             style="@style/horizontalDivider"/>
 
-        <com.belatrixsf.allstars.ui.common.views.AccountSelectionView
+        <com.belatrixsf.connect.ui.common.views.AccountSelectionView
             android:id="@+id/account_selection"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -21,7 +21,7 @@
         <View
             style="@style/horizontalDivider"/>
 
-        <com.belatrixsf.allstars.ui.common.views.DataSelectionView
+        <com.belatrixsf.connect.ui.common.views.DataSelectionView
             android:id="@+id/category_selection"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -30,7 +30,7 @@
         <View
             style="@style/horizontalDivider"/>
 
-        <com.belatrixsf.allstars.ui.common.views.DataSelectionView
+        <com.belatrixsf.connect.ui.common.views.DataSelectionView
             android:id="@+id/comment_selection"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -39,7 +39,7 @@
         <View
             style="@style/horizontalDivider"/>
 
-        <com.belatrixsf.allstars.ui.common.views.KeywordSelectionView
+        <com.belatrixsf.connect.ui.common.views.KeywordSelectionView
             android:id="@+id/keyword_selection"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"

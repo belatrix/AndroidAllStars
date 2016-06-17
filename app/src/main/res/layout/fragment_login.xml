@@ -7,8 +7,8 @@
     android:orientation="vertical"
     android:gravity="center"
     android:focusableInTouchMode="true"
-    android:padding="@dimen/activity_horizontal_margin"
-    tools:context=".ui.login.LoginFragment">
+    android:padding="@dimen/activity_margin"
+    tools:context="com.belatrixsf.connect.ui.login.LoginFragment">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -78,6 +78,6 @@
         android:text="@string/button_sign_up"
         android:layout_marginTop="@dimen/dimen_4_5"
         android:gravity="center"
-        android:textColor="@color/colorAccent"/>
+        android:textColor="@color/colorPrimary"/>
 
 </LinearLayout>
