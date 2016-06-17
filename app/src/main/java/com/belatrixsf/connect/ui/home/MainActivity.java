@@ -52,6 +52,7 @@ import com.belatrixsf.connect.adapters.MainNavigationViewPagerAdapter;
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
+import com.belatrixsf.connect.ui.contacts.ContactsListActivity;
 import com.belatrixsf.connect.ui.login.LoginActivity;
 import com.belatrixsf.connect.ui.ranking.RankingFragmentListener;
 import com.belatrixsf.connect.ui.stars.GiveStarActivity;
@@ -195,9 +196,14 @@ public class MainActivity extends BelatrixConnectActivity implements HomeView, R
                             case R.id.menu_home:
                                 Log.e(MainActivity.class.getCanonicalName(), "Home");
                                 break;
-                            case R.id.menu_event:
-                                Log.e(MainActivity.class.getCanonicalName(), "Event");
+                            case R.id.menu_contacts:
+                                Log.e(MainActivity.class.getCanonicalName(), "Contacts");
+                                Intent intent = new Intent(MainActivity.this, ContactsListActivity.class);
+                                startActivity(intent);
                                 break;
+                            /*case R.id.menu_event:
+                                Log.e(MainActivity.class.getCanonicalName(), "Event");
+                                break;*/
                             case R.id.menu_about:
                                 Log.e(MainActivity.class.getCanonicalName(), "About");
                                 break;
