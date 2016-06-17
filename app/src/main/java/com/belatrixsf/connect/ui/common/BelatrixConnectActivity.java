@@ -140,7 +140,7 @@ public class BelatrixConnectActivity extends AppCompatActivity implements Fragme
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onBackPressed();
+                    navigateBack();
                 }
             });
         }
@@ -158,5 +158,9 @@ public class BelatrixConnectActivity extends AppCompatActivity implements Fragme
                 }
             });
         }
+    }
+
+    protected void navigateBack() {
+        onBackPressed();
     }
 }

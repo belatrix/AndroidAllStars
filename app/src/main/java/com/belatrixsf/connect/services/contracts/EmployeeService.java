@@ -25,7 +25,7 @@ import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.Location;
 import com.belatrixsf.connect.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.CreateEmployeeResponse;
-import com.belatrixsf.connect.networking.retrofit.responses.SearchEmployeeResponse;
+import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.services.ServiceRequest;
 import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 
@@ -43,7 +43,7 @@ public interface EmployeeService extends BelatrixConnectService {
 
     ServiceRequest getEmployee(int employeeId, BelatrixConnectCallback<Employee> callback);
 
-    ServiceRequest getEmployeeSearchList(String searchTerm, Integer page, BelatrixConnectCallback<SearchEmployeeResponse> callback);
+    ServiceRequest getEmployeeSearchList(String searchTerm, Integer page, BelatrixConnectCallback<PaginatedResponse<Employee>> callback);
 
     ServiceRequest getRankingList(String kind, int quantity, BelatrixConnectCallback<List<Employee>> callback);
 

@@ -20,12 +20,13 @@
 */
 package com.belatrixsf.connect.services.contracts;
 
+import com.belatrixsf.connect.entities.Employee;
+import com.belatrixsf.connect.entities.Keyword;
+import com.belatrixsf.connect.entities.Star;
+import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.networking.retrofit.requests.StarRequest;
-import com.belatrixsf.connect.networking.retrofit.responses.StarKeywordTopListResponse;
+import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.StarResponse;
-import com.belatrixsf.connect.networking.retrofit.responses.StarSubCategoryResponse;
-import com.belatrixsf.connect.networking.retrofit.responses.StarsByKeywordsResponse;
-import com.belatrixsf.connect.networking.retrofit.responses.StarsResponse;
 import com.belatrixsf.connect.services.ServiceRequest;
 import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 
@@ -35,14 +36,14 @@ import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 public interface StarService extends BelatrixConnectService {
 
 
-    ServiceRequest getEmployeeSubCategoriesStars(int employeeId, BelatrixConnectCallback<StarSubCategoryResponse> callback);
+    ServiceRequest getEmployeeSubCategoriesStars(int employeeId, BelatrixConnectCallback<PaginatedResponse<SubCategory>> callback);
 
     ServiceRequest star(int fromEmployeeId, int toEmployeeId, StarRequest starRequest, BelatrixConnectCallback<StarResponse> callback);
 
-    ServiceRequest getStarsByKeywords(String search, Integer next, BelatrixConnectCallback<StarsByKeywordsResponse> callback);
+    ServiceRequest getStarsByKeywords(String search, Integer next, BelatrixConnectCallback<PaginatedResponse<Keyword>> callback);
 
-    ServiceRequest getStars(int employeeId, int subcategory, Integer page, BelatrixConnectCallback<StarsResponse> callback);
+    ServiceRequest getStars(int employeeId, int subcategory, Integer page, BelatrixConnectCallback<PaginatedResponse<Star>> callback);
 
-    ServiceRequest getStarsKeywordTopList(int keywordId, Integer page, BelatrixConnectCallback<StarKeywordTopListResponse> callback);
+    ServiceRequest getStarsKeywordTopList(int keywordId, Integer page, BelatrixConnectCallback<PaginatedResponse<Employee>> callback);
 
 }

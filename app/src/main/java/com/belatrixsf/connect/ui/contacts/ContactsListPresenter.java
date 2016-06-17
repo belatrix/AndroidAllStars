@@ -22,7 +22,6 @@ package com.belatrixsf.connect.ui.contacts;
 
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
-import com.belatrixsf.connect.networking.retrofit.responses.SearchEmployeeResponse;
 import com.belatrixsf.connect.services.ServiceRequest;
 import com.belatrixsf.connect.services.contracts.EmployeeService;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
@@ -103,13 +102,13 @@ public class ContactsListPresenter extends BelatrixConnectPresenter<ContactsList
         searchingServiceRequest = employeeService.getEmployeeSearchList(
                 searchText,
                 contactsPaging.getNextPage(),
-                new PresenterCallback<SearchEmployeeResponse>() {
+                new PresenterCallback<PaginatedResponse<Employee>>() {
                     @Override
-                    public void onSuccess(SearchEmployeeResponse starsByKeywordsResponse) {
+                    public void onSuccess(PaginatedResponse<Employee> starsByKeywordsResponse) {
                         contactsPaging.setCount(starsByKeywordsResponse.getCount());
                         contactsPaging.setNext(starsByKeywordsResponse.getNext());
-                        contacts.addAll(starsByKeywordsResponse.getEmployeeList());
-                        view.addContacts(starsByKeywordsResponse.getEmployeeList());
+                        contacts.addAll(starsByKeywordsResponse.getResults());
+                        view.addContacts(starsByKeywordsResponse.getResults());
                         view.hideProgressIndicator();
                     }
                 });

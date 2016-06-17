@@ -23,7 +23,6 @@ package com.belatrixsf.connect.ui.contacts.keyword;
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.Keyword;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
-import com.belatrixsf.connect.networking.retrofit.responses.StarKeywordTopListResponse;
 import com.belatrixsf.connect.services.contracts.StarService;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 import com.belatrixsf.connect.utils.BelatrixConnectCallback;
@@ -91,10 +90,10 @@ public class ContactsKeywordListPresenter extends BelatrixConnectPresenter<Conta
         starService.getStarsKeywordTopList(
                 keyword.getId(),
                 starPaginatedResponse.getNextPage(),
-                new BelatrixConnectCallback<StarKeywordTopListResponse>() {
+                new BelatrixConnectCallback<PaginatedResponse<Employee>>() {
                     @Override
-                    public void onSuccess(StarKeywordTopListResponse starKeywordTopListResponse) {
-                        employeeList.addAll(starKeywordTopListResponse.getEmployees());
+                    public void onSuccess(PaginatedResponse<Employee> starKeywordTopListResponse) {
+                        employeeList.addAll(starKeywordTopListResponse.getResults());
                         starPaginatedResponse.setNext(starKeywordTopListResponse.getNext());
                         view.hideProgressIndicator();
                         view.showEmployees(employeeList);

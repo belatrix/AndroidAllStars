@@ -26,6 +26,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.ViewCompat;
 import android.widget.ImageView;
 
@@ -59,4 +61,19 @@ public class AccountActivity extends BelatrixConnectActivity {
         activity.startActivity(intent, options.toBundle());
     }
 
+    @Override
+    protected void navigateBack() {
+        Intent upIntent = NavUtils.getParentActivityIntent(this);
+        if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
+            // Create a new task when navigating up
+            TaskStackBuilder.create(this)
+                    // Add all of this activity's parents to the back stack
+                    .addNextIntentWithParentStack(upIntent)
+                    // Navigate up to the closest parent
+                    .startActivities();
+        } else {
+            // Navigate up to the parent activity.
+            NavUtils.navigateUpTo(this, upIntent);
+        }
+    }
 }

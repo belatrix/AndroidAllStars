@@ -29,7 +29,7 @@ import com.belatrixsf.connect.networking.retrofit.requests.ResetPasswordRequest;
 import com.belatrixsf.connect.networking.retrofit.requests.UpdateEmployeeRequest;
 import com.belatrixsf.connect.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.CreateEmployeeResponse;
-import com.belatrixsf.connect.networking.retrofit.responses.SearchEmployeeResponse;
+import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 
 import java.util.List;
 
@@ -62,7 +62,7 @@ public interface EmployeeAPI {
     Call<Employee> getEmployee(@Path(ServerPaths.EMPLOYEE_ID) int employeeId);
 
     @GET(ServerPaths.EMPLOYEE_LIST)
-    Call<SearchEmployeeResponse> getEmployeeSearchList(@Query(ServerPaths.SEARCH_TERM) String searchTerm, @Query(ServerPaths.PAGE) Integer page);
+    Call<PaginatedResponse<Employee>> getEmployeeSearchList(@Query(ServerPaths.SEARCH_TERM) String searchTerm, @Query(ServerPaths.PAGE) Integer page);
 
     @GET(ServerPaths.RANKING_LIST)
     Call<List<Employee>> getRankingList(@Path(ServerPaths.KIND) String kind, @Path(ServerPaths.QUANTITY) int quantity);

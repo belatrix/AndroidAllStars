@@ -22,7 +22,6 @@ package com.belatrixsf.connect.ui.keywords;
 
 import com.belatrixsf.connect.entities.Keyword;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
-import com.belatrixsf.connect.networking.retrofit.responses.StarsByKeywordsResponse;
 import com.belatrixsf.connect.services.ServiceRequest;
 import com.belatrixsf.connect.services.contracts.StarService;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
@@ -102,13 +101,13 @@ public class SearchingKeywordsPresenter extends BelatrixConnectPresenter<Searchi
         searchingServiceRequest = starService.getStarsByKeywords(
                 searchText,
                 keywordsPaging.getNextPage(),
-                new PresenterCallback<StarsByKeywordsResponse>() {
+                new PresenterCallback<PaginatedResponse<Keyword>>() {
                     @Override
-                    public void onSuccess(StarsByKeywordsResponse starsByKeywordsResponse) {
+                    public void onSuccess(PaginatedResponse<Keyword> starsByKeywordsResponse) {
                         keywordsPaging.setCount(starsByKeywordsResponse.getCount());
                         keywordsPaging.setNext(starsByKeywordsResponse.getNext());
-                        keywords.addAll(starsByKeywordsResponse.getKeywords());
-                        view.addKeywords(starsByKeywordsResponse.getKeywords());
+                        keywords.addAll(starsByKeywordsResponse.getResults());
+                        view.addKeywords(starsByKeywordsResponse.getResults());
                         view.hideProgressIndicator();
                     }
                 });

@@ -21,9 +21,8 @@
 package com.belatrixsf.connect.ui.stars;
 
 import com.belatrixsf.connect.entities.Keyword;
-import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.entities.Star;
-import com.belatrixsf.connect.networking.retrofit.responses.StarsResponse;
+import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.services.contracts.StarService;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 import com.belatrixsf.connect.utils.ServiceError;
@@ -95,10 +94,10 @@ public class StarsListPresenter extends BelatrixConnectPresenter<StarsListView> 
                 employeeId,
                 subCategoryId,
                 starPaginatedResponse.getNextPage(),
-                new PresenterCallback<StarsResponse>() {
+                new PresenterCallback<PaginatedResponse<Star>>() {
                     @Override
-                    public void onSuccess(StarsResponse starsResponse) {
-                        stars.addAll(starsResponse.getStarList());
+                    public void onSuccess(PaginatedResponse<Star> starsResponse) {
+                        stars.addAll(starsResponse.getResults());
                         starPaginatedResponse.setNext(starsResponse.getNext());
                         view.hideProgressIndicator();
                         view.showStars(stars);

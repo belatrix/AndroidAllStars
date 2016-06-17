@@ -31,8 +31,9 @@
             android:name="com.belatrixsf.connect.ui.stars.GiveStarActivity"
             android:label="@string/title_give_star_activity"/>
         <activity
-            android:name="com.belatrixsf.connect.ui.account.AccountActivity"
-            android:label="@string/title_account_activity"/>
+            android:name=".ui.account.AccountActivity"
+            android:label="@string/title_account_activity"
+            android:parentActivityName="com.belatrixsf.connect.ui.home.MainActivity"/>
         <activity
             android:name="com.belatrixsf.connect.ui.account.expanded.ExpandPictureActivity"
             android:label="@string/title_expand_photo_activity"/>
@@ -47,17 +48,14 @@
             android:name="com.belatrixsf.connect.ui.category.CategoriesActivity"/>
         <activity
             android:name="com.belatrixsf.connect.ui.stars.keyword.KeywordsActivity"
-            android:label="@string/title_keywords_activity" />
-
+            android:label="@string/title_keywords_activity"/>
         <activity
             android:name="com.belatrixsf.connect.ui.contacts.keyword.ContactsKeywordListActivity"
             android:label="@string/title_contacts_keyword_activity"/>
-
         <activity android:name="com.belatrixsf.connect.ui.account.edit.EditAccountActivity"
             android:label="@string/title_edit_profile_activity"/>
-
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" />
+            android:theme="@style/Base.Theme.AppCompat"/>
 
         <activity
             android:name="com.belatrixsf.connect.ui.LauncherActivity">
@@ -70,8 +68,7 @@
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="${fabric_io_api_key}"
-            />
+            android:value="${fabric_io_api_key}"/>
 
     </application>
 

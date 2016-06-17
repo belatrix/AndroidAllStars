@@ -20,17 +20,18 @@
 */
 package com.belatrixsf.connect.services.server;
 
+import com.belatrixsf.connect.entities.Employee;
+import com.belatrixsf.connect.entities.Keyword;
+import com.belatrixsf.connect.entities.Star;
+import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.networking.retrofit.api.StarAPI;
 import com.belatrixsf.connect.networking.retrofit.requests.StarRequest;
-import com.belatrixsf.connect.networking.retrofit.responses.StarKeywordTopListResponse;
-import com.belatrixsf.connect.networking.retrofit.responses.StarsByKeywordsResponse;
-import com.belatrixsf.connect.networking.retrofit.responses.StarsResponse;
+import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.StarResponse;
-import com.belatrixsf.connect.networking.retrofit.responses.StarSubCategoryResponse;
 import com.belatrixsf.connect.services.BelatrixConnectBaseService;
+import com.belatrixsf.connect.services.ServerServiceRequest;
 import com.belatrixsf.connect.services.ServiceRequest;
 import com.belatrixsf.connect.services.contracts.StarService;
-import com.belatrixsf.connect.services.ServerServiceRequest;
 import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 
 import retrofit2.Call;
@@ -47,9 +48,9 @@ public class StarServerService extends BelatrixConnectBaseService implements Sta
     }
 
     @Override
-    public ServiceRequest getEmployeeSubCategoriesStars(final int employeeId, BelatrixConnectCallback<StarSubCategoryResponse> callback) {
-        Call<StarSubCategoryResponse> call = starAPI.getEmployeeSubCategoriesStars(employeeId);
-        ServiceRequest<StarSubCategoryResponse> serviceRequest = new ServerServiceRequest<>(call);
+    public ServiceRequest getEmployeeSubCategoriesStars(final int employeeId, BelatrixConnectCallback<PaginatedResponse<SubCategory>> callback) {
+        Call<PaginatedResponse<SubCategory>> call = starAPI.getEmployeeSubCategoriesStars(employeeId);
+        ServiceRequest<PaginatedResponse<SubCategory>> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
         return serviceRequest;
     }
@@ -63,25 +64,25 @@ public class StarServerService extends BelatrixConnectBaseService implements Sta
     }
 
     @Override
-    public ServiceRequest getStars(int employeeId, int subcategory, Integer page, BelatrixConnectCallback<StarsResponse> callback) {
-        Call<StarsResponse> call = starAPI.getStars(employeeId, subcategory, page);
-        ServiceRequest<StarsResponse> serviceRequest = new ServerServiceRequest<>(call);
+    public ServiceRequest getStars(int employeeId, int subcategory, Integer page, BelatrixConnectCallback<PaginatedResponse<Star>> callback) {
+        Call<PaginatedResponse<Star>> call = starAPI.getStars(employeeId, subcategory, page);
+        ServiceRequest<PaginatedResponse<Star>> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
         return serviceRequest;
     }
 
     @Override
-    public ServiceRequest getStarsKeywordTopList(int keywordId, Integer page, BelatrixConnectCallback<StarKeywordTopListResponse> callback) {
-        Call<StarKeywordTopListResponse> call = starAPI.getStarsKeywordTop(keywordId, page);
-        ServiceRequest<StarKeywordTopListResponse> serviceRequest = new ServerServiceRequest<>(call);
+    public ServiceRequest getStarsKeywordTopList(int keywordId, Integer page, BelatrixConnectCallback<PaginatedResponse<Employee>> callback) {
+        Call<PaginatedResponse<Employee>> call = starAPI.getStarsKeywordTop(keywordId, page);
+        ServiceRequest<PaginatedResponse<Employee>> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
         return serviceRequest;
     }
 
     @Override
-    public ServiceRequest getStarsByKeywords(String search, Integer next, BelatrixConnectCallback<StarsByKeywordsResponse> callback) {
-        Call<StarsByKeywordsResponse> call = starAPI.getStarsByKeywords(search, next);
-        ServiceRequest<StarsByKeywordsResponse> serviceRequest = new ServerServiceRequest<>(call);
+    public ServiceRequest getStarsByKeywords(String search, Integer next, BelatrixConnectCallback<PaginatedResponse<Keyword>> callback) {
+        Call<PaginatedResponse<Keyword>> call = starAPI.getStarsByKeywords(search, next);
+        ServiceRequest<PaginatedResponse<Keyword>> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
         return serviceRequest;
     }

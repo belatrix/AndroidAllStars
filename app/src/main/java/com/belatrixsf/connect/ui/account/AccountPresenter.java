@@ -25,7 +25,7 @@ import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.managers.EmployeeManager;
 import com.belatrixsf.connect.managers.PreferencesManager;
-import com.belatrixsf.connect.networking.retrofit.responses.StarSubCategoryResponse;
+import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.services.contracts.EmployeeService;
 import com.belatrixsf.connect.services.contracts.StarService;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
@@ -62,7 +62,6 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
                 loadSubCategoriesStar();
                 showEmployeeData();
                 view.dismissProgressDialog();
-                view.showProgressIndicator();
             }
 
             @Override
@@ -79,17 +78,18 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
     }
 
     private void loadSubCategoriesStar() {
+        view.showProgressIndicator();
         starService.getEmployeeSubCategoriesStars(
                 employee.getPk(),
-                new PresenterCallback<StarSubCategoryResponse>() {
+                new PresenterCallback<PaginatedResponse<SubCategory>>() {
                     @Override
-                    public void onSuccess(StarSubCategoryResponse starSubCategoryResponse) {
+                    public void onSuccess(PaginatedResponse<SubCategory> starSubCategoryResponse) {
                         view.hideProgressIndicator();
-                        if (starSubCategoryResponse.getSubCategories().isEmpty()) {
+                        if (starSubCategoryResponse.getResults().isEmpty()) {
                             view.showNoDataView();
                         } else {
                             view.hideNoDataView();
-                            view.showSubCategories(starSubCategoryResponse.getSubCategories());
+                            view.showSubCategories(starSubCategoryResponse.getResults());
                         }
                     }
 

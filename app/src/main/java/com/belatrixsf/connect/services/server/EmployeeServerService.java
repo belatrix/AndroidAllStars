@@ -30,7 +30,7 @@ import com.belatrixsf.connect.networking.retrofit.requests.ResetPasswordRequest;
 import com.belatrixsf.connect.networking.retrofit.requests.UpdateEmployeeRequest;
 import com.belatrixsf.connect.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.CreateEmployeeResponse;
-import com.belatrixsf.connect.networking.retrofit.responses.SearchEmployeeResponse;
+import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.services.BelatrixConnectBaseService;
 import com.belatrixsf.connect.services.ServerServiceRequest;
 import com.belatrixsf.connect.services.ServiceRequest;
@@ -84,9 +84,9 @@ public class EmployeeServerService extends BelatrixConnectBaseService implements
     }
 
     @Override
-    public ServiceRequest getEmployeeSearchList(String searchTerm, Integer page, BelatrixConnectCallback<SearchEmployeeResponse> callback) {
-        Call<SearchEmployeeResponse> call = employeeAPI.getEmployeeSearchList(searchTerm, page);
-        ServiceRequest<SearchEmployeeResponse> serviceRequest = new ServerServiceRequest<>(call);
+    public ServiceRequest getEmployeeSearchList(String searchTerm, Integer page, BelatrixConnectCallback<PaginatedResponse<Employee>> callback) {
+        Call<PaginatedResponse<Employee>> call = employeeAPI.getEmployeeSearchList(searchTerm, page);
+        ServiceRequest<PaginatedResponse<Employee>> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
         return serviceRequest;
     }
