@@ -34,9 +34,9 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
  * @author Carlos Piñan
  * @doc Named in this way to avoid issues with the Glide #TransformationUtils
  */
-public class AllStarsTransformationUtils {
+public class BelatrixConnectTransformationUtils {
 
-    private AllStarsTransformationUtils() { /* UNUSED */}
+    private BelatrixConnectTransformationUtils() { /* UNUSED */}
 
     public static Bitmap circleCrop(BitmapPool pool, Bitmap source) {
         if (source == null) return null;

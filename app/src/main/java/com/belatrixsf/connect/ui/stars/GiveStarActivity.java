@@ -25,12 +25,12 @@ import android.support.annotation.Nullable;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Employee;
-import com.belatrixsf.connect.ui.common.AllStarsActivity;
+import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 
 /**
  * Created by PedroCarrillo on 4/22/16.
  */
-public class GiveStarActivity extends AllStarsActivity {
+public class GiveStarActivity extends BelatrixConnectActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

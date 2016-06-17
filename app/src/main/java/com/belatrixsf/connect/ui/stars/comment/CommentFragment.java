@@ -35,9 +35,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.ui.common.AllStarsFragment;
+import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.stars.GiveStarFragment;
-import com.belatrixsf.connect.utils.AllStarsApplication;
+import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.di.components.DaggerCommentComponent;
 import com.belatrixsf.connect.utils.di.modules.presenters.CommentPresenterModule;
 
@@ -46,7 +46,7 @@ import butterknife.Bind;
 /**
  * Created by PedroCarrillo on 4/27/16.
  */
-public class CommentFragment extends AllStarsFragment implements CommentView {
+public class CommentFragment extends BelatrixConnectFragment implements CommentView {
 
     @Bind(R.id.comment) EditText commentEditText;
 
@@ -78,7 +78,7 @@ public class CommentFragment extends AllStarsFragment implements CommentView {
     }
 
     @Override
-    protected void initDependencies(AllStarsApplication allStarsApplication) {
+    protected void initDependencies(BelatrixConnectApplication belatrixConnectApplication) {
         commentPresenter = DaggerCommentComponent.builder().
                 commentPresenterModule(new CommentPresenterModule(this))
                 .build().commentPresenter();

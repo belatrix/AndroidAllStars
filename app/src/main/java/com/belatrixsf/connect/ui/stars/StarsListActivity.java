@@ -24,13 +24,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.ui.common.AllStarsActivity;
+import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 
 
 /**
  * Created by PedroCarrillo on 4/28/16.
  */
-public class StarsListActivity extends AllStarsActivity {
+public class StarsListActivity extends BelatrixConnectActivity {
 
     public static final String SUBCATEGORY_ID = "_category_id";
     public static final String USER_ID = "_user_id";

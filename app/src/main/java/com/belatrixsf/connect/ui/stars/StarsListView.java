@@ -22,14 +22,14 @@ package com.belatrixsf.connect.ui.stars;
 
 import com.belatrixsf.connect.entities.Keyword;
 import com.belatrixsf.connect.entities.Star;
-import com.belatrixsf.connect.ui.common.AllStarsView;
+import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 
 import java.util.List;
 
 /**
  * Created by icerrate on 25/04/2016.
  */
-public interface StarsListView extends AllStarsView {
+public interface StarsListView extends BelatrixConnectView {
 
     void showStars(List<Star> stars);
     void showCurrentPage(int currentPage);

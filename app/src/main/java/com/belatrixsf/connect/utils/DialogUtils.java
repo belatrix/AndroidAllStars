@@ -33,7 +33,7 @@ import static android.content.DialogInterface.OnClickListener;
 public class DialogUtils {
 
     public static AlertDialog createErrorDialog(Activity activity, String message) {
-        return createSimpleDialog(activity, AllStarsApplication.getContext().getString(R.string.dialog_title_error), message);
+        return createSimpleDialog(activity, BelatrixConnectApplication.getContext().getString(R.string.dialog_title_error), message);
     }
 
     public static AlertDialog createSimpleDialog(Activity activity, String title, String message) {

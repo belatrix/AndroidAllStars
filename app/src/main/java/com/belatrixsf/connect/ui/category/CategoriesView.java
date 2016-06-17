@@ -22,14 +22,14 @@ package com.belatrixsf.connect.ui.category;
 
 import com.belatrixsf.connect.entities.Category;
 import com.belatrixsf.connect.entities.SubCategory;
-import com.belatrixsf.connect.ui.common.AllStarsView;
+import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 
 import java.util.List;
 
 /**
  * Created by gyosida on 4/27/16.
  */
-public interface CategoriesView extends AllStarsView {
+public interface CategoriesView extends BelatrixConnectView {
 
     void notifyAreSubcategories(boolean areSubcategories);
     void notifySelection(SubCategory subcategory);

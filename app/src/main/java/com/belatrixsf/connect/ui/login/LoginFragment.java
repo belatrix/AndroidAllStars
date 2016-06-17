@@ -38,18 +38,18 @@ import android.widget.TextView;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.account.edit.EditAccountActivity;
 import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
-import com.belatrixsf.connect.ui.common.AllStarsFragment;
+import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.home.MainActivity;
 import com.belatrixsf.connect.ui.resetpassword.ResetPasswordActivity;
 import com.belatrixsf.connect.ui.signup.SignUpActivity;
-import com.belatrixsf.connect.utils.AllStarsApplication;
+import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.di.components.DaggerLoginComponent;
 import com.belatrixsf.connect.utils.di.modules.presenters.LoginPresenterModule;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class LoginFragment extends AllStarsFragment implements LoginView {
+public class LoginFragment extends BelatrixConnectFragment implements LoginView {
 
     @Bind(R.id.username) EditText usernameEditText;
     @Bind(R.id.password) EditText passwordEditText;
@@ -103,9 +103,9 @@ public class LoginFragment extends AllStarsFragment implements LoginView {
     }
 
     @Override
-    protected void initDependencies(AllStarsApplication allStarsApplication) {
+    protected void initDependencies(BelatrixConnectApplication belatrixConnectApplication) {
         loginPresenter = DaggerLoginComponent.builder()
-                .applicationComponent(allStarsApplication.getApplicationComponent())
+                .applicationComponent(belatrixConnectApplication.getApplicationComponent())
                 .loginPresenterModule(new LoginPresenterModule(this))
                 .build()
                 .loginPresenter();

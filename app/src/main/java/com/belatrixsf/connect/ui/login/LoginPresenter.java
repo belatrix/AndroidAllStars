@@ -22,14 +22,14 @@ package com.belatrixsf.connect.ui.login;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.managers.EmployeeManager;
-import com.belatrixsf.connect.ui.common.AllStarsPresenter;
+import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 
 import javax.inject.Inject;
 
 /**
  * Created by gyosida on 4/12/16.
  */
-public class LoginPresenter extends AllStarsPresenter<LoginView> {
+public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
 
     private EmployeeManager employeeManager;
 

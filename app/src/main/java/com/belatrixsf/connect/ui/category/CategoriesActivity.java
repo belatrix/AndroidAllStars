@@ -26,9 +26,9 @@ import android.os.Bundle;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Category;
-import com.belatrixsf.connect.ui.common.AllStarsActivity;
+import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 
-public class CategoriesActivity extends AllStarsActivity implements CategoriesFragment.SubcategorySelectionListener {
+public class CategoriesActivity extends BelatrixConnectActivity implements CategoriesFragment.SubcategorySelectionListener {
 
     public static final String SUBCATEGORY_KEY = "subcategory_key";
 

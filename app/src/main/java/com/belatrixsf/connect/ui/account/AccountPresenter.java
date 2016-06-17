@@ -28,8 +28,8 @@ import com.belatrixsf.connect.managers.PreferencesManager;
 import com.belatrixsf.connect.networking.retrofit.responses.StarSubCategoryResponse;
 import com.belatrixsf.connect.services.contracts.EmployeeService;
 import com.belatrixsf.connect.services.contracts.StarService;
-import com.belatrixsf.connect.ui.common.AllStarsPresenter;
-import com.belatrixsf.connect.utils.AllStarsCallback;
+import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
+import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 import com.belatrixsf.connect.utils.ServiceError;
 
 import javax.inject.Inject;
@@ -37,7 +37,7 @@ import javax.inject.Inject;
 /**
  * Created by PedroCarrillo on 4/13/16.
  */
-public class AccountPresenter extends AllStarsPresenter<AccountView> {
+public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
 
     protected EmployeeManager employeeManager;
     protected Employee employee;
@@ -55,7 +55,7 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
 
     public void loadEmployeeAccount() {
         view.showProgressDialog();
-        AllStarsCallback<Employee> employeeAllStarsCallback = new PresenterCallback<Employee>() {
+        BelatrixConnectCallback<Employee> employeeBelatrixConnectCallback = new PresenterCallback<Employee>() {
             @Override
             public void onSuccess(Employee employee) {
                 AccountPresenter.this.employee = employee;
@@ -72,9 +72,9 @@ public class AccountPresenter extends AllStarsPresenter<AccountView> {
             }
         };
         if (employeeId == null) {
-            employeeManager.getLoggedInEmployee(employeeAllStarsCallback);
+            employeeManager.getLoggedInEmployee(employeeBelatrixConnectCallback);
         } else {
-            employeeService.getEmployee(employeeId, employeeAllStarsCallback);
+            employeeService.getEmployee(employeeId, employeeBelatrixConnectCallback);
         }
     }
 

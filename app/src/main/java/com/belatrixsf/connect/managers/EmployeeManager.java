@@ -23,7 +23,7 @@ package com.belatrixsf.connect.managers;
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.connect.services.contracts.EmployeeService;
-import com.belatrixsf.connect.utils.AllStarsCallback;
+import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 import com.belatrixsf.connect.utils.ServiceError;
 
 import java.io.File;
@@ -51,15 +51,15 @@ public class EmployeeManager {
         this.employeeService = employeeService;
     }
 
-    public void login(String username, String password, final AllStarsCallback<AccountState> callback) {
-        employeeService.authenticate(username, password, new AllStarsCallback<AuthenticationResponse>() {
+    public void login(String username, String password, final BelatrixConnectCallback<AccountState> callback) {
+        employeeService.authenticate(username, password, new BelatrixConnectCallback<AuthenticationResponse>() {
             @Override
             public void onSuccess(final AuthenticationResponse authenticationResponse) {
                 PreferencesManager.get().saveToken(authenticationResponse.getToken());
                 PreferencesManager.get().saveEmployeeId(authenticationResponse.getEmployeeId());
                 if (authenticationResponse.getResetPasswordCode() == null){
                     PreferencesManager.get().setResetPassword(true);
-                    employeeService.getEmployee(authenticationResponse.getEmployeeId(), new AllStarsCallback<Employee>() {
+                    employeeService.getEmployee(authenticationResponse.getEmployeeId(), new BelatrixConnectCallback<Employee>() {
                         @Override
                         public void onSuccess(Employee employee) {
                             EmployeeManager.this.employee = employee;
@@ -90,10 +90,10 @@ public class EmployeeManager {
         });
     }
 
-    public void resetPassword(String oldPassword, String newPassword, final AllStarsCallback<Employee> callback) {
+    public void resetPassword(String oldPassword, String newPassword, final BelatrixConnectCallback<Employee> callback) {
         if (employee == null) {
             int storedEmployeeId = PreferencesManager.get().getEmployeeId();
-            employeeService.resetPassword(storedEmployeeId, oldPassword, newPassword, new AllStarsCallback<Employee>() {
+            employeeService.resetPassword(storedEmployeeId, oldPassword, newPassword, new BelatrixConnectCallback<Employee>() {
                 @Override
                 public void onSuccess(Employee employee) {
                     PreferencesManager.get().setResetPassword(true);
@@ -108,10 +108,10 @@ public class EmployeeManager {
         }
     }
 
-    public void getLoggedInEmployee(final AllStarsCallback<Employee> callback) {
+    public void getLoggedInEmployee(final BelatrixConnectCallback<Employee> callback) {
         if (employee == null) {
             int storedEmployeeId = PreferencesManager.get().getEmployeeId();
-            employeeService.getEmployee(storedEmployeeId, new AllStarsCallback<Employee>() {
+            employeeService.getEmployee(storedEmployeeId, new BelatrixConnectCallback<Employee>() {
                 @Override
                 public void onSuccess(Employee employee) {
                     EmployeeManager.this.employee = employee;
@@ -128,8 +128,8 @@ public class EmployeeManager {
         }
     }
 
-    public void updateEmployeeImage(File selectedFile, final AllStarsCallback<Employee> callback) {
-        employeeService.updateEmployeeImage(employee.getPk(), selectedFile, new AllStarsCallback<Employee>() {
+    public void updateEmployeeImage(File selectedFile, final BelatrixConnectCallback<Employee> callback) {
+        employeeService.updateEmployeeImage(employee.getPk(), selectedFile, new BelatrixConnectCallback<Employee>() {
             @Override
             public void onSuccess(Employee employee) {
                 PreferencesManager.get().setEditProfile(true);

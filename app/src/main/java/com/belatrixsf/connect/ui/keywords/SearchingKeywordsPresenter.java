@@ -25,7 +25,7 @@ import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.StarsByKeywordsResponse;
 import com.belatrixsf.connect.services.ServiceRequest;
 import com.belatrixsf.connect.services.contracts.StarService;
-import com.belatrixsf.connect.ui.common.AllStarsPresenter;
+import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ import javax.inject.Inject;
 /**
  * Created by gyosida on 5/9/16.
  */
-public class SearchingKeywordsPresenter extends AllStarsPresenter<SearchingKeywordsView> {
+public class SearchingKeywordsPresenter extends BelatrixConnectPresenter<SearchingKeywordsView> {
 
     private StarService starService;
     private List<Keyword> keywords = new ArrayList<>();

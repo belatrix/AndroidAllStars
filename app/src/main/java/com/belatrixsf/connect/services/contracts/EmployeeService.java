@@ -27,7 +27,7 @@ import com.belatrixsf.connect.networking.retrofit.responses.AuthenticationRespon
 import com.belatrixsf.connect.networking.retrofit.responses.CreateEmployeeResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.SearchEmployeeResponse;
 import com.belatrixsf.connect.services.ServiceRequest;
-import com.belatrixsf.connect.utils.AllStarsCallback;
+import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 
 import java.io.File;
 import java.util.List;
@@ -35,26 +35,26 @@ import java.util.List;
 /**
  * Created by gyosida on 4/12/16.
  */
-public interface EmployeeService extends AllStarsService {
+public interface EmployeeService extends BelatrixConnectService {
 
-    ServiceRequest authenticate(String username, String password, AllStarsCallback<AuthenticationResponse> callback);
+    ServiceRequest authenticate(String username, String password, BelatrixConnectCallback<AuthenticationResponse> callback);
 
-    ServiceRequest createEmployee(String email, AllStarsCallback<CreateEmployeeResponse> callback);
+    ServiceRequest createEmployee(String email, BelatrixConnectCallback<CreateEmployeeResponse> callback);
 
-    ServiceRequest getEmployee(int employeeId, AllStarsCallback<Employee> callback);
+    ServiceRequest getEmployee(int employeeId, BelatrixConnectCallback<Employee> callback);
 
-    ServiceRequest getEmployeeSearchList(String searchTerm, Integer page, AllStarsCallback<SearchEmployeeResponse> callback);
+    ServiceRequest getEmployeeSearchList(String searchTerm, Integer page, BelatrixConnectCallback<SearchEmployeeResponse> callback);
 
-    ServiceRequest getRankingList(String kind, int quantity, AllStarsCallback<List<Employee>> callback);
+    ServiceRequest getRankingList(String kind, int quantity, BelatrixConnectCallback<List<Employee>> callback);
 
-    ServiceRequest getEmployeeCategories(int employeeId, AllStarsCallback<List<Category>> callback);
+    ServiceRequest getEmployeeCategories(int employeeId, BelatrixConnectCallback<List<Category>> callback);
 
-    ServiceRequest updateEmployee(int employeeId, String firstName, String lastName, String skypeId, int locationId, AllStarsCallback<Employee> callback);
+    ServiceRequest updateEmployee(int employeeId, String firstName, String lastName, String skypeId, int locationId, BelatrixConnectCallback<Employee> callback);
 
-    ServiceRequest getEmployeeLocations(AllStarsCallback<List<Location>> callback);
+    ServiceRequest getEmployeeLocations(BelatrixConnectCallback<List<Location>> callback);
 
-    ServiceRequest updateEmployeeImage(int employeeId, File file, AllStarsCallback<Employee> callback);
+    ServiceRequest updateEmployeeImage(int employeeId, File file, BelatrixConnectCallback<Employee> callback);
 
-    ServiceRequest resetPassword(int employeeId, String oldPassword, String newPassword, AllStarsCallback<Employee> callback);
+    ServiceRequest resetPassword(int employeeId, String oldPassword, String newPassword, BelatrixConnectCallback<Employee> callback);
 
 }

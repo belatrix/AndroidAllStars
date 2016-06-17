@@ -25,9 +25,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.ui.common.AllStarsActivity;
+import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 
-public class LoginActivity extends AllStarsActivity {
+public class LoginActivity extends BelatrixConnectActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

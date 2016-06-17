@@ -20,14 +20,14 @@
 */
 package com.belatrixsf.connect.services;
 
-import com.belatrixsf.connect.utils.AllStarsCallback;
+import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 
 /**
  * Created by gyosida on 5/20/16.
  */
 public abstract class ServiceRequest<T> {
 
-    abstract void enqueue(AllStarsCallback<T> allStarsCallback);
+    abstract void enqueue(BelatrixConnectCallback<T> belatrixConnectCallback);
 
     public abstract void cancel();
 

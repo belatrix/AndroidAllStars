@@ -21,14 +21,14 @@
 package com.belatrixsf.connect.ui.ranking;
 
 import com.belatrixsf.connect.entities.Employee;
-import com.belatrixsf.connect.ui.common.AllStarsView;
+import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 
 import java.util.List;
 
 /**
  * Created by icerrate on 28/04/2016.
  */
-public interface RankingView extends AllStarsView {
+public interface RankingView extends BelatrixConnectView {
 
     void showRankingList(List<Employee> rankingList);
     void goToEmployeeProfile(Integer employeeId);

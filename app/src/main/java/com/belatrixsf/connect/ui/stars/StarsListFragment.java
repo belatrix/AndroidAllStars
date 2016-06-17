@@ -34,10 +34,10 @@ import com.belatrixsf.connect.adapters.StarsListAdapter;
 import com.belatrixsf.connect.entities.Keyword;
 import com.belatrixsf.connect.entities.Star;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
-import com.belatrixsf.connect.ui.common.AllStarsFragment;
+import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.common.EndlessRecyclerOnScrollListener;
 import com.belatrixsf.connect.ui.contacts.keyword.ContactsKeywordListActivity;
-import com.belatrixsf.connect.utils.AllStarsApplication;
+import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.di.modules.presenters.StarsListPresenterModule;
 
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ import butterknife.Bind;
 /**
  * Created by icerrate on 25/04/2016.
  */
-public class StarsListFragment extends AllStarsFragment implements StarsListView, StarsListAdapter.KeywordClickListener {
+public class StarsListFragment extends BelatrixConnectFragment implements StarsListView, StarsListAdapter.KeywordClickListener {
 
     public static final String STARS_KEY = "_stars_key";
     public static final String EMPLOYEE_ID_KEY = "_employee_id_key";
@@ -84,8 +84,8 @@ public class StarsListFragment extends AllStarsFragment implements StarsListView
     }
 
     @Override
-    protected void initDependencies(AllStarsApplication allStarsApplication) {
-        starsListPresenter = allStarsApplication.getApplicationComponent()
+    protected void initDependencies(BelatrixConnectApplication belatrixConnectApplication) {
+        starsListPresenter = belatrixConnectApplication.getApplicationComponent()
                 .starsListComponent(new StarsListPresenterModule(this))
                 .starsListPresenter();
     }

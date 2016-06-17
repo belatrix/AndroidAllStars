@@ -20,12 +20,12 @@
 */
 package com.belatrixsf.connect.ui.stars.comment;
 
-import com.belatrixsf.connect.ui.common.AllStarsView;
+import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 
 /**
  * Created by PedroCarrillo on 4/27/16.
  */
-public interface CommentView extends AllStarsView {
+public interface CommentView extends BelatrixConnectView {
 
     void selectComment(String comment);
     void showComment(String comment);

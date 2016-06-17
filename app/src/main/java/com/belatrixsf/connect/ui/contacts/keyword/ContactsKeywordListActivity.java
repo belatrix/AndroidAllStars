@@ -25,12 +25,12 @@ import android.support.annotation.Nullable;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Keyword;
-import com.belatrixsf.connect.ui.common.AllStarsActivity;
+import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 
 /**
  * Created by PedroCarrillo on 5/12/16.
  */
-public class ContactsKeywordListActivity extends AllStarsActivity {
+public class ContactsKeywordListActivity extends BelatrixConnectActivity {
 
     public static final String KEYWORD_KEY = "_keyword_key";
 

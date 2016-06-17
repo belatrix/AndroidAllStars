@@ -24,13 +24,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.ui.common.AllStarsActivity;
+import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarFragment;
 
 /**
  * Created by PedroCarrillo on 4/27/16.
  */
-public class CommentActivity extends AllStarsActivity {
+public class CommentActivity extends BelatrixConnectActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

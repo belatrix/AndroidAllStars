@@ -24,12 +24,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.ui.common.AllStarsActivity;
+import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 
 /**
  * Created by pedrocarrillo on 4/26/16.
  */
-public class ContactsListActivity extends AllStarsActivity {
+public class ContactsListActivity extends BelatrixConnectActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

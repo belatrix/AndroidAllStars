@@ -30,12 +30,12 @@ import android.support.v4.view.ViewCompat;
 import android.widget.ImageView;
 
 import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.ui.common.AllStarsActivity;
+import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 
 /**
  * Created by icerrate on 10/06/2016.
  */
-public class ExpandPictureActivity extends AllStarsActivity {
+public class ExpandPictureActivity extends BelatrixConnectActivity {
 
     public static final String USER_AVATAR_KEY = "_user_avatar";
 

@@ -21,7 +21,7 @@
 package com.belatrixsf.connect.services;
 
 import com.belatrixsf.connect.networking.retrofit.RetrofitCallback;
-import com.belatrixsf.connect.utils.AllStarsCallback;
+import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 
 import retrofit2.Call;
 
@@ -37,8 +37,8 @@ public class ServerServiceRequest<T> extends ServiceRequest<T> {
     }
 
     @Override
-    void enqueue(AllStarsCallback<T> allStarsCallback) {
-        call.enqueue(new RetrofitCallback<T>(allStarsCallback));
+    void enqueue(BelatrixConnectCallback<T> belatrixConnectCallback) {
+        call.enqueue(new RetrofitCallback<T>(belatrixConnectCallback));
     }
 
     @Override

@@ -23,7 +23,7 @@ package com.belatrixsf.connect.utils.media.transformations.glide;
 import android.content.Context;
 import android.graphics.Bitmap;
 
-import com.belatrixsf.connect.utils.media.transformations.AllStarsTransformationUtils;
+import com.belatrixsf.connect.utils.media.transformations.BelatrixConnectTransformationUtils;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 
@@ -38,7 +38,7 @@ public class CircleGlideTransformation extends BitmapTransformation {
 
     @Override
     protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
-        return AllStarsTransformationUtils.circleCrop(pool, toTransform);
+        return BelatrixConnectTransformationUtils.circleCrop(pool, toTransform);
     }
 
     @Override

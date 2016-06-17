@@ -31,11 +31,11 @@ import com.belatrixsf.connect.networking.retrofit.requests.UpdateEmployeeRequest
 import com.belatrixsf.connect.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.CreateEmployeeResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.SearchEmployeeResponse;
-import com.belatrixsf.connect.services.AllStarsBaseService;
+import com.belatrixsf.connect.services.BelatrixConnectBaseService;
 import com.belatrixsf.connect.services.ServerServiceRequest;
 import com.belatrixsf.connect.services.ServiceRequest;
 import com.belatrixsf.connect.services.contracts.EmployeeService;
-import com.belatrixsf.connect.utils.AllStarsCallback;
+import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 
 import java.io.File;
 import java.util.List;
@@ -49,7 +49,7 @@ import retrofit2.Call;
 /**
  * Created by gyosida on 4/12/16.
  */
-public class EmployeeServerService extends AllStarsBaseService implements EmployeeService {
+public class EmployeeServerService extends BelatrixConnectBaseService implements EmployeeService {
 
     private EmployeeAPI employeeAPI;
 
@@ -58,7 +58,7 @@ public class EmployeeServerService extends AllStarsBaseService implements Employ
     }
 
     @Override
-    public ServiceRequest authenticate(String username, String password, AllStarsCallback<AuthenticationResponse> callback) {
+    public ServiceRequest authenticate(String username, String password, BelatrixConnectCallback<AuthenticationResponse> callback) {
         AuthenticationRequest request = new AuthenticationRequest(username, password);
         Call<AuthenticationResponse> call = employeeAPI.authenticate(request);
         ServiceRequest<AuthenticationResponse> serviceRequest = new ServerServiceRequest<>(call);
@@ -67,7 +67,7 @@ public class EmployeeServerService extends AllStarsBaseService implements Employ
     }
 
     @Override
-    public ServiceRequest createEmployee(String email, AllStarsCallback<CreateEmployeeResponse> callback) {
+    public ServiceRequest createEmployee(String email, BelatrixConnectCallback<CreateEmployeeResponse> callback) {
         CreateEmployeeRequest request = new CreateEmployeeRequest(email);
         Call<CreateEmployeeResponse> call = employeeAPI.createEmployee(request);
         ServiceRequest<CreateEmployeeResponse> serviceRequest = new ServerServiceRequest<>(call);
@@ -76,7 +76,7 @@ public class EmployeeServerService extends AllStarsBaseService implements Employ
     }
 
     @Override
-    public ServiceRequest getEmployee(int employeeId, AllStarsCallback<Employee> callback) {
+    public ServiceRequest getEmployee(int employeeId, BelatrixConnectCallback<Employee> callback) {
         Call<Employee> call = employeeAPI.getEmployee(employeeId);
         ServiceRequest<Employee> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
@@ -84,7 +84,7 @@ public class EmployeeServerService extends AllStarsBaseService implements Employ
     }
 
     @Override
-    public ServiceRequest getEmployeeSearchList(String searchTerm, Integer page, AllStarsCallback<SearchEmployeeResponse> callback) {
+    public ServiceRequest getEmployeeSearchList(String searchTerm, Integer page, BelatrixConnectCallback<SearchEmployeeResponse> callback) {
         Call<SearchEmployeeResponse> call = employeeAPI.getEmployeeSearchList(searchTerm, page);
         ServiceRequest<SearchEmployeeResponse> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
@@ -92,7 +92,7 @@ public class EmployeeServerService extends AllStarsBaseService implements Employ
     }
 
     @Override
-    public ServiceRequest getRankingList(String kind, int quantity, AllStarsCallback<List<Employee>> callback) {
+    public ServiceRequest getRankingList(String kind, int quantity, BelatrixConnectCallback<List<Employee>> callback) {
         Call<List<Employee>> call = employeeAPI.getRankingList(kind, quantity);
         ServiceRequest<List<Employee>> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
@@ -100,7 +100,7 @@ public class EmployeeServerService extends AllStarsBaseService implements Employ
     }
 
     @Override
-    public ServiceRequest getEmployeeCategories(int employeeId, AllStarsCallback<List<Category>> callback) {
+    public ServiceRequest getEmployeeCategories(int employeeId, BelatrixConnectCallback<List<Category>> callback) {
         Call<List<Category>> call = employeeAPI.getEmployeeCategories(employeeId);
         ServiceRequest<List<Category>> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
@@ -108,7 +108,7 @@ public class EmployeeServerService extends AllStarsBaseService implements Employ
     }
 
     @Override
-    public ServiceRequest updateEmployee(int employeeId, String firstName, String lastName, String skypeId, int locationId, AllStarsCallback<Employee> callback) {
+    public ServiceRequest updateEmployee(int employeeId, String firstName, String lastName, String skypeId, int locationId, BelatrixConnectCallback<Employee> callback) {
         UpdateEmployeeRequest updateEmployeeRequest = new UpdateEmployeeRequest(firstName, lastName, skypeId, locationId);
         Call<Employee> call = employeeAPI.updateEmployee(employeeId, updateEmployeeRequest);
         ServiceRequest<Employee> serviceRequest = new ServerServiceRequest<>(call);
@@ -117,7 +117,7 @@ public class EmployeeServerService extends AllStarsBaseService implements Employ
     }
 
     @Override
-    public ServiceRequest getEmployeeLocations(AllStarsCallback<List<Location>> callback) {
+    public ServiceRequest getEmployeeLocations(BelatrixConnectCallback<List<Location>> callback) {
         Call<List<Location>> call = employeeAPI.getEmployeeLocations();
         ServiceRequest<List<Location>> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
@@ -125,7 +125,7 @@ public class EmployeeServerService extends AllStarsBaseService implements Employ
     }
 
     @Override
-    public ServiceRequest updateEmployeeImage(int employeeId, File file, AllStarsCallback<Employee> callback) {
+    public ServiceRequest updateEmployeeImage(int employeeId, File file, BelatrixConnectCallback<Employee> callback) {
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
         Call<Employee> call = employeeAPI.updateEmployeeImage(employeeId, body);
@@ -135,7 +135,7 @@ public class EmployeeServerService extends AllStarsBaseService implements Employ
     }
 
     @Override
-    public ServiceRequest resetPassword(int employeeId, String oldPassword, String newPassword, AllStarsCallback<Employee> callback) {
+    public ServiceRequest resetPassword(int employeeId, String oldPassword, String newPassword, BelatrixConnectCallback<Employee> callback) {
         ResetPasswordRequest request = new ResetPasswordRequest(oldPassword, newPassword);
         Call<Employee> call = employeeAPI.resetPassword(employeeId, request);
         ServiceRequest<Employee> serviceRequest = new ServerServiceRequest<>(call);

@@ -22,7 +22,7 @@ package com.belatrixsf.connect.ui.ranking;
 
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.services.contracts.EmployeeService;
-import com.belatrixsf.connect.ui.common.AllStarsPresenter;
+import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 import com.belatrixsf.connect.utils.ServiceError;
 
 import java.util.List;
@@ -32,7 +32,7 @@ import javax.inject.Inject;
 /**
  * Created by icerrate on 28/04/2016.
  */
-public class RankingPresenter extends AllStarsPresenter<RankingView> {
+public class RankingPresenter extends BelatrixConnectPresenter<RankingView> {
 
     private EmployeeService employeeService;
     private List<Employee> rankingEmployees;

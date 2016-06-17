@@ -36,8 +36,8 @@ import android.widget.EditText;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.account.edit.EditAccountActivity;
 import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
-import com.belatrixsf.connect.ui.common.AllStarsFragment;
-import com.belatrixsf.connect.utils.AllStarsApplication;
+import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
+import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.di.components.DaggerResetPasswordComponent;
 import com.belatrixsf.connect.utils.di.modules.presenters.ResetPasswordPresenterModule;
 
@@ -47,7 +47,7 @@ import butterknife.OnClick;
 /**
  * Created by icerrate on 19/05/16.
  */
-public class ResetPasswordFragment extends AllStarsFragment implements ResetPasswordView {
+public class ResetPasswordFragment extends BelatrixConnectFragment implements ResetPasswordView {
 
     @Bind(R.id.new_password_input) TextInputLayout newPasswordInputLayout;
     @Bind(R.id.repeat_new_password_input) TextInputLayout repeatNewPasswordInputLayout;
@@ -94,9 +94,9 @@ public class ResetPasswordFragment extends AllStarsFragment implements ResetPass
     }
 
     @Override
-    protected void initDependencies(AllStarsApplication allStarsApplication) {
+    protected void initDependencies(BelatrixConnectApplication belatrixConnectApplication) {
         resetPasswordPresenter = DaggerResetPasswordComponent.builder()
-                .applicationComponent(allStarsApplication.getApplicationComponent())
+                .applicationComponent(belatrixConnectApplication.getApplicationComponent())
                 .resetPasswordPresenterModule(new ResetPasswordPresenterModule(this))
                 .build()
                 .resetPasswordPresenter();

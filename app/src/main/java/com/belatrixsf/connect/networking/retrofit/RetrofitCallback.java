@@ -22,7 +22,7 @@ package com.belatrixsf.connect.networking.retrofit;
 
 import android.util.Log;
 
-import com.belatrixsf.connect.utils.AllStarsCallback;
+import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 import com.belatrixsf.connect.utils.ServiceError;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -42,9 +42,9 @@ public class RetrofitCallback<T> implements Callback<T> {
 
     private static final String TAG = RetrofitCallback.class.getSimpleName();
 
-    private AllStarsCallback<T> callback;
+    private BelatrixConnectCallback<T> callback;
 
-    public RetrofitCallback(AllStarsCallback<T> callback) {
+    public RetrofitCallback(BelatrixConnectCallback<T> callback) {
         this.callback = callback;
     }
 

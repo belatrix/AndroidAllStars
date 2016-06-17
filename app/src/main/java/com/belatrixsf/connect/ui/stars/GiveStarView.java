@@ -20,12 +20,12 @@
 */
 package com.belatrixsf.connect.ui.stars;
 
-import com.belatrixsf.connect.ui.common.AllStarsView;
+import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 
 /**
  * Created by pedrocarrillo on 4/25/16.
  */
-public interface GiveStarView extends AllStarsView {
+public interface GiveStarView extends BelatrixConnectView {
 
     void goSearchUser();
 

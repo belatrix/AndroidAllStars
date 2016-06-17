@@ -32,9 +32,9 @@ import android.view.ViewGroup;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.KeywordsListAdapter;
 import com.belatrixsf.connect.entities.Keyword;
-import com.belatrixsf.connect.ui.common.AllStarsFragment;
+import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.common.views.DividerItemDecoration;
-import com.belatrixsf.connect.utils.AllStarsApplication;
+import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.di.modules.presenters.KeywordsListModule;
 
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ import butterknife.Bind;
 /**
  * Created by gyosida on 5/12/16.
  */
-public class KeywordsListFragment extends AllStarsFragment implements KeywordsListView, KeywordsListAdapter.KeywordListener {
+public class KeywordsListFragment extends BelatrixConnectFragment implements KeywordsListView, KeywordsListAdapter.KeywordListener {
 
     private static final String KEYWORDS_KEY = "keywords_key";
 
@@ -120,8 +120,8 @@ public class KeywordsListFragment extends AllStarsFragment implements KeywordsLi
     }
 
     @Override
-    protected void initDependencies(AllStarsApplication allStarsApplication) {
-        allStarsApplication
+    protected void initDependencies(BelatrixConnectApplication belatrixConnectApplication) {
+        belatrixConnectApplication
                 .getApplicationComponent()
                 .keywordsListComponent(new KeywordsListModule(this))
                 .inject(this);

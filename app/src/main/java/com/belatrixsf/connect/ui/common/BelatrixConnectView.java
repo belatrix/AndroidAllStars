@@ -20,45 +20,21 @@
 */
 package com.belatrixsf.connect.ui.common;
 
-import com.belatrixsf.connect.utils.AllStarsCallback;
-import com.belatrixsf.connect.utils.ServiceError;
+import android.content.Context;
 
 /**
- * @author gyosida
- *         AllStarsPresenter is the base clase for every presenter created
- *         on the project, will hold the reference to the view and any common
- *         interaction with it
+ * @author Pedro Carrillo
  */
-public abstract class AllStarsPresenter<T extends AllStarsView> {
 
-    protected T view;
+public interface BelatrixConnectView {
 
-    protected AllStarsPresenter(T view) {
-        this.view = view;
-    }
-
-    protected String getString(int resId) {
-        return view.getContext().getString(resId);
-    }
-
-    protected void showError(int resId) {
-        showError(getString(resId));
-    }
-
-    protected void showError(String message) {
-        view.showError(message);
-    }
-
-    public abstract void cancelRequests();
-
-    protected abstract class PresenterCallback<T> implements AllStarsCallback<T> {
-
-        @Override
-        public void onFailure(ServiceError serviceError) {
-            if (serviceError.getResponseCode() != ServiceError.CANCELLED) {
-                showError(serviceError.getDetail());
-            }
-        }
-    }
+    void showProgressIndicator();
+    void hideProgressIndicator();
+    void showProgressDialog();
+    void showProgressDialog(String message);
+    void dismissProgressDialog();
+    void setTitle(String title);
+    void showError(String message);
+    Context getContext();
 
 }

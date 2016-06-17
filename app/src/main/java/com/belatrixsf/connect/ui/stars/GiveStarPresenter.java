@@ -29,14 +29,14 @@ import com.belatrixsf.connect.managers.EmployeeManager;
 import com.belatrixsf.connect.networking.retrofit.requests.StarRequest;
 import com.belatrixsf.connect.networking.retrofit.responses.StarResponse;
 import com.belatrixsf.connect.services.contracts.StarService;
-import com.belatrixsf.connect.ui.common.AllStarsPresenter;
+import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 
 import javax.inject.Inject;
 
 /**
  * Created by pedrocarrillo on 4/25/16.
  */
-public class GiveStarPresenter extends AllStarsPresenter<GiveStarView> {
+public class GiveStarPresenter extends BelatrixConnectPresenter<GiveStarView> {
 
     private StarService starService;
     private EmployeeManager employeeManager;

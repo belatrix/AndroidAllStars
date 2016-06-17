@@ -79,7 +79,12 @@ public class StarsListAdapter extends LoadMoreBaseAdapter<Star> {
             String keyword = star.getKeyword().getName();
             starViewHolder.employeeFullNameTextView.setText(star.getFromUser().getFullName());
             starViewHolder.starDateTextView.setText(formattedDate);
-            starViewHolder.starMessageTextView.setText(message);
+            if (message != null && !message.isEmpty()) {
+                starViewHolder.starMessageTextView.setText(message);
+                starViewHolder.starMessageTextView.setVisibility(View.VISIBLE);
+            } else {
+                starViewHolder.starMessageTextView.setVisibility(View.GONE);
+            }
             starViewHolder.starCategoryTextView.setText(star.getCategory().getName());
             starViewHolder.starKeywordView.setKeyword(keyword);
             ImageFactory.getLoader().loadFromUrl(star.getFromUser().getAvatar(), starViewHolder.photoImageView, ImageLoader.ImageTransformation.CIRCLE);

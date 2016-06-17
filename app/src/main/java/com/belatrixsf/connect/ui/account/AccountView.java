@@ -22,14 +22,14 @@ package com.belatrixsf.connect.ui.account;
 
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.SubCategory;
-import com.belatrixsf.connect.ui.common.AllStarsView;
+import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 
 import java.util.List;
 
 /**
  * Created by PedroCarrillo on 4/13/16.
  */
-public interface AccountView extends AllStarsView {
+public interface AccountView extends BelatrixConnectView {
 
     void goSubCategoryDetail(Integer categoryId, Integer employeeId);
     void showCurrentMonthScore(String skypeId);

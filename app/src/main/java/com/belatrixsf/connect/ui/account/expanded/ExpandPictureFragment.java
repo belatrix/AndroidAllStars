@@ -29,8 +29,8 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
 import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.ui.common.AllStarsFragment;
-import com.belatrixsf.connect.utils.AllStarsApplication;
+import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
+import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.di.modules.presenters.ExpandPicturePresenterModule;
 import com.belatrixsf.connect.utils.media.ImageFactory;
 import com.belatrixsf.connect.utils.media.loaders.ImageLoader;
@@ -42,7 +42,7 @@ import static com.belatrixsf.connect.ui.account.expanded.ExpandPictureActivity.U
 /**
  * Created by icerrate on 10/06/2016.
  */
-public class ExpandPictureFragment extends AllStarsFragment implements ExpandPictureView {
+public class ExpandPictureFragment extends BelatrixConnectFragment implements ExpandPictureView {
 
     private ExpandPicturePresenter expandPicturePresenter;
 
@@ -94,8 +94,8 @@ public class ExpandPictureFragment extends AllStarsFragment implements ExpandPic
     }
 
     @Override
-    protected void initDependencies(AllStarsApplication allStarsApplication) {
-        expandPicturePresenter = allStarsApplication.getApplicationComponent()
+    protected void initDependencies(BelatrixConnectApplication belatrixConnectApplication) {
+        expandPicturePresenter = belatrixConnectApplication.getApplicationComponent()
                 .expandPictureComponent(new ExpandPicturePresenterModule(this))
                 .expandPicturePresenter();
     }

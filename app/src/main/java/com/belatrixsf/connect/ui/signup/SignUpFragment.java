@@ -32,8 +32,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.ui.common.AllStarsFragment;
-import com.belatrixsf.connect.utils.AllStarsApplication;
+import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
+import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.DialogUtils;
 import com.belatrixsf.connect.utils.di.modules.presenters.SignUpPresenterModule;
 
@@ -43,7 +43,7 @@ import butterknife.OnClick;
 /**
  * Created by icerrate on 16/05/16.
  */
-public class SignUpFragment extends AllStarsFragment implements SignUpView {
+public class SignUpFragment extends BelatrixConnectFragment implements SignUpView {
 
     @Bind(R.id.email) EditText emailEditText;
     @Bind(R.id.send) Button sendButton;
@@ -84,8 +84,8 @@ public class SignUpFragment extends AllStarsFragment implements SignUpView {
     }
 
     @Override
-    protected void initDependencies(AllStarsApplication allStarsApplication) {
-        signUpPresenter = allStarsApplication.getApplicationComponent()
+    protected void initDependencies(BelatrixConnectApplication belatrixConnectApplication) {
+        signUpPresenter = belatrixConnectApplication.getApplicationComponent()
                 .signUpComponent(new SignUpPresenterModule(this))
                 .signUpPresenter();
     }

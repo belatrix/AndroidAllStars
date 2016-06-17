@@ -23,7 +23,7 @@
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_weight="1"
-        android:textColor="@color/belatrix"
+        android:textColor="@color/colorAccent"
         tools:text="value"
         style="@style/TextAppearance.AppCompat.Subhead"/>
 

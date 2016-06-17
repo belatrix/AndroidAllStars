@@ -23,16 +23,16 @@ package com.belatrixsf.connect.services.contracts;
 import com.belatrixsf.connect.entities.Category;
 import com.belatrixsf.connect.entities.Keyword;
 import com.belatrixsf.connect.services.ServiceRequest;
-import com.belatrixsf.connect.utils.AllStarsCallback;
+import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 
 import java.util.List;
 
 /**
  * Created by gyosida on 4/27/16.
  */
-public interface CategoryService extends AllStarsService {
+public interface CategoryService extends BelatrixConnectService {
 
-    ServiceRequest getSubcategories(int categoryId, AllStarsCallback<List<Category>> callback);
+    ServiceRequest getSubcategories(int categoryId, BelatrixConnectCallback<List<Category>> callback);
 
-    ServiceRequest getKeywords(AllStarsCallback<List<Keyword>> callback);
+    ServiceRequest getKeywords(BelatrixConnectCallback<List<Keyword>> callback);
 }

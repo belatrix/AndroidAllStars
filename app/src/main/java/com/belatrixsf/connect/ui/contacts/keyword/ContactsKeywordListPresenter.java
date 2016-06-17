@@ -25,8 +25,8 @@ import com.belatrixsf.connect.entities.Keyword;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.StarKeywordTopListResponse;
 import com.belatrixsf.connect.services.contracts.StarService;
-import com.belatrixsf.connect.ui.common.AllStarsPresenter;
-import com.belatrixsf.connect.utils.AllStarsCallback;
+import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
+import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 import com.belatrixsf.connect.utils.ServiceError;
 
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ import javax.inject.Inject;
 /**
  * Created by PedroCarrillo on 5/12/16.
  */
-public class ContactsKeywordListPresenter extends AllStarsPresenter<ContactsKeywordListView> {
+public class ContactsKeywordListPresenter extends BelatrixConnectPresenter<ContactsKeywordListView> {
 
     private StarService starService;
     private Keyword keyword;
@@ -91,7 +91,7 @@ public class ContactsKeywordListPresenter extends AllStarsPresenter<ContactsKeyw
         starService.getStarsKeywordTopList(
                 keyword.getId(),
                 starPaginatedResponse.getNextPage(),
-                new AllStarsCallback<StarKeywordTopListResponse>() {
+                new BelatrixConnectCallback<StarKeywordTopListResponse>() {
                     @Override
                     public void onSuccess(StarKeywordTopListResponse starKeywordTopListResponse) {
                         employeeList.addAll(starKeywordTopListResponse.getEmployees());

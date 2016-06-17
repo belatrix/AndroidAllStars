@@ -20,12 +20,12 @@
 */
 package com.belatrixsf.connect.ui.account.expanded;
 
-import com.belatrixsf.connect.ui.common.AllStarsView;
+import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 
 /**
  * Created by icerrate on 10/06/2016.
  */
-public interface ExpandPictureView extends AllStarsView {
+public interface ExpandPictureView extends BelatrixConnectView {
 
     void showProfilePicture(String profilePicture);
 

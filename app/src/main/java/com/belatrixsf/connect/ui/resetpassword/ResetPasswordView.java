@@ -20,12 +20,12 @@
 */
 package com.belatrixsf.connect.ui.resetpassword;
 
-import com.belatrixsf.connect.ui.common.AllStarsView;
+import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 
 /**
  * Created by icerrate on 19/05/16.
  */
-public interface ResetPasswordView extends AllStarsView {
+public interface ResetPasswordView extends BelatrixConnectView {
 
     void goEditProfile();
     void enableReset(boolean enable);

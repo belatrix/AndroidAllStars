@@ -35,9 +35,9 @@ import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.CategoriesAdapter;
 import com.belatrixsf.connect.entities.Category;
 import com.belatrixsf.connect.entities.SubCategory;
-import com.belatrixsf.connect.ui.common.AllStarsFragment;
+import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.common.views.DividerItemDecoration;
-import com.belatrixsf.connect.utils.AllStarsApplication;
+import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.di.modules.presenters.CategoriesListModule;
 
 import java.util.ArrayList;
@@ -50,7 +50,7 @@ import butterknife.Bind;
 /**
  * Created by gyosida on 4/27/16.
  */
-public class CategoriesFragment extends AllStarsFragment implements CategoriesView, CategoriesAdapter.CategoriesListListener {
+public class CategoriesFragment extends BelatrixConnectFragment implements CategoriesView, CategoriesAdapter.CategoriesListListener {
 
     private static final String CATEGORY_KEY = "category_key";
     private static final String CATEGORIES_KEY = "categories_key";
@@ -147,8 +147,8 @@ public class CategoriesFragment extends AllStarsFragment implements CategoriesVi
     }
 
     @Override
-    protected void initDependencies(AllStarsApplication allStarsApplication) {
-        allStarsApplication
+    protected void initDependencies(BelatrixConnectApplication belatrixConnectApplication) {
+        belatrixConnectApplication
                 .getApplicationComponent()
                 .categoriesListComponent(new CategoriesListModule(this, getCategoryIfExists()))
                 .inject(this);

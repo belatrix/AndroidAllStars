@@ -27,22 +27,22 @@ import com.belatrixsf.connect.networking.retrofit.responses.StarSubCategoryRespo
 import com.belatrixsf.connect.networking.retrofit.responses.StarsByKeywordsResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.StarsResponse;
 import com.belatrixsf.connect.services.ServiceRequest;
-import com.belatrixsf.connect.utils.AllStarsCallback;
+import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 
 /**
  * Created by PedroCarrillo on 4/26/16.
  */
-public interface StarService extends AllStarsService {
+public interface StarService extends BelatrixConnectService {
 
 
-    ServiceRequest getEmployeeSubCategoriesStars(int employeeId, AllStarsCallback<StarSubCategoryResponse> callback);
+    ServiceRequest getEmployeeSubCategoriesStars(int employeeId, BelatrixConnectCallback<StarSubCategoryResponse> callback);
 
-    ServiceRequest star(int fromEmployeeId, int toEmployeeId, StarRequest starRequest, AllStarsCallback<StarResponse> callback);
+    ServiceRequest star(int fromEmployeeId, int toEmployeeId, StarRequest starRequest, BelatrixConnectCallback<StarResponse> callback);
 
-    ServiceRequest getStarsByKeywords(String search, Integer next, AllStarsCallback<StarsByKeywordsResponse> callback);
+    ServiceRequest getStarsByKeywords(String search, Integer next, BelatrixConnectCallback<StarsByKeywordsResponse> callback);
 
-    ServiceRequest getStars(int employeeId, int subcategory, Integer page, AllStarsCallback<StarsResponse> callback);
+    ServiceRequest getStars(int employeeId, int subcategory, Integer page, BelatrixConnectCallback<StarsResponse> callback);
 
-    ServiceRequest getStarsKeywordTopList(int keywordId, Integer page, AllStarsCallback<StarKeywordTopListResponse> callback);
+    ServiceRequest getStarsKeywordTopList(int keywordId, Integer page, BelatrixConnectCallback<StarKeywordTopListResponse> callback);
 
 }

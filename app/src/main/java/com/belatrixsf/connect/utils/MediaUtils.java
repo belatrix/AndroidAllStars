@@ -181,7 +181,7 @@ public class MediaUtils {
     }
 
     public String getLocalProfileFileName() {
-        return "allstars_profile_picture";
+        return "belatrix_connect_profile_picture";
     }
 
     /**

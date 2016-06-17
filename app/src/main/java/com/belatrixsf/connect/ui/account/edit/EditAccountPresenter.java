@@ -25,7 +25,7 @@ import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.Location;
 import com.belatrixsf.connect.managers.EmployeeManager;
 import com.belatrixsf.connect.services.contracts.EmployeeService;
-import com.belatrixsf.connect.ui.common.AllStarsPresenter;
+import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 
 import java.io.File;
 import java.util.List;
@@ -35,7 +35,7 @@ import javax.inject.Inject;
 /**
  * Created by PedroCarrillo on 5/17/16.
  */
-public class EditAccountPresenter extends AllStarsPresenter<EditAccountView> {
+public class EditAccountPresenter extends BelatrixConnectPresenter<EditAccountView> {
 
     private Employee employee;
     private List<Location> locationList;

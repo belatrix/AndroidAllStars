@@ -22,7 +22,7 @@ package com.belatrixsf.connect.utils.media.transformations.picasso;
 
 import android.graphics.Bitmap;
 
-import com.belatrixsf.connect.utils.media.transformations.AllStarsTransformationUtils;
+import com.belatrixsf.connect.utils.media.transformations.BelatrixConnectTransformationUtils;
 import com.squareup.picasso.Transformation;
 
 /**
@@ -31,7 +31,7 @@ import com.squareup.picasso.Transformation;
 public class CirclePicassoTransformation implements Transformation {
     @Override
     public Bitmap transform(Bitmap source) {
-        return AllStarsTransformationUtils.circleCrop(null, source);
+        return BelatrixConnectTransformationUtils.circleCrop(null, source);
     }
 
     @Override

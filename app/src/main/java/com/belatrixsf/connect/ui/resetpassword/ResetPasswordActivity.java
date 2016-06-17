@@ -23,12 +23,12 @@ package com.belatrixsf.connect.ui.resetpassword;
 import android.os.Bundle;
 
 import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.ui.common.AllStarsActivity;
+import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 
 /**
  * Created by icerrate on 19/05/16.
  */
-public class ResetPasswordActivity extends AllStarsActivity {
+public class ResetPasswordActivity extends BelatrixConnectActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -23,12 +23,12 @@ package com.belatrixsf.connect.ui.signup;
 import android.os.Bundle;
 
 import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.ui.common.AllStarsActivity;
+import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 
 /**
  * Created by icerrate on 16/05/16.
  */
-public class SignUpActivity extends AllStarsActivity {
+public class SignUpActivity extends BelatrixConnectActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

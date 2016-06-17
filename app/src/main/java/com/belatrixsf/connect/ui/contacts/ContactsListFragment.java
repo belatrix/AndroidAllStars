@@ -42,12 +42,12 @@ import com.belatrixsf.connect.adapters.ContactsListAdapter;
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.ui.account.AccountActivity;
-import com.belatrixsf.connect.ui.common.AllStarsFragment;
+import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.common.EndlessRecyclerOnScrollListener;
 import com.belatrixsf.connect.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.connect.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.connect.ui.common.views.searchingview.SearchingView;
-import com.belatrixsf.connect.utils.AllStarsApplication;
+import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.KeyboardUtils;
 import com.belatrixsf.connect.utils.di.modules.presenters.ContactsListPresenterModule;
 
@@ -62,7 +62,7 @@ import static com.belatrixsf.connect.ui.stars.GiveStarFragment.SELECTED_USER_KEY
 /**
  * Created by icerrate on 15/04/2016.
  */
-public class ContactsListFragment extends AllStarsFragment implements ContactsListView, RecyclerOnItemClickListener {
+public class ContactsListFragment extends BelatrixConnectFragment implements ContactsListView, RecyclerOnItemClickListener {
 
     public static final String PROFILE_ENABLED_KEY = "_is_search";
     public static final String CONTACTS_KEY = "_employees_key";
@@ -100,8 +100,8 @@ public class ContactsListFragment extends AllStarsFragment implements ContactsLi
     }
 
     @Override
-    protected void initDependencies(AllStarsApplication allStarsApplication) {
-        contactsListPresenter = allStarsApplication.getApplicationComponent()
+    protected void initDependencies(BelatrixConnectApplication belatrixConnectApplication) {
+        contactsListPresenter = belatrixConnectApplication.getApplicationComponent()
                 .contactsListComponent(new ContactsListPresenterModule(this))
                 .contactsListPresenter();
     }

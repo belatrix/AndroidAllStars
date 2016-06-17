@@ -25,12 +25,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 
 import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.ui.common.AllStarsActivity;
+import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 
 /**
  * Created by PedroCarrillo on 5/17/16.
  */
-public class EditAccountActivity extends AllStarsActivity {
+public class EditAccountActivity extends BelatrixConnectActivity {
 
     public static final String EMPLOYEE_KEY = "_user_key";
 

@@ -27,18 +27,18 @@ import com.belatrixsf.connect.networking.retrofit.responses.StarsByKeywordsRespo
 import com.belatrixsf.connect.networking.retrofit.responses.StarsResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.StarResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.StarSubCategoryResponse;
-import com.belatrixsf.connect.services.AllStarsBaseService;
+import com.belatrixsf.connect.services.BelatrixConnectBaseService;
 import com.belatrixsf.connect.services.ServiceRequest;
 import com.belatrixsf.connect.services.contracts.StarService;
 import com.belatrixsf.connect.services.ServerServiceRequest;
-import com.belatrixsf.connect.utils.AllStarsCallback;
+import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 
 import retrofit2.Call;
 
 /**
  * Created by PedroCarrillo on 4/26/16.
  */
-public class StarServerService extends AllStarsBaseService implements StarService {
+public class StarServerService extends BelatrixConnectBaseService implements StarService {
 
     private StarAPI starAPI;
 
@@ -47,7 +47,7 @@ public class StarServerService extends AllStarsBaseService implements StarServic
     }
 
     @Override
-    public ServiceRequest getEmployeeSubCategoriesStars(final int employeeId, AllStarsCallback<StarSubCategoryResponse> callback) {
+    public ServiceRequest getEmployeeSubCategoriesStars(final int employeeId, BelatrixConnectCallback<StarSubCategoryResponse> callback) {
         Call<StarSubCategoryResponse> call = starAPI.getEmployeeSubCategoriesStars(employeeId);
         ServiceRequest<StarSubCategoryResponse> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
@@ -55,7 +55,7 @@ public class StarServerService extends AllStarsBaseService implements StarServic
     }
 
     @Override
-    public ServiceRequest star(int fromEmployeeId, int toEmployeeId, StarRequest starRequest, AllStarsCallback<StarResponse> callback) {
+    public ServiceRequest star(int fromEmployeeId, int toEmployeeId, StarRequest starRequest, BelatrixConnectCallback<StarResponse> callback) {
         Call<StarResponse> call = starAPI.star(fromEmployeeId, toEmployeeId, starRequest);
         ServiceRequest<StarResponse> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
@@ -63,7 +63,7 @@ public class StarServerService extends AllStarsBaseService implements StarServic
     }
 
     @Override
-    public ServiceRequest getStars(int employeeId, int subcategory, Integer page, AllStarsCallback<StarsResponse> callback) {
+    public ServiceRequest getStars(int employeeId, int subcategory, Integer page, BelatrixConnectCallback<StarsResponse> callback) {
         Call<StarsResponse> call = starAPI.getStars(employeeId, subcategory, page);
         ServiceRequest<StarsResponse> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
@@ -71,7 +71,7 @@ public class StarServerService extends AllStarsBaseService implements StarServic
     }
 
     @Override
-    public ServiceRequest getStarsKeywordTopList(int keywordId, Integer page, AllStarsCallback<StarKeywordTopListResponse> callback) {
+    public ServiceRequest getStarsKeywordTopList(int keywordId, Integer page, BelatrixConnectCallback<StarKeywordTopListResponse> callback) {
         Call<StarKeywordTopListResponse> call = starAPI.getStarsKeywordTop(keywordId, page);
         ServiceRequest<StarKeywordTopListResponse> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
@@ -79,7 +79,7 @@ public class StarServerService extends AllStarsBaseService implements StarServic
     }
 
     @Override
-    public ServiceRequest getStarsByKeywords(String search, Integer next, AllStarsCallback<StarsByKeywordsResponse> callback) {
+    public ServiceRequest getStarsByKeywords(String search, Integer next, BelatrixConnectCallback<StarsByKeywordsResponse> callback) {
         Call<StarsByKeywordsResponse> call = starAPI.getStarsByKeywords(search, next);
         ServiceRequest<StarsByKeywordsResponse> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);

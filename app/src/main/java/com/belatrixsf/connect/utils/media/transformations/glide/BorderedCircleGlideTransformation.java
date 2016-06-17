@@ -25,7 +25,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 
 import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.utils.media.transformations.AllStarsTransformationUtils;
+import com.belatrixsf.connect.utils.media.transformations.BelatrixConnectTransformationUtils;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 
@@ -44,7 +44,7 @@ public class BorderedCircleGlideTransformation extends BitmapTransformation {
 
     @Override
     protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
-        return AllStarsTransformationUtils.borderedCircle(pool, toTransform, strokeWidth);
+        return BelatrixConnectTransformationUtils.borderedCircle(pool, toTransform, strokeWidth);
     }
 
     @Override

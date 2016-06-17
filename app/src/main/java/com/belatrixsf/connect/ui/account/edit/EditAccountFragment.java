@@ -51,9 +51,9 @@ import android.widget.TextView;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.Location;
-import com.belatrixsf.connect.ui.common.AllStarsFragment;
+import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.home.MainActivity;
-import com.belatrixsf.connect.utils.AllStarsApplication;
+import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.DialogUtils;
 import com.belatrixsf.connect.utils.KeyboardUtils;
 import com.belatrixsf.connect.utils.MediaUtils;
@@ -78,7 +78,7 @@ import static com.belatrixsf.connect.ui.account.edit.EditAccountActivity.EMPLOYE
 /**
  * Created by PedroCarrillo on 5/17/16.
  */
-public class EditAccountFragment extends AllStarsFragment implements EditAccountView {
+public class EditAccountFragment extends BelatrixConnectFragment implements EditAccountView {
 
     public static final int RQ_EDIT_ACCOUNT = 22;
     public static final int RQ_CAMERA = 23;
@@ -209,8 +209,8 @@ public class EditAccountFragment extends AllStarsFragment implements EditAccount
     }
 
     @Override
-    protected void initDependencies(AllStarsApplication allStarsApplication) {
-        editAccountPresenter = allStarsApplication.getApplicationComponent().editAccountComponent(new EditAccountPresenterModule(this)).editAccountPresenter();
+    protected void initDependencies(BelatrixConnectApplication belatrixConnectApplication) {
+        editAccountPresenter = belatrixConnectApplication.getApplicationComponent().editAccountComponent(new EditAccountPresenterModule(this)).editAccountPresenter();
     }
 
     @Override

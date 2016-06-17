@@ -24,14 +24,14 @@ import android.text.TextUtils;
 
 import com.belatrixsf.connect.networking.retrofit.responses.CreateEmployeeResponse;
 import com.belatrixsf.connect.services.contracts.EmployeeService;
-import com.belatrixsf.connect.ui.common.AllStarsPresenter;
+import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 
 import javax.inject.Inject;
 
 /**
  * Created by icerrate on 16/05/16.
  */
-public class SignUpPresenter extends AllStarsPresenter<SignUpView> {
+public class SignUpPresenter extends BelatrixConnectPresenter<SignUpView> {
 
     private EmployeeService employeeService;
 

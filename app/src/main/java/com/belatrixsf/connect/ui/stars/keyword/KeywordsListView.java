@@ -21,14 +21,14 @@
 package com.belatrixsf.connect.ui.stars.keyword;
 
 import com.belatrixsf.connect.entities.Keyword;
-import com.belatrixsf.connect.ui.common.AllStarsView;
+import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 
 import java.util.List;
 
 /**
  * Created by gyosida on 5/12/16.
  */
-public interface KeywordsListView extends AllStarsView {
+public interface KeywordsListView extends BelatrixConnectView {
 
     void deliverKeywordAsResult(Keyword keyword);
     void showKeywords(List<Keyword> keywords);

@@ -23,7 +23,7 @@ package com.belatrixsf.connect.utils.media.transformations.picasso;
 import android.content.Context;
 import android.graphics.Bitmap;
 
-import com.belatrixsf.connect.utils.media.transformations.AllStarsTransformationUtils;
+import com.belatrixsf.connect.utils.media.transformations.BelatrixConnectTransformationUtils;
 import com.belatrixsf.connect.utils.media.transformations.glide.BorderedCircleGlideTransformation;
 import com.squareup.picasso.Transformation;
 
@@ -38,7 +38,7 @@ public class BorderedCirclePicassoTransformation extends BorderedCircleGlideTran
 
     @Override
     public Bitmap transform(Bitmap source) {
-        return AllStarsTransformationUtils.borderedCircle(null, source, strokeWidth);
+        return BelatrixConnectTransformationUtils.borderedCircle(null, source, strokeWidth);
     }
 
     @Override

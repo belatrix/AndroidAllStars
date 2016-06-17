@@ -25,9 +25,9 @@ import android.os.Bundle;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Keyword;
-import com.belatrixsf.connect.ui.common.AllStarsActivity;
+import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 
-public class KeywordsActivity extends AllStarsActivity implements KeywordsListFragment.KeywordsListListener {
+public class KeywordsActivity extends BelatrixConnectActivity implements KeywordsListFragment.KeywordsListListener {
 
     public static final String KEYWORD_KEY = "keyword_key";
 

@@ -18,13 +18,16 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.services.contracts;
+package com.belatrixsf.connect.utils;
 
 /**
- * @author Carlos Piñan
+ * Created by gyosida on 4/12/16.
  */
-public interface AllStarsService {
+public interface BelatrixConnectCallback<T> {
 
-    void cancelAll();
+    void onSuccess(T t);
+    void onFailure(ServiceError serviceError);
 
 }
+
+

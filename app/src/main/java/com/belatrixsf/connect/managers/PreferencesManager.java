@@ -23,7 +23,7 @@ package com.belatrixsf.connect.managers;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.belatrixsf.connect.utils.AllStarsApplication;
+import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 
 /**
  * Created by gyosida on 4/12/16.
@@ -39,7 +39,7 @@ public class PreferencesManager {
     private SharedPreferences sharedPreferences;
 
     private PreferencesManager() {
-        sharedPreferences = AllStarsApplication.getContext().getSharedPreferences("all_stars_pref", Context.MODE_PRIVATE);
+        sharedPreferences = BelatrixConnectApplication.getContext().getSharedPreferences("all_stars_pref", Context.MODE_PRIVATE);
     }
 
     public static synchronized PreferencesManager get() {

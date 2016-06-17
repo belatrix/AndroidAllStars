@@ -20,12 +20,12 @@
 */
 package com.belatrixsf.connect.ui.home;
 
-import com.belatrixsf.connect.ui.common.AllStarsView;
+import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 
 /**
  * Created by gyosida on 4/28/16.
  */
-public interface HomeView extends AllStarsView {
+public interface HomeView extends BelatrixConnectView {
 
     void goToLogin();
     void showLogoutConfirmationDialog(String message);

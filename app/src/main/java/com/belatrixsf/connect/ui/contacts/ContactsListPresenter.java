@@ -25,7 +25,7 @@ import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.SearchEmployeeResponse;
 import com.belatrixsf.connect.services.ServiceRequest;
 import com.belatrixsf.connect.services.contracts.EmployeeService;
-import com.belatrixsf.connect.ui.common.AllStarsPresenter;
+import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ import javax.inject.Inject;
 /**
  * Created by icerrate on 15/04/2016.
  */
-public class ContactsListPresenter extends AllStarsPresenter<ContactsListView> {
+public class ContactsListPresenter extends BelatrixConnectPresenter<ContactsListView> {
 
     private EmployeeService employeeService;
     private List<Employee> contacts = new ArrayList<>();

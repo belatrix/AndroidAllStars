@@ -23,7 +23,7 @@ package com.belatrixsf.connect.ui.resetpassword;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.managers.EmployeeManager;
-import com.belatrixsf.connect.ui.common.AllStarsPresenter;
+import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 import com.belatrixsf.connect.utils.Constants;
 
 import javax.inject.Inject;
@@ -31,7 +31,7 @@ import javax.inject.Inject;
 /**
  * Created by icerrate on 19/05/16.
  */
-public class ResetPasswordPresenter extends AllStarsPresenter<ResetPasswordView> {
+public class ResetPasswordPresenter extends BelatrixConnectPresenter<ResetPasswordView> {
 
     private EmployeeManager employeeManager;
 

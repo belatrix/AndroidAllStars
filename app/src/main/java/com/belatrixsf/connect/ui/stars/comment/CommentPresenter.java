@@ -20,14 +20,14 @@
 */
 package com.belatrixsf.connect.ui.stars.comment;
 
-import com.belatrixsf.connect.ui.common.AllStarsPresenter;
+import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 
 import javax.inject.Inject;
 
 /**
  * Created by PedroCarrillo on 4/27/16.
  */
-public class CommentPresenter extends AllStarsPresenter<CommentView> {
+public class CommentPresenter extends BelatrixConnectPresenter<CommentView> {
 
     @Inject
     public CommentPresenter(CommentView view) {

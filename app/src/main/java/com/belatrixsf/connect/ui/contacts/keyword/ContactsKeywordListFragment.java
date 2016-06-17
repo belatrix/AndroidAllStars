@@ -35,11 +35,11 @@ import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.Keyword;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.ui.account.AccountActivity;
-import com.belatrixsf.connect.ui.common.AllStarsFragment;
+import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.common.EndlessRecyclerOnScrollListener;
 import com.belatrixsf.connect.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.connect.ui.common.views.DividerItemDecoration;
-import com.belatrixsf.connect.utils.AllStarsApplication;
+import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.di.modules.presenters.ContactsKeywordPresenterModule;
 
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ import butterknife.ButterKnife;
 /**
  * Created by PedroCarrillo on 5/12/16.
  */
-public class ContactsKeywordListFragment extends AllStarsFragment implements ContactsKeywordListView, RecyclerOnItemClickListener {
+public class ContactsKeywordListFragment extends BelatrixConnectFragment implements ContactsKeywordListView, RecyclerOnItemClickListener {
 
     private ContactsKeywordListPresenter contactsKeywordListPresenter;
     private ContactsKeywordListAdapter contactsKeywordListAdapter;
@@ -80,8 +80,8 @@ public class ContactsKeywordListFragment extends AllStarsFragment implements Con
 
 
     @Override
-    protected void initDependencies(AllStarsApplication allStarsApplication) {
-        contactsKeywordListPresenter = allStarsApplication.getApplicationComponent()
+    protected void initDependencies(BelatrixConnectApplication belatrixConnectApplication) {
+        contactsKeywordListPresenter = belatrixConnectApplication.getApplicationComponent()
                 .contactsKeywordListComponent(new ContactsKeywordPresenterModule(this))
                 .contactsKeywordPresenter();
     }

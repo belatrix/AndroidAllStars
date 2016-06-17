@@ -41,12 +41,12 @@ import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.KeywordsListAdapter;
 import com.belatrixsf.connect.entities.Keyword;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
-import com.belatrixsf.connect.ui.common.AllStarsFragment;
+import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.common.EndlessRecyclerOnScrollListener;
 import com.belatrixsf.connect.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.connect.ui.common.views.searchingview.SearchingView;
 import com.belatrixsf.connect.ui.contacts.keyword.ContactsKeywordListActivity;
-import com.belatrixsf.connect.utils.AllStarsApplication;
+import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.KeyboardUtils;
 import com.belatrixsf.connect.utils.di.modules.presenters.KeywordsListModule;
 
@@ -57,7 +57,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 
-public class SearchingKeywordsFragment extends AllStarsFragment implements SearchingKeywordsView, KeywordsListAdapter.KeywordListener {
+public class SearchingKeywordsFragment extends BelatrixConnectFragment implements SearchingKeywordsView, KeywordsListAdapter.KeywordListener {
 
     private static final String KEYWORDS_KEY = "keywords_key";
     private static final String SEARCH_TEXT_KEY = "search_text_key";
@@ -163,8 +163,8 @@ public class SearchingKeywordsFragment extends AllStarsFragment implements Searc
     }
 
     @Override
-    protected void initDependencies(AllStarsApplication allStarsApplication) {
-        allStarsApplication
+    protected void initDependencies(BelatrixConnectApplication belatrixConnectApplication) {
+        belatrixConnectApplication
                 .getApplicationComponent()
                 .keywordsListComponent(new KeywordsListModule(this))
                 .inject(this);

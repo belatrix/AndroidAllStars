@@ -25,7 +25,7 @@ import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.entities.Star;
 import com.belatrixsf.connect.networking.retrofit.responses.StarsResponse;
 import com.belatrixsf.connect.services.contracts.StarService;
-import com.belatrixsf.connect.ui.common.AllStarsPresenter;
+import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 import com.belatrixsf.connect.utils.ServiceError;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ import javax.inject.Inject;
 /**
  * Created by icerrate on 25/04/2016.
  */
-public class StarsListPresenter extends AllStarsPresenter<StarsListView> {
+public class StarsListPresenter extends BelatrixConnectPresenter<StarsListView> {
 
     private StarService starService;
     private int employeeId;

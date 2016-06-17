@@ -21,14 +21,14 @@
 package com.belatrixsf.connect.ui.contacts;
 
 import com.belatrixsf.connect.entities.Employee;
-import com.belatrixsf.connect.ui.common.AllStarsView;
+import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 
 import java.util.List;
 
 /**
  * Created by icerrate on 15/04/2016.
  */
-public interface ContactsListView extends AllStarsView {
+public interface ContactsListView extends BelatrixConnectView {
 
     void addContacts(List<Employee> keywords);
     void showSearchActionMode();

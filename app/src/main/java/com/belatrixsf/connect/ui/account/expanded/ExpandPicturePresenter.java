@@ -20,14 +20,14 @@
 */
 package com.belatrixsf.connect.ui.account.expanded;
 
-import com.belatrixsf.connect.ui.common.AllStarsPresenter;
+import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 
 import javax.inject.Inject;
 
 /**
  * Created by icerrate on 10/06/2016.
  */
-public class ExpandPicturePresenter extends AllStarsPresenter<ExpandPictureView> {
+public class ExpandPicturePresenter extends BelatrixConnectPresenter<ExpandPictureView> {
 
     protected String avatarUrl;
 

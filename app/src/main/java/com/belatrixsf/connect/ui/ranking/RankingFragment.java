@@ -36,9 +36,9 @@ import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.RankingListAdapter;
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.ui.account.AccountActivity;
-import com.belatrixsf.connect.ui.common.AllStarsFragment;
+import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.common.views.DividerItemDecoration;
-import com.belatrixsf.connect.utils.AllStarsApplication;
+import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.Constants;
 import com.belatrixsf.connect.utils.di.modules.presenters.RankingPresenterModule;
 
@@ -49,7 +49,7 @@ import butterknife.Bind;
 /**
  * Created by icerrate on 28/04/2016.
  */
-public class RankingFragment extends AllStarsFragment implements RankingView, RankingListAdapter.RankingListClickListener {
+public class RankingFragment extends BelatrixConnectFragment implements RankingView, RankingListAdapter.RankingListClickListener {
 
     public static final String RANKING_KIND_KEY = "_ranking_kind_key";
 
@@ -85,8 +85,8 @@ public class RankingFragment extends AllStarsFragment implements RankingView, Ra
     }
 
     @Override
-    protected void initDependencies(AllStarsApplication allStarsApplication) {
-        rankingPresenter = allStarsApplication.getApplicationComponent()
+    protected void initDependencies(BelatrixConnectApplication belatrixConnectApplication) {
+        rankingPresenter = belatrixConnectApplication.getApplicationComponent()
                 .rankingComponent(new RankingPresenterModule(this))
                 .rankingPresenter();
     }

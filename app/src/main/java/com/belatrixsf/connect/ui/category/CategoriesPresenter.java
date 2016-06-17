@@ -27,15 +27,15 @@ import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.managers.EmployeeManager;
 import com.belatrixsf.connect.services.contracts.CategoryService;
 import com.belatrixsf.connect.services.contracts.EmployeeService;
-import com.belatrixsf.connect.ui.common.AllStarsPresenter;
-import com.belatrixsf.connect.utils.AllStarsCallback;
+import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
+import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 
 import java.util.List;
 
 /**
  * Created by gyosida on 4/27/16.
  */
-public class CategoriesPresenter extends AllStarsPresenter<CategoriesView> {
+public class CategoriesPresenter extends BelatrixConnectPresenter<CategoriesView> {
 
     private CategoryService categoryService;
     private EmployeeService employeeService;
@@ -116,7 +116,7 @@ public class CategoriesPresenter extends AllStarsPresenter<CategoriesView> {
         return category == null;
     }
 
-    private AllStarsCallback<List<Category>> categoriesCallback = new PresenterCallback<List<Category>>() {
+    private BelatrixConnectCallback<List<Category>> categoriesCallback = new PresenterCallback<List<Category>>() {
         @Override
         public void onSuccess(List<Category> categories) {
             CategoriesPresenter.this.categories = categories;

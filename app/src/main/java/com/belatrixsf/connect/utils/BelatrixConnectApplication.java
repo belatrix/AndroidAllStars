@@ -20,14 +20,41 @@
 */
 package com.belatrixsf.connect.utils;
 
+import android.app.Application;
+import android.content.Context;
+
+import com.belatrixsf.connect.utils.di.components.ApplicationComponent;
+import com.belatrixsf.connect.utils.di.components.DaggerApplicationComponent;
+import com.crashlytics.android.Crashlytics;
+
+import io.fabric.sdk.android.Fabric;
+
+
 /**
  * Created by gyosida on 4/12/16.
  */
-public interface AllStarsCallback<T> {
+public class BelatrixConnectApplication extends Application {
 
-    void onSuccess(T t);
-    void onFailure(ServiceError serviceError);
+    private ApplicationComponent applicationComponent;
+    private static Context context;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        context = this;
+        applicationComponent = DaggerApplicationComponent.create();
+        //TODO uncomment when production ready
+        // if (!BuildConfig.DEBUG) {
+            Fabric.with(this, new Crashlytics());
+        // }
+    }
+
+    public ApplicationComponent getApplicationComponent() {
+        return applicationComponent;
+    }
+
+    public static Context getContext() {
+        return context;
+    }
 
 }
-
-

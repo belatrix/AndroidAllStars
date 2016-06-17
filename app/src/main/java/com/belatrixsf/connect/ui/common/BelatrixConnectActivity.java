@@ -40,7 +40,7 @@ import butterknife.ButterKnife;
 /**
  * @author PedroCarrillo
  */
-public class AllStarsActivity extends AppCompatActivity implements FragmentListener {
+public class BelatrixConnectActivity extends AppCompatActivity implements FragmentListener {
 
     private AlertDialog errorAlertDialog;
     private ProgressDialog progressDialog;

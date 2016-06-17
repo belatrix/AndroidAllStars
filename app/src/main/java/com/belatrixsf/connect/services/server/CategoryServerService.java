@@ -24,11 +24,11 @@ import com.belatrixsf.connect.entities.Category;
 import com.belatrixsf.connect.entities.Keyword;
 import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.networking.retrofit.api.CategoryAPI;
-import com.belatrixsf.connect.services.AllStarsBaseService;
+import com.belatrixsf.connect.services.BelatrixConnectBaseService;
 import com.belatrixsf.connect.services.ServerServiceRequest;
 import com.belatrixsf.connect.services.ServiceRequest;
 import com.belatrixsf.connect.services.contracts.CategoryService;
-import com.belatrixsf.connect.utils.AllStarsCallback;
+import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 import com.belatrixsf.connect.utils.ServiceError;
 
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ import retrofit2.Call;
 /**
  * Created by gyosida on 4/27/16.
  */
-public class CategoryServerService extends AllStarsBaseService implements CategoryService {
+public class CategoryServerService extends BelatrixConnectBaseService implements CategoryService {
 
     private CategoryAPI categoryAPI;
 
@@ -48,10 +48,10 @@ public class CategoryServerService extends AllStarsBaseService implements Catego
     }
 
     @Override
-    public ServiceRequest getSubcategories(int categoryId, final AllStarsCallback<List<Category>> callback) {
+    public ServiceRequest getSubcategories(int categoryId, final BelatrixConnectCallback<List<Category>> callback) {
         Call<List<SubCategory>> call = categoryAPI.getSubcategories(categoryId);
         ServiceRequest<List<SubCategory>> serviceRequest = new ServerServiceRequest<>(call);
-        enqueue(serviceRequest, new AllStarsCallback<List<SubCategory>>() {
+        enqueue(serviceRequest, new BelatrixConnectCallback<List<SubCategory>>() {
             @Override
             public void onSuccess(List<SubCategory> subCategories) {
                 callback.onSuccess(new ArrayList<Category>(subCategories));
@@ -66,7 +66,7 @@ public class CategoryServerService extends AllStarsBaseService implements Catego
     }
 
     @Override
-    public ServiceRequest getKeywords(AllStarsCallback<List<Keyword>> callback) {
+    public ServiceRequest getKeywords(BelatrixConnectCallback<List<Keyword>> callback) {
         Call<List<Keyword>> call = categoryAPI.getKeywords();
         ServiceRequest<List<Keyword>> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);

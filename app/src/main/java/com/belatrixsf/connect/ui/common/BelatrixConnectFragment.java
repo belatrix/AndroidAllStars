@@ -26,7 +26,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
-import com.belatrixsf.connect.utils.AllStarsApplication;
+import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 
 import butterknife.ButterKnife;
 
@@ -34,10 +34,10 @@ import butterknife.ButterKnife;
  * @author PedroCarrillo
  * @author gyosida
  *         <p/>
- *         AllStarsFragment will implement the AllStarsView interface and manage
+ *         BelatrixConnectFragment will implement the BelatrixConnectView interface and manage
  *         common fragment stuff to avoid boilerplate code
  */
-public abstract class AllStarsFragment extends Fragment implements AllStarsView {
+public abstract class BelatrixConnectFragment extends Fragment implements BelatrixConnectView {
 
     protected FragmentListener fragmentListener;
 
@@ -56,7 +56,7 @@ public abstract class AllStarsFragment extends Fragment implements AllStarsView 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initDependencies((AllStarsApplication) getActivity().getApplication());
+        initDependencies((BelatrixConnectApplication) getActivity().getApplication());
     }
 
     @Override
@@ -114,6 +114,6 @@ public abstract class AllStarsFragment extends Fragment implements AllStarsView 
         return getActivity();
     }
 
-    protected abstract void initDependencies(AllStarsApplication allStarsApplication);
+    protected abstract void initDependencies(BelatrixConnectApplication belatrixConnectApplication);
 
 }

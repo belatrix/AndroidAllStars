@@ -20,12 +20,12 @@
 */
 package com.belatrixsf.connect.ui.account.edit;
 
-import com.belatrixsf.connect.ui.common.AllStarsView;
+import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 
 /**
  * Created by PedroCarrillo on 5/17/16.
  */
-public interface EditAccountView extends AllStarsView {
+public interface EditAccountView extends BelatrixConnectView {
 
     void showProfileImage(String imageUrl);
     void showFirstName(String firstName);

@@ -20,12 +20,12 @@
 */
 package com.belatrixsf.connect.ui.login;
 
-import com.belatrixsf.connect.ui.common.AllStarsView;
+import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 
 /**
  * Created by gyosida on 4/11/16.
  */
-public interface LoginView extends AllStarsView {
+public interface LoginView extends BelatrixConnectView {
 
     void goHome();
     void goResetPassword();

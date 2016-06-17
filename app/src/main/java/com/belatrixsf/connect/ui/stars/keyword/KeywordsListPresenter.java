@@ -22,7 +22,7 @@ package com.belatrixsf.connect.ui.stars.keyword;
 
 import com.belatrixsf.connect.entities.Keyword;
 import com.belatrixsf.connect.services.contracts.CategoryService;
-import com.belatrixsf.connect.ui.common.AllStarsPresenter;
+import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,7 @@ import javax.inject.Inject;
 /**
  * Created by gyosida on 5/11/16.
  */
-public class KeywordsListPresenter extends AllStarsPresenter<KeywordsListView> {
+public class KeywordsListPresenter extends BelatrixConnectPresenter<KeywordsListView> {
 
     private List<Keyword> keywords = new ArrayList<>();
     private CategoryService categoryService;

@@ -20,12 +20,12 @@
 */
 package com.belatrixsf.connect.ui.signup;
 
-import com.belatrixsf.connect.ui.common.AllStarsView;
+import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 
 /**
  * Created by icerrate on 16/05/16.
  */
-public interface SignUpView extends AllStarsView {
+public interface SignUpView extends BelatrixConnectView {
 
     void backToLogin();
     void enableSend(boolean enable);

@@ -36,14 +36,14 @@ import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.Keyword;
 import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.ui.category.CategoriesActivity;
-import com.belatrixsf.connect.ui.common.AllStarsFragment;
+import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.common.views.AccountSelectionView;
 import com.belatrixsf.connect.ui.common.views.DataSelectionView;
 import com.belatrixsf.connect.ui.common.views.KeywordSelectionView;
 import com.belatrixsf.connect.ui.contacts.ContactsListActivity;
 import com.belatrixsf.connect.ui.stars.comment.CommentActivity;
 import com.belatrixsf.connect.ui.stars.keyword.KeywordsActivity;
-import com.belatrixsf.connect.utils.AllStarsApplication;
+import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.di.modules.presenters.GiveStarPresenterModule;
 
 import butterknife.Bind;
@@ -52,7 +52,7 @@ import butterknife.OnClick;
 /**
  * Created by PedroCarrillo on 4/22/16.
  */
-public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
+public class GiveStarFragment extends BelatrixConnectFragment implements GiveStarView {
 
     public static final String SELECTED_USER_KEY = "_selected_user_key";
     public static final String SELECTED_KEYWORD_KEY = "_selected_keyword_key";
@@ -99,8 +99,8 @@ public class GiveStarFragment extends AllStarsFragment implements GiveStarView {
     }
 
     @Override
-    protected void initDependencies(AllStarsApplication allStarsApplication) {
-        giveStarPresenter = allStarsApplication.getApplicationComponent().giveStarComponent(new GiveStarPresenterModule(this)).giveStarPresenter();
+    protected void initDependencies(BelatrixConnectApplication belatrixConnectApplication) {
+        giveStarPresenter = belatrixConnectApplication.getApplicationComponent().giveStarComponent(new GiveStarPresenterModule(this)).giveStarPresenter();
     }
 
     @Override

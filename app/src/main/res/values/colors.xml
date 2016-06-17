@@ -3,9 +3,9 @@
     <color name="colorPrimary">#005E7A</color>
     <color name="colorPrimaryLight">#008bb5</color>
     <color name="colorPrimaryDark">#00313f</color>
-    <color name="colorAccent">#00BCD4</color>
-    <color name="lightAccent">#4DD0E1</color>
-    <color name="darkAccent">#0097A7</color>
+    <color name="colorAccent">#FF6E40</color>
+    <color name="lightAccent">#FF9E80</color>
+    <color name="darkAccent">#FF3D00</color>
 
     <color name="subTitle">#C0C7CA</color>
     <color name="divider">#E6ECEF</color>

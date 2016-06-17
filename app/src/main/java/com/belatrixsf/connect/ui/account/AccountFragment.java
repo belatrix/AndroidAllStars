@@ -48,13 +48,13 @@ import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.ui.account.edit.EditAccountActivity;
 import com.belatrixsf.connect.ui.account.expanded.ExpandPictureActivity;
-import com.belatrixsf.connect.ui.common.AllStarsFragment;
+import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.connect.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.connect.ui.stars.GiveStarActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarFragment;
 import com.belatrixsf.connect.ui.stars.StarsListActivity;
-import com.belatrixsf.connect.utils.AllStarsApplication;
+import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.DialogUtils;
 import com.belatrixsf.connect.utils.di.modules.presenters.AccountPresenterModule;
 import com.belatrixsf.connect.utils.media.ImageFactory;
@@ -69,7 +69,7 @@ import butterknife.OnClick;
 /**
  * Created by pedrocarrillo on 4/9/16.
  */
-public class AccountFragment extends AllStarsFragment implements AccountView, RecyclerOnItemClickListener {
+public class AccountFragment extends BelatrixConnectFragment implements AccountView, RecyclerOnItemClickListener {
 
     public static final int RQ_GIVE_STAR = 99;
 
@@ -181,8 +181,8 @@ public class AccountFragment extends AllStarsFragment implements AccountView, Re
     }
 
     @Override
-    protected void initDependencies(AllStarsApplication allStarsApplication) {
-        accountPresenter = allStarsApplication.getApplicationComponent()
+    protected void initDependencies(BelatrixConnectApplication belatrixConnectApplication) {
+        accountPresenter = belatrixConnectApplication.getApplicationComponent()
                 .accountComponent(new AccountPresenterModule(this))
                 .accountPresenter();
     }

@@ -21,8 +21,8 @@
 package com.belatrixsf.connect.services;
 
 
-import com.belatrixsf.connect.services.contracts.AllStarsService;
-import com.belatrixsf.connect.utils.AllStarsCallback;
+import com.belatrixsf.connect.services.contracts.BelatrixConnectService;
+import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 import com.belatrixsf.connect.utils.ServiceError;
 
 import java.util.ArrayList;
@@ -32,26 +32,26 @@ import java.util.List;
 /**
  * @author Carlos Piñan
  */
-public abstract class AllStarsBaseService implements AllStarsService {
+public abstract class BelatrixConnectBaseService implements BelatrixConnectService {
 
     private List<ServiceRequest> serviceRequestList;
 
-    protected <T> void enqueue(final ServiceRequest<T> serviceRequest, final AllStarsCallback<T> allStarsCallback) {
+    protected <T> void enqueue(final ServiceRequest<T> serviceRequest, final BelatrixConnectCallback<T> belatrixConnectCallback) {
         if (serviceRequestList == null) {
             serviceRequestList = new ArrayList<>();
         }
         serviceRequestList.add(serviceRequest);
-        serviceRequest.enqueue(new AllStarsCallback<T>() {
+        serviceRequest.enqueue(new BelatrixConnectCallback<T>() {
             @Override
             public void onSuccess(T t) {
                 dequeue(serviceRequest);
-                allStarsCallback.onSuccess(t);
+                belatrixConnectCallback.onSuccess(t);
             }
 
             @Override
             public void onFailure(ServiceError serviceError) {
                 dequeue(serviceRequest);
-                allStarsCallback.onFailure(serviceError);
+                belatrixConnectCallback.onFailure(serviceError);
             }
         });
     }

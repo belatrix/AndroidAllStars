@@ -42,12 +42,12 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.MainNavigationViewPagerAdapter;
 import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
-import com.belatrixsf.connect.ui.common.AllStarsActivity;
+import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 import com.belatrixsf.connect.ui.login.LoginActivity;
 import com.belatrixsf.connect.ui.ranking.RankingFragmentListener;
 import com.belatrixsf.connect.ui.stars.GiveStarActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarFragment;
-import com.belatrixsf.connect.utils.AllStarsApplication;
+import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.DialogUtils;
 import com.belatrixsf.connect.utils.di.components.DaggerHomeComponent;
 import com.belatrixsf.connect.utils.di.modules.presenters.HomePresenterModule;
@@ -56,7 +56,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 
-public class MainActivity extends AllStarsActivity implements HomeView, RankingFragmentListener {
+public class MainActivity extends BelatrixConnectActivity implements HomeView, RankingFragmentListener {
 
     public static final int RQ_GIVE_STAR = 99;
     public static final int RANKING_TAB = 1;
@@ -152,9 +152,9 @@ public class MainActivity extends AllStarsActivity implements HomeView, RankingF
     }
 
     private void setupDependencies() {
-        AllStarsApplication allStarsApplication = (AllStarsApplication) getApplicationContext();
+        BelatrixConnectApplication belatrixConnectApplication = (BelatrixConnectApplication) getApplicationContext();
         DaggerHomeComponent.builder()
-                .applicationComponent(allStarsApplication.getApplicationComponent())
+                .applicationComponent(belatrixConnectApplication.getApplicationComponent())
                 .homePresenterModule(new HomePresenterModule(this))
                 .build().inject(this);
     }
