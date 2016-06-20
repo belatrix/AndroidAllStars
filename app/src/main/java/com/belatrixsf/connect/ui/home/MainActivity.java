@@ -203,9 +203,9 @@ public class MainActivity extends BelatrixConnectActivity implements HomeView, R
                             /*case R.id.menu_event:
                                 Log.e(MainActivity.class.getCanonicalName(), "Event");
                                 break;*/
-                            case R.id.menu_about:
+                            /*case R.id.menu_about:
                                 Log.e(MainActivity.class.getCanonicalName(), "About");
-                                break;
+                                break;*/
                         }
                         return true;
                     }
