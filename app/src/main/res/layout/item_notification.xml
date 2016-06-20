@@ -4,20 +4,34 @@
     android:id="@+id/contact_holder"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    style="@style/ItemList">
+    style="@style/LargeItemList">
+
+    <ImageView
+        android:id="@+id/notification_photo"
+        android:layout_width="@dimen/dimen_10_6"
+        android:layout_height="@dimen/dimen_10_6"
+        tools:src="@drawable/ic_user"
+        android:contentDescription="@string/profile_image_content_desc"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_margin">
 
         <TextView
             android:id="@+id/notification_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_16"
-            tools:text="@string/title_full_name" />
+            tools:text="@string/title_detail" />
+
+        <TextView
+            android:id="@+id/notification_date_hour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/grey"
+            tools:text="@string/title_date" />
 
     </LinearLayout>
 

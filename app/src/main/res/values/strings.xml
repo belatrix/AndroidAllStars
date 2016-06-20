@@ -121,6 +121,8 @@
 
     <!--Notifications-->
     <string name="detail_placeholder">No detail</string>
+    <string name="title_detail">Detail</string>
+    <string name="title_date">DateHour</string>
 
     <!--Actions-->
     <string name="action_recommend">Recommend</string>
