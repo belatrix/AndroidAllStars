@@ -30,15 +30,15 @@
             android:layout_gravity="bottom"
             android:visibility="gone"/>
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/start_recommendation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-            android:tint="@color/white"
-            android:src="@android:drawable/ic_input_add"
-            app:layout_behavior="com.belatrixsf.allstars.ui.common.ScrollAwareFABBehavior"/>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/start_recommendation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:tint="@color/white"
+        android:src="@android:drawable/ic_input_add"
+        app:layout_behavior="com.belatrixsf.connect.ui.common.ScrollAwareFABBehavior"/>
 
     </android.support.design.widget.CoordinatorLayout>
 
@@ -72,7 +72,7 @@
                 android:drawableLeft="@drawable/ic_exit"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:drawablePadding="@dimen/dimen_10_3"
+                android:drawablePadding="@dimen/dimen_6_5"
                 android:text="@string/menu_title_logout" />
         </LinearLayout>
 

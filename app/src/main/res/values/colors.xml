@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/belatrix</color>
-    <color name="colorPrimaryDark">#F57C00</color>
-    <color name="colorAccent">#1B67BD</color>
-    <color name="colorPrimaryLight">#fcae4e</color>
-    <color name="darkAccent">#105CB3</color>
-    <color name="lightAccent">#3985DB</color>
+    <color name="colorPrimary">#005E7A</color>
+    <color name="colorPrimaryLight">#008bb5</color>
+    <color name="colorPrimaryDark">#00313f</color>
+    <color name="colorAccent">#FF6E40</color>
+    <color name="lightAccent">#FF9E80</color>
+    <color name="darkAccent">#FF3D00</color>
 
     <color name="subTitle">#C0C7CA</color>
     <color name="divider">#E6ECEF</color>
@@ -13,8 +13,6 @@
     <color name="white">#FFFFFF</color>
     <color name="softGrey">#DDDDDD</color>
     <color name="belatrix">#FF8F03</color>
-    <color name="darkerBelatrix">#F28905</color>
-    <color name="lightBelatrix">#FFA12B</color>
     <color name="grey">#9E9E9E</color>
     <color name="lightGrey">#DDDDDD</color>
     <color name="red">#ff4040</color>
@@ -22,5 +20,7 @@
 
     <color name="recycler_view_normal">#ffffff</color>
     <color name="recycler_view_press">#20424242</color>
+
+    <color name="swipe_refresh">@color/colorPrimary</color>
 
 </resources>

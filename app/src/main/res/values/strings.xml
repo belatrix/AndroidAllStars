@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">All Stars</string>
+    <string name="app_name">Belatrix Connect</string>
     <string name="no_data">No data found</string>
     <string name="no_data_option">-</string>
 
@@ -32,16 +32,16 @@
 
     <!-- Button -->
     <string name="button_log_in">Log In</string>
-    <string name="button_sign_up">New user? Sign Up!</string>
+    <string name="button_sign_up">New user? <b>Sign Up!</b></string>
     <string name="button_sign_up_action">Register</string>
     <string name="button_reset">Reset</string>
 
     <!-- Title -->
-    <string name="title_activity_login">LoginActivity</string>
     <string name="title_reset_password_activity">Reset Password</string>
     <string name="title_select_category">Select Category</string>
     <string name="title_select_subcategory">Select Subcategory</string>
     <string name="title_account_activity">Profile</string>
+    <string name="title_expand_photo_activity"></string>
     <string name="title_contact_activity">Select an user</string>
     <string name="title_recommendation_activity">Recommendations</string>
     <string name="title_give_star_activity">Give a recommendation</string>
@@ -61,7 +61,7 @@
     <string name="tab_keywords_title">Tags</string>
 
     <!-- Login and Register -->
-    <string name="title_login">Belatrix All Stars</string>
+    <string name="title_login">Belatrix Connect</string>
     <string name="let_s_get_started">Let\'s get started</string>
     <string name="enter_your_email_address_to_receive_your_temporary_password">Enter your email address to receive your temporary password</string>
 
@@ -75,6 +75,7 @@
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
     <string name="menu_title_home">Home</string>
+    <string name="menu_title_contacts">Contacts</string>
     <string name="menu_title_events">Events</string>
     <string name="menu_title_about">About</string>
     <string name="menu_title_logout">Logout</string>
@@ -83,7 +84,6 @@
     <string name="title_current_month_score">Month score</string>
     <string name="title_score">Score</string>
     <string name="title_level">Level</string>
-    <string name="skype_id_content">Skype : %s</string>
     <string name="empty_error">Field must not be empty</string>
 
     <!--Edit account-->
@@ -94,6 +94,7 @@
     <string name="select_photo_title">Upload a picture</string>
     <string name="select_image_title">Select an image</string>
     <string name="permission_profile">The application needs write and camera permissions to be able to edit your profile picture</string>
+    <string name="location_error">Must select location</string>
 
     <!--Give a star-->
     <string name="select_user">Select user</string>
@@ -119,7 +120,6 @@
     <string name="message_placeholder"></string>
     <string name="fullname_placeholder">Anonymous</string>
     <string name="level_placeholder">No data</string>
-    <string name="hashtag">#</string>
 
     <!--About-->
     <string name="support_tittle">Support</string>

@@ -8,11 +8,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_margin="@dimen/activity_margin"
         android:text="@string/about_main_message"
         android:textSize="@dimen/text_16" />
 
-    <com.belatrixsf.allstars.ui.common.views.VerticalMarqueeTextView
+    <com.belatrixsf.connect.ui.common.views.VerticalMarqueeTextView
         android:id="@+id/collaborators"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
