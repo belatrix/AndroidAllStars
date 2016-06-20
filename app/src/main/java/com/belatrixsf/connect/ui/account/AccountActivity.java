@@ -31,7 +31,6 @@ import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.ViewCompat;
 import android.widget.ImageView;
 
-import com.belatrixsf.allstars.ui.account.AccountFragmentListener;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 

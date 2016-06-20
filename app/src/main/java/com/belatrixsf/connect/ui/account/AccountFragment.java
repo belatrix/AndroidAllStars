@@ -43,7 +43,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.belatrixsf.allstars.ui.account.AccountFragmentListener;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.AccountSubCategoriesAdapter;
 import com.belatrixsf.connect.entities.Employee;

@@ -46,7 +46,7 @@ import android.widget.TextView;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
-import com.belatrixsf.allstars.ui.account.AccountFragmentListener;
+import com.belatrixsf.connect.ui.account.AccountFragmentListener;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.MainNavigationViewPagerAdapter;
 import com.belatrixsf.connect.entities.Employee;

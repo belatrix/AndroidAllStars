@@ -1,4 +1,4 @@
-package com.belatrixsf.allstars.ui.account;
+package com.belatrixsf.connect.ui.account;
 
 /**
  * Created by icerrate on 06/06/2016.
