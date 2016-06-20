@@ -18,27 +18,21 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.ui.contacts;
+package com.belatrixsf.connect.networking.retrofit.api;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
+import com.belatrixsf.connect.entities.Notification;
+import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 
-import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 /**
- * Created by pedrocarrillo on 4/26/16.
+ * Created by icerrate on 20/06/2016.
  */
-public class ContactsListActivity extends BelatrixConnectActivity {
+public interface NotificationAPI {
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contacts_list);
-        if (savedInstanceState == null) {
-            replaceFragment(ContactsListFragment.newInstance(true), false);
-        }
-        setNavigationToolbar();
-    }
+    @GET(ServerPaths.NOTIFICATION_LIST)
+    Call<PaginatedResponse<Notification>> getNotificationList(@Query(ServerPaths.PAGE) Integer page);
 
 }

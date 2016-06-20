@@ -18,7 +18,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.ui.contacts;
+package com.belatrixsf.connect.ui.notifications;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,16 +27,16 @@ import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 
 /**
- * Created by pedrocarrillo on 4/26/16.
+ * Created by icerrate on 20/06/2016.
  */
-public class ContactsListActivity extends BelatrixConnectActivity {
+public class NotificationListActivity extends BelatrixConnectActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contacts_list);
+        setContentView(R.layout.activity_base);
         if (savedInstanceState == null) {
-            replaceFragment(ContactsListFragment.newInstance(true), false);
+            replaceFragment(NotificationListFragment.newInstance(), false);
         }
         setNavigationToolbar();
     }

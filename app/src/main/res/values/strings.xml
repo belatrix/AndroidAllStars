@@ -53,7 +53,7 @@
     <string name="title_edit_profile_activity">Edit Profile</string>
     <string name="tab_account_title">Account</string>
     <string name="tab_ranking_title">Ranking</string>
-    <string name="tab_contacts_title">Contacts</string>
+    <string name="tab_notifications_title">Activity</string>
     <string name="tab_keywords_title">Tags</string>
 
     <!-- Login and Register -->
@@ -118,6 +118,9 @@
     <string name="message_placeholder"></string>
     <string name="fullname_placeholder">Anonymous</string>
     <string name="level_placeholder">No data</string>
+
+    <!--Notifications-->
+    <string name="detail_placeholder">No detail</string>
 
     <!--Actions-->
     <string name="action_recommend">Recommend</string>

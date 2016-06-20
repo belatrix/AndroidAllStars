@@ -28,6 +28,7 @@ public interface ServerPaths {
     String EMPLOYEE = "employee";
     String CATEGORY = "category";
     String STAR = "star";
+    String NOTIFICATION = "employee";
 
     String EMPLOYEE_ID = "employee_id";
     String KEYWORD_ID = "keyword_id";
@@ -62,5 +63,7 @@ public interface ServerPaths {
 
     String CATEGORY_KEYWORD_LIST = CATEGORY + "/keyword/list";
     String SUBCATEGORIES_BY_CATEGORY_ID = CATEGORY + "/{" + CATEGORY_ID + "}/subcategory/list";
+
+    String NOTIFICATION_LIST = NOTIFICATION + "/list/";
 
 }

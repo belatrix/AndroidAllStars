@@ -1,0 +1,14 @@
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/refresh_notifications"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/notifications"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.belatrixsf.connect.ui.notifications.NotificationListFragment"/>
+
+</android.support.v4.widget.SwipeRefreshLayout>

@@ -31,6 +31,7 @@ import com.belatrixsf.connect.utils.di.modules.presenters.EditAccountPresenterMo
 import com.belatrixsf.connect.utils.di.modules.presenters.ExpandPicturePresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.GiveStarPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.KeywordsListModule;
+import com.belatrixsf.connect.utils.di.modules.presenters.NotificationListPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.RankingPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.SignUpPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.StarsListPresenterModule;
@@ -40,7 +41,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by icerrate on 20/06/2016.
  */
 @Singleton
 @Component(
@@ -74,5 +75,7 @@ public interface ApplicationComponent {
     KeywordsComponent keywordsListComponent(KeywordsListModule keywordsListModule);
 
     EditAccountComponent editAccountComponent(EditAccountPresenterModule editAccountPresenterModule);
+
+    NotificationListComponent notificationListComponent(NotificationListPresenterModule notificationListPresenterModule);
 
 }
