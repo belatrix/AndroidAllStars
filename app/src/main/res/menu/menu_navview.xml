@@ -13,9 +13,9 @@
             android:id="@+id/menu_event"
             android:icon="@drawable/ic_event"
             android:title="@string/menu_title_events"/> -->
-        <item
+        <!-- <item
             android:id="@+id/menu_about"
             android:icon="@drawable/ic_about"
-            android:title="@string/menu_title_about"/>
+            android:title="@string/menu_title_about"/> -->
     </group>
 </menu>

@@ -190,7 +190,6 @@ public class MainActivity extends BelatrixConnectActivity implements HomeView, R
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override public boolean onNavigationItemSelected(MenuItem item) {
-                        item.setChecked(true);
                         drawerLayout.closeDrawers();
                         switch (item.getItemId()){
                             case R.id.menu_home:
