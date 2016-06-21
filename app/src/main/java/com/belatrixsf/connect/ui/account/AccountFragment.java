@@ -21,6 +21,7 @@
 package com.belatrixsf.connect.ui.account;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -47,6 +48,7 @@ import com.belatrixsf.connect.adapters.AccountSubCategoriesAdapter;
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.ui.account.edit.EditAccountActivity;
+import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
 import com.belatrixsf.connect.ui.account.expanded.ExpandPictureActivity;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.common.RecyclerOnItemClickListener;
@@ -59,7 +61,6 @@ import com.belatrixsf.connect.utils.DialogUtils;
 import com.belatrixsf.connect.utils.di.modules.presenters.AccountPresenterModule;
 import com.belatrixsf.connect.utils.media.ImageFactory;
 import com.belatrixsf.connect.utils.media.loaders.ImageLoader;
-import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
 
 import java.util.List;
 
@@ -75,6 +76,7 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
 
     private AccountPresenter accountPresenter;
     private AccountSubCategoriesAdapter accountCategoriesAdapter;
+    private AccountFragmentListener accountFragmentListener;
 
     @Bind(R.id.account_recommendations) RecyclerView recommendationRecyclerView;
     @Bind(R.id.skype_id) TextView skypeIdTextView;
@@ -100,6 +102,26 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
         AccountFragment accountFragment = new AccountFragment();
         accountFragment.setArguments(bundle);
         return accountFragment;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        castOrThrowException(activity);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        castOrThrowException(context);
+    }
+
+    private void castOrThrowException(Context context) {
+        try {
+            accountFragmentListener = (AccountFragmentListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement AccountFragmentListener");
+        }
     }
 
     @Override
@@ -352,6 +374,11 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     @Override
     public void hideNoDataView() {
         noDataTextView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void notifyNavigationRefresh() {
+        accountFragmentListener.refreshNavigationDrawer();
     }
 
     public void setProgressViewVisibility(int visibility) {

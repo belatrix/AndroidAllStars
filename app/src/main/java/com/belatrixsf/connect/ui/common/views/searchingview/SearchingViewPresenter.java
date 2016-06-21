@@ -36,6 +36,10 @@ public class SearchingViewPresenter {
         searchableView.notifyTextTyped(searchingText);
     }
 
+    public void onSearchImeOptionClicked() {
+        searchableView.notifySearchImeOption();
+    }
+
     public void clearSearching() {
         searchableView.clearSearching();
     }

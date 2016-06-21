@@ -37,7 +37,7 @@ import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 /**
  * Created by pedrocarrillo on 4/26/16.
  */
-public class AccountActivity extends BelatrixConnectActivity {
+public class AccountActivity extends BelatrixConnectActivity implements AccountFragmentListener {
 
     public static final String USER_ID_KEY = "_user_id";
 
@@ -75,5 +75,10 @@ public class AccountActivity extends BelatrixConnectActivity {
             // Navigate up to the parent activity.
             NavUtils.navigateUpTo(this, upIntent);
         }
+    }
+
+    @Override
+    public void refreshNavigationDrawer() {
+        // Required empty implementation
     }
 }

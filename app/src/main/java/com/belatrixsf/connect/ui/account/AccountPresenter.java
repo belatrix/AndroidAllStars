@@ -61,6 +61,7 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
                 AccountPresenter.this.employee = employee;
                 loadSubCategoriesStar();
                 showEmployeeData();
+                view.notifyNavigationRefresh();
                 view.dismissProgressDialog();
             }
 

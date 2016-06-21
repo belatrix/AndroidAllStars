@@ -21,6 +21,7 @@
 package com.belatrixsf.connect.ui.home;
 
 import com.belatrixsf.connect.R;
+import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.managers.EmployeeManager;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 
@@ -46,6 +47,15 @@ public class HomePresenter extends BelatrixConnectPresenter<HomeView> {
     public void confirmLogout() {
         employeeManager.logout();
         view.goToLogin();
+    }
+
+    public void loadEmployeeData(){
+        employeeManager.getLoggedInEmployee(new PresenterCallback<Employee>() {
+            @Override
+            public void onSuccess(Employee employee) {
+                view.setNavigationDrawerData(employee);
+            }
+        });
     }
 
     @Override

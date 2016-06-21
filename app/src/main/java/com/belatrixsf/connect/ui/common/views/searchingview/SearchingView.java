@@ -25,11 +25,14 @@ import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.utils.KeyboardUtils;
@@ -88,6 +91,16 @@ public class SearchingView extends LinearLayout implements SearchableView {
 
             }
         });
+        searchingEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    searchingViewPresenter.onSearchImeOptionClicked();
+                    return true;
+                }
+                return false;
+            }
+        });
         clearImageButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,6 +112,11 @@ public class SearchingView extends LinearLayout implements SearchableView {
     @Override
     public void changeClearButtonVisibility(boolean show) {
         clearImageButton.setVisibility(show? VISIBLE : INVISIBLE);
+    }
+
+    @Override
+    public void notifySearchImeOption() {
+        KeyboardUtils.hideKeyboard((Activity) getContext(), searchingEditText);
     }
 
     @Override

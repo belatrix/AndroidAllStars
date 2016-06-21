@@ -34,9 +34,9 @@ public class ContactsListActivity extends BelatrixConnectActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base);
+        setContentView(R.layout.activity_contacts_list);
         if (savedInstanceState == null) {
-            replaceFragment(ContactsListFragment.newInstance(false), false);
+            replaceFragment(ContactsListFragment.newInstance(true), false);
         }
         setNavigationToolbar();
     }
