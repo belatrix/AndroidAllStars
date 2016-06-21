@@ -38,7 +38,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.view.ActionMode;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -46,10 +45,10 @@ import android.widget.TextView;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
-import com.belatrixsf.connect.ui.account.AccountFragmentListener;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.MainNavigationViewPagerAdapter;
 import com.belatrixsf.connect.entities.Employee;
+import com.belatrixsf.connect.ui.account.AccountFragmentListener;
 import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 import com.belatrixsf.connect.ui.contacts.ContactsListActivity;
@@ -193,19 +192,11 @@ public class MainActivity extends BelatrixConnectActivity implements HomeView, R
                         drawerLayout.closeDrawers();
                         switch (item.getItemId()){
                             case R.id.menu_home:
-                                Log.e(MainActivity.class.getCanonicalName(), "Home");
                                 break;
                             case R.id.menu_contacts:
-                                Log.e(MainActivity.class.getCanonicalName(), "Contacts");
                                 Intent intent = new Intent(MainActivity.this, ContactsListActivity.class);
                                 startActivity(intent);
                                 break;
-                            /*case R.id.menu_event:
-                                Log.e(MainActivity.class.getCanonicalName(), "Event");
-                                break;*/
-                            /*case R.id.menu_about:
-                                Log.e(MainActivity.class.getCanonicalName(), "About");
-                                break;*/
                         }
                         return true;
                     }
