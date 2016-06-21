@@ -32,7 +32,7 @@ public class AuthenticationResponse {
     private String token;
     @SerializedName("reset_password_code")
     private String resetPasswordCode;
-    @SerializedName("base_profile_complete")
+    @SerializedName("is_base_profile_complete")
     private boolean baseProfileComplete;
 
     public int getEmployeeId() {

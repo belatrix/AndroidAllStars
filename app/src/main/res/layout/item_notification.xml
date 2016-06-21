@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/notification_photo"
-        android:layout_width="@dimen/dimen_10_6"
-        android:layout_height="@dimen/dimen_10_6"
+        android:layout_width="@dimen/dimen_10_5"
+        android:layout_height="@dimen/dimen_10_5"
         tools:src="@drawable/ic_user"
         android:contentDescription="@string/profile_image_content_desc"/>
 

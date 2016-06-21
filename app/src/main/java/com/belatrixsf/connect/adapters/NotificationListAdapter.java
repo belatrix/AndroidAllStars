@@ -20,15 +20,19 @@
 */
 package com.belatrixsf.connect.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Notification;
 import com.belatrixsf.connect.ui.common.LoadMoreBaseAdapter;
+import com.belatrixsf.connect.utils.media.ImageFactory;
+import com.belatrixsf.connect.utils.media.loaders.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,9 +70,15 @@ public class NotificationListAdapter extends LoadMoreBaseAdapter<Notification> {
         if (holder instanceof NotificationViewHolder) {
             NotificationViewHolder notificationViewHolder = (NotificationViewHolder) holder;
             Notification notification = data.get(position);
-            String detail = notification.getDetail() != null && !notification.getDetail().isEmpty() ? notification.getDetail() : notificationViewHolder.notificationDetail.getContext().getString(R.string.detail_placeholder);
-            notificationViewHolder.notificationDetail.setText(detail);
+            Context context = notificationViewHolder.notificationImageView.getContext();
+            String fromUserFullName = notification.getFromUser() != null ? notification.getFromUser().getFullName() : context.getString(R.string.notification_user_fullname_placeholder);
+            String detail = notification.getDetail() != null && !notification.getDetail().isEmpty() ? notification.getDetail() : context.getString(R.string.notification_detail_placeholder);
+            String dateHour = notification.getDate() != null && !notification.getDate().isEmpty() ? notification.getDate() : context.getString(R.string.notification_date_placeholder);
+            notificationViewHolder.notificationDetail.setText(String.format(context.getString(R.string.notification_user_and_detail), fromUserFullName, detail));
+            notificationViewHolder.notificationDateHour.setText(dateHour);
             notificationViewHolder.itemView.setTag(notification);
+            //ImageFactory.getLoader().loadFromUrl(notification.getFromUser().getAvatar(), notificationViewHolder.notificationImageView, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
+            ImageFactory.getLoader().loadFromUrl(null, notificationViewHolder.notificationImageView, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
         }
     }
     @Override
@@ -99,7 +109,9 @@ public class NotificationListAdapter extends LoadMoreBaseAdapter<Notification> {
     static class NotificationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private NotificationListener notificationListener;
+        @Bind(R.id.notification_photo) public ImageView notificationImageView;
         @Bind(R.id.notification_detail) public TextView notificationDetail;
+        @Bind(R.id.notification_date_hour) public TextView notificationDateHour;
 
         public NotificationViewHolder(View view, NotificationListener notificationListener) {
             super(view);

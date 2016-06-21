@@ -120,9 +120,12 @@
     <string name="level_placeholder">No data</string>
 
     <!--Notifications-->
-    <string name="detail_placeholder">No detail</string>
+    <string name="notification_user_fullname_placeholder">Anonymous</string>
+    <string name="notification_detail_placeholder">No detail</string>
+    <string name="notification_date_placeholder">No date</string>
     <string name="title_detail">Detail</string>
     <string name="title_date">DateHour</string>
+    <string name="notification_user_and_detail">%1$s %2$s</string>
 
     <!--Actions-->
     <string name="action_recommend">Recommend</string>

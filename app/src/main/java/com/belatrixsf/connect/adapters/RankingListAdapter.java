@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.connect.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -85,13 +86,15 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
                 cupResourceId = R.drawable.ic_cup;
                 break;
         }
-        holder.positionNumber.setText(String.valueOf(place));
-        holder.positionNumber.setVisibility(View.VISIBLE);
-        holder.scoreCup.setBackgroundResource(cupResourceId);
-        holder.fullName.setText(employee.getFullName());
+        Context context = holder.fullNameTextView.getContext();
+        holder.positionNumberTextView.setText(String.valueOf(place));
+        holder.positionNumberTextView.setVisibility(View.VISIBLE);
+        holder.scoreCupImageView.setBackgroundResource(cupResourceId);
+        String fullName = employee.getFullName() != null && !employee.getFullName().isEmpty() ? employee.getFullName() : context.getString(R.string.fullname_placeholder);
+        holder.fullNameTextView.setText(fullName);
         String stringScore = String.valueOf(employee.getValue());
-        holder.score.setText(stringScore);
-        ImageFactory.getLoader().loadFromUrl(employee.getAvatar(), holder.photo, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
+        holder.scoreTextView.setText(stringScore);
+        ImageFactory.getLoader().loadFromUrl(employee.getAvatar(), holder.photoImageView, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
     }
 
     @Override
@@ -113,15 +116,15 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
     static class EmployeeViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.position_number)
-        public TextView positionNumber;
+        public TextView positionNumberTextView;
         @Bind(R.id.contact_photo)
-        public ImageView photo;
+        public ImageView photoImageView;
         @Bind(R.id.contact_full_name)
-        public TextView fullName;
+        public TextView fullNameTextView;
         @Bind(R.id.score_cup)
-        public ImageView scoreCup;
+        public ImageView scoreCupImageView;
         @Bind(R.id.score_number)
-        public TextView score;
+        public TextView scoreTextView;
 
         private RankingListClickListener rankingListClickListener;
 
