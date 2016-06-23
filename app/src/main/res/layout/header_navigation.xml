@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dimen_18_10">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_nav_header"
+        android:scaleType="centerCrop" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/activity_margin">
+
+        <ImageView
+            android:id="@+id/picture"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/dimen_5_5"
+            android:layout_width="@dimen/dimen_10_7"
+            android:layout_height="@dimen/dimen_10_7"
+            tools:src="@drawable/ic_user"
+            android:contentDescription="@string/profile_image_content_desc"/>
+
+        <TextView
+            android:id="@+id/fullname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/title_full_name"
+            android:textStyle="bold"
+            android:layout_gravity="bottom"
+            android:textColor="@color/white"
+            android:layout_above="@+id/email"/>
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/title_email"
+            android:layout_gravity="bottom"
+            android:textColor="@color/white"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+
+</FrameLayout>

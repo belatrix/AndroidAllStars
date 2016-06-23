@@ -12,7 +12,8 @@
         android:background="@color/white"
         android:hint="@string/hint_search"
         android:imeOptions="actionSearch"
-        android:inputType="textNoSuggestions" />
+        android:inputType="text"
+        android:lines="1"/>
 
     <ImageButton
         android:id="@+id/clean"
