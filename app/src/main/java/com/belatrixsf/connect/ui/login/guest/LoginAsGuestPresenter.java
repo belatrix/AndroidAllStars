@@ -24,6 +24,7 @@ import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Guest;
 import com.belatrixsf.connect.managers.GuestManager;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
+import com.belatrixsf.connect.utils.ServiceError;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,9 +38,10 @@ public class LoginAsGuestPresenter extends BelatrixConnectPresenter<LoginAsGuest
 
     private GuestManager guestManager;
 
+    private String id;
     private String fullName;
     private String email;
-    private String id;
+    private String userName;
 
     @Inject
     public LoginAsGuestPresenter(LoginAsGuestView view, GuestManager guestManager) {
@@ -47,10 +49,11 @@ public class LoginAsGuestPresenter extends BelatrixConnectPresenter<LoginAsGuest
         this.guestManager = guestManager;
     }
 
-    public void setGuestData(String id, String fullName, String email) {
+    public void setGuestData(String id, String fullName, String email, String userName) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
+        this.userName = userName;
     }
 
     public void loginWithFacebook(JSONObject json){
@@ -59,7 +62,7 @@ public class LoginAsGuestPresenter extends BelatrixConnectPresenter<LoginAsGuest
             email = json.getString("email");
             fullName = json.getString("first_name") +" "+ json.getString("last_name");
             if (activeSession()) {
-                Guest guest = new Guest(fullName, email, id, null);
+                Guest guest = new Guest(fullName, email, id, null, null);
                 loginAsGuest(guest);
             }
         } catch (JSONException e) {
@@ -67,7 +70,9 @@ public class LoginAsGuestPresenter extends BelatrixConnectPresenter<LoginAsGuest
         }
     }
 
-    public void twitterSessionSuccess(){
+    public void twitterSessionSuccess(String id, String userName){
+        this.id = id;
+        this.userName = userName;
         view.requestTwitterUserData();
     }
 
@@ -79,7 +84,7 @@ public class LoginAsGuestPresenter extends BelatrixConnectPresenter<LoginAsGuest
     public void twitterEmailSuccess(String email){
         this.email = email;
         if (activeSession()) {
-            Guest guest = new Guest(fullName, email, null, id);
+            Guest guest = new Guest(fullName, email, null, id, userName);
             loginAsGuest(guest);
         }
     }
@@ -87,7 +92,7 @@ public class LoginAsGuestPresenter extends BelatrixConnectPresenter<LoginAsGuest
     public void continueTwitterProcess(String email) {
         this.email = email;
         if (activeSession()) {
-            Guest guest = new Guest(fullName, email, null, id);
+            Guest guest = new Guest(fullName, email, null, id, userName);
             loginAsGuest(guest);
         }
     }
@@ -104,6 +109,7 @@ public class LoginAsGuestPresenter extends BelatrixConnectPresenter<LoginAsGuest
         fullName = null;
         email = null;
         id = null;
+        userName = null;
     }
 
     private boolean activeSession(){
@@ -118,8 +124,20 @@ public class LoginAsGuestPresenter extends BelatrixConnectPresenter<LoginAsGuest
                 view.dismissProgressDialog();
                 view.goHome();
             }
+
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                super.onFailure(serviceError);
+                view.closeFacebookSessionIfNeeded();
+            }
         });
     }
+
+    @Override
+    public void cancelRequests() {
+    }
+
+    //Saving State
 
     public String getFullName() {
         return fullName;
@@ -129,11 +147,12 @@ public class LoginAsGuestPresenter extends BelatrixConnectPresenter<LoginAsGuest
         return email;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
     public String getId() {
         return id;
     }
 
-    @Override
-    public void cancelRequests() {
-    }
 }

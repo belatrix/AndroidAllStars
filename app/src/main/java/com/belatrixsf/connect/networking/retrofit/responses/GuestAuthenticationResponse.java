@@ -33,17 +33,17 @@ public class GuestAuthenticationResponse {
     @SerializedName("birth_date")
     private String birthDate;
     private String carreer ;
-    @SerializedName("educational_center ")
+    @SerializedName("educational_center")
     private String educationalCenter ;
-    @SerializedName("english_level ")
+    @SerializedName("english_level")
     private String englishLevel ;
-    @SerializedName("facebook_id ")
+    @SerializedName("facebook_id")
     private String facebookId ;
     @SerializedName("facebook_link")
     private String facebookLink;
-    @SerializedName("twitter_id ")
+    @SerializedName("twitter_id")
     private String twitterId ;
-    @SerializedName("twitter_link ")
+    @SerializedName("twitter_link")
     private String twitterLink;
 
     public Integer getId() {

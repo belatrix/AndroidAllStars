@@ -220,11 +220,11 @@ public class MainActivity extends BelatrixConnectActivity implements HomeView, R
                 @Override
                 public void run() {
                     ImageView pictureImageView = (ImageView) navigationView.findViewById(R.id.picture);
-                    TextView fullnameTextView = (TextView) navigationView.findViewById(R.id.fullname);
+                    TextView fullNameTextView = (TextView) navigationView.findViewById(R.id.full_name);
                     TextView emailTextView = (TextView) navigationView.findViewById(R.id.email);
-                    if (pictureImageView != null && fullnameTextView != null && emailTextView != null) {
+                    if (pictureImageView != null && fullNameTextView != null && emailTextView != null) {
                         ImageFactory.getLoader().loadFromUrl(employee.getAvatar(), pictureImageView, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
-                        fullnameTextView.setText(employee.getFullName());
+                        fullNameTextView.setText(employee.getFullName());
                         emailTextView.setText(employee.getEmail());
                     }
                 }

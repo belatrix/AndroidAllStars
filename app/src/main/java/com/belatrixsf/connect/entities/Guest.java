@@ -31,39 +31,46 @@ import com.google.gson.annotations.SerializedName;
 public class Guest implements Parcelable {
 
     private Integer id;
-    private String fullname;
+    private String userName;
+    @SerializedName("fullname")
+    private String fullName;
     private String email;
     @SerializedName("birth_date")
     private String birthDate;
     private String carreer ;
-    @SerializedName("educational_center ")
+    @SerializedName("educational_center")
     private String educationalCenter ;
-    @SerializedName("english_level ")
+    @SerializedName("english_level")
     private String englishLevel ;
-    @SerializedName("facebook_id ")
+    @SerializedName("facebook_id")
     private String facebookId ;
     @SerializedName("facebook_link")
     private String facebookLink;
-    @SerializedName("twitter_id ")
+    @SerializedName("twitter_id")
     private String twitterId ;
-    @SerializedName("twitter_link ")
+    @SerializedName("twitter_link")
     private String twitterLink;
 
-    public Guest(String fullname, String email, String facebookId, String twitterId) {
-        this.fullname = fullname;
+    public Guest(String fullName, String email, String facebookId, String twitterId, String userName) {
+        this.fullName = fullName;
         this.email = email;
         this.facebookId = facebookId;
         this.twitterId = twitterId;
-        setFacebookLink();
-        setTwitterLink();
+        this.userName = userName;
+        generateFacebookLink();
+        generateTwitterLink();
     }
 
     public Integer getId() {
         return id;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getFullName() {
+        return fullName;
     }
 
     public String getEmail() {
@@ -91,7 +98,6 @@ public class Guest implements Parcelable {
     }
 
     public String getFacebookLink() {
-        facebookLink = facebookId != null ? "https://facebook.com/" + facebookId : null;
         return facebookLink;
     }
 
@@ -100,21 +106,21 @@ public class Guest implements Parcelable {
     }
 
     public String getTwitterLink() {
-        twitterLink = twitterId != null ? "https://twitter.com/" + twitterId : null;
         return twitterLink;
     }
 
-    private void setFacebookLink() {
+    private void generateFacebookLink() {
         facebookLink = facebookId != null ? "https://facebook.com/" + facebookId : null;
     }
 
-    private void setTwitterLink() {
-        twitterLink = twitterId != null ? "https://twitter.com/" + twitterId : null;
+    private void generateTwitterLink() {
+        twitterLink = twitterId != null ? "https://twitter.com/" + userName : null;
     }
 
     protected Guest(Parcel in) {
         id = in.readByte() == 0x00 ? null : in.readInt();
-        fullname = in.readString();
+        fullName = in.readString();
+        userName = in.readString();
         email = in.readString();
         birthDate = in.readString();
         carreer = in.readString();
@@ -139,7 +145,8 @@ public class Guest implements Parcelable {
             dest.writeByte((byte) (0x01));
             dest.writeInt(id);
         }
-        dest.writeString(fullname);
+        dest.writeString(fullName);
+        dest.writeString(userName);
         dest.writeString(email);
         dest.writeString(birthDate);
         dest.writeString(carreer);
