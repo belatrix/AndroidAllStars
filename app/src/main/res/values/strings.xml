@@ -16,6 +16,8 @@
 
     <!-- Error -->
     <string name="error_incorrect_fields">Make sure the fields are filled correctly</string>
+    <string name="error_facebook">Can\'t connect with Facebook Service</string>
+    <string name="error_twitter">Can\'t connect with Twitter Service</string>
 
     <!-- Hint -->
     <string name="hint_username">Username</string>
@@ -32,6 +34,7 @@
 
     <!-- Button -->
     <string name="button_log_in">Log In</string>
+    <string name="button_log_in_as_guest">Log In As Guest</string>
     <string name="button_sign_up">New user? <b>Sign Up!</b></string>
     <string name="button_sign_up_action">Register</string>
     <string name="button_reset">Reset</string>
@@ -60,6 +63,8 @@
     <string name="title_login">Belatrix Connect</string>
     <string name="let_s_get_started">Let\'s get started</string>
     <string name="enter_your_email_address_to_receive_your_temporary_password">Enter your email address to receive your temporary password</string>
+    <string name="log_in_as_guest">Log In as Guest</string>
+    <string name="guest_message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
 
     <!-- Reset Password -->
     <string name="secure_your_account">Secure you account</string>

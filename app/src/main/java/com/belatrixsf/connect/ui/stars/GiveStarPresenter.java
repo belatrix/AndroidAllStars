@@ -101,7 +101,9 @@ public class GiveStarPresenter extends BelatrixConnectPresenter<GiveStarView> {
             if (employee.getLevel() != null && !employee.getLevel().toString().isEmpty()) {
                 view.showUserLevel(String.valueOf(employee.getLevel()));
             }
-            view.showUserProfileImage(employee.getAvatar());
+            if (employee.getAvatar() != null) {
+                view.showUserProfileImage(employee.getAvatar());
+            }
             this.selectedEmployee = employee;
             view.showUser();
             checkRecommendationEnabled();

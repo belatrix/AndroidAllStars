@@ -18,17 +18,26 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.utils.di.scopes;
+package com.belatrixsf.connect.networking.retrofit.api;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import com.belatrixsf.connect.entities.Guest;
+import com.belatrixsf.connect.networking.retrofit.responses.GuestAuthenticationResponse;
 
-import javax.inject.Scope;
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by icerrate on 22/06/2016.
  */
-@Scope
-@Retention(RetentionPolicy.RUNTIME)
-public @interface UIScope {
+public interface GuestAPI {
+
+    @POST(ServerPaths.GUEST_AUTHENTICATE)
+    Call<GuestAuthenticationResponse> authenticateGuest(@Body Guest request);
+
+    @GET(ServerPaths.GUEST_BY_ID)
+    Call<Guest> getGuest(@Path(ServerPaths.GUEST_ID) int guestId);
+
 }

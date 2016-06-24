@@ -37,6 +37,9 @@ android {
         debug {
             buildConfigField "String", "BASE_URL", serverProps["baseDevelopUrl"]
             manifestPlaceholders = [fabric_io_api_key: fabricApiKey]
+            buildConfigField "String", "FB_ID", serverProps["facebookId"]
+            buildConfigField "String", "TWITTER_ID", serverProps["twitterId"]
+            buildConfigField "String", "TWITTER_SECRET", serverProps["twitterSecret"]
         }
         release {
             minifyEnabled false
@@ -46,7 +49,7 @@ android {
         }
     }
 
-    def supportLibrariesVersion = "23.3.0"
+    def supportLibrariesVersion = "23.4.0"
 
     dependencies {
         compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -69,7 +72,11 @@ android {
         compile 'com.github.bumptech.glide:glide:3.7.0'
         compile 'com.aurelhubert:ahbottomnavigation:1.1.8'
         compile 'com.squareup.picasso:picasso:2.5.2'
+        compile 'com.facebook.android:facebook-android-sdk:4.0.1'
         compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
+            transitive = true;
+        }
+        compile('com.twitter.sdk.android:twitter:1.13.1@aar') {
             transitive = true;
         }
     }

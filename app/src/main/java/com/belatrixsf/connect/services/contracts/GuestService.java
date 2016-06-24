@@ -18,17 +18,20 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.utils.di.scopes;
+package com.belatrixsf.connect.services.contracts;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
-import javax.inject.Scope;
+import com.belatrixsf.connect.entities.Guest;
+import com.belatrixsf.connect.networking.retrofit.responses.GuestAuthenticationResponse;
+import com.belatrixsf.connect.services.ServiceRequest;
+import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by icerrate on 22/06/2016.
  */
-@Scope
-@Retention(RetentionPolicy.RUNTIME)
-public @interface UIScope {
+public interface GuestService extends BelatrixConnectService {
+
+    ServiceRequest authenticateGuest(Guest guest, BelatrixConnectCallback<GuestAuthenticationResponse> callback);
+
+    ServiceRequest getGuest(int guestId, BelatrixConnectCallback<Guest> callback);
+
 }

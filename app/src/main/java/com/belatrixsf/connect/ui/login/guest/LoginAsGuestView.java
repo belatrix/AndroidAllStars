@@ -18,17 +18,17 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.utils.di.scopes;
+package com.belatrixsf.connect.ui.login.guest;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
-import javax.inject.Scope;
+import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by icerrate on 27/05/16.
  */
-@Scope
-@Retention(RetentionPolicy.RUNTIME)
-public @interface UIScope {
+public interface LoginAsGuestView extends BelatrixConnectView {
+
+    void requestTwitterEmail();
+    void requestTwitterUserData();
+    void goHome();
+
 }

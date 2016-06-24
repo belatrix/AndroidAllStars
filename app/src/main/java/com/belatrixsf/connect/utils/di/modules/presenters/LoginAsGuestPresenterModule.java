@@ -18,17 +18,28 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.utils.di.scopes;
+package com.belatrixsf.connect.utils.di.modules.presenters;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import com.belatrixsf.connect.ui.login.guest.LoginAsGuestView;
 
-import javax.inject.Scope;
+import dagger.Module;
+import dagger.Provides;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by icerrate on 27/05/16.
  */
-@Scope
-@Retention(RetentionPolicy.RUNTIME)
-public @interface UIScope {
+@Module
+public class LoginAsGuestPresenterModule {
+
+    private LoginAsGuestView view;
+
+    public LoginAsGuestPresenterModule(LoginAsGuestView view) {
+        this.view = view;
+    }
+
+    @Provides
+    public LoginAsGuestView providesView() {
+        return view;
+    }
+
 }
