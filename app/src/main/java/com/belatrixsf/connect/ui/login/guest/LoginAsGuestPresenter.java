@@ -37,7 +37,7 @@ public class LoginAsGuestPresenter extends BelatrixConnectPresenter<LoginAsGuest
 
     private GuestManager guestManager;
 
-    private String fullname;
+    private String fullName;
     private String email;
     private String id;
 
@@ -47,17 +47,19 @@ public class LoginAsGuestPresenter extends BelatrixConnectPresenter<LoginAsGuest
         this.guestManager = guestManager;
     }
 
-    public void init() {
-
+    public void setGuestData(String id, String fullName, String email) {
+        this.id = id;
+        this.fullName = fullName;
+        this.email = email;
     }
 
     public void loginWithFacebook(JSONObject json){
         try {
             id = json.getString("id");
             email = json.getString("email");
-            fullname = json.getString("first_name") +" "+ json.getString("last_name");
+            fullName = json.getString("first_name") +" "+ json.getString("last_name");
             if (activeSession()) {
-                Guest guest = new Guest(fullname, email, id, null);
+                Guest guest = new Guest(fullName, email, id, null);
                 loginAsGuest(guest);
             }
         } catch (JSONException e) {
@@ -66,20 +68,46 @@ public class LoginAsGuestPresenter extends BelatrixConnectPresenter<LoginAsGuest
     }
 
     public void twitterSessionSuccess(){
+        view.requestTwitterUserData();
+    }
+
+    public void twitterUserDataSuccess(String name){
+        this.fullName = name;
         view.requestTwitterEmail();
     }
 
     public void twitterEmailSuccess(String email){
         this.email = email;
-        view.requestTwitterUserData();
-    }
-
-    public void twitterUserDataSuccess(String name){
-        this.fullname = name;
         if (activeSession()) {
-            Guest guest = new Guest(fullname, email, null, id);
+            Guest guest = new Guest(fullName, email, null, id);
             loginAsGuest(guest);
         }
+    }
+
+    public void continueTwitterProcess(String email) {
+        this.email = email;
+        if (activeSession()) {
+            Guest guest = new Guest(fullName, email, null, id);
+            loginAsGuest(guest);
+        }
+    }
+
+    public void facebookFailure(){
+        view.showError(getString(R.string.error_facebook));
+    }
+
+    public void twitterFailure(){
+        view.showError(getString(R.string.error_twitter));
+    }
+
+    public void resetData() {
+        fullName = null;
+        email = null;
+        id = null;
+    }
+
+    private boolean activeSession(){
+        return  email != null && id != null && fullName != null;
     }
 
     private void loginAsGuest(Guest guestRequest) {
@@ -93,16 +121,16 @@ public class LoginAsGuestPresenter extends BelatrixConnectPresenter<LoginAsGuest
         });
     }
 
-    public void facebookFailure(){
-        view.showError(getString(R.string.error_facebook));
+    public String getFullName() {
+        return fullName;
     }
 
-    public void twitterFailure(){
-        view.showError(getString(R.string.error_twitter));
+    public String getEmail() {
+        return email;
     }
 
-    private boolean activeSession(){
-        return  email != null && id != null && fullname != null;
+    public String getId() {
+        return id;
     }
 
     @Override

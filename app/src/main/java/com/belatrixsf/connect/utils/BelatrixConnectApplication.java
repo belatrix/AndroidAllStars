@@ -29,7 +29,6 @@ import com.belatrixsf.connect.utils.di.components.DaggerApplicationComponent;
 import com.crashlytics.android.Crashlytics;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
-import com.twitter.sdk.android.core.TwitterCore;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -50,7 +49,7 @@ public class BelatrixConnectApplication extends Application {
         //TODO uncomment when production ready
         // if (!BuildConfig.DEBUG) {
         TwitterAuthConfig authConfig = new TwitterAuthConfig(BuildConfig.TWITTER_ID, BuildConfig.TWITTER_SECRET);
-        Fabric.with(this, new Crashlytics(), new Twitter(authConfig), new TwitterCore(authConfig));
+        Fabric.with(this, new Crashlytics(), new Twitter(authConfig));
         // }
     }
 
