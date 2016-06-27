@@ -18,27 +18,49 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.ui.event;
+package com.belatrixsf.connect.ui.event.detail;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.ViewCompat;
+import android.widget.ImageView;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 
+import butterknife.Bind;
+
 /**
- * Created by icerrate on 13/06/2016.
+ * Created by icerrate on 27/06/2016.
  */
-public class EventListActivity extends BelatrixConnectActivity {
+public class EventDetailActivity extends BelatrixConnectActivity {
+
+    public static final String EVENT_ID_KEY = "_event_id";
+
+    @Bind(R.id.event_picture) ImageView pictureImageView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-        if (savedInstanceState == null) {
-            replaceFragment(EventListFragment.newInstance(), false);
-        }
+        ActivityCompat.postponeEnterTransition(this);
         setNavigationToolbar();
+        if (savedInstanceState == null) {
+            Integer eventId = getIntent().getIntExtra(EVENT_ID_KEY, -1);
+            replaceFragment(EventDetailFragment.newInstance(eventId), false);
+        }
+    }
+
+    public static void startActivityAnimatingPic(Activity activity, ImageView photoImageView, Integer eventId) {
+        Intent intent = new Intent(activity, EventDetailActivity.class);
+        intent.putExtra(EventDetailActivity.EVENT_ID_KEY, eventId);
+        ViewCompat.setTransitionName(photoImageView, activity.getString(R.string.transition_photo));
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, photoImageView, activity.getString(R.string.transition_photo));
+        activity.startActivity(intent, options.toBundle());
     }
 
 }

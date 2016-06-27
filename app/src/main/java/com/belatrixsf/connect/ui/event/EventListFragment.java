@@ -21,10 +21,7 @@
 package com.belatrixsf.connect.ui.event;
 
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -37,11 +34,10 @@ import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.EventListAdapter;
 import com.belatrixsf.connect.entities.Event;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
-import com.belatrixsf.connect.ui.account.AccountActivity;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.common.EndlessRecyclerOnScrollListener;
 import com.belatrixsf.connect.ui.common.RecyclerOnItemClickListener;
-import com.belatrixsf.connect.ui.common.views.DividerItemDecoration;
+import com.belatrixsf.connect.ui.event.detail.EventDetailActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.di.modules.presenters.EventListPresenterModule;
 
@@ -51,10 +47,8 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-import static com.belatrixsf.connect.ui.stars.GiveStarFragment.SELECTED_USER_KEY;
-
 /**
- * Created by icerrate on 15/04/2016.
+ * Created by icerrate on 13/06/2016.
  */
 public class EventListFragment extends BelatrixConnectFragment implements EventListView, RecyclerOnItemClickListener {
 
@@ -67,8 +61,8 @@ public class EventListFragment extends BelatrixConnectFragment implements EventL
 
     private ImageView photoImageView;
 
-    @Bind(R.id.employees)
-    RecyclerView contactsRecyclerView;
+    @Bind(R.id.events)
+    RecyclerView eventsRecyclerView;
 
     public static EventListFragment newInstance() {
         return new EventListFragment();
@@ -140,10 +134,9 @@ public class EventListFragment extends BelatrixConnectFragment implements EventL
             }
         };
         eventListAdapter = new EventListAdapter(this);
-        contactsRecyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);
-        contactsRecyclerView.setAdapter(eventListAdapter);
-        contactsRecyclerView.setLayoutManager(linearLayoutManager);
-        contactsRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
+        eventsRecyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);
+        eventsRecyclerView.setAdapter(eventListAdapter);
+        eventsRecyclerView.setLayoutManager(linearLayoutManager);
     }
 
     @Override
@@ -170,21 +163,13 @@ public class EventListFragment extends BelatrixConnectFragment implements EventL
 
     @Override
     public void onClick(View v) {
-        photoImageView = ButterKnife.findById(v, R.id.contact_photo);
+        photoImageView = ButterKnife.findById(v, R.id.event_picture);
         eventListPresenter.onEventClicked(v.getTag());
     }
 
     @Override
     public void goEventDetail(Integer id) {
-        AccountActivity.startActivityAnimatingProfilePic(getActivity(), photoImageView, id);
-    }
-
-    @Override
-    public void selectEvent(Event event) {
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra(SELECTED_USER_KEY, event);
-        fragmentListener.setActivityResult(Activity.RESULT_OK, resultIntent);
-        fragmentListener.closeActivity();
+        EventDetailActivity.startActivityAnimatingPic(getActivity(), photoImageView, id);
     }
 
     @Override

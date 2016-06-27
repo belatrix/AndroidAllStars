@@ -22,7 +22,7 @@
             android:layout_marginTop="@dimen/dimen_5_5"
             android:layout_width="@dimen/dimen_10_7"
             android:layout_height="@dimen/dimen_10_7"
-            tools:src="@drawable/ic_user"
+            tools:src="@drawable/contact_placeholder"
             android:contentDescription="@string/profile_image_content_desc"/>
 
         <TextView

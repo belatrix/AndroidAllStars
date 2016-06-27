@@ -20,7 +20,8 @@
 */
 package com.belatrixsf.connect.services.contracts;
 
-import com.belatrixsf.connect.networking.retrofit.responses.EventListResponse;
+import com.belatrixsf.connect.entities.Event;
+import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.services.ServiceRequest;
 import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 
@@ -29,6 +30,8 @@ import com.belatrixsf.connect.utils.BelatrixConnectCallback;
  */
 public interface EventService extends BelatrixConnectService {
 
-    ServiceRequest getEventList(Integer page, BelatrixConnectCallback<EventListResponse> callback);
+    ServiceRequest getEventList(Integer page, BelatrixConnectCallback<PaginatedResponse<Event>> callback);
+
+    ServiceRequest getEventDetail(Integer eventId, BelatrixConnectCallback<Event> callback);
 
 }

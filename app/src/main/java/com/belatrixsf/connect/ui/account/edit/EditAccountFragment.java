@@ -229,7 +229,8 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
                     public void onFailure() {
                         startPostponedEnterTransition();
                     }
-                }
+                },
+                pictureImageView.getResources().getDrawable(R.drawable.contact_placeholder)
         );
     }
 

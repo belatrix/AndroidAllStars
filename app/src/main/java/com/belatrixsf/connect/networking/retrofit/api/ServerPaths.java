@@ -39,7 +39,7 @@ public interface ServerPaths {
     String KIND = "kind";
     String QUANTITY = "quantity";
     String CATEGORY_ID = "category_id";
-    String PAGE = "page";
+    String EVENT_ID = "event_id";
 
     String QUERY_PAGE = "page";
     String QUERY_SEARCH = "search";
@@ -65,5 +65,6 @@ public interface ServerPaths {
     String SUBCATEGORIES_BY_CATEGORY_ID = CATEGORY + "/{" + CATEGORY_ID + "}/subcategory/list";
 
     String EVENT_LIST = EVENT + "/list/";
+    String EVENT_DETAIL = EVENT + "/{" + EVENT_ID + "}/";
 
 }

@@ -198,8 +198,6 @@ public class MainActivity extends BelatrixConnectActivity implements HomeView, R
                                 Intent intent = new Intent(MainActivity.this, EventListActivity.class);
                                 startActivity(intent);
                                 break;
-                            case R.id.menu_about:
-                                break;
                             case R.id.menu_contacts:
                                 intent = new Intent(MainActivity.this, ContactsListActivity.class);
                                 startActivity(intent);
@@ -230,7 +228,11 @@ public class MainActivity extends BelatrixConnectActivity implements HomeView, R
                     TextView fullnameTextView = (TextView) navigationView.findViewById(R.id.fullname);
                     TextView emailTextView = (TextView) navigationView.findViewById(R.id.email);
                     if (pictureImageView != null && fullnameTextView != null && emailTextView != null) {
-                        ImageFactory.getLoader().loadFromUrl(employee.getAvatar(), pictureImageView, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
+                        ImageFactory.getLoader().loadFromUrl(employee.getAvatar(),
+                                pictureImageView,
+                                ImageLoader.ImageTransformation.BORDERED_CIRCLE,
+                                pictureImageView.getResources().getDrawable(R.drawable.contact_placeholder)
+                        );
                         fullnameTextView.setText(employee.getFullName());
                         emailTextView.setText(employee.getEmail());
                     }

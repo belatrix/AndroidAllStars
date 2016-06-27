@@ -21,7 +21,6 @@
 package com.belatrixsf.connect.ui.event;
 
 import com.belatrixsf.connect.entities.Event;
-import com.belatrixsf.connect.networking.retrofit.responses.EventListResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.services.ServiceRequest;
 import com.belatrixsf.connect.services.contracts.EventService;
@@ -74,13 +73,13 @@ public class EventListPresenter extends BelatrixConnectPresenter<EventListView> 
         view.showProgressIndicator();
         searchingServiceRequest = eventService.getEventList(
                 eventsPaging.getNextPage(),
-                new PresenterCallback<EventListResponse>() {
+                new PresenterCallback<PaginatedResponse<Event>>() {
                     @Override
-                    public void onSuccess(EventListResponse eventListResponse) {
+                    public void onSuccess(PaginatedResponse<Event> eventListResponse) {
                         eventsPaging.setCount(eventListResponse.getCount());
                         eventsPaging.setNext(eventListResponse.getNext());
-                        events.addAll(eventListResponse.getEventList());
-                        view.addEvents(eventListResponse.getEventList());
+                        events.addAll(eventListResponse.getResults());
+                        view.addEvents(eventListResponse.getResults());
                         view.hideProgressIndicator();
                     }
                 });

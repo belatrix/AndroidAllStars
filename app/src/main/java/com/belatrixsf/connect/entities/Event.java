@@ -33,9 +33,12 @@ public class Event implements Parcelable {
     @SerializedName("pk")
     private Integer id;
     private String title;
+    private String description;
+    private String datetime;
+    private String location;
+    private Integer collaborators;
+    private Integer participants;
     private String picture;
-    private String content;
-    private String date;
 
     public Event() {
     }
@@ -48,24 +51,39 @@ public class Event implements Parcelable {
         return title;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public String getDatetime() {
+        return datetime;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public Integer getCollaborators() {
+        return collaborators;
+    }
+
+    public Integer getParticipants() {
+        return participants;
+    }
+
     public String getPicture() {
         return picture;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public String getDate() {
-        return date;
     }
 
     protected Event(Parcel in) {
         id = in.readByte() == 0x00 ? null : in.readInt();
         title = in.readString();
+        description = in.readString();
+        datetime = in.readString();
+        location = in.readString();
+        collaborators = in.readByte() == 0x00 ? null : in.readInt();
+        participants = in.readByte() == 0x00 ? null : in.readInt();
         picture = in.readString();
-        content = in.readString();
-        date = in.readString();
     }
 
     @Override
@@ -82,9 +100,21 @@ public class Event implements Parcelable {
             dest.writeInt(id);
         }
         dest.writeString(title);
+        dest.writeString(description);
+        dest.writeString(datetime);
+        dest.writeString(location);
+        if (collaborators == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(collaborators);
+        }if (participants == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(participants);
+        }
         dest.writeString(picture);
-        dest.writeString(content);
-        dest.writeString(date);
     }
 
     @SuppressWarnings("unused")

@@ -87,7 +87,11 @@ public class StarsListAdapter extends LoadMoreBaseAdapter<Star> {
             }
             starViewHolder.starCategoryTextView.setText(star.getCategory().getName());
             starViewHolder.starKeywordView.setKeyword(keyword);
-            ImageFactory.getLoader().loadFromUrl(star.getFromUser().getAvatar(), starViewHolder.photoImageView, ImageLoader.ImageTransformation.CIRCLE);
+            ImageFactory.getLoader().loadFromUrl(star.getFromUser().getAvatar(),
+                    starViewHolder.photoImageView,
+                    ImageLoader.ImageTransformation.CIRCLE,
+                    starViewHolder.photoImageView.getResources().getDrawable(R.drawable.contact_placeholder)
+            );
         }
     }
 

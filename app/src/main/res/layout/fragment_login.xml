@@ -25,7 +25,6 @@
         android:layout_marginTop="@dimen/dimen_3_5"
         android:text="@string/title_login"
         android:textColor="@color/belatrix"
-        android:shadowRadius="10"
         android:textSize="@dimen/text_28" />
 
     <android.support.design.widget.TextInputLayout

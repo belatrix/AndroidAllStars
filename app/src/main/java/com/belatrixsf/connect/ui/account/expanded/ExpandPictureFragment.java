@@ -116,7 +116,8 @@ public class ExpandPictureFragment extends BelatrixConnectFragment implements Ex
                     public void onFailure() {
                         startPostponedEnterTransition();
                     }
-                }
+                },
+                pictureImageView.getResources().getDrawable(R.drawable.contact_placeholder)
         );
     }
 

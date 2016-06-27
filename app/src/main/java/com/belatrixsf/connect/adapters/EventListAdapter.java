@@ -31,6 +31,7 @@ import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Event;
 import com.belatrixsf.connect.ui.common.LoadMoreBaseAdapter;
 import com.belatrixsf.connect.ui.common.RecyclerOnItemClickListener;
+import com.belatrixsf.connect.utils.DateUtils;
 import com.belatrixsf.connect.utils.media.ImageFactory;
 import com.belatrixsf.connect.utils.media.loaders.ImageLoader;
 
@@ -71,11 +72,16 @@ public class EventListAdapter extends LoadMoreBaseAdapter<Event> {
             EventViewHolder eventViewHolder = (EventViewHolder) holder;
             Event event = data.get(position);
             String title = event.getTitle() != null && !event.getTitle().isEmpty() ? event.getTitle() : eventViewHolder.eventTitleTextView.getContext().getString(R.string.title_title_placeholder);
-            String date = event.getDate() != null ? String.format(eventViewHolder.eventDateTextView.getContext().getString(R.string.contact_list_level), String.valueOf(event.getDate())) : eventViewHolder.eventDateTextView.getContext().getString(R.string.title_date_placeholder);
+            String date = event.getDatetime();
+            String formattedDate = date != null && !date.isEmpty() ? DateUtils.formatDate(date, DateUtils.DATE_FORMAT_3, DateUtils.DATE_FORMAT_2) : eventViewHolder.eventDateTextView.getContext().getString(R.string.title_date_placeholder);
             eventViewHolder.eventTitleTextView.setText(title);
-            eventViewHolder.eventDateTextView.setText(date);
+            eventViewHolder.eventDateTextView.setText(formattedDate);
             eventViewHolder.itemView.setTag(event);
-            ImageFactory.getLoader().loadFromUrl(event.getPicture(), eventViewHolder.pictureImageView, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
+            ImageFactory.getLoader().loadFromUrl(event.getPicture(),
+                    eventViewHolder.pictureImageView,
+                    ImageLoader.ImageTransformation.BORDERED_CIRCLE,
+                    eventViewHolder.pictureImageView.getResources().getDrawable(R.drawable.event_placeholder)
+            );
         }
     }
     @Override

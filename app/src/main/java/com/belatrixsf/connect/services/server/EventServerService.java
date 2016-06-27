@@ -20,8 +20,9 @@
 */
 package com.belatrixsf.connect.services.server;
 
+import com.belatrixsf.connect.entities.Event;
 import com.belatrixsf.connect.networking.retrofit.api.EventAPI;
-import com.belatrixsf.connect.networking.retrofit.responses.EventListResponse;
+import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.services.BelatrixConnectBaseService;
 import com.belatrixsf.connect.services.ServerServiceRequest;
 import com.belatrixsf.connect.services.ServiceRequest;
@@ -43,9 +44,17 @@ public class EventServerService extends BelatrixConnectBaseService implements Ev
     }
 
     @Override
-    public ServiceRequest getEventList(Integer page, BelatrixConnectCallback<EventListResponse> callback) {
-        Call<EventListResponse> call = eventAPI.getEventList(page);
-        ServiceRequest<EventListResponse> serviceRequest = new ServerServiceRequest<>(call);
+    public ServiceRequest getEventList(Integer page, BelatrixConnectCallback<PaginatedResponse<Event>> callback) {
+        Call<PaginatedResponse<Event>> call = eventAPI.getEventList(page);
+        ServiceRequest<PaginatedResponse<Event>> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
+    @Override
+    public ServiceRequest getEventDetail(Integer eventId, BelatrixConnectCallback<Event> callback) {
+        Call<Event> call = eventAPI.getEventDetail(eventId);
+        ServiceRequest<Event> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
         return serviceRequest;
     }

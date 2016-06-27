@@ -18,22 +18,23 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.networking.retrofit.responses;
+package com.belatrixsf.connect.utils.di.components;
 
-import com.belatrixsf.connect.entities.Event;
-import com.google.gson.annotations.SerializedName;
+import com.belatrixsf.connect.ui.event.detail.EventDetailPresenter;
+import com.belatrixsf.connect.utils.di.modules.presenters.EventDetailPresenterModule;
+import com.belatrixsf.connect.utils.di.scopes.UIScope;
 
-import java.util.List;
+import dagger.Subcomponent;
 
 /**
- * Created by icerrate on 13/06/2016.
+ * Created by icerrate on 27/06/2016.
  */
-public class EventListResponse extends PaginatedResponse {
+@UIScope
+@Subcomponent(
+        modules = EventDetailPresenterModule.class
+)
+public interface EventDetailComponent {
 
-    @SerializedName("results")
-    private List<Event> eventList;
+    EventDetailPresenter eventDetailPresenter();
 
-    public List<Event> getEventList() {
-        return eventList;
-    }
 }

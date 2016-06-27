@@ -30,6 +30,7 @@ import java.util.Date;
 public class DateUtils {
     public static final String DATE_FORMAT_1 = "yyyy-MM-dd'T'HH:mm:ss.S";
     public static final String DATE_FORMAT_2 = "dd/MM/yyyy";
+    public static final String DATE_FORMAT_3 = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
     public static String formatDate(String date, String inputFormat, String outputFormat){
         try {

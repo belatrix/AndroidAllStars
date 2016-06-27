@@ -18,20 +18,22 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.ui.event;
+package com.belatrixsf.connect.ui.event.detail;
 
-import com.belatrixsf.connect.entities.Event;
 import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 
-import java.util.List;
-
 /**
- * Created by icerrate on 13/06/2016.
+ * Created by icerrate on 27/06/2016.
  */
-public interface EventListView extends BelatrixConnectView {
+public interface EventDetailView extends BelatrixConnectView {
 
-    void addEvents(List<Event> events);
-    void resetList();
-    void goEventDetail(Integer id);
+    void showDateTime(String dateTime);
+    void showLocation(String location);
+    void showTitle(String title);
+    void showDescription(String description);
+    void showCollaboratorsCount(String collaboratorsCount);
+    void showParticipantsCount(String participantsCount);
+    void showPicture(String profilePicture);
+    void showComments();
 
 }

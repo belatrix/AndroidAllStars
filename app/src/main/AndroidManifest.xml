@@ -33,7 +33,7 @@
         <activity
             android:name=".ui.account.AccountActivity"
             android:label="@string/title_account_activity"
-            android:parentActivityName="com.belatrixsf.connect.ui.home.MainActivity"/>
+            android:parentActivityName="trixsf.connect.ui.home.MainActivity"/>
         <activity
             android:name=".ui.account.expanded.ExpandPictureActivity"
             android:label="@string/title_expand_photo_activity"/>
@@ -56,6 +56,8 @@
             android:label="@string/title_edit_profile_activity"/>
         <activity android:name=".ui.event.EventListActivity"
             android:label="@string/title_event_list_activity"/>
+        <activity android:name=".ui.event.detail.EventDetailActivity"
+            android:label="@string/title_event_detail_activity"/>
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"/>
         <activity

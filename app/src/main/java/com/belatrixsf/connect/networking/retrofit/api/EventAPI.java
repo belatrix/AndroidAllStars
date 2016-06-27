@@ -20,7 +20,8 @@
 */
 package com.belatrixsf.connect.networking.retrofit.api;
 
-import com.belatrixsf.connect.networking.retrofit.responses.EventListResponse;
+import com.belatrixsf.connect.entities.Event;
+import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -32,6 +33,9 @@ import retrofit2.http.Query;
 public interface EventAPI {
 
     @GET(ServerPaths.EVENT_LIST)
-    Call<EventListResponse> getEventList(@Query(ServerPaths.PAGE) Integer page);
+    Call<PaginatedResponse<Event>> getEventList(@Query(ServerPaths.QUERY_PAGE) Integer page);
+
+    @GET(ServerPaths.EVENT_DETAIL)
+    Call<Event> getEventDetail(@Query(ServerPaths.EVENT_ID) Integer eventId);
 
 }
