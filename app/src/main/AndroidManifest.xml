@@ -33,7 +33,7 @@
         <activity
             android:name=".ui.account.AccountActivity"
             android:label="@string/title_account_activity"
-            android:parentActivityName="trixsf.connect.ui.home.MainActivity"/>
+            android:parentActivityName=".ui.home.MainActivity"/>
         <activity
             android:name=".ui.account.expanded.ExpandPictureActivity"
             android:label="@string/title_expand_photo_activity"/>

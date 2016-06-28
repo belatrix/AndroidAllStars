@@ -37,7 +37,7 @@ import butterknife.Bind;
 /**
  * Created by icerrate on 27/06/2016.
  */
-public class EventDetailActivity extends BelatrixConnectActivity {
+public class EventDetailActivity extends BelatrixConnectActivity implements EventDetailFragmentListener {
 
     public static final String EVENT_ID_KEY = "_event_id";
 
@@ -46,7 +46,7 @@ public class EventDetailActivity extends BelatrixConnectActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base);
+        setContentView(R.layout.activity_event_detail);
         ActivityCompat.postponeEnterTransition(this);
         setNavigationToolbar();
         if (savedInstanceState == null) {
@@ -63,4 +63,8 @@ public class EventDetailActivity extends BelatrixConnectActivity {
         activity.startActivity(intent, options.toBundle());
     }
 
+    @Override
+    public ImageView getMainImageView() {
+        return pictureImageView;
+    }
 }

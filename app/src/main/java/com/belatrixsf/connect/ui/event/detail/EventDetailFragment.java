@@ -20,6 +20,8 @@
 */
 package com.belatrixsf.connect.ui.event.detail;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
@@ -48,6 +50,9 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
     public static final String EVENT_KEY = "_event_key";
 
     private EventDetailPresenter eventDetailPresenter;
+    private EventDetailFragmentListener eventDetailFragmentListener;
+
+    private ImageView pictureImageView;
 
     @Bind(R.id.date) TextView dateTextView;
     @Bind(R.id.location) TextView locationTextView;
@@ -64,6 +69,26 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
         EventDetailFragment accountFragment = new EventDetailFragment();
         accountFragment.setArguments(bundle);
         return accountFragment;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        castOrThrowException(activity);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        castOrThrowException(context);
+    }
+
+    private void castOrThrowException(Context context) {
+        try {
+            eventDetailFragmentListener = (EventDetailFragmentListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement EventDetailFragmentListener");
+        }
     }
 
     @Override
@@ -94,6 +119,7 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
     }
 
     private void initViews() {
+        pictureImageView = eventDetailFragmentListener.getMainImageView();
     }
 
     @Override
@@ -187,7 +213,7 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
                         startPostponedEnterTransition();
                     }
                 },
-                pictureImageView.getResources().getDrawable(R.drawable.contact_placeholder)
+                pictureImageView.getResources().getDrawable(R.drawable.event_placeholder)
         );
     }
 
