@@ -18,6 +18,7 @@
             android:layout_height="@dimen/dimen_18_10"
             android:src="@drawable/event_placeholder"
             android:scaleType="centerCrop"
+            android:transitionName="@string/transition_photo"
             android:contentDescription="@string/profile_image_content_desc"/>
 
         <LinearLayout

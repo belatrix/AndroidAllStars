@@ -21,16 +21,8 @@
 package com.belatrixsf.connect.ui.event.detail;
 
 import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.Event;
-import com.belatrixsf.connect.entities.SubCategory;
-import com.belatrixsf.connect.managers.EmployeeManager;
-import com.belatrixsf.connect.managers.PreferencesManager;
-import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
-import com.belatrixsf.connect.services.contracts.EmployeeService;
 import com.belatrixsf.connect.services.contracts.EventService;
-import com.belatrixsf.connect.services.contracts.StarService;
-import com.belatrixsf.connect.ui.account.AccountView;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 import com.belatrixsf.connect.utils.DateUtils;
@@ -58,13 +50,13 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
     }
 
     public void loadEventDetail() {
-        view.showProgressDialog();
+        //view.showProgressDialog();
         eventService.getEventDetail(eventId, new BelatrixConnectCallback<Event>() {
             @Override
             public void onSuccess(Event event) {
                 EventDetailPresenter.this.event = event;
                 showEventDetail();
-                view.dismissProgressDialog();
+                //view.dismissProgressDialog();
             }
 
             @Override

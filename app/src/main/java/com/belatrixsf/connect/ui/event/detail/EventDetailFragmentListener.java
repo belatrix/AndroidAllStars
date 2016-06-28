@@ -20,13 +20,11 @@
 */
 package com.belatrixsf.connect.ui.event.detail;
 
-import android.widget.ImageView;
-
 /**
  * Created by icerrate on 28/06/2016.
  */
 public interface EventDetailFragmentListener {
 
-    ImageView getMainImageView();
+    void showPicture(String profilePicture);
 
 }

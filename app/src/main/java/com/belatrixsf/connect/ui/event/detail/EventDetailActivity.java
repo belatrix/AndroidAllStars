@@ -27,10 +27,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
+import com.belatrixsf.connect.utils.media.ImageFactory;
+import com.belatrixsf.connect.utils.media.loaders.ImageLoader;
 
 import butterknife.Bind;
 
@@ -64,7 +67,37 @@ public class EventDetailActivity extends BelatrixConnectActivity implements Even
     }
 
     @Override
-    public ImageView getMainImageView() {
-        return pictureImageView;
+    public void showPicture(final String profilePicture) {
+        ImageFactory.getLoader().loadFromUrl(
+                profilePicture,
+                pictureImageView,
+                ImageLoader.ImageTransformation.BORDERED_CIRCLE,
+                new ImageLoader.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        startTransition();
+                    }
+
+                    @Override
+                    public void onFailure() {
+                        startTransition();
+                    }
+                },
+                getResources().getDrawable(R.drawable.event_placeholder)
+        );
+    }
+
+    private void startTransition() {
+        if (pictureImageView == null) {
+            return;
+        }
+        pictureImageView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                pictureImageView.getViewTreeObserver().removeOnPreDrawListener(this);
+                ActivityCompat.startPostponedEnterTransition(EventDetailActivity.this);
+                return false;
+            }
+        });
     }
 }

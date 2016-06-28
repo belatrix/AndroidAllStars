@@ -23,11 +23,9 @@ package com.belatrixsf.connect.ui.event.detail;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,8 +34,6 @@ import com.belatrixsf.connect.entities.Event;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.di.modules.presenters.EventDetailPresenterModule;
-import com.belatrixsf.connect.utils.media.ImageFactory;
-import com.belatrixsf.connect.utils.media.loaders.ImageLoader;
 
 import butterknife.Bind;
 
@@ -106,7 +102,6 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initViews();
         Integer eventId;
         boolean hasArguments = (getArguments() != null && getArguments().containsKey(EventDetailActivity.EVENT_ID_KEY));
         if (savedInstanceState != null) {
@@ -118,15 +113,17 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
         eventDetailPresenter.loadEventDetail();
     }
 
-    private void initViews() {
-        pictureImageView = eventDetailFragmentListener.getMainImageView();
-    }
-
     @Override
     protected void initDependencies(BelatrixConnectApplication belatrixConnectApplication) {
         eventDetailPresenter = belatrixConnectApplication.getApplicationComponent()
                 .eventDetailComponent(new EventDetailPresenterModule(this))
                 .eventDetailPresenter();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadData();
     }
 
     @Override
@@ -150,20 +147,6 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
     @Override
     public void showComments() {
         //TODO
-    }
-
-    private void startPostponedEnterTransition() {
-        if (pictureImageView == null) {
-            return;
-        }
-        pictureImageView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-            @Override
-            public boolean onPreDraw() {
-                pictureImageView.getViewTreeObserver().removeOnPreDrawListener(this);
-                ActivityCompat.startPostponedEnterTransition(getActivity());
-                return false;
-            }
-        });
     }
 
     @Override
@@ -198,23 +181,11 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
 
     @Override
     public void showPicture(final String profilePicture) {
-        ImageFactory.getLoader().loadFromUrl(
-                profilePicture,
-                pictureImageView,
-                ImageLoader.ImageTransformation.BORDERED_CIRCLE,
-                new ImageLoader.Callback() {
-                    @Override
-                    public void onSuccess() {
-                        startPostponedEnterTransition();
-                    }
+        eventDetailFragmentListener.showPicture(profilePicture);
+    }
 
-                    @Override
-                    public void onFailure() {
-                        startPostponedEnterTransition();
-                    }
-                },
-                pictureImageView.getResources().getDrawable(R.drawable.event_placeholder)
-        );
+    public void loadData() {
+        eventDetailPresenter.loadEventDetail();
     }
 
     @Override
