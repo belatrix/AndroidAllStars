@@ -30,6 +30,7 @@ import android.view.ViewGroup;
 
 import com.belatrixsf.connect.BuildConfig;
 import com.belatrixsf.connect.R;
+import com.belatrixsf.connect.entities.Guest;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.login.guest.email.GuestEmailActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
@@ -44,21 +45,21 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterAuthClient;
-import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 import com.twitter.sdk.android.core.models.User;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Created by icerrate on 27/05/16.
@@ -70,17 +71,13 @@ public class LoginAsGuestFragment extends BelatrixConnectFragment implements Log
     public static final int TWITTER_NAME_RQ = 75535;
     public static final int GUEST_EMAIL_RQ = 9999;
 
-    public static final String GUEST_ID_KEY = "_guest_id_key";
-    public static final String GUEST_FULLNAME_KEY = "_guest_fullname_key";
-    public static final String GUEST_EMAIL_KEY = "_guest_email_key";
-    public static final String GUEST_USERNAME_KEY = "_guest_username_key";
+    public static final String GUEST_KEY = "_guest_key";
 
     @Bind(R.id.toolbar) Toolbar toolbar;
-    @Bind(R.id.facebook_log_in) LoginButton facebookLogInButton;
-    @Bind(R.id.twitter_log_in) TwitterLoginButton twitterLogInButton;
 
     private LoginAsGuestPresenter loginAsGuestPresenter;
     private CallbackManager callbackManager;
+    private TwitterAuthClient twitterAuthClient;
 
     public LoginAsGuestFragment() {
         // Required empty public constructor
@@ -97,6 +94,7 @@ public class LoginAsGuestFragment extends BelatrixConnectFragment implements Log
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initSocialLogin();
         initViews();
         closeFacebookSessionIfNeeded();
         if (savedInstanceState != null) {
@@ -109,21 +107,35 @@ public class LoginAsGuestFragment extends BelatrixConnectFragment implements Log
         FacebookSdk.sdkInitialize(getActivity());
     }
 
+    private void initSocialLogin() {
+        callbackManager = CallbackManager.Factory.create();
+        twitterAuthClient = new TwitterAuthClient();
+    }
+
     private void initViews() {
         fragmentListener.setToolbar(toolbar);
         fragmentListener.setTitle("");
+    }
 
-        callbackManager = CallbackManager.Factory.create();
-        facebookLogInButton.setReadPermissions(Arrays.asList("email", "public_profile "));
-        facebookLogInButton.setFragment(this);
-        facebookLogInButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+    @OnClick(R.id.facebook_log_in)
+    public void onFacebookLogin() {
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email", "public_profile "));
+
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 GraphRequest request = GraphRequest.newMeRequest(
                         loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                             @Override
                             public void onCompleted(JSONObject json, GraphResponse response) {
-                                loginAsGuestPresenter.loginWithFacebook(json);
+                                try {
+                                    String id = json.getString("id");
+                                    String email = json.getString("email");
+                                    String fullName = json.getString("first_name") + " " + json.getString("last_name");
+                                    loginAsGuestPresenter.loginWithFacebook(id, email, fullName);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         });
                 Bundle parameters = new Bundle();
@@ -141,8 +153,11 @@ public class LoginAsGuestFragment extends BelatrixConnectFragment implements Log
                 loginAsGuestPresenter.facebookFailure();
             }
         });
+    }
 
-        twitterLogInButton.setCallback(new Callback<TwitterSession>() {
+    @OnClick(R.id.twitter_log_in)
+    public void onTwitterLogin() {
+        twitterAuthClient.authorize(getActivity(), new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
                 String id = String.valueOf(result.data.getUserId());
@@ -151,7 +166,7 @@ public class LoginAsGuestFragment extends BelatrixConnectFragment implements Log
             }
 
             @Override
-            public void failure(TwitterException exception) {
+            public void failure(TwitterException e) {
                 loginAsGuestPresenter.twitterFailure();
             }
         });
@@ -164,18 +179,12 @@ public class LoginAsGuestFragment extends BelatrixConnectFragment implements Log
     }
 
     private void restorePresenterState(Bundle savedInstanceState) {
-        String id = savedInstanceState.getString(GUEST_ID_KEY, null);
-        String fullName = savedInstanceState.getString(GUEST_FULLNAME_KEY, null);
-        String email = savedInstanceState.getString(GUEST_EMAIL_KEY, null);
-        String userName = savedInstanceState.getString(GUEST_USERNAME_KEY, null);
-        loginAsGuestPresenter.setGuestData(id, fullName, email, userName);
+        Guest guest = savedInstanceState.getParcelable(GUEST_KEY);
+        loginAsGuestPresenter.setGuestData(guest);
     }
 
     private void savePresenterState(Bundle outState) {
-        outState.putString(GUEST_ID_KEY, loginAsGuestPresenter.getId());
-        outState.putString(GUEST_FULLNAME_KEY, loginAsGuestPresenter.getFullName());
-        outState.putString(GUEST_EMAIL_KEY, loginAsGuestPresenter.getEmail());
-        outState.putString(GUEST_USERNAME_KEY, loginAsGuestPresenter.getUserName());
+        outState.putParcelable(GUEST_KEY, loginAsGuestPresenter.getGuestData());
     }
 
     @Override
@@ -198,9 +207,8 @@ public class LoginAsGuestFragment extends BelatrixConnectFragment implements Log
 
     @Override
     public void requestTwitterEmail() {
-        TwitterAuthClient authClient = new TwitterAuthClient();
         TwitterSession session = Twitter.getSessionManager().getActiveSession();
-        authClient.requestEmail(session, new Callback<String>() {
+        twitterAuthClient.requestEmail(session, new Callback<String>() {
             @Override
             public void success(Result<String> result) {
                 String email = result.data;
@@ -209,10 +217,15 @@ public class LoginAsGuestFragment extends BelatrixConnectFragment implements Log
 
             @Override
             public void failure(TwitterException exception) {
-                Intent intent = new Intent(getActivity(), GuestEmailActivity.class);
-                startActivityForResult(intent, GUEST_EMAIL_RQ);
+                loginAsGuestPresenter.onGettingEmailError();
             }
         });
+    }
+
+    @Override
+    public void goRequestGuestEmail() {
+        Intent intent = new Intent(getActivity(), GuestEmailActivity.class);
+        startActivityForResult(intent, GUEST_EMAIL_RQ);
     }
 
     @Override
@@ -249,11 +262,11 @@ public class LoginAsGuestFragment extends BelatrixConnectFragment implements Log
         if (requestCode == FACEBOOK_RQ){
             callbackManager.onActivityResult(requestCode, resultCode, data);
         } else if (requestCode == TWITTER_RQ || requestCode == TWITTER_NAME_RQ) {
-            twitterLogInButton.onActivityResult(requestCode, resultCode, data);
+            twitterAuthClient.onActivityResult(requestCode, resultCode, data);
         } else if (requestCode == GUEST_EMAIL_RQ) {
             if (resultCode == Activity.RESULT_OK) {
                 String email = data.getStringExtra(GuestEmailActivity.GUEST_EMAIL_KEY);
-                loginAsGuestPresenter.continueTwitterProcess(email);
+                loginAsGuestPresenter.continueSocialLoginProcess(email);
             } else {
                 loginAsGuestPresenter.resetData();
             }

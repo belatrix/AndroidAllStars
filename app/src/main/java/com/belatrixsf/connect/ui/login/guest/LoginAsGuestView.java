@@ -29,6 +29,7 @@ public interface LoginAsGuestView extends BelatrixConnectView {
 
     void requestTwitterEmail();
     void requestTwitterUserData();
+    void goRequestGuestEmail();
     void goHome();
     void closeFacebookSessionIfNeeded();
 

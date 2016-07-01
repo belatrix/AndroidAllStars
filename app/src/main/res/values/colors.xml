@@ -22,4 +22,9 @@
 
     <color name="swipe_refresh">@color/colorPrimary</color>
 
+    <color name="facebook">#3B5998</color>
+    <color name="facebookDark">#1d2c4c</color>
+    <color name="twitter">#00aced</color>
+    <color name="twitterDark">#005676</color>
+
 </resources>

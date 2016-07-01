@@ -109,6 +109,56 @@ public class Guest implements Parcelable {
         return twitterLink;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+        generateTwitterLink();
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public void setCarreer(String carreer) {
+        this.carreer = carreer;
+    }
+
+    public void setEducationalCenter(String educationalCenter) {
+        this.educationalCenter = educationalCenter;
+    }
+
+    public void setEnglishLevel(String englishLevel) {
+        this.englishLevel = englishLevel;
+    }
+
+    public void setFacebookId(String facebookId) {
+        this.facebookId = facebookId;
+        generateFacebookLink();
+    }
+
+    public void setFacebookLink(String facebookLink) {
+        this.facebookLink = facebookLink;
+    }
+
+    public void setTwitterId(String twitterId) {
+        this.twitterId = twitterId;
+    }
+
+    public void setTwitterLink(String twitterLink) {
+        this.twitterLink = twitterLink;
+    }
+
     private void generateFacebookLink() {
         facebookLink = facebookId != null ? "https://facebook.com/" + facebookId : null;
     }

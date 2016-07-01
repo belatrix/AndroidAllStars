@@ -40,25 +40,32 @@
             android:gravity="center"
             android:layout_marginTop="@dimen/dimen_1_5"
             android:text="@string/guest_message"
-            android:textSize="@dimen/text_12" />
+            android:textSize="@dimen/text_12"/>
 
-        <com.facebook.login.widget.LoginButton
+        <Button
             android:id="@+id/facebook_log_in"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/dimen_3_5"
-            android:paddingBottom="@dimen/dimen_3_5"
-            android:layout_marginTop="@dimen/dimen_6_5"
-            tools:text="Log in with Facebook" />
+            android:layout_height="@dimen/dimen_8_5"
+            android:layout_marginTop="@dimen/dimen_8_5"
+            android:background="@drawable/selector_facebook_button"
+            android:textColor="@color/white"
+            android:drawableLeft="@drawable/com_facebook_button_icon"
+            android:paddingLeft="@dimen/dimen_4_5"
+            android:paddingRight="@dimen/dimen_1_5"
+            android:text="@string/button_facebook"/>
 
-        <com.twitter.sdk.android.core.identity.TwitterLoginButton
+        <Button
             android:id="@+id/twitter_log_in"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_8_5"
-            android:textSize="@dimen/text_16"
             android:layout_marginTop="@dimen/dimen_4_5"
-            android:layout_gravity="center"
-            android:clickable="true" />
+            android:background="@drawable/selector_twitter_button"
+            android:textColor="@color/white"
+            android:drawableLeft="@drawable/tw__ic_logo_default"
+            android:paddingLeft="@dimen/dimen_2_5"
+            android:paddingRight="@dimen/dimen_3_5"
+            android:text="@string/button_twitter"
+            android:layout_marginBottom="@dimen/dimen_1_5"/>
 
     </LinearLayout>
 
