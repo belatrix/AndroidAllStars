@@ -14,13 +14,21 @@ public class LauncherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         boolean userHasPermission = PreferencesManager.get().getEmployeeId() != 0 && PreferencesManager.get().getToken() != null && PreferencesManager.get().isResetPassword() && PreferencesManager.get().isEditProfile();
         if (userHasPermission) {
+            //Restore Employee session
             startActivity(MainActivity.makeIntent(this));
         } else {
             PreferencesManager.get().clearEmployeeId();
             PreferencesManager.get().clearToken();
             PreferencesManager.get().clearResetPassword();
             PreferencesManager.get().clearEditProfile();
-            startActivity(LoginActivity.makeIntent(this));
+
+            boolean guestHasPermission = PreferencesManager.get().getGuestId() != 0;
+            if (guestHasPermission) {
+                //Restore Guest session
+                //startActivity(MainActivity.makeIntent(this));
+            } else {
+                startActivity(LoginActivity.makeIntent(this));
+            }
         }
         finish();
     }
