@@ -28,7 +28,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.belatrixsf.connect.BuildConfig;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Guest;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
@@ -36,11 +35,9 @@ import com.belatrixsf.connect.ui.login.guest.email.GuestEmailActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.di.components.DaggerLoginAsGuestComponent;
 import com.belatrixsf.connect.utils.di.modules.presenters.LoginAsGuestPresenterModule;
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
@@ -86,7 +83,6 @@ public class LoginAsGuestFragment extends BelatrixConnectFragment implements Log
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        prepareFacebookSDK();
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_log_in_as_guest, container, false);
     }
@@ -96,15 +92,9 @@ public class LoginAsGuestFragment extends BelatrixConnectFragment implements Log
         super.onViewCreated(view, savedInstanceState);
         initSocialLogin();
         initViews();
-        closeFacebookSessionIfNeeded();
         if (savedInstanceState != null) {
             restorePresenterState(savedInstanceState);
         }
-    }
-
-    private void prepareFacebookSDK(){
-        FacebookSdk.setApplicationId(BuildConfig.FB_ID);
-        FacebookSdk.sdkInitialize(getActivity());
     }
 
     private void initSocialLogin() {
@@ -246,13 +236,6 @@ public class LoginAsGuestFragment extends BelatrixConnectFragment implements Log
     @Override
     public void goHome() {
         //Go MainActivity
-    }
-
-    @Override
-    public void closeFacebookSessionIfNeeded() {
-        if (AccessToken.getCurrentAccessToken() != null) {
-            LoginManager.getInstance().logOut();
-        }
     }
 
     @Override
