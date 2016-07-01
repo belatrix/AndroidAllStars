@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginTop="@dimen/dimen_1_5"
+            android:layout_marginTop="@dimen/dimen_5"
             android:text="@string/enter_your_email_address_to_receive_your_temporary_password"
             android:textSize="@dimen/text_12" />
 

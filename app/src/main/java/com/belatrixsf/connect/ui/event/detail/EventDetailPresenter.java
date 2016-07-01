@@ -61,7 +61,7 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
 
             @Override
             public void onFailure(ServiceError serviceError) {
-                view.dismissProgressDialog();
+                //view.dismissProgressDialog();
             }
         });
     }
@@ -72,7 +72,7 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
 
     private void showEventDetail() {
         String date = event.getDatetime();
-        String formattedDate = date != null && !date.isEmpty() ? DateUtils.formatDate(date, DateUtils.DATE_FORMAT_3, DateUtils.DATE_FORMAT_2) : getString(R.string.no_data_option);
+        String formattedDate = date != null && !date.isEmpty() ? DateUtils.formatDate(date, DateUtils.DATE_FORMAT_3, DateUtils.DATE_FORMAT_4) : getString(R.string.no_data_option);
         String location = event.getLocation() != null && !event.getLocation().isEmpty() ? event.getLocation() : getString(R.string.no_data_option);
         String title = event.getTitle() != null && !event.getTitle().isEmpty() ? event.getTitle() : getString(R.string.no_data_option);
         String description = event.getDescription() != null && !event.getDescription().isEmpty() ? event.getDescription() : getString(R.string.no_data_option);

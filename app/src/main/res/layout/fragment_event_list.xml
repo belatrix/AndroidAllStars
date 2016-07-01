@@ -2,5 +2,5 @@
     android:id="@+id/events"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/dimen_1_5"
+    android:padding="@dimen/dimen_5"
     android:clipToPadding="false"/>

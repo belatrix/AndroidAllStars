@@ -59,7 +59,7 @@
                             android:id="@+id/profile_email"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dimen_1_5"
+                            android:layout_marginTop="@dimen/dimen_5"
                             tools:text="fakeemail@email.com" />
 
                         <LinearLayout
@@ -71,7 +71,7 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:padding="@dimen/dimen_1_5"
+                                android:padding="@dimen/dimen_5"
                                 android:gravity="center"
                                 android:layout_weight=".5">
 
@@ -84,7 +84,7 @@
                                     android:id="@+id/skype_id"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/dimen_1_5"
+                                    android:layout_marginLeft="@dimen/dimen_5"
                                     tools:text="fake skype id" />
 
                             </LinearLayout>
@@ -107,8 +107,8 @@
                                     android:id="@+id/location_name"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/dimen_1_5"
-                                    android:layout_marginStart="@dimen/dimen_1_5"
+                                    android:layout_marginLeft="@dimen/dimen_5"
+                                    android:layout_marginStart="@dimen/dimen_5"
                                     tools:text="Lima, Peru" />
 
                             </LinearLayout>

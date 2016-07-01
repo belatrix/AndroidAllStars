@@ -20,52 +20,68 @@
                 android:id="@+id/date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_3_5"
                 android:fontFamily="serif"
+                android:drawableLeft="@drawable/ic_event_time"
+                android:gravity="center_vertical"
+
+                android:drawablePadding="@dimen/dimen_5"
                 tools:text="DateHour" />
 
             <TextView
                 android:id="@+id/location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_3_5"
+                android:layout_marginTop="@dimen/dimen_5"
                 android:fontFamily="serif"
+                android:drawableLeft="@drawable/ic_event_location"
+                android:gravity="center_vertical"
+                android:drawablePadding="@dimen/dimen_5"
                 tools:text="Location" />
 
-            <TextView
-                android:id="@+id/title"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_3_5"
-                android:fontFamily="serif"
-                android:textSize="@dimen/text_16"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                tools:text="Title" />
+                android:paddingLeft="@dimen/dimen_4"
+                android:paddingRight="@dimen/dimen_4"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_3_5"
-                android:fontFamily="serif"
-                tools:text="Description" />
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_3_5"
+                    android:fontFamily="serif"
+                    android:textSize="@dimen/text_20"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    tools:text="Title" />
 
-            <TextView
-                android:id="@+id/collaborators"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_3_5"
-                android:fontFamily="serif"
-                tools:text="# Collaborators" />
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_2_5"
+                    android:fontFamily="serif"
+                    android:layout_marginBottom="@dimen/dimen_4_5"
+                    tools:text="Description" />
 
-            <TextView
-                android:id="@+id/participants"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_3_5"
-                android:fontFamily="serif"
-                tools:text="# Participants" />
+                <TextView
+                    android:id="@+id/collaborators"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="serif"
+                    android:layout_marginBottom="@dimen/dimen_2_5"
+                    android:visibility="gone"
+                    tools:text="# Collaborators" />
+
+                <TextView
+                    android:id="@+id/participants"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="serif"
+                    tools:text="# Participants" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
