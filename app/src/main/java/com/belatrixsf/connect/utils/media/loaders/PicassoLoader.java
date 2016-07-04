@@ -36,6 +36,21 @@ import java.io.File;
 public class PicassoLoader implements ImageLoader {
 
     @Override
+    public void loadFromRes(int resId, ImageView imageView) {
+        loadFromRes(resId, imageView, null);
+    }
+
+    @Override
+    public void loadFromRes(int resId, ImageView imageView, ImageTransformation transformation) {
+
+    }
+
+    @Override
+    public void loadFromRes(int resId, ImageView imageView, ImageTransformation transformation, Callback callback) {
+
+    }
+
+    @Override
     public void loadFromUrl(String url, ImageView imageView) {
 
     }

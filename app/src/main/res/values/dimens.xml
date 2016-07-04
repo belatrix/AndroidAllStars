@@ -27,6 +27,7 @@
     <dimen name="dimen_10_10">100dp</dimen>
     <dimen name="dimen_15_10">150dp</dimen>
     <dimen name="dimen_18_10">180dp</dimen>
+    <dimen name="dimen_22_10">220dp</dimen>
 
     <dimen name="text_12">12sp</dimen>
     <dimen name="text_16">16sp</dimen>
@@ -34,6 +35,8 @@
     <dimen name="text_28">28sp</dimen>
 
     <dimen name="keyword_stroke">1dp</dimen>
+
+    <dimen name="item_offset">4dp</dimen>
 
     <!-- Defaults -->
     <dimen name="default_corner_radius">4dp</dimen>

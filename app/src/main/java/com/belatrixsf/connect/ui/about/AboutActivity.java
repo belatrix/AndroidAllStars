@@ -18,22 +18,28 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.ui.contacts;
+package com.belatrixsf.connect.ui.about;
 
-import com.belatrixsf.connect.entities.Employee;
-import com.belatrixsf.connect.ui.common.BelatrixConnectView;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 
-import java.util.List;
+import com.belatrixsf.connect.R;
+import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
+
 
 /**
- * Created by icerrate on 15/04/2016.
+ * Created by icerrate on 09/06/2016.
  */
-public interface ContactsListView extends BelatrixConnectView {
+public class AboutActivity extends BelatrixConnectActivity {
 
-    void addContacts(List<Employee> contacts);
-    void showSearchActionMode();
-    void resetList();
-    void goContactProfile(Integer id);
-    void selectContact(Employee contact);
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_about);
+        if (savedInstanceState == null) {
+            replaceFragment(AboutFragment.newInstance(), false);
+        }
+        setNavigationToolbar();
+    }
 
 }

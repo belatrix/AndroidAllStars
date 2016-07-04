@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.connect.utils.di.components;
 
+import com.belatrixsf.connect.utils.di.modules.presenters.AboutPresenterModule;
 import com.belatrixsf.connect.managers.EmployeeManager;
 import com.belatrixsf.connect.utils.di.modules.RetrofitModule;
 import com.belatrixsf.connect.utils.di.modules.ServicesModule;
@@ -74,5 +75,7 @@ public interface ApplicationComponent {
     KeywordsComponent keywordsListComponent(KeywordsListModule keywordsListModule);
 
     EditAccountComponent editAccountComponent(EditAccountPresenterModule editAccountPresenterModule);
+
+    AboutComponent aboutComponent(AboutPresenterModule aboutPresenterModule);
 
 }

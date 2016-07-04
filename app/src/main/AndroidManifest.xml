@@ -14,51 +14,54 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.belatrixsf.connect.ui.login.LoginActivity"
+            android:name=".ui.login.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name="com.belatrixsf.connect.ui.signup.SignUpActivity"
+            android:name=".ui.signup.SignUpActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name="com.belatrixsf.connect.ui.resetpassword.ResetPasswordActivity"
+            android:name=".ui.resetpassword.ResetPasswordActivity"
             android:label="@string/title_reset_password_activity"/>
         <activity
-            android:name="com.belatrixsf.connect.ui.home.MainActivity"/>
+            android:name=".ui.home.MainActivity"/>
         <activity
-            android:name="com.belatrixsf.connect.ui.stars.StarsListActivity"
+            android:name=".ui.stars.StarsListActivity"
             android:label="@string/title_recommendation_activity"/>
         <activity
-            android:name="com.belatrixsf.connect.ui.stars.GiveStarActivity"
+            android:name=".ui.stars.GiveStarActivity"
             android:label="@string/title_give_star_activity"/>
         <activity
             android:name=".ui.account.AccountActivity"
             android:label="@string/title_account_activity"
-            android:parentActivityName="com.belatrixsf.connect.ui.home.MainActivity"/>
+            android:parentActivityName=".ui.home.MainActivity"/>
         <activity
-            android:name="com.belatrixsf.connect.ui.account.expanded.ExpandPictureActivity"
+            android:name=".ui.account.expanded.ExpandPictureActivity"
             android:label="@string/title_expand_photo_activity"/>
         <activity
-            android:name="com.belatrixsf.connect.ui.contacts.ContactsListActivity"
+            android:name=".ui.contacts.ContactsListActivity"
             android:label="@string/title_contact_activity"/>
         <activity
-            android:name="com.belatrixsf.connect.ui.stars.comment.CommentActivity"
+            android:name=".ui.stars.comment.CommentActivity"
             android:label="@string/title_comment_activity"
             android:windowSoftInputMode="stateAlwaysVisible"/>
         <activity
-            android:name="com.belatrixsf.connect.ui.category.CategoriesActivity"/>
+            android:name=".ui.category.CategoriesActivity"/>
         <activity
-            android:name="com.belatrixsf.connect.ui.stars.keyword.KeywordsActivity"
+            android:name=".ui.stars.keyword.KeywordsActivity"
             android:label="@string/title_keywords_activity"/>
         <activity
-            android:name="com.belatrixsf.connect.ui.contacts.keyword.ContactsKeywordListActivity"
+            android:name=".ui.contacts.keyword.ContactsKeywordListActivity"
             android:label="@string/title_contacts_keyword_activity"/>
-        <activity android:name="com.belatrixsf.connect.ui.account.edit.EditAccountActivity"
+        <activity android:name=".ui.account.edit.EditAccountActivity"
             android:label="@string/title_edit_profile_activity"/>
+        <activity
+            android:name=".ui.about.AboutActivity"
+            android:label="@string/title_about_activity"/>
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"/>
 
         <activity
-            android:name="com.belatrixsf.connect.ui.LauncherActivity">
+            android:name=".ui.LauncherActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

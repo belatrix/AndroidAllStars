@@ -45,6 +45,7 @@ import android.widget.TextView;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.belatrixsf.connect.ui.about.AboutActivity;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.MainNavigationViewPagerAdapter;
 import com.belatrixsf.connect.entities.Employee;
@@ -189,12 +190,19 @@ public class MainActivity extends BelatrixConnectActivity implements HomeView, R
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override public boolean onNavigationItemSelected(MenuItem item) {
+                        item.setChecked(false);
                         drawerLayout.closeDrawers();
                         switch (item.getItemId()){
                             case R.id.menu_home:
                                 break;
                             case R.id.menu_contacts:
                                 Intent intent = new Intent(MainActivity.this, ContactsListActivity.class);
+                                startActivity(intent);
+                                break;
+                            case R.id.menu_event:
+                                break;
+                            case R.id.menu_about:
+                                intent = new Intent(MainActivity.this, AboutActivity.class);
                                 startActivity(intent);
                                 break;
                         }
