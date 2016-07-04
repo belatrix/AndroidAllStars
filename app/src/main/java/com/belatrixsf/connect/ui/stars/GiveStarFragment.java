@@ -67,14 +67,10 @@ public class GiveStarFragment extends BelatrixConnectFragment implements GiveSta
     private GiveStarPresenter giveStarPresenter;
     private MenuItem menuDone;
 
-    @Bind(R.id.account_selection)
-    AccountSelectionView accountSelectionView;
-    @Bind(R.id.category_selection)
-    DataSelectionView categorySelectionView;
-    @Bind(R.id.comment_selection)
-    DataSelectionView commentSelectionView;
-    @Bind(R.id.keyword_selection)
-    KeywordSelectionView keywordSelectionView;
+    @Bind(R.id.account_selection) AccountSelectionView accountSelectionView;
+    @Bind(R.id.category_selection) DataSelectionView categorySelectionView;
+    @Bind(R.id.comment_selection) DataSelectionView commentSelectionView;
+    @Bind(R.id.keyword_selection) KeywordSelectionView keywordSelectionView;
 
     public static GiveStarFragment newInstance(Employee employee) {
         Bundle bundle = new Bundle();
@@ -202,6 +198,7 @@ public class GiveStarFragment extends BelatrixConnectFragment implements GiveSta
     @Override
     public void goSearchUser() {
         Intent intent = new Intent(getActivity(), ContactsListActivity.class);
+        intent.putExtra(ContactsListActivity.PROFILE_ENABLED_KEY, false);
         startActivityForResult(intent, RQ_CONTACT);
     }
 

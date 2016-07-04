@@ -64,7 +64,6 @@ import static com.belatrixsf.connect.ui.stars.GiveStarFragment.SELECTED_USER_KEY
  */
 public class ContactsListFragment extends BelatrixConnectFragment implements ContactsListView, RecyclerOnItemClickListener {
 
-    public static final String PROFILE_ENABLED_KEY = "_is_search";
     public static final String CONTACTS_KEY = "_employees_key";
     public static final String SEARCH_TEXT_KEY = "_search_text_key";
     public static final String PAGING_KEY = "_paging_key";
@@ -81,7 +80,7 @@ public class ContactsListFragment extends BelatrixConnectFragment implements Con
 
     public static ContactsListFragment newInstance(boolean profileEnabled) {
         Bundle bundle = new Bundle();
-        bundle.putBoolean(PROFILE_ENABLED_KEY, profileEnabled);
+        bundle.putBoolean(ContactsListActivity.PROFILE_ENABLED_KEY, profileEnabled);
         ContactsListFragment contactsListFragment = new ContactsListFragment();
         contactsListFragment.setArguments(bundle);
         return contactsListFragment;
@@ -110,11 +109,11 @@ public class ContactsListFragment extends BelatrixConnectFragment implements Con
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews();
-        boolean hasArguments = (getArguments() != null && getArguments().containsKey(PROFILE_ENABLED_KEY));
+        boolean hasArguments = (getArguments() != null && getArguments().containsKey(ContactsListActivity.PROFILE_ENABLED_KEY));
         if (savedInstanceState != null) {
             restorePresenterState(savedInstanceState);
         } else if (hasArguments) {
-            contactsListPresenter.setProfileEnabled(getArguments().getBoolean(PROFILE_ENABLED_KEY));
+            contactsListPresenter.setProfileEnabled(getArguments().getBoolean(ContactsListActivity.PROFILE_ENABLED_KEY));
         }
         contactsListPresenter.getContacts();
     }
@@ -147,13 +146,13 @@ public class ContactsListFragment extends BelatrixConnectFragment implements Con
         boolean searching = savedInstanceState.getBoolean(SEARCHING_KEY, false);
         PaginatedResponse paging = savedInstanceState.getParcelable(PAGING_KEY);
         String searchText = savedInstanceState.getString(SEARCH_TEXT_KEY, null);
-        boolean profileEnabled = savedInstanceState.getBoolean(PROFILE_ENABLED_KEY);
+        boolean profileEnabled = savedInstanceState.getBoolean(ContactsListActivity.PROFILE_ENABLED_KEY);
         contactsListPresenter.setProfileEnabled(profileEnabled);
         contactsListPresenter.load(contacts, paging, searchText, searching);
     }
 
     private void savePresenterState(Bundle outState) {
-        outState.putBoolean(PROFILE_ENABLED_KEY, contactsListPresenter.getProfileEnabled());
+        outState.putBoolean(ContactsListActivity.PROFILE_ENABLED_KEY, contactsListPresenter.getProfileEnabled());
         outState.putBoolean(SEARCHING_KEY, contactsListPresenter.isSearching());
         outState.putParcelable(PAGING_KEY, contactsListPresenter.getContactsPaging());
         outState.putString(SEARCH_TEXT_KEY, contactsListPresenter.getSearchText());
