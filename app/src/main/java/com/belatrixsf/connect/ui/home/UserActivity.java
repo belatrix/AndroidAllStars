@@ -15,7 +15,7 @@ import android.view.View;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.adapters.MainNavigationViewPagerAdapter;
+import com.belatrixsf.connect.adapters.UserNavigationViewPagerAdapter;
 import com.belatrixsf.connect.ui.account.AccountFragmentListener;
 import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
 import com.belatrixsf.connect.ui.ranking.RankingFragmentListener;
@@ -24,7 +24,6 @@ import com.belatrixsf.connect.ui.stars.GiveStarFragment;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.DialogUtils;
 import com.belatrixsf.connect.utils.di.components.DaggerUserHomeComponent;
-import com.belatrixsf.connect.utils.di.modules.presenters.GuestHomePresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.UserHomePresenterModule;
 
 import butterknife.Bind;
@@ -79,8 +78,8 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
     }
 
     private void setupTabs() {
-        MainNavigationViewPagerAdapter mainNavigationViewPagerAdapter = new MainNavigationViewPagerAdapter(this, getSupportFragmentManager());
-        mainViewPager.setAdapter(mainNavigationViewPagerAdapter);
+        UserNavigationViewPagerAdapter userNavigationViewPagerAdapter = new UserNavigationViewPagerAdapter(this, getSupportFragmentManager());
+        mainViewPager.setAdapter(userNavigationViewPagerAdapter);
         mainViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

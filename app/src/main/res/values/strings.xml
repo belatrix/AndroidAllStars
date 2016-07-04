@@ -63,6 +63,7 @@
     <string name="tab_ranking_title">Ranking</string>
     <string name="tab_contacts_title">Contacts</string>
     <string name="tab_keywords_title">Tags</string>
+    <string name="tab_events_title">Events</string>
 
     <!-- Login and Register -->
     <string name="title_login">Belatrix Connect</string>

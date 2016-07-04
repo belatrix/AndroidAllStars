@@ -31,6 +31,7 @@ import android.view.ViewGroup;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Guest;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
+import com.belatrixsf.connect.ui.home.GuestActivity;
 import com.belatrixsf.connect.ui.login.guest.email.GuestEmailActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.di.components.DaggerLoginAsGuestComponent;
@@ -235,7 +236,9 @@ public class LoginAsGuestFragment extends BelatrixConnectFragment implements Log
 
     @Override
     public void goHome() {
-        //Go MainActivity
+        Intent intent = new Intent(getActivity(), GuestActivity.class);
+        startActivity(intent);
+        fragmentListener.closeActivity();
     }
 
     @Override
