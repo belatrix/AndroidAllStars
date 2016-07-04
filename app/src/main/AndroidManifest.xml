@@ -34,7 +34,9 @@
             android:name=".ui.resetpassword.ResetPasswordActivity"
             android:label="@string/title_reset_password_activity"/>
         <activity
-            android:name=".ui.home.MainActivity"/>
+            android:name=".ui.home.UserActivity"/>
+        <activity
+            android:name=".ui.home.GuestActivity"/>
         <activity
             android:name=".ui.stars.StarsListActivity"
             android:label="@string/title_recommendation_activity"/>
@@ -44,7 +46,7 @@
         <activity
             android:name=".ui.account.AccountActivity"
             android:label="@string/title_account_activity"
-            android:parentActivityName=".ui.home.MainActivity"/>
+            android:parentActivityName=".ui.home.UserActivity"/>
         <activity
             android:name=".ui.account.expanded.ExpandPictureActivity"
             android:label="@string/title_expand_photo_activity"/>

@@ -115,7 +115,6 @@ public class LoginAsGuestPresenter extends BelatrixConnectPresenter<LoginAsGuest
                 @Override
                 public void onFailure(ServiceError serviceError) {
                     super.onFailure(serviceError);
-                    view.closeFacebookSessionIfNeeded();
                 }
             });
         }
