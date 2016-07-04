@@ -127,6 +127,12 @@ public abstract class MainActivity extends BelatrixConnectActivity implements Ho
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        navigationView.getMenu().getItem(0).setChecked(true);
+    }
+
     protected abstract void initDependencies();
 
     // HomeView
