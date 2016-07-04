@@ -42,10 +42,7 @@ import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 import com.belatrixsf.connect.ui.contacts.ContactsListActivity;
 import com.belatrixsf.connect.ui.login.LoginActivity;
-import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.DialogUtils;
-import com.belatrixsf.connect.utils.di.components.DaggerHomeComponent;
-import com.belatrixsf.connect.utils.di.modules.presenters.HomePresenterModule;
 import com.belatrixsf.connect.utils.media.ImageFactory;
 import com.belatrixsf.connect.utils.media.loaders.ImageLoader;
 
@@ -53,9 +50,9 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 
-public class MainActivity extends BelatrixConnectActivity implements HomeView {
+public abstract class MainActivity extends BelatrixConnectActivity implements HomeView {
 
-    protected @Inject HomePresenter homePresenter;
+    @Inject HomePresenter homePresenter;
 
     @Bind(R.id.drawer) DrawerLayout drawerLayout;
     @Bind(R.id.navigation) NavigationView navigationView;
@@ -67,6 +64,7 @@ public class MainActivity extends BelatrixConnectActivity implements HomeView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initDependencies();
     }
 
     protected void setupViews() {
@@ -124,13 +122,7 @@ public class MainActivity extends BelatrixConnectActivity implements HomeView {
         }
     }
 
-    protected void setupDependencies() {
-        BelatrixConnectApplication belatrixConnectApplication = (BelatrixConnectApplication) getApplicationContext();
-        DaggerHomeComponent.builder()
-                .applicationComponent(belatrixConnectApplication.getApplicationComponent())
-                .homePresenterModule(new HomePresenterModule(this))
-                .build().inject(this);
-    }
+    protected abstract void initDependencies();
 
     // HomeView
 

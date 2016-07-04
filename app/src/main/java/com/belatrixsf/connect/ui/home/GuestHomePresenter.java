@@ -18,28 +18,43 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.utils.di.modules.presenters;
+package com.belatrixsf.connect.ui.home;
 
-import com.belatrixsf.connect.ui.home.HomeView;
+import com.belatrixsf.connect.managers.GuestManager;
+import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 
-import dagger.Module;
-import dagger.Provides;
+import javax.inject.Inject;
 
 /**
- * Created by gyosida on 4/28/16.
+ * Created by gyosida on 7/4/16.
  */
-@Module
-public class HomePresenterModule {
+public class GuestHomePresenter extends BelatrixConnectPresenter<HomeView> implements HomePresenter {
 
-    private HomeView homeView;
+    private GuestManager guestManager;
 
-    public HomePresenterModule(HomeView homeView) {
-        this.homeView = homeView;
+    @Inject
+    public GuestHomePresenter(HomeView homeView, GuestManager guestManager) {
+        super(homeView);
+        this.guestManager = guestManager;
     }
 
-    @Provides
-    public HomeView provideHomeView() {
-        return homeView;
+    @Override
+    public void cancelRequests() {
+
     }
 
+    @Override
+    public void wantToLogout() {
+
+    }
+
+    @Override
+    public void confirmLogout() {
+
+    }
+
+    @Override
+    public void loadEmployeeData() {
+
+    }
 }

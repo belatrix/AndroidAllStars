@@ -21,7 +21,11 @@ import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
 import com.belatrixsf.connect.ui.ranking.RankingFragmentListener;
 import com.belatrixsf.connect.ui.stars.GiveStarActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarFragment;
+import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.DialogUtils;
+import com.belatrixsf.connect.utils.di.components.DaggerUserHomeComponent;
+import com.belatrixsf.connect.utils.di.modules.presenters.GuestHomePresenterModule;
+import com.belatrixsf.connect.utils.di.modules.presenters.UserHomePresenterModule;
 
 import butterknife.Bind;
 
@@ -46,7 +50,15 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
         setContentView(R.layout.activity_main);
         setToolbar();
         setupViews();
-        setupDependencies();
+    }
+
+    @Override
+    protected void initDependencies() {
+        BelatrixConnectApplication belatrixConnectApplication = (BelatrixConnectApplication) getApplicationContext();
+        DaggerUserHomeComponent.builder()
+                .applicationComponent(belatrixConnectApplication.getApplicationComponent())
+                .userHomePresenterModule(new UserHomePresenterModule(this))
+                .build().inject(this);
     }
 
     protected void setupViews() {
@@ -128,7 +140,7 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
                 }
             }).show();
         } else if (requestCode == EditAccountFragment.RQ_EDIT_ACCOUNT && resultCode == Activity.RESULT_OK && data != null) {
-            homePresenter.refreshEmployee();
+            ((UserHomePresenter) homePresenter).refreshEmployee();
         }
     }
 

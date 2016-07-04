@@ -20,8 +20,8 @@
 */
 package com.belatrixsf.connect.utils.di.components;
 
-import com.belatrixsf.connect.ui.home.MainActivity;
-import com.belatrixsf.connect.utils.di.modules.presenters.HomePresenterModule;
+import com.belatrixsf.connect.ui.home.UserActivity;
+import com.belatrixsf.connect.utils.di.modules.presenters.UserHomePresenterModule;
 import com.belatrixsf.connect.utils.di.scopes.UIScope;
 
 import dagger.Component;
@@ -32,14 +32,14 @@ import dagger.Component;
 @UIScope
 @Component(
         modules = {
-                HomePresenterModule.class
+                UserHomePresenterModule.class
         },
         dependencies = {
                 ApplicationComponent.class
         }
 )
-public interface HomeComponent {
+public interface UserHomeComponent {
 
-    void inject(MainActivity mainActivity);
+    void inject(UserActivity userActivity);
 
 }

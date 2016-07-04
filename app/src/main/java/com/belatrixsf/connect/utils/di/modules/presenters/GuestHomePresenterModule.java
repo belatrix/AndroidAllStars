@@ -18,17 +18,31 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.ui.home;
+package com.belatrixsf.connect.utils.di.modules.presenters;
+
+import com.belatrixsf.connect.managers.GuestManager;
+import com.belatrixsf.connect.ui.home.GuestHomePresenter;
+import com.belatrixsf.connect.ui.home.HomePresenter;
+import com.belatrixsf.connect.ui.home.HomeView;
+
+import dagger.Module;
+import dagger.Provides;
 
 /**
  * Created by gyosida on 7/4/16.
  */
-public interface HomePresenter {
+@Module
+public class GuestHomePresenterModule {
 
-    void wantToLogout();
+    private HomeView homeView;
 
-    void confirmLogout();
+    public GuestHomePresenterModule(HomeView homeView) {
+        this.homeView = homeView;
+    }
 
-    void loadEmployeeData();
+    @Provides
+    public HomePresenter provideGuestHomePresenter(GuestManager guestManager) {
+        return new GuestHomePresenter(homeView, guestManager);
+    }
 
 }

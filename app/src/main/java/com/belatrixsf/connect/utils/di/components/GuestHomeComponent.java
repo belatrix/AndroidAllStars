@@ -18,17 +18,28 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.ui.home;
+package com.belatrixsf.connect.utils.di.components;
+
+import com.belatrixsf.connect.ui.home.GuestActivity;
+import com.belatrixsf.connect.utils.di.modules.presenters.GuestHomePresenterModule;
+import com.belatrixsf.connect.utils.di.scopes.UIScope;
+
+import dagger.Component;
 
 /**
  * Created by gyosida on 7/4/16.
  */
-public interface HomePresenter {
+@UIScope
+@Component(
+        modules = {
+                GuestHomePresenterModule.class
+        },
+        dependencies = {
+                ApplicationComponent.class
+        }
+)
+public interface GuestHomeComponent {
 
-    void wantToLogout();
-
-    void confirmLogout();
-
-    void loadEmployeeData();
+    void inject(GuestActivity guestActivity);
 
 }
