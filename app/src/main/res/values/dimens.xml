@@ -39,6 +39,8 @@
 
     <dimen name="keyword_stroke">1dp</dimen>
 
+    <dimen name="item_offset">4dp</dimen>
+
     <!-- Defaults -->
     <dimen name="default_corner_radius">4dp</dimen>
     <dimen name="default_picture_stroke_width">7dp</dimen>

@@ -66,7 +66,6 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
         setupTabs();
     }
 
-
     private void setupActionButton() {
         startRecommendationButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,6 +145,5 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
     public static Intent makeIntent(Context context) {
         return new Intent(context, UserActivity.class);
     }
-
 
 }

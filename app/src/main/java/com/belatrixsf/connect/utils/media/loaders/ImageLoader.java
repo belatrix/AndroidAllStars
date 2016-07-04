@@ -39,6 +39,12 @@ public interface ImageLoader {
         CIRCLE
     }
 
+    void loadFromRes(int resId, ImageView imageView, Drawable placeholder);
+
+    void loadFromRes(int resId, ImageView imageView, ImageTransformation transformation, Drawable placeholder);
+
+    void loadFromRes(int resId, ImageView imageView, ImageTransformation transformation, ImageLoader.Callback callback, Drawable placeholder);
+
     void loadFromUrl(String url, ImageView imageView, Drawable placeholder);
 
     void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation, Drawable placeholder);

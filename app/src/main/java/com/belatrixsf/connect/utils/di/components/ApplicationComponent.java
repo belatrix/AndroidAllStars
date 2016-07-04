@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.connect.utils.di.components;
 
+import com.belatrixsf.connect.utils.di.modules.presenters.AboutPresenterModule;
 import com.belatrixsf.connect.managers.EmployeeManager;
 import com.belatrixsf.connect.managers.GuestManager;
 import com.belatrixsf.connect.utils.di.modules.RetrofitModule;
@@ -83,5 +84,7 @@ public interface ApplicationComponent {
     EventListComponent eventListComponent(EventListPresenterModule EventListPresenterModule);
 
     EventDetailComponent eventDetailComponent(EventDetailPresenterModule eventDetailPresenterModule);
+
+    AboutComponent aboutComponent(AboutPresenterModule aboutPresenterModule);
 
 }

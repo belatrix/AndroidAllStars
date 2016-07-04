@@ -39,6 +39,7 @@ import android.widget.TextView;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Employee;
+import com.belatrixsf.connect.ui.about.AboutActivity;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 import com.belatrixsf.connect.ui.contacts.ContactsListActivity;
 import com.belatrixsf.connect.ui.event.EventListActivity;
@@ -102,12 +103,16 @@ public abstract class MainActivity extends BelatrixConnectActivity implements Ho
                         switch (item.getItemId()){
                             case R.id.menu_home:
                                 break;
-                            case R.id.menu_event:
-                                Intent intent = new Intent(MainActivity.this, EventListActivity.class);
+                            case R.id.menu_contacts:
+                                Intent intent = new Intent(MainActivity.this, ContactsListActivity.class);
                                 startActivity(intent);
                                 break;
-                            case R.id.menu_contacts:
-                                intent = new Intent(MainActivity.this, ContactsListActivity.class);
+                            case R.id.menu_event:
+                                intent = new Intent(MainActivity.this, EventListActivity.class);
+                                startActivity(intent);
+                                break;
+                            case R.id.menu_about:
+                                intent = new Intent(MainActivity.this, AboutActivity.class);
                                 startActivity(intent);
                                 break;
                         }

@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.connect.ui.home;
 
+import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.managers.GuestManager;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 
@@ -45,16 +46,17 @@ public class GuestHomePresenter extends BelatrixConnectPresenter<HomeView> imple
 
     @Override
     public void wantToLogout() {
-
+        view.showLogoutConfirmationDialog(getString(R.string.dialog_confirmation_logout));
     }
 
     @Override
     public void confirmLogout() {
-
+        guestManager.logout();
+        view.goToLogin();
     }
 
     @Override
     public void loadEmployeeData() {
-
+        guestManager.refreshGuest();
     }
 }

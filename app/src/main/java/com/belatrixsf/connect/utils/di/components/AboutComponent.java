@@ -18,22 +18,23 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.ui.contacts;
+package com.belatrixsf.connect.utils.di.components;
 
-import com.belatrixsf.connect.entities.Employee;
-import com.belatrixsf.connect.ui.common.BelatrixConnectView;
+import com.belatrixsf.connect.ui.about.AboutPresenter;
+import com.belatrixsf.connect.utils.di.modules.presenters.AboutPresenterModule;
+import com.belatrixsf.connect.utils.di.scopes.UIScope;
 
-import java.util.List;
+import dagger.Subcomponent;
 
 /**
- * Created by icerrate on 15/04/2016.
+ * Created by icerrate on 09/06/2016.
  */
-public interface ContactsListView extends BelatrixConnectView {
+@UIScope
+@Subcomponent(
+        modules = AboutPresenterModule.class
+)
+public interface AboutComponent {
 
-    void addContacts(List<Employee> contacts);
-    void showSearchActionMode();
-    void resetList();
-    void goContactProfile(Integer id);
-    void selectContact(Employee contact);
+    AboutPresenter aboutPresenter();
 
 }

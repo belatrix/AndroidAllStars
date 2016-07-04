@@ -61,18 +61,20 @@
             android:name=".ui.category.CategoriesActivity"/>
         <activity
             android:name=".ui.stars.keyword.KeywordsActivity"
-            android:label="@string/title_keywords_activity" />
+            android:label="@string/title_keywords_activity"/>
         <activity
             android:name=".ui.contacts.keyword.ContactsKeywordListActivity"
             android:label="@string/title_contacts_keyword_activity"/>
         <activity android:name=".ui.account.edit.EditAccountActivity"
             android:label="@string/title_edit_profile_activity"/>
+        <activity
+            android:name=".ui.about.AboutActivity"
+            android:label="@string/title_about_activity"/>
         <activity android:name=".ui.event.EventListActivity"
             android:label="@string/title_event_list_activity"/>
         <activity android:name=".ui.event.detail.EventDetailActivity"
             android:label="@string/title_event_detail_activity"/>
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" />
             android:theme="@style/Base.Theme.AppCompat"/>
         <activity
             android:name=".ui.LauncherActivity">
