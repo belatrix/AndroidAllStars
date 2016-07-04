@@ -18,30 +18,24 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.ui.contacts;
+package com.belatrixsf.connect.ui.login.guest.email;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 
 /**
- * Created by pedrocarrillo on 4/26/16.
+ * Created by icerrate on 24/06/2016.
  */
-public class ContactsListActivity extends BelatrixConnectActivity {
+public class GuestEmailActivity extends BelatrixConnectActivity {
 
-    public static final String PROFILE_ENABLED_KEY = "_is_search";
+    public static final String GUEST_EMAIL_KEY = "_guest_email_key";
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contacts_list);
-        if (savedInstanceState == null) {
-            boolean profileEnabled = getIntent().getBooleanExtra(PROFILE_ENABLED_KEY, true);
-            replaceFragment(ContactsListFragment.newInstance(profileEnabled), false);
-        }
-        setNavigationToolbar();
+        setContentView(R.layout.activity_guest_email);
     }
 
 }

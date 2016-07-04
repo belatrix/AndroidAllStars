@@ -1,11 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/white"
     android:orientation="vertical"
-    tools:context="com.belatrixsf.connect.ui.signup.SignUpFragment">
+    tools:context=".ui.login.guest.LoginAsGuestActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/dimen_3_5"
-            android:text="@string/let_s_get_started"
+            android:text="@string/get_guest_email_title"
             android:textStyle="bold"
             android:textSize="@dimen/text_16" />
 
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginTop="@dimen/dimen_5"
-            android:text="@string/enter_your_email_address_to_receive_your_temporary_password"
+            android:text="@string/get_guest_email_message"
             android:textSize="@dimen/text_12" />
 
         <android.support.design.widget.TextInputLayout
@@ -63,10 +63,10 @@
         </android.support.design.widget.TextInputLayout>
 
         <Button
-            android:id="@+id/send"
+            android:id="@+id/send_email"
             style="@style/Button.Primary"
             android:layout_marginTop="@dimen/dimen_9_5"
-            android:text="@string/button_sign_up_action"/>
+            android:text="@string/button_continue_twitter_login"/>
 
     </LinearLayout>
 

@@ -22,7 +22,6 @@ package com.belatrixsf.connect.utils.di.scopes;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 
 import javax.inject.Scope;
 

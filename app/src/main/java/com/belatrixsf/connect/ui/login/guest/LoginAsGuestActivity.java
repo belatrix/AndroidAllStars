@@ -18,30 +18,31 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.ui.contacts;
+package com.belatrixsf.connect.ui.login.guest;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 
 /**
- * Created by pedrocarrillo on 4/26/16.
+ * Created by icerrate on 27/05/16.
  */
-public class ContactsListActivity extends BelatrixConnectActivity {
-
-    public static final String PROFILE_ENABLED_KEY = "_is_search";
+public class LoginAsGuestActivity extends BelatrixConnectActivity {
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contacts_list);
-        if (savedInstanceState == null) {
-            boolean profileEnabled = getIntent().getBooleanExtra(PROFILE_ENABLED_KEY, true);
-            replaceFragment(ContactsListFragment.newInstance(profileEnabled), false);
-        }
-        setNavigationToolbar();
+        setContentView(R.layout.activity_login_as_guest);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        LoginAsGuestFragment fragment = (LoginAsGuestFragment) getSupportFragmentManager().findFragmentById(R.id.content);
+        if (fragment != null) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 }

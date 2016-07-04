@@ -202,6 +202,7 @@ public class GiveStarFragment extends BelatrixConnectFragment implements GiveSta
     @Override
     public void goSearchUser() {
         Intent intent = new Intent(getActivity(), ContactsListActivity.class);
+        intent.putExtra(ContactsListActivity.PROFILE_ENABLED_KEY, false);
         startActivityForResult(intent, RQ_CONTACT);
     }
 

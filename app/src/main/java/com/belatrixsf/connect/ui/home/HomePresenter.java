@@ -20,50 +20,15 @@
 */
 package com.belatrixsf.connect.ui.home;
 
-import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.entities.Employee;
-import com.belatrixsf.connect.managers.EmployeeManager;
-import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
-
-import javax.inject.Inject;
-
 /**
- * Created by gyosida on 4/28/16.
+ * Created by gyosida on 7/4/16.
  */
-public class HomePresenter extends BelatrixConnectPresenter<HomeView> {
+public interface HomePresenter {
 
-    private EmployeeManager employeeManager;
+    void wantToLogout();
 
-    @Inject
-    public HomePresenter(HomeView view, EmployeeManager employeeManager) {
-        super(view);
-        this.employeeManager = employeeManager;
-    }
+    void confirmLogout();
 
-    public void wantToLogout() {
-        view.showLogoutConfirmationDialog(getString(R.string.dialog_confirmation_logout));
-    }
-
-    public void confirmLogout() {
-        employeeManager.logout();
-        view.goToLogin();
-    }
-
-    public void loadEmployeeData(){
-        employeeManager.getLoggedInEmployee(new PresenterCallback<Employee>() {
-            @Override
-            public void onSuccess(Employee employee) {
-                view.setNavigationDrawerData(employee);
-            }
-        });
-    }
-
-    @Override
-    public void cancelRequests() {
-    }
-
-    public void refreshEmployee() {
-        employeeManager.refreshEmployee();
-    }
+    void loadEmployeeData();
 
 }

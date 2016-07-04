@@ -18,28 +18,15 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.utils.di.components;
+package com.belatrixsf.connect.ui.login.guest.email;
 
-import com.belatrixsf.connect.ui.home.MainActivity;
-import com.belatrixsf.connect.utils.di.modules.presenters.HomePresenterModule;
-import com.belatrixsf.connect.utils.di.scopes.UIScope;
-
-import dagger.Component;
+import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 
 /**
- * Created by gyosida on 4/28/16.
+ * Created by icerrate on 24/06/2016.
  */
-@UIScope
-@Component(
-        modules = {
-                HomePresenterModule.class
-        },
-        dependencies = {
-                ApplicationComponent.class
-        }
-)
-public interface HomeComponent {
+public interface GuestEmailView extends BelatrixConnectView {
 
-    void inject(MainActivity mainActivity);
+    void goBackWithEmail(String email);
 
 }

@@ -18,30 +18,43 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.ui.contacts;
+package com.belatrixsf.connect.ui.home;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
+import com.belatrixsf.connect.managers.GuestManager;
+import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 
-import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
+import javax.inject.Inject;
 
 /**
- * Created by pedrocarrillo on 4/26/16.
+ * Created by gyosida on 7/4/16.
  */
-public class ContactsListActivity extends BelatrixConnectActivity {
+public class GuestHomePresenter extends BelatrixConnectPresenter<HomeView> implements HomePresenter {
 
-    public static final String PROFILE_ENABLED_KEY = "_is_search";
+    private GuestManager guestManager;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contacts_list);
-        if (savedInstanceState == null) {
-            boolean profileEnabled = getIntent().getBooleanExtra(PROFILE_ENABLED_KEY, true);
-            replaceFragment(ContactsListFragment.newInstance(profileEnabled), false);
-        }
-        setNavigationToolbar();
+    @Inject
+    public GuestHomePresenter(HomeView homeView, GuestManager guestManager) {
+        super(homeView);
+        this.guestManager = guestManager;
     }
 
+    @Override
+    public void cancelRequests() {
+
+    }
+
+    @Override
+    public void wantToLogout() {
+
+    }
+
+    @Override
+    public void confirmLogout() {
+
+    }
+
+    @Override
+    public void loadEmployeeData() {
+
+    }
 }

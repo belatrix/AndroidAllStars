@@ -18,30 +18,26 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.ui.contacts;
+package com.belatrixsf.connect.networking.retrofit.api;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
+import com.belatrixsf.connect.entities.Guest;
+import com.belatrixsf.connect.networking.retrofit.responses.GuestAuthenticationResponse;
 
-import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 /**
- * Created by pedrocarrillo on 4/26/16.
+ * Created by icerrate on 22/06/2016.
  */
-public class ContactsListActivity extends BelatrixConnectActivity {
+public interface GuestAPI {
 
-    public static final String PROFILE_ENABLED_KEY = "_is_search";
+    @POST(ServerPaths.GUEST_AUTHENTICATE)
+    Call<GuestAuthenticationResponse> authenticateGuest(@Body Guest request);
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contacts_list);
-        if (savedInstanceState == null) {
-            boolean profileEnabled = getIntent().getBooleanExtra(PROFILE_ENABLED_KEY, true);
-            replaceFragment(ContactsListFragment.newInstance(profileEnabled), false);
-        }
-        setNavigationToolbar();
-    }
+    @GET(ServerPaths.GUEST_BY_ID)
+    Call<Guest> getGuest(@Path(ServerPaths.GUEST_ID) int guestId);
 
 }

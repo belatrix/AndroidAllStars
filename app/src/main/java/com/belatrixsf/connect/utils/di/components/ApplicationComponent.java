@@ -21,6 +21,7 @@
 package com.belatrixsf.connect.utils.di.components;
 
 import com.belatrixsf.connect.managers.EmployeeManager;
+import com.belatrixsf.connect.managers.GuestManager;
 import com.belatrixsf.connect.utils.di.modules.RetrofitModule;
 import com.belatrixsf.connect.utils.di.modules.ServicesModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.AccountPresenterModule;
@@ -54,6 +55,8 @@ import dagger.Component;
 public interface ApplicationComponent {
 
     EmployeeManager employeeManager();
+
+    GuestManager guestManager();
 
     SignUpComponent signUpComponent(SignUpPresenterModule signUpPresenterModule);
 

@@ -23,9 +23,13 @@ package com.belatrixsf.connect.utils;
 import android.app.Application;
 import android.content.Context;
 
+import com.belatrixsf.connect.BuildConfig;
 import com.belatrixsf.connect.utils.di.components.ApplicationComponent;
 import com.belatrixsf.connect.utils.di.components.DaggerApplicationComponent;
 import com.crashlytics.android.Crashlytics;
+import com.facebook.FacebookSdk;
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -45,7 +49,10 @@ public class BelatrixConnectApplication extends Application {
         applicationComponent = DaggerApplicationComponent.create();
         //TODO uncomment when production ready
         // if (!BuildConfig.DEBUG) {
-            Fabric.with(this, new Crashlytics());
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(BuildConfig.TWITTER_ID, BuildConfig.TWITTER_SECRET);
+        Fabric.with(this, new Crashlytics(), new Twitter(authConfig));
+        FacebookSdk.setApplicationId(BuildConfig.FB_ID);
+        FacebookSdk.sdkInitialize(this);
         // }
     }
 

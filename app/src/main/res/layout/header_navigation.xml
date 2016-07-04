@@ -14,7 +14,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/activity_margin">
+        android:layout_margin="@dimen/dimen_3_5">
 
         <ImageView
             android:id="@+id/picture"
@@ -26,7 +26,7 @@
             android:contentDescription="@string/profile_image_content_desc"/>
 
         <TextView
-            android:id="@+id/fullname"
+            android:id="@+id/full_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="@string/title_full_name"
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             tools:text="@string/title_email"
             android:layout_gravity="bottom"
-            android:layout_below="@+id/fullname"
+            android:layout_below="@+id/full_name"
             android:textColor="@color/white"/>
 
     </RelativeLayout>

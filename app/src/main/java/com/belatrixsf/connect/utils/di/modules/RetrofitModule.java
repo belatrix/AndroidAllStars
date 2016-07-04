@@ -25,6 +25,7 @@ import com.belatrixsf.connect.managers.PreferencesManager;
 import com.belatrixsf.connect.networking.retrofit.api.CategoryAPI;
 import com.belatrixsf.connect.networking.retrofit.api.EmployeeAPI;
 import com.belatrixsf.connect.networking.retrofit.api.EventAPI;
+import com.belatrixsf.connect.networking.retrofit.api.GuestAPI;
 import com.belatrixsf.connect.networking.retrofit.api.StarAPI;
 
 import java.io.IOException;
@@ -99,5 +100,9 @@ public class RetrofitModule {
     @Provides
     public EventAPI provideEventAPI(Retrofit retrofit) {
         return retrofit.create(EventAPI.class);
+    }
+    @Provides
+    public GuestAPI provideGuestAPI(Retrofit retrofit) {
+        return retrofit.create(GuestAPI.class);
     }
 }
