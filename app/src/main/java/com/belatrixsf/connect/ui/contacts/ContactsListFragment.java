@@ -272,7 +272,6 @@ public class ContactsListFragment extends BelatrixConnectFragment implements Con
         noDataTextView.setVisibility(View.GONE);
     }
 
-
     @Override
     public void onDestroyView() {
         contactsListPresenter.cancelRequests();
