@@ -35,5 +35,7 @@ public interface ContactsListView extends BelatrixConnectView {
     void resetList();
     void goContactProfile(Integer id);
     void selectContact(Employee contact);
+    void showNoDataView();
+    void hideNoDataView();
 
 }
