@@ -8,16 +8,21 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.UserNavigationViewPagerAdapter;
+import com.belatrixsf.connect.ui.about.AboutActivity;
 import com.belatrixsf.connect.ui.account.AccountFragmentListener;
 import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
+import com.belatrixsf.connect.ui.contacts.ContactsListActivity;
+import com.belatrixsf.connect.ui.event.EventListActivity;
 import com.belatrixsf.connect.ui.ranking.RankingFragmentListener;
 import com.belatrixsf.connect.ui.stars.GiveStarActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarFragment;
@@ -62,6 +67,8 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
 
     protected void setupViews() {
         super.setupViews();
+        setupNavigationDrawerMenu();
+        setupNavigationDrawerListener();
         setupActionButton();
         setupTabs();
     }
@@ -103,7 +110,9 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
 
             }
         });
-        tabLayout.setupWithViewPager(mainViewPager);
+        if (tabLayout != null) {
+            tabLayout.setupWithViewPager(mainViewPager);
+        }
 
         AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_last_month, R.drawable.ic_event, R.color.colorAccent);
         AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_current_month, R.drawable.ic_whatshot, R.color.colorActiveSmall);
@@ -115,6 +124,36 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
 
         bottomNavigation.setBehaviorTranslationEnabled(false);
 
+    }
+
+    protected void setupNavigationDrawerMenu() {
+        super.setNavigationDrawerMenu(R.menu.menu_user_nav_view);
+    }
+
+    protected void setupNavigationDrawerListener() {
+        super.setNavigationDrawerListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                drawerLayout.closeDrawers();
+                switch (item.getItemId()) {
+                    case R.id.menu_home:
+                        break;
+                    case R.id.menu_contacts:
+                        Intent intent = new Intent(UserActivity.this, ContactsListActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.menu_event:
+                        intent = new Intent(UserActivity.this, EventListActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.menu_about:
+                        intent = new Intent(UserActivity.this, AboutActivity.class);
+                        startActivity(intent);
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     @Override

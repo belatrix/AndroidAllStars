@@ -22,7 +22,6 @@ package com.belatrixsf.connect.ui.home;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -38,11 +37,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.entities.Employee;
-import com.belatrixsf.connect.ui.about.AboutActivity;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
-import com.belatrixsf.connect.ui.contacts.ContactsListActivity;
-import com.belatrixsf.connect.ui.event.EventListActivity;
 import com.belatrixsf.connect.ui.login.LoginActivity;
 import com.belatrixsf.connect.utils.DialogUtils;
 import com.belatrixsf.connect.utils.media.ImageFactory;
@@ -95,30 +90,6 @@ public abstract class MainActivity extends BelatrixConnectActivity implements Ho
 
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override public boolean onNavigationItemSelected(MenuItem item) {
-                        drawerLayout.closeDrawers();
-                        switch (item.getItemId()){
-                            case R.id.menu_home:
-                                break;
-                            case R.id.menu_contacts:
-                                Intent intent = new Intent(MainActivity.this, ContactsListActivity.class);
-                                startActivity(intent);
-                                break;
-                            case R.id.menu_event:
-                                intent = new Intent(MainActivity.this, EventListActivity.class);
-                                startActivity(intent);
-                                break;
-                            case R.id.menu_about:
-                                intent = new Intent(MainActivity.this, AboutActivity.class);
-                                startActivity(intent);
-                                break;
-                        }
-                        return true;
-                    }
-                });
     }
 
     @Override
@@ -140,10 +111,18 @@ public abstract class MainActivity extends BelatrixConnectActivity implements Ho
 
     protected abstract void initDependencies();
 
+    protected void setNavigationDrawerMenu(Integer menuResource) {
+        navigationView.inflateMenu(menuResource);
+    }
+
+    protected void setNavigationDrawerListener(NavigationView.OnNavigationItemSelectedListener listener) {
+        navigationView.setNavigationItemSelectedListener(listener);
+    }
+
     // HomeView
 
     @Override
-    public void setNavigationDrawerData(final Employee employee) {
+    public void setNavigationDrawerData(final String photoUrl, final String fullName, final String email) {
         if (navigationView != null) {
             navigationView.post(new Runnable() {
                 @Override
@@ -152,17 +131,16 @@ public abstract class MainActivity extends BelatrixConnectActivity implements Ho
                     TextView fullNameTextView = (TextView) navigationView.findViewById(R.id.full_name);
                     TextView emailTextView = (TextView) navigationView.findViewById(R.id.email);
                     if (pictureImageView != null && fullNameTextView != null && emailTextView != null) {
-                        ImageFactory.getLoader().loadFromUrl(employee.getAvatar(),
+                        ImageFactory.getLoader().loadFromUrl(photoUrl,
                                 pictureImageView,
                                 ImageLoader.ImageTransformation.BORDERED_CIRCLE,
                                 pictureImageView.getResources().getDrawable(R.drawable.contact_placeholder)
                         );
-                        fullNameTextView.setText(employee.getFullName());
-                        emailTextView.setText(employee.getEmail());
+                        fullNameTextView.setText(fullName);
+                        emailTextView.setText(email);
                     }
                 }
             });
-
         }
     }
 

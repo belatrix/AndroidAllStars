@@ -21,6 +21,7 @@
 package com.belatrixsf.connect.ui.home;
 
 import com.belatrixsf.connect.R;
+import com.belatrixsf.connect.entities.Guest;
 import com.belatrixsf.connect.managers.GuestManager;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 
@@ -57,6 +58,11 @@ public class GuestHomePresenter extends BelatrixConnectPresenter<HomeView> imple
 
     @Override
     public void loadEmployeeData() {
-        guestManager.refreshGuest();
+        guestManager.getLoggedInGuest(new PresenterCallback<Guest>() {
+            @Override
+            public void onSuccess(Guest guest) {
+                view.setNavigationDrawerData(guest.getAvatarLink(), guest.getFullName(), guest.getEmail());
+            }
+        });
     }
 }

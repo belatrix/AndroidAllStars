@@ -50,6 +50,8 @@ public class Guest implements Parcelable {
     private String twitterId ;
     @SerializedName("twitter_link")
     private String twitterLink;
+    @SerializedName("avatar_link")
+    private String avatarLink;
 
     public Guest(String fullName, String email, String facebookId, String twitterId, String userName) {
         this.fullName = fullName;
@@ -59,6 +61,7 @@ public class Guest implements Parcelable {
         this.userName = userName;
         generateFacebookLink();
         generateTwitterLink();
+        generateAvatarLink();
     }
 
     public Integer getId() {
@@ -109,6 +112,10 @@ public class Guest implements Parcelable {
         return twitterLink;
     }
 
+    public String getAvatarLink() {
+        return avatarLink;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -145,6 +152,7 @@ public class Guest implements Parcelable {
     public void setFacebookId(String facebookId) {
         this.facebookId = facebookId;
         generateFacebookLink();
+        generateAvatarLink();
     }
 
     public void setFacebookLink(String facebookLink) {
@@ -159,12 +167,22 @@ public class Guest implements Parcelable {
         this.twitterLink = twitterLink;
     }
 
+    public void setAvatarLink(String avatarLink) {
+        this.avatarLink = avatarLink;
+    }
+
     private void generateFacebookLink() {
         facebookLink = facebookId != null ? "https://facebook.com/" + facebookId : null;
     }
 
     private void generateTwitterLink() {
         twitterLink = twitterId != null ? "https://twitter.com/" + userName : null;
+    }
+
+    private void generateAvatarLink() {
+        if (facebookId != null) {
+            avatarLink = "https://graph.facebook.com/" + facebookId + "/picture?type=large";
+        }
     }
 
     protected Guest(Parcel in) {
@@ -180,6 +198,7 @@ public class Guest implements Parcelable {
         facebookLink  = in.readString();
         twitterId  = in.readString();
         twitterLink  = in.readString();
+        avatarLink  = in.readString();
     }
 
     @Override
@@ -206,6 +225,7 @@ public class Guest implements Parcelable {
         dest.writeString(facebookLink);
         dest.writeString(twitterId);
         dest.writeString(twitterLink);
+        dest.writeString(avatarLink);
     }
 
     @SuppressWarnings("unused")

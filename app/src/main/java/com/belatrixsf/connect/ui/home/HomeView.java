@@ -20,7 +20,6 @@
 */
 package com.belatrixsf.connect.ui.home;
 
-import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 
 /**
@@ -30,6 +29,5 @@ public interface HomeView extends BelatrixConnectView {
 
     void goToLogin();
     void showLogoutConfirmationDialog(String message);
-    void setNavigationDrawerData(Employee employee);
-
+    void setNavigationDrawerData(String photoUrl, String fullName, String email);
 }

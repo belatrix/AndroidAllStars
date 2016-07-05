@@ -48,8 +48,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/white"
-        app:headerLayout="@layout/header_navigation"
-        app:menu="@menu/menu_nav_view">
+        app:headerLayout="@layout/header_navigation">
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -56,7 +56,7 @@ public class UserHomePresenter extends BelatrixConnectPresenter<HomeView> implem
         employeeManager.getLoggedInEmployee(new PresenterCallback<Employee>() {
             @Override
             public void onSuccess(Employee employee) {
-                view.setNavigationDrawerData(employee);
+                view.setNavigationDrawerData(employee.getAvatar(), employee.getFullName(), employee.getEmail());
             }
         });
     }

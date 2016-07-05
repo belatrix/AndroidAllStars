@@ -69,6 +69,26 @@ public class GuestManager {
         });
     }
 
+    public void getLoggedInGuest(final BelatrixConnectCallback<Guest> callback) {
+        if (guest == null) {
+            int storedGuestId = PreferencesManager.get().getGuestId();
+            guestService.getGuest(storedGuestId, new BelatrixConnectCallback<Guest>() {
+                @Override
+                public void onSuccess(Guest guest) {
+                    GuestManager.this.guest = guest;
+                    callback.onSuccess(guest);
+                }
+
+                @Override
+                public void onFailure(ServiceError serviceError) {
+                    callback.onFailure(serviceError);
+                }
+            });
+        } else {
+            callback.onSuccess(guest);
+        }
+    }
+
     public void refreshGuest() {
         this.guest = null;
     }

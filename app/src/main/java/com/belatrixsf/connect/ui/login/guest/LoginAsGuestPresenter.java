@@ -61,8 +61,9 @@ public class LoginAsGuestPresenter extends BelatrixConnectPresenter<LoginAsGuest
         view.requestTwitterUserData();
     }
 
-    public void twitterUserDataSuccess(String fullName){
+    public void twitterUserDataSuccess(String fullName, String userImage){
         guest.setFullName(fullName);
+        guest.setAvatarLink(userImage);
         view.requestTwitterEmail();
     }
 

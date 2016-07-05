@@ -78,7 +78,7 @@
 
 
     <string name="get_guest_email_title">Almost done!</string>
-    <string name="get_guest_email_message">We couldn\'t get your email from Twitter service. Enter your email to start using the app!</string>
+    <string name="get_guest_email_message">We couldn\'t get your email from your social network account. Enter your email to start using the app!</string>
 
     <!-- Reset Password -->
     <string name="secure_your_account">Secure you account</string>
