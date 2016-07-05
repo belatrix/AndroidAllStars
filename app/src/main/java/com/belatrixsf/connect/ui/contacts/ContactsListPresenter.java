@@ -99,6 +99,7 @@ public class ContactsListPresenter extends BelatrixConnectPresenter<ContactsList
 
     private void getContactsInternal() {
         view.showProgressIndicator();
+        view.hideNoDataView();
         searchingServiceRequest = employeeService.getEmployeeSearchList(
                 searchText,
                 contactsPaging.getNextPage(),
@@ -107,8 +108,12 @@ public class ContactsListPresenter extends BelatrixConnectPresenter<ContactsList
                     public void onSuccess(PaginatedResponse<Employee> starsByKeywordsResponse) {
                         contactsPaging.setCount(starsByKeywordsResponse.getCount());
                         contactsPaging.setNext(starsByKeywordsResponse.getNext());
-                        contacts.addAll(starsByKeywordsResponse.getResults());
-                        view.addContacts(starsByKeywordsResponse.getResults());
+                        if (!starsByKeywordsResponse.getResults().isEmpty()) {
+                            contacts.addAll(starsByKeywordsResponse.getResults());
+                            view.addContacts(starsByKeywordsResponse.getResults());
+                        } else {
+                            view.showNoDataView();
+                        }
                         view.hideProgressIndicator();
                     }
                 });

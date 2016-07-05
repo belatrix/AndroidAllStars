@@ -36,6 +36,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.ContactsListAdapter;
@@ -78,6 +79,9 @@ public class ContactsListFragment extends BelatrixConnectFragment implements Con
 
     @Bind(R.id.employees)
     RecyclerView contactsRecyclerView;
+
+    @Bind(R.id.no_data_textview)
+    TextView noDataTextView;
 
     public static ContactsListFragment newInstance(boolean profileEnabled) {
         Bundle bundle = new Bundle();
@@ -256,6 +260,16 @@ public class ContactsListFragment extends BelatrixConnectFragment implements Con
         resultIntent.putExtra(SELECTED_USER_KEY, contact);
         fragmentListener.setActivityResult(Activity.RESULT_OK, resultIntent);
         fragmentListener.closeActivity();
+    }
+
+    @Override
+    public void showNoDataView() {
+        noDataTextView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideNoDataView() {
+        noDataTextView.setVisibility(View.GONE);
     }
 
     @Override
