@@ -70,12 +70,6 @@ public class TeamListAdapter extends RecyclerView.Adapter<TeamListAdapter.ViewHo
         return collaboratorList.size();
     }
 
-    public void update(List<Collaborator> collaborators) {
-        this.collaboratorList.clear();
-        this.collaboratorList.addAll(collaborators);
-        notifyDataSetChanged();
-    }
-
     public void add(List<Collaborator> collaborators) {
         this.collaboratorList.addAll(collaborators);
         notifyDataSetChanged();
