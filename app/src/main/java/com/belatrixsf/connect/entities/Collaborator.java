@@ -26,7 +26,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by gyosida on 4/12/16.
+ * Created by icerrate on 12/06/2016.
  */
 public class Collaborator implements Parcelable {
 

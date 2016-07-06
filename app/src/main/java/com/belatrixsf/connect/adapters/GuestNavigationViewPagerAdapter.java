@@ -31,7 +31,7 @@ import com.belatrixsf.connect.ui.event.EventListFragment;
 import java.lang.ref.WeakReference;
 
 /**
- * Created by PedroCarrillo on 4/14/16.
+ * Created by icerrate on 05/07/2016.
  */
 public class GuestNavigationViewPagerAdapter extends FragmentPagerAdapter {
 

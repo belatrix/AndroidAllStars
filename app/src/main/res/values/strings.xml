@@ -3,9 +3,6 @@
     <string name="no_data">No data found</string>
     <string name="no_data_option">-</string>
 
-    <!-- Menu items -->
-    <string name="menu_item_logout">Logout</string>
-
     <!-- Dialogs -->
     <string name="dialog_title_error">Oops something went wrong!</string>
     <string name="dialog_message_loading">Loading&#8230;</string>
@@ -59,10 +56,7 @@
     <string name="title_edit_profile_activity">Edit Profile</string>
     <string name="title_event_list_activity">Events</string>
     <string name="title_event_detail_activity">Event Detail</string>
-    <string name="title_collaborators_activity">Collaborators</string>
     <string name="title_about_activity">About</string>
-    <string name="title_full_name">Full Name</string>
-    <string name="title_email">Email</string>
     <string name="tab_account_title">Account</string>
     <string name="tab_ranking_title">Ranking</string>
     <string name="tab_contacts_title">Contacts</string>
@@ -139,9 +133,6 @@
     <!--Event-->
     <string name="title_title_placeholder">No Title</string>
     <string name="title_date_placeholder">No Date</string>
-    <string name="title_date">Date</string>
-    <string name="title_title">Title</string>
-    <string name="title_content">Content</string>
     <string name="event_collaborators">Collaborators: %s</string>
     <string name="event_participants">Participants: %s</string>
     <string name="event_collaborators_no_data">Collaborators: No data</string>

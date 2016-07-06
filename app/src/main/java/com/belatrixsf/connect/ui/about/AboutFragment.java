@@ -29,7 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.adapters.CollaboratorListAdapter;
+import com.belatrixsf.connect.adapters.TeamListAdapter;
 import com.belatrixsf.connect.entities.Collaborator;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
@@ -48,7 +48,7 @@ public class AboutFragment extends BelatrixConnectFragment implements AboutView 
     public static final String COLLABORATORS_KEY = "_collaborators_key";
 
     private AboutPresenter aboutPresenter;
-    private CollaboratorListAdapter collaboratorListAdapter;
+    private TeamListAdapter collaboratorListAdapter;
 
     @Bind(R.id.collaborators)
     RecyclerView collaboratorsRecyclerView;
@@ -107,7 +107,7 @@ public class AboutFragment extends BelatrixConnectFragment implements AboutView 
 
     private void initViews() {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
-        collaboratorListAdapter = new CollaboratorListAdapter();
+        collaboratorListAdapter = new TeamListAdapter();
         collaboratorsRecyclerView.setAdapter(collaboratorListAdapter);
         collaboratorsRecyclerView.setNestedScrollingEnabled(false);
         collaboratorsRecyclerView.setLayoutManager(gridLayoutManager);

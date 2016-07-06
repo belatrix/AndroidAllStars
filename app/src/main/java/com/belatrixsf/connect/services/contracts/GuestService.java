@@ -21,7 +21,6 @@
 package com.belatrixsf.connect.services.contracts;
 
 import com.belatrixsf.connect.entities.Guest;
-import com.belatrixsf.connect.networking.retrofit.responses.GuestAuthenticationResponse;
 import com.belatrixsf.connect.services.ServiceRequest;
 import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 
@@ -30,7 +29,7 @@ import com.belatrixsf.connect.utils.BelatrixConnectCallback;
  */
 public interface GuestService extends BelatrixConnectService {
 
-    ServiceRequest authenticateGuest(Guest guest, BelatrixConnectCallback<GuestAuthenticationResponse> callback);
+    ServiceRequest authenticateGuest(Guest guest, BelatrixConnectCallback<Guest> callback);
 
     ServiceRequest getGuest(int guestId, BelatrixConnectCallback<Guest> callback);
 

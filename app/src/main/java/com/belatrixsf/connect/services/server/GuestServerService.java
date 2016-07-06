@@ -22,7 +22,6 @@ package com.belatrixsf.connect.services.server;
 
 import com.belatrixsf.connect.entities.Guest;
 import com.belatrixsf.connect.networking.retrofit.api.GuestAPI;
-import com.belatrixsf.connect.networking.retrofit.responses.GuestAuthenticationResponse;
 import com.belatrixsf.connect.services.BelatrixConnectBaseService;
 import com.belatrixsf.connect.services.ServerServiceRequest;
 import com.belatrixsf.connect.services.ServiceRequest;
@@ -44,9 +43,9 @@ public class GuestServerService extends BelatrixConnectBaseService implements Gu
     }
 
     @Override
-    public ServiceRequest authenticateGuest(Guest guest, BelatrixConnectCallback<GuestAuthenticationResponse> callback) {
-        Call<GuestAuthenticationResponse> call = guestAPI.authenticateGuest(guest);
-        ServiceRequest<GuestAuthenticationResponse> serviceRequest = new ServerServiceRequest<>(call);
+    public ServiceRequest authenticateGuest(Guest guest, BelatrixConnectCallback<Guest> callback) {
+        Call<Guest> call = guestAPI.authenticateGuest(guest);
+        ServiceRequest<Guest> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
         return serviceRequest;
     }
