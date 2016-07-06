@@ -27,7 +27,7 @@
                 android:layout_height="@dimen/dimen_9_5"
                 android:layout_marginRight="@dimen/dimen_2_5"
                 android:contentDescription="@string/profile_image_content_desc"
-                tools:src="@drawable/ic_user" />
+                tools:src="@drawable/contact_placeholder" />
 
             <LinearLayout
                 android:layout_width="0dp"

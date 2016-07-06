@@ -6,10 +6,10 @@
     android:background="@drawable/selector_background_keyword"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingBottom="@dimen/dimen_1_5"
+    android:paddingBottom="@dimen/dimen_5"
     android:paddingLeft="@dimen/dimen_2_5"
     android:paddingRight="@dimen/dimen_2_5"
-    android:paddingTop="@dimen/dimen_1_5">
+    android:paddingTop="@dimen/dimen_5">
 
     <TextView
         android:id="@+id/keyword"

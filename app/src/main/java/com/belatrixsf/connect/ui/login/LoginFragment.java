@@ -39,7 +39,8 @@ import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.account.edit.EditAccountActivity;
 import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
-import com.belatrixsf.connect.ui.home.MainActivity;
+import com.belatrixsf.connect.ui.home.UserActivity;
+import com.belatrixsf.connect.ui.login.guest.LoginAsGuestActivity;
 import com.belatrixsf.connect.ui.resetpassword.ResetPasswordActivity;
 import com.belatrixsf.connect.ui.signup.SignUpActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
@@ -54,6 +55,7 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     @Bind(R.id.username) EditText usernameEditText;
     @Bind(R.id.password) EditText passwordEditText;
     @Bind(R.id.log_in) Button logInButton;
+    @Bind(R.id.log_in_as_guest) Button logInAsGuestButton;
     @Bind(R.id.sign_up) TextView signUpButton;
 
     private LoginPresenter loginPresenter;
@@ -113,7 +115,7 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
 
     @Override
     public void goHome() {
-        Intent intent = new Intent(getActivity(), MainActivity.class);
+        Intent intent = new Intent(getActivity(), UserActivity.class);
         startActivity(intent);
         fragmentListener.closeActivity();
     }
@@ -139,10 +141,16 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     }
 
     @OnClick(R.id.log_in)
-    public void loginClicked() {
+    public void logInClicked() {
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
         loginPresenter.login(username, password);
+    }
+
+    @OnClick(R.id.log_in_as_guest)
+    public void logInAsGuestClicked() {
+        Intent intent = new Intent(getActivity(), LoginAsGuestActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.sign_up)

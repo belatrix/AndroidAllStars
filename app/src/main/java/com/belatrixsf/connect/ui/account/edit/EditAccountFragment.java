@@ -52,7 +52,7 @@ import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.Location;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
-import com.belatrixsf.connect.ui.home.MainActivity;
+import com.belatrixsf.connect.ui.home.UserActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.DialogUtils;
 import com.belatrixsf.connect.utils.KeyboardUtils;
@@ -229,7 +229,8 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
                     public void onFailure() {
                         startPostponedEnterTransition();
                     }
-                }
+                },
+                pictureImageView.getResources().getDrawable(R.drawable.contact_placeholder)
         );
     }
 
@@ -407,7 +408,7 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
 
     @Override
     public void endSuccessfulCreation() {
-        startActivity(MainActivity.makeIntent(getActivity()));
+        startActivity(UserActivity.makeIntent(getActivity()));
         fragmentListener.closeActivity();
     }
 

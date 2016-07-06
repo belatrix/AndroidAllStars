@@ -36,12 +36,12 @@ import java.lang.ref.WeakReference;
 /**
  * Created by PedroCarrillo on 4/14/16.
  */
-public class MainNavigationViewPagerAdapter extends FragmentPagerAdapter {
+public class UserNavigationViewPagerAdapter extends FragmentPagerAdapter {
 
     public static final int NUM_TABS = 4;
     private WeakReference<Context> contextWeakReference;
 
-    public MainNavigationViewPagerAdapter(Context context, FragmentManager fm) {
+    public UserNavigationViewPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
         contextWeakReference = new WeakReference<>(context);
     }

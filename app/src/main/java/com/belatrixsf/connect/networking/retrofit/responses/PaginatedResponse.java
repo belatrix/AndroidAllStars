@@ -25,7 +25,6 @@ import android.os.Parcelable;
 
 import com.belatrixsf.connect.utils.NumericUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

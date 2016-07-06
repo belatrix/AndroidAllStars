@@ -20,26 +20,21 @@
 */
 package com.belatrixsf.connect.utils.di.components;
 
-import com.belatrixsf.connect.ui.home.MainActivity;
-import com.belatrixsf.connect.utils.di.modules.presenters.HomePresenterModule;
+import com.belatrixsf.connect.ui.event.detail.EventDetailPresenter;
+import com.belatrixsf.connect.utils.di.modules.presenters.EventDetailPresenterModule;
 import com.belatrixsf.connect.utils.di.scopes.UIScope;
 
-import dagger.Component;
+import dagger.Subcomponent;
 
 /**
- * Created by gyosida on 4/28/16.
+ * Created by icerrate on 27/06/2016.
  */
 @UIScope
-@Component(
-        modules = {
-                HomePresenterModule.class
-        },
-        dependencies = {
-                ApplicationComponent.class
-        }
+@Subcomponent(
+        modules = EventDetailPresenterModule.class
 )
-public interface HomeComponent {
+public interface EventDetailComponent {
 
-    void inject(MainActivity mainActivity);
+    EventDetailPresenter eventDetailPresenter();
 
 }

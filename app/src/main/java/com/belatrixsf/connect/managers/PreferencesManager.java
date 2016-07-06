@@ -34,6 +34,7 @@ public class PreferencesManager {
     private static final String EMPLOYEE_ID_KEY = "employee_id_key";
     private static final String RESET_PASSWORD_KEY = "reset_password_key";
     private static final String EDIT_PROFILE_KEY = "edit_profile_key";
+    private static final String GUEST_ID_KEY = "guest_id_key";
     private static PreferencesManager preferencesManager;
 
     private SharedPreferences sharedPreferences;
@@ -105,4 +106,17 @@ public class PreferencesManager {
         return sharedPreferences.getBoolean(EDIT_PROFILE_KEY, false);
     }
 
+    public void saveGuestId(int guestId) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(GUEST_ID_KEY, guestId);
+        editor.apply();
+    }
+
+    public void clearGuestId() {
+        sharedPreferences.edit().remove(GUEST_ID_KEY).apply();
+    }
+
+    public int getGuestId() {
+        return sharedPreferences.getInt(GUEST_ID_KEY, 0);
+    }
 }

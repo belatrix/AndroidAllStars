@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.connect.utils.media.loaders;
 
+import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
 /**
@@ -38,14 +39,20 @@ public interface ImageLoader {
         CIRCLE
     }
 
-    void loadFromUrl(String url, ImageView imageView);
+    void loadFromRes(int resId, ImageView imageView, Drawable placeholder);
 
-    void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation);
+    void loadFromRes(int resId, ImageView imageView, ImageTransformation transformation, Drawable placeholder);
 
-    void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation, ImageLoader.Callback callback);
+    void loadFromRes(int resId, ImageView imageView, ImageTransformation transformation, ImageLoader.Callback callback, Drawable placeholder);
 
-    void loadFromPath(String path, ImageView imageView, ImageTransformation transformation);
+    void loadFromUrl(String url, ImageView imageView, Drawable placeholder);
 
-    void loadFromPath(String path, ImageView imageView, ImageTransformation transformation, ImageLoader.Callback callback);
+    void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation, Drawable placeholder);
+
+    void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation, ImageLoader.Callback callback, Drawable placeholder);
+
+    void loadFromPath(String path, ImageView imageView, ImageTransformation transformation, Drawable placeholder);
+
+    void loadFromPath(String path, ImageView imageView, ImageTransformation transformation, ImageLoader.Callback callback, Drawable placeholder);
 
 }

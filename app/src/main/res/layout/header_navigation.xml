@@ -14,7 +14,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/activity_margin">
+        android:layout_margin="@dimen/dimen_3_5">
 
         <ImageView
             android:id="@+id/picture"
@@ -22,18 +22,19 @@
             android:layout_marginTop="@dimen/dimen_5_5"
             android:layout_width="@dimen/dimen_10_7"
             android:layout_height="@dimen/dimen_10_7"
-            tools:src="@drawable/ic_user"
+            tools:src="@drawable/contact_placeholder"
             android:contentDescription="@string/profile_image_content_desc"/>
 
         <TextView
-            android:id="@+id/fullname"
+            android:id="@+id/full_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="@string/title_full_name"
             android:textStyle="bold"
+            android:layout_marginTop="@dimen/dimen_3_5"
             android:layout_gravity="bottom"
             android:textColor="@color/white"
-            android:layout_above="@+id/email"/>
+            android:layout_below="@+id/picture"/>
 
         <TextView
             android:id="@+id/email"
@@ -41,8 +42,8 @@
             android:layout_height="wrap_content"
             tools:text="@string/title_email"
             android:layout_gravity="bottom"
-            android:textColor="@color/white"
-            android:layout_alignParentBottom="true"/>
+            android:layout_below="@+id/full_name"
+            android:textColor="@color/white"/>
 
     </RelativeLayout>
 

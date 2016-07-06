@@ -268,7 +268,8 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
                     public void onFailure() {
                         startPostponedEnterTransition();
                     }
-                }
+                },
+                pictureImageView.getResources().getDrawable(R.drawable.contact_placeholder)
         );
     }
 

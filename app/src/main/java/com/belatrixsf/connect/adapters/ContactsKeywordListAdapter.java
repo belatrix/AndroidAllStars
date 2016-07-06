@@ -74,8 +74,12 @@ public class ContactsKeywordListAdapter extends LoadMoreBaseAdapter<Employee> {
             contactKeywordViewHolder.contactFullNameTextView.setText(employee.getFullName());
             String levelLabel = String.format(contactKeywordViewHolder.contactLevelTextView.getContext().getString(R.string.contact_list_level), String.valueOf(employee.getLevel()));
             contactKeywordViewHolder.contactLevelTextView.setText(levelLabel);
-            ImageFactory.getLoader().loadFromUrl(employee.getAvatar(), contactKeywordViewHolder.photoImageView, ImageLoader.ImageTransformation.BORDERED_CIRCLE);
             contactKeywordViewHolder.numberStarsTextView.setText(String.valueOf(employee.getNumStars()));
+            ImageFactory.getLoader().loadFromUrl(employee.getAvatar(),
+                    contactKeywordViewHolder.photoImageView,
+                    ImageLoader.ImageTransformation.BORDERED_CIRCLE,
+                    contactKeywordViewHolder.photoImageView.getResources().getDrawable(R.drawable.contact_placeholder)
+            );
         }
     }
 

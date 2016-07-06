@@ -62,7 +62,7 @@ public interface EmployeeAPI {
     Call<Employee> getEmployee(@Path(ServerPaths.EMPLOYEE_ID) int employeeId);
 
     @GET(ServerPaths.EMPLOYEE_LIST)
-    Call<PaginatedResponse<Employee>> getEmployeeSearchList(@Query(ServerPaths.SEARCH_TERM) String searchTerm, @Query(ServerPaths.PAGE) Integer page);
+    Call<PaginatedResponse<Employee>> getEmployeeSearchList(@Query(ServerPaths.SEARCH_TERM) String searchTerm, @Query(ServerPaths.QUERY_PAGE) Integer page);
 
     @GET(ServerPaths.RANKING_LIST)
     Call<List<Employee>> getRankingList(@Path(ServerPaths.KIND) String kind, @Path(ServerPaths.QUANTITY) int quantity);

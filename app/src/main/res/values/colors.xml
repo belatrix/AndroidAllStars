@@ -14,12 +14,16 @@
     <color name="softGrey">#DDDDDD</color>
     <color name="belatrix">#FF8F03</color>
     <color name="grey">#9E9E9E</color>
-    <color name="red">#ff4040</color>
     <color name="black">#CC000000</color>
 
     <color name="recycler_view_normal">#ffffff</color>
     <color name="recycler_view_press">#20424242</color>
 
     <color name="swipe_refresh">@color/colorPrimary</color>
+
+    <color name="facebook">#3B5998</color>
+    <color name="facebookDark">#1d2c4c</color>
+    <color name="twitter">#00aced</color>
+    <color name="twitterDark">#005676</color>
 
 </resources>

@@ -30,7 +30,7 @@ import java.util.List;
  */
 public interface ContactsListView extends BelatrixConnectView {
 
-    void addContacts(List<Employee> keywords);
+    void addContacts(List<Employee> contacts);
     void showSearchActionMode();
     void resetList();
     void goContactProfile(Integer id);

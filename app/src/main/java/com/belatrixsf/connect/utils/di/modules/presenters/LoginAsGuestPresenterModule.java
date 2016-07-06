@@ -20,26 +20,26 @@
 */
 package com.belatrixsf.connect.utils.di.modules.presenters;
 
-import com.belatrixsf.connect.ui.home.HomeView;
+import com.belatrixsf.connect.ui.login.guest.LoginAsGuestView;
 
 import dagger.Module;
 import dagger.Provides;
 
 /**
- * Created by gyosida on 4/28/16.
+ * Created by icerrate on 27/05/16.
  */
 @Module
-public class HomePresenterModule {
+public class LoginAsGuestPresenterModule {
 
-    private HomeView homeView;
+    private LoginAsGuestView view;
 
-    public HomePresenterModule(HomeView homeView) {
-        this.homeView = homeView;
+    public LoginAsGuestPresenterModule(LoginAsGuestView view) {
+        this.view = view;
     }
 
     @Provides
-    public HomeView provideHomeView() {
-        return homeView;
+    public LoginAsGuestView providesView() {
+        return view;
     }
 
 }

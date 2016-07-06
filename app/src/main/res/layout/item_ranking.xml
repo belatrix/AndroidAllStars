@@ -20,7 +20,7 @@
         android:layout_height="@dimen/dimen_10_6"
         android:contentDescription="@string/profile_image_content_desc"
         android:layout_marginLeft="@dimen/activity_margin"
-        tools:src="@drawable/ic_user"/>
+        tools:src="@drawable/contact_placeholder"/>
 
     <TextView
         android:id="@+id/contact_full_name"

@@ -28,6 +28,7 @@ public interface ServerPaths {
     String EMPLOYEE = "employee";
     String CATEGORY = "category";
     String STAR = "star";
+    String EVENT = "event";
 
     String EMPLOYEE_ID = "employee_id";
     String KEYWORD_ID = "keyword_id";
@@ -38,7 +39,9 @@ public interface ServerPaths {
     String KIND = "kind";
     String QUANTITY = "quantity";
     String CATEGORY_ID = "category_id";
+    String EVENT_ID = "event_id";
     String PAGE = "page";
+    String GUEST_ID = "participant_id";
 
     String QUERY_PAGE = "page";
     String QUERY_SEARCH = "search";
@@ -63,4 +66,9 @@ public interface ServerPaths {
     String CATEGORY_KEYWORD_LIST = CATEGORY + "/keyword/list";
     String SUBCATEGORIES_BY_CATEGORY_ID = CATEGORY + "/{" + CATEGORY_ID + "}/subcategory/list";
 
+    String EVENT_LIST = EVENT + "/list/";
+    String EVENT_DETAIL = EVENT + "/{" + EVENT_ID + "}/";
+
+    String GUEST_AUTHENTICATE = EVENT + "/participant/";
+    String GUEST_BY_ID = EVENT + "/participant/{" + GUEST_ID + "}";
 }

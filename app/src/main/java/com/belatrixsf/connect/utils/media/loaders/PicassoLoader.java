@@ -21,6 +21,7 @@
 package com.belatrixsf.connect.utils.media.loaders;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
 import com.belatrixsf.connect.utils.media.transformations.picasso.BorderedCirclePicassoTransformation;
@@ -36,30 +37,46 @@ import java.io.File;
 public class PicassoLoader implements ImageLoader {
 
     @Override
-    public void loadFromUrl(String url, ImageView imageView) {
-
+    public void loadFromRes(int resId, ImageView imageView, Drawable placeholder) {
+        loadFromRes(resId, imageView, null, placeholder);
     }
 
     @Override
-    public void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation) {
-        loadFromUrl(url, imageView, transformation, null);
+    public void loadFromRes(int resId, ImageView imageView, ImageTransformation transformation, Drawable placeholder) {
+        loadFromRes(resId, imageView, transformation, null, placeholder);
     }
 
     @Override
-    public void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation, Callback callback) {
+    public void loadFromRes(int resId, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder) {
         Context context = imageView.getContext();
-        load(context, Picasso.with(context).load(url), transformation, imageView, callback);
+        load(context, Picasso.with(context).load(resId), transformation, imageView, callback, placeholder);
     }
 
     @Override
-    public void loadFromPath(String path, ImageView imageView, ImageTransformation transformation) {
-        loadFromPath(path, imageView, transformation, null);
+    public void loadFromUrl(String url, ImageView imageView, Drawable placeholder) {
+        loadFromUrl(url, imageView, null, placeholder);
     }
 
     @Override
-    public void loadFromPath(String path, ImageView imageView, ImageTransformation transformation, Callback callback) {
+    public void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation, Drawable placeholder) {
+        loadFromUrl(url, imageView, transformation, null, placeholder);
+    }
+
+    @Override
+    public void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder) {
         Context context = imageView.getContext();
-        load(context, Picasso.with(context).load(new File(path)), transformation, imageView, callback);
+        load(context, Picasso.with(context).load(url), transformation, imageView, callback, placeholder);
+    }
+
+    @Override
+    public void loadFromPath(String path, ImageView imageView, ImageTransformation transformation, Drawable placeholder) {
+        loadFromPath(path, imageView, transformation, null, placeholder);
+    }
+
+    @Override
+    public void loadFromPath(String path, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder) {
+        Context context = imageView.getContext();
+        load(context, Picasso.with(context).load(new File(path)), transformation, imageView, callback, placeholder);
     }
 
     private void load(
@@ -67,9 +84,11 @@ public class PicassoLoader implements ImageLoader {
             RequestCreator load,
             ImageTransformation transformation,
             ImageView imageView,
-            final Callback callback
+            final Callback callback,
+            Drawable placeholder
     ) {
         load.centerInside();
+        load.placeholder(placeholder);
         if (context != null && transformation != null) {
             switch (transformation) {
                 case BORDERED_CIRCLE:

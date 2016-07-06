@@ -31,12 +31,15 @@ import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
  */
 public class ContactsListActivity extends BelatrixConnectActivity {
 
+    public static final String PROFILE_ENABLED_KEY = "_is_search";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts_list);
         if (savedInstanceState == null) {
-            replaceFragment(ContactsListFragment.newInstance(true), false);
+            boolean profileEnabled = getIntent().getBooleanExtra(PROFILE_ENABLED_KEY, true);
+            replaceFragment(ContactsListFragment.newInstance(profileEnabled), false);
         }
         setNavigationToolbar();
     }
