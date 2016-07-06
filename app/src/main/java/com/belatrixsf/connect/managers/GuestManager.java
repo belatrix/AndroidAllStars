@@ -21,7 +21,6 @@
 package com.belatrixsf.connect.managers;
 
 import com.belatrixsf.connect.entities.Guest;
-import com.belatrixsf.connect.networking.retrofit.responses.GuestAuthenticationResponse;
 import com.belatrixsf.connect.services.contracts.GuestService;
 import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 import com.belatrixsf.connect.utils.ServiceError;
@@ -44,15 +43,15 @@ public class GuestManager {
     }
 
     public void loginAsGuest(Guest guest, final BelatrixConnectCallback<Guest> callback) {
-        guestService.authenticateGuest(guest, new BelatrixConnectCallback<GuestAuthenticationResponse>() {
+        guestService.authenticateGuest(guest, new BelatrixConnectCallback<Guest>() {
             @Override
-            public void onSuccess(final GuestAuthenticationResponse guestAuthenticationResponse) {
+            public void onSuccess(final Guest guestAuthenticationResponse) {
                 PreferencesManager.get().saveGuestId(guestAuthenticationResponse.getId());
                 guestService.getGuest(guestAuthenticationResponse.getId(), new BelatrixConnectCallback<Guest>() {
                     @Override
-                    public void onSuccess(Guest guest) {
-                        GuestManager.this.guest = guest;
-                        callback.onSuccess(guest);
+                    public void onSuccess(Guest guestResponse) {
+                        GuestManager.this.guest = guestResponse;
+                        callback.onSuccess(guestResponse);
                     }
 
                     @Override

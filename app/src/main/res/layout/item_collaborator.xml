@@ -20,6 +20,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginTop="@dimen/dimen_5"
-        tools:text="@string/title_full_name" />
+        tools:text="Full name" />
 
 </LinearLayout>
