@@ -1,20 +1,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="match_parent">
-
-<android.support.v7.widget.RecyclerView
-    android:id="@+id/events"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/dimen_5"
-    android:clipToPadding="false"/>
+    android:layout_height="match_parent">
 
-<TextView
-    android:id="@+id/no_data_textview"
-    android:layout_width="match_parent"
-    android:layout_height="?android:attr/listPreferredItemHeightSmall"
-    android:gravity="center"
-    android:text="@string/no_data_found"
-    android:visibility="gone"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/events"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/dimen_5"
+        android:clipToPadding="false"/>
+
+    <TextView
+        android:id="@+id/no_data_textview"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/listPreferredItemHeightSmall"
+        android:gravity="center"
+        android:text="@string/no_data_found"
+        android:visibility="gone"/>
 
 </RelativeLayout>

@@ -5,12 +5,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.view.ActionMode;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -51,7 +55,7 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_user);
         setToolbar();
         setupViews();
     }
@@ -164,6 +168,39 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
     @Override
     public void refreshNavigationDrawer() {
         homePresenter.loadEmployeeData();
+    }
+
+    @Override
+    public void onSupportActionModeStarted(@NonNull ActionMode mode) {
+        drawerLayout.closeDrawers();
+        appBarLayout.setExpanded(false, true);
+        new Handler().postDelayed(new Runnable(){
+            @Override
+            public void run() {
+                if (toolbar != null && toolbar.getLayoutParams() != null){
+                    AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
+                    params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
+                    toolbar.setVisibility(View.GONE);
+                }
+            }
+        }, 300);
+        super.onSupportActionModeStarted(mode);
+    }
+
+    @Override
+    public void onSupportActionModeFinished(@NonNull ActionMode mode) {
+        if (toolbar != null && toolbar.getLayoutParams() != null){
+            AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
+            params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
+            appBarLayout.setExpanded(true, true);
+            new Handler().postDelayed(new Runnable(){
+                @Override
+                public void run() {
+                    toolbar.setVisibility(View.VISIBLE);
+                }
+            }, 300);
+        }
+        super.onSupportActionModeFinished(mode);
     }
 
     @Override

@@ -23,14 +23,11 @@ package com.belatrixsf.connect.ui.home;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.view.ActionMode;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -165,38 +162,6 @@ public abstract class MainActivity extends BelatrixConnectActivity implements Ho
         return this;
     }
 
-    @Override
-    public void onSupportActionModeStarted(@NonNull ActionMode mode) {
-        drawerLayout.closeDrawers();
-        appBarLayout.setExpanded(false, true);
-        new Handler().postDelayed(new Runnable(){
-            @Override
-            public void run() {
-                if (toolbar != null && toolbar.getLayoutParams() != null){
-                    AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
-                    params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
-                    toolbar.setVisibility(View.GONE);
-                }
-            }
-        }, 300);
-        super.onSupportActionModeStarted(mode);
-    }
-
-    @Override
-    public void onSupportActionModeFinished(@NonNull ActionMode mode) {
-        if (toolbar != null && toolbar.getLayoutParams() != null){
-            AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
-            params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
-            appBarLayout.setExpanded(true, true);
-            new Handler().postDelayed(new Runnable(){
-                @Override
-                public void run() {
-                    toolbar.setVisibility(View.VISIBLE);
-                }
-            }, 300);
-        }
-        super.onSupportActionModeFinished(mode);
-    }
 
     @Override
     public void showProgressIndicator() {

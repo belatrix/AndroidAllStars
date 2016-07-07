@@ -36,7 +36,7 @@ public class ContactsListActivity extends BelatrixConnectActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contacts_list);
+        setContentView(R.layout.activity_base);
         if (savedInstanceState == null) {
             boolean profileEnabled = getIntent().getBooleanExtra(PROFILE_ENABLED_KEY, true);
             replaceFragment(ContactsListFragment.newInstance(profileEnabled), false);
