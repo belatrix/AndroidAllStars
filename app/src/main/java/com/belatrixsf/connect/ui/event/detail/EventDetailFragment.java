@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,6 +37,7 @@ import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.di.modules.presenters.EventDetailPresenterModule;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Created by icerrate on 27/06/2016.
@@ -56,6 +58,7 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
     @Bind(R.id.description) TextView descriptionTextView;
     @Bind(R.id.collaborators) TextView collaboratorsCountTextView;
     @Bind(R.id.participants) TextView participantsCountTextView;
+    @Bind(R.id.btn_register) Button eventRegisterButton;
 
     public static EventDetailFragment newInstance(Integer eventId) {
         Bundle bundle = new Bundle();
@@ -78,6 +81,12 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
         super.onAttach(context);
         castOrThrowException(context);
     }
+
+    @OnClick(R.id.btn_register)
+    private void onRegisterClicked(View view) {
+        eventDetailPresenter.requestRegister();
+    }
+
 
     private void castOrThrowException(Context context) {
         try {
@@ -193,4 +202,17 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
         eventDetailPresenter.cancelRequests();
         super.onDestroyView();
     }
+
+    @Override
+    public void enableRegister() {
+        eventRegisterButton.setEnabled(true);
+        eventRegisterButton.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void disableRegister() {
+        eventRegisterButton.setEnabled(false);
+        eventRegisterButton.setVisibility(View.VISIBLE);
+    }
+
 }

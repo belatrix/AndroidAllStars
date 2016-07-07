@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.connect.networking.retrofit.api;
 
+import com.belatrixsf.connect.entities.Event;
 import com.belatrixsf.connect.entities.Guest;
 import com.belatrixsf.connect.networking.retrofit.responses.GuestAuthenticationResponse;
 
@@ -27,6 +28,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 /**
@@ -39,5 +41,17 @@ public interface GuestAPI {
 
     @GET(ServerPaths.GUEST_BY_ID)
     Call<Guest> getGuest(@Path(ServerPaths.GUEST_ID) int guestId);
+
+    @PUT(ServerPaths.EVENT_REGISTER_COLLABORATOR)
+    Call<Event> registerCollaborator(@Path(ServerPaths.EVENT_ID) int eventId, @Path(ServerPaths.EMPLOYEE_ID) int employeeId);
+
+    @PUT(ServerPaths.EVENT_REGISTER_PARTICIPANT)
+    Call<Event> registerParticipant(@Path(ServerPaths.EVENT_ID) int eventId, @Path(ServerPaths.GUEST_ID) int guestId);
+
+    @PUT(ServerPaths.EVENT_UNREGISTER_COLLABORATOR)
+    Call<Event> unregisterCollaborator(@Path(ServerPaths.EVENT_ID) int eventId, @Path(ServerPaths.EMPLOYEE_ID) int employeeId);
+
+    @PUT(ServerPaths.EVENT_UNREGISTER_PARTICIPANT)
+    Call<Event> unregisterParticipant(@Path(ServerPaths.EVENT_ID) int eventId, @Path(ServerPaths.GUEST_ID) int guestId);
 
 }

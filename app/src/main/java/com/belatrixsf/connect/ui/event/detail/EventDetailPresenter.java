@@ -86,6 +86,11 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
         view.showCollaboratorsCount(collaboratorsCount);
         view.showParticipantsCount(participantsCount);
         view.showPicture(event.getPicture());
+        if (event.isRegistrationAvailable()) {
+            view.enableRegister();
+        } else {
+            view.disableRegister();
+        }
     }
 
     @Override
@@ -100,4 +105,9 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
     public Integer getEventId() {
         return eventId;
     }
+
+    public void requestRegister() {
+
+    }
+
 }

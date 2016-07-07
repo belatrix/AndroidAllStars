@@ -38,7 +38,10 @@ public class Event implements Parcelable {
     private String location;
     private Integer collaborators;
     private Integer participants;
+    @SerializedName("image")
     private String picture;
+    @SerializedName("is_registration_open")
+    private boolean isRegistrationAvailable;
 
     public Event() {
     }
@@ -75,6 +78,10 @@ public class Event implements Parcelable {
         return picture;
     }
 
+    public boolean isRegistrationAvailable() {
+        return isRegistrationAvailable;
+    }
+
     protected Event(Parcel in) {
         id = in.readByte() == 0x00 ? null : in.readInt();
         title = in.readString();
@@ -84,6 +91,7 @@ public class Event implements Parcelable {
         collaborators = in.readByte() == 0x00 ? null : in.readInt();
         participants = in.readByte() == 0x00 ? null : in.readInt();
         picture = in.readString();
+        isRegistrationAvailable = in.readByte() != 0x00;
     }
 
     @Override
@@ -115,6 +123,7 @@ public class Event implements Parcelable {
             dest.writeInt(participants);
         }
         dest.writeString(picture);
+        dest.writeByte((byte) (isRegistrationAvailable ? 0x01 : 0x00));
     }
 
     @SuppressWarnings("unused")

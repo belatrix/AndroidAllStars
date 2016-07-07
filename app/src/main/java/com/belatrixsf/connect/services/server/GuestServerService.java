@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.connect.services.server;
 
+import com.belatrixsf.connect.entities.Event;
 import com.belatrixsf.connect.entities.Guest;
 import com.belatrixsf.connect.networking.retrofit.api.GuestAPI;
 import com.belatrixsf.connect.networking.retrofit.responses.GuestAuthenticationResponse;
@@ -55,6 +56,38 @@ public class GuestServerService extends BelatrixConnectBaseService implements Gu
     public ServiceRequest getGuest(int guestId, BelatrixConnectCallback<Guest> callback) {
         Call<Guest> call = guestAPI.getGuest(guestId);
         ServiceRequest<Guest> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
+    @Override
+    public ServiceRequest registerCollaborator(int eventId, int employeeId, BelatrixConnectCallback<Event> callback) {
+        Call<Event> call = guestAPI.registerCollaborator(eventId, employeeId);
+        ServiceRequest<Event> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
+    @Override
+    public ServiceRequest registerParticipant(int eventId, int employeeId, BelatrixConnectCallback<Event> callback) {
+        Call<Event> call = guestAPI.registerParticipant(eventId, employeeId);
+        ServiceRequest<Event> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
+    @Override
+    public ServiceRequest unregisterCollaborator(int eventId, int employeeId, BelatrixConnectCallback<Event> callback) {
+        Call<Event> call = guestAPI.unregisterCollaborator(eventId, employeeId);
+        ServiceRequest<Event> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
+    @Override
+    public ServiceRequest unregisterParticipant(int eventId, int employeeId, BelatrixConnectCallback<Event> callback) {
+        Call<Event> call = guestAPI.unregisterParticipant(eventId, employeeId);
+        ServiceRequest<Event> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
         return serviceRequest;
     }

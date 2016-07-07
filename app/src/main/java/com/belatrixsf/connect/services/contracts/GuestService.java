@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.connect.services.contracts;
 
+import com.belatrixsf.connect.entities.Event;
 import com.belatrixsf.connect.entities.Guest;
 import com.belatrixsf.connect.networking.retrofit.responses.GuestAuthenticationResponse;
 import com.belatrixsf.connect.services.ServiceRequest;
@@ -33,5 +34,13 @@ public interface GuestService extends BelatrixConnectService {
     ServiceRequest authenticateGuest(Guest guest, BelatrixConnectCallback<GuestAuthenticationResponse> callback);
 
     ServiceRequest getGuest(int guestId, BelatrixConnectCallback<Guest> callback);
+
+    ServiceRequest registerCollaborator(int eventId, int employeeId, BelatrixConnectCallback<Event> callback);
+
+    ServiceRequest registerParticipant(int eventId, int employeeId, BelatrixConnectCallback<Event> callback);
+
+    ServiceRequest unregisterCollaborator(int eventId, int employeeId, BelatrixConnectCallback<Event> callback);
+
+    ServiceRequest unregisterParticipant(int eventId, int employeeId, BelatrixConnectCallback<Event> callback);
 
 }
