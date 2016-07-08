@@ -105,12 +105,12 @@ public class ContactsListPresenter extends BelatrixConnectPresenter<ContactsList
                 contactsPaging.getNextPage(),
                 new PresenterCallback<PaginatedResponse<Employee>>() {
                     @Override
-                    public void onSuccess(PaginatedResponse<Employee> starsByKeywordsResponse) {
-                        contactsPaging.setCount(starsByKeywordsResponse.getCount());
-                        contactsPaging.setNext(starsByKeywordsResponse.getNext());
-                        if (!starsByKeywordsResponse.getResults().isEmpty()) {
-                            contacts.addAll(starsByKeywordsResponse.getResults());
-                            view.addContacts(starsByKeywordsResponse.getResults());
+                    public void onSuccess(PaginatedResponse<Employee> contactsKeywordsResponse) {
+                        contactsPaging.setCount(contactsKeywordsResponse.getCount());
+                        contactsPaging.setNext(contactsKeywordsResponse.getNext());
+                        if (!contactsKeywordsResponse.getResults().isEmpty()) {
+                            contacts.addAll(contactsKeywordsResponse.getResults());
+                            view.addContacts(contactsKeywordsResponse.getResults());
                         } else {
                             view.showNoDataView();
                         }

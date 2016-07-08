@@ -38,6 +38,7 @@ public class Event implements Parcelable {
     private String location;
     private Integer collaborators;
     private Integer participants;
+    @SerializedName("image")
     private String picture;
 
     public Event() {

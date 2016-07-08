@@ -40,6 +40,8 @@ public class EventListPresenter extends BelatrixConnectPresenter<EventListView> 
     private List<Event> events = new ArrayList<>();
     private PaginatedResponse eventsPaging = new PaginatedResponse();
     private ServiceRequest searchingServiceRequest;
+    private String searchText;
+    private boolean searching = false;
 
     @Inject
     public EventListPresenter(EventListView view, EventService eventsService) {
@@ -52,6 +54,18 @@ public class EventListPresenter extends BelatrixConnectPresenter<EventListView> 
             Event event = (Event) object;
             view.goEventDetail(event.getId());
         }
+    }
+
+    public void searchEvents() {
+        view.showSearchActionMode();
+        searching = true;
+    }
+
+    public void stopSearchingEvents() {
+        searchText = null;
+        searching = false;
+        reset();
+        getEventsInternal();
     }
 
     public void callNextPage() {
@@ -69,9 +83,20 @@ public class EventListPresenter extends BelatrixConnectPresenter<EventListView> 
         }
     }
 
+    public void getEvents(String searchText) {
+        if (searchingServiceRequest != null) {
+            searchingServiceRequest.cancel();
+        }
+        this.searchText = searchText;
+        reset();
+        getEventsInternal();
+    }
+
     private void getEventsInternal() {
         view.showProgressIndicator();
-        searchingServiceRequest = eventService.getEventList(
+        view.hideNoDataView();
+        searchingServiceRequest = eventService.getEventSearchList(
+                searchText,
                 eventsPaging.getNextPage(),
                 new PresenterCallback<PaginatedResponse<Event>>() {
                     @Override
@@ -79,7 +104,12 @@ public class EventListPresenter extends BelatrixConnectPresenter<EventListView> 
                         eventsPaging.setCount(eventListResponse.getCount());
                         eventsPaging.setNext(eventListResponse.getNext());
                         events.addAll(eventListResponse.getResults());
-                        view.addEvents(eventListResponse.getResults());
+                        if (!eventListResponse.getResults().isEmpty()) {
+                            events.addAll(eventListResponse.getResults());
+                            view.addEvents(eventListResponse.getResults());
+                        } else {
+                            view.showNoDataView();
+                        }
                         view.hideProgressIndicator();
                     }
                 });
@@ -98,11 +128,20 @@ public class EventListPresenter extends BelatrixConnectPresenter<EventListView> 
 
     // saving state stuff
 
-    public void load(List<Event> events, PaginatedResponse contactsPaging) {
+    public void load(List<Event> events, PaginatedResponse contactsPaging, String searchText, boolean searching) {
         if (events != null) {
             this.events.addAll(events);
         }
         this.eventsPaging = contactsPaging;
+        this.searchText = searchText;
+        this.searching = searching;
+        if (searching) {
+            searchEvents();
+        }
+    }
+
+    public String getSearchText() {
+        return searchText;
     }
 
     public PaginatedResponse getEventsPaging() {
@@ -111,6 +150,10 @@ public class EventListPresenter extends BelatrixConnectPresenter<EventListView> 
 
     public List<Event> getEventsSync() {
         return events;
+    }
+
+    public boolean isSearching() {
+        return searching;
     }
 
 }

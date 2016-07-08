@@ -238,6 +238,7 @@ public class LoginAsGuestFragment extends BelatrixConnectFragment implements Log
     @Override
     public void goHome() {
         Intent intent = new Intent(getActivity(), GuestActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         fragmentListener.closeActivity();
     }

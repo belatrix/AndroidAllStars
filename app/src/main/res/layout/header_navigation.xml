@@ -29,7 +29,7 @@
             android:id="@+id/full_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="@string/title_full_name"
+            tools:text="Full name"
             android:textStyle="bold"
             android:layout_marginTop="@dimen/dimen_3_5"
             android:layout_gravity="bottom"
@@ -40,7 +40,7 @@
             android:id="@+id/email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="@string/title_email"
+            tools:text="Email"
             android:layout_gravity="bottom"
             android:layout_below="@+id/full_name"
             android:textColor="@color/white"/>

@@ -34,7 +34,7 @@ import retrofit2.http.Query;
 public interface EventAPI {
 
     @GET(ServerPaths.EVENT_LIST)
-    Call<PaginatedResponse<Event>> getEventList(@Query(ServerPaths.QUERY_PAGE) Integer page);
+    Call<PaginatedResponse<Event>> getEventSearchList(@Query(ServerPaths.SEARCH_TERM) String searchTerm, @Query(ServerPaths.QUERY_PAGE) Integer page);
 
     @GET(ServerPaths.EVENT_DETAIL)
     Call<Event> getEventDetail(@Path(ServerPaths.EVENT_ID) Integer eventId);
