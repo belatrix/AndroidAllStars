@@ -186,7 +186,7 @@ public class LoginAsGuestFragment extends BelatrixConnectFragment implements Log
             public void success(Result<User> userResult) {
                 User user = userResult.data;
                 final String fullName = user.name;
-                final String userImage = user.profileImageUrl;
+                final String userImage = user.profileImageUrl.replace("_normal", "");
                 loginAsGuestPresenter.twitterUserDataSuccess(fullName, userImage);
             }
 
