@@ -89,7 +89,7 @@ public class GlideLoader implements ImageLoader {
             final Callback callback,
             Drawable placeholder
     ) {
-        load.fitCenter();
+        load.centerCrop();
         load.placeholder(placeholder);
         if (context != null && transformation != null) {
             switch (transformation) {

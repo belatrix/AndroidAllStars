@@ -87,7 +87,7 @@ public class PicassoLoader implements ImageLoader {
             final Callback callback,
             Drawable placeholder
     ) {
-        load.centerInside();
+        load.centerCrop();
         load.placeholder(placeholder);
         if (context != null && transformation != null) {
             switch (transformation) {

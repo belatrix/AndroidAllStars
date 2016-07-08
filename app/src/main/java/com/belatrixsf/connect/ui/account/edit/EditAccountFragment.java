@@ -89,12 +89,18 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
     public static final String IS_NEW_USER = "_is_creation_key";
     public static final String FILE_KEY = "_selected_file_key";
 
-    @Bind(R.id.profile_picture) ImageView pictureImageView;
-    @Bind(R.id.firstName) EditText firstNameEditText;
-    @Bind(R.id.lastName) EditText lastNameEditText;
-    @Bind(R.id.skypeId) EditText skypeIdEditText;
-    @Bind(R.id.locationRadioGroup) RadioGroup locationRadioGroup;
-    @Bind(R.id.edit_image) ImageView editPictureImageView;
+    @Bind(R.id.profile_picture)
+    ImageView pictureImageView;
+    @Bind(R.id.firstName)
+    EditText firstNameEditText;
+    @Bind(R.id.lastName)
+    EditText lastNameEditText;
+    @Bind(R.id.skypeId)
+    EditText skypeIdEditText;
+    @Bind(R.id.locationRadioGroup)
+    RadioGroup locationRadioGroup;
+    @Bind(R.id.edit_image)
+    ImageView editPictureImageView;
 
     private EditAccountPresenter editAccountPresenter;
     private String mProfilePicturePath;
@@ -215,23 +221,25 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
 
     @Override
     public void showProfileImage(String imageUrl) {
-        ImageFactory.getLoader().loadFromUrl(
-                imageUrl,
-                pictureImageView,
-                ImageLoader.ImageTransformation.BORDERED_CIRCLE,
-                new ImageLoader.Callback() {
-                    @Override
-                    public void onSuccess() {
-                        startPostponedEnterTransition();
-                    }
+        if (pictureImageView != null) {
+            ImageFactory.getLoader().loadFromUrl(
+                    imageUrl,
+                    pictureImageView,
+                    ImageLoader.ImageTransformation.BORDERED_CIRCLE,
+                    new ImageLoader.Callback() {
+                        @Override
+                        public void onSuccess() {
+                            startPostponedEnterTransition();
+                        }
 
-                    @Override
-                    public void onFailure() {
-                        startPostponedEnterTransition();
-                    }
-                },
-                pictureImageView.getResources().getDrawable(R.drawable.contact_placeholder)
-        );
+                        @Override
+                        public void onFailure() {
+                            startPostponedEnterTransition();
+                        }
+                    },
+                    getResources().getDrawable(R.drawable.contact_placeholder)
+            );
+        }
     }
 
     @Override
@@ -331,10 +339,10 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
     private void checkPermissions() {
         String[] mediaPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         if (!PermissionHelper.checkPermissions(getActivity(), mediaPermissions)) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),Manifest.permission.CAMERA) || ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.CAMERA) || ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 DialogUtils.createInformationDialog(getActivity(), getString(R.string.app_name), getString(R.string.permission_profile), null);
             } else {
-                ActivityCompat.requestPermissions(getActivity(), mediaPermissions ,
+                ActivityCompat.requestPermissions(getActivity(), mediaPermissions,
                         RQ_PERMISSIONS_REQUEST);
             }
         } else {
@@ -396,7 +404,7 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
     }
 
     public void initCropImageActivity(Uri uri) {
-        Intent intent = CropImage.activity(uri).setGuidelines(CropImageView.Guidelines.ON).setMinCropResultSize(500,500).setCropShape(CropImageView.CropShape.RECTANGLE).getIntent(getActivity());
+        Intent intent = CropImage.activity(uri).setGuidelines(CropImageView.Guidelines.ON).setMinCropResultSize(500, 500).setCropShape(CropImageView.CropShape.RECTANGLE).getIntent(getActivity());
         startActivityForResult(intent, CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE);
     }
 

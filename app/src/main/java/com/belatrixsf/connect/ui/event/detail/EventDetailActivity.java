@@ -68,23 +68,25 @@ public class EventDetailActivity extends BelatrixConnectActivity implements Even
 
     @Override
     public void showPicture(final String profilePicture) {
-        ImageFactory.getLoader().loadFromUrl(
-                profilePicture,
-                pictureImageView,
-                ImageLoader.ImageTransformation.BORDERED_CIRCLE,
-                new ImageLoader.Callback() {
-                    @Override
-                    public void onSuccess() {
-                        startTransition();
-                    }
+        if (pictureImageView != null) {
+            ImageFactory.getLoader().loadFromUrl(
+                    profilePicture,
+                    pictureImageView,
+                    ImageLoader.ImageTransformation.BORDERED_CIRCLE,
+                    new ImageLoader.Callback() {
+                        @Override
+                        public void onSuccess() {
+                            startTransition();
+                        }
 
-                    @Override
-                    public void onFailure() {
-                        startTransition();
-                    }
-                },
-                getResources().getDrawable(R.drawable.event_placeholder)
-        );
+                        @Override
+                        public void onFailure() {
+                            startTransition();
+                        }
+                    },
+                    getResources().getDrawable(R.drawable.event_placeholder)
+            );
+        }
     }
 
     private void startTransition() {

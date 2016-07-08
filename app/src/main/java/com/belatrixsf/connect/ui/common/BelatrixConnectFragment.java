@@ -86,27 +86,37 @@ public abstract class BelatrixConnectFragment extends Fragment implements Belatr
 
     @Override
     public void showProgressDialog() {
-        fragmentListener.showProgressDialog();
+        if (fragmentListener != null) {
+            fragmentListener.showProgressDialog();
+        }
     }
 
     @Override
     public void showProgressDialog(String message) {
-        fragmentListener.showProgressDialog(message);
+        if (fragmentListener != null) {
+            fragmentListener.showProgressDialog(message);
+        }
     }
 
     @Override
     public void dismissProgressDialog() {
-        fragmentListener.dismissProgressDialog();
+        if (fragmentListener != null) {
+            fragmentListener.dismissProgressDialog();
+        }
     }
 
     @Override
     public void showError(String message) {
-        fragmentListener.showError(message);
+        if (fragmentListener != null) {
+            fragmentListener.showError(message);
+        }
     }
 
     @Override
     public void setTitle(String title) {
-        fragmentListener.setTitle(title);
+        if (fragmentListener != null) {
+            fragmentListener.setTitle(title);
+        }
     }
 
     @Override
