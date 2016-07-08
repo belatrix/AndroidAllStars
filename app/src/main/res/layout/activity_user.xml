@@ -30,32 +30,41 @@
             android:layout_gravity="bottom"
             android:visibility="gone"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/start_recommendation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:tint="@color/white"
-        android:src="@android:drawable/ic_input_add"
-        app:layout_behavior="com.belatrixsf.connect.ui.common.ScrollAwareFABBehavior"/>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/start_recommendation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:tint="@color/white"
+            android:src="@android:drawable/ic_input_add"
+            app:layout_behavior="com.belatrixsf.connect.ui.common.ScrollAwareFABBehavior"/>
 
     </android.support.design.widget.CoordinatorLayout>
 
-    <android.support.design.widget.NavigationView
-        android:id="@+id/navigation"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/white"
-        app:headerLayout="@layout/header_navigation">
+        android:layout_gravity="start">
+
+        <android.support.design.widget.NavigationView
+            android:id="@+id/navigation"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:layout_above="@+id/linearOptions"
+            app:headerLayout="@layout/header_navigation">
+
+        </android.support.design.widget.NavigationView>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/linearOptions"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:layout_alignRight="@+id/navigation"
             android:clickable="true"
-            android:layout_marginTop="@dimen/dimen_5_5"
+            android:layout_alignParentBottom="true"
             android:orientation="vertical">
 
             <View
@@ -75,7 +84,6 @@
                 android:drawablePadding="@dimen/dimen_6_5"
                 android:text="@string/menu_title_logout" />
         </LinearLayout>
-
-    </android.support.design.widget.NavigationView>
+    </RelativeLayout>
 
 </android.support.v4.widget.DrawerLayout>
