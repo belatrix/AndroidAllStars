@@ -90,6 +90,7 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
     private void setupTabs() {
         UserNavigationViewPagerAdapter userNavigationViewPagerAdapter = new UserNavigationViewPagerAdapter(this, getSupportFragmentManager());
         mainViewPager.setAdapter(userNavigationViewPagerAdapter);
+        mainViewPager.setOffscreenPageLimit(2);
         mainViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
