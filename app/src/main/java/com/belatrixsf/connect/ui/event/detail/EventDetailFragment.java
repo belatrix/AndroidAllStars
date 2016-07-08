@@ -32,6 +32,7 @@ import android.widget.TextView;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Event;
+import com.belatrixsf.connect.managers.PreferencesManager;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.di.modules.presenters.EventDetailPresenterModule;
@@ -46,6 +47,8 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
 
     public static final String EVENT_ID_KEY = "_event_id_key";
     public static final String EVENT_KEY = "_event_key";
+    public static final String EMPLOYEE_ID_KEY = "_event_key";
+    public static final String GUEST_ID_KEY = "_event_key";
 
     private EventDetailPresenter eventDetailPresenter;
     private EventDetailFragmentListener eventDetailFragmentListener;
@@ -83,7 +86,7 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
     }
 
     @OnClick(R.id.btn_register)
-    private void onRegisterClicked(View view) {
+    public void onRegisterClicked(View view) {
         eventDetailPresenter.requestRegister();
     }
 
@@ -118,6 +121,13 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
         } else if (hasArguments) {
             eventId = getArguments().getInt(EventDetailActivity.EVENT_ID_KEY);
             eventDetailPresenter.setEventId(eventId);
+            boolean userHasPermission = PreferencesManager.get().getEmployeeId() != 0 && PreferencesManager.get().getToken() != null && PreferencesManager.get().isResetPassword() && PreferencesManager.get().isEditProfile();
+            boolean guestHasPermission = PreferencesManager.get().getGuestId() != 0;
+            if (userHasPermission) {
+                eventDetailPresenter.setUserId(PreferencesManager.get().getEmployeeId());
+            } else if (guestHasPermission) {
+                eventDetailPresenter.setGuestId(PreferencesManager.get().getGuestId());
+            }
         }
         eventDetailPresenter.loadEventDetail();
     }
