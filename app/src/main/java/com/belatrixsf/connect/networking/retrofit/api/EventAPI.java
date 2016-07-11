@@ -21,6 +21,7 @@
 package com.belatrixsf.connect.networking.retrofit.api;
 
 import com.belatrixsf.connect.entities.Event;
+import com.belatrixsf.connect.networking.retrofit.responses.EventParticipantDetailResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 
 import retrofit2.Call;
@@ -38,5 +39,8 @@ public interface EventAPI {
 
     @GET(ServerPaths.EVENT_DETAIL)
     Call<Event> getEventDetail(@Path(ServerPaths.EVENT_ID) Integer eventId);
+
+    @GET(ServerPaths.EVENT_PARTICIPANT_DETAIL)
+    Call<EventParticipantDetailResponse> getEventParticipantDetail(@Path(ServerPaths.EVENT_ID) Integer eventId, @Path(ServerPaths.GUEST_ID) Integer guestId);
 
 }

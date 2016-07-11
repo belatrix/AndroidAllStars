@@ -22,7 +22,9 @@ package com.belatrixsf.connect.ui.event.detail;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Event;
+import com.belatrixsf.connect.services.contracts.EmployeeService;
 import com.belatrixsf.connect.services.contracts.EventService;
+import com.belatrixsf.connect.services.contracts.GuestService;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 import com.belatrixsf.connect.utils.DateUtils;
@@ -39,10 +41,23 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
     protected Event event;
     protected Integer eventId;
 
+    private Integer userId;
+    private Integer guestId;
+    private GuestService guestService;
+
     @Inject
-    public EventDetailPresenter(EventDetailView view, EventService eventService) {
+    public EventDetailPresenter(EventDetailView view, EventService eventService, GuestService guestService) {
         super(view);
         this.eventService = eventService;
+        this.guestService = guestService;
+    }
+
+    public void setGuestId(Integer guestId) {
+        this.guestId = guestId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public void load(Event event) {
@@ -107,7 +122,20 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
     }
 
     public void requestRegister() {
-
+        if (userId != null) {
+            guestService.registerCollaborator(eventId, userId, eventDetailCallback);
+        } else {
+            guestService.registerParticipant(eventId, guestId, eventDetailCallback);
+        }
     }
+
+    private PresenterCallback<Event> eventDetailCallback = new PresenterCallback<Event>() {
+        @Override
+        public void onSuccess(Event event) {
+            EventDetailPresenter.this.event = event;
+            showEventDetail();
+            view.disableRegister();
+        }
+    };
 
 }
