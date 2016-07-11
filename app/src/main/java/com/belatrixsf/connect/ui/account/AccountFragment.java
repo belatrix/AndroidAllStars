@@ -363,7 +363,9 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
 
     @Override
     public void showProgressDialog() {
-        accountSwipeRefresh.setRefreshing(true);
+        if (accountSwipeRefresh != null) {
+            accountSwipeRefresh.setRefreshing(true);
+        }
     }
 
     @Override

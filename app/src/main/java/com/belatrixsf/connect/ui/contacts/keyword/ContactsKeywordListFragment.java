@@ -145,14 +145,22 @@ public class ContactsKeywordListFragment extends BelatrixConnectFragment impleme
 
     @Override
     public void showProgressIndicator() {
-        contactsKeywordListAdapter.setLoading(true);
-        endlessRecyclerOnScrollListener.setLoading(true);
+        if (contactsKeywordListAdapter != null) {
+            contactsKeywordListAdapter.setLoading(true);
+        }
+        if (endlessRecyclerOnScrollListener != null) {
+            endlessRecyclerOnScrollListener.setLoading(true);
+        }
     }
 
     @Override
     public void hideProgressIndicator() {
-        contactsKeywordListAdapter.setLoading(false);
-        endlessRecyclerOnScrollListener.setLoading(false);
+        if (contactsKeywordListAdapter != null) {
+            contactsKeywordListAdapter.setLoading(false);
+        }
+        if (endlessRecyclerOnScrollListener != null) {
+            endlessRecyclerOnScrollListener.setLoading(false);
+        }
     }
 
 

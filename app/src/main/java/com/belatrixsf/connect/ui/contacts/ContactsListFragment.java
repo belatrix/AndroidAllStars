@@ -181,14 +181,22 @@ public class ContactsListFragment extends BelatrixConnectFragment implements Con
 
     @Override
     public void showProgressIndicator() {
-        contactsListAdapter.setLoading(true);
-        endlessRecyclerOnScrollListener.setLoading(true);
+        if (contactsListAdapter != null) {
+            contactsListAdapter.setLoading(true);
+        }
+        if (endlessRecyclerOnScrollListener != null) {
+            endlessRecyclerOnScrollListener.setLoading(true);
+        }
     }
 
     @Override
     public void hideProgressIndicator() {
-        contactsListAdapter.setLoading(false);
-        endlessRecyclerOnScrollListener.setLoading(false);
+        if (contactsListAdapter != null) {
+            contactsListAdapter.setLoading(false);
+        }
+        if (endlessRecyclerOnScrollListener != null) {
+            endlessRecyclerOnScrollListener.setLoading(false);
+        }
     }
 
     @Override
