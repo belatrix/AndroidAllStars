@@ -38,6 +38,7 @@
             android:drawableLeft="@drawable/ic_person_outline"
             android:drawablePadding="@dimen/dimen_3_5"
             android:hint="@string/hint_username"
+            android:inputType="textPersonName"
             android:imeOptions="actionNext"
             android:background="@drawable/selector_edittext"
             android:paddingLeft="0dp"

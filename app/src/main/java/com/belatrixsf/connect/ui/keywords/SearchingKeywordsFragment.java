@@ -172,15 +172,25 @@ public class SearchingKeywordsFragment extends BelatrixConnectFragment implement
 
     @Override
     public void showProgressIndicator() {
-        keywordsListAdapter.setLoading(true);
-        endlessRecyclerOnScrollListener.setLoading(true);
+        if (keywordsListAdapter != null) {
+            keywordsListAdapter.setLoading(true);
+        }
+        if (endlessRecyclerOnScrollListener != null) {
+            endlessRecyclerOnScrollListener.setLoading(true);
+        }
     }
 
     @Override
     public void hideProgressIndicator() {
-        keywordsListAdapter.setLoading(false);
-        endlessRecyclerOnScrollListener.setLoading(false);
-        keywordsRefreshLayout.setRefreshing(false);
+        if (keywordsListAdapter != null) {
+            keywordsListAdapter.setLoading(false);
+        }
+        if (endlessRecyclerOnScrollListener != null) {
+            endlessRecyclerOnScrollListener.setLoading(false);
+        }
+        if (keywordsRefreshLayout != null) {
+            keywordsRefreshLayout.setRefreshing(false);
+        }
     }
 
     @Override
