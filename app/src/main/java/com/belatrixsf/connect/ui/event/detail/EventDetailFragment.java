@@ -83,7 +83,7 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
     }
 
     @OnClick(R.id.btn_register)
-    private void onRegisterClicked(View view) {
+    public void onRegisterClicked(View view) {
         eventDetailPresenter.requestRegister();
     }
 
