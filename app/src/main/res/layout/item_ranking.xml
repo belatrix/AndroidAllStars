@@ -19,8 +19,8 @@
         android:layout_width="@dimen/dimen_10_6"
         android:layout_height="@dimen/dimen_10_6"
         android:contentDescription="@string/profile_image_content_desc"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        tools:src="@drawable/ic_user"/>
+        android:layout_marginLeft="@dimen/activity_margin"
+        tools:src="@drawable/contact_placeholder"/>
 
     <TextView
         android:id="@+id/contact_full_name"
@@ -29,7 +29,7 @@
         android:layout_weight="1"
         android:textSize="@dimen/text_16"
         android:singleLine="true"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingLeft="@dimen/activity_margin"
         tools:text="@string/title_full_name" />
 
     <LinearLayout

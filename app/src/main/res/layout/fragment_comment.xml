@@ -5,11 +5,10 @@
 
     <EditText
         android:id="@+id/comment"
-        android:padding="@dimen/activity_horizontal_margin"
+        android:padding="@dimen/activity_margin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="top"
-        android:imeOptions="actionDone"
         android:maxLength="100"
         android:background="@android:color/transparent"
         android:hint="@string/hint_comment"/>

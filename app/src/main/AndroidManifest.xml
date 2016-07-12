@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.belatrixsf.allstars">
+    package="com.belatrixsf.connect">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".utils.AllStarsApplication"
+        android:name=".utils.BelatrixConnectApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity
             android:name=".ui.login.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
@@ -20,10 +25,18 @@
             android:name=".ui.signup.SignUpActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
+            android:name=".ui.login.guest.LoginAsGuestActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.login.guest.email.GuestEmailActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
             android:name=".ui.resetpassword.ResetPasswordActivity"
             android:label="@string/title_reset_password_activity"/>
         <activity
-            android:name=".ui.home.MainActivity"/>
+            android:name=".ui.home.UserActivity"/>
+        <activity
+            android:name=".ui.home.GuestActivity"/>
         <activity
             android:name=".ui.stars.StarsListActivity"
             android:label="@string/title_recommendation_activity"/>
@@ -32,7 +45,11 @@
             android:label="@string/title_give_star_activity"/>
         <activity
             android:name=".ui.account.AccountActivity"
-            android:label="@string/title_account_activity"/>
+            android:label="@string/title_account_activity"
+            android:parentActivityName=".ui.home.UserActivity"/>
+        <activity
+            android:name=".ui.account.expanded.ExpandPictureActivity"
+            android:label="@string/title_expand_photo_activity"/>
         <activity
             android:name=".ui.contacts.ContactsListActivity"
             android:label="@string/title_contact_activity"/>
@@ -44,18 +61,23 @@
             android:name=".ui.category.CategoriesActivity"/>
         <activity
             android:name=".ui.stars.keyword.KeywordsActivity"
-            android:label="@string/title_keywords_activity" />
-
+            android:label="@string/title_keywords_activity"/>
         <activity
             android:name=".ui.contacts.keyword.ContactsKeywordListActivity"
             android:label="@string/title_contacts_keyword_activity"/>
-
         <activity android:name=".ui.account.edit.EditAccountActivity"
             android:label="@string/title_edit_profile_activity"/>
-
+        <activity
+            android:name=".ui.about.AboutActivity"
+            android:label="@string/title_about_activity"
+            android:theme="@style/Translucent"/>
+        <activity android:name=".ui.event.EventListActivity"
+            android:label="@string/title_event_list_activity"/>
+        <activity android:name=".ui.event.detail.EventDetailActivity"
+            android:label="@string/title_event_detail_activity"
+            android:theme="@style/Translucent"/>
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" />
-
+            android:theme="@style/Base.Theme.AppCompat"/>
         <activity
             android:name=".ui.LauncherActivity">
             <intent-filter>
@@ -67,8 +89,7 @@
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="${fabric_io_api_key}"
-            />
+            android:value="${fabric_io_api_key}"/>
 
         <service
             android:name=".services.fcm.AllStarsFirebaseMessagingService">

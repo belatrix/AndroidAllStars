@@ -1,0 +1,72 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:context=".ui.login.guest.LoginAsGuestActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_margin">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/email_content_desc"
+            android:src="@drawable/ic_people" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dimen_3_5"
+            android:text="@string/log_in_as_guest"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_16" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/dimen_5"
+            android:text="@string/guest_message"
+            android:textSize="@dimen/text_12"/>
+
+        <Button
+            android:id="@+id/facebook_log_in"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_8_5"
+            android:layout_marginTop="@dimen/dimen_8_5"
+            android:background="@drawable/selector_facebook_button"
+            android:textColor="@color/white"
+            android:drawableLeft="@drawable/com_facebook_button_icon"
+            android:paddingLeft="@dimen/dimen_4_5"
+            android:paddingRight="@dimen/dimen_5"
+            android:text="@string/button_facebook"/>
+
+        <Button
+            android:id="@+id/twitter_log_in"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_8_5"
+            android:layout_marginTop="@dimen/dimen_4_5"
+            android:background="@drawable/selector_twitter_button"
+            android:textColor="@color/white"
+            android:drawableLeft="@drawable/tw__ic_logo_default"
+            android:paddingLeft="@dimen/dimen_2_5"
+            android:paddingRight="@dimen/dimen_3_5"
+            android:text="@string/button_twitter"
+            android:layout_marginBottom="@dimen/dimen_5"/>
+
+    </LinearLayout>
+
+</LinearLayout>

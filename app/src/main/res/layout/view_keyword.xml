@@ -6,18 +6,10 @@
     android:background="@drawable/selector_background_keyword"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingBottom="@dimen/dimen_1_5"
+    android:paddingBottom="@dimen/dimen_5"
     android:paddingLeft="@dimen/dimen_2_5"
     android:paddingRight="@dimen/dimen_2_5"
-    android:paddingTop="@dimen/dimen_1_5">
-
-    <TextView
-        android:id="@+id/keyword_hashtag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hashtag"
-        android:textColor="@color/selector_text_keyword"
-        android:textSize="@dimen/text_12" />
+    android:paddingTop="@dimen/dimen_5">
 
     <TextView
         android:id="@+id/keyword"

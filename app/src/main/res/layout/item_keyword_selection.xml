@@ -3,11 +3,11 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.belatrixsf.allstars.ui.common.views.KeywordView
+    <com.belatrixsf.connect.ui.common.views.KeywordView
         android:id="@+id/keywordView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    </com.belatrixsf.allstars.ui.common.views.KeywordView>
+    </com.belatrixsf.connect.ui.common.views.KeywordView>
 
 </LinearLayout>

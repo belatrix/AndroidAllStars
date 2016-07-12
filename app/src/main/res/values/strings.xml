@@ -1,10 +1,7 @@
 <resources>
-    <string name="app_name">All Stars Belatrix</string>
+    <string name="app_name">Belatrix Connect</string>
     <string name="no_data">No data found</string>
     <string name="no_data_option">-</string>
-
-    <!-- Menu items -->
-    <string name="menu_item_logout">Logout</string>
 
     <!-- Dialogs -->
     <string name="dialog_title_error">Oops something went wrong!</string>
@@ -16,6 +13,8 @@
 
     <!-- Error -->
     <string name="error_incorrect_fields">Make sure the fields are filled correctly</string>
+    <string name="error_facebook">Can\'t connect with Facebook Service</string>
+    <string name="error_twitter">Can\'t connect with Twitter Service</string>
 
     <!-- Hint -->
     <string name="hint_username">Username</string>
@@ -32,16 +31,20 @@
 
     <!-- Button -->
     <string name="button_log_in">Log In</string>
-    <string name="button_sign_up">New user? Sign Up!</string>
+    <string name="button_log_in_as_guest">Log In As Guest</string>
+    <string name="button_sign_up">New user? <b>Sign Up!</b></string>
     <string name="button_sign_up_action">Register</string>
     <string name="button_reset">Reset</string>
+    <string name="button_continue_twitter_login">Continue</string>
+    <string name="button_facebook">Login with Facebook</string>
+    <string name="button_twitter">Login with Twitter</string>
 
     <!-- Title -->
-    <string name="title_activity_login">LoginActivity</string>
     <string name="title_reset_password_activity">Reset Password</string>
     <string name="title_select_category">Select Category</string>
     <string name="title_select_subcategory">Select Subcategory</string>
     <string name="title_account_activity">Profile</string>
+    <string name="title_expand_photo_activity"></string>
     <string name="title_contact_activity">Select an user</string>
     <string name="title_recommendation_activity">Recommendations</string>
     <string name="title_give_star_activity">Give a recommendation</string>
@@ -51,16 +54,25 @@
     <string name="title_contacts_keyword_activity">Tag Top</string>
     <string name="title_keyword_top">%s Top</string>
     <string name="title_edit_profile_activity">Edit Profile</string>
-    <string name="title_full_name">Full Name</string>
+    <string name="title_event_list_activity">Events</string>
+    <string name="title_event_detail_activity">Event Detail</string>
+    <string name="title_about_activity">About</string>
     <string name="tab_account_title">Account</string>
     <string name="tab_ranking_title">Ranking</string>
     <string name="tab_contacts_title">Contacts</string>
     <string name="tab_keywords_title">Tags</string>
+    <string name="tab_events_title">Events</string>
 
     <!-- Login and Register -->
-    <string name="title_login">Belatrix All Stars</string>
+    <string name="title_login">Belatrix Connect</string>
     <string name="let_s_get_started">Let\'s get started</string>
     <string name="enter_your_email_address_to_receive_your_temporary_password">Enter your email address to receive your temporary password</string>
+    <string name="log_in_as_guest">Log In as Guest</string>
+    <string name="guest_message">Use your favorite social network account to login as guest.</string>
+
+
+    <string name="get_guest_email_title">Almost done!</string>
+    <string name="get_guest_email_message">We couldn\'t get your email from your social network account. Enter your email to start using the app!</string>
 
     <!-- Reset Password -->
     <string name="secure_your_account">Secure you account</string>
@@ -68,11 +80,19 @@
     <string name="new_password_length_error">At least %s characters</string>
     <string name="new_password_repeat_error">Must be the same</string>
 
+    <!-- Menu -->
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="menu_title_home">Home</string>
+    <string name="menu_title_contacts">Contacts</string>
+    <string name="menu_title_events">Events</string>
+    <string name="menu_title_about">About</string>
+    <string name="menu_title_logout">Logout</string>
+
     <!--Account-->
     <string name="title_current_month_score">Month score</string>
     <string name="title_score">Score</string>
     <string name="title_level">Level</string>
-    <string name="skype_id_content">Skype : %s</string>
     <string name="empty_error">Field must not be empty</string>
 
     <!--Edit account-->
@@ -83,6 +103,7 @@
     <string name="select_photo_title">Upload a picture</string>
     <string name="select_image_title">Select an image</string>
     <string name="permission_profile">The application needs write and camera permissions to be able to edit your profile picture</string>
+    <string name="location_error">Must select location</string>
 
     <!--Give a star-->
     <string name="select_user">Select user</string>
@@ -105,10 +126,48 @@
     <string name="no_data_found">No data found</string>
 
     <!--Recommendation-->
-    <string name="message_placeholder">No message</string>
+    <string name="message_placeholder"></string>
     <string name="fullname_placeholder">Anonymous</string>
     <string name="level_placeholder">No data</string>
-    <string name="hashtag">#</string>
+
+    <!--Event-->
+    <string name="title_title_placeholder">No Title</string>
+    <string name="title_date_placeholder">No Date</string>
+    <string name="event_collaborators">Collaborators: %s</string>
+    <string name="event_participants">Participants: %s</string>
+    <string name="event_collaborators_no_data">Collaborators: No data</string>
+    <string name="event_participants_no_data">Participants: No data</string>
+
+    <!--About-->
+    <string name="about_what">What</string>
+    <string name="about_why">Why</string>
+    <string name="about_who">Who</string>
+    <string name="about_what_message">Belatrix Connect tries to motivated social engagement and teammate recognition through reputation points system based on technical criteria topics about Software Development, also Belatrix Connect wants to be a social connection between people interested in events or talks organized by Belatrix.</string>
+    <string name="about_why_message">Because we want to take action and improve our working environment. Because we can. Because we believe in technology and mobile world.</string>
+    <string name="about_who_message">Belatrix Connect was created by people really motivated doing geeky stuff and living passionated about mobile technology.</string>
+    <string name="support_tittle">Support</string>
+    <string name="support_email">crash.allbelatrix@neosergio.net</string>
+    <string name="license_title">License</string>
+    <string name="license">The MIT License (MIT)
+\nCopyright &#169; 2016 BELATRIX
+\nPermission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+\n\nThe above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+\n\nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</string>
+    <string name="collaborators_title">Collaborators</string>
 
     <!--Actions-->
     <string name="action_recommend">Recommend</string>
