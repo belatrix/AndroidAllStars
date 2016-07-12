@@ -22,7 +22,7 @@ package com.belatrixsf.connect.ui.event.detail;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Event;
-import com.belatrixsf.connect.services.contracts.EmployeeService;
+import com.belatrixsf.connect.networking.retrofit.responses.EventParticipantDetailResponse;
 import com.belatrixsf.connect.services.contracts.EventService;
 import com.belatrixsf.connect.services.contracts.GuestService;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
@@ -41,7 +41,7 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
     protected Event event;
     protected Integer eventId;
 
-    private Integer userId;
+    private Integer employeeId;
     private Integer guestId;
     private GuestService guestService;
 
@@ -56,29 +56,34 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
         this.guestId = guestId;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setEmployeeId(Integer employeeId) {
+        this.employeeId = employeeId;
     }
 
     public void load(Event event) {
         this.event = event;
+        showEventDetail();
     }
 
     public void loadEventDetail() {
         //view.showProgressDialog();
-        eventService.getEventDetail(eventId, new BelatrixConnectCallback<Event>() {
+        BelatrixConnectCallback<EventParticipantDetailResponse> participantDetailResponseBelatrixConnectCallback =  new BelatrixConnectCallback<EventParticipantDetailResponse>() {
             @Override
-            public void onSuccess(Event event) {
+            public void onSuccess(EventParticipantDetailResponse eventParticipantDetailResponse) {
                 EventDetailPresenter.this.event = event;
                 showEventDetail();
-                //view.dismissProgressDialog();
             }
 
             @Override
             public void onFailure(ServiceError serviceError) {
-                //view.dismissProgressDialog();
+
             }
-        });
+        };
+        if (guestId != null) {
+            eventService.getEventParticipantDetail(eventId, guestId, participantDetailResponseBelatrixConnectCallback);
+        } else {
+
+        }
     }
 
     public void setEventId(Integer eventId) {
@@ -122,8 +127,8 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
     }
 
     public void requestRegister() {
-        if (userId != null) {
-            guestService.registerCollaborator(eventId, userId, eventDetailCallback);
+        if (employeeId != null) {
+            guestService.registerCollaborator(eventId, employeeId, eventDetailCallback);
         } else {
             guestService.registerParticipant(eventId, guestId, eventDetailCallback);
         }
@@ -137,5 +142,13 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
             view.disableRegister();
         }
     };
+
+    public Integer getEmployeeId() {
+        return employeeId;
+    }
+
+    public Integer getGuestId() {
+        return guestId;
+    }
 
 }

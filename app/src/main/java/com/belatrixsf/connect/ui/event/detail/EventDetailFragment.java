@@ -124,12 +124,12 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
             boolean userHasPermission = PreferencesManager.get().getEmployeeId() != 0 && PreferencesManager.get().getToken() != null && PreferencesManager.get().isResetPassword() && PreferencesManager.get().isEditProfile();
             boolean guestHasPermission = PreferencesManager.get().getGuestId() != 0;
             if (userHasPermission) {
-                eventDetailPresenter.setUserId(PreferencesManager.get().getEmployeeId());
+                eventDetailPresenter.setEmployeeId(PreferencesManager.get().getEmployeeId());
             } else if (guestHasPermission) {
                 eventDetailPresenter.setGuestId(PreferencesManager.get().getGuestId());
             }
+            eventDetailPresenter.loadEventDetail();
         }
-        eventDetailPresenter.loadEventDetail();
     }
 
     @Override
@@ -161,6 +161,8 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
     private void savePresenterState(Bundle outState) {
         outState.putInt(EVENT_ID_KEY, eventDetailPresenter.getEventId());
         outState.putParcelable(EVENT_KEY, eventDetailPresenter.getEvent());
+        outState.putInt(GUEST_ID_KEY, eventDetailPresenter.getGuestId());
+        outState.putInt(EMPLOYEE_ID_KEY, eventDetailPresenter.getEmployeeId());
     }
 
     @Override
