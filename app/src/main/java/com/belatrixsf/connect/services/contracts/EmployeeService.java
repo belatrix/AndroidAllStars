@@ -57,4 +57,6 @@ public interface EmployeeService extends BelatrixConnectService {
 
     ServiceRequest resetPassword(int employeeId, String oldPassword, String newPassword, BelatrixConnectCallback<Employee> callback);
 
+    ServiceRequest registerDevice(int employeeId, String deviceToken, BelatrixConnectCallback<Void> callback);
+
 }
