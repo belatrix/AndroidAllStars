@@ -133,8 +133,9 @@ public class EmployeeManager {
     }
 
     private void registerDevice() {
-        if (PreferencesManager.get().getDeviceToken() != null) {
-            employeeService.registerDevice(employee.getPk(), PreferencesManager.get().getDeviceToken(), new BelatrixConnectCallback<Void>() {
+        String deviceToken = PreferencesManager.get().getDeviceToken();
+        if (deviceToken != null) {
+            employeeService.registerDevice(employee.getPk(), deviceToken, new BelatrixConnectCallback<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
 
