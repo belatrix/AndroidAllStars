@@ -49,10 +49,15 @@ public class AllStarsFirebaseMessagingService extends FirebaseMessagingService {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
+        NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
+        bigTextStyle.setBigContentTitle(messageTitle);
+        bigTextStyle.bigText(messageBody);
+
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle(messageTitle)
+                .setStyle(bigTextStyle)
                 .setContentText(messageBody)
+                .setContentTitle(messageTitle)
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent);
 
