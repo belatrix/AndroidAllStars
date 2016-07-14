@@ -152,4 +152,12 @@ public class EmployeeServerService extends BelatrixConnectBaseService implements
         enqueue(serviceRequest, callback);
         return serviceRequest;
     }
+
+    @Override
+    public ServiceRequest logout(BelatrixConnectCallback<Void> callback) {
+        Call<Void> call = employeeAPI.logout();
+        ServiceRequest<Void> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
 }

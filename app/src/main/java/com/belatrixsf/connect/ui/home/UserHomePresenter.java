@@ -24,6 +24,7 @@ import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.managers.EmployeeManager;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
+import com.belatrixsf.connect.utils.ServiceError;
 
 import javax.inject.Inject;
 
@@ -47,8 +48,12 @@ public class UserHomePresenter extends BelatrixConnectPresenter<HomeView> implem
 
     @Override
     public void confirmLogout() {
-        employeeManager.logout();
-        view.goToLogin();
+        employeeManager.logout(new PresenterCallback<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                view.goToLogin();
+            }
+        });
     }
 
     @Override

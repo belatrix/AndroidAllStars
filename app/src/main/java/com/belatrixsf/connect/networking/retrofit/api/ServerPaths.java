@@ -47,6 +47,7 @@ public interface ServerPaths {
     String QUERY_SEARCH = "search";
 
     String EMPLOYEE_AUTHENTICATE = EMPLOYEE + "/authenticate/";
+    String EMPLOYEE_LOGOUT = EMPLOYEE + "/logout/";
     String EMPLOYEE_CREATE = EMPLOYEE + "/create/";
     String EMPLOYEE_RESET_PASSWORD = EMPLOYEE + "/{" + EMPLOYEE_ID + "}" + "/update/password/";
     String EMPLOYEE_LIST = EMPLOYEE + "/list/";

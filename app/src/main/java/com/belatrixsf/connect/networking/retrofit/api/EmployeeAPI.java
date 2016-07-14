@@ -84,4 +84,7 @@ public interface EmployeeAPI {
     @POST(ServerPaths.EMPLOYEE_REGISTER_DEVICE)
     Call<Void> registerDevice(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Body RegisterDeviceRequest registerDeviceRequest);
 
+    @GET(ServerPaths.EMPLOYEE_LOGOUT)
+    Call<Void> logout();
+
 }

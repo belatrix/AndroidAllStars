@@ -59,4 +59,6 @@ public interface EmployeeService extends BelatrixConnectService {
 
     ServiceRequest registerDevice(int employeeId, String deviceToken, BelatrixConnectCallback<Void> callback);
 
+    ServiceRequest logout(BelatrixConnectCallback<Void> callback);
+
 }
