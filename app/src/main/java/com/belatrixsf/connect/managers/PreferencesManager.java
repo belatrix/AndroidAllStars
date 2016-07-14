@@ -35,6 +35,7 @@ public class PreferencesManager {
     private static final String RESET_PASSWORD_KEY = "reset_password_key";
     private static final String EDIT_PROFILE_KEY = "edit_profile_key";
     private static final String GUEST_ID_KEY = "guest_id_key";
+    private static final String DEVICE_TOKEN_ID = "_device_token_id";
     private static PreferencesManager preferencesManager;
 
     private SharedPreferences sharedPreferences;
@@ -119,4 +120,19 @@ public class PreferencesManager {
     public int getGuestId() {
         return sharedPreferences.getInt(GUEST_ID_KEY, 0);
     }
+
+    public void clearDeviceToken() {
+        sharedPreferences.edit().remove(DEVICE_TOKEN_ID).apply();
+    }
+
+    public String getDeviceToken() {
+        return sharedPreferences.getString(DEVICE_TOKEN_ID, null);
+    }
+
+    public void saveDeviceToken(String deviceToken) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(DEVICE_TOKEN_ID, deviceToken);
+        editor.apply();
+    }
+
 }
