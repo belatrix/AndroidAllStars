@@ -22,13 +22,18 @@ package com.belatrixsf.connect.ui.event;
 
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.EventListAdapter;
@@ -37,8 +42,10 @@ import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.common.EndlessRecyclerOnScrollListener;
 import com.belatrixsf.connect.ui.common.RecyclerOnItemClickListener;
+import com.belatrixsf.connect.ui.common.views.searchingview.SearchingView;
 import com.belatrixsf.connect.ui.event.detail.EventDetailActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
+import com.belatrixsf.connect.utils.KeyboardUtils;
 import com.belatrixsf.connect.utils.di.modules.presenters.EventListPresenterModule;
 
 import java.util.ArrayList;
@@ -53,7 +60,9 @@ import butterknife.ButterKnife;
 public class EventListFragment extends BelatrixConnectFragment implements EventListView, RecyclerOnItemClickListener {
 
     public static final String EVENTS_KEY = "_events_key";
+    public static final String SEARCH_TEXT_KEY = "_search_text_key";
     public static final String PAGING_KEY = "_paging_key";
+    public static final String SEARCHING_KEY = "_searching_key";
 
     private EventListPresenter eventListPresenter;
     private EventListAdapter eventListAdapter;
@@ -61,8 +70,9 @@ public class EventListFragment extends BelatrixConnectFragment implements EventL
 
     private ImageView photoImageView;
 
-    @Bind(R.id.events)
-    RecyclerView eventsRecyclerView;
+    @Bind(R.id.events) RecyclerView eventsRecyclerView;
+
+    @Bind(R.id.no_data_textview) TextView noDataTextView;
 
     public static EventListFragment newInstance() {
         return new EventListFragment();
@@ -98,8 +108,17 @@ public class EventListFragment extends BelatrixConnectFragment implements EventL
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_search, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_search:
+                eventListPresenter.searchEvents();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -113,12 +132,16 @@ public class EventListFragment extends BelatrixConnectFragment implements EventL
 
     private void restorePresenterState(Bundle savedInstanceState) {
         List<Event> events = savedInstanceState.getParcelableArrayList(EVENTS_KEY);
+        boolean searching = savedInstanceState.getBoolean(SEARCHING_KEY, false);
         PaginatedResponse paging = savedInstanceState.getParcelable(PAGING_KEY);
-        eventListPresenter.load(events, paging);
+        String searchText = savedInstanceState.getString(SEARCH_TEXT_KEY, null);
+        eventListPresenter.load(events, paging, searchText, searching);
     }
 
     private void savePresenterState(Bundle outState) {
+        outState.putBoolean(SEARCHING_KEY, eventListPresenter.isSearching());
         outState.putParcelable(PAGING_KEY, eventListPresenter.getEventsPaging());
+        outState.putString(SEARCH_TEXT_KEY, eventListPresenter.getSearchText());
         List<Event> events = eventListPresenter.getEventsSync();
         if (events != null && events instanceof ArrayList) {
             outState.putParcelableArrayList(EVENTS_KEY, (ArrayList<Event>) events);
@@ -141,14 +164,22 @@ public class EventListFragment extends BelatrixConnectFragment implements EventL
 
     @Override
     public void showProgressIndicator() {
-        eventListAdapter.setLoading(true);
-        endlessRecyclerOnScrollListener.setLoading(true);
+        if (eventListAdapter != null) {
+            eventListAdapter.setLoading(true);
+        }
+        if (endlessRecyclerOnScrollListener != null) {
+            endlessRecyclerOnScrollListener.setLoading(true);
+        }
     }
 
     @Override
     public void hideProgressIndicator() {
-        eventListAdapter.setLoading(false);
-        endlessRecyclerOnScrollListener.setLoading(false);
+        if (eventListAdapter != null) {
+            eventListAdapter.setLoading(false);
+        }
+        if (endlessRecyclerOnScrollListener != null) {
+            endlessRecyclerOnScrollListener.setLoading(false);
+        }
     }
 
     @Override
@@ -157,9 +188,48 @@ public class EventListFragment extends BelatrixConnectFragment implements EventL
     }
 
     @Override
+    public void showSearchActionMode() {
+        if (getActivity() instanceof AppCompatActivity) {
+            ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
+        }
+    }
+
+    @Override
     public void resetList() {
         eventListAdapter.reset();
     }
+
+    private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
+
+        @Override
+        public boolean onCreateActionMode(final ActionMode mode, Menu menu) {
+            SearchingView searchingView = new SearchingView(getActivity());
+            searchingView.setSearchingListener(new SearchingView.SearchingListener() {
+                @Override
+                public void onSearchingTextTyped(String searchText) {
+                    eventListPresenter.getEvents(searchText);
+                }
+            });
+            mode.setCustomView(searchingView);
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            return false;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            eventListPresenter.stopSearchingEvents();
+            KeyboardUtils.hideKeyboard(getActivity(), getView());
+        }
+    };
 
     @Override
     public void onClick(View v) {
@@ -170,6 +240,16 @@ public class EventListFragment extends BelatrixConnectFragment implements EventL
     @Override
     public void goEventDetail(Integer id) {
         EventDetailActivity.startActivityAnimatingPic(getActivity(), photoImageView, id);
+    }
+
+    @Override
+    public void showNoDataView() {
+        noDataTextView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideNoDataView() {
+        noDataTextView.setVisibility(View.GONE);
     }
 
     @Override

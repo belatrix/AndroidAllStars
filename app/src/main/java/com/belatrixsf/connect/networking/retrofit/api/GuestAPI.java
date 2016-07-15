@@ -22,7 +22,6 @@ package com.belatrixsf.connect.networking.retrofit.api;
 
 import com.belatrixsf.connect.entities.Event;
 import com.belatrixsf.connect.entities.Guest;
-import com.belatrixsf.connect.networking.retrofit.responses.GuestAuthenticationResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -37,7 +36,7 @@ import retrofit2.http.Path;
 public interface GuestAPI {
 
     @POST(ServerPaths.GUEST_AUTHENTICATE)
-    Call<GuestAuthenticationResponse> authenticateGuest(@Body Guest request);
+    Call<Guest> authenticateGuest(@Body Guest request);
 
     @GET(ServerPaths.GUEST_BY_ID)
     Call<Guest> getGuest(@Path(ServerPaths.GUEST_ID) int guestId);

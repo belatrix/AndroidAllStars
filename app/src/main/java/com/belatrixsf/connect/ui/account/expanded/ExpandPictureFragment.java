@@ -102,23 +102,25 @@ public class ExpandPictureFragment extends BelatrixConnectFragment implements Ex
 
     @Override
     public void showProfilePicture(final String profilePicture) {
-        ImageFactory.getLoader().loadFromUrl(
-                profilePicture,
-                pictureImageView,
-                null,
-                new ImageLoader.Callback() {
-                    @Override
-                    public void onSuccess() {
-                        startPostponedEnterTransition();
-                    }
+        if (pictureImageView != null) {
+            ImageFactory.getLoader().loadFromUrl(
+                    profilePicture,
+                    pictureImageView,
+                    null,
+                    new ImageLoader.Callback() {
+                        @Override
+                        public void onSuccess() {
+                            startPostponedEnterTransition();
+                        }
 
-                    @Override
-                    public void onFailure() {
-                        startPostponedEnterTransition();
-                    }
-                },
-                pictureImageView.getResources().getDrawable(R.drawable.contact_placeholder)
-        );
+                        @Override
+                        public void onFailure() {
+                            startPostponedEnterTransition();
+                        }
+                    },
+                    getResources().getDrawable(R.drawable.contact_placeholder)
+            );
+        }
     }
 
     private void startPostponedEnterTransition() {

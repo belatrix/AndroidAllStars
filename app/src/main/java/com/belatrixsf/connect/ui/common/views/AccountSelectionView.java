@@ -69,11 +69,13 @@ public class AccountSelectionView extends DataSelectionView {
 
     public void setProfileImage(String imageUrl) {
         profileImageUrl = imageUrl;
-        ImageFactory.getLoader().loadFromUrl(imageUrl,
-                profileImageView,
-                ImageLoader.ImageTransformation.CIRCLE,
-                profileImageView.getResources().getDrawable(R.drawable.contact_placeholder)
-        );
+        if (profileImageUrl != null) {
+            ImageFactory.getLoader().loadFromUrl(imageUrl,
+                    profileImageView,
+                    ImageLoader.ImageTransformation.CIRCLE,
+                    getResources().getDrawable(R.drawable.contact_placeholder)
+            );
+        }
     }
 
     public void setFullName(String fullName) {

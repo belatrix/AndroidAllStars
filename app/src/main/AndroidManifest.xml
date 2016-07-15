@@ -69,11 +69,13 @@
             android:label="@string/title_edit_profile_activity"/>
         <activity
             android:name=".ui.about.AboutActivity"
-            android:label="@string/title_about_activity"/>
+            android:label="@string/title_about_activity"
+            android:theme="@style/Translucent"/>
         <activity android:name=".ui.event.EventListActivity"
             android:label="@string/title_event_list_activity"/>
         <activity android:name=".ui.event.detail.EventDetailActivity"
-            android:label="@string/title_event_detail_activity"/>
+            android:label="@string/title_event_detail_activity"
+            android:theme="@style/Translucent"/>
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"/>
         <activity
@@ -88,6 +90,20 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="${fabric_io_api_key}"/>
+
+        <service
+            android:name=".services.fcm.AllStarsFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".services.fcm.AllStarsFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
 
     </application>
 

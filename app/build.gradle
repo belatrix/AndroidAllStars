@@ -46,9 +46,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String", "BASE_URL", serverProps["baseReleaseUrl"]
             manifestPlaceholders = [fabric_io_api_key: fabricApiKey]
+            buildConfigField "String", "FB_ID", serverProps["facebookId"]
+            buildConfigField "String", "TWITTER_ID", serverProps["twitterId"]
+            buildConfigField "String", "TWITTER_SECRET", serverProps["twitterSecret"]
         }
     }
 
+    def firebaseLibrariesVersion = "9.0.0"
     def supportLibrariesVersion = "23.4.0"
 
     dependencies {
@@ -61,6 +65,7 @@ android {
         compile "com.android.support:support-v13:$supportLibrariesVersion"
         compile "com.android.support:gridlayout-v7:$supportLibrariesVersion"
         compile 'com.theartofdev.edmodo:android-image-cropper:2.1.4'
+        compile "com.google.firebase:firebase-messaging:$firebaseLibrariesVersion"
         apt 'com.google.dagger:dagger-compiler:2.0'
         provided 'javax.annotation:jsr250-api:1.0'
         compile 'com.squareup.retrofit2:retrofit:2.0.2'
@@ -82,3 +87,5 @@ android {
         }
     }
 }
+
+apply plugin: 'com.google.gms.google-services'

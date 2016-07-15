@@ -31,7 +31,7 @@ import com.belatrixsf.connect.utils.BelatrixConnectCallback;
  */
 public interface EventService extends BelatrixConnectService {
 
-    ServiceRequest getEventList(Integer page, BelatrixConnectCallback<PaginatedResponse<Event>> callback);
+    ServiceRequest getEventSearchList(String searchTerm, Integer page, BelatrixConnectCallback<PaginatedResponse<Event>> callback);
 
     ServiceRequest getEventDetail(Integer eventId, BelatrixConnectCallback<Event> callback);
 

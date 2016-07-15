@@ -219,58 +219,74 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
 
     @Override
     public void showCurrentMonthScore(String currentMonthScore) {
-        currentMonthScoreTextView.setText(String.valueOf(currentMonthScore));
+        if (currentMonthScoreTextView != null) {
+            currentMonthScoreTextView.setText(String.valueOf(currentMonthScore));
+        }
     }
 
     @Override
     public void showScore(String score) {
-        scoreTextView.setText(String.valueOf(score));
+        if (scoreTextView != null) {
+            scoreTextView.setText(String.valueOf(score));
+        }
     }
 
     @Override
     public void showSubCategories(List<SubCategory> subCategories) {
-        accountCategoriesAdapter.update(subCategories);
+        if (accountCategoriesAdapter != null) {
+            accountCategoriesAdapter.update(subCategories);
+        }
     }
 
     @Override
     public void showLevel(String level) {
-        levelTextView.setText(String.valueOf(level));
+        if (levelTextView != null) {
+            levelTextView.setText(String.valueOf(level));
+        }
     }
 
     @Override
     public void showEmployeeName(String employeName) {
-        nameTextView.setText(employeName);
+        if (nameTextView != null) {
+            nameTextView.setText(employeName);
+        }
     }
 
     @Override
     public void showEmail(String role) {
-        emailTextView.setText(role);
+        if (emailTextView != null) {
+            emailTextView.setText(role);
+        }
     }
 
     @Override
     public void showSkypeId(String skypeID) {
-        skypeIdTextView.setText(skypeID);
+        if (skypeIdTextView != null) {
+            skypeIdTextView.setText(skypeID);
+        }
     }
 
     @Override
     public void showProfilePicture(final String profilePicture) {
-        ImageFactory.getLoader().loadFromUrl(
-                profilePicture,
-                pictureImageView,
-                ImageLoader.ImageTransformation.BORDERED_CIRCLE,
-                new ImageLoader.Callback() {
-                    @Override
-                    public void onSuccess() {
-                        startPostponedEnterTransition();
-                    }
+        if (pictureImageView != null) {
+            ImageFactory.getLoader().loadFromUrl(
+                    profilePicture,
+                    pictureImageView,
+                    ImageLoader.ImageTransformation.BORDERED_CIRCLE,
+                    new ImageLoader.Callback() {
+                        @Override
+                        public void onSuccess() {
+                            startPostponedEnterTransition();
+                        }
 
-                    @Override
-                    public void onFailure() {
-                        startPostponedEnterTransition();
-                    }
-                },
-                pictureImageView.getResources().getDrawable(R.drawable.contact_placeholder)
-        );
+                        @Override
+                        public void onFailure() {
+                            startPostponedEnterTransition();
+                        }
+                    },
+                    getResources().getDrawable(R.drawable.contact_placeholder)
+            );
+        }
     }
 
     @Override
@@ -347,7 +363,9 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
 
     @Override
     public void showProgressDialog() {
-        accountSwipeRefresh.setRefreshing(true);
+        if (accountSwipeRefresh != null) {
+            accountSwipeRefresh.setRefreshing(true);
+        }
     }
 
     @Override

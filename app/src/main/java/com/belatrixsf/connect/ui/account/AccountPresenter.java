@@ -172,7 +172,7 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
     }
 
     public void profilePictureClicked() {
-        if (employee.getAvatar() != null) {
+        if (employee != null && employee.getAvatar() != null) {
             view.goToExpandPhoto(employee.getAvatar());
         }
     }

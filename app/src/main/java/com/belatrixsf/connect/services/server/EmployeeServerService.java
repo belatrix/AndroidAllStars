@@ -26,6 +26,7 @@ import com.belatrixsf.connect.entities.Location;
 import com.belatrixsf.connect.networking.retrofit.api.EmployeeAPI;
 import com.belatrixsf.connect.networking.retrofit.requests.AuthenticationRequest;
 import com.belatrixsf.connect.networking.retrofit.requests.CreateEmployeeRequest;
+import com.belatrixsf.connect.networking.retrofit.requests.RegisterDeviceRequest;
 import com.belatrixsf.connect.networking.retrofit.requests.ResetPasswordRequest;
 import com.belatrixsf.connect.networking.retrofit.requests.UpdateEmployeeRequest;
 import com.belatrixsf.connect.networking.retrofit.responses.AuthenticationResponse;
@@ -143,4 +144,20 @@ public class EmployeeServerService extends BelatrixConnectBaseService implements
         return serviceRequest;
     }
 
+    @Override
+    public ServiceRequest registerDevice(int employeeId, String deviceToken, BelatrixConnectCallback<Void> callback) {
+        RegisterDeviceRequest request = new RegisterDeviceRequest(deviceToken);
+        Call<Void> call = employeeAPI.registerDevice(employeeId, request);
+        ServiceRequest<Void> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
+    @Override
+    public ServiceRequest logout(BelatrixConnectCallback<Void> callback) {
+        Call<Void> call = employeeAPI.logout();
+        ServiceRequest<Void> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
 }

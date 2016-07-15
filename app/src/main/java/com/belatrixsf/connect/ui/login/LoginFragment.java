@@ -39,7 +39,6 @@ import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.account.edit.EditAccountActivity;
 import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
-import com.belatrixsf.connect.ui.home.MainActivity;
 import com.belatrixsf.connect.ui.home.UserActivity;
 import com.belatrixsf.connect.ui.login.guest.LoginAsGuestActivity;
 import com.belatrixsf.connect.ui.resetpassword.ResetPasswordActivity;

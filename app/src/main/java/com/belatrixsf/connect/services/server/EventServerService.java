@@ -45,8 +45,8 @@ public class EventServerService extends BelatrixConnectBaseService implements Ev
     }
 
     @Override
-    public ServiceRequest getEventList(Integer page, BelatrixConnectCallback<PaginatedResponse<Event>> callback) {
-        Call<PaginatedResponse<Event>> call = eventAPI.getEventList(page);
+    public ServiceRequest getEventSearchList(String searchTerm, Integer page, BelatrixConnectCallback<PaginatedResponse<Event>> callback) {
+        Call<PaginatedResponse<Event>> call = eventAPI.getEventSearchList(searchTerm, page);
         ServiceRequest<PaginatedResponse<Event>> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
         return serviceRequest;

@@ -89,7 +89,7 @@ public class GlideLoader implements ImageLoader {
             final Callback callback,
             Drawable placeholder
     ) {
-        load.fitCenter();
+        load.centerCrop();
         load.placeholder(placeholder);
         if (context != null && transformation != null) {
             switch (transformation) {
@@ -105,13 +105,13 @@ public class GlideLoader implements ImageLoader {
             load.listener(new RequestListener<T, GlideDrawable>() {
                 @Override
                 public boolean onException(Exception e, T model, Target<GlideDrawable> target, boolean isFirstResource) {
-                    callback.onSuccess();
+                    callback.onFailure();
                     return false;
                 }
 
                 @Override
                 public boolean onResourceReady(GlideDrawable resource, T model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                    callback.onFailure();
+                    callback.onSuccess();
                     return false;
                 }
             });

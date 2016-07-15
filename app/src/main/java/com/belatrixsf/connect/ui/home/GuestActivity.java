@@ -3,16 +3,13 @@ package com.belatrixsf.connect.ui.home;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.adapters.GuestNavigationViewPagerAdapter;
 import com.belatrixsf.connect.ui.about.AboutActivity;
+import com.belatrixsf.connect.ui.event.EventListFragment;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.di.components.DaggerGuestHomeComponent;
 import com.belatrixsf.connect.utils.di.modules.presenters.GuestHomePresenterModule;
@@ -25,13 +22,15 @@ import butterknife.Bind;
 
 public class GuestActivity extends MainActivity {
 
-    @Bind(R.id.main_view_pager) ViewPager mainViewPager;
-    @Nullable @Bind(R.id.tab_layout) TabLayout tabLayout;
+    @Bind(R.id.main_coordinator) CoordinatorLayout coordinatorLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_guest);
+        if (savedInstanceState == null) {
+            replaceFragment(EventListFragment.newInstance(), false);
+        }
         setToolbar();
         setupViews();
     }
@@ -49,17 +48,7 @@ public class GuestActivity extends MainActivity {
         super.setupViews();
         setupNavigationDrawerMenu();
         setupNavigationDrawerListener();
-        setupTabs();
         homePresenter.loadEmployeeData();
-    }
-
-    private void setupTabs() {
-        GuestNavigationViewPagerAdapter guestNavigationViewPagerAdapter = new GuestNavigationViewPagerAdapter(this, getSupportFragmentManager());
-        mainViewPager.setAdapter(guestNavigationViewPagerAdapter);
-        if (tabLayout != null) {
-            tabLayout.setupWithViewPager(mainViewPager);
-            tabLayout.setVisibility(View.GONE);
-        }
     }
 
     protected void setupNavigationDrawerMenu() {

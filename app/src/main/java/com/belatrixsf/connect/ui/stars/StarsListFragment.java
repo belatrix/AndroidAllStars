@@ -149,14 +149,22 @@ public class StarsListFragment extends BelatrixConnectFragment implements StarsL
 
     @Override
     public void showProgressIndicator() {
-        starsListAdapter.setLoading(true);
-        endlessRecyclerOnScrollListener.setLoading(true);
+        if (starsListAdapter != null) {
+            starsListAdapter.setLoading(true);
+        }
+        if (endlessRecyclerOnScrollListener != null) {
+            endlessRecyclerOnScrollListener.setLoading(true);
+        }
     }
 
     @Override
     public void hideProgressIndicator() {
-        starsListAdapter.setLoading(false);
-        endlessRecyclerOnScrollListener.setLoading(false);
+        if (starsListAdapter != null) {
+            starsListAdapter.setLoading(false);
+        }
+        if (endlessRecyclerOnScrollListener != null) {
+            endlessRecyclerOnScrollListener.setLoading(false);
+        }
     }
 
     @Override

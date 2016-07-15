@@ -62,7 +62,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_2_5"
                     android:fontFamily="serif"
-                    android:layout_marginBottom="@dimen/dimen_4_5"
                     tools:text="Description" />
 
                 <TextView
@@ -79,6 +78,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="serif"
+                    android:visibility="gone"
                     tools:text="# Participants" />
 
             </LinearLayout>

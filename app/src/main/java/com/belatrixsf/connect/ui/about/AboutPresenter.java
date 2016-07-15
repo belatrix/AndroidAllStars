@@ -49,14 +49,16 @@ public class AboutPresenter extends BelatrixConnectPresenter<AboutView> {
 
     private void prepareCollaborators() {
         collaborators = new ArrayList<>();
+        collaborators.add(new Collaborator("Antonella", "Manna", R.drawable.amanna));
         collaborators.add(new Collaborator("Carlos", "Piñan", R.drawable.cpinan));
+        collaborators.add(new Collaborator("Eduardo", "Chuquilin", R.drawable.echuquilin));
         collaborators.add(new Collaborator("Flavio", "Franco", R.drawable.ffranco));
         collaborators.add(new Collaborator("Gianfranco", "Yosida", R.drawable.gyosida));
         collaborators.add(new Collaborator("Gladys", "Cuzcano", R.drawable.gcuzcano));
         collaborators.add(new Collaborator("Ivan", "Cerrate", R.drawable.icerrate));
         collaborators.add(new Collaborator("Javier", "Valdivia", R.drawable.jvaldivia));
         collaborators.add(new Collaborator("Jo", "Yep", R.drawable.jyep));
-        collaborators.add(new Collaborator("Jorge", "Benou", R.drawable.jbenou));
+        collaborators.add(new Collaborator("Jorge", "Boneu", R.drawable.jboneu));
         collaborators.add(new Collaborator("Luis", "Barzola", R.drawable.lbarzola));
         collaborators.add(new Collaborator("Pedro", "Carrillo", R.drawable.pcarrillo));
         collaborators.add(new Collaborator("Rodrigo", "Gonzalez", R.drawable.rgonzalez));

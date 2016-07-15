@@ -8,14 +8,14 @@
     tools:context=".ui.event.detail.EventDetailActivity">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/main.appbar"
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_22_10"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/main.collapsing"
+            android:id="@+id/collapsing"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
