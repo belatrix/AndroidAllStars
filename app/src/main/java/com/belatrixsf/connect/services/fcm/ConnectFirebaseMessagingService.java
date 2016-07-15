@@ -68,7 +68,7 @@ public class ConnectFirebaseMessagingService extends FirebaseMessagingService {
                 R.mipmap.ic_launcher);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.bx_connect_white)
                 .setLargeIcon(icon)
                 .setStyle(bigTextStyle)
                 .setContentText(messageBody)
