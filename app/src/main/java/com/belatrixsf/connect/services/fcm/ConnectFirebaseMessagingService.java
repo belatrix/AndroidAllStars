@@ -14,16 +14,26 @@ import com.belatrixsf.connect.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by PedroCarrillo on 6/2/16.
  */
 
-public class AllStarsFirebaseMessagingService extends FirebaseMessagingService {
+public class ConnectFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+        Map<String, String> notificationData = remoteMessage.getData();
+        if (notificationData != null) {
+            Log.d(TAG, "title: " + notificationData.get("title")+"");
+            Log.d(TAG, "detail "+ remoteMessage.getData().get("detail"));
+
+            sendNotification(notificationData.get("title"), remoteMessage.getData().get("detail"));
+        }
         com.google.firebase.messaging.RemoteMessage.Notification notification = remoteMessage.getNotification();
         //Calling method to generate notification
         if (notification != null) {
