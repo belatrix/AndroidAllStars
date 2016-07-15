@@ -85,12 +85,6 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
         castOrThrowException(context);
     }
 
-    @OnClick(R.id.btn_register)
-    public void onRegisterClicked(View view) {
-        eventDetailPresenter.requestRegister();
-    }
-
-
     private void castOrThrowException(Context context) {
         try {
             eventDetailFragmentListener = (EventDetailFragmentListener) context;
@@ -217,14 +211,34 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
 
     @Override
     public void enableRegister() {
-        eventRegisterButton.setEnabled(true);
+        eventRegisterButton.setText(getString(R.string.string_register));
+        eventRegisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                eventDetailPresenter.requestRegister();
+            }
+        });
         eventRegisterButton.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void disableRegister() {
-        eventRegisterButton.setEnabled(false);
-        eventRegisterButton.setVisibility(View.VISIBLE);
+        eventRegisterButton.setVisibility(View.GONE);
     }
 
+    @Override
+    public void enableUnregister() {
+        eventRegisterButton.setText(getString(R.string.string_register));
+        eventRegisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                eventDetailPresenter.requestUnregister();
+            }
+        });
+    }
+
+    @Override
+    public void disableUnregister() {
+        eventRegisterButton.setVisibility(View.GONE);
+    }
 }

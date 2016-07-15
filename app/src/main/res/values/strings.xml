@@ -184,5 +184,7 @@ SOFTWARE.</string>
     <string name="close_content_desc">Close button</string>
     <string name="email_content_desc">Email icon</string>
     <string name="profile_pic_needed">You need to upload a profile picture</string>
+    <string name="string_register">Register</string>
+    <string name="string_unregister">Unregister</string>
 
 </resources>

@@ -108,11 +108,23 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
         view.showCollaboratorsCount(collaboratorsCount);
         view.showParticipantsCount(participantsCount);
         view.showPicture(event.getPicture());
+//        if (event.isRegistrationAvailable() && !event.isRegistered()) {
+//            view.enableRegister();
+//        } else {
+//            view.disableRegister();
+//        }
+
         if (event.isRegistrationAvailable()) {
-            view.enableRegister();
+            if (event.isRegistered()) {
+                view.enableRegister();
+            } else {
+                view.enableUnregister();
+            }
         } else {
             view.disableRegister();
+            view.disableUnregister();
         }
+
     }
 
     @Override
@@ -141,7 +153,6 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
         public void onSuccess(Event event) {
             EventDetailPresenter.this.event = event;
             showEventDetail();
-            view.disableRegister();
         }
     };
 
@@ -153,4 +164,11 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
         return guestId;
     }
 
+    public void requestUnregister() {
+        if (employeeId != null) {
+            guestService.unregisterCollaborator(eventId, employeeId, eventDetailCallback);
+        } else {
+            guestService.unregisterParticipant(eventId, guestId, eventDetailCallback);
+        }
+    }
 }
