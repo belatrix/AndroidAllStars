@@ -67,22 +67,24 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
 
     public void loadEventDetail() {
         //view.showProgressDialog();
-        BelatrixConnectCallback<EventParticipantDetailResponse> participantDetailResponseBelatrixConnectCallback =  new BelatrixConnectCallback<EventParticipantDetailResponse>() {
-            @Override
-            public void onSuccess(EventParticipantDetailResponse eventParticipantDetailResponse) {
-                EventDetailPresenter.this.event = event;
-                showEventDetail();
-            }
-
-            @Override
-            public void onFailure(ServiceError serviceError) {
-
-            }
-        };
         if (guestId != null) {
+            BelatrixConnectCallback<EventParticipantDetailResponse> participantDetailResponseBelatrixConnectCallback =  new PresenterCallback<EventParticipantDetailResponse>() {
+                @Override
+                public void onSuccess(EventParticipantDetailResponse eventParticipantDetailResponse) {
+                    EventDetailPresenter.this.event = event;
+                    EventDetailPresenter.this.event.setIsRegistered(eventParticipantDetailResponse.isRegistered());
+                    showEventDetail();
+                }
+            };
             eventService.getEventParticipantDetail(eventId, guestId, participantDetailResponseBelatrixConnectCallback);
         } else {
-
+            eventService.getEventCollaboratorDetail(eventId, employeeId, new PresenterCallback<Event>() {
+                @Override
+                public void onSuccess(Event event) {
+                    EventDetailPresenter.this.event = event;
+                    showEventDetail();
+                }
+            });
         }
     }
 

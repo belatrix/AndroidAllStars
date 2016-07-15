@@ -68,4 +68,12 @@ public class EventServerService extends BelatrixConnectBaseService implements Ev
         return serviceRequest;
     }
 
+    @Override
+    public ServiceRequest getEventCollaboratorDetail(Integer eventId, Integer employeeId, BelatrixConnectCallback<Event> callback) {
+        Call<Event> call = eventAPI.getEventCollaboratorDetail(eventId, employeeId);
+        ServiceRequest<Event> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
 }

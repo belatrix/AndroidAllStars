@@ -24,15 +24,14 @@ import java.util.Map;
 public class ConnectFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
+    public static final String TITLE_KEY = "title";
+    public static final String DETAIL_KEY = "detail";
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Map<String, String> notificationData = remoteMessage.getData();
         if (notificationData != null) {
-            Log.d(TAG, "title: " + notificationData.get("title")+"");
-            Log.d(TAG, "detail "+ remoteMessage.getData().get("detail"));
-
-            sendNotification(notificationData.get("title"), remoteMessage.getData().get("detail"));
+            sendNotification(notificationData.get(TITLE_KEY), remoteMessage.getData().get(DETAIL_KEY));
         }
         com.google.firebase.messaging.RemoteMessage.Notification notification = remoteMessage.getNotification();
         //Calling method to generate notification

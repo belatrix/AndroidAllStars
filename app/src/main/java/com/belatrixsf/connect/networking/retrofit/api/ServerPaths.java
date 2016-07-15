@@ -71,6 +71,7 @@ public interface ServerPaths {
     String EVENT_LIST = EVENT + "/list/";
     String EVENT_DETAIL = EVENT + "/{" + EVENT_ID + "}/";
     String EVENT_PARTICIPANT_DETAIL = EVENT_DETAIL + "participant/{" + GUEST_ID + "}/detail/";
+    String EVENT_COLLABORATOR_DETAIL = EVENT_DETAIL + "collaborator/{" + EMPLOYEE_ID + "}/detail/";
     String EVENT_REGISTER_COLLABORATOR = EVENT_DETAIL + "register/collaborator/{" + EMPLOYEE_ID + "}/";
     String EVENT_REGISTER_PARTICIPANT = EVENT_DETAIL + "register/participant/{" + GUEST_ID + "}/";
     String EVENT_UNREGISTER_COLLABORATOR = EVENT_DETAIL + "unregister/collaborator/{" + EMPLOYEE_ID + "}/";

@@ -43,4 +43,7 @@ public interface EventAPI {
     @GET(ServerPaths.EVENT_PARTICIPANT_DETAIL)
     Call<EventParticipantDetailResponse> getEventParticipantDetail(@Path(ServerPaths.EVENT_ID) Integer eventId, @Path(ServerPaths.GUEST_ID) Integer guestId);
 
+    @GET(ServerPaths.EVENT_COLLABORATOR_DETAIL)
+    Call<Event> getEventCollaboratorDetail(@Path(ServerPaths.EVENT_ID) Integer eventId, @Path(ServerPaths.EMPLOYEE_ID) Integer employeeId);
+
 }
