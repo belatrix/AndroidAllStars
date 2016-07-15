@@ -16,7 +16,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
     private static final String NOTIFICATIONS_ENABLED_KEY = "settings_key_notifications_switch";
 
-    private static SharedPreferences sharedPreferences;
+    private static SharedPreferences sharedPref;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,21 +25,35 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.fragment_settings);
 
-        sharedPreferences = PreferencesManager.get().getSharedPreferences();
+        sharedPref = PreferencesManager.get().getSharedPreferences();
         restorePreviusSettings();
     }
 
     private void restorePreviusSettings() {
-        if (sharedPreferences.contains(NOTIFICATIONS_ENABLED_KEY)) {
+        if (sharedPref.contains(NOTIFICATIONS_ENABLED_KEY)) {
             Preference notificationEnabledPref = findPreference(NOTIFICATIONS_ENABLED_KEY);
-            notificationEnabledPref.setDefaultValue(sharedPreferences.getBoolean(NOTIFICATIONS_ENABLED_KEY, true));
+            notificationEnabledPref.setDefaultValue(sharedPref.getBoolean(NOTIFICATIONS_ENABLED_KEY, true));
         }
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals(NOTIFICATIONS_ENABLED_KEY)) {
-            sharedPreferences.edit().putBoolean(NOTIFICATIONS_ENABLED_KEY,sharedPreferences.getBoolean(NOTIFICATIONS_ENABLED_KEY,true));
+            sharedPref.edit().putBoolean(NOTIFICATIONS_ENABLED_KEY,sharedPreferences.getBoolean(NOTIFICATIONS_ENABLED_KEY,true)).apply();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getPreferenceScreen().getSharedPreferences()
+                .registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getPreferenceScreen().getSharedPreferences()
+                .unregisterOnSharedPreferenceChangeListener(this);
     }
 }

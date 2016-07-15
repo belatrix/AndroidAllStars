@@ -1,5 +1,6 @@
 package com.belatrixsf.connect.ui.settings;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.belatrixsf.connect.R;
+import com.belatrixsf.connect.managers.PreferencesManager;
 
 /**
  * Created by echuquilin on 6/07/16.
@@ -44,4 +46,5 @@ public class SettingsActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
 }

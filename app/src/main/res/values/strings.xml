@@ -189,7 +189,7 @@ SOFTWARE.</string>
     <!-- Settings -->
     <string name="settings_category_notifications">NOTIFICATIONS</string>
     <string name="settings_title_notifications_switch">Enable Notifications</string>
-    <string name="settings_summary_notifications_switch">Turn on or off the notifications</string>
+    <string name="settings_summary_notifications_switch">Turn on/off the notifications</string>
     <string name="settings_key_notifications_switch">settings_key_notifications_switch</string>
     <string name="settings_key_notifications">settings_key_notifications</string>
 
