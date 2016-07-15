@@ -11,6 +11,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.belatrixsf.connect.R;
+import com.belatrixsf.connect.ui.settings.SettingsFragment;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -39,7 +40,8 @@ public class AllStarsFirebaseMessagingService extends FirebaseMessagingService {
             Log.d(TAG, "getBodyLocalizationArgs: " + notification.getBodyLocalizationArgs()+"");
             Log.d(TAG, "getTitleLocalizationArgs: " + notification.getTitleLocalizationArgs()+"");
 
-            sendNotification(notification.getTitle(), notification.getBody());
+            if(SettingsFragment.isNotificationEnabled())
+                sendNotification(notification.getTitle(), notification.getBody());
         }
     }
 
