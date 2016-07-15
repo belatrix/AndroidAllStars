@@ -7,11 +7,12 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
 import com.belatrixsf.connect.R;
+import com.belatrixsf.connect.managers.PreferencesManager;
 
 /**
  * Created by echuquilin on 6/07/16.
  */
-public class SettingsFragment extends PreferenceFragment {
+public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private static final String NOTIFICATIONS_ENABLED_KEY = "settings_key_notifications_switch";
 
@@ -24,21 +25,21 @@ public class SettingsFragment extends PreferenceFragment {
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.fragment_settings);
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        sharedPreferences = PreferencesManager.get().getSharedPreferences();
         restorePreviusSettings();
-    }
-
-    public static boolean isNotificationEnabled() {
-        if (sharedPreferences.contains(NOTIFICATIONS_ENABLED_KEY))
-            return sharedPreferences.getBoolean(NOTIFICATIONS_ENABLED_KEY, true);
-        else
-            return true;
     }
 
     private void restorePreviusSettings() {
         if (sharedPreferences.contains(NOTIFICATIONS_ENABLED_KEY)) {
             Preference notificationEnabledPref = findPreference(NOTIFICATIONS_ENABLED_KEY);
             notificationEnabledPref.setDefaultValue(sharedPreferences.getBoolean(NOTIFICATIONS_ENABLED_KEY, true));
+        }
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(NOTIFICATIONS_ENABLED_KEY)) {
+            sharedPreferences.edit().putBoolean(NOTIFICATIONS_ENABLED_KEY,sharedPreferences.getBoolean(NOTIFICATIONS_ENABLED_KEY,true));
         }
     }
 }

@@ -22,7 +22,9 @@ package com.belatrixsf.connect.managers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
+import com.belatrixsf.connect.ui.settings.SettingsFragment;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 
 /**
@@ -36,6 +38,7 @@ public class PreferencesManager {
     private static final String EDIT_PROFILE_KEY = "edit_profile_key";
     private static final String GUEST_ID_KEY = "guest_id_key";
     private static final String DEVICE_TOKEN_ID = "_device_token_id";
+    private static final String NOTIFICATIONS_ENABLED_KEY = "settings_key_notifications_switch";
     private static PreferencesManager preferencesManager;
 
     private SharedPreferences sharedPreferences;
@@ -49,6 +52,10 @@ public class PreferencesManager {
             preferencesManager = new PreferencesManager();
         }
         return preferencesManager;
+    }
+
+    public SharedPreferences getSharedPreferences() {
+        return sharedPreferences;
     }
 
     public void saveToken(String token) {
@@ -133,6 +140,10 @@ public class PreferencesManager {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(DEVICE_TOKEN_ID, deviceToken);
         editor.apply();
+    }
+
+    public boolean isNotificationEnabled() {
+        return sharedPreferences.getBoolean(NOTIFICATIONS_ENABLED_KEY, true);
     }
 
 }

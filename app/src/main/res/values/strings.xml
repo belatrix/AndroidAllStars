@@ -62,6 +62,7 @@
     <string name="tab_contacts_title">Contacts</string>
     <string name="tab_keywords_title">Tags</string>
     <string name="tab_events_title">Events</string>
+    <string name="settings_main_title">Settings</string>
 
     <!-- Login and Register -->
     <string name="title_login">Belatrix Connect</string>
@@ -184,5 +185,12 @@ SOFTWARE.</string>
     <string name="close_content_desc">Close button</string>
     <string name="email_content_desc">Email icon</string>
     <string name="profile_pic_needed">You need to upload a profile picture</string>
+
+    <!-- Settings -->
+    <string name="settings_category_notifications">NOTIFICATIONS</string>
+    <string name="settings_title_notifications_switch">Enable Notifications</string>
+    <string name="settings_summary_notifications_switch">Turn on or off the notifications</string>
+    <string name="settings_key_notifications_switch">settings_key_notifications_switch</string>
+    <string name="settings_key_notifications">settings_key_notifications</string>
 
 </resources>

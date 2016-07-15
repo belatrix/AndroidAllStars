@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.about.AboutActivity;
 import com.belatrixsf.connect.ui.event.EventListFragment;
+import com.belatrixsf.connect.ui.settings.SettingsActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.di.components.DaggerGuestHomeComponent;
 import com.belatrixsf.connect.utils.di.modules.presenters.GuestHomePresenterModule;
@@ -66,6 +67,10 @@ public class GuestActivity extends MainActivity {
                     case R.id.menu_about:
                         Intent intent = new Intent(GuestActivity.this, AboutActivity.class);
                         startActivity(intent);
+                        break;
+                    case R.id.menu_settings:
+                        Intent settingsIntent = new Intent(GuestActivity.this, SettingsActivity.class);
+                        startActivity(settingsIntent);
                         break;
                 }
                 return true;

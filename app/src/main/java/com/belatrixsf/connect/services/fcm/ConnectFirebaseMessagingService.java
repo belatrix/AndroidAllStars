@@ -11,11 +11,10 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.ui.settings.SettingsFragment;
+import com.belatrixsf.connect.managers.PreferencesManager;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -29,29 +28,11 @@ public class ConnectFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Map<String, String> notificationData = remoteMessage.getData();
-        if (notificationData != null) {
-            Log.d(TAG, "title: " + notificationData.get("title")+"");
-            Log.d(TAG, "detail "+ remoteMessage.getData().get("detail"));
+        if (notificationData != null && PreferencesManager.get().isNotificationEnabled()) {
+            Log.d(TAG, "title: " + notificationData.get("title") + "");
+            Log.d(TAG, "detail " + remoteMessage.getData().get("detail"));
 
             sendNotification(notificationData.get("title"), remoteMessage.getData().get("detail"));
-        }
-        com.google.firebase.messaging.RemoteMessage.Notification notification = remoteMessage.getNotification();
-        //Calling method to generate notification
-        if (notification != null) {
-
-            //Displaying data in log
-            //It is optional
-            Log.d(TAG, "title: " + notification.getTitle()+"");
-            Log.d(TAG, "getBody: " + notification.getBody()+"");
-            Log.d(TAG, "getBodyLocalizationKey: " + notification.getBodyLocalizationKey()+"");
-            Log.d(TAG, "getClickAction: " + notification.getClickAction()+"");
-            Log.d(TAG, "getColor: " + notification.getColor()+"");
-            Log.d(TAG, "getSound: " + notification.getSound()+"");
-            Log.d(TAG, "getBodyLocalizationArgs: " + notification.getBodyLocalizationArgs()+"");
-            Log.d(TAG, "getTitleLocalizationArgs: " + notification.getTitleLocalizationArgs()+"");
-
-            if(SettingsFragment.isNotificationEnabled())
-                sendNotification(notification.getTitle(), notification.getBody());
         }
     }
 
