@@ -15,7 +15,7 @@ import javax.inject.Inject;
  * Created by PedroCarrillo on 6/2/16.
  */
 
-public class AllStarsFirebaseInstanceIDService extends FirebaseInstanceIdService {
+public class ConnectFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
     private static final String TAG = "MyFirebaseIIDService";
 
