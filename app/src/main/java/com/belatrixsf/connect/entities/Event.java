@@ -127,7 +127,8 @@ public class Event implements Parcelable {
         } else {
             dest.writeByte((byte) (0x01));
             dest.writeInt(collaborators);
-        }if (participants == null) {
+        }
+        if (participants == null) {
             dest.writeByte((byte) (0x00));
         } else {
             dest.writeByte((byte) (0x01));

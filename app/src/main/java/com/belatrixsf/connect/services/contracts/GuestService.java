@@ -34,12 +34,4 @@ public interface GuestService extends BelatrixConnectService {
 
     ServiceRequest getGuest(int guestId, BelatrixConnectCallback<Guest> callback);
 
-    ServiceRequest registerCollaborator(int eventId, int employeeId, BelatrixConnectCallback<Event> callback);
-
-    ServiceRequest registerParticipant(int eventId, int employeeId, BelatrixConnectCallback<Event> callback);
-
-    ServiceRequest unregisterCollaborator(int eventId, int employeeId, BelatrixConnectCallback<Event> callback);
-
-    ServiceRequest unregisterParticipant(int eventId, int employeeId, BelatrixConnectCallback<Event> callback);
-
 }

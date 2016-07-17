@@ -76,4 +76,36 @@ public class EventServerService extends BelatrixConnectBaseService implements Ev
         return serviceRequest;
     }
 
+    @Override
+    public ServiceRequest registerCollaborator(int eventId, int employeeId, BelatrixConnectCallback<Event> callback) {
+        Call<Event> call = eventAPI.registerCollaborator(eventId, employeeId);
+        ServiceRequest<Event> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
+    @Override
+    public ServiceRequest registerParticipant(int eventId, int employeeId, BelatrixConnectCallback<EventParticipantDetailResponse> callback) {
+        Call<EventParticipantDetailResponse> call = eventAPI.registerParticipant(eventId, employeeId);
+        ServiceRequest<EventParticipantDetailResponse> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
+    @Override
+    public ServiceRequest unregisterCollaborator(int eventId, int employeeId, BelatrixConnectCallback<Event> callback) {
+        Call<Event> call = eventAPI.unregisterCollaborator(eventId, employeeId);
+        ServiceRequest<Event> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
+    @Override
+    public ServiceRequest unregisterParticipant(int eventId, int employeeId, BelatrixConnectCallback<Event> callback) {
+        Call<Event> call = eventAPI.unregisterParticipant(eventId, employeeId);
+        ServiceRequest<Event> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
 }

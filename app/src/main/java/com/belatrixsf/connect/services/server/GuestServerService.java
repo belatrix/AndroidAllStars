@@ -59,36 +59,4 @@ public class GuestServerService extends BelatrixConnectBaseService implements Gu
         return serviceRequest;
     }
 
-    @Override
-    public ServiceRequest registerCollaborator(int eventId, int employeeId, BelatrixConnectCallback<Event> callback) {
-        Call<Event> call = guestAPI.registerCollaborator(eventId, employeeId);
-        ServiceRequest<Event> serviceRequest = new ServerServiceRequest<>(call);
-        enqueue(serviceRequest, callback);
-        return serviceRequest;
-    }
-
-    @Override
-    public ServiceRequest registerParticipant(int eventId, int employeeId, BelatrixConnectCallback<Event> callback) {
-        Call<Event> call = guestAPI.registerParticipant(eventId, employeeId);
-        ServiceRequest<Event> serviceRequest = new ServerServiceRequest<>(call);
-        enqueue(serviceRequest, callback);
-        return serviceRequest;
-    }
-
-    @Override
-    public ServiceRequest unregisterCollaborator(int eventId, int employeeId, BelatrixConnectCallback<Event> callback) {
-        Call<Event> call = guestAPI.unregisterCollaborator(eventId, employeeId);
-        ServiceRequest<Event> serviceRequest = new ServerServiceRequest<>(call);
-        enqueue(serviceRequest, callback);
-        return serviceRequest;
-    }
-
-    @Override
-    public ServiceRequest unregisterParticipant(int eventId, int employeeId, BelatrixConnectCallback<Event> callback) {
-        Call<Event> call = guestAPI.unregisterParticipant(eventId, employeeId);
-        ServiceRequest<Event> serviceRequest = new ServerServiceRequest<>(call);
-        enqueue(serviceRequest, callback);
-        return serviceRequest;
-    }
-
 }

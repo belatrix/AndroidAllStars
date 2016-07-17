@@ -39,4 +39,12 @@ public interface EventService extends BelatrixConnectService {
 
     ServiceRequest getEventCollaboratorDetail(Integer eventId, Integer employeeId, BelatrixConnectCallback<Event> callback);
 
+    ServiceRequest registerCollaborator(int eventId, int employeeId, BelatrixConnectCallback<Event> callback);
+
+    ServiceRequest registerParticipant(int eventId, int employeeId, BelatrixConnectCallback<EventParticipantDetailResponse> callback);
+
+    ServiceRequest unregisterCollaborator(int eventId, int employeeId, BelatrixConnectCallback<Event> callback);
+
+    ServiceRequest unregisterParticipant(int eventId, int employeeId, BelatrixConnectCallback<Event> callback);
+
 }

@@ -28,7 +28,6 @@ import com.belatrixsf.connect.services.contracts.GuestService;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 import com.belatrixsf.connect.utils.DateUtils;
-import com.belatrixsf.connect.utils.ServiceError;
 
 import javax.inject.Inject;
 
@@ -43,13 +42,11 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
 
     private Integer employeeId;
     private Integer guestId;
-    private GuestService guestService;
 
     @Inject
-    public EventDetailPresenter(EventDetailView view, EventService eventService, GuestService guestService) {
+    public EventDetailPresenter(EventDetailView view, EventService eventService) {
         super(view);
         this.eventService = eventService;
-        this.guestService = guestService;
     }
 
     public void setGuestId(Integer guestId) {
@@ -68,23 +65,9 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
     public void loadEventDetail() {
         //view.showProgressDialog();
         if (guestId != null) {
-            BelatrixConnectCallback<EventParticipantDetailResponse> participantDetailResponseBelatrixConnectCallback =  new PresenterCallback<EventParticipantDetailResponse>() {
-                @Override
-                public void onSuccess(EventParticipantDetailResponse eventParticipantDetailResponse) {
-                    EventDetailPresenter.this.event = event;
-                    EventDetailPresenter.this.event.setIsRegistered(eventParticipantDetailResponse.isRegistered());
-                    showEventDetail();
-                }
-            };
             eventService.getEventParticipantDetail(eventId, guestId, participantDetailResponseBelatrixConnectCallback);
         } else {
-            eventService.getEventCollaboratorDetail(eventId, employeeId, new PresenterCallback<Event>() {
-                @Override
-                public void onSuccess(Event event) {
-                    EventDetailPresenter.this.event = event;
-                    showEventDetail();
-                }
-            });
+            eventService.getEventCollaboratorDetail(eventId, employeeId, eventDetailCallback);
         }
     }
 
@@ -108,22 +91,17 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
         view.showCollaboratorsCount(collaboratorsCount);
         view.showParticipantsCount(participantsCount);
         view.showPicture(event.getPicture());
-//        if (event.isRegistrationAvailable() && !event.isRegistered()) {
-//            view.enableRegister();
-//        } else {
-//            view.disableRegister();
-//        }
 
-        if (event.isRegistrationAvailable()) {
-            if (event.isRegistered()) {
-                view.enableRegister();
-            } else {
-                view.enableUnregister();
-            }
-        } else {
-            view.disableRegister();
-            view.disableUnregister();
-        }
+//        if (event.isRegistrationAvailable()) {
+//            view.showRegister();
+//            if (event.isRegistered()) {
+//                view.enableUnregister();
+//            } else {
+//                view.enableRegister();
+//            }
+//        } else {
+            view.hideRegister();
+//        }
 
     }
 
@@ -142,9 +120,9 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
 
     public void requestRegister() {
         if (employeeId != null) {
-            guestService.registerCollaborator(eventId, employeeId, eventDetailCallback);
+            eventService.registerCollaborator(eventId, employeeId, eventDetailCallback);
         } else {
-            guestService.registerParticipant(eventId, guestId, eventDetailCallback);
+            eventService.registerParticipant(eventId, guestId, participantDetailResponseBelatrixConnectCallback);
         }
     }
 
@@ -152,6 +130,15 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
         @Override
         public void onSuccess(Event event) {
             EventDetailPresenter.this.event = event;
+            showEventDetail();
+        }
+    };
+
+    private BelatrixConnectCallback<EventParticipantDetailResponse> participantDetailResponseBelatrixConnectCallback =  new PresenterCallback<EventParticipantDetailResponse>() {
+        @Override
+        public void onSuccess(EventParticipantDetailResponse eventParticipantDetailResponse) {
+            EventDetailPresenter.this.event = eventParticipantDetailResponse.getEvent();
+            EventDetailPresenter.this.event.setIsRegistered(eventParticipantDetailResponse.isRegistered());
             showEventDetail();
         }
     };
@@ -166,9 +153,9 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
 
     public void requestUnregister() {
         if (employeeId != null) {
-            guestService.unregisterCollaborator(eventId, employeeId, eventDetailCallback);
+            eventService.unregisterCollaborator(eventId, employeeId, eventDetailCallback);
         } else {
-            guestService.unregisterParticipant(eventId, guestId, eventDetailCallback);
+            eventService.unregisterParticipant(eventId, guestId, eventDetailCallback);
         }
     }
 }
