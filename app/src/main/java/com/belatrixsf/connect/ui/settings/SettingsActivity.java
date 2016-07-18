@@ -3,7 +3,6 @@ package com.belatrixsf.connect.ui.settings;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
-import android.view.MenuItem;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
@@ -27,17 +26,6 @@ public class SettingsActivity extends BelatrixConnectActivity {
                 .commit();
 
         setNavigationToolbar();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
 }
