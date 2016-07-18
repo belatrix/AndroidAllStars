@@ -22,9 +22,7 @@ package com.belatrixsf.connect.managers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
-import com.belatrixsf.connect.ui.settings.SettingsFragment;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 
 /**
@@ -38,7 +36,7 @@ public class PreferencesManager {
     private static final String EDIT_PROFILE_KEY = "edit_profile_key";
     private static final String GUEST_ID_KEY = "guest_id_key";
     private static final String DEVICE_TOKEN_ID = "_device_token_id";
-    private static final String NOTIFICATIONS_ENABLED_KEY = "settings_key_notifications_switch";
+    private static final String NOTIFICATIONS_ENABLED_KEY = "settings_notifications_switch_key";
     private static PreferencesManager preferencesManager;
 
     private SharedPreferences sharedPreferences;
