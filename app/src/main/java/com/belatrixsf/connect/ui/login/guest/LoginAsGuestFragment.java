@@ -23,6 +23,7 @@ package com.belatrixsf.connect.ui.login.guest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.IntentCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -238,7 +239,7 @@ public class LoginAsGuestFragment extends BelatrixConnectFragment implements Log
     @Override
     public void goHome() {
         Intent intent = new Intent(getActivity(), GuestActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(IntentCompat.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         fragmentListener.closeActivity();
     }
