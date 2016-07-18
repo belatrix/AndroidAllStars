@@ -22,6 +22,7 @@ package com.belatrixsf.connect.managers;
 
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.networking.retrofit.responses.AuthenticationResponse;
+import com.belatrixsf.connect.networking.retrofit.responses.RequestNewPasswordResponse;
 import com.belatrixsf.connect.services.contracts.EmployeeService;
 import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 import com.belatrixsf.connect.utils.ServiceError;
@@ -106,6 +107,20 @@ public class EmployeeManager {
                 }
             });
         }
+    }
+
+    public void requestNewPassword(String employeeEmail, final BelatrixConnectCallback<RequestNewPasswordResponse> callback) {
+        employeeService.requestNewPassword(employeeEmail, new BelatrixConnectCallback<RequestNewPasswordResponse>() {
+            @Override
+            public void onSuccess(RequestNewPasswordResponse requestNewPasswordResponse) {
+                callback.onSuccess(requestNewPasswordResponse);
+            }
+
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                callback.onFailure(serviceError);
+            }
+        });
     }
 
     public void getLoggedInEmployee(final BelatrixConnectCallback<Employee> callback) {

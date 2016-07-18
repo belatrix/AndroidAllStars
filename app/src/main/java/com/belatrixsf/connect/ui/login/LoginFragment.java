@@ -42,6 +42,7 @@ import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.home.UserActivity;
 import com.belatrixsf.connect.ui.login.guest.LoginAsGuestActivity;
 import com.belatrixsf.connect.ui.resetpassword.ResetPasswordActivity;
+import com.belatrixsf.connect.ui.resetpassword.request.RequestNewPasswordActivity;
 import com.belatrixsf.connect.ui.signup.SignUpActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.di.components.DaggerLoginComponent;
@@ -56,6 +57,7 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     @Bind(R.id.password) EditText passwordEditText;
     @Bind(R.id.log_in) Button logInButton;
     @Bind(R.id.log_in_as_guest) Button logInAsGuestButton;
+    @Bind(R.id.forgot_password) TextView forgotPasswordButton;
     @Bind(R.id.sign_up) TextView signUpButton;
 
     private LoginPresenter loginPresenter;
@@ -156,6 +158,12 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     @OnClick(R.id.sign_up)
     public void signUpClicked() {
         Intent intent = new Intent(getActivity(), SignUpActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.forgot_password)
+    public void forgotPasswordClicked() {
+        Intent intent = new Intent(getActivity(), RequestNewPasswordActivity.class);
         startActivity(intent);
     }
 

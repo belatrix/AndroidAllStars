@@ -26,6 +26,7 @@ import com.belatrixsf.connect.entities.Location;
 import com.belatrixsf.connect.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.CreateEmployeeResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
+import com.belatrixsf.connect.networking.retrofit.responses.RequestNewPasswordResponse;
 import com.belatrixsf.connect.services.ServiceRequest;
 import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 
@@ -56,5 +57,7 @@ public interface EmployeeService extends BelatrixConnectService {
     ServiceRequest updateEmployeeImage(int employeeId, File file, BelatrixConnectCallback<Employee> callback);
 
     ServiceRequest resetPassword(int employeeId, String oldPassword, String newPassword, BelatrixConnectCallback<Employee> callback);
+
+    ServiceRequest requestNewPassword(String employeeEmail, BelatrixConnectCallback<RequestNewPasswordResponse> callback);
 
 }

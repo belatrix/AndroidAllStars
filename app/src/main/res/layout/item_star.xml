@@ -44,23 +44,22 @@
                     android:textSize="@dimen/text_16"
                     android:textColor="@android:color/black"
                     android:singleLine="true"
-                    tools:text="Tony Stark" />
+                    tools:text="Full Name" />
+
+                <TextView
+                    android:id="@+id/star_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    tools:text="Category" />
 
                 <TextView
                     android:id="@+id/star_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="12/05/2016" />
+                    tools:text="Date" />
                 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/star_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:gravity="right"
-                tools:text="Management" />
 
         </LinearLayout>
 
