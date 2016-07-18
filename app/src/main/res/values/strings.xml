@@ -79,7 +79,7 @@
 
     <!-- Reset Password -->
     <string name="new_password">New password</string>
-    <string name="enter_your_email_address_to_receive_new_password">Enter your email address to request your new password</string>
+    <string name="enter_your_email_address_to_request_your_new_password">Enter your email address to request your new password</string>
 
     <!-- Reset Password -->
     <string name="secure_your_account">Secure you account</string>
