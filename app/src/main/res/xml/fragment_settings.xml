@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <PreferenceCategory
+        android:key="@string/settings_key_notifications"
+        android:title="@string/settings_category_notifications">
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/settings_key_notifications_switch"
+            android:summary="@string/settings_summary_notifications_switch"
+            android:title="@string/settings_title_notifications_switch" />
+    </PreferenceCategory>
+</PreferenceScreen>

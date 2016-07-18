@@ -78,6 +78,8 @@
             android:theme="@style/Translucent"/>
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"/>
+        <activity android:name=".ui.settings.SettingsActivity"
+        android:label="@string/settings_main_title"/>
         <activity
             android:name=".ui.LauncherActivity">
             <intent-filter>
@@ -92,14 +94,14 @@
             android:value="${fabric_io_api_key}"/>
 
         <service
-            android:name=".services.fcm.AllStarsFirebaseMessagingService">
+            android:name=".services.fcm.ConnectFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
 
         <service
-            android:name=".services.fcm.AllStarsFirebaseInstanceIDService">
+            android:name=".services.fcm.ConnectFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
