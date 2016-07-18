@@ -164,14 +164,22 @@ public class EventListFragment extends BelatrixConnectFragment implements EventL
 
     @Override
     public void showProgressIndicator() {
-        eventListAdapter.setLoading(true);
-        endlessRecyclerOnScrollListener.setLoading(true);
+        if (eventListAdapter != null) {
+            eventListAdapter.setLoading(true);
+        }
+        if (endlessRecyclerOnScrollListener != null) {
+            endlessRecyclerOnScrollListener.setLoading(true);
+        }
     }
 
     @Override
     public void hideProgressIndicator() {
-        eventListAdapter.setLoading(false);
-        endlessRecyclerOnScrollListener.setLoading(false);
+        if (eventListAdapter != null) {
+            eventListAdapter.setLoading(false);
+        }
+        if (endlessRecyclerOnScrollListener != null) {
+            endlessRecyclerOnScrollListener.setLoading(false);
+        }
     }
 
     @Override

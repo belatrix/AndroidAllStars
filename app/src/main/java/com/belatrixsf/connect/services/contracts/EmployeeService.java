@@ -60,4 +60,8 @@ public interface EmployeeService extends BelatrixConnectService {
 
     ServiceRequest requestNewPassword(String employeeEmail, BelatrixConnectCallback<RequestNewPasswordResponse> callback);
 
+    ServiceRequest registerDevice(int employeeId, String deviceToken, BelatrixConnectCallback<Void> callback);
+
+    ServiceRequest logout(BelatrixConnectCallback<Void> callback);
+
 }

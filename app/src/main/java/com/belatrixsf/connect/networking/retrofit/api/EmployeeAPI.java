@@ -25,6 +25,7 @@ import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.Location;
 import com.belatrixsf.connect.networking.retrofit.requests.AuthenticationRequest;
 import com.belatrixsf.connect.networking.retrofit.requests.CreateEmployeeRequest;
+import com.belatrixsf.connect.networking.retrofit.requests.RegisterDeviceRequest;
 import com.belatrixsf.connect.networking.retrofit.requests.ResetPasswordRequest;
 import com.belatrixsf.connect.networking.retrofit.requests.UpdateEmployeeRequest;
 import com.belatrixsf.connect.networking.retrofit.responses.AuthenticationResponse;
@@ -83,5 +84,11 @@ public interface EmployeeAPI {
     @Multipart
     @POST(ServerPaths.EMPLOYEE_AVATAR)
     Call<Employee> updateEmployeeImage(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Part MultipartBody.Part file);
+
+    @POST(ServerPaths.EMPLOYEE_REGISTER_DEVICE)
+    Call<Void> registerDevice(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Body RegisterDeviceRequest registerDeviceRequest);
+
+    @GET(ServerPaths.EMPLOYEE_LOGOUT)
+    Call<Void> logout();
 
 }

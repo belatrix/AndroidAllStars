@@ -150,13 +150,19 @@ public class KeywordsListFragment extends BelatrixConnectFragment implements Key
 
     @Override
     public void showProgressIndicator() {
-        keywordsListAdapter.setLoading(true);
+        if (keywordsListAdapter != null) {
+            keywordsListAdapter.setLoading(true);
+        }
     }
 
     @Override
     public void hideProgressIndicator() {
-        keywordsListAdapter.setLoading(false);
-        keywordsRefreshLayout.setRefreshing(false);
+        if (keywordsListAdapter != null) {
+            keywordsListAdapter.setLoading(false);
+        }
+        if (keywordsRefreshLayout != null) {
+            keywordsRefreshLayout.setRefreshing(false);
+        }
     }
 
     @Override

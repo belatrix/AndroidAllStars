@@ -135,7 +135,9 @@ public class RankingFragment extends BelatrixConnectFragment implements RankingV
 
     @Override
     public void showProgressIndicator() {
-        loadingProgressBar.setVisibility(View.VISIBLE);
+        if (loadingProgressBar != null) {
+            loadingProgressBar.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -147,7 +149,9 @@ public class RankingFragment extends BelatrixConnectFragment implements RankingV
 
     @Override
     public void hideRefreshData() {
-        rankingSwipeRefresh.setRefreshing(false);
+        if (rankingSwipeRefresh != null) {
+            rankingSwipeRefresh.setRefreshing(false);
+        }
     }
 
     @Override

@@ -26,6 +26,7 @@ import com.belatrixsf.connect.networking.retrofit.responses.RequestNewPasswordRe
 import com.belatrixsf.connect.services.contracts.EmployeeService;
 import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 import com.belatrixsf.connect.utils.ServiceError;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.io.File;
 
@@ -64,6 +65,8 @@ public class EmployeeManager {
                         @Override
                         public void onSuccess(Employee employee) {
                             EmployeeManager.this.employee = employee;
+                            PreferencesManager.get().saveDeviceToken(FirebaseInstanceId.getInstance().getToken());
+                            registerDevice();
                             if (authenticationResponse.isBaseProfileComplete()){
                                 PreferencesManager.get().setEditProfile(true);
                                 callback.onSuccess(AccountState.PROFILE_COMPLETE);
@@ -130,6 +133,7 @@ public class EmployeeManager {
                 @Override
                 public void onSuccess(Employee employee) {
                     EmployeeManager.this.employee = employee;
+                    registerDevice();
                     callback.onSuccess(employee);
                 }
 
@@ -140,6 +144,23 @@ public class EmployeeManager {
             });
         } else {
             callback.onSuccess(employee);
+        }
+    }
+
+    private void registerDevice() {
+        String deviceToken = PreferencesManager.get().getDeviceToken();
+        if (deviceToken != null) {
+            employeeService.registerDevice(employee.getPk(), deviceToken, new BelatrixConnectCallback<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+
+                }
+
+                @Override
+                public void onFailure(ServiceError serviceError) {
+
+                }
+            });
         }
     }
 
@@ -163,12 +184,24 @@ public class EmployeeManager {
         this.employee = null;
     }
 
-    public void logout() {
-        refreshEmployee();
-        PreferencesManager.get().clearEmployeeId();
-        PreferencesManager.get().clearToken();
-        PreferencesManager.get().clearResetPassword();
-        PreferencesManager.get().clearEditProfile();
+    public void logout(final BelatrixConnectCallback belatrixConnectCallback) {
+        employeeService.logout(new BelatrixConnectCallback<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                refreshEmployee();
+                PreferencesManager.get().clearDeviceToken();
+                PreferencesManager.get().clearEmployeeId();
+                PreferencesManager.get().clearToken();
+                PreferencesManager.get().clearResetPassword();
+                PreferencesManager.get().clearEditProfile();
+                belatrixConnectCallback.onSuccess(aVoid);
+            }
+
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                belatrixConnectCallback.onFailure(serviceError);
+            }
+        });
     }
 
 }

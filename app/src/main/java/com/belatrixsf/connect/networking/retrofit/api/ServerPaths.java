@@ -47,6 +47,7 @@ public interface ServerPaths {
     String QUERY_SEARCH = "search";
 
     String EMPLOYEE_AUTHENTICATE = EMPLOYEE + "/authenticate/";
+    String EMPLOYEE_LOGOUT = EMPLOYEE + "/logout/";
     String EMPLOYEE_CREATE = EMPLOYEE + "/create/";
     String EMPLOYEE_UPDATE_PASSWORD = EMPLOYEE + "/{" + EMPLOYEE_ID + "}" + "/update/password/";
     String EMPLOYEE_REQUEST_NEW_PASSWORD = EMPLOYEE + "/reset/password/{" + EMPLOYEE_EMAIL + "}/";
@@ -57,6 +58,7 @@ public interface ServerPaths {
     String EMPLOYEE_UPDATE = EMPLOYEE + "/{" + EMPLOYEE_ID + "}/update/";
     String EMPLOYEE_LOCATION_LIST = EMPLOYEE + "/location/list";
     String EMPLOYEE_AVATAR = EMPLOYEE + "/{" + EMPLOYEE_ID + "}/avatar/";
+    String EMPLOYEE_REGISTER_DEVICE = EMPLOYEE + "/{" + EMPLOYEE_ID + "}/register/device/";
 
     String STAR_EMPLOYEE = STAR + "/{" + FROM_EMPLOYEE + "}" + "/give/star/to/{" + TO_EMPLOYEE + "}/" ;
     String STARS_BY_EMPLOYEE_AND_SUBCATEGORY = STAR + "/{" + EMPLOYEE_ID + "}/subcategory" + "/{" + SUBCATEGORY_ID + "}/list";
