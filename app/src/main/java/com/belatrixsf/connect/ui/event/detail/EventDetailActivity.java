@@ -27,6 +27,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.Toolbar;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
@@ -44,13 +45,16 @@ public class EventDetailActivity extends BelatrixConnectActivity implements Even
 
     public static final String EVENT_ID_KEY = "_event_id";
 
-    @Bind(R.id.event_picture) ImageView pictureImageView;
+    @Bind(R.id.event_picture)
+    ImageView pictureImageView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_detail);
         ActivityCompat.postponeEnterTransition(this);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setToolbar(toolbar);
         setNavigationToolbar();
         if (savedInstanceState == null) {
             Integer eventId = getIntent().getIntExtra(EVENT_ID_KEY, -1);
@@ -102,4 +106,5 @@ public class EventDetailActivity extends BelatrixConnectActivity implements Even
             }
         });
     }
+
 }

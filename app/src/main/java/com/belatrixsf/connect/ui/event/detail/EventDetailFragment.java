@@ -188,6 +188,7 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
 
     @Override
     public void showTitle(String title) {
+        fragmentListener.setTitle(title);
         titleTextView.setText(title);
     }
 
@@ -245,7 +246,7 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
 
     @Override
     public void enableUnregister() {
-        eventRegisterButton.setText(getString(R.string.string_register));
+        eventRegisterButton.setText(getString(R.string.string_unregister));
         eventRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

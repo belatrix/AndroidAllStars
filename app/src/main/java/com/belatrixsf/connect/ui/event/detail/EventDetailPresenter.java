@@ -63,7 +63,7 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
     }
 
     public void loadEventDetail() {
-        //view.showProgressDialog();
+        view.showProgressDialog();
         if (guestId != null) {
             eventService.getEventParticipantDetail(eventId, guestId, participantDetailResponseBelatrixConnectCallback);
         } else {
@@ -92,16 +92,16 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
         view.showParticipantsCount(participantsCount);
         view.showPicture(event.getPicture());
 
-//        if (event.isRegistrationAvailable()) {
-//            view.showRegister();
-//            if (event.isRegistered()) {
-//                view.enableUnregister();
-//            } else {
-//                view.enableRegister();
-//            }
-//        } else {
+        if (event.isRegistrationAvailable()) {
+            view.showRegister();
+            if (event.isRegistered()) {
+                view.enableUnregister();
+            } else {
+                view.enableRegister();
+            }
+        } else {
             view.hideRegister();
-//        }
+        }
 
     }
 
@@ -119,6 +119,7 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
     }
 
     public void requestRegister() {
+        view.showProgressDialog();
         if (employeeId != null) {
             eventService.registerCollaborator(eventId, employeeId, eventDetailCallback);
         } else {
@@ -129,6 +130,7 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
     private PresenterCallback<Event> eventDetailCallback = new PresenterCallback<Event>() {
         @Override
         public void onSuccess(Event event) {
+            view.dismissProgressDialog();
             EventDetailPresenter.this.event = event;
             showEventDetail();
         }
@@ -137,6 +139,7 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
     private BelatrixConnectCallback<EventParticipantDetailResponse> participantDetailResponseBelatrixConnectCallback =  new PresenterCallback<EventParticipantDetailResponse>() {
         @Override
         public void onSuccess(EventParticipantDetailResponse eventParticipantDetailResponse) {
+            view.dismissProgressDialog();
             EventDetailPresenter.this.event = eventParticipantDetailResponse.getEvent();
             EventDetailPresenter.this.event.setIsRegistered(eventParticipantDetailResponse.isRegistered());
             showEventDetail();
@@ -152,6 +155,7 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
     }
 
     public void requestUnregister() {
+        view.showProgressDialog();
         if (employeeId != null) {
             eventService.unregisterCollaborator(eventId, employeeId, eventDetailCallback);
         } else {

@@ -92,6 +92,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Register"
+        android:padding="@dimen/dimen_5"
         android:layout_marginTop="@dimen/dimen_8"
         android:layout_gravity="end"
         android:visibility="gone"
