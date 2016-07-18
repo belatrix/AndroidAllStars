@@ -33,7 +33,9 @@
     <string name="button_log_in">Log In</string>
     <string name="button_log_in_as_guest">Log In As Guest</string>
     <string name="button_sign_up">New user? <b>Sign Up!</b></string>
+    <string name="button_forgot_password">Forgot Password</string>
     <string name="button_sign_up_action">Register</string>
+    <string name="button_new_password">Request new password</string>
     <string name="button_reset">Reset</string>
     <string name="button_continue_twitter_login">Continue</string>
     <string name="button_facebook">Login with Facebook</string>
@@ -74,6 +76,10 @@
 
     <string name="get_guest_email_title">Almost done!</string>
     <string name="get_guest_email_message">We couldn\'t get your email from your social network account. Enter your email to start using the app!</string>
+
+    <!-- Reset Password -->
+    <string name="new_password">New password</string>
+    <string name="enter_your_email_address_to_request_your_new_password">Enter your email address to request your new password</string>
 
     <!-- Reset Password -->
     <string name="secure_your_account">Secure you account</string>

@@ -32,6 +32,7 @@ import com.belatrixsf.connect.networking.retrofit.requests.UpdateEmployeeRequest
 import com.belatrixsf.connect.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.CreateEmployeeResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
+import com.belatrixsf.connect.networking.retrofit.responses.RequestNewPasswordResponse;
 import com.belatrixsf.connect.services.BelatrixConnectBaseService;
 import com.belatrixsf.connect.services.ServerServiceRequest;
 import com.belatrixsf.connect.services.ServiceRequest;
@@ -131,6 +132,14 @@ public class EmployeeServerService extends BelatrixConnectBaseService implements
         MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
         Call<Employee> call = employeeAPI.updateEmployeeImage(employeeId, body);
         ServiceRequest<Employee> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
+    @Override
+    public ServiceRequest requestNewPassword(String employeeEmail, BelatrixConnectCallback<RequestNewPasswordResponse> callback) {
+        Call<RequestNewPasswordResponse> call = employeeAPI.requestNewPassword(employeeEmail);
+        ServiceRequest<RequestNewPasswordResponse> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
         return serviceRequest;
     }
