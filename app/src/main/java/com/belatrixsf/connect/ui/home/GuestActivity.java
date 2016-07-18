@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.about.AboutActivity;
 import com.belatrixsf.connect.ui.event.EventListFragment;
+import com.belatrixsf.connect.ui.settings.SettingsActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.di.components.DaggerGuestHomeComponent;
 import com.belatrixsf.connect.utils.di.modules.presenters.GuestHomePresenterModule;
