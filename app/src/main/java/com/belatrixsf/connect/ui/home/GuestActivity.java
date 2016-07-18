@@ -68,10 +68,6 @@ public class GuestActivity extends MainActivity {
                         Intent intent = new Intent(GuestActivity.this, AboutActivity.class);
                         startActivity(intent);
                         break;
-                    case R.id.menu_settings:
-                        Intent settingsIntent = new Intent(GuestActivity.this, SettingsActivity.class);
-                        startActivity(settingsIntent);
-                        break;
                 }
                 return true;
             }
