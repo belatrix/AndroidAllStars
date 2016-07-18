@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.managers.PreferencesManager;
@@ -14,9 +13,14 @@ import com.belatrixsf.connect.managers.PreferencesManager;
  */
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-    private static final String NOTIFICATIONS_ENABLED_KEY = "settings_key_notifications_switch";
+    private final String NOTIFICATIONS_ENABLED_KEY = "settings_key_notifications_switch";
 
-    private static SharedPreferences sharedPref;
+    private SharedPreferences sharedPref;
+
+    public static SettingsFragment newInstance() {
+        SettingsFragment fragment = new SettingsFragment();
+        return fragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
