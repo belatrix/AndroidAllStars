@@ -33,6 +33,6 @@ import retrofit2.http.Query;
 public interface NotificationAPI {
 
     @GET(ServerPaths.NOTIFICATION_LIST)
-    Call<PaginatedResponse<Notification>> getNotificationList(@Query(ServerPaths.PAGE) Integer page);
+    Call<PaginatedResponse<Notification>> getNotificationList(@Query(ServerPaths.QUERY_PAGE) Integer page);
 
 }

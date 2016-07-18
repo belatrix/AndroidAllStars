@@ -35,7 +35,8 @@
             android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".ui.resetpassword.ResetPasswordActivity"
-            android:label="@string/title_reset_password_activity"/>
+            android:label="@string/title_reset_password_activity"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".ui.resetpassword.request.RequestNewPasswordActivity"
             android:theme="@style/AppTheme.NoActionBar"
