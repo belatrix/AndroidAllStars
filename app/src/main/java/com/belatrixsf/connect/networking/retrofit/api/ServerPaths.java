@@ -29,6 +29,7 @@ public interface ServerPaths {
     String CATEGORY = "category";
     String STAR = "star";
     String EVENT = "event";
+    String NOTIFICATION = "employee";
 
     String EMPLOYEE_ID = "employee_id";
     String EMPLOYEE_EMAIL = "employee_email";
@@ -74,4 +75,6 @@ public interface ServerPaths {
 
     String GUEST_AUTHENTICATE = EVENT + "/participant/";
     String GUEST_BY_ID = EVENT + "/participant/{" + GUEST_ID + "}";
+    String NOTIFICATION_LIST = NOTIFICATION + "/list/";
+
 }

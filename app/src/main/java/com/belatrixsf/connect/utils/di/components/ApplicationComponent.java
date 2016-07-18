@@ -35,6 +35,7 @@ import com.belatrixsf.connect.utils.di.modules.presenters.EventListPresenterModu
 import com.belatrixsf.connect.utils.di.modules.presenters.ExpandPicturePresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.GiveStarPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.KeywordsListModule;
+import com.belatrixsf.connect.utils.di.modules.presenters.NotificationListPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.RankingPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.SignUpPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.StarsListPresenterModule;
@@ -86,5 +87,7 @@ public interface ApplicationComponent {
     EventDetailComponent eventDetailComponent(EventDetailPresenterModule eventDetailPresenterModule);
 
     AboutComponent aboutComponent(AboutPresenterModule aboutPresenterModule);
+
+    NotificationListComponent notificationListComponent(NotificationListPresenterModule notificationListPresenterModule);
 
 }

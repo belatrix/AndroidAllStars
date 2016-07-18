@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contact_holder"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    style="@style/LargeItemList">
+
+    <ImageView
+        android:id="@+id/notification_photo"
+        android:layout_width="@dimen/dimen_10_5"
+        android:layout_height="@dimen/dimen_10_5"
+        tools:src="@drawable/ic_user"
+        android:contentDescription="@string/profile_image_content_desc"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_margin">
+
+        <TextView
+            android:id="@+id/notification_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="@string/title_detail" />
+
+        <TextView
+            android:id="@+id/notification_date_hour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/grey"
+            tools:text="@string/title_date" />
+
+    </LinearLayout>
+
+</LinearLayout>

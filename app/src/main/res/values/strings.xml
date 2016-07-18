@@ -61,7 +61,7 @@
     <string name="title_about_activity">About</string>
     <string name="tab_account_title">Account</string>
     <string name="tab_ranking_title">Ranking</string>
-    <string name="tab_contacts_title">Contacts</string>
+    <string name="tab_notifications_title">Activity</string>
     <string name="tab_keywords_title">Tags</string>
     <string name="tab_events_title">Events</string>
 
@@ -135,6 +135,14 @@
     <string name="message_placeholder"></string>
     <string name="fullname_placeholder">Anonymous</string>
     <string name="level_placeholder">No data</string>
+
+    <!--Notifications-->
+    <string name="notification_user_fullname_placeholder">Anonymous</string>
+    <string name="notification_detail_placeholder">No detail</string>
+    <string name="notification_date_placeholder">No date</string>
+    <string name="title_detail">Detail</string>
+    <string name="title_date">DateHour</string>
+    <string name="notification_user_and_detail">%1$s %2$s</string>
 
     <!--Event-->
     <string name="title_title_placeholder">No Title</string>

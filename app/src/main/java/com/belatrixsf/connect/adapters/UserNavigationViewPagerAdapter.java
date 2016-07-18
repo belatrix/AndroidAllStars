@@ -28,6 +28,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.account.AccountFragment;
 import com.belatrixsf.connect.ui.keywords.SearchingKeywordsFragment;
+import com.belatrixsf.connect.ui.notifications.NotificationListFragment;
 import com.belatrixsf.connect.ui.ranking.RankingContainerFragment;
 
 import java.lang.ref.WeakReference;
@@ -37,7 +38,7 @@ import java.lang.ref.WeakReference;
  */
 public class UserNavigationViewPagerAdapter extends FragmentPagerAdapter {
 
-    public static final int NUM_TABS = 3;
+    public static final int NUM_TABS = 4;
     private WeakReference<Context> contextWeakReference;
 
     public UserNavigationViewPagerAdapter(Context context, FragmentManager fm) {
@@ -52,6 +53,8 @@ public class UserNavigationViewPagerAdapter extends FragmentPagerAdapter {
                 return AccountFragment.newInstance(null);
             case 1:
                 return RankingContainerFragment.newInstance();
+            case 2:
+                return NotificationListFragment.newInstance();
             default:
                 return SearchingKeywordsFragment.newInstance();
         }
@@ -64,6 +67,8 @@ public class UserNavigationViewPagerAdapter extends FragmentPagerAdapter {
                 return contextWeakReference.get().getString(R.string.tab_account_title);
             case 1:
                 return contextWeakReference.get().getString(R.string.tab_ranking_title);
+            case 2:
+                return contextWeakReference.get().getString(R.string.tab_notifications_title);
             default:
                 return contextWeakReference.get().getString(R.string.tab_keywords_title);
         }

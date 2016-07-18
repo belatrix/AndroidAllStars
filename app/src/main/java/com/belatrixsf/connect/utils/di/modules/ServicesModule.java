@@ -24,16 +24,22 @@ import com.belatrixsf.connect.networking.retrofit.api.CategoryAPI;
 import com.belatrixsf.connect.networking.retrofit.api.EmployeeAPI;
 import com.belatrixsf.connect.networking.retrofit.api.EventAPI;
 import com.belatrixsf.connect.networking.retrofit.api.GuestAPI;
+import com.belatrixsf.connect.networking.retrofit.api.NotificationAPI;
 import com.belatrixsf.connect.networking.retrofit.api.StarAPI;
 import com.belatrixsf.connect.services.contracts.CategoryService;
 import com.belatrixsf.connect.services.contracts.EmployeeService;
 import com.belatrixsf.connect.services.contracts.EventService;
 import com.belatrixsf.connect.services.contracts.GuestService;
+import com.belatrixsf.connect.services.contracts.NotificationService;
 import com.belatrixsf.connect.services.contracts.StarService;
 import com.belatrixsf.connect.services.server.CategoryServerService;
 import com.belatrixsf.connect.services.server.EmployeeServerService;
 import com.belatrixsf.connect.services.server.EventServerService;
 import com.belatrixsf.connect.services.server.GuestServerService;
+import com.belatrixsf.connect.services.server.StarServerService;
+import com.belatrixsf.connect.services.server.CategoryServerService;
+import com.belatrixsf.connect.services.server.EmployeeServerService;
+import com.belatrixsf.connect.services.server.NotificationServerService;
 import com.belatrixsf.connect.services.server.StarServerService;
 
 import dagger.Module;
@@ -68,6 +74,11 @@ public class ServicesModule {
     @Provides
     public GuestService provideGuestService(GuestAPI guestAPI) {
         return new GuestServerService(guestAPI);
+    }
+
+    @Provides
+    public NotificationService provideNotificationService(NotificationAPI notificationAPI) {
+        return new NotificationServerService(notificationAPI);
     }
 
 }
