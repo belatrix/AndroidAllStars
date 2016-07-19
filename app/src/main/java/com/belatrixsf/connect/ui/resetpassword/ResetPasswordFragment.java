@@ -24,6 +24,7 @@ package com.belatrixsf.connect.ui.resetpassword;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
@@ -55,6 +56,7 @@ public class ResetPasswordFragment extends BelatrixConnectFragment implements Re
     @Bind(R.id.new_password) EditText newPasswordEditText;
     @Bind(R.id.repeat_new_password) EditText repeatNewPasswordEditText;
     @Bind(R.id.reset) Button resetButton;
+    @Bind(R.id.toolbar) Toolbar toolbar;
 
     private ResetPasswordPresenter resetPasswordPresenter;
 
@@ -79,6 +81,8 @@ public class ResetPasswordFragment extends BelatrixConnectFragment implements Re
     }
 
     private void initViews() {
+        fragmentListener.setToolbar(toolbar);
+        fragmentListener.setTitle("");
         oldPasswordEditText.setTransformationMethod(new PasswordTransformationMethod());
         newPasswordEditText.setTransformationMethod(new PasswordTransformationMethod());
         repeatNewPasswordEditText.setTransformationMethod(new PasswordTransformationMethod());
