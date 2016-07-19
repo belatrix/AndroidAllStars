@@ -21,6 +21,7 @@
 package com.belatrixsf.connect.services.contracts;
 
 import com.belatrixsf.connect.entities.Event;
+import com.belatrixsf.connect.networking.retrofit.responses.EventParticipantDetailResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.services.ServiceRequest;
 import com.belatrixsf.connect.utils.BelatrixConnectCallback;
@@ -33,5 +34,17 @@ public interface EventService extends BelatrixConnectService {
     ServiceRequest getEventSearchList(String searchTerm, Integer page, BelatrixConnectCallback<PaginatedResponse<Event>> callback);
 
     ServiceRequest getEventDetail(Integer eventId, BelatrixConnectCallback<Event> callback);
+
+    ServiceRequest getEventParticipantDetail(Integer eventId, Integer guestId, BelatrixConnectCallback<EventParticipantDetailResponse> callback);
+
+    ServiceRequest getEventCollaboratorDetail(Integer eventId, Integer employeeId, BelatrixConnectCallback<Event> callback);
+
+    ServiceRequest registerCollaborator(int eventId, int employeeId, BelatrixConnectCallback<Event> callback);
+
+    ServiceRequest registerParticipant(int eventId, int employeeId, BelatrixConnectCallback<EventParticipantDetailResponse> callback);
+
+    ServiceRequest unregisterCollaborator(int eventId, int employeeId, BelatrixConnectCallback<Event> callback);
+
+    ServiceRequest unregisterParticipant(int eventId, int employeeId, BelatrixConnectCallback<Event> callback);
 
 }

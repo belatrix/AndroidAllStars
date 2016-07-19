@@ -20,12 +20,14 @@
 */
 package com.belatrixsf.connect.networking.retrofit.api;
 
+import com.belatrixsf.connect.entities.Event;
 import com.belatrixsf.connect.entities.Guest;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 /**

@@ -34,6 +34,10 @@ public interface EventDetailView extends BelatrixConnectView {
     void showCollaboratorsCount(String collaboratorsCount);
     void showParticipantsCount(String participantsCount);
     void showPicture(String profilePicture);
+    void enableRegister();
+    void showRegister();
+    void hideRegister();
+    void enableUnregister();
     void showComments();
 
 }

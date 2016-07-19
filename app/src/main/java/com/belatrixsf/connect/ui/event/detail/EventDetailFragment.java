@@ -26,11 +26,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Event;
+import com.belatrixsf.connect.managers.PreferencesManager;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.di.modules.presenters.EventDetailPresenterModule;
@@ -44,6 +46,8 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
 
     public static final String EVENT_ID_KEY = "_event_id_key";
     public static final String EVENT_KEY = "_event_key";
+    public static final String EMPLOYEE_ID_KEY = "_employee_id_key";
+    public static final String GUEST_ID_KEY = "_guest_id_key";
 
     private EventDetailPresenter eventDetailPresenter;
     private EventDetailFragmentListener eventDetailFragmentListener;
@@ -56,6 +60,7 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
     @Bind(R.id.description) TextView descriptionTextView;
     @Bind(R.id.collaborators) TextView collaboratorsCountTextView;
     @Bind(R.id.participants) TextView participantsCountTextView;
+    @Bind(R.id.btn_register) Button eventRegisterButton;
 
     public static EventDetailFragment newInstance(Integer eventId) {
         Bundle bundle = new Bundle();
@@ -109,8 +114,15 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
         } else if (hasArguments) {
             eventId = getArguments().getInt(EventDetailActivity.EVENT_ID_KEY);
             eventDetailPresenter.setEventId(eventId);
+            boolean userHasPermission = PreferencesManager.get().getEmployeeId() != 0 && PreferencesManager.get().getToken() != null && PreferencesManager.get().isResetPassword() && PreferencesManager.get().isEditProfile();
+            boolean guestHasPermission = PreferencesManager.get().getGuestId() != 0;
+            if (userHasPermission) {
+                eventDetailPresenter.setEmployeeId(PreferencesManager.get().getEmployeeId());
+            } else if (guestHasPermission) {
+                eventDetailPresenter.setGuestId(PreferencesManager.get().getGuestId());
+            }
+            eventDetailPresenter.loadEventDetail();
         }
-        eventDetailPresenter.loadEventDetail();
     }
 
     @Override
@@ -135,6 +147,14 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
     private void restorePresenterState(Bundle savedInstanceState) {
         Event event = savedInstanceState.getParcelable(EVENT_KEY);
         Integer eventId = savedInstanceState.getInt(EVENT_ID_KEY, 0);
+        if (savedInstanceState.containsKey(GUEST_ID_KEY)) {
+            Integer guestId = savedInstanceState.getInt(GUEST_ID_KEY, 0);
+            eventDetailPresenter.setGuestId(guestId);
+        }
+        if (savedInstanceState.containsKey(EMPLOYEE_ID_KEY)) {
+            Integer employeeId = savedInstanceState.getInt(EMPLOYEE_ID_KEY, 0);
+            eventDetailPresenter.setEmployeeId(employeeId);
+        }
         eventDetailPresenter.setEventId(eventId);
         eventDetailPresenter.load(event);
     }
@@ -142,6 +162,12 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
     private void savePresenterState(Bundle outState) {
         outState.putInt(EVENT_ID_KEY, eventDetailPresenter.getEventId());
         outState.putParcelable(EVENT_KEY, eventDetailPresenter.getEvent());
+        if (eventDetailPresenter.getGuestId() != null) {
+            outState.putInt(GUEST_ID_KEY, eventDetailPresenter.getGuestId());
+        }
+        if (eventDetailPresenter.getEmployeeId() != null) {
+            outState.putInt(EMPLOYEE_ID_KEY, eventDetailPresenter.getEmployeeId());
+        }
     }
 
     @Override
@@ -161,6 +187,7 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
 
     @Override
     public void showTitle(String title) {
+        fragmentListener.setTitle(title);
         titleTextView.setText(title);
     }
 
@@ -193,4 +220,38 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
         eventDetailPresenter.cancelRequests();
         super.onDestroyView();
     }
+
+    @Override
+    public void enableRegister() {
+        eventRegisterButton.setText(getString(R.string.string_register));
+        eventRegisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                eventDetailPresenter.requestRegister();
+            }
+        });
+        eventRegisterButton.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showRegister() {
+        eventRegisterButton.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideRegister() {
+        eventRegisterButton.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void enableUnregister() {
+        eventRegisterButton.setText(getString(R.string.string_unregister));
+        eventRegisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                eventDetailPresenter.requestUnregister();
+            }
+        });
+    }
+
 }
