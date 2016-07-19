@@ -38,7 +38,6 @@ import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.di.modules.presenters.EventDetailPresenterModule;
 
 import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * Created by icerrate on 27/06/2016.

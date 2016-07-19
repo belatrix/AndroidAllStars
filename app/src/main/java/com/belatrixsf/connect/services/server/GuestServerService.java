@@ -20,7 +20,6 @@
 */
 package com.belatrixsf.connect.services.server;
 
-import com.belatrixsf.connect.entities.Event;
 import com.belatrixsf.connect.entities.Guest;
 import com.belatrixsf.connect.networking.retrofit.api.GuestAPI;
 import com.belatrixsf.connect.services.BelatrixConnectBaseService;

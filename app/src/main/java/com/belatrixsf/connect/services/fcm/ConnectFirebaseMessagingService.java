@@ -60,8 +60,6 @@ public class ConnectFirebaseMessagingService extends FirebaseMessagingService {
         }
     }
 
-    //This method is only generating push notification
-    //It is same as we did in earlier posts
     private void sendNotification(String messageTitle, String messageBody) {
         Intent intent = new Intent(this, LauncherActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

@@ -20,7 +20,6 @@
 */
 package com.belatrixsf.connect.services.contracts;
 
-import com.belatrixsf.connect.entities.Event;
 import com.belatrixsf.connect.entities.Guest;
 import com.belatrixsf.connect.services.ServiceRequest;
 import com.belatrixsf.connect.utils.BelatrixConnectCallback;
