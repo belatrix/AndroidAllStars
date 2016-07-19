@@ -92,16 +92,16 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
         view.showParticipantsCount(participantsCount);
         view.showPicture(event.getPicture());
 
-        if (event.isRegistrationAvailable()) {
-            view.showRegister();
-            if (event.isRegistered()) {
-                view.enableUnregister();
-            } else {
-                view.enableRegister();
-            }
-        } else {
-            view.hideRegister();
-        }
+//        if (event.isRegistrationAvailable()) {
+//            view.showRegister();
+//            if (event.isRegistered()) {
+//                view.enableUnregister();
+//            } else {
+//                view.enableRegister();
+//            }
+//        } else {
+//            view.hideRegister();
+//        }
 
     }
 
