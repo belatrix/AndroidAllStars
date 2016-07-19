@@ -112,7 +112,7 @@ public class RequestNewPasswordFragment extends BelatrixConnectFragment implemen
 
     @Override
     public void goBacktoLogin() {
-        getActivity().finish();
+        fragmentListener.closeActivity();
     }
 
     @OnClick(R.id.new_password)
