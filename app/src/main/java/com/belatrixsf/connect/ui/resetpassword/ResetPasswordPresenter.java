@@ -68,7 +68,11 @@ public class ResetPasswordPresenter extends BelatrixConnectPresenter<ResetPasswo
             @Override
             public void onSuccess(Employee employee) {
                 view.dismissProgressDialog();
-                view.goEditProfile();
+                if (employee.getAvatar() != null && employee.getFirstName() != null && employee.getLastName() != null && employee.getLocation() != null) {
+                    view.goHome();
+                } else {
+                    view.goEditProfile();
+                }
             }
         });
     }
