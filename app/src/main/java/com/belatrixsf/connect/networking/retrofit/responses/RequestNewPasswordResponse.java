@@ -18,23 +18,29 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.services.fcm;
+package com.belatrixsf.connect.networking.retrofit.responses;
 
-import com.belatrixsf.connect.managers.PreferencesManager;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by PedroCarrillo on 6/2/16.
+ * Created by icerrate on 16/05/16.
  */
+public class RequestNewPasswordResponse {
 
-public class ConnectFirebaseInstanceIDService extends FirebaseInstanceIdService {
+    private String email;
+    private String detail;
+    @SerializedName("reset_password_code")
+    private String resetPasswordCode;
 
-    @Override
-    public void onTokenRefresh() {
-        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        PreferencesManager.get().saveDeviceToken(refreshedToken);
-        super.onTokenRefresh();
+    public String getEmail() {
+        return email;
     }
 
+    public String getDetail() {
+        return detail;
+    }
+
+    public String getResetPasswordCode() {
+        return resetPasswordCode;
+    }
 }

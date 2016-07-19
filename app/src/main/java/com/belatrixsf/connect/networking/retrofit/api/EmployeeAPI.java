@@ -31,6 +31,7 @@ import com.belatrixsf.connect.networking.retrofit.requests.UpdateEmployeeRequest
 import com.belatrixsf.connect.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.CreateEmployeeResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
+import com.belatrixsf.connect.networking.retrofit.responses.RequestNewPasswordResponse;
 
 import java.util.List;
 
@@ -56,8 +57,11 @@ public interface EmployeeAPI {
     @POST(ServerPaths.EMPLOYEE_CREATE)
     Call<CreateEmployeeResponse> createEmployee(@Body CreateEmployeeRequest request);
 
-    @POST(ServerPaths.EMPLOYEE_RESET_PASSWORD)
+    @POST(ServerPaths.EMPLOYEE_UPDATE_PASSWORD)
     Call<Employee> resetPassword(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Body ResetPasswordRequest request);
+
+    @GET(ServerPaths.EMPLOYEE_REQUEST_NEW_PASSWORD)
+    Call<RequestNewPasswordResponse> requestNewPassword(@Path(ServerPaths.EMPLOYEE_EMAIL) String employeeEmail);
 
     @GET(ServerPaths.EMPLOYEE_BY_ID)
     Call<Employee> getEmployee(@Path(ServerPaths.EMPLOYEE_ID) int employeeId);

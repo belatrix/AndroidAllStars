@@ -18,23 +18,17 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.services.fcm;
+package com.belatrixsf.connect.ui.resetpassword.request;
 
-import com.belatrixsf.connect.managers.PreferencesManager;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 
 /**
- * Created by PedroCarrillo on 6/2/16.
+ * Created by icerrate on 15/07/2016.
  */
+public interface RequestNewPasswordView extends BelatrixConnectView {
 
-public class ConnectFirebaseInstanceIDService extends FirebaseInstanceIdService {
-
-    @Override
-    public void onTokenRefresh() {
-        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        PreferencesManager.get().saveDeviceToken(refreshedToken);
-        super.onTokenRefresh();
-    }
+    void enableRequestButton(boolean enable);
+    void goBacktoLogin();
+    void showMessage(String message);
 
 }

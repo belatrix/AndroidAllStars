@@ -1,3 +1,23 @@
+/* The MIT License (MIT)
+* Copyright (c) 2016 BELATRIX
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software.
+
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*/
 package com.belatrixsf.connect.services.fcm;
 
 import android.app.LauncherActivity;
@@ -8,14 +28,13 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 import com.belatrixsf.connect.R;
+import com.belatrixsf.connect.managers.PreferencesManager;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -31,24 +50,12 @@ public class ConnectFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Map<String, String> notificationData = remoteMessage.getData();
-        if (notificationData != null) {
+        if (notificationData != null && PreferencesManager.get().isNotificationEnabled()) {
             sendNotification(notificationData.get(TITLE_KEY), remoteMessage.getData().get(DETAIL_KEY));
         }
         com.google.firebase.messaging.RemoteMessage.Notification notification = remoteMessage.getNotification();
         //Calling method to generate notification
         if (notification != null) {
-
-            //Displaying data in log
-            //It is optional
-            Log.d(TAG, "title: " + notification.getTitle()+"");
-            Log.d(TAG, "getBody: " + notification.getBody()+"");
-            Log.d(TAG, "getBodyLocalizationKey: " + notification.getBodyLocalizationKey()+"");
-            Log.d(TAG, "getClickAction: " + notification.getClickAction()+"");
-            Log.d(TAG, "getColor: " + notification.getColor()+"");
-            Log.d(TAG, "getSound: " + notification.getSound()+"");
-            Log.d(TAG, "getBodyLocalizationArgs: " + notification.getBodyLocalizationArgs()+"");
-            Log.d(TAG, "getTitleLocalizationArgs: " + notification.getTitleLocalizationArgs()+"");
-
             sendNotification(notification.getTitle(), notification.getBody());
         }
     }

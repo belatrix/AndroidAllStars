@@ -20,19 +20,26 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity
             android:name=".ui.login.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".ui.signup.SignUpActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".ui.login.guest.LoginAsGuestActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".ui.login.guest.email.GuestEmailActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".ui.resetpassword.ResetPasswordActivity"
-            android:label="@string/title_reset_password_activity"/>
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".ui.resetpassword.request.RequestNewPasswordActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".ui.home.UserActivity"/>
         <activity
@@ -78,6 +85,8 @@
             android:theme="@style/Translucent"/>
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"/>
+        <activity android:name=".ui.settings.SettingsActivity"
+        android:label="@string/settings_main_title"/>
         <activity
             android:name=".ui.LauncherActivity">
             <intent-filter>

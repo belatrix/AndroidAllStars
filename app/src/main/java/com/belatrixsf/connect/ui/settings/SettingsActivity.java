@@ -18,23 +18,34 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.services.fcm;
+package com.belatrixsf.connect.ui.settings;
 
-import com.belatrixsf.connect.managers.PreferencesManager;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.FirebaseInstanceIdService;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
+
+import com.belatrixsf.connect.R;
+import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 
 /**
- * Created by PedroCarrillo on 6/2/16.
+ * Created by echuquilin on 6/07/16.
  */
-
-public class ConnectFirebaseInstanceIDService extends FirebaseInstanceIdService {
+public class SettingsActivity extends BelatrixConnectActivity {
 
     @Override
-    public void onTokenRefresh() {
-        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        PreferencesManager.get().saveDeviceToken(refreshedToken);
-        super.onTokenRefresh();
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_base);
+
+        //set default settings
+        PreferenceManager.setDefaultValues(this, R.xml.fragment_settings, false);
+
+        //display the fragment of settings
+        getFragmentManager().beginTransaction()
+                .replace(R.id.main_content, new SettingsFragment())
+                .commit();
+
+        setNavigationToolbar();
     }
 
 }

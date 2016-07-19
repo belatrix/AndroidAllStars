@@ -18,23 +18,24 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.services.fcm;
+package com.belatrixsf.connect.utils.di.components;
 
-import com.belatrixsf.connect.managers.PreferencesManager;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.belatrixsf.connect.ui.resetpassword.request.RequestNewPasswordPresenter;
+import com.belatrixsf.connect.utils.di.modules.presenters.RequestNewPasswordPresenterModule;
+import com.belatrixsf.connect.utils.di.scopes.UIScope;
+
+import dagger.Component;
 
 /**
- * Created by PedroCarrillo on 6/2/16.
+ * Created by icerrate on 19/05/16.
  */
+@UIScope
+@Component(
+        dependencies = ApplicationComponent.class,
+        modules = RequestNewPasswordPresenterModule.class
+)
+public interface RequestNewPasswordComponent {
 
-public class ConnectFirebaseInstanceIDService extends FirebaseInstanceIdService {
-
-    @Override
-    public void onTokenRefresh() {
-        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        PreferencesManager.get().saveDeviceToken(refreshedToken);
-        super.onTokenRefresh();
-    }
+    RequestNewPasswordPresenter requestNewPasswordPresenter();
 
 }

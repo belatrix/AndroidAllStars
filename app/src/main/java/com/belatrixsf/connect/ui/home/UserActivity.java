@@ -28,6 +28,7 @@ import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
 import com.belatrixsf.connect.ui.contacts.ContactsListActivity;
 import com.belatrixsf.connect.ui.event.EventListActivity;
 import com.belatrixsf.connect.ui.ranking.RankingFragmentListener;
+import com.belatrixsf.connect.ui.settings.SettingsActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarFragment;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
@@ -154,6 +155,10 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
                     case R.id.menu_about:
                         intent = new Intent(UserActivity.this, AboutActivity.class);
                         startActivity(intent);
+                        break;
+                    case R.id.menu_settings:
+                        Intent settingsIntent = new Intent(UserActivity.this, SettingsActivity.class);
+                        startActivity(settingsIntent);
                         break;
                 }
                 return true;

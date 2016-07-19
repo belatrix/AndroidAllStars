@@ -31,6 +31,7 @@ public interface ServerPaths {
     String EVENT = "event";
 
     String EMPLOYEE_ID = "employee_id";
+    String EMPLOYEE_EMAIL = "employee_email";
     String KEYWORD_ID = "keyword_id";
     String FROM_EMPLOYEE = "from_employee_id";
     String TO_EMPLOYEE = "to_employee_id";
@@ -40,7 +41,6 @@ public interface ServerPaths {
     String QUANTITY = "quantity";
     String CATEGORY_ID = "category_id";
     String EVENT_ID = "event_id";
-    String PAGE = "page";
     String GUEST_ID = "participant_id";
 
     String QUERY_PAGE = "page";
@@ -49,7 +49,8 @@ public interface ServerPaths {
     String EMPLOYEE_AUTHENTICATE = EMPLOYEE + "/authenticate/";
     String EMPLOYEE_LOGOUT = EMPLOYEE + "/logout/";
     String EMPLOYEE_CREATE = EMPLOYEE + "/create/";
-    String EMPLOYEE_RESET_PASSWORD = EMPLOYEE + "/{" + EMPLOYEE_ID + "}" + "/update/password/";
+    String EMPLOYEE_UPDATE_PASSWORD = EMPLOYEE + "/{" + EMPLOYEE_ID + "}" + "/update/password/";
+    String EMPLOYEE_REQUEST_NEW_PASSWORD = EMPLOYEE + "/reset/password/{" + EMPLOYEE_EMAIL + "}/";
     String EMPLOYEE_LIST = EMPLOYEE + "/list/";
     String EMPLOYEE_BY_ID = EMPLOYEE + "/{" + EMPLOYEE_ID + "}";
     String EMPLOYEE_CATEGORIES = EMPLOYEE + "/{" + EMPLOYEE_ID + "}/category/list";
