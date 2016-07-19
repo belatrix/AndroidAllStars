@@ -24,6 +24,7 @@ package com.belatrixsf.connect.ui.resetpassword;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.content.IntentCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -36,8 +37,8 @@ import android.widget.EditText;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.account.edit.EditAccountActivity;
-import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
+import com.belatrixsf.connect.ui.home.UserActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.di.components.DaggerResetPasswordComponent;
 import com.belatrixsf.connect.utils.di.modules.presenters.ResetPasswordPresenterModule;
@@ -107,9 +108,16 @@ public class ResetPasswordFragment extends BelatrixConnectFragment implements Re
     }
 
     @Override
+    public void goHome() {
+        Intent intent = new Intent(getActivity(), UserActivity.class);
+        intent.addFlags(IntentCompat.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        fragmentListener.closeActivity();
+    }
+
+    @Override
     public void goEditProfile() {
         Intent intent = new Intent(getActivity(), EditAccountActivity.class);
-        intent.putExtra(EditAccountFragment.IS_NEW_USER, true);
         startActivity(intent);
         fragmentListener.closeActivity();
     }

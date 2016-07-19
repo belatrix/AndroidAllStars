@@ -28,6 +28,7 @@ import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 public interface ResetPasswordView extends BelatrixConnectView {
 
     void goEditProfile();
+    void goHome();
     void enableReset(boolean enable);
     void newPasswordError(String message);
     void cleanNewPasswordError();
