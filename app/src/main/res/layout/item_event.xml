@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/grey"
-                tools:text="@string/title_date" />
+                tools:text="Date" />
 
             <TextView
                 android:id="@+id/event_title"
@@ -44,7 +44,7 @@
                 android:textSize="@dimen/text_24"
                 android:maxLines="2"
                 android:ellipsize="end"
-                tools:text="@string/title_title" />
+                tools:text="Title" />
 
         </LinearLayout>
 

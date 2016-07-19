@@ -36,6 +36,7 @@ import android.widget.EditText;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.account.edit.EditAccountActivity;
+import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.home.UserActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
@@ -116,6 +117,7 @@ public class ResetPasswordFragment extends BelatrixConnectFragment implements Re
     @Override
     public void goEditProfile() {
         Intent intent = new Intent(getActivity(), EditAccountActivity.class);
+        intent.putExtra(EditAccountFragment.IS_NEW_USER, true);
         startActivity(intent);
         fragmentListener.closeActivity();
     }

@@ -93,14 +93,20 @@ public class EmployeeManager {
         });
     }
 
-    public void resetPassword(String oldPassword, String newPassword, final BelatrixConnectCallback<Employee> callback) {
+    public void resetPassword(String oldPassword, String newPassword, final BelatrixConnectCallback<AccountState> callback) {
         if (employee == null) {
             int storedEmployeeId = PreferencesManager.get().getEmployeeId();
             employeeService.resetPassword(storedEmployeeId, oldPassword, newPassword, new BelatrixConnectCallback<Employee>() {
                 @Override
                 public void onSuccess(Employee employee) {
                     PreferencesManager.get().setResetPassword(true);
-                    callback.onSuccess(employee);
+                    if (employee.getAvatar() != null && employee.getFirstName() != null && employee.getLastName() != null && employee.getLocation() != null) {
+                        PreferencesManager.get().setEditProfile(true);
+                        callback.onSuccess(AccountState.PROFILE_COMPLETE);
+                    } else {
+                        PreferencesManager.get().setEditProfile(false);
+                        callback.onSuccess(AccountState.PROFILE_INCOMPLETE);
+                    }
                 }
 
                 @Override
