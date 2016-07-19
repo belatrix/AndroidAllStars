@@ -35,7 +35,7 @@ public class SettingsActivity extends BelatrixConnectActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_base);
 
         //set default settings
         PreferenceManager.setDefaultValues(this, R.xml.fragment_settings, false);
