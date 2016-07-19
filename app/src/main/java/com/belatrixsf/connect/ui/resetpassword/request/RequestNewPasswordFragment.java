@@ -36,7 +36,6 @@ import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.DialogUtils;
-import com.belatrixsf.connect.utils.di.components.DaggerRequestNewPasswordComponent;
 import com.belatrixsf.connect.utils.di.modules.presenters.RequestNewPasswordPresenterModule;
 
 import butterknife.Bind;
@@ -87,10 +86,9 @@ public class RequestNewPasswordFragment extends BelatrixConnectFragment implemen
 
     @Override
     protected void initDependencies(BelatrixConnectApplication belatrixConnectApplication) {
-        requestNewPasswordPresenter = DaggerRequestNewPasswordComponent.builder()
-                .applicationComponent(belatrixConnectApplication.getApplicationComponent())
-                .requestNewPasswordPresenterModule(new RequestNewPasswordPresenterModule(this))
-                .build()
+        requestNewPasswordPresenter = belatrixConnectApplication
+                .getApplicationComponent()
+                .requestNewPasswordComponent(new RequestNewPasswordPresenterModule(this))
                 .requestNewPasswordPresenter();
     }
 

@@ -24,14 +24,13 @@ import com.belatrixsf.connect.ui.resetpassword.request.RequestNewPasswordPresent
 import com.belatrixsf.connect.utils.di.modules.presenters.RequestNewPasswordPresenterModule;
 import com.belatrixsf.connect.utils.di.scopes.UIScope;
 
-import dagger.Component;
+import dagger.Subcomponent;
 
 /**
  * Created by icerrate on 19/05/16.
  */
 @UIScope
-@Component(
-        dependencies = ApplicationComponent.class,
+@Subcomponent(
         modules = RequestNewPasswordPresenterModule.class
 )
 public interface RequestNewPasswordComponent {
