@@ -20,8 +20,8 @@
 */
 package com.belatrixsf.connect.ui.resetpassword.request;
 
-import com.belatrixsf.connect.managers.EmployeeManager;
 import com.belatrixsf.connect.networking.retrofit.responses.RequestNewPasswordResponse;
+import com.belatrixsf.connect.services.contracts.EmployeeService;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 import com.belatrixsf.connect.utils.ServiceError;
 
@@ -32,12 +32,12 @@ import javax.inject.Inject;
  */
 public class RequestNewPasswordPresenter extends BelatrixConnectPresenter<RequestNewPasswordView> {
 
-    private EmployeeManager employeeManager;
+    private EmployeeService employeeService;
 
     @Inject
-    public RequestNewPasswordPresenter(RequestNewPasswordView view, EmployeeManager employeeManager) {
+    public RequestNewPasswordPresenter(RequestNewPasswordView view, EmployeeService employeeService) {
         super(view);
-        this.employeeManager = employeeManager;
+        this.employeeService = employeeService;
     }
 
     public void checkIfInputsIsValid(String email) {
@@ -50,7 +50,7 @@ public class RequestNewPasswordPresenter extends BelatrixConnectPresenter<Reques
 
     public void requestNewPassword(String email) {
         view.showProgressDialog();
-        employeeManager.requestNewPassword(email, new PresenterCallback<RequestNewPasswordResponse>() {
+        employeeService.requestNewPassword(email, new PresenterCallback<RequestNewPasswordResponse>() {
             @Override
             public void onSuccess(RequestNewPasswordResponse requestNewPassordResponse) {
                 view.dismissProgressDialog();

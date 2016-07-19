@@ -35,7 +35,6 @@ import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.DialogUtils;
 import com.belatrixsf.connect.utils.di.components.DaggerUserHomeComponent;
 import com.belatrixsf.connect.utils.di.modules.presenters.UserHomePresenterModule;
-import com.twitter.sdk.android.core.models.User;
 
 import butterknife.Bind;
 
