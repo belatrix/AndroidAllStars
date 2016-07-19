@@ -24,7 +24,6 @@ package com.belatrixsf.connect.ui.resetpassword;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.content.IntentCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -110,7 +109,6 @@ public class ResetPasswordFragment extends BelatrixConnectFragment implements Re
     @Override
     public void goHome() {
         Intent intent = new Intent(getActivity(), UserActivity.class);
-        intent.addFlags(IntentCompat.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         fragmentListener.closeActivity();
     }
