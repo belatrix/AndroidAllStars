@@ -77,11 +77,18 @@ public class EventListAdapter extends LoadMoreBaseAdapter<Event> {
             eventViewHolder.eventTitleTextView.setText(title);
             eventViewHolder.eventDateTextView.setText(formattedDate);
             eventViewHolder.itemView.setTag(event);
-            ImageFactory.getLoader().loadFromUrl(event.getPicture(),
+            ImageFactory.getLoader().loadFromUrl(
+                    event.getPicture(),
+                    eventViewHolder.pictureImageView,
+                    ImageLoader.ImageTransformation.BORDERED_CIRCLE,
+                    null,
+                    eventViewHolder.pictureImageView.getResources().getDrawable(R.drawable.contact_placeholder)
+            );
+            /*ImageFactory.getLoader().loadFromUrl(event.getPicture(),
                     eventViewHolder.pictureImageView,
                     ImageLoader.ImageTransformation.BORDERED_CIRCLE,
                     eventViewHolder.pictureImageView.getResources().getDrawable(R.drawable.event_placeholder)
-            );
+            );*/
         }
     }
     @Override

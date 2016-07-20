@@ -52,10 +52,6 @@ public class PreferencesManager {
         return preferencesManager;
     }
 
-    public SharedPreferences getSharedPreferences() {
-        return sharedPreferences;
-    }
-
     public void saveToken(String token) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(TOKEN_KEY, token);
@@ -140,8 +136,21 @@ public class PreferencesManager {
         editor.apply();
     }
 
+    public Context getContext(){
+        return BelatrixConnectApplication.getContext();
+    }
+
     public boolean isNotificationEnabled() {
         return sharedPreferences.getBoolean(NOTIFICATIONS_ENABLED_KEY, true);
     }
 
+    public String getNotificationKey(){
+        return  NOTIFICATIONS_ENABLED_KEY;
+    }
+
+    public void setNotificationsChanged(SharedPreferences sp){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(NOTIFICATIONS_ENABLED_KEY, sp.getBoolean(NOTIFICATIONS_ENABLED_KEY,true));
+        editor.apply();
+    }
 }
