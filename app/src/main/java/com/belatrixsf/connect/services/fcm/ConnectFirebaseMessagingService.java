@@ -21,12 +21,16 @@
 package com.belatrixsf.connect.services.fcm;
 
 import android.app.LauncherActivity;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
 
 import com.belatrixsf.connect.R;
@@ -55,7 +59,7 @@ public class ConnectFirebaseMessagingService extends FirebaseMessagingService {
         }
         com.google.firebase.messaging.RemoteMessage.Notification notification = remoteMessage.getNotification();
         //Calling method to generate notification
-        if (notification != null) {
+        if (notification != null && PreferencesManager.get().isNotificationEnabled()) {
             sendNotification(notification.getTitle(), notification.getBody());
         }
     }
@@ -74,6 +78,8 @@ public class ConnectFirebaseMessagingService extends FirebaseMessagingService {
         Bitmap icon = BitmapFactory.decodeResource(getApplicationContext().getResources(),
                 R.mipmap.ic_launcher);
 
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.bx_connect_white)
                 .setLargeIcon(icon)
@@ -81,7 +87,14 @@ public class ConnectFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentText(messageBody)
                 .setContentTitle(messageTitle)
                 .setAutoCancel(true)
-                .setContentIntent(pendingIntent);
+                .setContentIntent(pendingIntent)
+                .setSound(alarmSound)
+                .setLights(0xFF8F0300, 1000, 200)
+                .setPriority(Notification.PRIORITY_MAX);
+
+        //for vibration
+        Vibrator v = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+        v.vibrate(1000);
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
