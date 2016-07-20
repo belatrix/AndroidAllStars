@@ -84,11 +84,6 @@ public class EventListAdapter extends LoadMoreBaseAdapter<Event> {
                     null,
                     eventViewHolder.pictureImageView.getResources().getDrawable(R.drawable.contact_placeholder)
             );
-            /*ImageFactory.getLoader().loadFromUrl(event.getPicture(),
-                    eventViewHolder.pictureImageView,
-                    ImageLoader.ImageTransformation.BORDERED_CIRCLE,
-                    eventViewHolder.pictureImageView.getResources().getDrawable(R.drawable.event_placeholder)
-            );*/
         }
     }
     @Override
