@@ -47,7 +47,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals(notificationsKey)) {
-            PreferencesManager.get().setNotificationsChanged(sharedPreferences);
+            PreferencesManager.get().setNotificationsChanged(sharedPreferences.getBoolean(notificationsKey,true));
         }
     }
 

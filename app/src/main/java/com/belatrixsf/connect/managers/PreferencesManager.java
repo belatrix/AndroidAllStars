@@ -136,10 +136,6 @@ public class PreferencesManager {
         editor.apply();
     }
 
-    public Context getContext(){
-        return BelatrixConnectApplication.getContext();
-    }
-
     public boolean isNotificationEnabled() {
         return sharedPreferences.getBoolean(NOTIFICATIONS_ENABLED_KEY, true);
     }
@@ -148,9 +144,9 @@ public class PreferencesManager {
         return  NOTIFICATIONS_ENABLED_KEY;
     }
 
-    public void setNotificationsChanged(SharedPreferences sp){
+    public void setNotificationsChanged(boolean value){
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(NOTIFICATIONS_ENABLED_KEY, sp.getBoolean(NOTIFICATIONS_ENABLED_KEY,true));
+        editor.putBoolean(NOTIFICATIONS_ENABLED_KEY, value);
         editor.apply();
     }
 }

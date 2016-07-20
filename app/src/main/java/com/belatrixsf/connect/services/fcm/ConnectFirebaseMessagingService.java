@@ -93,7 +93,7 @@ public class ConnectFirebaseMessagingService extends FirebaseMessagingService {
                 .setPriority(Notification.PRIORITY_MAX);
 
         //for vibration
-        Vibrator v = (Vibrator) PreferencesManager.get().getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        Vibrator v = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
         v.vibrate(1000);
 
         NotificationManager notificationManager =
