@@ -48,10 +48,18 @@ public class UserHomePresenter extends BelatrixConnectPresenter<HomeView> implem
 
     @Override
     public void confirmLogout() {
+        view.showProgressDialog();
         employeeManager.logout(new PresenterCallback<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                view.goToLogin();
+                view.dismissProgressDialog();
+                view.endSession();
+            }
+
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                view.dismissProgressDialog();
+                view.endSession();
             }
         });
     }

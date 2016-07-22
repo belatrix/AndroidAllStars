@@ -159,7 +159,7 @@ public class LoginAsGuestFragment extends BelatrixConnectFragment implements Log
 
             @Override
             public void failure(TwitterException e) {
-                loginAsGuestPresenter.twitterFailure();
+
             }
         });
     }
@@ -193,7 +193,7 @@ public class LoginAsGuestFragment extends BelatrixConnectFragment implements Log
 
             @Override
             public void failure(TwitterException e) {
-                loginAsGuestPresenter.twitterFailure();
+
             }
         });
     }
