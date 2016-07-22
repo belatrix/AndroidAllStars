@@ -23,7 +23,7 @@ package com.belatrixsf.connect.ui.notifications;
 import com.belatrixsf.connect.entities.Notification;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.services.ServiceRequest;
-import com.belatrixsf.connect.services.contracts.NotificationService;
+import com.belatrixsf.connect.services.contracts.EmployeeService;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 
 import java.util.ArrayList;
@@ -36,22 +36,15 @@ import javax.inject.Inject;
  */
 public class NotificationListPresenter extends BelatrixConnectPresenter<NotificationListView> {
 
-    private NotificationService notificationService;
+    private EmployeeService employeeService;
     private List<Notification> notifications = new ArrayList<>();
     private PaginatedResponse notificationsPaging = new PaginatedResponse();
     private ServiceRequest searchingServiceRequest;
 
     @Inject
-    public NotificationListPresenter(NotificationListView view, NotificationService notificationService) {
+    public NotificationListPresenter(NotificationListView view, EmployeeService employeeService) {
         super(view);
-        this.notificationService = notificationService;
-    }
-
-    public void onNotificationSelected(int position) {
-        if (position >= 0 && position < notifications.size()) {
-            //Notification notification = notifications.get(position);
-            view.goToNotification(1);
-        }
+        this.employeeService = employeeService;
     }
 
     public void refreshNotifications() {
@@ -76,23 +69,23 @@ public class NotificationListPresenter extends BelatrixConnectPresenter<Notifica
 
     private void getNotificationsInternal() {
         view.showProgressIndicator();
-        searchingServiceRequest = notificationService.getNotificationList(
-                notificationsPaging.getNextPage(),
-                new PresenterCallback<PaginatedResponse<Notification>>() {
-                    @Override
-                    public void onSuccess(PaginatedResponse<Notification> notificationsResponse) {
-                        notificationsPaging.setCount(notificationsResponse.getCount());
-                        notificationsPaging.setNext(notificationsResponse.getNext());
-                        notifications.addAll(notificationsResponse.getResults());
-                        view.addNotifications(notificationsResponse.getResults());
-                        view.hideProgressIndicator();
-                    }
-                });
+        searchingServiceRequest = employeeService.getEmployeeNotifications(
+            notificationsPaging.getNextPage(),
+            new PresenterCallback<PaginatedResponse<Notification>>() {
+                @Override
+                public void onSuccess(PaginatedResponse<Notification> notificationsResponse) {
+                    notificationsPaging.setCount(notificationsResponse.getCount());
+                    notificationsPaging.setNext(notificationsResponse.getNext());
+                    notifications.addAll(notificationsResponse.getResults());
+                    view.addNotifications(notificationsResponse.getResults());
+                    view.hideProgressIndicator();
+                }
+            });
     }
 
     @Override
     public void cancelRequests() {
-        notificationService.cancelAll();
+
     }
 
     private void reset() {

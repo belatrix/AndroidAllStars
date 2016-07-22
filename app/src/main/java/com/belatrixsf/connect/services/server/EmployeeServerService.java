@@ -23,6 +23,8 @@ package com.belatrixsf.connect.services.server;
 import com.belatrixsf.connect.entities.Category;
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.Location;
+import com.belatrixsf.connect.entities.Notification;
+import com.belatrixsf.connect.managers.PreferencesManager;
 import com.belatrixsf.connect.networking.retrofit.api.EmployeeAPI;
 import com.belatrixsf.connect.networking.retrofit.requests.AuthenticationRequest;
 import com.belatrixsf.connect.networking.retrofit.requests.CreateEmployeeRequest;
@@ -132,6 +134,15 @@ public class EmployeeServerService extends BelatrixConnectBaseService implements
         MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
         Call<Employee> call = employeeAPI.updateEmployeeImage(employeeId, body);
         ServiceRequest<Employee> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
+    @Override
+    public ServiceRequest getEmployeeNotifications(Integer page, BelatrixConnectCallback<PaginatedResponse<Notification>> callback) {
+        int employeeId = PreferencesManager.get().getEmployeeId();
+        Call<PaginatedResponse<Notification>> call = employeeAPI.getEmployeeNotifications(employeeId, page);
+        ServiceRequest<PaginatedResponse<Notification>> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
         return serviceRequest;
     }

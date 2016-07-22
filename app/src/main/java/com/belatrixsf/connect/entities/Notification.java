@@ -30,52 +30,21 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Notification implements Parcelable {
 
+    @SerializedName("datetime")
+    private String dateTime;
+    private String text;
 
-
-    private String date;
-    private String detail;
-    @SerializedName("to_user")
-    private Employee toUser;
-    @SerializedName("from_user")
-    private Employee fromUser;
-
-    public String getDate() {
-        return date;
+    public String getDateTime() {
+        return dateTime;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getDetail() {
-        return detail;
-    }
-
-    public void setDetail(String detail) {
-        this.detail = detail;
-    }
-
-    public Employee getToUser() {
-        return toUser;
-    }
-
-    public void setToUser(Employee toUser) {
-        this.toUser = toUser;
-    }
-
-    public Employee getFromUser() {
-        return fromUser;
-    }
-
-    public void setFromUser(Employee fromUser) {
-        this.fromUser = fromUser;
+    public String getText() {
+        return text;
     }
 
     protected Notification(Parcel in) {
-        date = in.readString();
-        detail = in.readString();
-        toUser = (Employee) in.readValue(Employee.class.getClassLoader());
-        fromUser = (Employee) in.readValue(Employee.class.getClassLoader());
+        dateTime = in.readString();
+        text = in.readString();
     }
 
     @Override
@@ -85,10 +54,8 @@ public class Notification implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(date);
-        dest.writeString(detail);
-        dest.writeValue(toUser);
-        dest.writeValue(fromUser);
+        dest.writeString(dateTime);
+        dest.writeString(text);
     }
 
     @SuppressWarnings("unused")

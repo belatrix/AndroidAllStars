@@ -32,6 +32,5 @@ public interface NotificationListView extends BelatrixConnectView {
 
     void addNotifications(List<Notification> notifications);
     void resetList();
-    void goToNotification(Integer id);
 
 }

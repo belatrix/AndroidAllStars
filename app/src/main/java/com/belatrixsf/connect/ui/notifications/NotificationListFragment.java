@@ -48,7 +48,7 @@ import butterknife.Bind;
 /**
  * Created by icerrate on 20/06/2016.
  */
-public class NotificationListFragment extends BelatrixConnectFragment implements NotificationListView, NotificationListAdapter.NotificationListener {
+public class NotificationListFragment extends BelatrixConnectFragment implements NotificationListView {
 
     public static final String NOTIFICATIONS_KEY = "_notifications_key";
     public static final String PAGING_KEY = "_paging_key";
@@ -123,7 +123,7 @@ public class NotificationListFragment extends BelatrixConnectFragment implements
                 notificationListPresenter.callNextPage();
             }
         };
-        notificationListAdapter = new NotificationListAdapter(this);
+        notificationListAdapter = new NotificationListAdapter();
         notificationsRecyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);
         notificationsRecyclerView.setAdapter(notificationListAdapter);
         notificationsRecyclerView.setLayoutManager(linearLayoutManager);
@@ -156,21 +156,9 @@ public class NotificationListFragment extends BelatrixConnectFragment implements
         notificationListAdapter.add(notifications);
     }
 
-
     @Override
     public void resetList() {
         notificationListAdapter.reset();
-    }
-
-
-    @Override
-    public void onNotificationSelected(int position) {
-        notificationListPresenter.onNotificationSelected(position);
-    }
-
-    @Override
-    public void goToNotification(Integer id) {
-        //Go to NotificationDetail
     }
 
     @Override

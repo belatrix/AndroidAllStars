@@ -25,14 +25,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Notification;
 import com.belatrixsf.connect.ui.common.LoadMoreBaseAdapter;
-import com.belatrixsf.connect.utils.media.ImageFactory;
-import com.belatrixsf.connect.utils.media.loaders.ImageLoader;
+import com.belatrixsf.connect.utils.DateUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,21 +46,14 @@ public class NotificationListAdapter extends LoadMoreBaseAdapter<Notification> {
 
     public static final int TYPE_NOTIFICATION = 1;
 
-    private NotificationListener notificationListener;
-
-    public NotificationListAdapter(NotificationListener notificationListener) {
-        this(notificationListener, new ArrayList<Notification>());
-    }
-
-    public NotificationListAdapter(NotificationListener notificationListener, List<Notification> notificationList) {
-        this.data = notificationList;
-        this.notificationListener = notificationListener;
+    public NotificationListAdapter() {
+        this.data = new ArrayList<>();
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateDataViewHolder(ViewGroup parent, int viewType) {
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_notification, parent, false);
-        return new NotificationViewHolder(layoutView, notificationListener);
+        return new NotificationViewHolder(layoutView);
     }
 
     @Override
@@ -70,18 +61,11 @@ public class NotificationListAdapter extends LoadMoreBaseAdapter<Notification> {
         if (holder instanceof NotificationViewHolder) {
             NotificationViewHolder notificationViewHolder = (NotificationViewHolder) holder;
             Notification notification = data.get(position);
-            Context context = notificationViewHolder.notificationImageView.getContext();
-            String fromUserFullName = notification.getFromUser() != null ? notification.getFromUser().getFullName() : context.getResources().getString(R.string.notification_user_fullname_placeholder);
-            String detail = notification.getDetail() != null && !notification.getDetail().isEmpty() ? notification.getDetail() : context.getString(R.string.notification_detail_placeholder);
-            String dateHour = notification.getDate() != null && !notification.getDate().isEmpty() ? notification.getDate() : context.getString(R.string.notification_date_placeholder);
-            notificationViewHolder.notificationDetail.setText(String.format(context.getString(R.string.notification_user_and_detail), fromUserFullName, detail));
-            notificationViewHolder.notificationDateHour.setText(dateHour);
-            notificationViewHolder.itemView.setTag(notification);
-            ImageFactory.getLoader().loadFromUrl(notification.getFromUser().getAvatar(),
-                    notificationViewHolder.notificationImageView,
-                    ImageLoader.ImageTransformation.BORDERED_CIRCLE,
-                    context.getResources().getDrawable(R.drawable.contact_placeholder)
-            );
+            Context context = notificationViewHolder.dateTimeTextView.getContext();
+            String dateTime = notification.getDateTime() != null && !notification.getDateTime().isEmpty() ? DateUtils.formatDate(notification.getDateTime(), DateUtils.DATE_FORMAT_1, DateUtils.DATE_FORMAT_4) : context.getString(R.string.notification_datetime_placeholder);
+            String message = notification.getText() != null && !notification.getText().isEmpty() ? notification.getText() : context.getString(R.string.notification_message_placeholder);
+            notificationViewHolder.dateTimeTextView.setText(dateTime);
+            notificationViewHolder.messageTextView.setText(message);
         }
     }
     @Override
@@ -105,33 +89,15 @@ public class NotificationListAdapter extends LoadMoreBaseAdapter<Notification> {
         notifyDataSetChanged();
     }
 
-    public void setNotificationListener(NotificationListener notificationListener) {
-        this.notificationListener = notificationListener;
-    }
+    static class NotificationViewHolder extends RecyclerView.ViewHolder {
 
-    static class NotificationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        @Bind(R.id.datetime) public TextView dateTimeTextView;
+        @Bind(R.id.message) public TextView messageTextView;
 
-        private NotificationListener notificationListener;
-        @Bind(R.id.notification_photo) public ImageView notificationImageView;
-        @Bind(R.id.notification_detail) public TextView notificationDetail;
-        @Bind(R.id.notification_date_hour) public TextView notificationDateHour;
-
-        public NotificationViewHolder(View view, NotificationListener notificationListener) {
+        public NotificationViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-            this.notificationListener = notificationListener;
-            this.itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            if (notificationListener != null) {
-                notificationListener.onNotificationSelected(getLayoutPosition());
-            }
         }
     }
 
-    public interface NotificationListener {
-        void onNotificationSelected(int position);
-    }
 }

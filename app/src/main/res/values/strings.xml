@@ -138,12 +138,10 @@
     <string name="level_placeholder">No data</string>
 
     <!--Notifications-->
-    <string name="notification_user_fullname_placeholder">Anonymous</string>
-    <string name="notification_detail_placeholder">No detail</string>
-    <string name="notification_date_placeholder">No date</string>
+    <string name="notification_datetime_placeholder">No Date</string>
+    <string name="notification_message_placeholder">No Message</string>
     <string name="title_detail">Detail</string>
     <string name="title_date">DateHour</string>
-    <string name="notification_user_and_detail">%1$s %2$s</string>
 
     <!--Event-->
     <string name="title_title_placeholder">No Title</string>

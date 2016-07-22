@@ -30,6 +30,6 @@ import com.belatrixsf.connect.utils.BelatrixConnectCallback;
  */
 public interface NotificationService extends BelatrixConnectService {
 
-    ServiceRequest getNotificationList(Integer page, BelatrixConnectCallback<PaginatedResponse<Notification>> callback);
+    ServiceRequest getNotificationList(Integer employeeId, Integer page, BelatrixConnectCallback<PaginatedResponse<Notification>> callback);
 
 }
