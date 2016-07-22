@@ -26,13 +26,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.ViewCompat;
 import android.widget.ImageView;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
+import com.belatrixsf.connect.ui.contacts.ContactsListActivity;
+import com.belatrixsf.connect.ui.home.UserActivity;
 
 /**
  * Created by pedrocarrillo on 4/26/16.
@@ -40,6 +40,7 @@ import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 public class AccountActivity extends BelatrixConnectActivity implements AccountFragmentListener {
 
     public static final String USER_ID_KEY = "_user_id";
+    public static int PARENT_ACTIVITY_INDEX = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,17 +64,12 @@ public class AccountActivity extends BelatrixConnectActivity implements AccountF
 
     @Override
     protected void navigateBack() {
-        Intent upIntent = NavUtils.getParentActivityIntent(this);
-        if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
-            // Create a new task when navigating up
-            TaskStackBuilder.create(this)
-                    // Add all of this activity's parents to the back stack
-                    .addNextIntentWithParentStack(upIntent)
-                    // Navigate up to the closest parent
-                    .startActivities();
-        } else {
-            // Navigate up to the parent activity.
-            NavUtils.navigateUpTo(this, upIntent);
+        // both activities are single Task, instead of create a new instance
+        // with startActivity it returns to the existing instance
+        if (PARENT_ACTIVITY_INDEX == UserActivity.PARENT_INDEX) {
+            startActivity(UserActivity.makeIntent(this));
+        } else{
+            startActivity(ContactsListActivity.makeIntent(this));
         }
     }
 

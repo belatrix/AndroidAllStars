@@ -42,7 +42,8 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden"/>
         <activity
-            android:name=".ui.home.UserActivity"/>
+            android:name=".ui.home.UserActivity"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".ui.home.GuestActivity"/>
         <activity
@@ -53,14 +54,14 @@
             android:label="@string/title_give_star_activity"/>
         <activity
             android:name=".ui.account.AccountActivity"
-            android:label="@string/title_account_activity"
-            android:parentActivityName=".ui.home.UserActivity"/>
+            android:label="@string/title_account_activity"/>
         <activity
             android:name=".ui.account.expanded.ExpandPictureActivity"
             android:label="@string/title_expand_photo_activity"/>
         <activity
             android:name=".ui.contacts.ContactsListActivity"
-            android:label="@string/title_contact_activity"/>
+            android:label="@string/title_contact_activity"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".ui.stars.comment.CommentActivity"
             android:label="@string/title_comment_activity"
