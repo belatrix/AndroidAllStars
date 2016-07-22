@@ -51,7 +51,12 @@ public class UserHomePresenter extends BelatrixConnectPresenter<HomeView> implem
         employeeManager.logout(new PresenterCallback<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                view.goToLogin();
+                view.endSession();
+            }
+
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                view.endSession();
             }
         });
     }

@@ -142,7 +142,8 @@ public abstract class MainActivity extends BelatrixConnectActivity implements Ho
     }
 
     @Override
-    public void goToLogin() {
+    public void endSession() {
+
         startActivity(LoginActivity.makeIntent(this));
         finish();
     }
