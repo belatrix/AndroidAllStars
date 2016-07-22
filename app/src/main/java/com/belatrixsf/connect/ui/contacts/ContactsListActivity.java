@@ -20,11 +20,14 @@
 */
 package com.belatrixsf.connect.ui.contacts;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
+import com.belatrixsf.connect.utils.Constants;
 
 /**
  * Created by pedrocarrillo on 4/26/16.
@@ -44,4 +47,13 @@ public class ContactsListActivity extends BelatrixConnectActivity {
         setNavigationToolbar();
     }
 
+    public static Intent makeIntent(Context context) {
+        return new Intent(context, ContactsListActivity.class);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Constants.PARENT_ACTIVITY_INDEX = Constants.PARENT_USER;
+    }
 }

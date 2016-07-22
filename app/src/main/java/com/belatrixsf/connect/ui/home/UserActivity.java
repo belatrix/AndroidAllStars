@@ -32,6 +32,7 @@ import com.belatrixsf.connect.ui.settings.SettingsActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarFragment;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
+import com.belatrixsf.connect.utils.Constants;
 import com.belatrixsf.connect.utils.DialogUtils;
 import com.belatrixsf.connect.utils.di.components.DaggerUserHomeComponent;
 import com.belatrixsf.connect.utils.di.modules.presenters.UserHomePresenterModule;
@@ -116,6 +117,7 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
 
             }
         });
+
         if (tabLayout != null) {
             tabLayout.setupWithViewPager(mainViewPager);
         }
@@ -147,6 +149,7 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
                     case R.id.menu_contacts:
                         Intent intent = new Intent(UserActivity.this, ContactsListActivity.class);
                         startActivity(intent);
+                        Constants.PARENT_ACTIVITY_INDEX = Constants.PARENT_CONTACTS;
                         break;
                     case R.id.menu_event:
                         intent = new Intent(UserActivity.this, EventListActivity.class);
