@@ -90,7 +90,7 @@ public class GuestActivity extends MainActivity {
 
         TwitterSession twitterSession = TwitterCore.getInstance().getSessionManager().getActiveSession();
         if (twitterSession != null) {
-            ClearCookies(getApplicationContext());
+            clearCookies(getApplicationContext());
             Twitter.getSessionManager().clearActiveSession();
             Twitter.logOut();
         }
@@ -103,7 +103,7 @@ public class GuestActivity extends MainActivity {
         return new Intent(context, GuestActivity.class);
     }
 
-    private void ClearCookies(Context context) {
+    private void clearCookies(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
             CookieManager.getInstance().removeAllCookies(null);
             CookieManager.getInstance().flush();
