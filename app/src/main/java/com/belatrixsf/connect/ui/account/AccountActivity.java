@@ -33,7 +33,6 @@ import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 import com.belatrixsf.connect.ui.contacts.ContactsListActivity;
 import com.belatrixsf.connect.ui.home.UserActivity;
-import com.belatrixsf.connect.utils.Constants;
 
 /**
  * Created by pedrocarrillo on 4/26/16.
@@ -41,6 +40,7 @@ import com.belatrixsf.connect.utils.Constants;
 public class AccountActivity extends BelatrixConnectActivity implements AccountFragmentListener {
 
     public static final String USER_ID_KEY = "_user_id";
+    public static int PARENT_ACTIVITY_INDEX = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,7 +66,7 @@ public class AccountActivity extends BelatrixConnectActivity implements AccountF
     protected void navigateBack() {
         // both activities are single Task, instead of create a new instance
         // with startActivity it returns to the existing instance
-        if (Constants.PARENT_ACTIVITY_INDEX == Constants.PARENT_USER) {
+        if (PARENT_ACTIVITY_INDEX == UserActivity.PARENT_INDEX) {
             startActivity(UserActivity.makeIntent(this));
         } else{
             startActivity(ContactsListActivity.makeIntent(this));

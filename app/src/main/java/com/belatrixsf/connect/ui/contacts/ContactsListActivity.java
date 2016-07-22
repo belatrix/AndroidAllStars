@@ -26,8 +26,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.belatrixsf.connect.R;
+import com.belatrixsf.connect.ui.account.AccountActivity;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
-import com.belatrixsf.connect.utils.Constants;
+import com.belatrixsf.connect.ui.home.UserActivity;
 
 /**
  * Created by pedrocarrillo on 4/26/16.
@@ -35,6 +36,7 @@ import com.belatrixsf.connect.utils.Constants;
 public class ContactsListActivity extends BelatrixConnectActivity {
 
     public static final String PROFILE_ENABLED_KEY = "_is_search";
+    public static final int PARENT_INDEX = 2;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,6 +56,6 @@ public class ContactsListActivity extends BelatrixConnectActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Constants.PARENT_ACTIVITY_INDEX = Constants.PARENT_USER;
+        AccountActivity.PARENT_ACTIVITY_INDEX = UserActivity.PARENT_INDEX;
     }
 }

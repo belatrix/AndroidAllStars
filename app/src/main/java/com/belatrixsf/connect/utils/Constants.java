@@ -32,9 +32,4 @@ public class Constants {
     public static final String KIND_CURRENT_YEAR_SCORE = "current_year_score";
     public static final int MIN_PASSWORD_LENGTH = 4;
     public static final int DEFAULT_QUANTITY = 15;
-
-    // constants for navigation
-    public static int PARENT_ACTIVITY_INDEX = 1; // 1 = userActivity, 2 = contactsListActivity
-    public static final int PARENT_USER = 1;
-    public static final int PARENT_CONTACTS = 2;
 }
