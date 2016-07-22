@@ -2,18 +2,26 @@ package com.belatrixsf.connect.ui.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.view.MenuItem;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.about.AboutActivity;
 import com.belatrixsf.connect.ui.event.EventListFragment;
-import com.belatrixsf.connect.ui.settings.SettingsActivity;
+import com.belatrixsf.connect.ui.login.LoginActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.di.components.DaggerGuestHomeComponent;
 import com.belatrixsf.connect.utils.di.modules.presenters.GuestHomePresenterModule;
+import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.TwitterCore;
+import com.twitter.sdk.android.core.TwitterSession;
 
 import butterknife.Bind;
 
@@ -74,7 +82,39 @@ public class GuestActivity extends MainActivity {
         });
     }
 
+    @Override
+    public void endSession() {
+        if (AccessToken.getCurrentAccessToken() != null) {
+            LoginManager.getInstance().logOut();
+        }
+
+        TwitterSession twitterSession = TwitterCore.getInstance().getSessionManager().getActiveSession();
+        if (twitterSession != null) {
+            clearCookies(getApplicationContext());
+            Twitter.getSessionManager().clearActiveSession();
+            Twitter.logOut();
+        }
+
+        startActivity(LoginActivity.makeIntent(this));
+        finish();
+    }
+
     public static Intent makeIntent(Context context) {
         return new Intent(context, GuestActivity.class);
+    }
+
+    private void clearCookies(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            CookieManager.getInstance().removeAllCookies(null);
+            CookieManager.getInstance().flush();
+        } else {
+            CookieSyncManager cookieSyncMngr=CookieSyncManager.createInstance(context);
+            cookieSyncMngr.startSync();
+            CookieManager cookieManager=CookieManager.getInstance();
+            cookieManager.removeAllCookie();
+            cookieManager.removeSessionCookie();
+            cookieSyncMngr.stopSync();
+            cookieSyncMngr.sync();
+        }
     }
 }

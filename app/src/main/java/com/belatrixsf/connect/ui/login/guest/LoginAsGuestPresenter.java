@@ -87,10 +87,6 @@ public class LoginAsGuestPresenter extends BelatrixConnectPresenter<LoginAsGuest
         view.showError(getString(R.string.error_facebook));
     }
 
-    public void twitterFailure(){
-        view.showError(getString(R.string.error_twitter));
-    }
-
     public void onGettingEmailError() {
         view.goRequestGuestEmail();
     }
