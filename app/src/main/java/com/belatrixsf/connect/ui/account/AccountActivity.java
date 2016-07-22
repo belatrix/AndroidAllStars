@@ -64,7 +64,8 @@ public class AccountActivity extends BelatrixConnectActivity implements AccountF
 
     @Override
     protected void navigateBack() {
-        // both activities are single Task, instead of create a new instance with startActivity it returns to the existing instance
+        // both activities are single Task, instead of create a new instance
+        // with startActivity it returns to the existing instance
         if (Constants.PARENT_ACTIVITY_INDEX == Constants.PARENT_USER) {
             startActivity(UserActivity.makeIntent(this));
         } else{
