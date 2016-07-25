@@ -22,6 +22,7 @@ package com.belatrixsf.connect.services.server;
 
 import com.belatrixsf.connect.entities.Event;
 import com.belatrixsf.connect.networking.retrofit.api.EventAPI;
+import com.belatrixsf.connect.networking.retrofit.responses.EventParticipantDetailResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.services.BelatrixConnectBaseService;
 import com.belatrixsf.connect.services.ServerServiceRequest;
@@ -58,4 +59,53 @@ public class EventServerService extends BelatrixConnectBaseService implements Ev
         enqueue(serviceRequest, callback);
         return serviceRequest;
     }
+
+    @Override
+    public ServiceRequest getEventParticipantDetail(Integer eventId, Integer guestId, BelatrixConnectCallback<EventParticipantDetailResponse> callback) {
+        Call<EventParticipantDetailResponse> call = eventAPI.getEventParticipantDetail(eventId, guestId);
+        ServiceRequest<EventParticipantDetailResponse> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
+    @Override
+    public ServiceRequest getEventCollaboratorDetail(Integer eventId, Integer employeeId, BelatrixConnectCallback<Event> callback) {
+        Call<Event> call = eventAPI.getEventCollaboratorDetail(eventId, employeeId);
+        ServiceRequest<Event> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
+    @Override
+    public ServiceRequest registerCollaborator(int eventId, int employeeId, BelatrixConnectCallback<Event> callback) {
+        Call<Event> call = eventAPI.registerCollaborator(eventId, employeeId);
+        ServiceRequest<Event> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
+    @Override
+    public ServiceRequest registerParticipant(int eventId, int employeeId, BelatrixConnectCallback<EventParticipantDetailResponse> callback) {
+        Call<EventParticipantDetailResponse> call = eventAPI.registerParticipant(eventId, employeeId);
+        ServiceRequest<EventParticipantDetailResponse> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
+    @Override
+    public ServiceRequest unregisterCollaborator(int eventId, int employeeId, BelatrixConnectCallback<Event> callback) {
+        Call<Event> call = eventAPI.unregisterCollaborator(eventId, employeeId);
+        ServiceRequest<Event> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
+    @Override
+    public ServiceRequest unregisterParticipant(int eventId, int employeeId, BelatrixConnectCallback<Event> callback) {
+        Call<Event> call = eventAPI.unregisterParticipant(eventId, employeeId);
+        ServiceRequest<Event> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
 }

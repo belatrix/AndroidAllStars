@@ -23,6 +23,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.UserNavigationViewPagerAdapter;
 import com.belatrixsf.connect.ui.about.AboutActivity;
+import com.belatrixsf.connect.ui.account.AccountActivity;
 import com.belatrixsf.connect.ui.account.AccountFragmentListener;
 import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
 import com.belatrixsf.connect.ui.contacts.ContactsListActivity;
@@ -46,6 +47,7 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
 
     public static final int RANKING_TAB = 1;
     public static final int RQ_GIVE_STAR = 99;
+    public static final int PARENT_INDEX = 1;
 
     @Bind(R.id.main_view_pager) ViewPager mainViewPager;
     @Bind(R.id.start_recommendation) FloatingActionButton startRecommendationButton;
@@ -116,6 +118,7 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
 
             }
         });
+
         if (tabLayout != null) {
             tabLayout.setupWithViewPager(mainViewPager);
         }
@@ -147,6 +150,7 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
                     case R.id.menu_contacts:
                         Intent intent = new Intent(UserActivity.this, ContactsListActivity.class);
                         startActivity(intent);
+                        AccountActivity.PARENT_ACTIVITY_INDEX = ContactsListActivity.PARENT_INDEX;
                         break;
                     case R.id.menu_event:
                         intent = new Intent(UserActivity.this, EventListActivity.class);

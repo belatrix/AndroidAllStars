@@ -20,11 +20,11 @@
 */
 package com.belatrixsf.connect.utils.di.components;
 
-import com.belatrixsf.connect.utils.di.modules.presenters.AboutPresenterModule;
 import com.belatrixsf.connect.managers.EmployeeManager;
 import com.belatrixsf.connect.managers.GuestManager;
 import com.belatrixsf.connect.utils.di.modules.RetrofitModule;
 import com.belatrixsf.connect.utils.di.modules.ServicesModule;
+import com.belatrixsf.connect.utils.di.modules.presenters.AboutPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.AccountPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.CategoriesListModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.ContactsKeywordPresenterModule;
@@ -37,6 +37,7 @@ import com.belatrixsf.connect.utils.di.modules.presenters.GiveStarPresenterModul
 import com.belatrixsf.connect.utils.di.modules.presenters.KeywordsListModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.NotificationListPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.RankingPresenterModule;
+import com.belatrixsf.connect.utils.di.modules.presenters.RequestNewPasswordPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.SignUpPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.StarsListPresenterModule;
 
@@ -90,4 +91,5 @@ public interface ApplicationComponent {
 
     NotificationListComponent notificationListComponent(NotificationListPresenterModule notificationListPresenterModule);
 
+    RequestNewPasswordComponent requestNewPasswordComponent(RequestNewPasswordPresenterModule requestNewPasswordPresenterModule);
 }

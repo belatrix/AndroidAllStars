@@ -73,7 +73,7 @@ public class ExpandPictureFragment extends BelatrixConnectFragment implements Ex
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setupViews();
+        initViews();
         String avatarUrl = null;
         if (getArguments() != null) {
             if (getArguments().containsKey(USER_AVATAR_KEY)) {
@@ -89,8 +89,7 @@ public class ExpandPictureFragment extends BelatrixConnectFragment implements Ex
         loadPicture();
     }
 
-    private void setupViews() {
-
+    private void initViews() {
     }
 
     @Override

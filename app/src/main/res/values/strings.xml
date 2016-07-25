@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Belatrix Connect</string>
+    <string name="app_name">Bx Connect</string>
     <string name="no_data">No data found</string>
     <string name="no_data_option">-</string>
 
@@ -47,6 +47,7 @@
     <string name="title_select_subcategory">Select Subcategory</string>
     <string name="title_account_activity">Profile</string>
     <string name="title_expand_photo_activity"></string>
+    <string name="title_main">Belatrix Connect</string>
     <string name="title_contact_activity">Select an user</string>
     <string name="title_recommendation_activity">Recommendations</string>
     <string name="title_give_star_activity">Give a recommendation</string>
@@ -62,7 +63,8 @@
     <string name="tab_account_title">Account</string>
     <string name="tab_ranking_title">Ranking</string>
     <string name="tab_notifications_title">Activity</string>
-    <string name="tab_keywords_title">Tags</string>
+    <string name="tab_contacts_title">Contacts</string>
+    <string name="tab_keywords_title">Top Tags</string>
     <string name="tab_events_title">Events</string>
     <string name="settings_main_title">Settings</string>
 
@@ -197,12 +199,14 @@ SOFTWARE.</string>
     <string name="close_content_desc">Close button</string>
     <string name="email_content_desc">Email icon</string>
     <string name="profile_pic_needed">You need to upload a profile picture</string>
+    <string name="string_register">Register</string>
+    <string name="string_unregister">Unregister</string>
 
     <!-- Settings -->
     <string name="settings_category_notifications">NOTIFICATIONS</string>
     <string name="settings_title_notifications_switch">Enable Notifications</string>
     <string name="settings_summary_notifications_switch">Turn on/off the notifications</string>
-    <string name="settings_key_notifications_switch">settings_key_notifications_switch</string>
+    <string name="settings_key_notifications_switch">settings_notifications_switch_key</string>
     <string name="settings_key_notifications">settings_key_notifications</string>
 
 </resources>

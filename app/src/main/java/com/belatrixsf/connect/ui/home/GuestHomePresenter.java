@@ -53,7 +53,7 @@ public class GuestHomePresenter extends BelatrixConnectPresenter<HomeView> imple
     @Override
     public void confirmLogout() {
         guestManager.logout();
-        view.goToLogin();
+        view.endSession();
     }
 
     @Override

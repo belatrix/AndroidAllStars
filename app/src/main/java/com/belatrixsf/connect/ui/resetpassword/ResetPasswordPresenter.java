@@ -21,7 +21,6 @@
 package com.belatrixsf.connect.ui.resetpassword;
 
 import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.managers.EmployeeManager;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 import com.belatrixsf.connect.utils.Constants;
@@ -64,11 +63,18 @@ public class ResetPasswordPresenter extends BelatrixConnectPresenter<ResetPasswo
 
     public void reset(String oldPassword, String newPassword) {
         view.showProgressDialog();
-        employeeManager.resetPassword(oldPassword, newPassword, new PresenterCallback<Employee>() {
+        employeeManager.resetPassword(oldPassword, newPassword, new PresenterCallback<EmployeeManager.AccountState>() {
             @Override
-            public void onSuccess(Employee employee) {
+            public void onSuccess(EmployeeManager.AccountState accountState) {
                 view.dismissProgressDialog();
-                view.goEditProfile();
+                switch (accountState) {
+                    case PROFILE_COMPLETE:
+                        view.goHome();
+                        break;
+                    case PROFILE_INCOMPLETE:
+                        view.goEditProfile();
+                        break;
+                }
             }
         });
     }

@@ -52,10 +52,6 @@ public class PreferencesManager {
         return preferencesManager;
     }
 
-    public SharedPreferences getSharedPreferences() {
-        return sharedPreferences;
-    }
-
     public void saveToken(String token) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(TOKEN_KEY, token);
@@ -144,4 +140,13 @@ public class PreferencesManager {
         return sharedPreferences.getBoolean(NOTIFICATIONS_ENABLED_KEY, true);
     }
 
+    public String getNotificationKey(){
+        return  NOTIFICATIONS_ENABLED_KEY;
+    }
+
+    public void setNotificationsChanged(boolean value){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(NOTIFICATIONS_ENABLED_KEY, value);
+        editor.apply();
+    }
 }

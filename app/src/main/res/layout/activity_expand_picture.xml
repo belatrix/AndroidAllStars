@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.belatrixsf.connect.ui.account.expanded.ExpandPictureActivity">
+    android:layout_height="match_parent">
 
-    <FrameLayout
+    <fragment
         android:id="@+id/main_content"
+        android:name="com.belatrixsf.connect.ui.account.expanded.ExpandPictureFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        tools:context="com.belatrixsf.connect.ui.account.expanded.ExpandPictureActivity"
+        tools:layout="@layout/fragment_expand_picture"/>
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
