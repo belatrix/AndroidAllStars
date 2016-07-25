@@ -25,12 +25,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Notification;
 import com.belatrixsf.connect.ui.common.LoadMoreBaseAdapter;
 import com.belatrixsf.connect.utils.DateUtils;
+import com.belatrixsf.connect.utils.media.ImageFactory;
+import com.belatrixsf.connect.utils.media.loaders.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +65,11 @@ public class NotificationListAdapter extends LoadMoreBaseAdapter<Notification> {
             NotificationViewHolder notificationViewHolder = (NotificationViewHolder) holder;
             Notification notification = data.get(position);
             Context context = notificationViewHolder.dateTimeTextView.getContext();
+            ImageFactory.getLoader().loadFromUrl(notification.getAvatar(),
+                    notificationViewHolder.photoImageView,
+                    ImageLoader.ImageTransformation.BORDERED_CIRCLE,
+                    notificationViewHolder.photoImageView.getResources().getDrawable(R.drawable.ic_connect)
+            );
             String dateTime = notification.getDateTime() != null && !notification.getDateTime().isEmpty() ? DateUtils.formatDate(notification.getDateTime(), DateUtils.DATE_FORMAT_1, DateUtils.DATE_FORMAT_4) : context.getString(R.string.notification_datetime_placeholder);
             String message = notification.getText() != null && !notification.getText().isEmpty() ? notification.getText() : context.getString(R.string.notification_message_placeholder);
             notificationViewHolder.dateTimeTextView.setText(dateTime);
@@ -91,6 +99,7 @@ public class NotificationListAdapter extends LoadMoreBaseAdapter<Notification> {
 
     static class NotificationViewHolder extends RecyclerView.ViewHolder {
 
+        @Bind(R.id.photo) public ImageView photoImageView;
         @Bind(R.id.datetime) public TextView dateTimeTextView;
         @Bind(R.id.message) public TextView messageTextView;
 

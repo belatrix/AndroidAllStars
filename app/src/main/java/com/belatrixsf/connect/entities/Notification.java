@@ -33,6 +33,7 @@ public class Notification implements Parcelable {
     @SerializedName("datetime")
     private String dateTime;
     private String text;
+    private String avatar;
 
     public String getDateTime() {
         return dateTime;
@@ -42,9 +43,14 @@ public class Notification implements Parcelable {
         return text;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
     protected Notification(Parcel in) {
         dateTime = in.readString();
         text = in.readString();
+        avatar = in.readString();
     }
 
     @Override
@@ -56,6 +62,7 @@ public class Notification implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(dateTime);
         dest.writeString(text);
+        dest.writeString(avatar);
     }
 
     @SuppressWarnings("unused")

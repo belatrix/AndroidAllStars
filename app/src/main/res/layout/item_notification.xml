@@ -6,10 +6,18 @@
     android:orientation="horizontal"
     style="@style/LargeItemList">
 
+    <ImageView
+        android:id="@+id/photo"
+        android:layout_width="@dimen/dimen_10_6"
+        android:layout_height="@dimen/dimen_10_6"
+        tools:src="@drawable/contact_placeholder"
+        android:contentDescription="@string/profile_image_content_desc"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
+        android:layout_marginLeft="@dimen/dimen_3_5"
         android:orientation="vertical">
 
         <TextView

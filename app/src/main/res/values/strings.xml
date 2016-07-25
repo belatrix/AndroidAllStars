@@ -99,6 +99,7 @@
     <string name="menu_title_logout">Logout</string>
 
     <!--Account-->
+    <string name="title_full_name">Full Name</string>
     <string name="title_current_month_score">Month score</string>
     <string name="title_score">Score</string>
     <string name="title_level">Level</string>
