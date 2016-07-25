@@ -19,8 +19,6 @@
 * SOFTWARE.
 */
 package com.belatrixsf.connect.networking.retrofit.responses;
-
-
 import com.google.gson.annotations.SerializedName;
 
 /**
