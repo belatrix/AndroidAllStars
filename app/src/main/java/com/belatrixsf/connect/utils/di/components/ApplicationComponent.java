@@ -21,22 +21,17 @@
 package com.belatrixsf.connect.utils.di.components;
 
 import com.belatrixsf.connect.managers.EmployeeManager;
-import com.belatrixsf.connect.managers.GuestManager;
 import com.belatrixsf.connect.utils.di.modules.RetrofitModule;
 import com.belatrixsf.connect.utils.di.modules.ServicesModule;
-import com.belatrixsf.connect.utils.di.modules.presenters.AboutPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.AccountPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.CategoriesListModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.ContactsKeywordPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.ContactsListPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.EditAccountPresenterModule;
-import com.belatrixsf.connect.utils.di.modules.presenters.EventDetailPresenterModule;
-import com.belatrixsf.connect.utils.di.modules.presenters.EventListPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.ExpandPicturePresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.GiveStarPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.KeywordsListModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.RankingPresenterModule;
-import com.belatrixsf.connect.utils.di.modules.presenters.RequestNewPasswordPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.SignUpPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.StarsListPresenterModule;
 
@@ -57,8 +52,6 @@ import dagger.Component;
 public interface ApplicationComponent {
 
     EmployeeManager employeeManager();
-
-    GuestManager guestManager();
 
     SignUpComponent signUpComponent(SignUpPresenterModule signUpPresenterModule);
 
@@ -82,11 +75,4 @@ public interface ApplicationComponent {
 
     EditAccountComponent editAccountComponent(EditAccountPresenterModule editAccountPresenterModule);
 
-    EventListComponent eventListComponent(EventListPresenterModule EventListPresenterModule);
-
-    EventDetailComponent eventDetailComponent(EventDetailPresenterModule eventDetailPresenterModule);
-
-    AboutComponent aboutComponent(AboutPresenterModule aboutPresenterModule);
-
-    RequestNewPasswordComponent requestNewPasswordComponent(RequestNewPasswordPresenterModule requestNewPasswordPresenterModule);
 }

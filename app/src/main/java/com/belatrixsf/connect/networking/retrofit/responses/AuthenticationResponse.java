@@ -19,6 +19,13 @@
 * SOFTWARE.
 */
 package com.belatrixsf.connect.networking.retrofit.responses;
+<<<<<<< HEAD:app/src/main/java/com/belatrixsf/connect/networking/retrofit/responses/AuthenticationResponse.java
+<<<<<<< HEAD:app/src/main/java/com/belatrixsf/connect/networking/retrofit/responses/AuthenticationResponse.java
+=======
+=======
+>>>>>>> develop:app/src/main/java/com/belatrixsf/connect/networking/retrofit/responses/AuthenticationResponse.java
+
+>>>>>>> develop:app/src/main/java/com/belatrixsf/connect/networking/retrofit/responses/AuthenticationResponse.java
 import com.google.gson.annotations.SerializedName;
 
 /**
