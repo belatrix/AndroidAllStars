@@ -58,7 +58,7 @@ public class EmployeeManager {
             public void onSuccess(final AuthenticationResponse authenticationResponse) {
                 PreferencesManager.get().saveToken(authenticationResponse.getToken());
                 PreferencesManager.get().saveEmployeeId(authenticationResponse.getEmployeeId());
-                if (authenticationResponse.getResetPasswordCode() == null){
+                if (!authenticationResponse.isResetPasswordRequired()){
                     PreferencesManager.get().setResetPassword(true);
                     employeeService.getEmployee(authenticationResponse.getEmployeeId(), new BelatrixConnectCallback<Employee>() {
                         @Override

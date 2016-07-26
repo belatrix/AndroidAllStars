@@ -30,8 +30,8 @@ public class AuthenticationResponse {
     @SerializedName("user_id")
     private int employeeId;
     private String token;
-    @SerializedName("reset_password_code")
-    private String resetPasswordCode;
+    @SerializedName("is_password_reset_required")
+    private boolean passwordResetRequired;
     @SerializedName("is_base_profile_complete")
     private boolean baseProfileComplete;
 
@@ -43,8 +43,8 @@ public class AuthenticationResponse {
         return token;
     }
 
-    public String getResetPasswordCode() {
-        return resetPasswordCode;
+    public boolean isResetPasswordRequired() {
+        return passwordResetRequired;
     }
 
     public boolean isBaseProfileComplete() {
