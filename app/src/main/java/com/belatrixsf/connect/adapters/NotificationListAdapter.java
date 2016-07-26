@@ -70,7 +70,7 @@ public class NotificationListAdapter extends LoadMoreBaseAdapter<Notification> {
                     ImageLoader.ImageTransformation.BORDERED_CIRCLE,
                     notificationViewHolder.photoImageView.getResources().getDrawable(R.drawable.ic_connect)
             );
-            String dateTime = notification.getDateTime() != null && !notification.getDateTime().isEmpty() ? DateUtils.formatDate(notification.getDateTime(), DateUtils.DATE_FORMAT_1, DateUtils.DATE_FORMAT_4) : context.getString(R.string.notification_datetime_placeholder);
+            String dateTime = notification.getDateTime() != null && !notification.getDateTime().isEmpty() ? DateUtils.formatDateWithTimeZone(notification.getDateTime(), DateUtils.DATE_FORMAT_1, DateUtils.DATE_FORMAT_4) : context.getString(R.string.notification_datetime_placeholder);
             String message = notification.getText() != null && !notification.getText().isEmpty() ? notification.getText() : context.getString(R.string.notification_message_placeholder);
             notificationViewHolder.dateTimeTextView.setText(dateTime);
             notificationViewHolder.messageTextView.setText(message);
