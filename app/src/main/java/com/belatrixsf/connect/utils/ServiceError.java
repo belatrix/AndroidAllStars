@@ -27,6 +27,7 @@ public class ServiceError {
 
     public static final int UNKNOWN = 0;
     public static final int CANCELLED = 1;
+    public static final int INVALID_TOKEN = 401;
 
     private int responseCode;
     private String detail;

@@ -102,7 +102,7 @@ public class ContactsKeywordListPresenter extends BelatrixConnectPresenter<Conta
                     @Override
                     public void onFailure(ServiceError serviceError) {
                         view.hideProgressIndicator();
-                        showError(serviceError.getDetail());
+                        //showError(serviceError.getDetail());
                     }
                 });
     }

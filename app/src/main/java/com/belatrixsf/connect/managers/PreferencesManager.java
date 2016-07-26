@@ -149,4 +149,11 @@ public class PreferencesManager {
         editor.putBoolean(NOTIFICATIONS_ENABLED_KEY, value);
         editor.apply();
     }
+
+    public void clearUserSession() {
+        clearEmployeeId();
+        clearToken();
+        clearEditProfile();
+        clearResetPassword();
+    }
 }
