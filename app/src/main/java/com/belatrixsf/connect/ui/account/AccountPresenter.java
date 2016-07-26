@@ -68,7 +68,7 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
             @Override
             public void onFailure(ServiceError serviceError) {
                 view.dismissProgressDialog();
-                if (serviceError.getResponseCode() == 401) {
+                if (serviceError.getResponseCode() == ServiceError.INVALID_TOKEN) {
                     view.showInformativeDialog(serviceError.getDetail());
                 }
             }
