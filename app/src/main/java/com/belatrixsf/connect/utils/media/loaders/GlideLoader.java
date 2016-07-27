@@ -21,6 +21,7 @@
 package com.belatrixsf.connect.utils.media.loaders;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
@@ -38,6 +39,12 @@ import java.io.File;
  * @author Carlos Piñan
  */
 public class GlideLoader implements ImageLoader {
+
+    @Override
+    public void loadFromBitmap(Bitmap bitmapImg, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder){
+        Context context = imageView.getContext();
+        load(context, Glide.with(context).load(bitmapImg), transformation, callback, placeholder).into(imageView);
+    }
 
     @Override
     public void loadFromRes(int resId, ImageView imageView, Drawable placeholder) {

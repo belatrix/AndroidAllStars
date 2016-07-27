@@ -22,6 +22,7 @@ package com.belatrixsf.connect.ui.account;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -33,6 +34,7 @@ import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 import com.belatrixsf.connect.ui.contacts.ContactsListActivity;
 import com.belatrixsf.connect.ui.home.UserActivity;
+import com.belatrixsf.connect.utils.MediaUtils;
 
 /**
  * Created by pedrocarrillo on 4/26/16.
@@ -40,6 +42,7 @@ import com.belatrixsf.connect.ui.home.UserActivity;
 public class AccountActivity extends BelatrixConnectActivity implements AccountFragmentListener {
 
     public static final String USER_ID_KEY = "_user_id";
+    public static final String USER_IMG_PROFILE_KEY = "_user_img_profile";
     public static int PARENT_ACTIVITY_INDEX = 1;
 
     @Override
@@ -50,13 +53,16 @@ public class AccountActivity extends BelatrixConnectActivity implements AccountF
         setNavigationToolbar();
         if (savedInstanceState == null) {
             Integer userId = getIntent().getIntExtra(USER_ID_KEY, -1);
-            replaceFragment(AccountFragment.newInstance(userId), false);
+            byte[] bytesImg = getIntent().getExtras().getByteArray(USER_IMG_PROFILE_KEY);
+            replaceFragment(AccountFragment.newInstance(userId, bytesImg), false);
         }
     }
 
     public static void startActivityAnimatingProfilePic(Activity activity, ImageView photoImageView, Integer employeeId) {
+        Drawable drawable = photoImageView.getDrawable();
         Intent intent = new Intent(activity, AccountActivity.class);
         intent.putExtra(AccountActivity.USER_ID_KEY, employeeId);
+        intent.putExtra(AccountActivity.USER_IMG_PROFILE_KEY, MediaUtils.compressDrawable(drawable));
         ViewCompat.setTransitionName(photoImageView, activity.getString(R.string.transition_photo));
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, photoImageView, activity.getString(R.string.transition_photo));
         activity.startActivity(intent, options.toBundle());

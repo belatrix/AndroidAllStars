@@ -24,6 +24,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -94,10 +96,26 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     private MenuItem recommendMenuItem;
     private MenuItem editProfileMenuItem;
 
+    private static Bitmap imgProfileBitmap;
+
     public static AccountFragment newInstance(Integer userId) {
         Bundle bundle = new Bundle();
         if (userId != null) {
             bundle.putInt(AccountActivity.USER_ID_KEY, userId);
+        }
+        imgProfileBitmap = null;
+        AccountFragment accountFragment = new AccountFragment();
+        accountFragment.setArguments(bundle);
+        return accountFragment;
+    }
+
+    public static AccountFragment newInstance(Integer userId, byte[] imgBitmap) {
+        Bundle bundle = new Bundle();
+        if (userId != null) {
+            bundle.putInt(AccountActivity.USER_ID_KEY, userId);
+        }
+        if(imgBitmap != null){
+            bundle.putByteArray(AccountActivity.USER_IMG_PROFILE_KEY,imgBitmap);
         }
         AccountFragment accountFragment = new AccountFragment();
         accountFragment.setArguments(bundle);
@@ -149,6 +167,10 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
         if (getArguments() != null) {
             if (getArguments().containsKey(AccountActivity.USER_ID_KEY)) {
                 userId = getArguments().getInt(AccountActivity.USER_ID_KEY);
+            }
+            if(getArguments().containsKey(AccountActivity.USER_IMG_PROFILE_KEY)){
+                byte[] b = getArguments().getByteArray(AccountActivity.USER_IMG_PROFILE_KEY);
+                imgProfileBitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
             }
         }
         accountPresenter.setUserId(userId);
@@ -269,23 +291,43 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     @Override
     public void showProfilePicture(final String profilePicture) {
         if (pictureImageView != null) {
-            ImageFactory.getLoader().loadFromUrl(
-                    profilePicture,
-                    pictureImageView,
-                    ImageLoader.ImageTransformation.BORDERED_CIRCLE,
-                    new ImageLoader.Callback() {
-                        @Override
-                        public void onSuccess() {
-                            startPostponedEnterTransition();
-                        }
+            if (imgProfileBitmap == null) {
+                ImageFactory.getLoader().loadFromUrl(
+                        profilePicture,
+                        pictureImageView,
+                        ImageLoader.ImageTransformation.BORDERED_CIRCLE,
+                        new ImageLoader.Callback() {
+                            @Override
+                            public void onSuccess() {
+                                startPostponedEnterTransition();
+                            }
 
-                        @Override
-                        public void onFailure() {
-                            startPostponedEnterTransition();
-                        }
-                    },
-                    getResources().getDrawable(R.drawable.contact_placeholder)
-            );
+                            @Override
+                            public void onFailure() {
+                                startPostponedEnterTransition();
+                            }
+                        },
+                        getResources().getDrawable(R.drawable.contact_placeholder)
+                );
+            } else {
+                ImageFactory.getLoader().loadFromBitmap(
+                        imgProfileBitmap,
+                        pictureImageView,
+                        ImageLoader.ImageTransformation.BORDERED_CIRCLE,
+                        new ImageLoader.Callback() {
+                            @Override
+                            public void onSuccess() {
+                                startPostponedEnterTransition();
+                            }
+
+                            @Override
+                            public void onFailure() {
+                                startPostponedEnterTransition();
+                            }
+                        },
+                        getResources().getDrawable(R.drawable.contact_placeholder)
+                );
+            }
         }
     }
 

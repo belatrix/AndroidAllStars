@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.connect.utils.media.loaders;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
@@ -38,6 +39,8 @@ public interface ImageLoader {
         BORDERED_CIRCLE,
         CIRCLE
     }
+
+    void loadFromBitmap(Bitmap bitmapImg, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder);
 
     void loadFromRes(int resId, ImageView imageView, Drawable placeholder);
 
