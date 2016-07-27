@@ -180,11 +180,7 @@ public class EmployeeManager {
             @Override
             public void onSuccess(Void aVoid) {
                 refreshEmployee();
-                PreferencesManager.get().clearDeviceToken();
-                PreferencesManager.get().clearEmployeeId();
-                PreferencesManager.get().clearToken();
-                PreferencesManager.get().clearResetPassword();
-                PreferencesManager.get().clearEditProfile();
+                PreferencesManager.get().clearUserSession();
                 belatrixConnectCallback.onSuccess(aVoid);
             }
 

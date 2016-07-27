@@ -94,7 +94,7 @@ public class GuestManager {
 
     public void logout() {
         refreshGuest();
-        PreferencesManager.get().clearGuestId();
+        PreferencesManager.get().clearGuestSession();
     }
 
 }

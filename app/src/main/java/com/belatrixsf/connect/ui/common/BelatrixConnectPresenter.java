@@ -55,7 +55,7 @@ public abstract class BelatrixConnectPresenter<T extends BelatrixConnectView> {
 
         @Override
         public void onFailure(ServiceError serviceError) {
-            if (serviceError.getResponseCode() != ServiceError.CANCELLED) {
+            if (serviceError.getResponseCode() != ServiceError.CANCELLED && serviceError.getResponseCode() != ServiceError.INVALID_TOKEN) {
                 showError(serviceError.getDetail());
             }
         }
