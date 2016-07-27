@@ -68,7 +68,9 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
             @Override
             public void onFailure(ServiceError serviceError) {
                 view.dismissProgressDialog();
-                super.onFailure(serviceError);
+                if (serviceError.getResponseCode() == ServiceError.INVALID_TOKEN) {
+                    view.showInformativeDialog(serviceError.getDetail());
+                }
             }
         };
         if (employeeId == null) {
@@ -177,10 +179,19 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
         }
     }
 
+    public void confirmEndSession() {
+        endSession();
+        view.goBackToLogin();
+    }
+
     @Override
     public void cancelRequests() {
         employeeService.cancelAll();
         starService.cancelAll();
+    }
+
+    private void endSession() {
+        PreferencesManager.get().clearUserSession();
     }
 
 }

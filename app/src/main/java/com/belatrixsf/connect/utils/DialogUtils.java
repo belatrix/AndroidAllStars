@@ -48,6 +48,7 @@ public class DialogUtils {
                 .setTitle(title)
                 .setPositiveButton(R.string.dialog_option_confirm, positiveListener)
                 .setMessage(message)
+                .setCancelable(false)
                 .create();
     }
 

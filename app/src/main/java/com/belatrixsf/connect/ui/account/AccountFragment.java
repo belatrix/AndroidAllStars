@@ -55,6 +55,7 @@ import com.belatrixsf.connect.ui.account.expanded.ExpandPictureActivity;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.connect.ui.common.views.DividerItemDecoration;
+import com.belatrixsf.connect.ui.login.LoginActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarFragment;
 import com.belatrixsf.connect.ui.stars.StarsListActivity;
@@ -440,6 +441,23 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     @Override
     public void notifyNavigationRefresh() {
         accountFragmentListener.refreshNavigationDrawer();
+    }
+
+    @Override
+    public void showInformativeDialog(String information) {
+        DialogUtils.createInformationDialog(getActivity(), information, getString(R.string.app_name), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                accountPresenter.confirmEndSession();
+            }
+        }).show();
+    }
+
+    @Override
+    public void goBackToLogin() {
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
+        fragmentListener.closeActivity();
     }
 
     public void setProgressViewVisibility(int visibility) {

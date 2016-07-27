@@ -49,5 +49,7 @@ public interface AccountView extends BelatrixConnectView {
     void hideNoDataView();
     void goToExpandPhoto(String url);
     void notifyNavigationRefresh();
+    void showInformativeDialog(String information);
+    void goBackToLogin();
 
 }
