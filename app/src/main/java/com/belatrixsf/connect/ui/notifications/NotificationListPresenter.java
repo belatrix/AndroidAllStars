@@ -103,7 +103,6 @@ public class NotificationListPresenter extends BelatrixConnectPresenter<Notifica
         this.notificationsPaging = notificationsPaging;
     }
 
-
     public PaginatedResponse getNotificationsPaging() {
         return notificationsPaging;
     }
