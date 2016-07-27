@@ -18,16 +18,14 @@ public class LauncherActivity extends AppCompatActivity {
             //Restore Employee session
             startActivity(UserActivity.makeIntent(this));
         } else {
-            PreferencesManager.get().clearEmployeeId();
-            PreferencesManager.get().clearToken();
-            PreferencesManager.get().clearResetPassword();
-            PreferencesManager.get().clearEditProfile();
+            PreferencesManager.get().clearUserSession();
 
             boolean guestHasPermission = PreferencesManager.get().getGuestId() != 0;
             if (guestHasPermission) {
                 //Restore Guest session
                 startActivity(GuestActivity.makeIntent(this));
             } else {
+                PreferencesManager.get().clearGuestSession();
                 startActivity(LoginActivity.makeIntent(this));
             }
         }

@@ -72,7 +72,7 @@ public class PreferencesManager {
         editor.apply();
     }
 
-    public void clearEmployeeId() {
+    private void clearEmployeeId() {
         sharedPreferences.edit().remove(EMPLOYEE_ID_KEY).apply();
     }
 
@@ -86,7 +86,7 @@ public class PreferencesManager {
         editor.apply();
     }
 
-    public void clearResetPassword() {
+    private void clearResetPassword() {
         sharedPreferences.edit().remove(RESET_PASSWORD_KEY).apply();
     }
 
@@ -100,7 +100,7 @@ public class PreferencesManager {
         editor.apply();
     }
 
-    public void clearEditProfile() {
+    private void clearEditProfile() {
         sharedPreferences.edit().remove(EDIT_PROFILE_KEY).apply();
     }
 
@@ -114,7 +114,7 @@ public class PreferencesManager {
         editor.apply();
     }
 
-    public void clearGuestId() {
+    private void clearGuestId() {
         sharedPreferences.edit().remove(GUEST_ID_KEY).apply();
     }
 
@@ -122,7 +122,7 @@ public class PreferencesManager {
         return sharedPreferences.getInt(GUEST_ID_KEY, 0);
     }
 
-    public void clearDeviceToken() {
+    private void clearDeviceToken() {
         sharedPreferences.edit().remove(DEVICE_TOKEN_ID).apply();
     }
 
@@ -150,10 +150,20 @@ public class PreferencesManager {
         editor.apply();
     }
 
+    private void clearNotificationEnabled() {
+        sharedPreferences.edit().remove(NOTIFICATIONS_ENABLED_KEY);
+    }
+
     public void clearUserSession() {
         clearEmployeeId();
+        clearDeviceToken();
         clearToken();
         clearEditProfile();
         clearResetPassword();
+        clearNotificationEnabled();
+    }
+
+    public void clearGuestSession() {
+        clearGuestId();
     }
 }
