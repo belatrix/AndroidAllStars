@@ -43,9 +43,11 @@
             android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".ui.home.UserActivity"
+            android:label="@string/title_main"
             android:launchMode="singleTask"/>
         <activity
-            android:name=".ui.home.GuestActivity"/>
+            android:name=".ui.home.GuestActivity"
+            android:label="@string/title_main"/>
         <activity
             android:name=".ui.stars.StarsListActivity"
             android:label="@string/title_recommendation_activity"/>
@@ -93,7 +95,6 @@
             android:name=".ui.LauncherActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>

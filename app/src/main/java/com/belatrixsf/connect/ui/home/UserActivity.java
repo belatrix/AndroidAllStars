@@ -33,7 +33,6 @@ import com.belatrixsf.connect.ui.settings.SettingsActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarFragment;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
-import com.belatrixsf.connect.utils.Constants;
 import com.belatrixsf.connect.utils.DialogUtils;
 import com.belatrixsf.connect.utils.di.components.DaggerUserHomeComponent;
 import com.belatrixsf.connect.utils.di.modules.presenters.UserHomePresenterModule;
@@ -94,7 +93,7 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
     private void setupTabs() {
         UserNavigationViewPagerAdapter userNavigationViewPagerAdapter = new UserNavigationViewPagerAdapter(this, getSupportFragmentManager());
         mainViewPager.setAdapter(userNavigationViewPagerAdapter);
-        mainViewPager.setOffscreenPageLimit(2);
+        mainViewPager.setOffscreenPageLimit(3);
         mainViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
