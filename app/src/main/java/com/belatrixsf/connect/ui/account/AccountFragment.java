@@ -24,8 +24,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -97,14 +95,11 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     private MenuItem recommendMenuItem;
     private MenuItem editProfileMenuItem;
 
-    private static Bitmap imgProfileBitmap;
-
     public static AccountFragment newInstance(Integer userId) {
         Bundle bundle = new Bundle();
         if (userId != null) {
             bundle.putInt(AccountActivity.USER_ID_KEY, userId);
         }
-        imgProfileBitmap = null;
         AccountFragment accountFragment = new AccountFragment();
         accountFragment.setArguments(bundle);
         return accountFragment;
@@ -165,17 +160,16 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
         super.onViewCreated(view, savedInstanceState);
         setupViews();
         Integer userId = null;
+        byte [] userImg = null;
         if (getArguments() != null) {
             if (getArguments().containsKey(AccountActivity.USER_ID_KEY)) {
                 userId = getArguments().getInt(AccountActivity.USER_ID_KEY);
             }
             if(getArguments().containsKey(AccountActivity.USER_IMG_PROFILE_KEY)){
-                byte[] b = getArguments().getByteArray(AccountActivity.USER_IMG_PROFILE_KEY);
-                imgProfileBitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
+                userImg = getArguments().getByteArray(AccountActivity.USER_IMG_PROFILE_KEY);
             }
         }
-        accountPresenter.setUserId(userId);
-
+        accountPresenter.setUserInfo(userId, userImg);
     }
 
     @Override
@@ -292,7 +286,7 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     @Override
     public void showProfilePicture(final String profilePicture) {
         if (pictureImageView != null) {
-            if (imgProfileBitmap == null) {
+            if (accountPresenter.getEmployeeImg() == null) {
                 ImageFactory.getLoader().loadFromUrl(
                         profilePicture,
                         pictureImageView,
@@ -312,7 +306,7 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
                 );
             } else {
                 ImageFactory.getLoader().loadFromBitmap(
-                        imgProfileBitmap,
+                        accountPresenter.getEmployeeImg(),
                         pictureImageView,
                         ImageLoader.ImageTransformation.BORDERED_CIRCLE,
                         new ImageLoader.Callback() {

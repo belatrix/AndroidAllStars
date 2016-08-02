@@ -40,7 +40,7 @@ public interface ImageLoader {
         CIRCLE
     }
 
-    void loadFromBitmap(Bitmap bitmapImg, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder);
+    void loadFromBitmap(byte[] bitmapImg, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder);
 
     void loadFromRes(int resId, ImageView imageView, Drawable placeholder);
 

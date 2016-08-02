@@ -43,7 +43,8 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
     protected Employee employee;
     protected StarService starService;
     protected EmployeeService employeeService;
-    protected Integer employeeId;
+    private Integer employeeId;
+    private byte[] employeeImg;
 
     @Inject
     public AccountPresenter(AccountView view, EmployeeManager employeeManager, EmployeeService employeeService, StarService starService) {
@@ -104,8 +105,13 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
                 });
     }
 
-    public void setUserId(Integer employeeId) {
+    public void setUserInfo(Integer employeeId, byte[] employeeByteImg) {
         this.employeeId = employeeId;
+        this.employeeImg = employeeByteImg;
+    }
+
+    public byte[] getEmployeeImg(){
+        return this.employeeImg;
     }
 
     private void showEmployeeData() {

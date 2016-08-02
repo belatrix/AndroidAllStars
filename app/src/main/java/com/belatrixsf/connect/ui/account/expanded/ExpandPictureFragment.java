@@ -117,7 +117,7 @@ public class ExpandPictureFragment extends BelatrixConnectFragment implements Ex
                             startPostponedEnterTransition();
                         }
                     },
-                    getResources().getDrawable(R.drawable.contact_placeholder)
+                    null
             );
         }
     }

@@ -38,7 +38,7 @@ import java.io.File;
 public class PicassoLoader implements ImageLoader {
 
     @Override
-    public void loadFromBitmap(Bitmap bitmapImg, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder) {
+    public void loadFromBitmap(byte[] bitmapImg, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder) {
 
     }
 

@@ -41,7 +41,7 @@ import java.io.File;
 public class GlideLoader implements ImageLoader {
 
     @Override
-    public void loadFromBitmap(Bitmap bitmapImg, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder){
+    public void loadFromBitmap(byte[] bitmapImg, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder){
         Context context = imageView.getContext();
         load(context, Glide.with(context).load(bitmapImg), transformation, callback, placeholder).into(imageView);
     }
