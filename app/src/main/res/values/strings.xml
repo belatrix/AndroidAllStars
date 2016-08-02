@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Belatrix Connect</string>
+    <string name="app_name">Bx Connect</string>
     <string name="no_data">No data found</string>
     <string name="no_data_option">-</string>
 
@@ -47,6 +47,7 @@
     <string name="title_select_subcategory">Select Subcategory</string>
     <string name="title_account_activity">Profile</string>
     <string name="title_expand_photo_activity"></string>
+    <string name="title_main">Belatrix Connect</string>
     <string name="title_contact_activity">Select an user</string>
     <string name="title_recommendation_activity">Recommendations</string>
     <string name="title_give_star_activity">Give a recommendation</string>
@@ -61,6 +62,7 @@
     <string name="title_about_activity">About</string>
     <string name="tab_account_title">Account</string>
     <string name="tab_ranking_title">Ranking</string>
+    <string name="tab_notifications_title">Activity</string>
     <string name="tab_contacts_title">Contacts</string>
     <string name="tab_keywords_title">Top Tags</string>
     <string name="tab_events_title">Events</string>
@@ -97,6 +99,7 @@
     <string name="menu_title_logout">Logout</string>
 
     <!--Account-->
+    <string name="title_full_name">Full Name</string>
     <string name="title_current_month_score">Month score</string>
     <string name="title_score">Score</string>
     <string name="title_level">Level</string>
@@ -136,6 +139,12 @@
     <string name="message_placeholder"></string>
     <string name="fullname_placeholder">Anonymous</string>
     <string name="level_placeholder">No data</string>
+
+    <!--Notifications-->
+    <string name="notification_datetime_placeholder">No Date</string>
+    <string name="notification_message_placeholder">No Message</string>
+    <string name="title_detail">Detail</string>
+    <string name="title_date">DateHour</string>
 
     <!--Event-->
     <string name="title_title_placeholder">No Title</string>

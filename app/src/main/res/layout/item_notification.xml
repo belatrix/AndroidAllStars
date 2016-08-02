@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/notification_holder"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    style="@style/LargeItemList">
+
+    <ImageView
+        android:id="@+id/photo"
+        android:layout_width="@dimen/dimen_10_6"
+        android:layout_height="@dimen/dimen_10_6"
+        tools:src="@drawable/contact_placeholder"
+        android:contentDescription="@string/profile_image_content_desc"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="@dimen/dimen_3_5"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/datetime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/grey"
+            tools:text="@string/title_date" />
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="@string/title_detail"
+            android:lines="2"
+            android:ellipsize="end"/>
+
+    </LinearLayout>
+
+</LinearLayout>

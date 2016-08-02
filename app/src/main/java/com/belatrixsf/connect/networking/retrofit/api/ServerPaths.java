@@ -29,6 +29,7 @@ public interface ServerPaths {
     String CATEGORY = "category";
     String STAR = "star";
     String EVENT = "event";
+    String NOTIFICATION = "notification";
 
     String EMPLOYEE_ID = "employee_id";
     String EMPLOYEE_EMAIL = "employee_email";
@@ -57,6 +58,7 @@ public interface ServerPaths {
     String EMPLOYEE_SUBCATEGORY_LIST = STAR + "/{" + EMPLOYEE_ID + "}" + "/subcategory/list";
     String EMPLOYEE_UPDATE = EMPLOYEE + "/{" + EMPLOYEE_ID + "}/update/";
     String EMPLOYEE_LOCATION_LIST = EMPLOYEE + "/location/list";
+    String EMPLOYEE_NOTIFICATION_LIST = "activity/get/" + NOTIFICATION + "/employee/{" + EMPLOYEE_ID + "}/all/";
     String EMPLOYEE_AVATAR = EMPLOYEE + "/{" + EMPLOYEE_ID + "}/avatar/";
     String EMPLOYEE_REGISTER_DEVICE = EMPLOYEE + "/{" + EMPLOYEE_ID + "}/register/device/";
 
@@ -80,4 +82,6 @@ public interface ServerPaths {
 
     String GUEST_AUTHENTICATE = EVENT + "/participant/";
     String GUEST_BY_ID = EVENT + "/participant/{" + GUEST_ID + "}";
+    String NOTIFICATION_LIST = NOTIFICATION + "/list/";
+
 }

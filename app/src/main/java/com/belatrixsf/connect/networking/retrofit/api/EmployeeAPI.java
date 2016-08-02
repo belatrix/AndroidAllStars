@@ -23,6 +23,7 @@ package com.belatrixsf.connect.networking.retrofit.api;
 import com.belatrixsf.connect.entities.Category;
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.Location;
+import com.belatrixsf.connect.entities.Notification;
 import com.belatrixsf.connect.networking.retrofit.requests.AuthenticationRequest;
 import com.belatrixsf.connect.networking.retrofit.requests.CreateEmployeeRequest;
 import com.belatrixsf.connect.networking.retrofit.requests.RegisterDeviceRequest;
@@ -80,6 +81,9 @@ public interface EmployeeAPI {
 
     @GET(ServerPaths.EMPLOYEE_LOCATION_LIST)
     Call<List<Location>> getEmployeeLocations();
+
+    @GET(ServerPaths.EMPLOYEE_NOTIFICATION_LIST)
+    Call<PaginatedResponse<Notification>> getEmployeeNotifications(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Query(ServerPaths.QUERY_PAGE) Integer page);
 
     @Multipart
     @POST(ServerPaths.EMPLOYEE_AVATAR)

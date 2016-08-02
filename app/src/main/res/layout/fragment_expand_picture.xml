@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black">
+    android:background="@android:color/black"
+    tools:context=".ui.account.expanded.ExpandPictureActivity">
 
     <ImageView
         android:id="@+id/profile_picture"
@@ -12,4 +14,4 @@
         android:scaleType="centerInside"
         android:transitionName="@string/transition_photo" />
 
-</FrameLayout>
+</RelativeLayout>

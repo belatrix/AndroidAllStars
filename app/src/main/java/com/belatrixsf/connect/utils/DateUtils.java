@@ -22,7 +22,9 @@ package com.belatrixsf.connect.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Created by icerrate on 28/04/2016.
@@ -39,6 +41,24 @@ public class DateUtils {
             Date newDate = inFormat.parse(date);
 
             SimpleDateFormat outformat = new SimpleDateFormat(outputFormat);
+            return outformat.format(newDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String formatDateWithTimeZone(String date, String inputFormat, String outputFormat){
+        try {
+            SimpleDateFormat inFormat = new SimpleDateFormat(inputFormat);
+            inFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Date newDate = inFormat.parse(date);
+
+            Calendar cal = Calendar.getInstance();
+            TimeZone tz = cal.getTimeZone();
+
+            SimpleDateFormat outformat = new SimpleDateFormat(outputFormat);
+            outformat.setTimeZone(tz);
             return outformat.format(newDate);
         } catch (ParseException e) {
             e.printStackTrace();

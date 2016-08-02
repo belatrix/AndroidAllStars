@@ -23,6 +23,7 @@ package com.belatrixsf.connect.services.contracts;
 import com.belatrixsf.connect.entities.Category;
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.Location;
+import com.belatrixsf.connect.entities.Notification;
 import com.belatrixsf.connect.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.CreateEmployeeResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
@@ -53,6 +54,8 @@ public interface EmployeeService extends BelatrixConnectService {
     ServiceRequest updateEmployee(int employeeId, String firstName, String lastName, String skypeId, int locationId, BelatrixConnectCallback<Employee> callback);
 
     ServiceRequest getEmployeeLocations(BelatrixConnectCallback<List<Location>> callback);
+
+    ServiceRequest getEmployeeNotifications(Integer page, BelatrixConnectCallback<PaginatedResponse<Notification>> callback);
 
     ServiceRequest updateEmployeeImage(int employeeId, File file, BelatrixConnectCallback<Employee> callback);
 

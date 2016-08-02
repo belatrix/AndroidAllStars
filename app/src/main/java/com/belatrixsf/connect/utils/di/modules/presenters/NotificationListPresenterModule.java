@@ -18,36 +18,28 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.networking.retrofit.responses;
+package com.belatrixsf.connect.utils.di.modules.presenters;
 
-import com.google.gson.annotations.SerializedName;
+import com.belatrixsf.connect.ui.notifications.NotificationListView;
+
+import dagger.Module;
+import dagger.Provides;
 
 /**
- * Created by gyosida on 4/11/16.
+ * Created by icerrate on 15/04/2016.
  */
-public class AuthenticationResponse {
+@Module
+public class NotificationListPresenterModule {
 
-    @SerializedName("user_id")
-    private int employeeId;
-    private String token;
-    @SerializedName("is_password_reset_required")
-    private boolean passwordResetRequired;
-    @SerializedName("is_base_profile_complete")
-    private boolean baseProfileComplete;
+    private NotificationListView view;
 
-    public int getEmployeeId() {
-        return employeeId;
+    public NotificationListPresenterModule(NotificationListView view) {
+        this.view = view;
     }
 
-    public String getToken() {
-        return token;
+    @Provides
+    public NotificationListView providesView() {
+        return view;
     }
 
-    public boolean isResetPasswordRequired() {
-        return passwordResetRequired;
-    }
-
-    public boolean isBaseProfileComplete() {
-        return baseProfileComplete;
-    }
 }
