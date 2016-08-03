@@ -39,10 +39,10 @@ import javax.inject.Inject;
  */
 public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
 
-    protected EmployeeManager employeeManager;
-    protected Employee employee;
-    protected StarService starService;
-    protected EmployeeService employeeService;
+    private EmployeeManager employeeManager;
+    private Employee employee;
+    private StarService starService;
+    private EmployeeService employeeService;
     private Integer employeeId;
     private byte[] employeeImg;
 

@@ -42,8 +42,8 @@ public class EditAccountPresenter extends BelatrixConnectPresenter<EditAccountVi
     private Location locationSelected;
     private boolean isNewUser;
     private File selectedFile;
-    protected EmployeeService employeeService;
-    protected EmployeeManager employeeManager;
+    private EmployeeService employeeService;
+    private EmployeeManager employeeManager;
 
     @Inject
     protected EditAccountPresenter(EditAccountView view, EmployeeService employeeAPI, EmployeeManager employeeManager) {
