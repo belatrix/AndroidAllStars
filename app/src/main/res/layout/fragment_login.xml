@@ -73,7 +73,7 @@
             android:id="@+id/log_in"
             android:layout_marginTop="@dimen/dimen_6_5"
             android:text="@string/button_log_in"
-            style="@style/Button.Primary"/>
+            style="@style/Button.Accent"/>
 
         <Button
             android:id="@+id/log_in_as_guest"
