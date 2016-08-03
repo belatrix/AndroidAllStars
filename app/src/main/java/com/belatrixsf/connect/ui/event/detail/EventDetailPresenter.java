@@ -93,7 +93,7 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
         view.showPicture(event.getPicture());
 
 
-        // TO DO...future implementation
+        //TODO: future implementation
 
         /*if (event.isRegistrationAvailable()) {
             view.showRegister();

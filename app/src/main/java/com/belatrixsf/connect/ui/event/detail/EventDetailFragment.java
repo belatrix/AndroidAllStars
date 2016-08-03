@@ -172,7 +172,7 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
 
     @Override
     public void showComments() {
-        //TODO
+        //TODO: future implementation
     }
 
     @Override
