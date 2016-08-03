@@ -68,7 +68,7 @@
 
             <Button
                 android:id="@+id/send"
-                style="@style/Button.Primary"
+                style="@style/Button.Accent"
                 android:layout_marginTop="@dimen/dimen_9_5"
                 android:text="@string/button_sign_up_action"/>
 

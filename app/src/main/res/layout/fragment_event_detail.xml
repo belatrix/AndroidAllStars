@@ -96,6 +96,6 @@
         android:layout_marginTop="@dimen/dimen_8"
         android:layout_gravity="end"
         android:visibility="gone"
-        style="@style/Button.Primary"/>
+        style="@style/Button.Accent"/>
 
 </LinearLayout>

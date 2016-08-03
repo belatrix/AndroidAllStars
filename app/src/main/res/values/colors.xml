@@ -19,7 +19,7 @@
     <color name="recycler_view_normal">#ffffff</color>
     <color name="recycler_view_press">#20424242</color>
 
-    <color name="swipe_refresh">@color/colorPrimary</color>
+    <color name="swipe_refresh">@color/colorAccent</color>
 
     <color name="facebook">#3B5998</color>
     <color name="facebookDark">#1d2c4c</color>
