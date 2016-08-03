@@ -29,7 +29,7 @@ import javax.inject.Inject;
  */
 public class ExpandPicturePresenter extends BelatrixConnectPresenter<ExpandPictureView> {
 
-    protected String avatarUrl;
+    private String avatarUrl;
 
     @Inject
     public ExpandPicturePresenter(ExpandPictureView view) {
