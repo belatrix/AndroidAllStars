@@ -95,10 +95,13 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     private MenuItem recommendMenuItem;
     private MenuItem editProfileMenuItem;
 
-    public static AccountFragment newInstance(Integer userId) {
+    public static AccountFragment newInstance(Integer userId, byte[] imgBitmap) {
         Bundle bundle = new Bundle();
         if (userId != null) {
             bundle.putInt(AccountActivity.USER_ID_KEY, userId);
+        }
+        if(imgBitmap != null){
+            bundle.putByteArray(AccountActivity.USER_IMG_PROFILE_KEY,imgBitmap);
         }
         AccountFragment accountFragment = new AccountFragment();
         accountFragment.setArguments(bundle);
@@ -147,13 +150,16 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
         super.onViewCreated(view, savedInstanceState);
         setupViews();
         Integer userId = null;
+        byte [] userImg = null;
         if (getArguments() != null) {
             if (getArguments().containsKey(AccountActivity.USER_ID_KEY)) {
                 userId = getArguments().getInt(AccountActivity.USER_ID_KEY);
             }
+            if(getArguments().containsKey(AccountActivity.USER_IMG_PROFILE_KEY)){
+                userImg = getArguments().getByteArray(AccountActivity.USER_IMG_PROFILE_KEY);
+            }
         }
-        accountPresenter.setUserId(userId);
-
+        accountPresenter.setUserInfo(userId, userImg);
     }
 
     @Override
@@ -270,23 +276,43 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     @Override
     public void showProfilePicture(final String profilePicture) {
         if (pictureImageView != null) {
-            ImageFactory.getLoader().loadFromUrl(
-                    profilePicture,
-                    pictureImageView,
-                    ImageLoader.ImageTransformation.BORDERED_CIRCLE,
-                    new ImageLoader.Callback() {
-                        @Override
-                        public void onSuccess() {
-                            startPostponedEnterTransition();
-                        }
+            if (accountPresenter.getEmployeeImg() == null) {
+                ImageFactory.getLoader().loadFromUrl(
+                        profilePicture,
+                        pictureImageView,
+                        ImageLoader.ImageTransformation.BORDERED_CIRCLE,
+                        new ImageLoader.Callback() {
+                            @Override
+                            public void onSuccess() {
+                                startPostponedEnterTransition();
+                            }
 
-                        @Override
-                        public void onFailure() {
-                            startPostponedEnterTransition();
-                        }
-                    },
-                    getResources().getDrawable(R.drawable.contact_placeholder)
-            );
+                            @Override
+                            public void onFailure() {
+                                startPostponedEnterTransition();
+                            }
+                        },
+                        getResources().getDrawable(R.drawable.contact_placeholder)
+                );
+            } else {
+                ImageFactory.getLoader().loadFromBitmap(
+                        accountPresenter.getEmployeeImg(),
+                        pictureImageView,
+                        ImageLoader.ImageTransformation.BORDERED_CIRCLE,
+                        new ImageLoader.Callback() {
+                            @Override
+                            public void onSuccess() {
+                                startPostponedEnterTransition();
+                            }
+
+                            @Override
+                            public void onFailure() {
+                                startPostponedEnterTransition();
+                            }
+                        },
+                        getResources().getDrawable(R.drawable.contact_placeholder)
+                );
+            }
         }
     }
 

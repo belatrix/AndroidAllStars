@@ -21,6 +21,7 @@
 package com.belatrixsf.connect.utils.media.loaders;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
@@ -35,6 +36,11 @@ import java.io.File;
  * @author Carlos Piñan
  */
 public class PicassoLoader implements ImageLoader {
+
+    @Override
+    public void loadFromBitmap(byte[] bitmapImg, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder) {
+
+    }
 
     @Override
     public void loadFromRes(int resId, ImageView imageView, Drawable placeholder) {

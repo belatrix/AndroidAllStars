@@ -50,7 +50,7 @@ public class UserNavigationViewPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return AccountFragment.newInstance(null);
+                return AccountFragment.newInstance(null, null);
             case 1:
                 return RankingContainerFragment.newInstance();
             case 2:
