@@ -23,7 +23,7 @@
         android:layout_marginLeft="@dimen/activity_margin"
         android:layout_marginStart="@dimen/activity_margin"
         android:layout_weight="1"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorPrimary"
         tools:text="value"
         style="@style/TextAppearance.AppCompat.Subhead"/>
 

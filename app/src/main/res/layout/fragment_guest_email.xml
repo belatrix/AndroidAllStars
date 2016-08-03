@@ -68,7 +68,7 @@
 
             <Button
                 android:id="@+id/send_email"
-                style="@style/Button.Primary"
+                style="@style/Button.Accent"
                 android:layout_marginTop="@dimen/dimen_9_5"
                 android:text="@string/button_continue_twitter_login"/>
 
