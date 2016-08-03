@@ -95,16 +95,6 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     private MenuItem recommendMenuItem;
     private MenuItem editProfileMenuItem;
 
-    public static AccountFragment newInstance(Integer userId) {
-        Bundle bundle = new Bundle();
-        if (userId != null) {
-            bundle.putInt(AccountActivity.USER_ID_KEY, userId);
-        }
-        AccountFragment accountFragment = new AccountFragment();
-        accountFragment.setArguments(bundle);
-        return accountFragment;
-    }
-
     public static AccountFragment newInstance(Integer userId, byte[] imgBitmap) {
         Bundle bundle = new Bundle();
         if (userId != null) {
