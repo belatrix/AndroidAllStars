@@ -29,6 +29,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.NotificationListAdapter;
@@ -61,6 +62,8 @@ public class NotificationListFragment extends BelatrixConnectFragment implements
     RecyclerView notificationsRecyclerView;
     @Bind(R.id.refresh_notifications)
     SwipeRefreshLayout notificationsRefreshLayout;
+    @Bind(R.id.no_data_textview)
+    TextView noDataTextView;
 
     public static NotificationListFragment newInstance() {
         return new NotificationListFragment();
@@ -165,5 +168,15 @@ public class NotificationListFragment extends BelatrixConnectFragment implements
     public void onDestroyView() {
         notificationListPresenter.cancelRequests();
         super.onDestroyView();
+    }
+
+    @Override
+    public void showNoDataView() {
+        noDataTextView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideNoDataView() {
+        noDataTextView.setVisibility(View.GONE);
     }
 }

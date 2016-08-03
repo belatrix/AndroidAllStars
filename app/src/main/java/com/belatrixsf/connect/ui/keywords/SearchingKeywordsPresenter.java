@@ -98,6 +98,7 @@ public class SearchingKeywordsPresenter extends BelatrixConnectPresenter<Searchi
 
     private void getKeywordsInternal() {
         view.showProgressIndicator();
+        view.hideNoDataView();
         searchingServiceRequest = starService.getStarsByKeywords(
                 searchText,
                 keywordsPaging.getNextPage(),
@@ -106,8 +107,12 @@ public class SearchingKeywordsPresenter extends BelatrixConnectPresenter<Searchi
                     public void onSuccess(PaginatedResponse<Keyword> starsByKeywordsResponse) {
                         keywordsPaging.setCount(starsByKeywordsResponse.getCount());
                         keywordsPaging.setNext(starsByKeywordsResponse.getNext());
-                        keywords.addAll(starsByKeywordsResponse.getResults());
-                        view.addKeywords(starsByKeywordsResponse.getResults());
+                        if(!starsByKeywordsResponse.getResults().isEmpty()) {
+                            keywords.addAll(starsByKeywordsResponse.getResults());
+                            view.addKeywords(starsByKeywordsResponse.getResults());
+                        } else {
+                            view.showNoDataView();
+                        }
                         view.hideProgressIndicator();
                     }
                 });

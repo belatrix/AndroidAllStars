@@ -413,7 +413,8 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     }
 
     @Override
-    public void showNoDataView() {
+    public void showNoDataView(String message) {
+        noDataTextView.setText(message);
         noDataTextView.setVisibility(View.VISIBLE);
     }
 

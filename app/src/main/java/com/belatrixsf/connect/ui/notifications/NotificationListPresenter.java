@@ -69,6 +69,7 @@ public class NotificationListPresenter extends BelatrixConnectPresenter<Notifica
 
     private void getNotificationsInternal() {
         view.showProgressIndicator();
+        view.hideNoDataView();
         searchingServiceRequest = employeeService.getEmployeeNotifications(
             notificationsPaging.getNextPage(),
             new PresenterCallback<PaginatedResponse<Notification>>() {
@@ -76,8 +77,12 @@ public class NotificationListPresenter extends BelatrixConnectPresenter<Notifica
                 public void onSuccess(PaginatedResponse<Notification> notificationsResponse) {
                     notificationsPaging.setCount(notificationsResponse.getCount());
                     notificationsPaging.setNext(notificationsResponse.getNext());
-                    notifications.addAll(notificationsResponse.getResults());
-                    view.addNotifications(notificationsResponse.getResults());
+                    if(!notificationsResponse.getResults().isEmpty()) {
+                        notifications.addAll(notificationsResponse.getResults());
+                        view.addNotifications(notificationsResponse.getResults());
+                    } else {
+                        view.showNoDataView();
+                    }
                     view.hideProgressIndicator();
                 }
             });
