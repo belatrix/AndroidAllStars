@@ -25,6 +25,7 @@ import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.services.ServiceRequest;
 import com.belatrixsf.connect.services.contracts.EmployeeService;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
+import com.belatrixsf.connect.utils.ServiceError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,13 +78,15 @@ public class NotificationListPresenter extends BelatrixConnectPresenter<Notifica
                 public void onSuccess(PaginatedResponse<Notification> notificationsResponse) {
                     notificationsPaging.setCount(notificationsResponse.getCount());
                     notificationsPaging.setNext(notificationsResponse.getNext());
-                    if(!notificationsResponse.getResults().isEmpty()) {
-                        notifications.addAll(notificationsResponse.getResults());
-                        view.addNotifications(notificationsResponse.getResults());
-                    } else {
-                        view.showNoDataView();
-                    }
+                    notifications.addAll(notificationsResponse.getResults());
+                    view.addNotifications(notificationsResponse.getResults());
                     view.hideProgressIndicator();
+                }
+
+                @Override
+                public void onFailure(ServiceError serviceError) {
+                    view.hideProgressIndicator();
+                    view.showNoDataView(serviceError.getDetail());
                 }
             });
     }

@@ -171,7 +171,8 @@ public class NotificationListFragment extends BelatrixConnectFragment implements
     }
 
     @Override
-    public void showNoDataView() {
+    public void showNoDataView(String message) {
+        noDataTextView.setText(message);
         noDataTextView.setVisibility(View.VISIBLE);
     }
 
