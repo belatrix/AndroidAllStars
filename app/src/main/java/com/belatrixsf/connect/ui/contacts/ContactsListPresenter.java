@@ -25,6 +25,7 @@ import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.services.ServiceRequest;
 import com.belatrixsf.connect.services.contracts.EmployeeService;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
+import com.belatrixsf.connect.utils.ServiceError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,13 +109,15 @@ public class ContactsListPresenter extends BelatrixConnectPresenter<ContactsList
                     public void onSuccess(PaginatedResponse<Employee> contactsKeywordsResponse) {
                         contactsPaging.setCount(contactsKeywordsResponse.getCount());
                         contactsPaging.setNext(contactsKeywordsResponse.getNext());
-                        if (!contactsKeywordsResponse.getResults().isEmpty()) {
-                            contacts.addAll(contactsKeywordsResponse.getResults());
-                            view.addContacts(contactsKeywordsResponse.getResults());
-                        } else {
-                            view.showNoDataView();
-                        }
+                        contacts.addAll(contactsKeywordsResponse.getResults());
+                        view.addContacts(contactsKeywordsResponse.getResults());
                         view.hideProgressIndicator();
+                    }
+
+                    @Override
+                    public void onFailure(ServiceError serviceError) {
+                        view.hideProgressIndicator();
+                        view.showNoDataView(serviceError.getDetail());
                     }
                 });
     }

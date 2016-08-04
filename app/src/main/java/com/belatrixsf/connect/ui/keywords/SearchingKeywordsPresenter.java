@@ -25,6 +25,7 @@ import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.services.ServiceRequest;
 import com.belatrixsf.connect.services.contracts.StarService;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
+import com.belatrixsf.connect.utils.ServiceError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,13 +108,15 @@ public class SearchingKeywordsPresenter extends BelatrixConnectPresenter<Searchi
                     public void onSuccess(PaginatedResponse<Keyword> starsByKeywordsResponse) {
                         keywordsPaging.setCount(starsByKeywordsResponse.getCount());
                         keywordsPaging.setNext(starsByKeywordsResponse.getNext());
-                        if(!starsByKeywordsResponse.getResults().isEmpty()) {
-                            keywords.addAll(starsByKeywordsResponse.getResults());
-                            view.addKeywords(starsByKeywordsResponse.getResults());
-                        } else {
-                            view.showNoDataView();
-                        }
+                        keywords.addAll(starsByKeywordsResponse.getResults());
+                        view.addKeywords(starsByKeywordsResponse.getResults());
                         view.hideProgressIndicator();
+                    }
+
+                    @Override
+                    public void onFailure(ServiceError serviceError) {
+                        view.hideProgressIndicator();
+                        view.showNoDataView(serviceError.getDetail());
                     }
                 });
     }
