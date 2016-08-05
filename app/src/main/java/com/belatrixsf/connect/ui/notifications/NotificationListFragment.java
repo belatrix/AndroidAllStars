@@ -58,12 +58,9 @@ public class NotificationListFragment extends BelatrixConnectFragment implements
     private NotificationListAdapter notificationListAdapter;
     private EndlessRecyclerOnScrollListener endlessRecyclerOnScrollListener;
 
-    @Bind(R.id.notifications)
-    RecyclerView notificationsRecyclerView;
-    @Bind(R.id.refresh_notifications)
-    SwipeRefreshLayout notificationsRefreshLayout;
-    @Bind(R.id.no_data_textview)
-    TextView noDataTextView;
+    @Bind(R.id.notifications) RecyclerView notificationsRecyclerView;
+    @Bind(R.id.refresh_notifications) SwipeRefreshLayout notificationsRefreshLayout;
+    @Bind(R.id.no_data_textview) TextView noDataTextView;
 
     public static NotificationListFragment newInstance() {
         return new NotificationListFragment();
