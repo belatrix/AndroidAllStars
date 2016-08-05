@@ -39,6 +39,7 @@ import com.belatrixsf.connect.utils.di.modules.presenters.NotificationListPresen
 import com.belatrixsf.connect.utils.di.modules.presenters.RankingPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.RequestNewPasswordPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.SignUpPresenterModule;
+import com.belatrixsf.connect.utils.di.modules.presenters.SkillsListPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.StarsListPresenterModule;
 
 import javax.inject.Singleton;
@@ -92,4 +93,6 @@ public interface ApplicationComponent {
     NotificationListComponent notificationListComponent(NotificationListPresenterModule notificationListPresenterModule);
 
     RequestNewPasswordComponent requestNewPasswordComponent(RequestNewPasswordPresenterModule requestNewPasswordPresenterModule);
+
+    SkillsListComponent skillsListComponent(SkillsListPresenterModule skillsListPresenterModule);
 }

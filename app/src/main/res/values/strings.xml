@@ -114,6 +114,7 @@
     <string name="select_image_title">Select an image</string>
     <string name="permission_profile">The application needs write and camera permissions to be able to edit your profile picture</string>
     <string name="location_error">Must select location</string>
+    <string name="edit_skills">Skills</string>
 
     <!--Give a star-->
     <string name="select_user">Select user</string>

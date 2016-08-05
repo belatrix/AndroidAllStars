@@ -46,6 +46,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.belatrixsf.connect.R;
@@ -53,6 +54,7 @@ import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.Location;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.home.UserActivity;
+import com.belatrixsf.connect.ui.skills.SkillsListActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.DialogUtils;
 import com.belatrixsf.connect.utils.KeyboardUtils;
@@ -101,6 +103,8 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
     RadioGroup locationRadioGroup;
     @Bind(R.id.edit_image)
     ImageView editPictureImageView;
+    @Bind(R.id.view_skills)
+    RelativeLayout viewSkills;
 
     private EditAccountPresenter editAccountPresenter;
     private String mProfilePicturePath;
@@ -179,6 +183,12 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
                 RadioButton radioButton = (RadioButton) group.findViewById(checkedId);
                 int position = locationRadioGroup.indexOfChild(radioButton);
                 editAccountPresenter.selectLocation(position);
+            }
+        });
+        viewSkills.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editAccountPresenter.getSkillsList();
             }
         });
     }
@@ -420,4 +430,8 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
         fragmentListener.closeActivity();
     }
 
+    @Override
+    public void showSkills() {
+        startActivity(SkillsListActivity.makeIntent(getActivity()));
+    }
 }

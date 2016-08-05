@@ -43,5 +43,6 @@ public interface EditAccountView extends BelatrixConnectView {
     void showPhotoPicker();
     void disableEditProfilePicture();
     void endSuccessfulCreation();
+    void showSkills();
 
 }
