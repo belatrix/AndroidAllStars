@@ -37,8 +37,6 @@ public class PreferencesManager {
     private static final String GUEST_ID_KEY = "guest_id_key";
     private static final String DEVICE_TOKEN_ID = "_device_token_id";
     private static final String NOTIFICATIONS_ENABLED_KEY = "settings_notifications_switch_key";
-    private static final String ACTIVITY_TAB_BUNDLE_KEY = "activity_tab_key";
-    private static final int ACTIVITY_TAB_BUNDLE_INDEX = 2;
     private static PreferencesManager preferencesManager;
 
     private SharedPreferences sharedPreferences;
@@ -144,14 +142,6 @@ public class PreferencesManager {
 
     public String getNotificationKey(){
         return  NOTIFICATIONS_ENABLED_KEY;
-    }
-
-    public String getActivityTabBundleKey(){
-        return ACTIVITY_TAB_BUNDLE_KEY;
-    }
-
-    public int getActivityTabBundleIndex(){
-        return ACTIVITY_TAB_BUNDLE_INDEX;
     }
 
     public void setNotificationsChanged(boolean value){

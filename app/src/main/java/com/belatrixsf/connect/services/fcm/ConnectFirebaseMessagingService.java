@@ -32,7 +32,6 @@ import android.support.v4.app.NotificationCompat;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.managers.PreferencesManager;
-import com.belatrixsf.connect.ui.LauncherActivity;
 import com.belatrixsf.connect.ui.home.UserActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -49,6 +48,8 @@ public class ConnectFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "MyFirebaseMsgService";
     public static final String TITLE_KEY = "title";
     public static final String DETAIL_KEY = "detail";
+    private static final String ACTIVITY_TAB_BUNDLE_KEY = "activity_tab_key";
+    private static final int ACTIVITY_TAB_BUNDLE_INDEX = 2; // 2 = activity tab index
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -65,7 +66,7 @@ public class ConnectFirebaseMessagingService extends FirebaseMessagingService {
 
     private void sendNotification(String messageTitle, String messageBody) {
         Intent intent = new Intent(this, UserActivity.class);
-        intent.putExtra(PreferencesManager.get().getActivityTabBundleKey(),PreferencesManager.get().getActivityTabBundleIndex());
+        intent.putExtra(ACTIVITY_TAB_BUNDLE_KEY,ACTIVITY_TAB_BUNDLE_INDEX);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,

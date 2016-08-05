@@ -22,7 +22,6 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.UserNavigationViewPagerAdapter;
-import com.belatrixsf.connect.managers.PreferencesManager;
 import com.belatrixsf.connect.ui.about.AboutActivity;
 import com.belatrixsf.connect.ui.account.AccountActivity;
 import com.belatrixsf.connect.ui.account.AccountFragmentListener;
@@ -49,6 +48,7 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
     public static final int RANKING_TAB = 1;
     public static final int RQ_GIVE_STAR = 99;
     public static final int PARENT_INDEX = 1;
+    private static final String ACTIVITY_TAB_BUNDLE_KEY = "activity_tab_key";
     private int selectIndexTab;
 
     @Bind(R.id.main_view_pager) ViewPager mainViewPager;
@@ -62,8 +62,8 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         Bundle extras = getIntent().getExtras();
-        if(extras != null && extras.containsKey(PreferencesManager.get().getActivityTabBundleKey())){
-            selectIndexTab = extras.getInt(PreferencesManager.get().getActivityTabBundleKey());
+        if(extras != null && extras.containsKey(ACTIVITY_TAB_BUNDLE_KEY)){
+            selectIndexTab = extras.getInt(ACTIVITY_TAB_BUNDLE_KEY);
         } else {
             selectIndexTab = -1;
         }
