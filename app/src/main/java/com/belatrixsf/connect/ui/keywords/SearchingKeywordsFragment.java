@@ -36,6 +36,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.KeywordsListAdapter;
@@ -71,7 +72,7 @@ public class SearchingKeywordsFragment extends BelatrixConnectFragment implement
 
     @Bind(R.id.keywords) RecyclerView keywordsRecyclerView;
     @Bind(R.id.refresh_keywords) SwipeRefreshLayout keywordsRefreshLayout;
-
+    @Bind(R.id.no_data_textview) TextView noDataTextView;
 
     public SearchingKeywordsFragment() {
         // Required empty public constructor
@@ -252,5 +253,16 @@ public class SearchingKeywordsFragment extends BelatrixConnectFragment implement
             KeyboardUtils.hideKeyboard(getActivity(), getView());
         }
     };
+
+    @Override
+    public void showNoDataView(String message) {
+        noDataTextView.setText(message);
+        noDataTextView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideNoDataView() {
+        noDataTextView.setVisibility(View.GONE);
+    }
 
 }

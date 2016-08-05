@@ -47,6 +47,7 @@ public class RankingPresenter extends BelatrixConnectPresenter<RankingView> {
         if (!isRefresh) {
             view.showProgressIndicator();
         }
+        view.hideNoDataView();
         employeeService.getRankingList(
                 kind,
                 quantity,
@@ -69,7 +70,7 @@ public class RankingPresenter extends BelatrixConnectPresenter<RankingView> {
                         } else {
                             view.hideRefreshData();
                         }
-                        super.onFailure(serviceError);
+                        view.showNoDataView(serviceError.getDetail());
                     }
                 });
     }

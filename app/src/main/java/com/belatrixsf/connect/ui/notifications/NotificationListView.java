@@ -32,5 +32,7 @@ public interface NotificationListView extends BelatrixConnectView {
 
     void addNotifications(List<Notification> notifications);
     void resetList();
+    void showNoDataView(String message);
+    void hideNoDataView();
 
 }

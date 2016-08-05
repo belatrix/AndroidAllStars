@@ -31,6 +31,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.RankingListAdapter;
@@ -57,12 +58,10 @@ public class RankingFragment extends BelatrixConnectFragment implements RankingV
     private RankingListAdapter rankingListAdapter;
 
     private ImageView photoImageView;
-    @Bind(R.id.ranking)
-    RecyclerView rankingRecyclerView;
-    @Bind(R.id.progressBar)
-    ProgressBar loadingProgressBar;
-    @Bind(R.id.ranking_swipe_refresh)
-    SwipeRefreshLayout rankingSwipeRefresh;
+    @Bind(R.id.ranking) RecyclerView rankingRecyclerView;
+    @Bind(R.id.progressBar) ProgressBar loadingProgressBar;
+    @Bind(R.id.ranking_swipe_refresh) SwipeRefreshLayout rankingSwipeRefresh;
+    @Bind(R.id.no_data_textview) TextView noDataTextView;
 
     public static RankingFragment newInstance(String kind) {
         Bundle bundle = new Bundle();
@@ -158,5 +157,16 @@ public class RankingFragment extends BelatrixConnectFragment implements RankingV
     public void onDestroyView() {
         rankingPresenter.cancelRequests();
         super.onDestroyView();
+    }
+
+    @Override
+    public void showNoDataView(String message) {
+        noDataTextView.setText(message);
+        noDataTextView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideNoDataView() {
+        noDataTextView.setVisibility(View.GONE);
     }
 }

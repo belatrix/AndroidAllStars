@@ -21,6 +21,14 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
+    <TextView
+        android:id="@+id/no_data_textview"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/listPreferredItemHeightSmall"
+        android:gravity="center"
+        android:text="@string/no_data_found"
+        android:visibility="gone"/>
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_gravity="center"

@@ -89,18 +89,14 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
                     @Override
                     public void onSuccess(PaginatedResponse<SubCategory> starSubCategoryResponse) {
                         view.hideProgressIndicator();
-                        if (starSubCategoryResponse.getResults().isEmpty()) {
-                            view.showNoDataView();
-                        } else {
-                            view.hideNoDataView();
-                            view.showSubCategories(starSubCategoryResponse.getResults());
-                        }
+                        view.hideNoDataView();
+                        view.showSubCategories(starSubCategoryResponse.getResults());
                     }
 
                     @Override
                     public void onFailure(ServiceError serviceError) {
                         view.hideProgressIndicator();
-                        super.onFailure(serviceError);
+                        view.showNoDataView(serviceError.getDetail());
                     }
                 });
     }
