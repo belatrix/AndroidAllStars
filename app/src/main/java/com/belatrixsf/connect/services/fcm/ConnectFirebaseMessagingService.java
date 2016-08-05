@@ -18,7 +18,6 @@
 */
 package com.belatrixsf.connect.services.fcm;
 
-import android.app.LauncherActivity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -33,6 +32,7 @@ import android.support.v4.app.NotificationCompat;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.managers.PreferencesManager;
+import com.belatrixsf.connect.ui.LauncherActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
