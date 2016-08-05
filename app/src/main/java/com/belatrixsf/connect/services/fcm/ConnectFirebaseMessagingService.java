@@ -33,6 +33,7 @@ import android.support.v4.app.NotificationCompat;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.managers.PreferencesManager;
 import com.belatrixsf.connect.ui.LauncherActivity;
+import com.belatrixsf.connect.ui.home.UserActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -63,7 +64,8 @@ public class ConnectFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private void sendNotification(String messageTitle, String messageBody) {
-        Intent intent = new Intent(this, LauncherActivity.class);
+        Intent intent = new Intent(this, UserActivity.class);
+        intent.putExtra(PreferencesManager.get().getActivityTabBundleKey(),PreferencesManager.get().getActivityTabBundleIndex());
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
