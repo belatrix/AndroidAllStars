@@ -49,7 +49,7 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
     public static final int RANKING_TAB = 1;
     public static final int RQ_GIVE_STAR = 99;
     public static final int PARENT_INDEX = 1;
-    private ConnectFirebaseMessagingService.TabSelected tabSelected;
+    private ConnectFirebaseMessagingService.TargetTab tabSelected;
 
     @Bind(R.id.main_view_pager) ViewPager mainViewPager;
     @Bind(R.id.start_recommendation) FloatingActionButton startRecommendationButton;
@@ -63,10 +63,10 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
         setContentView(R.layout.activity_user);
         Bundle extras = getIntent().getExtras();
         if(extras != null && extras.containsKey(ConnectFirebaseMessagingService.ACTIVITY_TAB_BUNDLE_KEY)){
-            tabSelected = (ConnectFirebaseMessagingService.TabSelected)
+            tabSelected = (ConnectFirebaseMessagingService.TargetTab)
                     extras.get(ConnectFirebaseMessagingService.ACTIVITY_TAB_BUNDLE_KEY);
         } else {
-            tabSelected = ConnectFirebaseMessagingService.TabSelected.ACCOUNT_TAB;
+            tabSelected = ConnectFirebaseMessagingService.TargetTab.ACCOUNT_TAB;
         }
         setToolbar();
         setupViews();
@@ -143,13 +143,17 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
         bottomNavigation.setBehaviorTranslationEnabled(false);
 
         switch (tabSelected){
-            case ACCOUNT_TAB: mainViewPager.setCurrentItem(0);
+            case ACCOUNT_TAB:
+                mainViewPager.setCurrentItem(0);
                 break;
-            case RANKING_TAB: mainViewPager.setCurrentItem(1);
+            case RANKING_TAB:
+                mainViewPager.setCurrentItem(1);
                 break;
-            case ACTIVITY_TAB: mainViewPager.setCurrentItem(2);
+            case ACTIVITY_TAB:
+                mainViewPager.setCurrentItem(2);
                 break;
-            case TAG_TAB: mainViewPager.setCurrentItem(3);
+            case TAG_TAB:
+                mainViewPager.setCurrentItem(3);
                 break;
         }
     }
