@@ -48,8 +48,14 @@ public class ConnectFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "MyFirebaseMsgService";
     public static final String TITLE_KEY = "title";
     public static final String DETAIL_KEY = "detail";
-    private static final String ACTIVITY_TAB_BUNDLE_KEY = "activity_tab_key";
-    private static final int ACTIVITY_TAB_BUNDLE_INDEX = 2; // 2 = activity tab index
+    public static final String ACTIVITY_TAB_BUNDLE_KEY = "activity_tab_key";
+
+    public enum TabSelected {
+        ACCOUNT_TAB,
+        RANKING_TAB,
+        ACTIVITY_TAB,
+        TAG_TAB
+    }
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -66,7 +72,7 @@ public class ConnectFirebaseMessagingService extends FirebaseMessagingService {
 
     private void sendNotification(String messageTitle, String messageBody) {
         Intent intent = new Intent(this, UserActivity.class);
-        intent.putExtra(ACTIVITY_TAB_BUNDLE_KEY,ACTIVITY_TAB_BUNDLE_INDEX);
+        intent.putExtra(ACTIVITY_TAB_BUNDLE_KEY, TabSelected.ACTIVITY_TAB);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,

@@ -22,6 +22,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.UserNavigationViewPagerAdapter;
+import com.belatrixsf.connect.services.fcm.ConnectFirebaseMessagingService;
 import com.belatrixsf.connect.ui.about.AboutActivity;
 import com.belatrixsf.connect.ui.account.AccountActivity;
 import com.belatrixsf.connect.ui.account.AccountFragmentListener;
@@ -48,8 +49,7 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
     public static final int RANKING_TAB = 1;
     public static final int RQ_GIVE_STAR = 99;
     public static final int PARENT_INDEX = 1;
-    private static final String ACTIVITY_TAB_BUNDLE_KEY = "activity_tab_key";
-    private int selectIndexTab;
+    private ConnectFirebaseMessagingService.TabSelected tabSelected;
 
     @Bind(R.id.main_view_pager) ViewPager mainViewPager;
     @Bind(R.id.start_recommendation) FloatingActionButton startRecommendationButton;
@@ -62,10 +62,11 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         Bundle extras = getIntent().getExtras();
-        if(extras != null && extras.containsKey(ACTIVITY_TAB_BUNDLE_KEY)){
-            selectIndexTab = extras.getInt(ACTIVITY_TAB_BUNDLE_KEY);
+        if(extras != null && extras.containsKey(ConnectFirebaseMessagingService.ACTIVITY_TAB_BUNDLE_KEY)){
+            tabSelected = (ConnectFirebaseMessagingService.TabSelected)
+                    extras.get(ConnectFirebaseMessagingService.ACTIVITY_TAB_BUNDLE_KEY);
         } else {
-            selectIndexTab = -1;
+            tabSelected = ConnectFirebaseMessagingService.TabSelected.ACCOUNT_TAB;
         }
         setToolbar();
         setupViews();
@@ -141,8 +142,15 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
 
         bottomNavigation.setBehaviorTranslationEnabled(false);
 
-        if(selectIndexTab != -1){
-            mainViewPager.setCurrentItem(selectIndexTab);
+        switch (tabSelected){
+            case ACCOUNT_TAB: mainViewPager.setCurrentItem(0);
+                break;
+            case RANKING_TAB: mainViewPager.setCurrentItem(1);
+                break;
+            case ACTIVITY_TAB: mainViewPager.setCurrentItem(2);
+                break;
+            case TAG_TAB: mainViewPager.setCurrentItem(3);
+                break;
         }
     }
 
