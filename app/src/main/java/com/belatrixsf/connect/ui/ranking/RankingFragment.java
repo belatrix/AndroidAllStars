@@ -58,14 +58,10 @@ public class RankingFragment extends BelatrixConnectFragment implements RankingV
     private RankingListAdapter rankingListAdapter;
 
     private ImageView photoImageView;
-    @Bind(R.id.ranking)
-    RecyclerView rankingRecyclerView;
-    @Bind(R.id.progressBar)
-    ProgressBar loadingProgressBar;
-    @Bind(R.id.ranking_swipe_refresh)
-    SwipeRefreshLayout rankingSwipeRefresh;
-    @Bind(R.id.no_data_textview)
-    TextView noDataTextView;
+    @Bind(R.id.ranking) RecyclerView rankingRecyclerView;
+    @Bind(R.id.progressBar) ProgressBar loadingProgressBar;
+    @Bind(R.id.ranking_swipe_refresh) SwipeRefreshLayout rankingSwipeRefresh;
+    @Bind(R.id.no_data_textview) TextView noDataTextView;
 
     public static RankingFragment newInstance(String kind) {
         Bundle bundle = new Bundle();
