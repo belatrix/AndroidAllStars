@@ -32,7 +32,7 @@ public class AddSkillActivity extends BelatrixConnectActivity{
 
     @Override
     protected void navigateBack() {
-        SkillsListFragment.refreshFromAddSkill(); //fragment already exists
+        SkillsListFragment.refreshFromAddSkill();
         finish();
     }
 

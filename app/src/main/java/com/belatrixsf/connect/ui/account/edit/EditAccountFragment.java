@@ -230,7 +230,8 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
                             startPostponedEnterTransition();
                         }
                     },
-                    getResources().getDrawable(R.drawable.contact_placeholder)
+                    getResources().getDrawable(R.drawable.contact_placeholder),
+                    ImageLoader.ScaleType.CENTERCROP
             );
         }
     }

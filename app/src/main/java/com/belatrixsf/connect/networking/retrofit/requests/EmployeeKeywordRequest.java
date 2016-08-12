@@ -5,12 +5,12 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by echuquilin on 9/08/16.
  */
-public class SaveEmployeeKeywordRequest {
+public class EmployeeKeywordRequest {
 
     @SerializedName("skill")
     private String name;
 
-    public SaveEmployeeKeywordRequest(String keywordName){
+    public EmployeeKeywordRequest(String keywordName){
         this.name = keywordName;
     }
 }

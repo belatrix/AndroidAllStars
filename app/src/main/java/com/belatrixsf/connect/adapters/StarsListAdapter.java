@@ -90,7 +90,8 @@ public class StarsListAdapter extends LoadMoreBaseAdapter<Star> {
             ImageFactory.getLoader().loadFromUrl(star.getFromUser().getAvatar(),
                     starViewHolder.photoImageView,
                     ImageLoader.ImageTransformation.CIRCLE,
-                    starViewHolder.photoImageView.getResources().getDrawable(R.drawable.contact_placeholder)
+                    starViewHolder.photoImageView.getResources().getDrawable(R.drawable.contact_placeholder),
+                    ImageLoader.ScaleType.CENTERCROP
             );
         }
     }

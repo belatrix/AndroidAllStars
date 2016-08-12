@@ -298,7 +298,8 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
                                 startPostponedEnterTransition();
                             }
                         },
-                        getResources().getDrawable(R.drawable.contact_placeholder)
+                        getResources().getDrawable(R.drawable.contact_placeholder),
+                        ImageLoader.ScaleType.CENTERCROP
                 );
             } else {
                 ImageFactory.getLoader().loadFromBitmap(
@@ -316,7 +317,8 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
                                 startPostponedEnterTransition();
                             }
                         },
-                        getResources().getDrawable(R.drawable.contact_placeholder)
+                        getResources().getDrawable(R.drawable.contact_placeholder),
+                        ImageLoader.ScaleType.CENTERCROP
                 );
             }
         }

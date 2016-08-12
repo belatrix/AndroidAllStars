@@ -37,56 +37,51 @@ import java.io.File;
 public class PicassoLoader implements ImageLoader {
 
     @Override
-    public void loadFromBitmap(byte[] bitmapImg, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder) {
-        //nothing
+    public void loadFromBitmap(byte[] bitmapImg, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder, ImageLoader.ScaleType scaleType) {
+        //TODO future implementation
     }
 
     @Override
     public void loadFromRes(int resId, ImageView imageView, Drawable placeholder) {
-        loadFromRes(resId, imageView, null, placeholder);
+        loadFromRes(resId, imageView, null, placeholder, null);
     }
 
     @Override
-    public void loadFromRes(int resId, ImageView imageView, ImageTransformation transformation, Drawable placeholder) {
-        loadFromRes(resId, imageView, transformation, null, placeholder);
+    public void loadFromRes(int resId, ImageView imageView, ImageTransformation transformation, Drawable placeholder, ImageLoader.ScaleType scaleType) {
+        loadFromRes(resId, imageView, transformation, null, placeholder, scaleType);
     }
 
     @Override
-    public void loadFromRes(int resId, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder) {
+    public void loadFromRes(int resId, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder, ImageLoader.ScaleType scaleType) {
         Context context = imageView.getContext();
         load(context, Picasso.with(context).load(resId), transformation, imageView, callback, placeholder);
     }
 
     @Override
     public void loadFromUrl(String url, ImageView imageView, Drawable placeholder) {
-        loadFromUrl(url, imageView, null, placeholder);
+        loadFromUrl(url, imageView, null, placeholder, null);
     }
 
     @Override
-    public void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation, Drawable placeholder) {
-        loadFromUrl(url, imageView, transformation, null, placeholder);
+    public void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation, Drawable placeholder, ImageLoader.ScaleType scaleType) {
+        loadFromUrl(url, imageView, transformation, null, placeholder, scaleType);
     }
 
     @Override
-    public void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder) {
+    public void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder, ImageLoader.ScaleType scaleType) {
         Context context = imageView.getContext();
         load(context, Picasso.with(context).load(url), transformation, imageView, callback, placeholder);
     }
 
     @Override
-    public void loadFromPath(String path, ImageView imageView, ImageTransformation transformation, Drawable placeholder) {
-        loadFromPath(path, imageView, transformation, null, placeholder);
+    public void loadFromPath(String path, ImageView imageView, ImageTransformation transformation, Drawable placeholder, ImageLoader.ScaleType scaleType) {
+        loadFromPath(path, imageView, transformation, null, placeholder, scaleType);
     }
 
     @Override
-    public void loadFromPath(String path, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder) {
+    public void loadFromPath(String path, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder, ImageLoader.ScaleType scaleType) {
         Context context = imageView.getContext();
         load(context, Picasso.with(context).load(new File(path)), transformation, imageView, callback, placeholder);
-    }
-
-    @Override
-    public void loadFromUrlWithoutCC(String url, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder) {
-        //nothing
     }
 
     private void load(

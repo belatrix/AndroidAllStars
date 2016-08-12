@@ -42,7 +42,7 @@ public class SkillsListFragment extends BelatrixConnectFragment implements Skill
 
     @Bind(R.id.skills) RecyclerView skillssRecyclerView;
     @Bind(R.id.no_data_textview) TextView noDataTextView;
-    @Bind(R.id.button_add_skill) Button addSkillButton;
+    @Bind(R.id.add_skill) Button addSkillButton;
     @Bind(R.id.refresh_keywords) SwipeRefreshLayout skillsRefreshLayout;
     @Bind(R.id.progressBar) ProgressBar loadingProgressBar;
     @Bind(R.id.coordinator_keywords) CoordinatorLayout skillsCoordinatorLayout;
@@ -79,6 +79,12 @@ public class SkillsListFragment extends BelatrixConnectFragment implements Skill
     }
 
     private void initViews() {
+        setupRecyclerView();
+        setupRefreshLayout();
+        setupAddSkillButton();
+    }
+
+    private void setupRecyclerView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         endlessRecyclerOnScrollListener = new EndlessRecyclerOnScrollListener(linearLayoutManager) {
             @Override
@@ -92,7 +98,9 @@ public class SkillsListFragment extends BelatrixConnectFragment implements Skill
         skillssRecyclerView.setAdapter(skillListAdapter);
         skillssRecyclerView.setLayoutManager(linearLayoutManager);
         skillssRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
+    }
 
+    private void setupRefreshLayout() {
         skillsRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -100,7 +108,9 @@ public class SkillsListFragment extends BelatrixConnectFragment implements Skill
             }
         });
         skillsRefreshLayout.setColorSchemeResources(R.color.swipe_refresh);
+    }
 
+    private void setupAddSkillButton() {
         addSkillButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -170,7 +180,7 @@ public class SkillsListFragment extends BelatrixConnectFragment implements Skill
     @Override
     public void showDeletedInformation(String skillName) {
         String message = skillName + " " + getString(R.string.dialog_confirmation_deleted);
-        SnackbarUtils.createInformationSnackBar(message, skillsCoordinatorLayout,new View.OnClickListener() {
+        SnackbarUtils.createInformationSnackBar(message, getString(R.string.dialog_option_confirm), skillsCoordinatorLayout, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //nothing

@@ -22,7 +22,7 @@ package com.belatrixsf.connect.networking.retrofit.api;
 
 import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.entities.Keyword;
-import com.belatrixsf.connect.networking.retrofit.requests.SaveEmployeeKeywordRequest;
+import com.belatrixsf.connect.networking.retrofit.requests.EmployeeKeywordRequest;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 
 import java.util.List;
@@ -48,8 +48,8 @@ public interface CategoryAPI {
     Call<PaginatedResponse<Keyword>> getKeywordsByEmployee(@Path(ServerPaths.EMPLOYEE_ID) int employeeId);
 
     @PATCH(ServerPaths.EMPLOYEE_ADD_SKILL)
-    Call<Keyword> saveEmployeeSkill(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Body SaveEmployeeKeywordRequest saveEmployeeKeywordRequest);
+    Call<Keyword> saveEmployeeSkill(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Body EmployeeKeywordRequest employeeKeywordRequest);
 
     @PATCH(ServerPaths.EMPLOYEE_REMOVE_SKILL)
-    Call<Keyword> removeEmployeeSkill(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Body SaveEmployeeKeywordRequest saveEmployeeKeywordRequest);
+    Call<Keyword> removeEmployeeSkill(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Body EmployeeKeywordRequest employeeKeywordRequest);
 }

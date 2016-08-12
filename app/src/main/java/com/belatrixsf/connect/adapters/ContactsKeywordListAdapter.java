@@ -78,7 +78,8 @@ public class ContactsKeywordListAdapter extends LoadMoreBaseAdapter<Employee> {
             ImageFactory.getLoader().loadFromUrl(employee.getAvatar(),
                     contactKeywordViewHolder.photoImageView,
                     ImageLoader.ImageTransformation.BORDERED_CIRCLE,
-                    contactKeywordViewHolder.photoImageView.getResources().getDrawable(R.drawable.contact_placeholder)
+                    contactKeywordViewHolder.photoImageView.getResources().getDrawable(R.drawable.contact_placeholder),
+                    ImageLoader.ScaleType.CENTERCROP
             );
         }
     }

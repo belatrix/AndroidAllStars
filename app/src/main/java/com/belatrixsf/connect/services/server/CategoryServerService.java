@@ -24,7 +24,7 @@ import com.belatrixsf.connect.entities.Category;
 import com.belatrixsf.connect.entities.Keyword;
 import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.networking.retrofit.api.CategoryAPI;
-import com.belatrixsf.connect.networking.retrofit.requests.SaveEmployeeKeywordRequest;
+import com.belatrixsf.connect.networking.retrofit.requests.EmployeeKeywordRequest;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.services.BelatrixConnectBaseService;
 import com.belatrixsf.connect.services.ServerServiceRequest;
@@ -85,8 +85,8 @@ public class CategoryServerService extends BelatrixConnectBaseService implements
 
     @Override
     public ServiceRequest saveKeywordToEmployee(int employeeId, String keywordName, BelatrixConnectCallback<Keyword> callback) {
-        SaveEmployeeKeywordRequest saveEmployeeKeywordRequest = new SaveEmployeeKeywordRequest(keywordName);
-        Call<Keyword> keywordCall = categoryAPI.saveEmployeeSkill(employeeId, saveEmployeeKeywordRequest);
+        EmployeeKeywordRequest employeeKeywordRequest = new EmployeeKeywordRequest(keywordName);
+        Call<Keyword> keywordCall = categoryAPI.saveEmployeeSkill(employeeId, employeeKeywordRequest);
         ServiceRequest<Keyword> serviceRequest = new ServerServiceRequest<>(keywordCall);
         enqueue(serviceRequest, callback);
         return serviceRequest;
@@ -94,8 +94,8 @@ public class CategoryServerService extends BelatrixConnectBaseService implements
 
     @Override
     public ServiceRequest removeEmployeeKeyword(int employeeId, String keywordName, BelatrixConnectCallback<Keyword> callback) {
-        SaveEmployeeKeywordRequest saveEmployeeKeywordRequest = new SaveEmployeeKeywordRequest(keywordName);
-        Call<Keyword> keywordCall = categoryAPI.removeEmployeeSkill(employeeId, saveEmployeeKeywordRequest);
+        EmployeeKeywordRequest employeeKeywordRequest = new EmployeeKeywordRequest(keywordName);
+        Call<Keyword> keywordCall = categoryAPI.removeEmployeeSkill(employeeId, employeeKeywordRequest);
         ServiceRequest<Keyword> serviceRequest = new ServerServiceRequest<>(keywordCall);
         enqueue(serviceRequest, callback);
         return serviceRequest;

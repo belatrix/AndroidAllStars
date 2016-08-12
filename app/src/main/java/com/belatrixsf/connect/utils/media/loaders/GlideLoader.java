@@ -40,9 +40,9 @@ import java.io.File;
 public class GlideLoader implements ImageLoader {
 
     @Override
-    public void loadFromBitmap(byte[] bitmapImg, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder){
+    public void loadFromBitmap(byte[] bitmapImg, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder, ImageLoader.ScaleType scaleType){
         Context context = imageView.getContext();
-        load(context, Glide.with(context).load(bitmapImg), transformation, callback, placeholder, true).into(imageView);
+        load(context, Glide.with(context).load(bitmapImg), transformation, callback, placeholder, scaleType).into(imageView);
     }
 
     @Override
@@ -51,14 +51,14 @@ public class GlideLoader implements ImageLoader {
     }
 
     @Override
-    public void loadFromRes(int resId, ImageView imageView, ImageTransformation transformation, Drawable placeholder) {
-        loadFromRes(resId, imageView, transformation, null, placeholder);
+    public void loadFromRes(int resId, ImageView imageView, ImageTransformation transformation, Drawable placeholder, ImageLoader.ScaleType scaleType) {
+        loadFromRes(resId, imageView, transformation, null, placeholder, scaleType);
     }
 
     @Override
-    public void loadFromRes(int resId, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder) {
+    public void loadFromRes(int resId, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder, ImageLoader.ScaleType scaleType) {
         Context context = imageView.getContext();
-        load(context, Glide.with(context).load(resId), transformation, callback, placeholder, true).into(imageView);
+        load(context, Glide.with(context).load(resId), transformation, callback, placeholder, scaleType).into(imageView);
     }
 
     @Override
@@ -67,31 +67,25 @@ public class GlideLoader implements ImageLoader {
     }
 
     @Override
-    public void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation, Drawable placeholder) {
-        loadFromUrl(url, imageView, transformation, null, placeholder);
+    public void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation, Drawable placeholder, ImageLoader.ScaleType scaleType) {
+        loadFromUrl(url, imageView, transformation, null, placeholder, scaleType);
     }
 
     @Override
-    public void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder) {
+    public void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder, ImageLoader.ScaleType scaleType) {
         Context context = imageView.getContext();
-        load(context, Glide.with(context).load(url), transformation, callback, placeholder, true).into(imageView);
+        load(context, Glide.with(context).load(url), transformation, callback, placeholder, scaleType).into(imageView);
     }
 
     @Override
-    public void loadFromUrlWithoutCC(String url, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder) {
+    public void loadFromPath(String path, ImageView imageView, ImageTransformation transformation, Drawable placeholder, ImageLoader.ScaleType scaleType) {
+        loadFromPath(path, imageView, transformation, null, placeholder, scaleType);
+    }
+
+    @Override
+    public void loadFromPath(String path, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder, ImageLoader.ScaleType scaleType) {
         Context context = imageView.getContext();
-        load(context, Glide.with(context).load(url), transformation, callback, placeholder, false).into(imageView);
-    }
-
-    @Override
-    public void loadFromPath(String path, ImageView imageView, ImageTransformation transformation, Drawable placeholder) {
-        loadFromPath(path, imageView, transformation, null, placeholder);
-    }
-
-    @Override
-    public void loadFromPath(String path, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder) {
-        Context context = imageView.getContext();
-        load(context, Glide.with(context).load(new File(path)), transformation, callback, placeholder, true).into(imageView);
+        load(context, Glide.with(context).load(new File(path)), transformation, callback, placeholder, scaleType).into(imageView);
     }
 
     private <T> DrawableTypeRequest<T> load(
@@ -100,12 +94,15 @@ public class GlideLoader implements ImageLoader {
             ImageTransformation transformation,
             final Callback callback,
             Drawable placeholder,
-            boolean hasCenterCrop
+            ImageLoader.ScaleType scaleType
     ) {
-        if(hasCenterCrop){
-            load.centerCrop();
-        } else{
-            load.fitCenter();
+        switch (scaleType) {
+            case CENTERCROP:
+                load.centerCrop();
+                break;
+            case FITCENTER:
+                load.fitCenter();
+                break;
         }
         load.placeholder(placeholder);
         if (context != null && transformation != null) {

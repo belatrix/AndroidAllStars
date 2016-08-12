@@ -78,7 +78,8 @@ public class ContactsListAdapter extends LoadMoreBaseAdapter<Employee> {
             ImageFactory.getLoader().loadFromUrl(contact.getAvatar(),
                     contactViewHolder.photoImageView,
                     ImageLoader.ImageTransformation.BORDERED_CIRCLE,
-                    contactViewHolder.photoImageView.getResources().getDrawable(R.drawable.contact_placeholder)
+                    contactViewHolder.photoImageView.getResources().getDrawable(R.drawable.contact_placeholder),
+                    ImageLoader.ScaleType.CENTERCROP
             );
         }
     }

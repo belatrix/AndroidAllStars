@@ -102,7 +102,7 @@ public class ExpandPictureFragment extends BelatrixConnectFragment implements Ex
     @Override
     public void showProfilePicture(final String profilePicture) {
         if (pictureImageView != null) {
-            ImageFactory.getLoader().loadFromUrlWithoutCC(
+            ImageFactory.getLoader().loadFromUrl(
                     profilePicture,
                     pictureImageView,
                     null,
@@ -117,7 +117,8 @@ public class ExpandPictureFragment extends BelatrixConnectFragment implements Ex
                             startPostponedEnterTransition();
                         }
                     },
-                    null
+                    null,
+                    ImageLoader.ScaleType.FITCENTER
             );
         }
     }
