@@ -211,4 +211,17 @@ SOFTWARE.</string>
     <string name="settings_key_notifications_switch">settings_notifications_switch_key</string>
     <string name="settings_key_notifications">settings_key_notifications</string>
 
+    <!-- Skills -->
+    <string name="skills_main_label">Skills</string>
+    <string name="add_skill_main_label">Add Skill</string>
+    <string name="skills_button_add">Add new skill</string>
+    <string name="skillname_placeholder">Skill</string>
+    <string name="dialog_confirmation_remove_skill_first">Are you sure you want to remove</string>
+    <string name="dialog_confirmation_remove_skill_sec">from your skills?</string>
+    <string name="dialog_confirmation_added">added</string>
+    <string name="dialog_confirmation_deleted">removed</string>
+    <string name="dialog_confirmation_already_exists">already exists in your skills</string>
+    <string name="skills_button_add_new_first">Add</string>
+    <string name="skills_button_add_new_second">as new skill</string>
+
 </resources>

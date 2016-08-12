@@ -46,7 +46,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.belatrixsf.connect.R;
@@ -54,7 +53,6 @@ import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.Location;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.home.UserActivity;
-import com.belatrixsf.connect.ui.skills.SkillsListActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.DialogUtils;
 import com.belatrixsf.connect.utils.KeyboardUtils;
@@ -91,20 +89,11 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
     public static final String IS_NEW_USER = "_is_creation_key";
     public static final String FILE_KEY = "_selected_file_key";
 
-    @Bind(R.id.profile_picture)
-    ImageView pictureImageView;
-    @Bind(R.id.firstName)
-    EditText firstNameEditText;
-    @Bind(R.id.lastName)
-    EditText lastNameEditText;
-    @Bind(R.id.skypeId)
-    EditText skypeIdEditText;
-    @Bind(R.id.locationRadioGroup)
-    RadioGroup locationRadioGroup;
-    @Bind(R.id.edit_image)
-    ImageView editPictureImageView;
-    @Bind(R.id.view_skills)
-    RelativeLayout viewSkills;
+    @Bind(R.id.profile_picture) ImageView pictureImageView;
+    @Bind(R.id.firstName) EditText firstNameEditText;
+    @Bind(R.id.lastName) EditText lastNameEditText;
+    @Bind(R.id.skypeId) EditText skypeIdEditText;
+    @Bind(R.id.locationRadioGroup) RadioGroup locationRadioGroup;@Bind(R.id.edit_image) ImageView editPictureImageView;
 
     private EditAccountPresenter editAccountPresenter;
     private String mProfilePicturePath;
@@ -183,12 +172,6 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
                 RadioButton radioButton = (RadioButton) group.findViewById(checkedId);
                 int position = locationRadioGroup.indexOfChild(radioButton);
                 editAccountPresenter.selectLocation(position);
-            }
-        });
-        viewSkills.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editAccountPresenter.getSkillsList();
             }
         });
     }
@@ -414,7 +397,11 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
     }
 
     public void initCropImageActivity(Uri uri) {
-        Intent intent = CropImage.activity(uri).setGuidelines(CropImageView.Guidelines.ON).setMinCropResultSize(500, 500).setCropShape(CropImageView.CropShape.RECTANGLE).getIntent(getActivity());
+        Intent intent = CropImage.activity(uri).setGuidelines(CropImageView.Guidelines.ON)
+                .setMinCropResultSize(500, 500)
+                .setCropShape(CropImageView.CropShape.RECTANGLE)
+                .setFixAspectRatio(true)
+                .getIntent(getActivity());
         startActivityForResult(intent, CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE);
     }
 
@@ -428,10 +415,5 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
     public void endSuccessfulCreation() {
         startActivity(UserActivity.makeIntent(getActivity()));
         fragmentListener.closeActivity();
-    }
-
-    @Override
-    public void showSkills() {
-        startActivity(SkillsListActivity.makeIntent(getActivity()));
     }
 }

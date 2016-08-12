@@ -21,7 +21,6 @@
 package com.belatrixsf.connect.utils.media.loaders;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
@@ -39,7 +38,7 @@ public class PicassoLoader implements ImageLoader {
 
     @Override
     public void loadFromBitmap(byte[] bitmapImg, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder) {
-
+        //nothing
     }
 
     @Override
@@ -83,6 +82,11 @@ public class PicassoLoader implements ImageLoader {
     public void loadFromPath(String path, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder) {
         Context context = imageView.getContext();
         load(context, Picasso.with(context).load(new File(path)), transformation, imageView, callback, placeholder);
+    }
+
+    @Override
+    public void loadFromUrlWithoutCC(String url, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder) {
+        //nothing
     }
 
     private void load(

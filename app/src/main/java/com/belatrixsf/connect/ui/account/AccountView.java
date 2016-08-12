@@ -51,5 +51,7 @@ public interface AccountView extends BelatrixConnectView {
     void notifyNavigationRefresh();
     void showInformativeDialog(String information);
     void goBackToLogin();
+    void goToEditSkills();
+    void showEditSkillsButton(boolean show);
 
 }

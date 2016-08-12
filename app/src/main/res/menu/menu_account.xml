@@ -9,6 +9,13 @@
         app:showAsAction="always"/>
 
     <item
+        android:id="@+id/action_edit_skills"
+        android:visible="false"
+        android:icon="@drawable/ic_skills"
+        android:title="@string/edit_skills"
+        app:showAsAction="always"/>
+
+    <item
         android:id="@+id/action_edit_profile"
         android:visible="false"
         android:icon="@drawable/ic_edit"

@@ -54,6 +54,7 @@ import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.connect.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.connect.ui.login.LoginActivity;
+import com.belatrixsf.connect.ui.skills.SkillsListActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarFragment;
 import com.belatrixsf.connect.ui.stars.StarsListActivity;
@@ -94,6 +95,7 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
 
     private MenuItem recommendMenuItem;
     private MenuItem editProfileMenuItem;
+    private MenuItem editSkillsMenuItem;
 
     public static AccountFragment newInstance(Integer userId, byte[] imgBitmap) {
         Bundle bundle = new Bundle();
@@ -173,6 +175,7 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
         inflater.inflate(R.menu.menu_account, menu);
         recommendMenuItem = menu.findItem(R.id.action_recommend);
         editProfileMenuItem = menu.findItem(R.id.action_edit_profile);
+        editSkillsMenuItem = menu.findItem(R.id.action_edit_skills);
         accountPresenter.checkRecommendationEnabled();
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -185,6 +188,9 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
                 return true;
             case R.id.action_edit_profile:
                 accountPresenter.startEditProfile();
+                return true;
+            case R.id.action_edit_skills:
+                accountPresenter.startEditSkills();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -358,12 +364,24 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     }
 
     @Override
+    public void showEditSkillsButton(boolean show) {
+        if (editSkillsMenuItem != null) {
+            editSkillsMenuItem.setVisible(show);
+        }
+    }
+
+    @Override
     public void goToEditProfile(Employee employee) {
         Intent intent = new Intent(getActivity(), EditAccountActivity.class);
         intent.putExtra(EditAccountFragment.IS_NEW_USER, false);
         ViewCompat.setTransitionName(pictureImageView, getActivity().getString(R.string.transition_photo));
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), pictureImageView, getActivity().getString(R.string.transition_photo));
         getActivity().startActivityForResult(intent, EditAccountFragment.RQ_EDIT_ACCOUNT, options.toBundle());
+    }
+
+    @Override
+    public void goToEditSkills() {
+        startActivity(SkillsListActivity.makeIntent(getActivity()));
     }
 
     @Override

@@ -54,6 +54,8 @@ public interface ImageLoader {
 
     void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation, ImageLoader.Callback callback, Drawable placeholder);
 
+    void loadFromUrlWithoutCC(String url, ImageView imageView, ImageTransformation transformation, ImageLoader.Callback callback, Drawable placeholder);
+
     void loadFromPath(String path, ImageView imageView, ImageTransformation transformation, Drawable placeholder);
 
     void loadFromPath(String path, ImageView imageView, ImageTransformation transformation, ImageLoader.Callback callback, Drawable placeholder);

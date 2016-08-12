@@ -26,6 +26,7 @@ import com.belatrixsf.connect.utils.di.modules.RetrofitModule;
 import com.belatrixsf.connect.utils.di.modules.ServicesModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.AboutPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.AccountPresenterModule;
+import com.belatrixsf.connect.utils.di.modules.presenters.AddSkillPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.CategoriesListModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.ContactsKeywordPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.ContactsListPresenterModule;
@@ -95,4 +96,6 @@ public interface ApplicationComponent {
     RequestNewPasswordComponent requestNewPasswordComponent(RequestNewPasswordPresenterModule requestNewPasswordPresenterModule);
 
     SkillsListComponent skillsListComponent(SkillsListPresenterModule skillsListPresenterModule);
+
+    AddSkillComponent addSkillComponent(AddSkillPresenterModule addSkillPresenterModule);
 }

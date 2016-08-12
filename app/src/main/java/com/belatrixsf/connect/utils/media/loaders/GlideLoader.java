@@ -21,7 +21,6 @@
 package com.belatrixsf.connect.utils.media.loaders;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
@@ -43,7 +42,7 @@ public class GlideLoader implements ImageLoader {
     @Override
     public void loadFromBitmap(byte[] bitmapImg, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder){
         Context context = imageView.getContext();
-        load(context, Glide.with(context).load(bitmapImg), transformation, callback, placeholder).into(imageView);
+        load(context, Glide.with(context).load(bitmapImg), transformation, callback, placeholder, true).into(imageView);
     }
 
     @Override
@@ -59,7 +58,7 @@ public class GlideLoader implements ImageLoader {
     @Override
     public void loadFromRes(int resId, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder) {
         Context context = imageView.getContext();
-        load(context, Glide.with(context).load(resId), transformation, callback, placeholder).into(imageView);
+        load(context, Glide.with(context).load(resId), transformation, callback, placeholder, true).into(imageView);
     }
 
     @Override
@@ -75,7 +74,13 @@ public class GlideLoader implements ImageLoader {
     @Override
     public void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder) {
         Context context = imageView.getContext();
-        load(context, Glide.with(context).load(url), transformation, callback, placeholder).into(imageView);
+        load(context, Glide.with(context).load(url), transformation, callback, placeholder, true).into(imageView);
+    }
+
+    @Override
+    public void loadFromUrlWithoutCC(String url, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder) {
+        Context context = imageView.getContext();
+        load(context, Glide.with(context).load(url), transformation, callback, placeholder, false).into(imageView);
     }
 
     @Override
@@ -86,7 +91,7 @@ public class GlideLoader implements ImageLoader {
     @Override
     public void loadFromPath(String path, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder) {
         Context context = imageView.getContext();
-        load(context, Glide.with(context).load(new File(path)), transformation, callback, placeholder).into(imageView);
+        load(context, Glide.with(context).load(new File(path)), transformation, callback, placeholder, true).into(imageView);
     }
 
     private <T> DrawableTypeRequest<T> load(
@@ -94,9 +99,14 @@ public class GlideLoader implements ImageLoader {
             DrawableTypeRequest<T> load,
             ImageTransformation transformation,
             final Callback callback,
-            Drawable placeholder
+            Drawable placeholder,
+            boolean hasCenterCrop
     ) {
-        load.centerCrop();
+        if(hasCenterCrop){
+            load.centerCrop();
+        } else{
+            load.fitCenter();
+        }
         load.placeholder(placeholder);
         if (context != null && transformation != null) {
             switch (transformation) {

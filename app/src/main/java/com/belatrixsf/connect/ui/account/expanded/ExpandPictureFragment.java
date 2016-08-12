@@ -102,7 +102,7 @@ public class ExpandPictureFragment extends BelatrixConnectFragment implements Ex
     @Override
     public void showProfilePicture(final String profilePicture) {
         if (pictureImageView != null) {
-            ImageFactory.getLoader().loadFromUrl(
+            ImageFactory.getLoader().loadFromUrlWithoutCC(
                     profilePicture,
                     pictureImageView,
                     null,

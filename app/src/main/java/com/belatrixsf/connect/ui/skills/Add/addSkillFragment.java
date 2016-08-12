@@ -1,28 +1,9 @@
-/* The MIT License (MIT)
-* Copyright (c) 2016 BELATRIX
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
+package com.belatrixsf.connect.ui.skills.Add;
 
-* The above copyright notice and this permission notice shall be included in all
-* copies or substantial portions of the Software.
-
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*/
-package com.belatrixsf.connect.ui.keywords;
-
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -35,50 +16,51 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.KeywordsListAdapter;
 import com.belatrixsf.connect.entities.Keyword;
-import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.common.EndlessRecyclerOnScrollListener;
 import com.belatrixsf.connect.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.connect.ui.common.views.searchingview.SearchingView;
-import com.belatrixsf.connect.ui.contacts.keyword.ContactsKeywordListActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
+import com.belatrixsf.connect.utils.DialogUtils;
 import com.belatrixsf.connect.utils.KeyboardUtils;
-import com.belatrixsf.connect.utils.di.modules.presenters.KeywordsListModule;
+import com.belatrixsf.connect.utils.SnackbarUtils;
+import com.belatrixsf.connect.utils.di.modules.presenters.AddSkillPresenterModule;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.Bind;
 
-public class SearchingKeywordsFragment extends BelatrixConnectFragment implements SearchingKeywordsView, KeywordsListAdapter.KeywordListener {
-
-    private static final String KEYWORDS_KEY = "keywords_key";
-    private static final String SEARCH_TEXT_KEY = "search_text_key";
-    private static final String PAGING_KEY = "paging_key";
-    private static final String SEARCHING_KEY = "searching_key";
+/**
+ * Created by echuquilin on 10/08/16.
+ */
+public class AddSkillFragment extends BelatrixConnectFragment implements AddSkillView, KeywordsListAdapter.KeywordListener {
 
     private KeywordsListAdapter keywordsListAdapter;
     private EndlessRecyclerOnScrollListener endlessRecyclerOnScrollListener;
+    private String newKeywordName;
 
-    @Inject SearchingKeywordsPresenter keywordsPresenter;
+    @Inject AddSkillPresenter keywordsPresenter;
 
     @Bind(R.id.keywords) RecyclerView keywordsRecyclerView;
     @Bind(R.id.refresh_keywords) SwipeRefreshLayout keywordsRefreshLayout;
     @Bind(R.id.no_data_textview) TextView noDataTextView;
+    @Bind(R.id.button_add_new_skill) Button addNewSkillButton;
+    @Bind(R.id.coordinator_keywords) CoordinatorLayout keywordscoordinatorLayout;
 
-    public SearchingKeywordsFragment() {
+    public AddSkillFragment() {
         // Required empty public constructor
     }
 
-    public static SearchingKeywordsFragment newInstance() {
-        return new SearchingKeywordsFragment();
+    public static AddSkillFragment newInstance() {
+        return new AddSkillFragment();
     }
 
     @Override
@@ -92,10 +74,15 @@ public class SearchingKeywordsFragment extends BelatrixConnectFragment implement
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews();
-        if (savedInstanceState != null) {
-            restorePresenterState(savedInstanceState);
-        }
-        keywordsPresenter.getKeywords();
+        keywordsPresenter.getKeywords(false);
+        keywordsPresenter.updateSkillsList();
+    }
+
+
+    @Override
+    protected void initDependencies(BelatrixConnectApplication belatrixConnectApplication) {
+        keywordsPresenter = belatrixConnectApplication.getApplicationComponent()
+                .addSkillComponent(new AddSkillPresenterModule(this)).addSkillPresenter();
     }
 
     @Override
@@ -112,30 +99,6 @@ public class SearchingKeywordsFragment extends BelatrixConnectFragment implement
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        savePresenterState(outState);
-        super.onSaveInstanceState(outState);
-    }
-
-    private void restorePresenterState(Bundle savedInstanceState) {
-        List<Keyword> keywords = savedInstanceState.getParcelableArrayList(KEYWORDS_KEY);
-        PaginatedResponse paging = savedInstanceState.getParcelable(PAGING_KEY);
-        String searchText = savedInstanceState.getString(SEARCH_TEXT_KEY, null);
-        boolean searching = savedInstanceState.getBoolean(SEARCHING_KEY, false);
-        keywordsPresenter.load(keywords, paging, searchText, searching);
-    }
-
-    private void savePresenterState(Bundle outState) {
-        outState.putString(SEARCH_TEXT_KEY, keywordsPresenter.getSearchText());
-        outState.putParcelable(PAGING_KEY, keywordsPresenter.getKeywordsPaging());
-        outState.putBoolean(SEARCHING_KEY, keywordsPresenter.isSearching());
-        List<Keyword> keywords = keywordsPresenter.getKeywordsSync();
-        if (keywords != null && keywords instanceof ArrayList) {
-            outState.putParcelableArrayList(KEYWORDS_KEY, (ArrayList<Keyword>) keywords);
         }
     }
 
@@ -156,18 +119,17 @@ public class SearchingKeywordsFragment extends BelatrixConnectFragment implement
         keywordsRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                keywordsPresenter.refreshKeywords();
+                keywordsPresenter.refreshKeywords(true);
             }
         });
         keywordsRefreshLayout.setColorSchemeResources(R.color.swipe_refresh);
-    }
 
-    @Override
-    protected void initDependencies(BelatrixConnectApplication belatrixConnectApplication) {
-        belatrixConnectApplication
-                .getApplicationComponent()
-                .keywordsListComponent(new KeywordsListModule(this))
-                .inject(this);
+        addNewSkillButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                keywordsPresenter.addKeywordToEmployee(newKeywordName);
+            }
+        });
     }
 
     @Override
@@ -198,30 +160,6 @@ public class SearchingKeywordsFragment extends BelatrixConnectFragment implement
         keywordsListAdapter.add(keywords);
     }
 
-    @Override
-    public void showKeywordDetail(Keyword keyword) {
-        Intent intent = new Intent(getActivity(), ContactsKeywordListActivity.class);
-        intent.putExtra(ContactsKeywordListActivity.KEYWORD_KEY, keyword);
-        startActivity(intent);
-    }
-
-    @Override
-    public void showSearchActionMode() {
-        if (getActivity() instanceof AppCompatActivity) {
-            ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
-        }
-    }
-
-    @Override
-    public void resetList() {
-        keywordsListAdapter.reset();
-    }
-
-    @Override
-    public void onKeywordSelected(int position) {
-        keywordsPresenter.onKeywordSelected(position);
-    }
-
     private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
@@ -229,7 +167,8 @@ public class SearchingKeywordsFragment extends BelatrixConnectFragment implement
             searchingView.setSearchingListener(new SearchingView.SearchingListener() {
                 @Override
                 public void onSearchingTextTyped(String searchText) {
-                    keywordsPresenter.getKeywords(searchText);
+                    updateNewKeywordName(searchText);
+                    keywordsPresenter.getKeywords(searchText, keywordsRefreshLayout.isRefreshing());
                 }
             });
             mode.setCustomView(searchingView);
@@ -254,8 +193,31 @@ public class SearchingKeywordsFragment extends BelatrixConnectFragment implement
     };
 
     @Override
-    public void showNoDataView(String message) {
-        noDataTextView.setText(message);
+    public void showSearchActionMode() {
+        if (getActivity() instanceof AppCompatActivity) {
+            ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
+        }
+    }
+
+    @Override
+    public void resetList() {
+        keywordsListAdapter.reset();
+    }
+
+    @Override
+    public void onKeywordSelected(int position) {
+        keywordsPresenter.onKeywordSelected(position);
+    }
+
+    private void updateNewKeywordName(String newName){
+        String buttonMessage = getString(R.string.skills_button_add_new_first)
+                + " " + newName + " " + getString(R.string.skills_button_add_new_second) ;
+        this.newKeywordName = newName;
+        this.addNewSkillButton.setText(buttonMessage);
+    }
+
+    @Override
+    public void showNoDataView() {
         noDataTextView.setVisibility(View.VISIBLE);
     }
 
@@ -264,4 +226,42 @@ public class SearchingKeywordsFragment extends BelatrixConnectFragment implement
         noDataTextView.setVisibility(View.GONE);
     }
 
+    @Override
+    public void showAddedConfirmation(String skillName) {
+        String message = skillName + " " + getString(R.string.dialog_confirmation_added);
+        SnackbarUtils.createInformationSnackBar(message, keywordscoordinatorLayout,new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //nothing
+            }
+        }).show();
+    }
+
+    @Override
+    public void showAlreadyExistsConfirmation(String skillName) {
+        String message = skillName + " " + getString(R.string.dialog_confirmation_already_exists);
+        DialogUtils.createInformationDialog(getActivity(), message, getString(R.string.app_name), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //nothing
+            }
+        }).show();
+    }
+
+    @Override
+    public void hideRefreshData() {
+        if (keywordsRefreshLayout != null) {
+            keywordsRefreshLayout.setRefreshing(false);
+        }
+    }
+
+    @Override
+    public void showAddNewKeywordButton() {
+        this.addNewSkillButton.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideAddNewKeywordButton() {
+        this.addNewSkillButton.setVisibility(View.GONE);
+    }
 }

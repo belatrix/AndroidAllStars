@@ -159,6 +159,7 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
                 view.showRecommendMenu(true);
             } else {
                 view.showEditProfileButton(true);
+                view.showEditSkillsButton(true);
             }
         }
     }
@@ -169,6 +170,10 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
 
     public void startEditProfile() {
         view.goToEditProfile(employee);
+    }
+
+    public void startEditSkills(){
+        view.goToEditSkills();
     }
 
     public void refreshEmployee() {
