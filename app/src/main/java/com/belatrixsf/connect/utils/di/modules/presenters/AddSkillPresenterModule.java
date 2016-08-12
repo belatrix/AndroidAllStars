@@ -1,6 +1,6 @@
 package com.belatrixsf.connect.utils.di.modules.presenters;
 
-import com.belatrixsf.connect.ui.skills.Add.AddSkillView;
+import com.belatrixsf.connect.ui.skills.Add.AddSkillViewNew;
 
 import dagger.Module;
 import dagger.Provides;
@@ -11,14 +11,14 @@ import dagger.Provides;
 @Module
 public class AddSkillPresenterModule {
 
-    private AddSkillView view;
+    private AddSkillViewNew view;
 
-    public AddSkillPresenterModule(AddSkillView view){
+    public AddSkillPresenterModule(AddSkillViewNew view){
         this.view = view;
     }
 
     @Provides
-    public AddSkillView providesView(){
+    public AddSkillViewNew providesView(){
         return view;
     }
 }

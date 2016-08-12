@@ -25,7 +25,7 @@ public class AddSkillActivity extends BelatrixConnectActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
         if (savedInstanceState == null) {
-            replaceFragment(AddSkillFragment.newInstance(), false);
+            replaceFragment(AddSkillFragmentNewNew.newInstance(), false);
         }
         setNavigationToolbar();
     }

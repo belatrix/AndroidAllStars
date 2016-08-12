@@ -16,7 +16,7 @@ import javax.inject.Inject;
 /**
  * Created by echuquilin on 10/08/16.
  */
-public class AddSkillPresenter extends BelatrixConnectPresenter<AddSkillView> {
+public class AddSkillPresenterNew extends BelatrixConnectPresenter<AddSkillViewNew> {
 
     private CategoryService categoryService;
     private List<Keyword> keywordsList = new ArrayList<Keyword>();
@@ -26,7 +26,7 @@ public class AddSkillPresenter extends BelatrixConnectPresenter<AddSkillView> {
     private boolean searching = false;
 
     @Inject
-    public AddSkillPresenter(AddSkillView addSkillView, CategoryService categoryService) {
+    public AddSkillPresenterNew(AddSkillViewNew addSkillView, CategoryService categoryService) {
         super(addSkillView);
         this.categoryService = categoryService;
     }

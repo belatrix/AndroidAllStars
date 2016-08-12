@@ -41,13 +41,14 @@ import butterknife.Bind;
 /**
  * Created by echuquilin on 10/08/16.
  */
-public class AddSkillFragment extends BelatrixConnectFragment implements AddSkillView, KeywordsListAdapter.KeywordListener {
+public class AddSkillFragmentNewNew extends BelatrixConnectFragment implements AddSkillViewNew, KeywordsListAdapter.KeywordListener {
 
     private KeywordsListAdapter keywordsListAdapter;
     private EndlessRecyclerOnScrollListener endlessRecyclerOnScrollListener;
     private String newKeywordName;
 
-    @Inject AddSkillPresenter keywordsPresenter;
+    @Inject
+    AddSkillPresenterNew keywordsPresenter;
 
     @Bind(R.id.keywords) RecyclerView keywordsRecyclerView;
     @Bind(R.id.refresh_keywords) SwipeRefreshLayout keywordsRefreshLayout;
@@ -55,12 +56,12 @@ public class AddSkillFragment extends BelatrixConnectFragment implements AddSkil
     @Bind(R.id.button_add_new_skill) Button addNewSkillButton;
     @Bind(R.id.coordinator_keywords) CoordinatorLayout keywordscoordinatorLayout;
 
-    public AddSkillFragment() {
+    public AddSkillFragmentNewNew() {
         // Required empty public constructor
     }
 
-    public static AddSkillFragment newInstance() {
-        return new AddSkillFragment();
+    public static AddSkillFragmentNewNew newInstance() {
+        return new AddSkillFragmentNewNew();
     }
 
     @Override
