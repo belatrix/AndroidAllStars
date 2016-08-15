@@ -1,115 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
-    android:id="@+id/account_swipe_refresh"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_coordinator"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
-    <android.support.v4.widget.NestedScrollView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/account_swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
-        <android.support.design.widget.CoordinatorLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <android.support.design.widget.CoordinatorLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:focusableInTouchMode="true"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@color/white"
+                    android:focusableInTouchMode="true"
                     android:orientation="vertical">
 
                     <LinearLayout
-                        android:id="@+id/belatrix_placeholder"
                         android:layout_width="match_parent"
-                        android:orientation="horizontal"
-                        android:layout_height="@dimen/dimen_10_10"
-                        android:background="@color/colorPrimaryLight">
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal"
-                        android:paddingBottom="@dimen/activity_margin"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/profile_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:layout_marginTop="@dimen/dimen_10_8"
-                            tools:text="Pedro Carrillo"
-                            style="@android:style/TextAppearance.Large" />
+                        <LinearLayout
+                            android:id="@+id/belatrix_placeholder"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dimen_10_10"
+                            android:background="@color/colorPrimaryLight"
+                            android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/profile_email"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dimen_5"
-                            tools:text="fakeemail@email.com" />
+                        </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical"
+                            android:paddingBottom="@dimen/activity_margin">
 
-                            <LinearLayout
+                            <TextView
+                                android:id="@+id/profile_name"
+                                style="@android:style/TextAppearance.Large"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:padding="@dimen/dimen_5"
+                                android:layout_marginTop="@dimen/dimen_10_8"
                                 android:gravity="center"
-                                android:layout_weight=".5">
+                                tools:text="Pedro Carrillo" />
 
-                                <ImageView
-                                    android:layout_width="@dimen/dimen_16"
-                                    android:layout_height="@dimen/dimen_16"
-                                    android:background="@drawable/ic_skype" />
-
-                                <TextView
-                                    android:id="@+id/skype_id"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/dimen_5"
-                                    tools:text="fake skype id" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
+                            <TextView
+                                android:id="@+id/profile_email"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dimen_5"
+                                tools:text="fakeemail@email.com" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:layout_weight=".5">
+                                android:orientation="vertical">
 
-                                <ImageView
-                                    android:id="@+id/profile_location_logo"
-                                    android:layout_width="@dimen/dimen_9_2"
-                                    android:contentDescription="@string/location_content_desc"
-                                    android:layout_height="@dimen/dimen_9_2"
-                                    android:background="@drawable/ic_location"
-                                    android:adjustViewBounds="true"/>
-
-                                <TextView
-                                    android:id="@+id/location_name"
+                                <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/dimen_5"
-                                    android:layout_marginStart="@dimen/dimen_5"
-                                    tools:text="Lima, Peru" />
+                                    android:layout_weight=".5"
+                                    android:gravity="center"
+                                    android:padding="@dimen/dimen_5">
+
+                                    <ImageView
+                                        android:layout_width="@dimen/dimen_16"
+                                        android:layout_height="@dimen/dimen_16"
+                                        android:background="@drawable/ic_skype" />
+
+                                    <TextView
+                                        android:id="@+id/skype_id"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="@dimen/dimen_5"
+                                        tools:text="fake skype id" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight=".5"
+                                    android:gravity="center">
+
+                                    <ImageView
+                                        android:id="@+id/profile_location_logo"
+                                        android:layout_width="@dimen/dimen_9_2"
+                                        android:layout_height="@dimen/dimen_9_2"
+                                        android:adjustViewBounds="true"
+                                        android:background="@drawable/ic_location"
+                                        android:contentDescription="@string/location_content_desc" />
+
+                                    <TextView
+                                        android:id="@+id/location_name"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="@dimen/dimen_5"
+                                        android:layout_marginStart="@dimen/dimen_5"
+                                        tools:text="Lima, Peru" />
+
+                                </LinearLayout>
 
                             </LinearLayout>
 
@@ -117,145 +124,145 @@
 
                     </LinearLayout>
 
+                    <View style="@style/horizontalDivider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".1"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="@dimen/dimen_8">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="@string/title_current_month_score"
+                                android:textColor="@color/subTitle" />
+
+                            <TextView
+                                android:id="@+id/current_month_score"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="@dimen/dimen_2_5"
+                                android:gravity="center"
+                                android:textColor="@android:color/black"
+                                android:textSize="@dimen/text_16"
+                                tools:text="122" />
+
+                        </LinearLayout>
+
+                        <View style="@style/verticalDivider" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".1"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="@dimen/dimen_8">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="@string/title_score"
+                                android:textColor="@color/subTitle" />
+
+                            <TextView
+                                android:id="@+id/score"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="@dimen/dimen_2_5"
+                                android:gravity="center"
+                                android:textColor="@android:color/black"
+                                android:textSize="@dimen/text_16"
+                                tools:text="1233" />
+
+                        </LinearLayout>
+
+                        <View style="@style/verticalDivider" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".1"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="@dimen/dimen_8">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="@string/title_level"
+                                android:textColor="@color/subTitle" />
+
+                            <TextView
+                                android:id="@+id/level"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="@dimen/dimen_2_5"
+                                android:gravity="center"
+                                android:textColor="@android:color/black"
+                                android:textSize="@dimen/text_16"
+                                tools:text="9000+" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View style="@style/horizontalDivider" />
+
+                    <ProgressBar
+                        android:id="@+id/subcategories_progress_bar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:indeterminate="true" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/account_recommendations"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white" />
+
+                    <TextView
+                        android:id="@+id/no_data_textview"
+                        android:layout_width="match_parent"
+                        android:layout_height="?android:attr/listPreferredItemHeightSmall"
+                        android:gravity="center"
+                        android:text="@string/no_data_found"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+
                 </LinearLayout>
 
-                <View style="@style/horizontalDivider" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <!-- Wrapping Imageview in a FrameLayout as a
+                workaround for allowing the transition to happen when the view is anchored -->
+                <FrameLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:orientation="horizontal">
+                    app:layout_anchor="@+id/belatrix_placeholder"
+                    app:layout_anchorGravity="bottom|center">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".1"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="@dimen/dimen_8">
+                    <ImageView
+                        android:id="@+id/profile_picture"
+                        android:layout_width="@dimen/dimen_15_10"
+                        android:layout_height="@dimen/dimen_15_10"
+                        android:contentDescription="@string/profile_image_content_desc"
+                        android:transitionName="@string/transition_photo" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:text="@string/title_current_month_score"
-                            android:textColor="@color/subTitle" />
+                </FrameLayout>
 
-                        <TextView
-                            android:id="@+id/current_month_score"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="@dimen/dimen_2_5"
-                            android:textSize="@dimen/text_16"
-                            android:gravity="center"
-                            android:textColor="@android:color/black"
-                            tools:text="122" />
+            </android.support.design.widget.CoordinatorLayout>
 
-                    </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
 
-                    <View style="@style/verticalDivider" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".1"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="@dimen/dimen_8">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:text="@string/title_score"
-                            android:textColor="@color/subTitle" />
-
-                        <TextView
-                            android:id="@+id/score"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="@dimen/dimen_2_5"
-                            android:gravity="center"
-                            android:textSize="@dimen/text_16"
-                            android:textColor="@android:color/black"
-                            tools:text="1233" />
-
-                    </LinearLayout>
-
-                    <View style="@style/verticalDivider" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".1"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="@dimen/dimen_8">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:text="@string/title_level"
-                            android:textColor="@color/subTitle" />
-
-                        <TextView
-                            android:id="@+id/level"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="@dimen/dimen_2_5"
-                            android:gravity="center"
-                            android:textSize="@dimen/text_16"
-                            android:textColor="@android:color/black"
-                            tools:text="9000+" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <View style="@style/horizontalDivider" />
-
-                <ProgressBar
-                    android:id="@+id/subcategories_progress_bar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:indeterminate="true"/>
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/account_recommendations"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"/>
-
-                <TextView
-                    android:id="@+id/no_data_textview"
-                    android:layout_width="match_parent"
-                    android:layout_height="?android:attr/listPreferredItemHeightSmall"
-                    android:gravity="center"
-                    android:text="@string/no_data_found"
-                    android:visibility="gone"
-                    tools:visibility="visible"/>
-
-            </LinearLayout>
-
-            <!-- Wrapping Imageview in a FrameLayout as a
-            workaround for allowing the transition to happen when the view is anchored -->
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_anchor="@+id/belatrix_placeholder"
-                app:layout_anchorGravity="bottom|center" >
-
-                <ImageView
-                    android:id="@+id/profile_picture"
-                    android:layout_width="@dimen/dimen_15_10"
-                    android:layout_height="@dimen/dimen_15_10"
-                    android:contentDescription="@string/profile_image_content_desc"
-                    android:transitionName="@string/transition_photo"/>
-
-            </FrameLayout>
-
-        </android.support.design.widget.CoordinatorLayout>
-
-    </android.support.v4.widget.NestedScrollView>
-
-</android.support.v4.widget.SwipeRefreshLayout>
+</android.support.design.widget.CoordinatorLayout>

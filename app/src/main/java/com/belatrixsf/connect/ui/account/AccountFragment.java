@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
@@ -60,6 +61,7 @@ import com.belatrixsf.connect.ui.stars.GiveStarFragment;
 import com.belatrixsf.connect.ui.stars.StarsListActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.DialogUtils;
+import com.belatrixsf.connect.utils.SnackbarUtils;
 import com.belatrixsf.connect.utils.di.modules.presenters.AccountPresenterModule;
 import com.belatrixsf.connect.utils.media.ImageFactory;
 import com.belatrixsf.connect.utils.media.loaders.ImageLoader;
@@ -92,6 +94,7 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     @Bind(R.id.account_swipe_refresh) SwipeRefreshLayout accountSwipeRefresh;
     @Bind(R.id.subcategories_progress_bar) ProgressBar subCategoriesProgressBar;
     @Bind(R.id.no_data_textview) TextView noDataTextView;
+    @Bind(R.id.main_coordinator) CoordinatorLayout coordinatorLayout;
 
     private MenuItem recommendMenuItem;
     private MenuItem editProfileMenuItem;
@@ -397,10 +400,10 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RQ_GIVE_STAR && resultCode == Activity.RESULT_OK && data != null) {
-            DialogUtils.createInformationDialog(getActivity(), data.getStringExtra(GiveStarFragment.MESSAGE_KEY), getString(R.string.app_name), new DialogInterface.OnClickListener() {
+            SnackbarUtils.createInformationSnackBar(data.getStringExtra(GiveStarFragment.MESSAGE_KEY), getString(R.string.dialog_option_confirm), coordinatorLayout,new View.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    //Do Nothing
+                public void onClick(View v) {
+                    //nothing
                 }
             }).show();
         } else if (requestCode == EditAccountFragment.RQ_EDIT_ACCOUNT) {

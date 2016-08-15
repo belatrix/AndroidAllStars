@@ -16,7 +16,7 @@ import javax.inject.Inject;
 /**
  * Created by echuquilin on 10/08/16.
  */
-public class AddSkillPresenterNew extends BelatrixConnectPresenter<AddSkillViewNew> {
+public class AddSkillPresenter extends BelatrixConnectPresenter<AddSkillView> {
 
     private CategoryService categoryService;
     private List<Keyword> keywordsList = new ArrayList<Keyword>();
@@ -26,7 +26,7 @@ public class AddSkillPresenterNew extends BelatrixConnectPresenter<AddSkillViewN
     private boolean searching = false;
 
     @Inject
-    public AddSkillPresenterNew(AddSkillViewNew addSkillView, CategoryService categoryService) {
+    public AddSkillPresenter(AddSkillView addSkillView, CategoryService categoryService) {
         super(addSkillView);
         this.categoryService = categoryService;
     }
@@ -191,8 +191,27 @@ public class AddSkillPresenterNew extends BelatrixConnectPresenter<AddSkillViewN
         return keywordsList;
     }
 
+    public String getSearchText() {
+        return searchText;
+    }
+
+    public PaginatedResponse getKeywordsPaging() {
+        return keywordsPaging;
+    }
+
     public boolean isSearching() {
         return searching;
     }
 
+    public void load(List<Keyword> keywords, PaginatedResponse keywordsPaging, String searchText, boolean searching) {
+        if (keywords != null) {
+            this.keywordsList.addAll(keywords);
+        }
+        this.keywordsPaging = keywordsPaging;
+        this.searchText = searchText;
+        this.searching = searching;
+        if (searching) {
+            searchKeywords();
+        }
+    }
 }

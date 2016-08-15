@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.KeywordsListAdapter;
 import com.belatrixsf.connect.entities.Keyword;
+import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.common.EndlessRecyclerOnScrollListener;
 import com.belatrixsf.connect.ui.common.views.DividerItemDecoration;
@@ -32,6 +33,7 @@ import com.belatrixsf.connect.utils.KeyboardUtils;
 import com.belatrixsf.connect.utils.SnackbarUtils;
 import com.belatrixsf.connect.utils.di.modules.presenters.AddSkillPresenterModule;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -41,14 +43,19 @@ import butterknife.Bind;
 /**
  * Created by echuquilin on 10/08/16.
  */
-public class AddSkillFragmentNewNew extends BelatrixConnectFragment implements AddSkillViewNew, KeywordsListAdapter.KeywordListener {
+public class AddSkillFragment extends BelatrixConnectFragment implements AddSkillView, KeywordsListAdapter.KeywordListener {
+
+    private static final String KEYWORDS_KEY = "keywords_key";
+    private static final String SEARCH_TEXT_KEY = "search_text_key";
+    private static final String PAGING_KEY = "paging_key";
+    private static final String SEARCHING_KEY = "searching_key";
 
     private KeywordsListAdapter keywordsListAdapter;
     private EndlessRecyclerOnScrollListener endlessRecyclerOnScrollListener;
     private String newKeywordName;
 
     @Inject
-    AddSkillPresenterNew keywordsPresenter;
+    AddSkillPresenter keywordsPresenter;
 
     @Bind(R.id.keywords) RecyclerView keywordsRecyclerView;
     @Bind(R.id.refresh_keywords) SwipeRefreshLayout keywordsRefreshLayout;
@@ -56,12 +63,12 @@ public class AddSkillFragmentNewNew extends BelatrixConnectFragment implements A
     @Bind(R.id.button_add_new_skill) Button addNewSkillButton;
     @Bind(R.id.coordinator_keywords) CoordinatorLayout keywordscoordinatorLayout;
 
-    public AddSkillFragmentNewNew() {
+    public AddSkillFragment() {
         // Required empty public constructor
     }
 
-    public static AddSkillFragmentNewNew newInstance() {
-        return new AddSkillFragmentNewNew();
+    public static AddSkillFragment newInstance() {
+        return new AddSkillFragment();
     }
 
     @Override
@@ -75,6 +82,9 @@ public class AddSkillFragmentNewNew extends BelatrixConnectFragment implements A
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews();
+        if (savedInstanceState != null) {
+            restorePresenterState(savedInstanceState);
+        }
         keywordsPresenter.getKeywords(false);
         keywordsPresenter.updateSkillsList();
     }
@@ -101,6 +111,30 @@ public class AddSkillFragmentNewNew extends BelatrixConnectFragment implements A
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        savePresenterState(outState);
+        super.onSaveInstanceState(outState);
+    }
+
+    private void savePresenterState(Bundle outState) {
+        outState.putString(SEARCH_TEXT_KEY, keywordsPresenter.getSearchText());
+        outState.putParcelable(PAGING_KEY, keywordsPresenter.getKeywordsPaging());
+        outState.putBoolean(SEARCHING_KEY, keywordsPresenter.isSearching());
+        List<Keyword> keywords = keywordsPresenter.getKeywordsSync();
+        if (keywords != null && keywords instanceof ArrayList) {
+            outState.putParcelableArrayList(KEYWORDS_KEY, (ArrayList<Keyword>) keywords);
+        }
+    }
+
+    private void restorePresenterState(Bundle savedInstanceState) {
+        List<Keyword> keywords = savedInstanceState.getParcelableArrayList(KEYWORDS_KEY);
+        PaginatedResponse paging = savedInstanceState.getParcelable(PAGING_KEY);
+        String searchText = savedInstanceState.getString(SEARCH_TEXT_KEY, null);
+        boolean searching = savedInstanceState.getBoolean(SEARCHING_KEY, false);
+        keywordsPresenter.load(keywords, paging, searchText, searching);
     }
 
     private void initViews() {

@@ -106,4 +106,19 @@ public class SkillsListPresenter extends BelatrixConnectPresenter<SkillsListView
     public void cancelRequests() {
         skillService.cancelAll();
     }
+
+    public PaginatedResponse getSkillsPaging() {
+        return skillsPaging;
+    }
+
+    public List<Keyword> getSkillsSync() {
+        return skills;
+    }
+
+    public void load(List<Keyword> skills, PaginatedResponse keywordsPaging) {
+        if (skills != null) {
+            this.skills.addAll(skills);
+        }
+        this.skillsPaging = keywordsPaging;
+    }
 }

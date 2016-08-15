@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by echuquilin on 10/08/16.
  */
-public interface AddSkillViewNew extends BelatrixConnectView {
+public interface AddSkillView extends BelatrixConnectView {
 
     void addKeywords(List<Keyword> keywords);
     void showSearchActionMode();

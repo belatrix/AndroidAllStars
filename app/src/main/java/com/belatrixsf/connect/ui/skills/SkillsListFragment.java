@@ -18,6 +18,7 @@ import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.SkillListAdapter;
 import com.belatrixsf.connect.entities.Keyword;
 import com.belatrixsf.connect.managers.PreferencesManager;
+import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.common.EndlessRecyclerOnScrollListener;
 import com.belatrixsf.connect.ui.common.views.DividerItemDecoration;
@@ -27,6 +28,7 @@ import com.belatrixsf.connect.utils.DialogUtils;
 import com.belatrixsf.connect.utils.SnackbarUtils;
 import com.belatrixsf.connect.utils.di.modules.presenters.SkillsListPresenterModule;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -35,6 +37,9 @@ import butterknife.Bind;
  * Created by echuquilin on 4/08/16.
  */
 public class SkillsListFragment extends BelatrixConnectFragment implements SkillsListView, SkillListAdapter.KeywordListener {
+
+    private static final String SKILLS_KEY = "skills_key";
+    private static final String PAGING_KEY = "paging_skills_key";
 
     private static SkillsListPresenter skillsListPresenter;
     private SkillListAdapter skillListAdapter;
@@ -65,6 +70,26 @@ public class SkillsListFragment extends BelatrixConnectFragment implements Skill
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        savePresenterState(outState);
+        super.onSaveInstanceState(outState);
+    }
+
+    private void savePresenterState(Bundle outState) {
+        outState.putParcelable(PAGING_KEY, skillsListPresenter.getSkillsPaging());
+        List<Keyword> keywords = skillsListPresenter.getSkillsSync();
+        if (keywords != null && keywords instanceof ArrayList) {
+            outState.putParcelableArrayList(SKILLS_KEY, (ArrayList<Keyword>) keywords);
+        }
+    }
+
+    private void restorePresenterState(Bundle savedInstanceState) {
+        List<Keyword> skills = savedInstanceState.getParcelableArrayList(SKILLS_KEY);
+        PaginatedResponse paging = savedInstanceState.getParcelable(PAGING_KEY);
+        skillsListPresenter.load(skills, paging);
+    }
+
+    @Override
     protected void initDependencies(BelatrixConnectApplication belatrixConnectApplication) {
         skillsListPresenter = belatrixConnectApplication.getApplicationComponent()
                 .skillsListComponent(new SkillsListPresenterModule(this))
@@ -75,6 +100,9 @@ public class SkillsListFragment extends BelatrixConnectFragment implements Skill
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews();
+        if (savedInstanceState != null) {
+            restorePresenterState(savedInstanceState);
+        }
         skillsListPresenter.getSkills(PreferencesManager.get().getEmployeeId(),false);
     }
 

@@ -8,7 +8,6 @@ import android.support.v7.widget.Toolbar;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
-import com.belatrixsf.connect.ui.keywords.SearchingKeywordsFragment;
 import com.belatrixsf.connect.ui.skills.SkillsListFragment;
 
 import butterknife.Bind;
@@ -25,7 +24,7 @@ public class AddSkillActivity extends BelatrixConnectActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
         if (savedInstanceState == null) {
-            replaceFragment(AddSkillFragmentNewNew.newInstance(), false);
+            replaceFragment(AddSkillFragment.newInstance(), false);
         }
         setNavigationToolbar();
     }
