@@ -6,9 +6,10 @@
     style="@style/ItemList">
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/keyword_name"
         android:layout_gravity="center_vertical"
-        tools:text="Android"
-        style="@style/SingleLineItemTextView" />
+        tools:text="Android"/>
 
 </FrameLayout>
