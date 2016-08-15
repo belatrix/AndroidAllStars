@@ -254,8 +254,7 @@ public class SearchingKeywordsFragment extends BelatrixConnectFragment implement
     };
 
     @Override
-    public void showNoDataView(String message) {
-        noDataTextView.setText(message);
+    public void showNoDataView() {
         noDataTextView.setVisibility(View.VISIBLE);
     }
 

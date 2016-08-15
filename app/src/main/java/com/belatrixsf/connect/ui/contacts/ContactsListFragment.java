@@ -267,8 +267,7 @@ public class ContactsListFragment extends BelatrixConnectFragment implements Con
     }
 
     @Override
-    public void showNoDataView(String message) {
-        noDataTextView.setText(message);
+    public void showNoDataView() {
         noDataTextView.setVisibility(View.VISIBLE);
     }
 

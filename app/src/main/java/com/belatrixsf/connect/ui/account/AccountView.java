@@ -45,7 +45,7 @@ public interface AccountView extends BelatrixConnectView {
     void showEditProfileButton(boolean show);
     void goToEditProfile(Employee employee);
     void goToGiveStar(Employee employee);
-    void showNoDataView(String message);
+    void showNoDataView();
     void hideNoDataView();
     void goToExpandPhoto(String url);
     void notifyNavigationRefresh();

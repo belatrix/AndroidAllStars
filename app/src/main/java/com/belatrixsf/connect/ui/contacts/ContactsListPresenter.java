@@ -110,14 +110,12 @@ public class ContactsListPresenter extends BelatrixConnectPresenter<ContactsList
                         contactsPaging.setCount(contactsKeywordsResponse.getCount());
                         contactsPaging.setNext(contactsKeywordsResponse.getNext());
                         contacts.addAll(contactsKeywordsResponse.getResults());
-                        view.addContacts(contactsKeywordsResponse.getResults());
+                        if(!contactsKeywordsResponse.getResults().isEmpty()) {
+                            view.addContacts(contactsKeywordsResponse.getResults());
+                        } else {
+                            view.showNoDataView();
+                        }
                         view.hideProgressIndicator();
-                    }
-
-                    @Override
-                    public void onFailure(ServiceError serviceError) {
-                        view.hideProgressIndicator();
-                        view.showNoDataView(serviceError.getDetail());
                     }
                 });
     }

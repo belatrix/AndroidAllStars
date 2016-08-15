@@ -55,22 +55,16 @@ public class RankingPresenter extends BelatrixConnectPresenter<RankingView> {
                     @Override
                     public void onSuccess(List<Employee> rankingResponse) {
                         rankingEmployees = rankingResponse;
-                        view.showRankingList(rankingResponse);
+                        if(!rankingResponse.isEmpty()) {
+                            view.showRankingList(rankingResponse);
+                        } else {
+                            view.showNoDataView();
+                        }
                         if (!isRefresh) {
                             view.hideProgressIndicator();
                         } else {
                             view.hideRefreshData();
                         }
-                    }
-
-                    @Override
-                    public void onFailure(ServiceError serviceError) {
-                        if (!isRefresh) {
-                            view.hideProgressIndicator();
-                        } else {
-                            view.hideRefreshData();
-                        }
-                        view.showNoDataView(serviceError.getDetail());
                     }
                 });
     }

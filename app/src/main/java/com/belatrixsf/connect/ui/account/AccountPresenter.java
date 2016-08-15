@@ -83,20 +83,18 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
 
     private void loadSubCategoriesStar() {
         view.showProgressIndicator();
+        view.hideNoDataView();
         starService.getEmployeeSubCategoriesStars(
                 employee.getPk(),
                 new PresenterCallback<PaginatedResponse<SubCategory>>() {
                     @Override
                     public void onSuccess(PaginatedResponse<SubCategory> starSubCategoryResponse) {
                         view.hideProgressIndicator();
-                        view.hideNoDataView();
-                        view.showSubCategories(starSubCategoryResponse.getResults());
-                    }
-
-                    @Override
-                    public void onFailure(ServiceError serviceError) {
-                        view.hideProgressIndicator();
-                        view.showNoDataView(serviceError.getDetail());
+                        if(!starSubCategoryResponse.getResults().isEmpty()) {
+                            view.showSubCategories(starSubCategoryResponse.getResults());
+                        } else {
+                            view.showNoDataView();
+                        }
                     }
                 });
     }
