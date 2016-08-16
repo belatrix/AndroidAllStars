@@ -35,6 +35,12 @@ public class AddSkillActivity extends BelatrixConnectActivity{
         finish();
     }
 
+    @Override
+    public void onBackPressed() {
+        SkillsListFragment.refreshFromAddSkill();
+        finish();
+    }
+
     public static Intent makeIntent(Context context) {
         return new Intent(context, AddSkillActivity.class);
     }
