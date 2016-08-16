@@ -118,7 +118,7 @@ public class ExpandPictureFragment extends BelatrixConnectFragment implements Ex
                         }
                     },
                     null,
-                    ImageLoader.ScaleType.FITCENTER
+                    ImageLoader.ScaleType.FIT_CENTER
             );
         }
     }

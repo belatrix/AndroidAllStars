@@ -97,10 +97,10 @@ public class GlideLoader implements ImageLoader {
             ImageLoader.ScaleType scaleType
     ) {
         switch (scaleType) {
-            case CENTERCROP:
+            case CENTER_CROP:
                 load.centerCrop();
                 break;
-            case FITCENTER:
+            case FIT_CENTER:
                 load.fitCenter();
                 break;
         }

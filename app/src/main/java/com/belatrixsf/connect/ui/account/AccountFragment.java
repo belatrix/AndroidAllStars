@@ -302,7 +302,7 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
                             }
                         },
                         getResources().getDrawable(R.drawable.contact_placeholder),
-                        ImageLoader.ScaleType.CENTERCROP
+                        ImageLoader.ScaleType.CENTER_CROP
                 );
             } else {
                 ImageFactory.getLoader().loadFromBitmap(
@@ -321,7 +321,7 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
                             }
                         },
                         getResources().getDrawable(R.drawable.contact_placeholder),
-                        ImageLoader.ScaleType.CENTERCROP
+                        ImageLoader.ScaleType.CENTER_CROP
                 );
             }
         }

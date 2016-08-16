@@ -20,7 +20,6 @@
 */
 package com.belatrixsf.connect.utils.media.loaders;
 
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
@@ -41,8 +40,8 @@ public interface ImageLoader {
     }
 
     enum ScaleType {
-        CENTERCROP,
-        FITCENTER
+        CENTER_CROP,
+        FIT_CENTER
     }
 
     void loadFromBitmap(byte[] bitmapImg, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder, ScaleType scaleType);

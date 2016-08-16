@@ -98,7 +98,7 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
                 holder.photoImageView,
                 ImageLoader.ImageTransformation.BORDERED_CIRCLE,
                 context.getResources().getDrawable(R.drawable.contact_placeholder),
-                ImageLoader.ScaleType.CENTERCROP
+                ImageLoader.ScaleType.CENTER_CROP
         );
     }
 

@@ -74,7 +74,7 @@ public class AccountSelectionView extends DataSelectionView {
                     profileImageView,
                     ImageLoader.ImageTransformation.BORDERED_CIRCLE,
                     getResources().getDrawable(R.drawable.contact_placeholder),
-                    ImageLoader.ScaleType.CENTERCROP
+                    ImageLoader.ScaleType.CENTER_CROP
             );
         }
     }

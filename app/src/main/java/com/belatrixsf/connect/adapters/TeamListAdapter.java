@@ -62,7 +62,7 @@ public class TeamListAdapter extends RecyclerView.Adapter<TeamListAdapter.ViewHo
                 holder.photo,
                 ImageLoader.ImageTransformation.BORDERED_CIRCLE,
                 holder.photo.getResources().getDrawable(R.drawable.contact_placeholder),
-                ImageLoader.ScaleType.CENTERCROP
+                ImageLoader.ScaleType.CENTER_CROP
         );
         holder.itemView.setTag(collaborator);
     }

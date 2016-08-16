@@ -89,7 +89,7 @@ public class EventDetailActivity extends BelatrixConnectActivity implements Even
                         }
                     },
                     getResources().getDrawable(R.drawable.event_placeholder),
-                    ImageLoader.ScaleType.CENTERCROP
+                    ImageLoader.ScaleType.CENTER_CROP
             );
         }
     }

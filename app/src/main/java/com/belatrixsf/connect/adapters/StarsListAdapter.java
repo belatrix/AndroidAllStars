@@ -91,7 +91,7 @@ public class StarsListAdapter extends LoadMoreBaseAdapter<Star> {
                     starViewHolder.photoImageView,
                     ImageLoader.ImageTransformation.CIRCLE,
                     starViewHolder.photoImageView.getResources().getDrawable(R.drawable.contact_placeholder),
-                    ImageLoader.ScaleType.CENTERCROP
+                    ImageLoader.ScaleType.CENTER_CROP
             );
         }
     }
