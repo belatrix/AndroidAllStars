@@ -38,7 +38,7 @@ public class PicassoLoader implements ImageLoader {
 
     @Override
     public void loadFromBitmap(byte[] bitmapImg, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder, ImageLoader.ScaleType scaleType) {
-        //TODO future implementation
+        //TODO: Future Implementation
     }
 
     @Override
