@@ -105,7 +105,6 @@ public class EventListPresenter extends BelatrixConnectPresenter<EventListView> 
                         eventsPaging.setNext(eventListResponse.getNext());
                         events.addAll(eventListResponse.getResults());
                         if (!eventListResponse.getResults().isEmpty()) {
-                            events.addAll(eventListResponse.getResults());
                             view.addEvents(eventListResponse.getResults());
                         } else {
                             view.showNoDataView();

@@ -91,8 +91,14 @@
             android:theme="@style/Base.Theme.AppCompat"/>
         <activity android:name=".ui.settings.SettingsActivity"
         android:label="@string/settings_main_title"/>
-        <activity
-            android:name=".ui.LauncherActivity">
+        <activity android:name=".ui.skills.SkillsListActivity"
+            android:label="@string/skills_main_label"/>
+        <activity android:name=".ui.skills.Add.AddSkillActivity"
+            android:label="@string/add_skill_main_label"/>
+        <activity android:name=".ui.LauncherActivity"/>
+        <activity android:name=".ui.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

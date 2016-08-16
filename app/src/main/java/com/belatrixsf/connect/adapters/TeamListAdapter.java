@@ -61,7 +61,8 @@ public class TeamListAdapter extends RecyclerView.Adapter<TeamListAdapter.ViewHo
         ImageFactory.getLoader().loadFromRes(collaborator.getDrawable(),
                 holder.photo,
                 ImageLoader.ImageTransformation.BORDERED_CIRCLE,
-                holder.photo.getResources().getDrawable(R.drawable.contact_placeholder)
+                holder.photo.getResources().getDrawable(R.drawable.contact_placeholder),
+                ImageLoader.ScaleType.CENTER_CROP
         );
         holder.itemView.setTag(collaborator);
     }

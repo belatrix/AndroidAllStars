@@ -73,7 +73,8 @@ public class AccountSelectionView extends DataSelectionView {
             ImageFactory.getLoader().loadFromUrl(imageUrl,
                     profileImageView,
                     ImageLoader.ImageTransformation.BORDERED_CIRCLE,
-                    getResources().getDrawable(R.drawable.contact_placeholder)
+                    getResources().getDrawable(R.drawable.contact_placeholder),
+                    ImageLoader.ScaleType.CENTER_CROP
             );
         }
     }

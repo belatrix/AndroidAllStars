@@ -89,21 +89,15 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
     public static final String IS_NEW_USER = "_is_creation_key";
     public static final String FILE_KEY = "_selected_file_key";
 
-    @Bind(R.id.profile_picture)
-    ImageView pictureImageView;
-    @Bind(R.id.firstName)
-    EditText firstNameEditText;
-    @Bind(R.id.lastName)
-    EditText lastNameEditText;
-    @Bind(R.id.skypeId)
-    EditText skypeIdEditText;
-    @Bind(R.id.locationRadioGroup)
-    RadioGroup locationRadioGroup;
-    @Bind(R.id.edit_image)
-    ImageView editPictureImageView;
+    @Bind(R.id.profile_picture) ImageView pictureImageView;
+    @Bind(R.id.firstName) EditText firstNameEditText;
+    @Bind(R.id.lastName) EditText lastNameEditText;
+    @Bind(R.id.skypeId) EditText skypeIdEditText;
+    @Bind(R.id.locationRadioGroup) RadioGroup locationRadioGroup;
+    @Bind(R.id.edit_image) ImageView editPictureImageView;
 
     private EditAccountPresenter editAccountPresenter;
-    private String mProfilePicturePath;
+    private String profilePicturePath;
 
     public static EditAccountFragment newInstance(boolean isNewUser) {
         Bundle bundle = new Bundle();
@@ -237,7 +231,8 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
                             startPostponedEnterTransition();
                         }
                     },
-                    getResources().getDrawable(R.drawable.contact_placeholder)
+                    getResources().getDrawable(R.drawable.contact_placeholder),
+                    ImageLoader.ScaleType.CENTER_CROP
             );
         }
     }
@@ -376,7 +371,7 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
                 editAccountPresenter.setSelectedFile(photoFile);
                 cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,
                         Uri.fromFile(photoFile));
-                mProfilePicturePath = photoFile.getAbsolutePath();
+                profilePicturePath = photoFile.getAbsolutePath();
                 startActivityForResult(cameraIntent, RQ_CAMERA);
             }
         }
@@ -390,21 +385,25 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
                 initCropImageActivity(data.getData());
             }
         } else if (resultCode == Activity.RESULT_OK && requestCode == RQ_CAMERA) {
-            mProfilePicturePath = editAccountPresenter.getSelectedFile().getAbsolutePath();
-            Uri selectedPhotoUri = Uri.fromFile(new File(mProfilePicturePath));
+            profilePicturePath = editAccountPresenter.getSelectedFile().getAbsolutePath();
+            Uri selectedPhotoUri = Uri.fromFile(new File(profilePicturePath));
             initCropImageActivity(selectedPhotoUri);
         } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == Activity.RESULT_OK) {
                 Uri croppedImageUri = result.getUri();
-                mProfilePicturePath = croppedImageUri.getPath();
+                profilePicturePath = croppedImageUri.getPath();
                 editAccountPresenter.uploadImage(MediaUtils.get().getReducedBitmapFile(croppedImageUri));
             }
         }
     }
 
     public void initCropImageActivity(Uri uri) {
-        Intent intent = CropImage.activity(uri).setGuidelines(CropImageView.Guidelines.ON).setMinCropResultSize(500, 500).setCropShape(CropImageView.CropShape.RECTANGLE).getIntent(getActivity());
+        Intent intent = CropImage.activity(uri).setGuidelines(CropImageView.Guidelines.ON)
+                .setMinCropResultSize(500, 500)
+                .setCropShape(CropImageView.CropShape.RECTANGLE)
+                .setFixAspectRatio(true)
+                .getIntent(getActivity());
         startActivityForResult(intent, CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE);
     }
 
@@ -419,5 +418,4 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
         startActivity(UserActivity.makeIntent(getActivity()));
         fragmentListener.closeActivity();
     }
-
 }

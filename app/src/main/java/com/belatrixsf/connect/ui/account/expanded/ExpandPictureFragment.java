@@ -117,7 +117,8 @@ public class ExpandPictureFragment extends BelatrixConnectFragment implements Ex
                             startPostponedEnterTransition();
                         }
                     },
-                    null
+                    null,
+                    ImageLoader.ScaleType.FIT_CENTER
             );
         }
     }

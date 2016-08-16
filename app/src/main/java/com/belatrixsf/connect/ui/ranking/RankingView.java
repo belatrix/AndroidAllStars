@@ -33,7 +33,7 @@ public interface RankingView extends BelatrixConnectView {
     void showRankingList(List<Employee> rankingList);
     void goToEmployeeProfile(Integer employeeId);
     void hideRefreshData();
-    void showNoDataView(String message);
+    void showNoDataView();
     void hideNoDataView();
 
 }

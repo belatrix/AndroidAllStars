@@ -24,6 +24,8 @@ import com.belatrixsf.connect.entities.Category;
 import com.belatrixsf.connect.entities.Keyword;
 import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.networking.retrofit.api.CategoryAPI;
+import com.belatrixsf.connect.networking.retrofit.requests.EmployeeKeywordRequest;
+import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.services.BelatrixConnectBaseService;
 import com.belatrixsf.connect.services.ServerServiceRequest;
 import com.belatrixsf.connect.services.ServiceRequest;
@@ -69,6 +71,32 @@ public class CategoryServerService extends BelatrixConnectBaseService implements
     public ServiceRequest getKeywords(BelatrixConnectCallback<List<Keyword>> callback) {
         Call<List<Keyword>> call = categoryAPI.getKeywords();
         ServiceRequest<List<Keyword>> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
+    @Override
+    public ServiceRequest getKeywordsByEmployee(int employeeId, BelatrixConnectCallback<PaginatedResponse<Keyword>> callback) {
+        Call<PaginatedResponse<Keyword>> call = categoryAPI.getKeywordsByEmployee(employeeId);
+        ServiceRequest<PaginatedResponse<Keyword>> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
+    @Override
+    public ServiceRequest saveKeywordToEmployee(int employeeId, String keywordName, BelatrixConnectCallback<Keyword> callback) {
+        EmployeeKeywordRequest employeeKeywordRequest = new EmployeeKeywordRequest(keywordName);
+        Call<Keyword> keywordCall = categoryAPI.saveEmployeeSkill(employeeId, employeeKeywordRequest);
+        ServiceRequest<Keyword> serviceRequest = new ServerServiceRequest<>(keywordCall);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
+    @Override
+    public ServiceRequest removeEmployeeKeyword(int employeeId, String keywordName, BelatrixConnectCallback<Keyword> callback) {
+        EmployeeKeywordRequest employeeKeywordRequest = new EmployeeKeywordRequest(keywordName);
+        Call<Keyword> keywordCall = categoryAPI.removeEmployeeSkill(employeeId, employeeKeywordRequest);
+        ServiceRequest<Keyword> serviceRequest = new ServerServiceRequest<>(keywordCall);
         enqueue(serviceRequest, callback);
         return serviceRequest;
     }

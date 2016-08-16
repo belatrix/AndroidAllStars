@@ -2,7 +2,6 @@ package com.belatrixsf.connect.ui.home;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -34,7 +33,7 @@ import com.belatrixsf.connect.ui.settings.SettingsActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarFragment;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
-import com.belatrixsf.connect.utils.DialogUtils;
+import com.belatrixsf.connect.utils.SnackbarUtils;
 import com.belatrixsf.connect.utils.di.components.DaggerUserHomeComponent;
 import com.belatrixsf.connect.utils.di.modules.presenters.UserHomePresenterModule;
 
@@ -240,10 +239,10 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RQ_GIVE_STAR && resultCode == Activity.RESULT_OK && data != null) {
-            DialogUtils.createInformationDialog(this, data.getStringExtra(GiveStarFragment.MESSAGE_KEY), getString(R.string.app_name), new DialogInterface.OnClickListener() {
+            SnackbarUtils.createInformationSnackBar(data.getStringExtra(GiveStarFragment.MESSAGE_KEY), getString(R.string.dialog_option_confirm), coordinatorLayout,new View.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    //Do Nothing
+                public void onClick(View v) {
+                    //nothing
                 }
             }).show();
         } else if (requestCode == EditAccountFragment.RQ_EDIT_ACCOUNT && resultCode == Activity.RESULT_OK && data != null) {

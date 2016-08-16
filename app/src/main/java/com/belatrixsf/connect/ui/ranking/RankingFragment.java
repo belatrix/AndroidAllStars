@@ -160,8 +160,7 @@ public class RankingFragment extends BelatrixConnectFragment implements RankingV
     }
 
     @Override
-    public void showNoDataView(String message) {
-        noDataTextView.setText(message);
+    public void showNoDataView() {
         noDataTextView.setVisibility(View.VISIBLE);
     }
 

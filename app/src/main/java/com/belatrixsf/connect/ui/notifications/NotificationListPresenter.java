@@ -79,14 +79,12 @@ public class NotificationListPresenter extends BelatrixConnectPresenter<Notifica
                     notificationsPaging.setCount(notificationsResponse.getCount());
                     notificationsPaging.setNext(notificationsResponse.getNext());
                     notifications.addAll(notificationsResponse.getResults());
-                    view.addNotifications(notificationsResponse.getResults());
+                    if(!notificationsResponse.getResults().isEmpty()) {
+                        view.addNotifications(notificationsResponse.getResults());
+                    } else {
+                        view.showNoDataView();
+                    }
                     view.hideProgressIndicator();
-                }
-
-                @Override
-                public void onFailure(ServiceError serviceError) {
-                    view.hideProgressIndicator();
-                    view.showNoDataView(serviceError.getDetail());
                 }
             });
     }

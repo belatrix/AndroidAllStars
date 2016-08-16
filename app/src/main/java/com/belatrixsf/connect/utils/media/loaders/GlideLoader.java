@@ -21,7 +21,6 @@
 package com.belatrixsf.connect.utils.media.loaders;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
@@ -41,9 +40,9 @@ import java.io.File;
 public class GlideLoader implements ImageLoader {
 
     @Override
-    public void loadFromBitmap(byte[] bitmapImg, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder){
+    public void loadFromBitmap(byte[] bitmapImg, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder, ImageLoader.ScaleType scaleType){
         Context context = imageView.getContext();
-        load(context, Glide.with(context).load(bitmapImg), transformation, callback, placeholder).into(imageView);
+        load(context, Glide.with(context).load(bitmapImg), transformation, callback, placeholder, scaleType).into(imageView);
     }
 
     @Override
@@ -52,14 +51,14 @@ public class GlideLoader implements ImageLoader {
     }
 
     @Override
-    public void loadFromRes(int resId, ImageView imageView, ImageTransformation transformation, Drawable placeholder) {
-        loadFromRes(resId, imageView, transformation, null, placeholder);
+    public void loadFromRes(int resId, ImageView imageView, ImageTransformation transformation, Drawable placeholder, ImageLoader.ScaleType scaleType) {
+        loadFromRes(resId, imageView, transformation, null, placeholder, scaleType);
     }
 
     @Override
-    public void loadFromRes(int resId, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder) {
+    public void loadFromRes(int resId, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder, ImageLoader.ScaleType scaleType) {
         Context context = imageView.getContext();
-        load(context, Glide.with(context).load(resId), transformation, callback, placeholder).into(imageView);
+        load(context, Glide.with(context).load(resId), transformation, callback, placeholder, scaleType).into(imageView);
     }
 
     @Override
@@ -68,25 +67,25 @@ public class GlideLoader implements ImageLoader {
     }
 
     @Override
-    public void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation, Drawable placeholder) {
-        loadFromUrl(url, imageView, transformation, null, placeholder);
+    public void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation, Drawable placeholder, ImageLoader.ScaleType scaleType) {
+        loadFromUrl(url, imageView, transformation, null, placeholder, scaleType);
     }
 
     @Override
-    public void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder) {
+    public void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder, ImageLoader.ScaleType scaleType) {
         Context context = imageView.getContext();
-        load(context, Glide.with(context).load(url), transformation, callback, placeholder).into(imageView);
+        load(context, Glide.with(context).load(url), transformation, callback, placeholder, scaleType).into(imageView);
     }
 
     @Override
-    public void loadFromPath(String path, ImageView imageView, ImageTransformation transformation, Drawable placeholder) {
-        loadFromPath(path, imageView, transformation, null, placeholder);
+    public void loadFromPath(String path, ImageView imageView, ImageTransformation transformation, Drawable placeholder, ImageLoader.ScaleType scaleType) {
+        loadFromPath(path, imageView, transformation, null, placeholder, scaleType);
     }
 
     @Override
-    public void loadFromPath(String path, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder) {
+    public void loadFromPath(String path, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder, ImageLoader.ScaleType scaleType) {
         Context context = imageView.getContext();
-        load(context, Glide.with(context).load(new File(path)), transformation, callback, placeholder).into(imageView);
+        load(context, Glide.with(context).load(new File(path)), transformation, callback, placeholder, scaleType).into(imageView);
     }
 
     private <T> DrawableTypeRequest<T> load(
@@ -94,9 +93,17 @@ public class GlideLoader implements ImageLoader {
             DrawableTypeRequest<T> load,
             ImageTransformation transformation,
             final Callback callback,
-            Drawable placeholder
+            Drawable placeholder,
+            ImageLoader.ScaleType scaleType
     ) {
-        load.centerCrop();
+        switch (scaleType) {
+            case CENTER_CROP:
+                load.centerCrop();
+                break;
+            case FIT_CENTER:
+                load.fitCenter();
+                break;
+        }
         load.placeholder(placeholder);
         if (context != null && transformation != null) {
             switch (transformation) {

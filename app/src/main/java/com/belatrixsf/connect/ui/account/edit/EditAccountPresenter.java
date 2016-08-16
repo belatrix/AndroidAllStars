@@ -235,5 +235,4 @@ public class EditAccountPresenter extends BelatrixConnectPresenter<EditAccountVi
     public void onPermissionDenied() {
         view.disableEditProfilePicture();
     }
-    
 }

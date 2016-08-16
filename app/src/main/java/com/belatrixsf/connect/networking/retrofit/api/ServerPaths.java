@@ -30,6 +30,7 @@ public interface ServerPaths {
     String STAR = "star";
     String EVENT = "event";
     String NOTIFICATION = "notification";
+    String SKILLS = "skills";
 
     String EMPLOYEE_ID = "employee_id";
     String EMPLOYEE_EMAIL = "employee_email";
@@ -70,6 +71,10 @@ public interface ServerPaths {
 
     String CATEGORY_KEYWORD_LIST = CATEGORY + "/keyword/list";
     String SUBCATEGORIES_BY_CATEGORY_ID = CATEGORY + "/{" + CATEGORY_ID + "}/subcategory/list";
+
+    String EMPLOYEE_SKILLS = EMPLOYEE + "/{" + EMPLOYEE_ID + "}/" + SKILLS + "/list";
+    String EMPLOYEE_ADD_SKILL = EMPLOYEE + "/{" + EMPLOYEE_ID + "}/" + SKILLS + "/add/";
+    String EMPLOYEE_REMOVE_SKILL = EMPLOYEE + "/{" + EMPLOYEE_ID + "}/" + SKILLS + "/remove/";
 
     String EVENT_LIST = EVENT + "/list/";
     String EVENT_DETAIL = EVENT + "/{" + EVENT_ID + "}/";

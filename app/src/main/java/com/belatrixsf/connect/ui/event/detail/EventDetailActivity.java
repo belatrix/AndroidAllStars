@@ -88,7 +88,8 @@ public class EventDetailActivity extends BelatrixConnectActivity implements Even
                             startTransition();
                         }
                     },
-                    getResources().getDrawable(R.drawable.event_placeholder)
+                    getResources().getDrawable(R.drawable.event_placeholder),
+                    ImageLoader.ScaleType.CENTER_CROP
             );
         }
     }

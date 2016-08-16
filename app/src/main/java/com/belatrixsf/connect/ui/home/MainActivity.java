@@ -131,7 +131,8 @@ public abstract class MainActivity extends BelatrixConnectActivity implements Ho
                         ImageFactory.getLoader().loadFromUrl(photoUrl,
                                 pictureImageView,
                                 ImageLoader.ImageTransformation.BORDERED_CIRCLE,
-                                getResources().getDrawable(R.drawable.contact_placeholder)
+                                getResources().getDrawable(R.drawable.contact_placeholder),
+                                ImageLoader.ScaleType.CENTER_CROP
                         );
                         fullNameTextView.setText(fullName);
                         emailTextView.setText(email);

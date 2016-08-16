@@ -34,7 +34,7 @@ public interface SearchingKeywordsView extends BelatrixConnectView {
     void showKeywordDetail(Keyword keyword);
     void showSearchActionMode();
     void resetList();
-    void showNoDataView(String message);
+    void showNoDataView();
     void hideNoDataView();
 
 }

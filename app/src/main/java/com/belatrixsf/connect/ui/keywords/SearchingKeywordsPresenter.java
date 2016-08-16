@@ -109,14 +109,12 @@ public class SearchingKeywordsPresenter extends BelatrixConnectPresenter<Searchi
                         keywordsPaging.setCount(starsByKeywordsResponse.getCount());
                         keywordsPaging.setNext(starsByKeywordsResponse.getNext());
                         keywords.addAll(starsByKeywordsResponse.getResults());
-                        view.addKeywords(starsByKeywordsResponse.getResults());
+                        if(!starsByKeywordsResponse.getResults().isEmpty()) {
+                            view.addKeywords(starsByKeywordsResponse.getResults());
+                        } else {
+                            view.showNoDataView();
+                        }
                         view.hideProgressIndicator();
-                    }
-
-                    @Override
-                    public void onFailure(ServiceError serviceError) {
-                        view.hideProgressIndicator();
-                        view.showNoDataView(serviceError.getDetail());
                     }
                 });
     }

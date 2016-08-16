@@ -20,7 +20,6 @@
 */
 package com.belatrixsf.connect.ui.keywords;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -255,8 +254,7 @@ public class SearchingKeywordsFragment extends BelatrixConnectFragment implement
     };
 
     @Override
-    public void showNoDataView(String message) {
-        noDataTextView.setText(message);
+    public void showNoDataView() {
         noDataTextView.setVisibility(View.VISIBLE);
     }
 

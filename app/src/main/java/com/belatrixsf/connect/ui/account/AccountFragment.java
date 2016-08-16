@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
@@ -54,11 +55,13 @@ import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.connect.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.connect.ui.login.LoginActivity;
+import com.belatrixsf.connect.ui.skills.SkillsListActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarFragment;
 import com.belatrixsf.connect.ui.stars.StarsListActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.DialogUtils;
+import com.belatrixsf.connect.utils.SnackbarUtils;
 import com.belatrixsf.connect.utils.di.modules.presenters.AccountPresenterModule;
 import com.belatrixsf.connect.utils.media.ImageFactory;
 import com.belatrixsf.connect.utils.media.loaders.ImageLoader;
@@ -91,9 +94,11 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     @Bind(R.id.account_swipe_refresh) SwipeRefreshLayout accountSwipeRefresh;
     @Bind(R.id.subcategories_progress_bar) ProgressBar subCategoriesProgressBar;
     @Bind(R.id.no_data_textview) TextView noDataTextView;
+    @Bind(R.id.main_coordinator) CoordinatorLayout coordinatorLayout;
 
     private MenuItem recommendMenuItem;
     private MenuItem editProfileMenuItem;
+    private MenuItem editSkillsMenuItem;
 
     public static AccountFragment newInstance(Integer userId, byte[] imgBitmap) {
         Bundle bundle = new Bundle();
@@ -173,6 +178,7 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
         inflater.inflate(R.menu.menu_account, menu);
         recommendMenuItem = menu.findItem(R.id.action_recommend);
         editProfileMenuItem = menu.findItem(R.id.action_edit_profile);
+        editSkillsMenuItem = menu.findItem(R.id.action_edit_skills);
         accountPresenter.checkRecommendationEnabled();
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -185,6 +191,9 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
                 return true;
             case R.id.action_edit_profile:
                 accountPresenter.startEditProfile();
+                return true;
+            case R.id.action_edit_skills:
+                accountPresenter.startEditSkills();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -292,7 +301,8 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
                                 startPostponedEnterTransition();
                             }
                         },
-                        getResources().getDrawable(R.drawable.contact_placeholder)
+                        getResources().getDrawable(R.drawable.contact_placeholder),
+                        ImageLoader.ScaleType.CENTER_CROP
                 );
             } else {
                 ImageFactory.getLoader().loadFromBitmap(
@@ -310,7 +320,8 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
                                 startPostponedEnterTransition();
                             }
                         },
-                        getResources().getDrawable(R.drawable.contact_placeholder)
+                        getResources().getDrawable(R.drawable.contact_placeholder),
+                        ImageLoader.ScaleType.CENTER_CROP
                 );
             }
         }
@@ -358,12 +369,24 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     }
 
     @Override
+    public void showEditSkillsButton(boolean show) {
+        if (editSkillsMenuItem != null) {
+            editSkillsMenuItem.setVisible(show);
+        }
+    }
+
+    @Override
     public void goToEditProfile(Employee employee) {
         Intent intent = new Intent(getActivity(), EditAccountActivity.class);
         intent.putExtra(EditAccountFragment.IS_NEW_USER, false);
         ViewCompat.setTransitionName(pictureImageView, getActivity().getString(R.string.transition_photo));
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), pictureImageView, getActivity().getString(R.string.transition_photo));
         getActivity().startActivityForResult(intent, EditAccountFragment.RQ_EDIT_ACCOUNT, options.toBundle());
+    }
+
+    @Override
+    public void goToEditSkills() {
+        startActivity(SkillsListActivity.makeIntent(getActivity()));
     }
 
     @Override
@@ -377,10 +400,10 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RQ_GIVE_STAR && resultCode == Activity.RESULT_OK && data != null) {
-            DialogUtils.createInformationDialog(getActivity(), data.getStringExtra(GiveStarFragment.MESSAGE_KEY), getString(R.string.app_name), new DialogInterface.OnClickListener() {
+            SnackbarUtils.createInformationSnackBar(data.getStringExtra(GiveStarFragment.MESSAGE_KEY), getString(R.string.dialog_option_confirm), coordinatorLayout,new View.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    //Do Nothing
+                public void onClick(View v) {
+                    //nothing
                 }
             }).show();
         } else if (requestCode == EditAccountFragment.RQ_EDIT_ACCOUNT) {
@@ -413,8 +436,7 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     }
 
     @Override
-    public void showNoDataView(String message) {
-        noDataTextView.setText(message);
+    public void showNoDataView() {
         noDataTextView.setVisibility(View.VISIBLE);
     }
 
