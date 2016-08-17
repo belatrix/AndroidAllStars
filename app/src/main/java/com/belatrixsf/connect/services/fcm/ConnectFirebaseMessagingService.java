@@ -42,7 +42,6 @@ import java.util.Map;
 /**
  * Created by PedroCarrillo on 6/2/16.
  */
-
 public class ConnectFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";

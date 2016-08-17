@@ -26,7 +26,6 @@ import android.support.annotation.Nullable;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 
-
 /**
  * Created by icerrate on 09/06/2016.
  */

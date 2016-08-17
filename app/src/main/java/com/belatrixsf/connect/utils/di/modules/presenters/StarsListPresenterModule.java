@@ -25,7 +25,7 @@ import com.belatrixsf.connect.ui.stars.StarsListView;
 import dagger.Module;
 import dagger.Provides;
 
-/*
+/**
  * Created by icerrate on 25/04/2016.
  */
 @Module

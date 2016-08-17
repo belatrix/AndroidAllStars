@@ -8,7 +8,6 @@ import dagger.Provides;
 /**
  * Created by echuquilin on 5/08/16.
  */
-
 @Module
 public class SkillsListPresenterModule {
 
