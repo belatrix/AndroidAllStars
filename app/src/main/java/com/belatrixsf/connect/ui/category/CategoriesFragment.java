@@ -20,7 +20,6 @@
 */
 package com.belatrixsf.connect.ui.category;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;

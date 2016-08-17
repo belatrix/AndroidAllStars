@@ -20,7 +20,6 @@
 */
 package com.belatrixsf.connect.ui.stars;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;

@@ -19,6 +19,7 @@
 * SOFTWARE.
 */
 package com.belatrixsf.connect.utils;
+
 /**
  * Created by gyosida on 5/12/16.
  */
