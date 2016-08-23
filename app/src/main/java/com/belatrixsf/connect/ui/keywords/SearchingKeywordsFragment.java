@@ -57,6 +57,9 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 
+/**
+ * Created by gyosida on 5/9/16.
+ */
 public class SearchingKeywordsFragment extends BelatrixConnectFragment implements SearchingKeywordsView, KeywordsListAdapter.KeywordListener {
 
     private static final String KEYWORDS_KEY = "_keywords_key";
