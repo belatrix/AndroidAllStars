@@ -136,7 +136,7 @@ public class GiveStarPresenter extends BelatrixConnectPresenter<GiveStarView> {
         }
     }
 
-    public void load(Employee savedEmployee, String savedComment, SubCategory savedCategory, Keyword savedKeyword){
+    public void loadPresenterState(Employee savedEmployee, String savedComment, SubCategory savedCategory, Keyword savedKeyword){
         loadSelectedUser(savedEmployee);
         loadSelectedComment(savedComment);
         loadSelectedSubCategory(savedCategory);

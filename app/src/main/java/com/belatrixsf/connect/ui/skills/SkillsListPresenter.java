@@ -135,7 +135,7 @@ public class SkillsListPresenter extends BelatrixConnectPresenter<SkillsListView
         return skillsList;
     }
 
-    public void load(List<Keyword> skills, PaginatedResponse keywordsPaging) {
+    public void loadPresenterState(List<Keyword> skills, PaginatedResponse keywordsPaging) {
         if (skills != null) {
             this.skillsList.addAll(skills);
         }

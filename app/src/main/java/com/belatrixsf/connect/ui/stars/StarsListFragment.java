@@ -113,7 +113,7 @@ public class StarsListFragment extends BelatrixConnectFragment implements StarsL
         Integer employeeId = savedInstanceState.getInt(EMPLOYEE_ID_KEY);
         Integer subCategoryId = savedInstanceState.getInt(SUBCATEGORY_ID_KEY);
         PaginatedResponse paginatedResponse = savedInstanceState.getParcelable(PAGINATION_RESPONSE_KEY);
-        starsListPresenter.load(employeeId, subCategoryId, savedStars, paginatedResponse);
+        starsListPresenter.loadPresenterState(employeeId, subCategoryId, savedStars, paginatedResponse);
     }
 
     private void savePresenterState(Bundle outState) {

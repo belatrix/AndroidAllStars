@@ -101,7 +101,7 @@ public class NotificationListPresenter extends BelatrixConnectPresenter<Notifica
 
     // saving state stuff
 
-    public void load(List<Notification> notifications, PaginatedResponse notificationsPaging) {
+    public void loadPresenterState(List<Notification> notifications, PaginatedResponse notificationsPaging) {
         if (notifications != null) {
             this.notificationsList.addAll(notifications);
         }

@@ -121,7 +121,7 @@ public class GiveStarFragment extends BelatrixConnectFragment implements GiveSta
         String savedComment = savedInstanceState.getString(COMMENT_KEY);
         SubCategory savedCategory = savedInstanceState.getParcelable(SELECTED_CATEGORY_KEY);
         Keyword savedKeyword = savedInstanceState.getParcelable(SELECTED_KEYWORD_KEY);
-        giveStarPresenter.load(savedEmployee, savedComment, savedCategory, savedKeyword);
+        giveStarPresenter.loadPresenterState(savedEmployee, savedComment, savedCategory, savedKeyword);
     }
 
     private void savePresenterState(Bundle outState) {

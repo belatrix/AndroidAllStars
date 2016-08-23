@@ -93,7 +93,7 @@ public class AboutFragment extends BelatrixConnectFragment implements AboutView 
 
     private void restorePresenterState(Bundle savedInstanceState) {
         List<Collaborator> collaborators = savedInstanceState.getParcelableArrayList(COLLABORATORS_KEY);
-        aboutPresenter.load(collaborators);
+        aboutPresenter.loadPresenterState(collaborators);
     }
 
     private void savePresenterState(Bundle outState) {

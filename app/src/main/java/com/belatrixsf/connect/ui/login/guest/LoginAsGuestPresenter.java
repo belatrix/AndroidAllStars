@@ -42,7 +42,7 @@ public class LoginAsGuestPresenter extends BelatrixConnectPresenter<LoginAsGuest
         this.guestManager = guestManager;
     }
 
-    public void load(Guest guest) {
+    public void loadPresenterState(Guest guest) {
         this.guest = guest;
     }
 

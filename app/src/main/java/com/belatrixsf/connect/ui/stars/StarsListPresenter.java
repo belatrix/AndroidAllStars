@@ -65,7 +65,7 @@ public class StarsListPresenter extends BelatrixConnectPresenter<StarsListView> 
         return starsList;
     }
 
-    public void load(int employeeId, int subCategoryId, List<Star> stars, PaginatedResponse starPaginatedResponse) {
+    public void loadPresenterState(int employeeId, int subCategoryId, List<Star> stars, PaginatedResponse starPaginatedResponse) {
         if (stars != null) {
             this.starsList = stars;
         }

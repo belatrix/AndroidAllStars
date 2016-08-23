@@ -117,7 +117,7 @@ public class ContactsKeywordListFragment extends BelatrixConnectFragment impleme
         Keyword keyword = savedInstanceState.getParcelable(ContactsKeywordListActivity.KEYWORD_KEY);
         PaginatedResponse paginatedResponse = savedInstanceState.getParcelable(PAGINATED_RESPONSE_KEY);
         List<Employee> employeeList = savedInstanceState.getParcelableArrayList(EMPLOYEE_LIST_KEY);
-        contactsKeywordListPresenter.load(employeeList, paginatedResponse);
+        contactsKeywordListPresenter.loadPresenterState(employeeList, paginatedResponse);
         contactsKeywordListPresenter.setKeyword(keyword);
     }
 

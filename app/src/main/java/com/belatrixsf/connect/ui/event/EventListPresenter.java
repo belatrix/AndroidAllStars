@@ -127,7 +127,7 @@ public class EventListPresenter extends BelatrixConnectPresenter<EventListView> 
 
     // saving state stuff
 
-    public void load(List<Event> events, PaginatedResponse contactsPaging, String searchText, boolean searching) {
+    public void loadPresenterState(List<Event> events, PaginatedResponse contactsPaging, String searchText, boolean searching) {
         if (events != null) {
             this.eventsList.addAll(events);
         }

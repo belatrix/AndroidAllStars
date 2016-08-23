@@ -132,7 +132,7 @@ public class ContactsListPresenter extends BelatrixConnectPresenter<ContactsList
 
     // saving state stuff
 
-    public void load(List<Employee> contacts, PaginatedResponse contactsPaging, String searchText, boolean searching) {
+    public void loadPresenterState(List<Employee> contacts, PaginatedResponse contactsPaging, String searchText, boolean searching) {
         if (contacts != null) {
             this.contactsList.addAll(contacts);
         }

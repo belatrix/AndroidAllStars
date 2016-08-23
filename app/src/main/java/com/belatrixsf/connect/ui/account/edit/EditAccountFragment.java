@@ -143,7 +143,7 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
         boolean isCreation = savedInstanceState.getBoolean(IS_NEW_USER);
         List<Location> locations = savedInstanceState.getParcelableArrayList(LOCATIONS_KEY);
         File file = (File) savedInstanceState.getSerializable(FILE_KEY);
-        editAccountPresenter.load(employee, locationSelected, locations, isCreation, file);
+        editAccountPresenter.loadPresenterState(employee, locationSelected, locations, isCreation, file);
     }
 
     private void savePresenterState(Bundle outState) {

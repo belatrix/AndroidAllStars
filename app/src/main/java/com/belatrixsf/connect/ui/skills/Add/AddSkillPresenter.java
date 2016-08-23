@@ -223,7 +223,7 @@ public class AddSkillPresenter extends BelatrixConnectPresenter<AddSkillView> {
         return searching;
     }
 
-    public void load(List<Keyword> keywords, PaginatedResponse keywordsPaging, String searchText, boolean searching) {
+    public void loadPresenterState(List<Keyword> keywords, PaginatedResponse keywordsPaging, String searchText, boolean searching) {
         if (keywords != null) {
             this.keywordsList.addAll(keywords);
         }

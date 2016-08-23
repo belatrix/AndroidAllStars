@@ -156,7 +156,7 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
             eventDetailPresenter.setEmployeeId(employeeId);
         }
         eventDetailPresenter.setEventId(eventId);
-        eventDetailPresenter.load(event);
+        eventDetailPresenter.loadPresenterState(event);
     }
 
     private void savePresenterState(Bundle outState) {

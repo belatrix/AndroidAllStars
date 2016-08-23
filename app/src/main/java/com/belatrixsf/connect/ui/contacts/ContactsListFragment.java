@@ -148,7 +148,7 @@ public class ContactsListFragment extends BelatrixConnectFragment implements Con
         String searchText = savedInstanceState.getString(SEARCH_TEXT_KEY, null);
         boolean profileEnabled = savedInstanceState.getBoolean(ContactsListActivity.PROFILE_ENABLED_KEY);
         contactsListPresenter.setProfileEnabled(profileEnabled);
-        contactsListPresenter.load(contacts, paging, searchText, searching);
+        contactsListPresenter.loadPresenterState(contacts, paging, searchText, searching);
     }
 
     private void savePresenterState(Bundle outState) {

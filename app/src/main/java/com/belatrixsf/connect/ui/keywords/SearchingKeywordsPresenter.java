@@ -131,7 +131,7 @@ public class SearchingKeywordsPresenter extends BelatrixConnectPresenter<Searchi
 
     // saving state stuff
 
-    public void load(List<Keyword> keywords, PaginatedResponse keywordsPaging, String searchText, boolean searching) {
+    public void loadPresenterState(List<Keyword> keywords, PaginatedResponse keywordsPaging, String searchText, boolean searching) {
         if (keywords != null) {
             this.keywordsList.addAll(keywords);
         }

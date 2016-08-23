@@ -129,7 +129,7 @@ public class SearchingKeywordsFragment extends BelatrixConnectFragment implement
         PaginatedResponse paging = savedInstanceState.getParcelable(PAGING_KEY);
         String searchText = savedInstanceState.getString(SEARCH_TEXT_KEY, null);
         boolean searching = savedInstanceState.getBoolean(SEARCHING_KEY, false);
-        keywordsPresenter.load(keywords, paging, searchText, searching);
+        keywordsPresenter.loadPresenterState(keywords, paging, searchText, searching);
     }
 
     private void savePresenterState(Bundle outState) {

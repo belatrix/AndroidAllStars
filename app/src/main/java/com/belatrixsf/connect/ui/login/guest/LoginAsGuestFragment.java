@@ -172,7 +172,7 @@ public class LoginAsGuestFragment extends BelatrixConnectFragment implements Log
 
     private void restorePresenterState(Bundle savedInstanceState) {
         Guest guest = savedInstanceState.getParcelable(GUEST_KEY);
-        loginAsGuestPresenter.load(guest);
+        loginAsGuestPresenter.loadPresenterState(guest);
     }
 
     private void savePresenterState(Bundle outState) {

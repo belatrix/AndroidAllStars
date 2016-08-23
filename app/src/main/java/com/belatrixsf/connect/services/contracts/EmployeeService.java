@@ -40,18 +40,31 @@ import java.util.List;
 public interface EmployeeService extends BelatrixConnectService {
 
     ServiceRequest authenticate(String username, String password, BelatrixConnectCallback<AuthenticationResponse> callback);
+
     ServiceRequest createEmployee(String email, BelatrixConnectCallback<CreateEmployeeResponse> callback);
+
     ServiceRequest getEmployee(int employeeId, BelatrixConnectCallback<Employee> callback);
+
     ServiceRequest getEmployeeSearchList(String searchTerm, Integer page, BelatrixConnectCallback<PaginatedResponse<Employee>> callback);
+
     ServiceRequest getRankingList(String kind, int quantity, BelatrixConnectCallback<List<Employee>> callback);
+
     ServiceRequest getEmployeeCategories(int employeeId, BelatrixConnectCallback<List<Category>> callback);
+
     ServiceRequest updateEmployee(int employeeId, String firstName, String lastName, String skypeId, int locationId, BelatrixConnectCallback<Employee> callback);
+
     ServiceRequest getEmployeeLocations(BelatrixConnectCallback<List<Location>> callback);
+
     ServiceRequest getEmployeeNotifications(Integer page, BelatrixConnectCallback<PaginatedResponse<Notification>> callback);
+
     ServiceRequest updateEmployeeImage(int employeeId, File file, BelatrixConnectCallback<Employee> callback);
+
     ServiceRequest resetPassword(int employeeId, String oldPassword, String newPassword, BelatrixConnectCallback<Employee> callback);
+
     ServiceRequest requestNewPassword(String employeeEmail, BelatrixConnectCallback<RequestNewPasswordResponse> callback);
+
     ServiceRequest registerDevice(int employeeId, String deviceToken, BelatrixConnectCallback<Void> callback);
+
     ServiceRequest logout(BelatrixConnectCallback<Void> callback);
 
 }

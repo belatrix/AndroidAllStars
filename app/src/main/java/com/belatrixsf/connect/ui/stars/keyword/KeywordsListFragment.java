@@ -91,7 +91,7 @@ public class KeywordsListFragment extends BelatrixConnectFragment implements Key
 
     private void restorePresenterState(Bundle savedInstanceState) {
         List<Keyword> keywords = savedInstanceState.getParcelableArrayList(KEYWORDS_KEY);
-        keywordsListPresenter.load(keywords);
+        keywordsListPresenter.loadPresenterState(keywords);
     }
 
     private void savePresenterState(Bundle outState) {

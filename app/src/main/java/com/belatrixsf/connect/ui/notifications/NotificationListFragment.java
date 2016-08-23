@@ -103,7 +103,7 @@ public class NotificationListFragment extends BelatrixConnectFragment implements
     private void restorePresenterState(Bundle savedInstanceState) {
         List<Notification> notifications = savedInstanceState.getParcelableArrayList(NOTIFICATIONS_KEY);
         PaginatedResponse paging = savedInstanceState.getParcelable(PAGING_KEY);
-        notificationListPresenter.load(notifications, paging);
+        notificationListPresenter.loadPresenterState(notifications, paging);
     }
 
     private void savePresenterState(Bundle outState) {

@@ -133,7 +133,7 @@ public class CategoriesFragment extends BelatrixConnectFragment implements Categ
 
     private void restorePresenterState(Bundle savedInstanceState) {
         List<Category> savedCategories = savedInstanceState.getParcelableArrayList(CATEGORIES_KEY);
-        categoriesPresenter.load(savedCategories);
+        categoriesPresenter.loadPresenterState(savedCategories);
     }
 
     private void savePresenterState(Bundle outState) {

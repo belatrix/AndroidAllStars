@@ -78,7 +78,7 @@ public class AboutPresenter extends BelatrixConnectPresenter<AboutView> {
 
     // saving state stuff
 
-    public void load(List<Collaborator> collaboratorsList) {
+    public void loadPresenterState(List<Collaborator> collaboratorsList) {
         this.collaboratorsList = collaboratorsList;
     }
 

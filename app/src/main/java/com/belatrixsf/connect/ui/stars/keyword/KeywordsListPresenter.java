@@ -85,7 +85,7 @@ public class KeywordsListPresenter extends BelatrixConnectPresenter<KeywordsList
         }
     }
 
-    public void load(List<Keyword> keywords) {
+    public void loadPresenterState(List<Keyword> keywords) {
         if (keywords != null) {
             this.keywordsList.addAll(keywords);
         }

@@ -36,9 +36,13 @@ import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 public interface StarService extends BelatrixConnectService {
 
     ServiceRequest getEmployeeSubCategoriesStars(int employeeId, BelatrixConnectCallback<PaginatedResponse<SubCategory>> callback);
+
     ServiceRequest star(int fromEmployeeId, int toEmployeeId, StarRequest starRequest, BelatrixConnectCallback<StarResponse> callback);
+
     ServiceRequest getStarsByKeywords(String search, Integer next, BelatrixConnectCallback<PaginatedResponse<Keyword>> callback);
+
     ServiceRequest getStars(int employeeId, int subcategory, Integer page, BelatrixConnectCallback<PaginatedResponse<Star>> callback);
+
     ServiceRequest getStarsKeywordTopList(int keywordId, Integer page, BelatrixConnectCallback<PaginatedResponse<Employee>> callback);
 
 }

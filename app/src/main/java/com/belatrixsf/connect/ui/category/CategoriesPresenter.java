@@ -103,7 +103,7 @@ public class CategoriesPresenter extends BelatrixConnectPresenter<CategoriesView
         return categoriesList;
     }
 
-    public void load(List<Category> categories) {
+    public void loadPresenterState(List<Category> categories) {
         this.categoriesList = categories;
     }
 

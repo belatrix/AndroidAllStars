@@ -106,7 +106,7 @@ public class SkillsListFragment extends BelatrixConnectFragment implements Skill
     private void restorePresenterState(Bundle savedInstanceState) {
         List<Keyword> skills = savedInstanceState.getParcelableArrayList(SKILLS_KEY);
         PaginatedResponse paging = savedInstanceState.getParcelable(PAGING_KEY);
-        skillsListPresenter.load(skills, paging);
+        skillsListPresenter.loadPresenterState(skills, paging);
     }
 
     @Override

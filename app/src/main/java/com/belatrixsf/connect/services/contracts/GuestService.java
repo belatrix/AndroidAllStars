@@ -30,6 +30,7 @@ import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 public interface GuestService extends BelatrixConnectService {
 
     ServiceRequest authenticateGuest(Guest guest, BelatrixConnectCallback<Guest> callback);
+
     ServiceRequest getGuest(int guestId, BelatrixConnectCallback<Guest> callback);
 
 }

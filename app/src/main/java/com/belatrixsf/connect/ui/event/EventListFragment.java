@@ -133,7 +133,7 @@ public class EventListFragment extends BelatrixConnectFragment implements EventL
         boolean searching = savedInstanceState.getBoolean(SEARCHING_KEY, false);
         PaginatedResponse paging = savedInstanceState.getParcelable(PAGING_KEY);
         String searchText = savedInstanceState.getString(SEARCH_TEXT_KEY, null);
-        eventListPresenter.load(events, paging, searchText, searching);
+        eventListPresenter.loadPresenterState(events, paging, searchText, searching);
     }
 
     private void savePresenterState(Bundle outState) {
