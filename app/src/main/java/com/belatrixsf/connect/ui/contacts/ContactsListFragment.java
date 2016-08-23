@@ -111,7 +111,7 @@ public class ContactsListFragment extends BelatrixConnectFragment implements Con
         initViews();
         boolean hasArguments = (getArguments() != null && getArguments().containsKey(ContactsListActivity.PROFILE_ENABLED_KEY));
         if (savedInstanceState != null) {
-            restorePresenterState(savedInstanceState);
+            restoreState(savedInstanceState);
         } else if (hasArguments) {
             contactsListPresenter.setProfileEnabled(getArguments().getBoolean(ContactsListActivity.PROFILE_ENABLED_KEY));
         }
@@ -137,11 +137,11 @@ public class ContactsListFragment extends BelatrixConnectFragment implements Con
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        savePresenterState(outState);
+        saveState(outState);
         super.onSaveInstanceState(outState);
     }
 
-    private void restorePresenterState(Bundle savedInstanceState) {
+    private void restoreState(Bundle savedInstanceState) {
         List<Employee> contacts = savedInstanceState.getParcelableArrayList(CONTACTS_KEY);
         boolean searching = savedInstanceState.getBoolean(SEARCHING_KEY, false);
         PaginatedResponse paging = savedInstanceState.getParcelable(PAGING_KEY);
@@ -151,7 +151,7 @@ public class ContactsListFragment extends BelatrixConnectFragment implements Con
         contactsListPresenter.loadPresenterState(contacts, paging, searchText, searching);
     }
 
-    private void savePresenterState(Bundle outState) {
+    private void saveState(Bundle outState) {
         outState.putBoolean(ContactsListActivity.PROFILE_ENABLED_KEY, contactsListPresenter.getProfileEnabled());
         outState.putBoolean(SEARCHING_KEY, contactsListPresenter.isSearching());
         outState.putParcelable(PAGING_KEY, contactsListPresenter.getContactsPaging());

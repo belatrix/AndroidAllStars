@@ -91,11 +91,11 @@ public class SkillsListFragment extends BelatrixConnectFragment implements Skill
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        savePresenterState(outState);
+        saveState(outState);
         super.onSaveInstanceState(outState);
     }
 
-    private void savePresenterState(Bundle outState) {
+    private void saveState(Bundle outState) {
         outState.putParcelable(PAGING_KEY, skillsListPresenter.getSkillsPaging());
         List<Keyword> keywords = skillsListPresenter.getSkillsSync();
         if (keywords != null && keywords instanceof ArrayList) {
@@ -103,7 +103,7 @@ public class SkillsListFragment extends BelatrixConnectFragment implements Skill
         }
     }
 
-    private void restorePresenterState(Bundle savedInstanceState) {
+    private void restoreState(Bundle savedInstanceState) {
         List<Keyword> skills = savedInstanceState.getParcelableArrayList(SKILLS_KEY);
         PaginatedResponse paging = savedInstanceState.getParcelable(PAGING_KEY);
         skillsListPresenter.loadPresenterState(skills, paging);
@@ -121,7 +121,7 @@ public class SkillsListFragment extends BelatrixConnectFragment implements Skill
         super.onViewCreated(view, savedInstanceState);
         initViews();
         if (savedInstanceState != null) {
-            restorePresenterState(savedInstanceState);
+            restoreState(savedInstanceState);
         }
         skillsListPresenter.getSkills(PreferencesManager.get().getEmployeeId(),false);
     }

@@ -100,7 +100,7 @@ public class EventListFragment extends BelatrixConnectFragment implements EventL
         super.onViewCreated(view, savedInstanceState);
         initViews();
         if (savedInstanceState != null) {
-            restorePresenterState(savedInstanceState);
+            restoreState(savedInstanceState);
         }
         eventListPresenter.getEvents();
     }
@@ -124,11 +124,11 @@ public class EventListFragment extends BelatrixConnectFragment implements EventL
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        savePresenterState(outState);
+        saveState(outState);
         super.onSaveInstanceState(outState);
     }
 
-    private void restorePresenterState(Bundle savedInstanceState) {
+    private void restoreState(Bundle savedInstanceState) {
         List<Event> events = savedInstanceState.getParcelableArrayList(EVENTS_KEY);
         boolean searching = savedInstanceState.getBoolean(SEARCHING_KEY, false);
         PaginatedResponse paging = savedInstanceState.getParcelable(PAGING_KEY);
@@ -136,7 +136,7 @@ public class EventListFragment extends BelatrixConnectFragment implements EventL
         eventListPresenter.loadPresenterState(events, paging, searchText, searching);
     }
 
-    private void savePresenterState(Bundle outState) {
+    private void saveState(Bundle outState) {
         outState.putBoolean(SEARCHING_KEY, eventListPresenter.isSearching());
         outState.putParcelable(PAGING_KEY, eventListPresenter.getEventsPaging());
         outState.putString(SEARCH_TEXT_KEY, eventListPresenter.getSearchText());

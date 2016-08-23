@@ -110,7 +110,7 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
         Integer eventId;
         boolean hasArguments = (getArguments() != null && getArguments().containsKey(EventDetailActivity.EVENT_ID_KEY));
         if (savedInstanceState != null) {
-            restorePresenterState(savedInstanceState);
+            restoreState(savedInstanceState);
         } else if (hasArguments) {
             eventId = getArguments().getInt(EventDetailActivity.EVENT_ID_KEY);
             eventDetailPresenter.setEventId(eventId);
@@ -140,11 +140,11 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        savePresenterState(outState);
+        saveState(outState);
         super.onSaveInstanceState(outState);
     }
 
-    private void restorePresenterState(Bundle savedInstanceState) {
+    private void restoreState(Bundle savedInstanceState) {
         Event event = savedInstanceState.getParcelable(EVENT_KEY);
         Integer eventId = savedInstanceState.getInt(EVENT_ID_KEY, 0);
         if (savedInstanceState.containsKey(GUEST_ID_KEY)) {
@@ -159,7 +159,7 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
         eventDetailPresenter.loadPresenterState(event);
     }
 
-    private void savePresenterState(Bundle outState) {
+    private void saveState(Bundle outState) {
         outState.putInt(EVENT_ID_KEY, eventDetailPresenter.getEventId());
         outState.putParcelable(EVENT_KEY, eventDetailPresenter.getEvent());
         if (eventDetailPresenter.getGuestId() != null) {

@@ -96,7 +96,7 @@ public class SearchingKeywordsFragment extends BelatrixConnectFragment implement
         super.onViewCreated(view, savedInstanceState);
         initViews();
         if (savedInstanceState != null) {
-            restorePresenterState(savedInstanceState);
+            restoreState(savedInstanceState);
         }
         keywordsPresenter.getKeywords();
     }
@@ -120,11 +120,11 @@ public class SearchingKeywordsFragment extends BelatrixConnectFragment implement
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        savePresenterState(outState);
+        saveState(outState);
         super.onSaveInstanceState(outState);
     }
 
-    private void restorePresenterState(Bundle savedInstanceState) {
+    private void restoreState(Bundle savedInstanceState) {
         List<Keyword> keywords = savedInstanceState.getParcelableArrayList(KEYWORDS_KEY);
         PaginatedResponse paging = savedInstanceState.getParcelable(PAGING_KEY);
         String searchText = savedInstanceState.getString(SEARCH_TEXT_KEY, null);
@@ -132,7 +132,7 @@ public class SearchingKeywordsFragment extends BelatrixConnectFragment implement
         keywordsPresenter.loadPresenterState(keywords, paging, searchText, searching);
     }
 
-    private void savePresenterState(Bundle outState) {
+    private void saveState(Bundle outState) {
         outState.putString(SEARCH_TEXT_KEY, keywordsPresenter.getSearchText());
         outState.putParcelable(PAGING_KEY, keywordsPresenter.getKeywordsPaging());
         outState.putBoolean(SEARCHING_KEY, keywordsPresenter.isSearching());

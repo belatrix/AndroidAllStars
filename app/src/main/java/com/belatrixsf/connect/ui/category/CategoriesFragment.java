@@ -96,7 +96,7 @@ public class CategoriesFragment extends BelatrixConnectFragment implements Categ
         super.onViewCreated(view, savedInstanceState);
         initViews();
         if (savedInstanceState != null) {
-            restorePresenterState(savedInstanceState);
+            restoreState(savedInstanceState);
         }
         categoriesPresenter.init();
         categoriesPresenter.getCategories();
@@ -104,7 +104,7 @@ public class CategoriesFragment extends BelatrixConnectFragment implements Categ
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        savePresenterState(outState);
+        saveState(outState);
         super.onSaveInstanceState(outState);
     }
 
@@ -131,12 +131,12 @@ public class CategoriesFragment extends BelatrixConnectFragment implements Categ
         return null;
     }
 
-    private void restorePresenterState(Bundle savedInstanceState) {
+    private void restoreState(Bundle savedInstanceState) {
         List<Category> savedCategories = savedInstanceState.getParcelableArrayList(CATEGORIES_KEY);
         categoriesPresenter.loadPresenterState(savedCategories);
     }
 
-    private void savePresenterState(Bundle outState) {
+    private void saveState(Bundle outState) {
         List<Category> forSavingCategories = categoriesPresenter.forSavingCategories();
         if (forSavingCategories != null && forSavingCategories instanceof ArrayList) {
             outState.putParcelableArrayList(CATEGORIES_KEY, (ArrayList<Category>) forSavingCategories);

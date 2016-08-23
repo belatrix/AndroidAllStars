@@ -94,7 +94,7 @@ public class StarsListFragment extends BelatrixConnectFragment implements StarsL
         initViews();
         boolean hasArguments = (getArguments() != null && getArguments().containsKey(StarsListActivity.USER_ID) && getArguments().containsKey(StarsListActivity.SUBCATEGORY_ID));
         if (savedInstanceState != null) {
-            restorePresenterState(savedInstanceState);
+            restoreState(savedInstanceState);
         } else if (hasArguments) {
             Integer userId = getArguments().getInt(StarsListActivity.USER_ID);
             Integer categoryId = getArguments().getInt(StarsListActivity.SUBCATEGORY_ID);
@@ -104,11 +104,11 @@ public class StarsListFragment extends BelatrixConnectFragment implements StarsL
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        savePresenterState(outState);
+        saveState(outState);
         super.onSaveInstanceState(outState);
     }
 
-    private void restorePresenterState(Bundle savedInstanceState) {
+    private void restoreState(Bundle savedInstanceState) {
         List<Star> savedStars = savedInstanceState.getParcelableArrayList(STARS_KEY);
         Integer employeeId = savedInstanceState.getInt(EMPLOYEE_ID_KEY);
         Integer subCategoryId = savedInstanceState.getInt(SUBCATEGORY_ID_KEY);
@@ -116,7 +116,7 @@ public class StarsListFragment extends BelatrixConnectFragment implements StarsL
         starsListPresenter.loadPresenterState(employeeId, subCategoryId, savedStars, paginatedResponse);
     }
 
-    private void savePresenterState(Bundle outState) {
+    private void saveState(Bundle outState) {
         List<Star> forSavingStars = starsListPresenter.getLoadedStars();
         if (forSavingStars != null && forSavingStars instanceof ArrayList) {
             outState.putParcelableArrayList(STARS_KEY, (ArrayList<Star>) forSavingStars);

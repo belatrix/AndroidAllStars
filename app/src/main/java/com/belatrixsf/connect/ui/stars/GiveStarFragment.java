@@ -103,7 +103,7 @@ public class GiveStarFragment extends BelatrixConnectFragment implements GiveSta
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (savedInstanceState != null) {
-            restorePresenterState(savedInstanceState);
+            restoreState(savedInstanceState);
         } else if (getArguments() != null && getArguments().containsKey(SELECTED_USER_KEY)) {
             Employee employee = getArguments().getParcelable(SELECTED_USER_KEY);
             giveStarPresenter.initWithUser(employee);
@@ -112,11 +112,11 @@ public class GiveStarFragment extends BelatrixConnectFragment implements GiveSta
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        savePresenterState(outState);
+        saveState(outState);
         super.onSaveInstanceState(outState);
     }
 
-    private void restorePresenterState(Bundle savedInstanceState) {
+    private void restoreState(Bundle savedInstanceState) {
         Employee savedEmployee = savedInstanceState.getParcelable(SELECTED_USER_KEY);
         String savedComment = savedInstanceState.getString(COMMENT_KEY);
         SubCategory savedCategory = savedInstanceState.getParcelable(SELECTED_CATEGORY_KEY);
@@ -124,7 +124,7 @@ public class GiveStarFragment extends BelatrixConnectFragment implements GiveSta
         giveStarPresenter.loadPresenterState(savedEmployee, savedComment, savedCategory, savedKeyword);
     }
 
-    private void savePresenterState(Bundle outState) {
+    private void saveState(Bundle outState) {
         Employee selectedEmployee = giveStarPresenter.getSelectedEmployee();
         String selectedComment = giveStarPresenter.getSelectedComment();
         Category selectedSubCategory = giveStarPresenter.getSelectedSubCategory();

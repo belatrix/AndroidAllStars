@@ -89,24 +89,24 @@ public class NotificationListFragment extends BelatrixConnectFragment implements
         super.onViewCreated(view, savedInstanceState);
         initViews();
         if (savedInstanceState != null) {
-            restorePresenterState(savedInstanceState);
+            restoreState(savedInstanceState);
         }
         notificationListPresenter.getNotifications();
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        savePresenterState(outState);
+        saveState(outState);
         super.onSaveInstanceState(outState);
     }
 
-    private void restorePresenterState(Bundle savedInstanceState) {
+    private void restoreState(Bundle savedInstanceState) {
         List<Notification> notifications = savedInstanceState.getParcelableArrayList(NOTIFICATIONS_KEY);
         PaginatedResponse paging = savedInstanceState.getParcelable(PAGING_KEY);
         notificationListPresenter.loadPresenterState(notifications, paging);
     }
 
-    private void savePresenterState(Bundle outState) {
+    private void saveState(Bundle outState) {
         outState.putParcelable(PAGING_KEY, notificationListPresenter.getNotificationsPaging());
         List<Notification> notifications = notificationListPresenter.getNotificationsSync();
         if (notifications != null && notifications instanceof ArrayList) {

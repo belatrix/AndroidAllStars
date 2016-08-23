@@ -78,23 +78,23 @@ public class KeywordsListFragment extends BelatrixConnectFragment implements Key
         super.onViewCreated(view, savedInstanceState);
         initViews();
         if (savedInstanceState != null) {
-            restorePresenterState(savedInstanceState);
+            restoreState(savedInstanceState);
         }
         keywordsListPresenter.getKeywords();
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        savePresenterState(outState);
+        saveState(outState);
         super.onSaveInstanceState(outState);
     }
 
-    private void restorePresenterState(Bundle savedInstanceState) {
+    private void restoreState(Bundle savedInstanceState) {
         List<Keyword> keywords = savedInstanceState.getParcelableArrayList(KEYWORDS_KEY);
         keywordsListPresenter.loadPresenterState(keywords);
     }
 
-    private void savePresenterState(Bundle outState) {
+    private void saveState(Bundle outState) {
         List<Keyword> keywords = keywordsListPresenter.getKeywordsSync();
         if (keywords != null && keywords instanceof ArrayList) {
             outState.putParcelableArrayList(KEYWORDS_KEY, (ArrayList<Keyword>) keywords);

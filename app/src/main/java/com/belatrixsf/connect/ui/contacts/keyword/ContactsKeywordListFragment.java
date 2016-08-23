@@ -91,7 +91,7 @@ public class ContactsKeywordListFragment extends BelatrixConnectFragment impleme
         initViews();
         boolean hasArguments = (getArguments() != null && getArguments().containsKey(ContactsKeywordListActivity.KEYWORD_KEY));
         if (savedInstanceState != null) {
-            restorePresenterState(savedInstanceState);
+            restoreState(savedInstanceState);
         } else if (hasArguments) {
             Keyword keyword = getArguments().getParcelable(ContactsKeywordListActivity.KEYWORD_KEY);
             contactsKeywordListPresenter.init(keyword);
@@ -100,11 +100,11 @@ public class ContactsKeywordListFragment extends BelatrixConnectFragment impleme
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        savePresenterState(outState);
+        saveState(outState);
         super.onSaveInstanceState(outState);
     }
 
-    private void savePresenterState(Bundle outState) {
+    private void saveState(Bundle outState) {
         Keyword keyword = contactsKeywordListPresenter.getKeyword();
         PaginatedResponse paginatedResponse = contactsKeywordListPresenter.getStarPaginatedResponse();
         List<Employee> employeeList = contactsKeywordListPresenter.getEmployeeList();
@@ -113,7 +113,7 @@ public class ContactsKeywordListFragment extends BelatrixConnectFragment impleme
         outState.putParcelableArrayList(EMPLOYEE_LIST_KEY, new ArrayList<>(employeeList));
     }
 
-    private void restorePresenterState(Bundle savedInstanceState) {
+    private void restoreState(Bundle savedInstanceState) {
         Keyword keyword = savedInstanceState.getParcelable(ContactsKeywordListActivity.KEYWORD_KEY);
         PaginatedResponse paginatedResponse = savedInstanceState.getParcelable(PAGINATED_RESPONSE_KEY);
         List<Employee> employeeList = savedInstanceState.getParcelableArrayList(EMPLOYEE_LIST_KEY);

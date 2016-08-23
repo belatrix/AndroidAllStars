@@ -123,7 +123,7 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (savedInstanceState != null) {
-            restorePresenterState(savedInstanceState);
+            restoreState(savedInstanceState);
         } else if (getArguments() != null && getArguments().containsKey(IS_NEW_USER)) {
             boolean isNewUser = getArguments().getBoolean(IS_NEW_USER);
             editAccountPresenter.init(isNewUser);
@@ -133,11 +133,11 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        savePresenterState(outState);
+        saveState(outState);
         super.onSaveInstanceState(outState);
     }
 
-    private void restorePresenterState(Bundle savedInstanceState) {
+    private void restoreState(Bundle savedInstanceState) {
         Employee employee = savedInstanceState.getParcelable(EMPLOYEE_KEY);
         Location locationSelected = savedInstanceState.getParcelable(LOCATION_KEY);
         boolean isCreation = savedInstanceState.getBoolean(IS_NEW_USER);
@@ -146,7 +146,7 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
         editAccountPresenter.loadPresenterState(employee, locationSelected, locations, isCreation, file);
     }
 
-    private void savePresenterState(Bundle outState) {
+    private void saveState(Bundle outState) {
         Employee employee = editAccountPresenter.getEmployee();
         Location locationSelected = editAccountPresenter.getLocationSelected();
         List<Location> locations = editAccountPresenter.getLocationList();

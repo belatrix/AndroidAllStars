@@ -80,23 +80,23 @@ public class AboutFragment extends BelatrixConnectFragment implements AboutView 
         super.onViewCreated(view, savedInstanceState);
         initViews();
         if (savedInstanceState != null) {
-            restorePresenterState(savedInstanceState);
+            restoreState(savedInstanceState);
         }
         aboutPresenter.getContacts();
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        savePresenterState(outState);
+        saveState(outState);
         super.onSaveInstanceState(outState);
     }
 
-    private void restorePresenterState(Bundle savedInstanceState) {
+    private void restoreState(Bundle savedInstanceState) {
         List<Collaborator> collaborators = savedInstanceState.getParcelableArrayList(COLLABORATORS_KEY);
         aboutPresenter.loadPresenterState(collaborators);
     }
 
-    private void savePresenterState(Bundle outState) {
+    private void saveState(Bundle outState) {
         List<Collaborator> collaborators = aboutPresenter.getCollaboratorsSync();
         if (collaborators != null && collaborators instanceof ArrayList) {
             outState.putParcelableArrayList(COLLABORATORS_KEY, (ArrayList<Collaborator>) collaborators);
