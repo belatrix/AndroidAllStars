@@ -41,7 +41,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-
 /**
  * Created by icerrate on 13/06/2016.
  */
@@ -129,4 +128,5 @@ public class EventListAdapter extends LoadMoreBaseAdapter<Event> {
             }
         }
     }
+
 }

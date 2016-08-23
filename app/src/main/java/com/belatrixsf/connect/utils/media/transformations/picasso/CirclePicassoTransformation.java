@@ -38,4 +38,5 @@ public class CirclePicassoTransformation implements Transformation {
     public String key() {
         return "circlePicasso()";
     }
+
 }

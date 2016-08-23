@@ -82,6 +82,10 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     private AccountSubCategoriesAdapter accountCategoriesAdapter;
     private AccountFragmentListener accountFragmentListener;
 
+    private MenuItem recommendMenuItem;
+    private MenuItem editProfileMenuItem;
+    private MenuItem editSkillsMenuItem;
+
     @Bind(R.id.account_recommendations) RecyclerView recommendationRecyclerView;
     @Bind(R.id.skype_id) TextView skypeIdTextView;
     @Bind(R.id.current_month_score) TextView currentMonthScoreTextView;
@@ -95,10 +99,6 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     @Bind(R.id.subcategories_progress_bar) ProgressBar subCategoriesProgressBar;
     @Bind(R.id.no_data_textview) TextView noDataTextView;
     @Bind(R.id.main_coordinator) CoordinatorLayout coordinatorLayout;
-
-    private MenuItem recommendMenuItem;
-    private MenuItem editProfileMenuItem;
-    private MenuItem editSkillsMenuItem;
 
     public static AccountFragment newInstance(Integer userId, byte[] imgBitmap) {
         Bundle bundle = new Bundle();
@@ -483,4 +483,5 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
         accountPresenter.cancelRequests();
         super.onDestroyView();
     }
+
 }

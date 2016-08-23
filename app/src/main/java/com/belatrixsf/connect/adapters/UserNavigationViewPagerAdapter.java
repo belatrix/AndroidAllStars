@@ -78,4 +78,5 @@ public class UserNavigationViewPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return NUM_TABS;
     }
+
 }

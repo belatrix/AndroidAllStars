@@ -20,7 +20,6 @@
 */
 package com.belatrixsf.connect.ui.notifications;
 
-
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -176,4 +175,5 @@ public class NotificationListFragment extends BelatrixConnectFragment implements
     public void hideNoDataView() {
         noDataTextView.setVisibility(View.GONE);
     }
+
 }

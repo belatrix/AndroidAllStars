@@ -164,4 +164,5 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
             eventService.unregisterParticipant(eventId, guestId, eventDetailCallback);
         }
     }
+
 }

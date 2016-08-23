@@ -83,4 +83,5 @@ public class RetrofitCallback<T> implements Callback<T> {
         }
         callback.onFailure(serviceError);
     }
+
 }

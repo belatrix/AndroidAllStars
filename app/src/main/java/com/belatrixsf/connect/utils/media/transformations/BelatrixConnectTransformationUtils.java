@@ -89,4 +89,5 @@ public class BelatrixConnectTransformationUtils {
         canvas.drawCircle(radius + halfStrokeWidth, radius + halfStrokeWidth, radius, paint);
         return output;
     }
+
 }

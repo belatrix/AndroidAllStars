@@ -33,7 +33,6 @@ import com.twitter.sdk.android.core.TwitterAuthConfig;
 
 import io.fabric.sdk.android.Fabric;
 
-
 /**
  * Created by gyosida on 4/12/16.
  */

@@ -34,7 +34,6 @@ import javax.inject.Inject;
 public class LoginAsGuestPresenter extends BelatrixConnectPresenter<LoginAsGuestView> {
 
     private GuestManager guestManager;
-
     private Guest guest;
 
     @Inject
@@ -43,7 +42,7 @@ public class LoginAsGuestPresenter extends BelatrixConnectPresenter<LoginAsGuest
         this.guestManager = guestManager;
     }
 
-    public void setGuestData(Guest guest) {
+    public void load(Guest guest) {
         this.guest = guest;
     }
 

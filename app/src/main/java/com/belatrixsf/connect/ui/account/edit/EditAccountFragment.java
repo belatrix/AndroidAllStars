@@ -89,15 +89,15 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
     public static final String IS_NEW_USER = "_is_creation_key";
     public static final String FILE_KEY = "_selected_file_key";
 
+    private EditAccountPresenter editAccountPresenter;
+    private String profilePicturePath;
+
     @Bind(R.id.profile_picture) ImageView pictureImageView;
     @Bind(R.id.firstName) EditText firstNameEditText;
     @Bind(R.id.lastName) EditText lastNameEditText;
     @Bind(R.id.skypeId) EditText skypeIdEditText;
     @Bind(R.id.locationRadioGroup) RadioGroup locationRadioGroup;
     @Bind(R.id.edit_image) ImageView editPictureImageView;
-
-    private EditAccountPresenter editAccountPresenter;
-    private String profilePicturePath;
 
     public static EditAccountFragment newInstance(boolean isNewUser) {
         Bundle bundle = new Bundle();
@@ -123,7 +123,7 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (savedInstanceState != null) {
-            restoreState(savedInstanceState);
+            restorePresenterState(savedInstanceState);
         } else if (getArguments() != null && getArguments().containsKey(IS_NEW_USER)) {
             boolean isNewUser = getArguments().getBoolean(IS_NEW_USER);
             editAccountPresenter.init(isNewUser);
@@ -133,20 +133,20 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        saveState(outState);
+        savePresenterState(outState);
         super.onSaveInstanceState(outState);
     }
 
-    private void restoreState(Bundle savedInstanceState) {
+    private void restorePresenterState(Bundle savedInstanceState) {
         Employee employee = savedInstanceState.getParcelable(EMPLOYEE_KEY);
         Location locationSelected = savedInstanceState.getParcelable(LOCATION_KEY);
         boolean isCreation = savedInstanceState.getBoolean(IS_NEW_USER);
         List<Location> locations = savedInstanceState.getParcelableArrayList(LOCATIONS_KEY);
         File file = (File) savedInstanceState.getSerializable(FILE_KEY);
-        editAccountPresenter.loadData(employee, locationSelected, locations, isCreation, file);
+        editAccountPresenter.load(employee, locationSelected, locations, isCreation, file);
     }
 
-    private void saveState(Bundle outState) {
+    private void savePresenterState(Bundle outState) {
         Employee employee = editAccountPresenter.getEmployee();
         Location locationSelected = editAccountPresenter.getLocationSelected();
         List<Location> locations = editAccountPresenter.getLocationList();
@@ -418,4 +418,5 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
         startActivity(UserActivity.makeIntent(getActivity()));
         fragmentListener.closeActivity();
     }
+
 }

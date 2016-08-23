@@ -20,14 +20,12 @@
 */
 package com.belatrixsf.connect.services;
 
-
 import com.belatrixsf.connect.services.contracts.BelatrixConnectService;
 import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 import com.belatrixsf.connect.utils.ServiceError;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * @author Carlos Piñan

@@ -45,8 +45,7 @@ public class EventDetailActivity extends BelatrixConnectActivity implements Even
 
     public static final String EVENT_ID_KEY = "_event_id";
 
-    @Bind(R.id.event_picture)
-    ImageView pictureImageView;
+    @Bind(R.id.event_picture) ImageView pictureImageView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

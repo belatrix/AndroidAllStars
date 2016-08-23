@@ -35,10 +35,10 @@ public class EventListActivity extends BelatrixConnectActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+        setNavigationToolbar();
         if (savedInstanceState == null) {
             replaceFragment(EventListFragment.newInstance(), false);
         }
-        setNavigationToolbar();
     }
 
 }

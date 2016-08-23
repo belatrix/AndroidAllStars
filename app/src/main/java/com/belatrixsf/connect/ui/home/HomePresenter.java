@@ -26,9 +26,7 @@ package com.belatrixsf.connect.ui.home;
 public interface HomePresenter {
 
     void wantToLogout();
-
     void confirmLogout();
-
     void loadEmployeeData();
 
 }

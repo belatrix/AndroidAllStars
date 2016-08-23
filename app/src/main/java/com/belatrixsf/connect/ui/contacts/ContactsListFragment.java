@@ -76,7 +76,6 @@ public class ContactsListFragment extends BelatrixConnectFragment implements Con
     private ImageView photoImageView;
 
     @Bind(R.id.employees) RecyclerView contactsRecyclerView;
-
     @Bind(R.id.no_data_textview) TextView noDataTextView;
 
     public static ContactsListFragment newInstance(boolean profileEnabled) {
@@ -281,4 +280,5 @@ public class ContactsListFragment extends BelatrixConnectFragment implements Con
         contactsListPresenter.cancelRequests();
         super.onDestroyView();
     }
+
 }

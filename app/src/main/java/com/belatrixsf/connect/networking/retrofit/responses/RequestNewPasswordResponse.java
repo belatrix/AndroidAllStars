@@ -43,4 +43,5 @@ public class RequestNewPasswordResponse {
     public String getResetPasswordCode() {
         return resetPasswordCode;
     }
+
 }

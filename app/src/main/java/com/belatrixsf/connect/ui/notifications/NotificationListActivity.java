@@ -35,10 +35,10 @@ public class NotificationListActivity extends BelatrixConnectActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+        setNavigationToolbar();
         if (savedInstanceState == null) {
             replaceFragment(NotificationListFragment.newInstance(), false);
         }
-        setNavigationToolbar();
     }
 
 }

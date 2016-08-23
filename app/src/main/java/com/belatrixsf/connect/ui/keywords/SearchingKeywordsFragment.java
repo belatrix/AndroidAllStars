@@ -59,10 +59,10 @@ import butterknife.Bind;
 
 public class SearchingKeywordsFragment extends BelatrixConnectFragment implements SearchingKeywordsView, KeywordsListAdapter.KeywordListener {
 
-    private static final String KEYWORDS_KEY = "keywords_key";
-    private static final String SEARCH_TEXT_KEY = "search_text_key";
-    private static final String PAGING_KEY = "paging_key";
-    private static final String SEARCHING_KEY = "searching_key";
+    private static final String KEYWORDS_KEY = "_keywords_key";
+    private static final String SEARCH_TEXT_KEY = "_search_text_key";
+    private static final String PAGING_KEY = "_paging_key";
+    private static final String SEARCHING_KEY = "_searching_key";
 
     private KeywordsListAdapter keywordsListAdapter;
     private EndlessRecyclerOnScrollListener endlessRecyclerOnScrollListener;

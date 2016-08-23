@@ -45,4 +45,5 @@ public class KeyboardUtils {
             inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
         }
     }
+
 }

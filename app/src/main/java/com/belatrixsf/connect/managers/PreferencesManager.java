@@ -30,13 +30,13 @@ import com.belatrixsf.connect.utils.BelatrixConnectApplication;
  */
 public class PreferencesManager {
 
-    private static final String TOKEN_KEY = "token_key";
-    private static final String EMPLOYEE_ID_KEY = "employee_id_key";
-    private static final String RESET_PASSWORD_KEY = "reset_password_key";
-    private static final String EDIT_PROFILE_KEY = "edit_profile_key";
-    private static final String GUEST_ID_KEY = "guest_id_key";
+    private static final String TOKEN_KEY = "_token_key";
+    private static final String EMPLOYEE_ID_KEY = "_employee_id_key";
+    private static final String RESET_PASSWORD_KEY = "_reset_password_key";
+    private static final String EDIT_PROFILE_KEY = "_edit_profile_key";
+    private static final String GUEST_ID_KEY = "_guest_id_key";
     private static final String DEVICE_TOKEN_ID = "_device_token_id";
-    private static final String NOTIFICATIONS_ENABLED_KEY = "settings_notifications_switch_key";
+    private static final String NOTIFICATIONS_ENABLED_KEY = "_settings_notifications_switch_key";
     private static PreferencesManager preferencesManager;
 
     private SharedPreferences sharedPreferences;
@@ -166,4 +166,5 @@ public class PreferencesManager {
     public void clearGuestSession() {
         clearGuestId();
     }
+
 }

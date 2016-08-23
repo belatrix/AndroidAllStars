@@ -26,7 +26,6 @@ import android.support.annotation.Nullable;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 
-
 /**
  * Created by icerrate on 09/06/2016.
  */
@@ -36,10 +35,10 @@ public class AboutActivity extends BelatrixConnectActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+        setNavigationToolbar();
         if (savedInstanceState == null) {
             replaceFragment(AboutFragment.newInstance(), false);
         }
-        setNavigationToolbar();
     }
 
 }

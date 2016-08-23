@@ -70,7 +70,7 @@ public class ContactsKeywordListPresenter extends BelatrixConnectPresenter<Conta
         getEmployeesByStarKeywords();
     }
 
-    public void setLoadedEmployeeList(List<Employee> employeeList, PaginatedResponse starPaginatedResponse) {
+    public void load(List<Employee> employeeList, PaginatedResponse starPaginatedResponse) {
         if (employeeList != null) {
             this.employeeList = employeeList;
         }
@@ -118,4 +118,5 @@ public class ContactsKeywordListPresenter extends BelatrixConnectPresenter<Conta
     public void cancelRequests() {
         starService.cancelAll();
     }
+
 }

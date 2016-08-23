@@ -40,7 +40,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-
 /**
  * Created by icerrate on 15/04/2016.
  */
@@ -125,4 +124,5 @@ public class ContactsListAdapter extends LoadMoreBaseAdapter<Employee> {
             }
         }
     }
+
 }

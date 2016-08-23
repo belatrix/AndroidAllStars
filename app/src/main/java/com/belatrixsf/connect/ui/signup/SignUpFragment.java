@@ -45,11 +45,11 @@ import butterknife.OnClick;
  */
 public class SignUpFragment extends BelatrixConnectFragment implements SignUpView {
 
+    private SignUpPresenter signUpPresenter;
+
     @Bind(R.id.email) EditText emailEditText;
     @Bind(R.id.send) Button sendButton;
     @Bind(R.id.toolbar) Toolbar toolbar;
-
-    private SignUpPresenter signUpPresenter;
 
     public SignUpFragment() {
         // Required empty public constructor

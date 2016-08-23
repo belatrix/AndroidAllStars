@@ -20,7 +20,6 @@
 */
 package com.belatrixsf.connect.ui.category;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -52,17 +51,15 @@ import butterknife.Bind;
  */
 public class CategoriesFragment extends BelatrixConnectFragment implements CategoriesView, CategoriesAdapter.CategoriesListListener {
 
-    private static final String CATEGORY_KEY = "category_key";
-    private static final String CATEGORIES_KEY = "categories_key";
+    private static final String CATEGORY_KEY = "_category_key";
+    private static final String CATEGORIES_KEY = "_categories_key";
 
     private SubcategorySelectionListener subcategorySelectionListener;
     private CategoriesAdapter categoriesAdapter;
 
-    @Inject
-    CategoriesPresenter categoriesPresenter;
+    @Inject CategoriesPresenter categoriesPresenter;
 
-    @Bind(R.id.categories)
-    RecyclerView categoriesRecyclerView;
+    @Bind(R.id.categories) RecyclerView categoriesRecyclerView;
 
     public CategoriesFragment() {
         // Required empty public constructor
@@ -99,7 +96,7 @@ public class CategoriesFragment extends BelatrixConnectFragment implements Categ
         super.onViewCreated(view, savedInstanceState);
         initViews();
         if (savedInstanceState != null) {
-            restoreState(savedInstanceState);
+            restorePresenterState(savedInstanceState);
         }
         categoriesPresenter.init();
         categoriesPresenter.getCategories();
@@ -107,7 +104,7 @@ public class CategoriesFragment extends BelatrixConnectFragment implements Categ
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        saveState(outState);
+        savePresenterState(outState);
         super.onSaveInstanceState(outState);
     }
 
@@ -134,12 +131,12 @@ public class CategoriesFragment extends BelatrixConnectFragment implements Categ
         return null;
     }
 
-    private void restoreState(Bundle savedInstanceState) {
+    private void restorePresenterState(Bundle savedInstanceState) {
         List<Category> savedCategories = savedInstanceState.getParcelableArrayList(CATEGORIES_KEY);
-        categoriesPresenter.loadSavedCategories(savedCategories);
+        categoriesPresenter.load(savedCategories);
     }
 
-    private void saveState(Bundle outState) {
+    private void savePresenterState(Bundle outState) {
         List<Category> forSavingCategories = categoriesPresenter.forSavingCategories();
         if (forSavingCategories != null && forSavingCategories instanceof ArrayList) {
             outState.putParcelableArrayList(CATEGORIES_KEY, (ArrayList<Category>) forSavingCategories);
@@ -188,4 +185,5 @@ public class CategoriesFragment extends BelatrixConnectFragment implements Categ
         categoriesPresenter.cancelRequests();
         super.onDestroyView();
     }
+
 }

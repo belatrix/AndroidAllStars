@@ -14,7 +14,6 @@ import dagger.Subcomponent;
 @Subcomponent(
         modules = SkillsListPresenterModule.class
 )
-
 public interface SkillsListComponent {
 
     SkillsListPresenter skillsListPresenter();

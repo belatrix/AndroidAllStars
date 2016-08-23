@@ -49,16 +49,14 @@ import butterknife.Bind;
  */
 public class KeywordsListFragment extends BelatrixConnectFragment implements KeywordsListView, KeywordsListAdapter.KeywordListener {
 
-    private static final String KEYWORDS_KEY = "keywords_key";
+    private static final String KEYWORDS_KEY = "_keywords_key";
 
     private KeywordsListAdapter keywordsListAdapter;
+
     @Bind(R.id.refresh_keywords) SwipeRefreshLayout keywordsRefreshLayout;
+    @Bind(R.id.keywords) RecyclerView keywords;
 
-    @Inject
-    KeywordsListPresenter keywordsListPresenter;
-
-    @Bind(R.id.keywords)
-    RecyclerView keywords;
+    @Inject KeywordsListPresenter keywordsListPresenter;
 
     public KeywordsListFragment() {
         // Required empty public constructor
@@ -175,4 +173,5 @@ public class KeywordsListFragment extends BelatrixConnectFragment implements Key
         keywordsListPresenter.cancelRequests();
         super.onDestroyView();
     }
+
 }

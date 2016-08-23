@@ -46,14 +46,14 @@ import butterknife.Bind;
 
 public abstract class MainActivity extends BelatrixConnectActivity implements HomeView {
 
+    ActionBarDrawerToggle actionBarDrawerToggle;
+
     @Inject HomePresenter homePresenter;
 
     @Bind(R.id.drawer) DrawerLayout drawerLayout;
     @Bind(R.id.navigation) NavigationView navigationView;
     @Bind(R.id.menu_logout) TextView menuLogoutTextView;
     @Bind(R.id.app_bar_layout) AppBarLayout appBarLayout;
-
-    ActionBarDrawerToggle actionBarDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

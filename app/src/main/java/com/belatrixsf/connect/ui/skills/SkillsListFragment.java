@@ -1,3 +1,23 @@
+/* The MIT License (MIT)
+* Copyright (c) 2016 BELATRIX
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software.
+
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*/
 package com.belatrixsf.connect.ui.skills;
 
 import android.content.DialogInterface;
@@ -38,8 +58,8 @@ import butterknife.Bind;
  */
 public class SkillsListFragment extends BelatrixConnectFragment implements SkillsListView, SkillListAdapter.KeywordListener {
 
-    private static final String SKILLS_KEY = "skills_key";
-    private static final String PAGING_KEY = "paging_skills_key";
+    private static final String SKILLS_KEY = "_skills_key";
+    private static final String PAGING_KEY = "_paging_skills_key";
 
     private static SkillsListPresenter skillsListPresenter;
     private SkillListAdapter skillListAdapter;
@@ -121,7 +141,7 @@ public class SkillsListFragment extends BelatrixConnectFragment implements Skill
             }
         };
         skillListAdapter = new SkillListAdapter();
-        skillListAdapter.setKeywordListener(this);
+        skillListAdapter.setSkillListListener(this);
         skillssRecyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);
         skillssRecyclerView.setAdapter(skillListAdapter);
         skillssRecyclerView.setLayoutManager(linearLayoutManager);
@@ -224,4 +244,5 @@ public class SkillsListFragment extends BelatrixConnectFragment implements Skill
     public void onKeywordSelected(int position) {
         skillsListPresenter.onSkillSelected(position);
     }
+
 }

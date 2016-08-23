@@ -50,4 +50,5 @@ public class ImageFactory {
                 return new GlideLoader();
         }
     }
+
 }

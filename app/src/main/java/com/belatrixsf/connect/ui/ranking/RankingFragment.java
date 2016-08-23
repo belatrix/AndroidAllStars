@@ -20,7 +20,6 @@
 */
 package com.belatrixsf.connect.ui.ranking;
 
-
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -58,6 +57,7 @@ public class RankingFragment extends BelatrixConnectFragment implements RankingV
     private RankingListAdapter rankingListAdapter;
 
     private ImageView photoImageView;
+
     @Bind(R.id.ranking) RecyclerView rankingRecyclerView;
     @Bind(R.id.progressBar) ProgressBar loadingProgressBar;
     @Bind(R.id.ranking_swipe_refresh) SwipeRefreshLayout rankingSwipeRefresh;
@@ -168,4 +168,5 @@ public class RankingFragment extends BelatrixConnectFragment implements RankingV
     public void hideNoDataView() {
         noDataTextView.setVisibility(View.GONE);
     }
+
 }

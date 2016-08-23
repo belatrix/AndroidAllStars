@@ -20,7 +20,6 @@
 */
 package com.belatrixsf.connect.ui.about;
 
-
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -50,8 +49,7 @@ public class AboutFragment extends BelatrixConnectFragment implements AboutView 
     private AboutPresenter aboutPresenter;
     private TeamListAdapter collaboratorListAdapter;
 
-    @Bind(R.id.collaborators)
-    RecyclerView collaboratorsRecyclerView;
+    @Bind(R.id.collaborators) RecyclerView collaboratorsRecyclerView;
 
     public static AboutFragment newInstance() {
         AboutFragment aboutFragment = new AboutFragment();
@@ -95,7 +93,7 @@ public class AboutFragment extends BelatrixConnectFragment implements AboutView 
 
     private void restorePresenterState(Bundle savedInstanceState) {
         List<Collaborator> collaborators = savedInstanceState.getParcelableArrayList(COLLABORATORS_KEY);
-        aboutPresenter.setCollaborators(collaborators);
+        aboutPresenter.load(collaborators);
     }
 
     private void savePresenterState(Bundle outState) {
@@ -127,4 +125,5 @@ public class AboutFragment extends BelatrixConnectFragment implements AboutView 
     public void resetList() {
         collaboratorListAdapter.reset();
     }
+
 }

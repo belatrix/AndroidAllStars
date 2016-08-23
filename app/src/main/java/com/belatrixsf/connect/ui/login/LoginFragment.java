@@ -20,7 +20,6 @@
 */
 package com.belatrixsf.connect.ui.login;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -53,14 +52,14 @@ import butterknife.OnClick;
 
 public class LoginFragment extends BelatrixConnectFragment implements LoginView {
 
+    private LoginPresenter loginPresenter;
+
     @Bind(R.id.username) EditText usernameEditText;
     @Bind(R.id.password) EditText passwordEditText;
     @Bind(R.id.log_in) Button logInButton;
     @Bind(R.id.log_in_as_guest) Button logInAsGuestButton;
     @Bind(R.id.forgot_password) TextView forgotPasswordButton;
     @Bind(R.id.sign_up) TextView signUpButton;
-
-    private LoginPresenter loginPresenter;
 
     public LoginFragment() {
         // Required empty public constructor

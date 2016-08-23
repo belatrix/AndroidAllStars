@@ -41,7 +41,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-
 /**
  * Created by icerrate on 20/06/2016.
  */

@@ -25,7 +25,6 @@ import android.content.Context;
 /**
  * @author Pedro Carrillo
  */
-
 public interface BelatrixConnectView {
 
     void showProgressIndicator();

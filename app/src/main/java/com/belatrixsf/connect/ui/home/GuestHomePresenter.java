@@ -65,4 +65,5 @@ public class GuestHomePresenter extends BelatrixConnectPresenter<HomeView> imple
             }
         });
     }
+
 }

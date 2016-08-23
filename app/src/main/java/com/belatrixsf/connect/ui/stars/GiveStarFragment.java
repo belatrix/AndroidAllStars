@@ -103,7 +103,7 @@ public class GiveStarFragment extends BelatrixConnectFragment implements GiveSta
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (savedInstanceState != null) {
-            restoreState(savedInstanceState);
+            restorePresenterState(savedInstanceState);
         } else if (getArguments() != null && getArguments().containsKey(SELECTED_USER_KEY)) {
             Employee employee = getArguments().getParcelable(SELECTED_USER_KEY);
             giveStarPresenter.initWithUser(employee);
@@ -112,22 +112,19 @@ public class GiveStarFragment extends BelatrixConnectFragment implements GiveSta
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        saveState(outState);
+        savePresenterState(outState);
         super.onSaveInstanceState(outState);
     }
 
-    private void restoreState(Bundle savedInstanceState) {
+    private void restorePresenterState(Bundle savedInstanceState) {
         Employee savedEmployee = savedInstanceState.getParcelable(SELECTED_USER_KEY);
         String savedComment = savedInstanceState.getString(COMMENT_KEY);
         SubCategory savedCategory = savedInstanceState.getParcelable(SELECTED_CATEGORY_KEY);
         Keyword savedKeyword = savedInstanceState.getParcelable(SELECTED_KEYWORD_KEY);
-        giveStarPresenter.loadSelectedUser(savedEmployee);
-        giveStarPresenter.loadSelectedComment(savedComment);
-        giveStarPresenter.loadSelectedSubCategory(savedCategory);
-        giveStarPresenter.loadSelectedKeyword(savedKeyword);
+        giveStarPresenter.load(savedEmployee, savedComment, savedCategory, savedKeyword);
     }
 
-    private void saveState(Bundle outState) {
+    private void savePresenterState(Bundle outState) {
         Employee selectedEmployee = giveStarPresenter.getSelectedEmployee();
         String selectedComment = giveStarPresenter.getSelectedComment();
         Category selectedSubCategory = giveStarPresenter.getSelectedSubCategory();
@@ -305,4 +302,5 @@ public class GiveStarFragment extends BelatrixConnectFragment implements GiveSta
         giveStarPresenter.cancelRequests();
         super.onDestroyView();
     }
+
 }

@@ -34,7 +34,7 @@ import javax.inject.Inject;
  */
 public class KeywordsListPresenter extends BelatrixConnectPresenter<KeywordsListView> {
 
-    private List<Keyword> keywords = new ArrayList<>();
+    private List<Keyword> keywordsList = new ArrayList<>();
     private CategoryService categoryService;
 
     @Inject
@@ -45,10 +45,10 @@ public class KeywordsListPresenter extends BelatrixConnectPresenter<KeywordsList
 
     public void getKeywords() {
         view.resetList();
-        if (keywords.isEmpty()) {
+        if (keywordsList.isEmpty()) {
             getKeywordsInternal();
         } else {
-            view.showKeywords(keywords);
+            view.showKeywords(keywordsList);
         }
     }
 
@@ -58,45 +58,46 @@ public class KeywordsListPresenter extends BelatrixConnectPresenter<KeywordsList
     }
 
     public void getKeywordsInternal() {
-        if (keywords.isEmpty()) {
+        if (keywordsList.isEmpty()) {
             view.showProgressIndicator();
             categoryService.getKeywords(new PresenterCallback<List<Keyword>>() {
                 @Override
                 public void onSuccess(List<Keyword> keywords) {
-                    KeywordsListPresenter.this.keywords.addAll(keywords);
+                    KeywordsListPresenter.this.keywordsList.addAll(keywords);
                     view.showKeywords(keywords);
                     view.hideProgressIndicator();
                 }
             });
         } else {
-            view.showKeywords(keywords);
+            view.showKeywords(keywordsList);
         }
     }
 
     private void reset() {
-        keywords.clear();
+        keywordsList.clear();
         view.resetList();
     }
 
     public void onKeywordSelected(int position) {
-        if (position >= 0 && position < keywords.size()) {
-            Keyword keyword = keywords.get(position);
+        if (position >= 0 && position < keywordsList.size()) {
+            Keyword keyword = keywordsList.get(position);
             view.deliverKeywordAsResult(keyword);
         }
     }
 
     public void load(List<Keyword> keywords) {
         if (keywords != null) {
-            this.keywords.addAll(keywords);
+            this.keywordsList.addAll(keywords);
         }
     }
 
     public List<Keyword> getKeywordsSync() {
-        return keywords;
+        return keywordsList;
     }
 
     @Override
     public void cancelRequests() {
         categoryService.cancelAll();
     }
+
 }

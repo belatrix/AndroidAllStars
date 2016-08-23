@@ -83,4 +83,5 @@ public class ResetPasswordPresenter extends BelatrixConnectPresenter<ResetPasswo
     public void cancelRequests() {
 
     }
+
 }

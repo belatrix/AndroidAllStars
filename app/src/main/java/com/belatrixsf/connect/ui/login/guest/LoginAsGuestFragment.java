@@ -72,11 +72,11 @@ public class LoginAsGuestFragment extends BelatrixConnectFragment implements Log
 
     public static final String GUEST_KEY = "_guest_key";
 
-    @Bind(R.id.toolbar) Toolbar toolbar;
-
     private LoginAsGuestPresenter loginAsGuestPresenter;
     private CallbackManager callbackManager;
     private TwitterAuthClient twitterAuthClient;
+
+    @Bind(R.id.toolbar) Toolbar toolbar;
 
     public LoginAsGuestFragment() {
         // Required empty public constructor
@@ -172,7 +172,7 @@ public class LoginAsGuestFragment extends BelatrixConnectFragment implements Log
 
     private void restorePresenterState(Bundle savedInstanceState) {
         Guest guest = savedInstanceState.getParcelable(GUEST_KEY);
-        loginAsGuestPresenter.setGuestData(guest);
+        loginAsGuestPresenter.load(guest);
     }
 
     private void savePresenterState(Bundle outState) {

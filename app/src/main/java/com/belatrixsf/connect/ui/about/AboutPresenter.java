@@ -34,7 +34,7 @@ import javax.inject.Inject;
  */
 public class AboutPresenter extends BelatrixConnectPresenter<AboutView> {
 
-    private List<Collaborator> collaborators = new ArrayList<>();
+    private List<Collaborator> collaboratorsList = new ArrayList<>();
 
     @Inject
     public AboutPresenter(AboutView view) {
@@ -44,27 +44,27 @@ public class AboutPresenter extends BelatrixConnectPresenter<AboutView> {
     public void getContacts() {
         view.resetList();
         prepareCollaborators();
-        view.addContacts(collaborators);
+        view.addContacts(collaboratorsList);
     }
 
     private void prepareCollaborators() {
-        collaborators = new ArrayList<>();
-        collaborators.add(new Collaborator("Antonella", "Manna", R.drawable.amanna));
-        collaborators.add(new Collaborator("Carlos", "Piñan", R.drawable.cpinan));
-        collaborators.add(new Collaborator("Eduardo", "Chuquilin", R.drawable.echuquilin));
-        collaborators.add(new Collaborator("Flavio", "Franco", R.drawable.ffranco));
-        collaborators.add(new Collaborator("Gianfranco", "Yosida", R.drawable.gyosida));
-        collaborators.add(new Collaborator("Gladys", "Cuzcano", R.drawable.gcuzcano));
-        collaborators.add(new Collaborator("Ivan", "Cerrate", R.drawable.icerrate));
-        collaborators.add(new Collaborator("Javier", "Valdivia", R.drawable.jvaldivia));
-        collaborators.add(new Collaborator("Jo", "Yep", R.drawable.jyep));
-        collaborators.add(new Collaborator("Jorge", "Boneu", R.drawable.jboneu));
-        collaborators.add(new Collaborator("Karla", "Cerron", R.drawable.kcerron));
-        collaborators.add(new Collaborator("Lucia", "Castro", R.drawable.lcastro));
-        collaborators.add(new Collaborator("Luis", "Barzola", R.drawable.lbarzola));
-        collaborators.add(new Collaborator("Pedro", "Carrillo", R.drawable.pcarrillo));
-        collaborators.add(new Collaborator("Rodrigo", "Gonzalez", R.drawable.rgonzalez));
-        collaborators.add(new Collaborator("Sergio", "Infante", R.drawable.sinfante));
+        collaboratorsList = new ArrayList<>();
+        collaboratorsList.add(new Collaborator("Antonella", "Manna", R.drawable.amanna));
+        collaboratorsList.add(new Collaborator("Carlos", "Piñan", R.drawable.cpinan));
+        collaboratorsList.add(new Collaborator("Eduardo", "Chuquilin", R.drawable.echuquilin));
+        collaboratorsList.add(new Collaborator("Flavio", "Franco", R.drawable.ffranco));
+        collaboratorsList.add(new Collaborator("Gianfranco", "Yosida", R.drawable.gyosida));
+        collaboratorsList.add(new Collaborator("Gladys", "Cuzcano", R.drawable.gcuzcano));
+        collaboratorsList.add(new Collaborator("Ivan", "Cerrate", R.drawable.icerrate));
+        collaboratorsList.add(new Collaborator("Javier", "Valdivia", R.drawable.jvaldivia));
+        collaboratorsList.add(new Collaborator("Jo", "Yep", R.drawable.jyep));
+        collaboratorsList.add(new Collaborator("Jorge", "Boneu", R.drawable.jboneu));
+        collaboratorsList.add(new Collaborator("Karla", "Cerron", R.drawable.kcerron));
+        collaboratorsList.add(new Collaborator("Lucia", "Castro", R.drawable.lcastro));
+        collaboratorsList.add(new Collaborator("Luis", "Barzola", R.drawable.lbarzola));
+        collaboratorsList.add(new Collaborator("Pedro", "Carrillo", R.drawable.pcarrillo));
+        collaboratorsList.add(new Collaborator("Rodrigo", "Gonzalez", R.drawable.rgonzalez));
+        collaboratorsList.add(new Collaborator("Sergio", "Infante", R.drawable.sinfante));
     }
 
     @Override
@@ -73,13 +73,13 @@ public class AboutPresenter extends BelatrixConnectPresenter<AboutView> {
     }
 
     public List<Collaborator> getCollaboratorsSync() {
-        return collaborators;
+        return collaboratorsList;
     }
 
     // saving state stuff
 
-    public void setCollaborators(List<Collaborator> collaborators) {
-        this.collaborators = collaborators;
+    public void load(List<Collaborator> collaboratorsList) {
+        this.collaboratorsList = collaboratorsList;
     }
 
 }

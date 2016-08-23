@@ -30,7 +30,6 @@ import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 
 import retrofit2.Call;
 
-
 /**
  * Created by icerrate on 22/06/2016.
  */

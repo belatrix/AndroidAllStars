@@ -37,6 +37,7 @@ import com.belatrixsf.connect.R;
  * Created by pedrocarrillo on 4/28/16.
  */
 public class ScrollAwareFABBehavior extends FloatingActionButton.Behavior {
+
     private static final Interpolator INTERPOLATOR = new FastOutSlowInInterpolator();
     private boolean mIsAnimatingOut = false;
 
@@ -97,4 +98,5 @@ public class ScrollAwareFABBehavior extends FloatingActionButton.Behavior {
                 .setInterpolator(INTERPOLATOR).withLayer().setListener(null)
                 .start();
     }
+
 }

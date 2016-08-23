@@ -20,7 +20,6 @@
 */
 package com.belatrixsf.connect.utils.di.modules.presenters;
 
-
 import com.belatrixsf.connect.managers.EmployeeManager;
 import com.belatrixsf.connect.ui.home.HomePresenter;
 import com.belatrixsf.connect.ui.home.HomeView;
@@ -45,4 +44,5 @@ public class UserHomePresenterModule {
     public HomePresenter provideGuestHomePresenter(EmployeeManager employeeManager) {
         return new UserHomePresenter(homeView, employeeManager);
     }
+
 }

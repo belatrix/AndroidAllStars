@@ -36,10 +36,10 @@ public class CategoriesActivity extends BelatrixConnectActivity implements Categ
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+        setNavigationToolbar();
         if (savedInstanceState == null) {
             replaceFragment(new CategoriesFragment(), false);
         }
-        setNavigationToolbar();
     }
 
     @Override
@@ -49,4 +49,5 @@ public class CategoriesActivity extends BelatrixConnectActivity implements Categ
         setResult(Activity.RESULT_OK, intent);
         finish();
     }
+
 }

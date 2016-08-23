@@ -20,7 +20,6 @@
 */
 package com.belatrixsf.connect.ui.resetpassword.request;
 
-
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -46,11 +45,11 @@ import butterknife.OnClick;
  */
 public class RequestNewPasswordFragment extends BelatrixConnectFragment implements RequestNewPasswordView {
 
+    private RequestNewPasswordPresenter requestNewPasswordPresenter;
+
     @Bind(R.id.email) EditText emailEditText;
     @Bind(R.id.new_password) Button requestButton;
     @Bind(R.id.toolbar) Toolbar toolbar;
-
-    private RequestNewPasswordPresenter requestNewPasswordPresenter;
 
     public RequestNewPasswordFragment() {
         // Required empty public constructor

@@ -68,4 +68,5 @@ public class SignUpPresenter extends BelatrixConnectPresenter<SignUpView> {
     public void cancelRequests() {
         employeeService.cancelAll();
     }
+
 }

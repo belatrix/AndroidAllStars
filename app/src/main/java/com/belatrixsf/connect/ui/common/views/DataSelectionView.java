@@ -164,4 +164,5 @@ public class DataSelectionView extends LinearLayout {
             }
         };
     }
+
 }

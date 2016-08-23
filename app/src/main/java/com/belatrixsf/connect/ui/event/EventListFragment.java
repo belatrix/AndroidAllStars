@@ -20,7 +20,6 @@
 */
 package com.belatrixsf.connect.ui.event;
 
-
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
@@ -71,7 +70,6 @@ public class EventListFragment extends BelatrixConnectFragment implements EventL
     private ImageView photoImageView;
 
     @Bind(R.id.events) RecyclerView eventsRecyclerView;
-
     @Bind(R.id.no_data_textview) TextView noDataTextView;
 
     public static EventListFragment newInstance() {
@@ -257,4 +255,5 @@ public class EventListFragment extends BelatrixConnectFragment implements EventL
         eventListPresenter.cancelRequests();
         super.onDestroyView();
     }
+
 }

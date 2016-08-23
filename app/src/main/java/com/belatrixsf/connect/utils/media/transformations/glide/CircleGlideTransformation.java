@@ -45,4 +45,5 @@ public class CircleGlideTransformation extends BitmapTransformation {
     public String getId() {
         return this.getClass().getName();
     }
+
 }

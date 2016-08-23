@@ -41,7 +41,7 @@ public class StarsListPresenter extends BelatrixConnectPresenter<StarsListView> 
     private int employeeId;
     private int subCategoryId;
     private PaginatedResponse starPaginatedResponse = new PaginatedResponse();
-    private List<Star> stars = new ArrayList<>();
+    private List<Star> starsList = new ArrayList<>();
 
     @Inject
     public StarsListPresenter(StarsListView view, StarService starService) {
@@ -62,12 +62,12 @@ public class StarsListPresenter extends BelatrixConnectPresenter<StarsListView> 
     }
 
     public List<Star> getLoadedStars() {
-        return stars;
+        return starsList;
     }
 
-    public void setLoadedStars(int employeeId, int subCategoryId, List<Star> stars, PaginatedResponse starPaginatedResponse) {
+    public void load(int employeeId, int subCategoryId, List<Star> stars, PaginatedResponse starPaginatedResponse) {
         if (stars != null) {
-            this.stars = stars;
+            this.starsList = stars;
         }
         this.employeeId = employeeId;
         this.subCategoryId = subCategoryId;
@@ -97,10 +97,10 @@ public class StarsListPresenter extends BelatrixConnectPresenter<StarsListView> 
                 new PresenterCallback<PaginatedResponse<Star>>() {
                     @Override
                     public void onSuccess(PaginatedResponse<Star> starsResponse) {
-                        stars.addAll(starsResponse.getResults());
+                        starsList.addAll(starsResponse.getResults());
                         starPaginatedResponse.setNext(starsResponse.getNext());
                         view.hideProgressIndicator();
-                        view.showStars(stars);
+                        view.showStars(starsList);
                     }
 
                     @Override
@@ -112,7 +112,7 @@ public class StarsListPresenter extends BelatrixConnectPresenter<StarsListView> 
     }
 
     public void onKeywordSelected(int position) {
-        Keyword keyword = stars.get(position).getKeyword();
+        Keyword keyword = starsList.get(position).getKeyword();
         view.goToKeywordContacts(keyword);
     }
 
@@ -120,4 +120,5 @@ public class StarsListPresenter extends BelatrixConnectPresenter<StarsListView> 
     public void cancelRequests() {
         starService.cancelAll();
     }
+
 }

@@ -37,7 +37,7 @@ import javax.inject.Inject;
 public class EventListPresenter extends BelatrixConnectPresenter<EventListView> {
 
     private EventService eventService;
-    private List<Event> events = new ArrayList<>();
+    private List<Event> eventsList = new ArrayList<>();
     private PaginatedResponse eventsPaging = new PaginatedResponse();
     private ServiceRequest searchingServiceRequest;
     private String searchText;
@@ -76,10 +76,10 @@ public class EventListPresenter extends BelatrixConnectPresenter<EventListView> 
 
     public void getEvents() {
         view.resetList();
-        if (events.isEmpty()) {
+        if (eventsList.isEmpty()) {
             getEventsInternal();
         } else {
-            view.addEvents(events);
+            view.addEvents(eventsList);
         }
     }
 
@@ -103,7 +103,7 @@ public class EventListPresenter extends BelatrixConnectPresenter<EventListView> 
                     public void onSuccess(PaginatedResponse<Event> eventListResponse) {
                         eventsPaging.setCount(eventListResponse.getCount());
                         eventsPaging.setNext(eventListResponse.getNext());
-                        events.addAll(eventListResponse.getResults());
+                        eventsList.addAll(eventListResponse.getResults());
                         if (!eventListResponse.getResults().isEmpty()) {
                             view.addEvents(eventListResponse.getResults());
                         } else {
@@ -120,7 +120,7 @@ public class EventListPresenter extends BelatrixConnectPresenter<EventListView> 
     }
 
     private void reset() {
-        events.clear();
+        eventsList.clear();
         view.resetList();
         eventsPaging.reset();
     }
@@ -129,7 +129,7 @@ public class EventListPresenter extends BelatrixConnectPresenter<EventListView> 
 
     public void load(List<Event> events, PaginatedResponse contactsPaging, String searchText, boolean searching) {
         if (events != null) {
-            this.events.addAll(events);
+            this.eventsList.addAll(events);
         }
         this.eventsPaging = contactsPaging;
         this.searchText = searchText;
@@ -148,7 +148,7 @@ public class EventListPresenter extends BelatrixConnectPresenter<EventListView> 
     }
 
     public List<Event> getEventsSync() {
-        return events;
+        return eventsList;
     }
 
     public boolean isSearching() {

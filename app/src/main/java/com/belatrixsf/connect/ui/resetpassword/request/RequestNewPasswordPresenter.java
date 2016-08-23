@@ -77,4 +77,5 @@ public class RequestNewPasswordPresenter extends BelatrixConnectPresenter<Reques
     public void cancelRequests() {
 
     }
+
 }

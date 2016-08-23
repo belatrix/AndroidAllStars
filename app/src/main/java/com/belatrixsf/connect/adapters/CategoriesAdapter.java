@@ -42,7 +42,7 @@ import butterknife.OnClick;
  */
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder> {
 
-    private List<Category> categories = new ArrayList<>();
+    private List<Category> categoriesList = new ArrayList<>();
     private CategoriesListListener categoriesListListener;
     private boolean areSubcategories = false;
 
@@ -54,14 +54,14 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
 
     @Override
     public void onBindViewHolder(CategoryViewHolder holder, int position) {
-        Category category = categories.get(position);
+        Category category = categoriesList.get(position);
         holder.categoryName.setText(category.getName());
         holder.chevronRight.setVisibility(areSubcategories ? View.INVISIBLE : View.VISIBLE);
     }
 
     @Override
     public int getItemCount() {
-        return categories.size();
+        return categoriesList.size();
     }
 
     public void setAreSubcategories(boolean areSubcategories) {
@@ -73,8 +73,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     }
 
     public void update(List<Category> categories) {
-        this.categories.clear();
-        this.categories.addAll(categories);
+        this.categoriesList.clear();
+        this.categoriesList.addAll(categories);
         notifyDataSetChanged();
     }
 
@@ -102,4 +102,5 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     public interface CategoriesListListener {
         void onCategorySelected(int position);
     }
+
 }

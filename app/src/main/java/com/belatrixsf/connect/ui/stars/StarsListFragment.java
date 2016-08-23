@@ -20,7 +20,6 @@
 */
 package com.belatrixsf.connect.ui.stars;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -59,8 +58,7 @@ public class StarsListFragment extends BelatrixConnectFragment implements StarsL
     private StarsListAdapter starsListAdapter;
     private EndlessRecyclerOnScrollListener endlessRecyclerOnScrollListener;
 
-    @Bind(R.id.stars)
-    RecyclerView starsRecyclerView;
+    @Bind(R.id.stars) RecyclerView starsRecyclerView;
 
     public static StarsListFragment newInstance(Integer userId, Integer categoryId) {
         Bundle bundle = new Bundle();
@@ -96,7 +94,7 @@ public class StarsListFragment extends BelatrixConnectFragment implements StarsL
         initViews();
         boolean hasArguments = (getArguments() != null && getArguments().containsKey(StarsListActivity.USER_ID) && getArguments().containsKey(StarsListActivity.SUBCATEGORY_ID));
         if (savedInstanceState != null) {
-            restoreState(savedInstanceState);
+            restorePresenterState(savedInstanceState);
         } else if (hasArguments) {
             Integer userId = getArguments().getInt(StarsListActivity.USER_ID);
             Integer categoryId = getArguments().getInt(StarsListActivity.SUBCATEGORY_ID);
@@ -106,19 +104,19 @@ public class StarsListFragment extends BelatrixConnectFragment implements StarsL
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        saveState(outState);
+        savePresenterState(outState);
         super.onSaveInstanceState(outState);
     }
 
-    private void restoreState(Bundle savedInstanceState) {
+    private void restorePresenterState(Bundle savedInstanceState) {
         List<Star> savedStars = savedInstanceState.getParcelableArrayList(STARS_KEY);
         Integer employeeId = savedInstanceState.getInt(EMPLOYEE_ID_KEY);
         Integer subCategoryId = savedInstanceState.getInt(SUBCATEGORY_ID_KEY);
         PaginatedResponse paginatedResponse = savedInstanceState.getParcelable(PAGINATION_RESPONSE_KEY);
-        starsListPresenter.setLoadedStars(employeeId, subCategoryId, savedStars, paginatedResponse);
+        starsListPresenter.load(employeeId, subCategoryId, savedStars, paginatedResponse);
     }
 
-    private void saveState(Bundle outState) {
+    private void savePresenterState(Bundle outState) {
         List<Star> forSavingStars = starsListPresenter.getLoadedStars();
         if (forSavingStars != null && forSavingStars instanceof ArrayList) {
             outState.putParcelableArrayList(STARS_KEY, (ArrayList<Star>) forSavingStars);
@@ -189,5 +187,6 @@ public class StarsListFragment extends BelatrixConnectFragment implements StarsL
         starsListPresenter.cancelRequests();
         super.onDestroyView();
     }
+
 }
 

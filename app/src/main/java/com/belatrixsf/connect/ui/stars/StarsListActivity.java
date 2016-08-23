@@ -26,7 +26,6 @@ import android.support.annotation.Nullable;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 
-
 /**
  * Created by PedroCarrillo on 4/28/16.
  */
@@ -39,12 +38,12 @@ public class StarsListActivity extends BelatrixConnectActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+        setNavigationToolbar();
         if (savedInstanceState == null) {
             Integer categoryId = getIntent().getIntExtra(SUBCATEGORY_ID, -1);
             Integer userId = getIntent().getIntExtra(USER_ID, -1);
             replaceFragment(StarsListFragment.newInstance(userId, categoryId), false);
         }
-        setNavigationToolbar();
     }
 
 }
