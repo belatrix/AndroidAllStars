@@ -63,6 +63,6 @@ public class AddSkillActivity extends BelatrixConnectActivity{
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, AddSkillActivity.class);
-
     }
+
 }
