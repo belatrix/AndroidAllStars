@@ -20,7 +20,6 @@
 */
 package com.belatrixsf.connect.ui.resetpassword;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
@@ -51,6 +50,8 @@ import butterknife.OnClick;
  */
 public class ResetPasswordFragment extends BelatrixConnectFragment implements ResetPasswordView {
 
+    private ResetPasswordPresenter resetPasswordPresenter;
+
     @Bind(R.id.new_password_input) TextInputLayout newPasswordInputLayout;
     @Bind(R.id.repeat_new_password_input) TextInputLayout repeatNewPasswordInputLayout;
     @Bind(R.id.old_password) EditText oldPasswordEditText;
@@ -58,8 +59,6 @@ public class ResetPasswordFragment extends BelatrixConnectFragment implements Re
     @Bind(R.id.repeat_new_password) EditText repeatNewPasswordEditText;
     @Bind(R.id.reset) Button resetButton;
     @Bind(R.id.toolbar) Toolbar toolbar;
-
-    private ResetPasswordPresenter resetPasswordPresenter;
 
     public ResetPasswordFragment() {
         // Required empty public constructor

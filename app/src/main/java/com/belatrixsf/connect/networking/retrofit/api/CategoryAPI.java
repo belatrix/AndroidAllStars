@@ -52,4 +52,5 @@ public interface CategoryAPI {
 
     @PATCH(ServerPaths.EMPLOYEE_REMOVE_SKILL)
     Call<Keyword> removeEmployeeSkill(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Body EmployeeKeywordRequest employeeKeywordRequest);
+
 }

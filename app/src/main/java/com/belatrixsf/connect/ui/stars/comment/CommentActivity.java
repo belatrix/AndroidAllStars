@@ -36,6 +36,7 @@ public class CommentActivity extends BelatrixConnectActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+        setNavigationToolbar();
         if (savedInstanceState == null) {
             String comment = null;
             if (getIntent().getExtras() != null && getIntent().hasExtra(GiveStarFragment.COMMENT_KEY)) {
@@ -43,7 +44,6 @@ public class CommentActivity extends BelatrixConnectActivity {
             }
             replaceFragment(CommentFragment.newInstance(comment), false);
         }
-        setNavigationToolbar();
     }
 
 }

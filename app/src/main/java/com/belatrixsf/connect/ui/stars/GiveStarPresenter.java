@@ -136,6 +136,13 @@ public class GiveStarPresenter extends BelatrixConnectPresenter<GiveStarView> {
         }
     }
 
+    public void loadPresenterState(Employee savedEmployee, String savedComment, SubCategory savedCategory, Keyword savedKeyword){
+        loadSelectedUser(savedEmployee);
+        loadSelectedComment(savedComment);
+        loadSelectedSubCategory(savedCategory);
+        loadSelectedKeyword(savedKeyword);
+    }
+
     public void makeRecommendation() {
         view.showProgressDialog(getString(R.string.making_recommendation));
         employeeManager.getLoggedInEmployee(
@@ -180,4 +187,5 @@ public class GiveStarPresenter extends BelatrixConnectPresenter<GiveStarView> {
     public void cancelRequests() {
         starService.cancelAll();
     }
+
 }

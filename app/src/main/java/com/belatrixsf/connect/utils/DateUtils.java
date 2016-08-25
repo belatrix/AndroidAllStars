@@ -30,6 +30,7 @@ import java.util.TimeZone;
  * Created by icerrate on 28/04/2016.
  */
 public class DateUtils {
+
     public static final String DATE_FORMAT_1 = "yyyy-MM-dd'T'HH:mm:ss.S";
     public static final String DATE_FORMAT_2 = "dd/MM/yyyy";
     public static final String DATE_FORMAT_3 = "yyyy-MM-dd'T'HH:mm:ss'Z'";
@@ -65,4 +66,5 @@ public class DateUtils {
             return null;
         }
     }
+
 }

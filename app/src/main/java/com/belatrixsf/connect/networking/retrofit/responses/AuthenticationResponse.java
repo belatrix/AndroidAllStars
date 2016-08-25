@@ -50,4 +50,5 @@ public class AuthenticationResponse {
     public boolean isBaseProfileComplete() {
         return baseProfileComplete;
     }
+
 }

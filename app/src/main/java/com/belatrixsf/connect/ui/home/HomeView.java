@@ -30,4 +30,5 @@ public interface HomeView extends BelatrixConnectView {
     void endSession();
     void showLogoutConfirmationDialog(String message);
     void setNavigationDrawerData(String photoUrl, String fullName, String email);
+
 }

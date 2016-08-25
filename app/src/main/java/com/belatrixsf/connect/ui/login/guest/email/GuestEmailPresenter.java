@@ -41,4 +41,5 @@ public class GuestEmailPresenter extends BelatrixConnectPresenter<GuestEmailView
     @Override
     public void cancelRequests() {
     }
+
 }

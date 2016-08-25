@@ -44,4 +44,5 @@ public class UserHomePresenterModule {
     public HomePresenter provideGuestHomePresenter(EmployeeManager employeeManager) {
         return new UserHomePresenter(homeView, employeeManager);
     }
+
 }

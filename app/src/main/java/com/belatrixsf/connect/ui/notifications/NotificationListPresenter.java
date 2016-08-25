@@ -25,7 +25,6 @@ import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.services.ServiceRequest;
 import com.belatrixsf.connect.services.contracts.EmployeeService;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
-import com.belatrixsf.connect.utils.ServiceError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +37,7 @@ import javax.inject.Inject;
 public class NotificationListPresenter extends BelatrixConnectPresenter<NotificationListView> {
 
     private EmployeeService employeeService;
-    private List<Notification> notifications = new ArrayList<>();
+    private List<Notification> notificationsList = new ArrayList<>();
     private PaginatedResponse notificationsPaging = new PaginatedResponse();
     private ServiceRequest searchingServiceRequest;
 
@@ -61,10 +60,10 @@ public class NotificationListPresenter extends BelatrixConnectPresenter<Notifica
 
     public void getNotifications() {
         view.resetList();
-        if (notifications.isEmpty()) {
+        if (notificationsList.isEmpty()) {
             getNotificationsInternal();
         } else {
-            view.addNotifications(notifications);
+            view.addNotifications(notificationsList);
         }
     }
 
@@ -78,7 +77,7 @@ public class NotificationListPresenter extends BelatrixConnectPresenter<Notifica
                 public void onSuccess(PaginatedResponse<Notification> notificationsResponse) {
                     notificationsPaging.setCount(notificationsResponse.getCount());
                     notificationsPaging.setNext(notificationsResponse.getNext());
-                    notifications.addAll(notificationsResponse.getResults());
+                    notificationsList.addAll(notificationsResponse.getResults());
                     if(!notificationsResponse.getResults().isEmpty()) {
                         view.addNotifications(notificationsResponse.getResults());
                     } else {
@@ -95,16 +94,16 @@ public class NotificationListPresenter extends BelatrixConnectPresenter<Notifica
     }
 
     private void reset() {
-        notifications.clear();
+        notificationsList.clear();
         view.resetList();
         notificationsPaging.reset();
     }
 
     // saving state stuff
 
-    public void load(List<Notification> notifications, PaginatedResponse notificationsPaging) {
+    public void loadPresenterState(List<Notification> notifications, PaginatedResponse notificationsPaging) {
         if (notifications != null) {
-            this.notifications.addAll(notifications);
+            this.notificationsList.addAll(notifications);
         }
         this.notificationsPaging = notificationsPaging;
     }
@@ -114,7 +113,7 @@ public class NotificationListPresenter extends BelatrixConnectPresenter<Notifica
     }
 
     public List<Notification> getNotificationsSync() {
-        return notifications;
+        return notificationsList;
     }
 
 }

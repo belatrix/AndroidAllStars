@@ -132,4 +132,5 @@ public class GlideLoader implements ImageLoader {
         }
         return load;
     }
+
 }

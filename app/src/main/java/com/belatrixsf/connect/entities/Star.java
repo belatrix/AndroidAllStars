@@ -105,4 +105,5 @@ public class Star implements Parcelable {
             return new Star[size];
         }
     };
+
 }

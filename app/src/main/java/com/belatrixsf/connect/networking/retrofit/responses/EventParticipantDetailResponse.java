@@ -27,7 +27,6 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by PedroCarrillo on 7/11/16.
  */
-
 public class EventParticipantDetailResponse {
 
     private Integer pk;

@@ -60,42 +60,24 @@ import dagger.Component;
 public interface ApplicationComponent {
 
     EmployeeManager employeeManager();
-
     GuestManager guestManager();
-
     SignUpComponent signUpComponent(SignUpPresenterModule signUpPresenterModule);
-
     AccountComponent accountComponent(AccountPresenterModule accountPresenterModule);
-
     ExpandPictureComponent expandPictureComponent(ExpandPicturePresenterModule expandPicturePresenterModule);
-
     ContactsListComponent contactsListComponent(ContactsListPresenterModule contactsListPresenterModule);
-
     StarsListComponent starsListComponent(StarsListPresenterModule StarsListPresenterModule);
-
     RankingComponent rankingComponent(RankingPresenterModule rankingPresenterModule);
-
     GiveStarComponent giveStarComponent(GiveStarPresenterModule giveStarPresenterModule);
-
     CategoriesListComponent categoriesListComponent(CategoriesListModule categoriesListModule);
-
     ContactsKeywordListComponent contactsKeywordListComponent(ContactsKeywordPresenterModule contactsKeywordPresenterModule);
-
     KeywordsComponent keywordsListComponent(KeywordsListModule keywordsListModule);
-
     EditAccountComponent editAccountComponent(EditAccountPresenterModule editAccountPresenterModule);
-
     EventListComponent eventListComponent(EventListPresenterModule EventListPresenterModule);
-
     EventDetailComponent eventDetailComponent(EventDetailPresenterModule eventDetailPresenterModule);
-
     AboutComponent aboutComponent(AboutPresenterModule aboutPresenterModule);
-
     NotificationListComponent notificationListComponent(NotificationListPresenterModule notificationListPresenterModule);
-
     RequestNewPasswordComponent requestNewPasswordComponent(RequestNewPasswordPresenterModule requestNewPasswordPresenterModule);
-
     SkillsListComponent skillsListComponent(SkillsListPresenterModule skillsListPresenterModule);
-
     AddSkillComponent addSkillComponent(AddSkillPresenterModule addSkillPresenterModule);
+
 }

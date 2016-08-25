@@ -40,4 +40,5 @@ public interface AddSkillView extends BelatrixConnectView {
     void hideAddNewKeywordButton();
     void showAlreadyExistsConfirmation(String message);
     void hideRefreshData();
+
 }

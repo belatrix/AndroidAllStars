@@ -25,7 +25,6 @@ import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.services.ServiceRequest;
 import com.belatrixsf.connect.services.contracts.EmployeeService;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
-import com.belatrixsf.connect.utils.ServiceError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +37,7 @@ import javax.inject.Inject;
 public class ContactsListPresenter extends BelatrixConnectPresenter<ContactsListView> {
 
     private EmployeeService employeeService;
-    private List<Employee> contacts = new ArrayList<>();
+    private List<Employee> contactsList = new ArrayList<>();
     private PaginatedResponse contactsPaging = new PaginatedResponse();
     private ServiceRequest searchingServiceRequest;
     private String searchText;
@@ -82,10 +81,10 @@ public class ContactsListPresenter extends BelatrixConnectPresenter<ContactsList
 
     public void getContacts() {
         view.resetList();
-        if (contacts.isEmpty()) {
+        if (contactsList.isEmpty()) {
             getContactsInternal();
         } else {
-            view.addContacts(contacts);
+            view.addContacts(contactsList);
         }
     }
 
@@ -109,7 +108,7 @@ public class ContactsListPresenter extends BelatrixConnectPresenter<ContactsList
                     public void onSuccess(PaginatedResponse<Employee> contactsKeywordsResponse) {
                         contactsPaging.setCount(contactsKeywordsResponse.getCount());
                         contactsPaging.setNext(contactsKeywordsResponse.getNext());
-                        contacts.addAll(contactsKeywordsResponse.getResults());
+                        contactsList.addAll(contactsKeywordsResponse.getResults());
                         if(!contactsKeywordsResponse.getResults().isEmpty()) {
                             view.addContacts(contactsKeywordsResponse.getResults());
                         } else {
@@ -126,16 +125,16 @@ public class ContactsListPresenter extends BelatrixConnectPresenter<ContactsList
     }
 
     private void reset() {
-        contacts.clear();
+        contactsList.clear();
         view.resetList();
         contactsPaging.reset();
     }
 
     // saving state stuff
 
-    public void load(List<Employee> contacts, PaginatedResponse contactsPaging, String searchText, boolean searching) {
+    public void loadPresenterState(List<Employee> contacts, PaginatedResponse contactsPaging, String searchText, boolean searching) {
         if (contacts != null) {
-            this.contacts.addAll(contacts);
+            this.contactsList.addAll(contacts);
         }
         this.contactsPaging = contactsPaging;
         this.searchText = searchText;
@@ -162,7 +161,7 @@ public class ContactsListPresenter extends BelatrixConnectPresenter<ContactsList
     }
 
     public List<Employee> getContactsSync() {
-        return contacts;
+        return contactsList;
     }
 
     public boolean isSearching() {

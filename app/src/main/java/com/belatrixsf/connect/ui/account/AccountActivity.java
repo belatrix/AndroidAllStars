@@ -83,4 +83,5 @@ public class AccountActivity extends BelatrixConnectActivity implements AccountF
     public void refreshNavigationDrawer() {
         // Required empty implementation
     }
+
 }

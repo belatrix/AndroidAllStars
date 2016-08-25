@@ -33,4 +33,5 @@ public class CreateEmployeeResponse {
     public String getDetail() {
         return detail;
     }
+
 }

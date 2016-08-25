@@ -45,4 +45,5 @@ public class LoginAsGuestActivity extends BelatrixConnectActivity {
             fragment.onActivityResult(requestCode, resultCode, data);
         }
     }
+
 }

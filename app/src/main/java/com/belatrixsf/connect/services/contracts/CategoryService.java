@@ -42,4 +42,5 @@ public interface CategoryService extends BelatrixConnectService {
     ServiceRequest saveKeywordToEmployee(int employeeId, String keywordName, BelatrixConnectCallback<Keyword> callback);
 
     ServiceRequest removeEmployeeKeyword(int employeeId, String keywordName, BelatrixConnectCallback<Keyword> callback);
+
 }

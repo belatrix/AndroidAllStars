@@ -35,10 +35,10 @@ public class AboutActivity extends BelatrixConnectActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+        setNavigationToolbar();
         if (savedInstanceState == null) {
             replaceFragment(AboutFragment.newInstance(), false);
         }
-        setNavigationToolbar();
     }
 
 }

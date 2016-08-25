@@ -29,16 +29,16 @@ import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 
 public class KeywordsActivity extends BelatrixConnectActivity implements KeywordsListFragment.KeywordsListListener {
 
-    public static final String KEYWORD_KEY = "keyword_key";
+    public static final String KEYWORD_KEY = "_keyword_key";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+        setNavigationToolbar();
         if (savedInstanceState == null) {
             replaceFragment(KeywordsListFragment.newInstance(), false);
         }
-        setNavigationToolbar();
     }
 
     @Override

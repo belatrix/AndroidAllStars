@@ -48,7 +48,6 @@ import butterknife.Bind;
 /**
  * Created by PedroCarrillo on 7/4/16.
  */
-
 public class GuestActivity extends MainActivity {
 
     @Bind(R.id.main_coordinator) CoordinatorLayout coordinatorLayout;
@@ -137,4 +136,5 @@ public class GuestActivity extends MainActivity {
             cookieSyncMngr.sync();
         }
     }
+
 }

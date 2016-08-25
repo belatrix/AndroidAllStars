@@ -124,4 +124,5 @@ public class ContactsListAdapter extends LoadMoreBaseAdapter<Employee> {
             }
         }
     }
+
 }

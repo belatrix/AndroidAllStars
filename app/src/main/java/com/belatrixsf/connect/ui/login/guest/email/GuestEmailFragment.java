@@ -45,12 +45,11 @@ import butterknife.OnClick;
  */
 public class GuestEmailFragment extends BelatrixConnectFragment implements GuestEmailView {
 
+    private GuestEmailPresenter guestEmailPresenter;
 
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.email) EditText emailEditText;
     @Bind(R.id.send_email) Button sendEmailButton;
-
-    private GuestEmailPresenter guestEmailPresenter;
 
     public GuestEmailFragment() {
         // Required empty public constructor

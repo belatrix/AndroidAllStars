@@ -37,7 +37,7 @@ import javax.inject.Inject;
 public class SkillsListPresenter extends BelatrixConnectPresenter<SkillsListView> {
 
     private CategoryService skillService;
-    private List<Keyword> skills = new ArrayList<Keyword>();
+    private List<Keyword> skillsList = new ArrayList<Keyword>();
     private PaginatedResponse skillsPaging = new PaginatedResponse();
     private int employeeId;
 
@@ -50,10 +50,10 @@ public class SkillsListPresenter extends BelatrixConnectPresenter<SkillsListView
     public void getSkills(int employeeId, boolean isRefreshing) {
         this.employeeId = employeeId;
         view.resetList();
-        if (skills.isEmpty()) {
+        if (skillsList.isEmpty()) {
             getSkillsInternal(isRefreshing);
         } else {
-            view.addSkills(skills);
+            view.addSkills(skillsList);
         }
     }
 
@@ -75,7 +75,7 @@ public class SkillsListPresenter extends BelatrixConnectPresenter<SkillsListView
                     public void onSuccess(PaginatedResponse<Keyword> employeeKeywordsResponse) {
                         skillsPaging.setCount(employeeKeywordsResponse.getCount());
                         skillsPaging.setNext(employeeKeywordsResponse.getNext());
-                        skills.addAll(employeeKeywordsResponse.getResults());
+                        skillsList.addAll(employeeKeywordsResponse.getResults());
                         view.addSkills(employeeKeywordsResponse.getResults());
                         if (!isRefreshing) {
                             view.hideProgressIndicator();
@@ -92,14 +92,14 @@ public class SkillsListPresenter extends BelatrixConnectPresenter<SkillsListView
     }
 
     private void reset() {
-        skills.clear();
+        skillsList.clear();
         view.resetList();
         skillsPaging.reset();
     }
 
     public void onSkillSelected(int position) {
-        if (position >= 0 && position < skills.size()) {
-            Keyword keyword = skills.get(position);
+        if (position >= 0 && position < skillsList.size()) {
+            Keyword keyword = skillsList.get(position);
             String message = getString(R.string.dialog_confirmation_remove_skill_first)
                     + " " + keyword.getName() + " " + getString(R.string.dialog_confirmation_remove_skill_sec);
             view.showDeleteConfirmationDialog(message, keyword);
@@ -132,13 +132,14 @@ public class SkillsListPresenter extends BelatrixConnectPresenter<SkillsListView
     }
 
     public List<Keyword> getSkillsSync() {
-        return skills;
+        return skillsList;
     }
 
-    public void load(List<Keyword> skills, PaginatedResponse keywordsPaging) {
+    public void loadPresenterState(List<Keyword> skills, PaginatedResponse keywordsPaging) {
         if (skills != null) {
-            this.skills.addAll(skills);
+            this.skillsList.addAll(skills);
         }
         this.skillsPaging = keywordsPaging;
     }
+
 }

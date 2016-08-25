@@ -68,7 +68,7 @@ public class EditAccountPresenter extends BelatrixConnectPresenter<EditAccountVi
         });
     }
 
-    public void loadData(Employee employee, Location locationSelected, List<Location> locations, boolean isCreation, File selectedFile) {
+    public void loadPresenterState(Employee employee, Location locationSelected, List<Location> locations, boolean isCreation, File selectedFile) {
         this.employee = employee;
         this.isNewUser = isCreation;
         this.locationList = locations;

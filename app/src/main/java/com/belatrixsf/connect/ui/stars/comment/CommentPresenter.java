@@ -51,6 +51,7 @@ public class CommentPresenter extends BelatrixConnectPresenter<CommentView> {
 
     @Override
     public void cancelRequests() {
-        // TODO Implement cancel request for the required services.
+        // TODO: Implement cancel request for the required services.
     }
+
 }

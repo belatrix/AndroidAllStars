@@ -49,16 +49,14 @@ import butterknife.Bind;
  */
 public class KeywordsListFragment extends BelatrixConnectFragment implements KeywordsListView, KeywordsListAdapter.KeywordListener {
 
-    private static final String KEYWORDS_KEY = "keywords_key";
+    private static final String KEYWORDS_KEY = "_keywords_key";
 
     private KeywordsListAdapter keywordsListAdapter;
+
     @Bind(R.id.refresh_keywords) SwipeRefreshLayout keywordsRefreshLayout;
+    @Bind(R.id.keywords) RecyclerView keywords;
 
-    @Inject
-    KeywordsListPresenter keywordsListPresenter;
-
-    @Bind(R.id.keywords)
-    RecyclerView keywords;
+    @Inject KeywordsListPresenter keywordsListPresenter;
 
     public KeywordsListFragment() {
         // Required empty public constructor
@@ -80,23 +78,23 @@ public class KeywordsListFragment extends BelatrixConnectFragment implements Key
         super.onViewCreated(view, savedInstanceState);
         initViews();
         if (savedInstanceState != null) {
-            restorePresenterState(savedInstanceState);
+            restoreState(savedInstanceState);
         }
         keywordsListPresenter.getKeywords();
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        savePresenterState(outState);
+        saveState(outState);
         super.onSaveInstanceState(outState);
     }
 
-    private void restorePresenterState(Bundle savedInstanceState) {
+    private void restoreState(Bundle savedInstanceState) {
         List<Keyword> keywords = savedInstanceState.getParcelableArrayList(KEYWORDS_KEY);
-        keywordsListPresenter.load(keywords);
+        keywordsListPresenter.loadPresenterState(keywords);
     }
 
-    private void savePresenterState(Bundle outState) {
+    private void saveState(Bundle outState) {
         List<Keyword> keywords = keywordsListPresenter.getKeywordsSync();
         if (keywords != null && keywords instanceof ArrayList) {
             outState.putParcelableArrayList(KEYWORDS_KEY, (ArrayList<Keyword>) keywords);
@@ -175,4 +173,5 @@ public class KeywordsListFragment extends BelatrixConnectFragment implements Key
         keywordsListPresenter.cancelRequests();
         super.onDestroyView();
     }
+
 }

@@ -58,8 +58,8 @@ import butterknife.Bind;
  */
 public class SkillsListFragment extends BelatrixConnectFragment implements SkillsListView, SkillListAdapter.KeywordListener {
 
-    private static final String SKILLS_KEY = "skills_key";
-    private static final String PAGING_KEY = "paging_skills_key";
+    private static final String SKILLS_KEY = "_skills_key";
+    private static final String PAGING_KEY = "_paging_skills_key";
 
     private static SkillsListPresenter skillsListPresenter;
     private SkillListAdapter skillListAdapter;
@@ -91,11 +91,11 @@ public class SkillsListFragment extends BelatrixConnectFragment implements Skill
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        savePresenterState(outState);
+        saveState(outState);
         super.onSaveInstanceState(outState);
     }
 
-    private void savePresenterState(Bundle outState) {
+    private void saveState(Bundle outState) {
         outState.putParcelable(PAGING_KEY, skillsListPresenter.getSkillsPaging());
         List<Keyword> keywords = skillsListPresenter.getSkillsSync();
         if (keywords != null && keywords instanceof ArrayList) {
@@ -103,10 +103,10 @@ public class SkillsListFragment extends BelatrixConnectFragment implements Skill
         }
     }
 
-    private void restorePresenterState(Bundle savedInstanceState) {
+    private void restoreState(Bundle savedInstanceState) {
         List<Keyword> skills = savedInstanceState.getParcelableArrayList(SKILLS_KEY);
         PaginatedResponse paging = savedInstanceState.getParcelable(PAGING_KEY);
-        skillsListPresenter.load(skills, paging);
+        skillsListPresenter.loadPresenterState(skills, paging);
     }
 
     @Override
@@ -121,7 +121,7 @@ public class SkillsListFragment extends BelatrixConnectFragment implements Skill
         super.onViewCreated(view, savedInstanceState);
         initViews();
         if (savedInstanceState != null) {
-            restorePresenterState(savedInstanceState);
+            restoreState(savedInstanceState);
         }
         skillsListPresenter.getSkills(PreferencesManager.get().getEmployeeId(),false);
     }
@@ -141,7 +141,7 @@ public class SkillsListFragment extends BelatrixConnectFragment implements Skill
             }
         };
         skillListAdapter = new SkillListAdapter();
-        skillListAdapter.setKeywordListener(this);
+        skillListAdapter.setSkillListListener(this);
         skillssRecyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);
         skillssRecyclerView.setAdapter(skillListAdapter);
         skillssRecyclerView.setLayoutManager(linearLayoutManager);
@@ -244,4 +244,5 @@ public class SkillsListFragment extends BelatrixConnectFragment implements Skill
     public void onKeywordSelected(int position) {
         skillsListPresenter.onSkillSelected(position);
     }
+
 }

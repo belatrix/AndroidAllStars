@@ -51,17 +51,15 @@ import butterknife.Bind;
  */
 public class CategoriesFragment extends BelatrixConnectFragment implements CategoriesView, CategoriesAdapter.CategoriesListListener {
 
-    private static final String CATEGORY_KEY = "category_key";
-    private static final String CATEGORIES_KEY = "categories_key";
+    private static final String CATEGORY_KEY = "_category_key";
+    private static final String CATEGORIES_KEY = "_categories_key";
 
     private SubcategorySelectionListener subcategorySelectionListener;
     private CategoriesAdapter categoriesAdapter;
 
-    @Inject
-    CategoriesPresenter categoriesPresenter;
+    @Inject CategoriesPresenter categoriesPresenter;
 
-    @Bind(R.id.categories)
-    RecyclerView categoriesRecyclerView;
+    @Bind(R.id.categories) RecyclerView categoriesRecyclerView;
 
     public CategoriesFragment() {
         // Required empty public constructor
@@ -135,7 +133,7 @@ public class CategoriesFragment extends BelatrixConnectFragment implements Categ
 
     private void restoreState(Bundle savedInstanceState) {
         List<Category> savedCategories = savedInstanceState.getParcelableArrayList(CATEGORIES_KEY);
-        categoriesPresenter.loadSavedCategories(savedCategories);
+        categoriesPresenter.loadPresenterState(savedCategories);
     }
 
     private void saveState(Bundle outState) {
@@ -187,4 +185,5 @@ public class CategoriesFragment extends BelatrixConnectFragment implements Categ
         categoriesPresenter.cancelRequests();
         super.onDestroyView();
     }
+
 }

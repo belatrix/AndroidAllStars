@@ -136,4 +136,5 @@ public class SearchingView extends LinearLayout implements SearchableView {
     public interface SearchingListener {
         void onSearchingTextTyped(String searchText);
     }
+
 }

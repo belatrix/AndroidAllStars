@@ -37,6 +37,8 @@ public class SettingsActivity extends BelatrixConnectActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
 
+        setNavigationToolbar();
+
         //set default settings
         PreferenceManager.setDefaultValues(this, R.xml.fragment_settings, false);
 
@@ -44,8 +46,6 @@ public class SettingsActivity extends BelatrixConnectActivity {
         getFragmentManager().beginTransaction()
                 .replace(R.id.main_content, new SettingsFragment())
                 .commit();
-
-        setNavigationToolbar();
     }
 
 }

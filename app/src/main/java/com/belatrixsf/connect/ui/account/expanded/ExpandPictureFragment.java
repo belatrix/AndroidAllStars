@@ -160,5 +160,4 @@ public class ExpandPictureFragment extends BelatrixConnectFragment implements Ex
         expandPicturePresenter.loadPicture();
     }
 
-
 }

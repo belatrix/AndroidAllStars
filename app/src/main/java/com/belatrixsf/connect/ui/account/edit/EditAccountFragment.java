@@ -89,15 +89,15 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
     public static final String IS_NEW_USER = "_is_creation_key";
     public static final String FILE_KEY = "_selected_file_key";
 
+    private EditAccountPresenter editAccountPresenter;
+    private String profilePicturePath;
+
     @Bind(R.id.profile_picture) ImageView pictureImageView;
     @Bind(R.id.firstName) EditText firstNameEditText;
     @Bind(R.id.lastName) EditText lastNameEditText;
     @Bind(R.id.skypeId) EditText skypeIdEditText;
     @Bind(R.id.locationRadioGroup) RadioGroup locationRadioGroup;
     @Bind(R.id.edit_image) ImageView editPictureImageView;
-
-    private EditAccountPresenter editAccountPresenter;
-    private String profilePicturePath;
 
     public static EditAccountFragment newInstance(boolean isNewUser) {
         Bundle bundle = new Bundle();
@@ -143,7 +143,7 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
         boolean isCreation = savedInstanceState.getBoolean(IS_NEW_USER);
         List<Location> locations = savedInstanceState.getParcelableArrayList(LOCATIONS_KEY);
         File file = (File) savedInstanceState.getSerializable(FILE_KEY);
-        editAccountPresenter.loadData(employee, locationSelected, locations, isCreation, file);
+        editAccountPresenter.loadPresenterState(employee, locationSelected, locations, isCreation, file);
     }
 
     private void saveState(Bundle outState) {
@@ -418,4 +418,5 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
         startActivity(UserActivity.makeIntent(getActivity()));
         fragmentListener.closeActivity();
     }
+
 }

@@ -37,13 +37,14 @@ public class SkillsListActivity extends BelatrixConnectActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+        setNavigationToolbar();
         if (savedInstanceState == null) {
             replaceFragment(SkillsListFragment.newInstance(), false);
         }
-        setNavigationToolbar();
     }
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, SkillsListActivity.class);
     }
+
 }

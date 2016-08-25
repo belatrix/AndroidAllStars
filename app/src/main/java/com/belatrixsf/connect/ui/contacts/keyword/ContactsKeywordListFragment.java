@@ -60,8 +60,7 @@ public class ContactsKeywordListFragment extends BelatrixConnectFragment impleme
     public static final String PAGINATED_RESPONSE_KEY = "_paginated_response_key";
     public static final String EMPLOYEE_LIST_KEY = "_employee_list_key";
 
-    @Bind(R.id.employees)
-    RecyclerView employeesRecyclerView;
+    @Bind(R.id.employees) RecyclerView employeesRecyclerView;
     ImageView photoImageView;
 
     public static ContactsKeywordListFragment newInstance(Keyword keyword) {
@@ -118,7 +117,7 @@ public class ContactsKeywordListFragment extends BelatrixConnectFragment impleme
         Keyword keyword = savedInstanceState.getParcelable(ContactsKeywordListActivity.KEYWORD_KEY);
         PaginatedResponse paginatedResponse = savedInstanceState.getParcelable(PAGINATED_RESPONSE_KEY);
         List<Employee> employeeList = savedInstanceState.getParcelableArrayList(EMPLOYEE_LIST_KEY);
-        contactsKeywordListPresenter.setLoadedEmployeeList(employeeList, paginatedResponse);
+        contactsKeywordListPresenter.loadPresenterState(employeeList, paginatedResponse);
         contactsKeywordListPresenter.setKeyword(keyword);
     }
 
@@ -185,4 +184,5 @@ public class ContactsKeywordListFragment extends BelatrixConnectFragment impleme
         contactsKeywordListPresenter.cancelRequests();
         super.onDestroyView();
     }
+
 }

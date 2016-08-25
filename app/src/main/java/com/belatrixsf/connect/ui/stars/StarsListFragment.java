@@ -58,8 +58,7 @@ public class StarsListFragment extends BelatrixConnectFragment implements StarsL
     private StarsListAdapter starsListAdapter;
     private EndlessRecyclerOnScrollListener endlessRecyclerOnScrollListener;
 
-    @Bind(R.id.stars)
-    RecyclerView starsRecyclerView;
+    @Bind(R.id.stars) RecyclerView starsRecyclerView;
 
     public static StarsListFragment newInstance(Integer userId, Integer categoryId) {
         Bundle bundle = new Bundle();
@@ -114,7 +113,7 @@ public class StarsListFragment extends BelatrixConnectFragment implements StarsL
         Integer employeeId = savedInstanceState.getInt(EMPLOYEE_ID_KEY);
         Integer subCategoryId = savedInstanceState.getInt(SUBCATEGORY_ID_KEY);
         PaginatedResponse paginatedResponse = savedInstanceState.getParcelable(PAGINATION_RESPONSE_KEY);
-        starsListPresenter.setLoadedStars(employeeId, subCategoryId, savedStars, paginatedResponse);
+        starsListPresenter.loadPresenterState(employeeId, subCategoryId, savedStars, paginatedResponse);
     }
 
     private void saveState(Bundle outState) {
@@ -188,5 +187,6 @@ public class StarsListFragment extends BelatrixConnectFragment implements StarsL
         starsListPresenter.cancelRequests();
         super.onDestroyView();
     }
+
 }
 

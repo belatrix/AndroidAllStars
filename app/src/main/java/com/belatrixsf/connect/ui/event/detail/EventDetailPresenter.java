@@ -57,7 +57,7 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
         this.employeeId = employeeId;
     }
 
-    public void load(Event event) {
+    public void loadPresenterState(Event event) {
         this.event = event;
         showEventDetail();
     }
@@ -164,4 +164,5 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
             eventService.unregisterParticipant(eventId, guestId, eventDetailCallback);
         }
     }
+
 }

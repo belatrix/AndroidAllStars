@@ -23,7 +23,6 @@ package com.belatrixsf.connect.ui.ranking;
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.services.contracts.EmployeeService;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
-import com.belatrixsf.connect.utils.ServiceError;
 
 import java.util.List;
 
@@ -35,7 +34,7 @@ import javax.inject.Inject;
 public class RankingPresenter extends BelatrixConnectPresenter<RankingView> {
 
     private EmployeeService employeeService;
-    private List<Employee> rankingEmployees;
+    private List<Employee> employeeList;
 
     @Inject
     public RankingPresenter(RankingView view, EmployeeService employeeService) {
@@ -54,7 +53,7 @@ public class RankingPresenter extends BelatrixConnectPresenter<RankingView> {
                 new PresenterCallback<List<Employee>>() {
                     @Override
                     public void onSuccess(List<Employee> rankingResponse) {
-                        rankingEmployees = rankingResponse;
+                        employeeList = rankingResponse;
                         if(!rankingResponse.isEmpty()) {
                             view.showRankingList(rankingResponse);
                         } else {
@@ -70,11 +69,12 @@ public class RankingPresenter extends BelatrixConnectPresenter<RankingView> {
     }
 
     public void employeeSelected(int position) {
-        view.goToEmployeeProfile(rankingEmployees.get(position).getPk());
+        view.goToEmployeeProfile(employeeList.get(position).getPk());
     }
 
     @Override
     public void cancelRequests() {
         employeeService.cancelAll();
     }
+
 }

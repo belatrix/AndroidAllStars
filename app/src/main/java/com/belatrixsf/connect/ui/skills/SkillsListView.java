@@ -29,6 +29,7 @@ import java.util.List;
  * Created by echuquilin on 4/08/16.
  */
 public interface SkillsListView extends BelatrixConnectView{
+
     void addSkills(List<Keyword> skills);
     void resetList();
     void showNoDataView(String message);
@@ -36,4 +37,5 @@ public interface SkillsListView extends BelatrixConnectView{
     void showDeleteConfirmationDialog(String message, Keyword keyword);
     void showDeletedInformation(String message);
     void hideRefreshData();
+
 }

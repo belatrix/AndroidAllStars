@@ -25,7 +25,6 @@ import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.services.ServiceRequest;
 import com.belatrixsf.connect.services.contracts.StarService;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
-import com.belatrixsf.connect.utils.ServiceError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +37,7 @@ import javax.inject.Inject;
 public class SearchingKeywordsPresenter extends BelatrixConnectPresenter<SearchingKeywordsView> {
 
     private StarService starService;
-    private List<Keyword> keywords = new ArrayList<>();
+    private List<Keyword> keywordsList = new ArrayList<>();
     private PaginatedResponse keywordsPaging = new PaginatedResponse();
     private ServiceRequest searchingServiceRequest;
     private String searchText;
@@ -51,8 +50,8 @@ public class SearchingKeywordsPresenter extends BelatrixConnectPresenter<Searchi
     }
 
     public void onKeywordSelected(int position) {
-        if (position >= 0 && position < keywords.size()) {
-            Keyword keyword = keywords.get(position);
+        if (position >= 0 && position < keywordsList.size()) {
+            Keyword keyword = keywordsList.get(position);
             view.showKeywordDetail(keyword);
         }
     }
@@ -77,10 +76,10 @@ public class SearchingKeywordsPresenter extends BelatrixConnectPresenter<Searchi
 
     public void getKeywords() {
         view.resetList();
-        if (keywords.isEmpty()) {
+        if (keywordsList.isEmpty()) {
             getKeywordsInternal();
         } else {
-            view.addKeywords(keywords);
+            view.addKeywords(keywordsList);
         }
     }
 
@@ -108,7 +107,7 @@ public class SearchingKeywordsPresenter extends BelatrixConnectPresenter<Searchi
                     public void onSuccess(PaginatedResponse<Keyword> starsByKeywordsResponse) {
                         keywordsPaging.setCount(starsByKeywordsResponse.getCount());
                         keywordsPaging.setNext(starsByKeywordsResponse.getNext());
-                        keywords.addAll(starsByKeywordsResponse.getResults());
+                        keywordsList.addAll(starsByKeywordsResponse.getResults());
                         if(!starsByKeywordsResponse.getResults().isEmpty()) {
                             view.addKeywords(starsByKeywordsResponse.getResults());
                         } else {
@@ -125,16 +124,16 @@ public class SearchingKeywordsPresenter extends BelatrixConnectPresenter<Searchi
     }
 
     private void reset() {
-        keywords.clear();
+        keywordsList.clear();
         view.resetList();
         keywordsPaging.reset();
     }
 
     // saving state stuff
 
-    public void load(List<Keyword> keywords, PaginatedResponse keywordsPaging, String searchText, boolean searching) {
+    public void loadPresenterState(List<Keyword> keywords, PaginatedResponse keywordsPaging, String searchText, boolean searching) {
         if (keywords != null) {
-            this.keywords.addAll(keywords);
+            this.keywordsList.addAll(keywords);
         }
         this.keywordsPaging = keywordsPaging;
         this.searchText = searchText;
@@ -153,7 +152,7 @@ public class SearchingKeywordsPresenter extends BelatrixConnectPresenter<Searchi
     }
 
     public List<Keyword> getKeywordsSync() {
-        return keywords;
+        return keywordsList;
     }
 
     public boolean isSearching() {

@@ -44,7 +44,7 @@ public class SkillListAdapter extends LoadMoreBaseAdapter<Keyword> {
 
     private static final int KEYWORD_TYPE = 1;
 
-    private KeywordListener keywordListener;
+    private KeywordListener skillListListener;
 
     public SkillListAdapter() {
         this.data = new ArrayList<>();
@@ -53,7 +53,7 @@ public class SkillListAdapter extends LoadMoreBaseAdapter<Keyword> {
     @Override
     public RecyclerView.ViewHolder onCreateDataViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_keyword, parent, false);
-        return new KeywordHolder(view, keywordListener);
+        return new KeywordHolder(view, skillListListener);
     }
 
     @Override
@@ -89,8 +89,8 @@ public class SkillListAdapter extends LoadMoreBaseAdapter<Keyword> {
         notifyDataSetChanged();
     }
 
-    public void setKeywordListener(KeywordListener keywordListener) {
-        this.keywordListener = keywordListener;
+    public void setSkillListListener(KeywordListener skillListListener) {
+        this.skillListListener = skillListListener;
     }
 
     static class KeywordHolder extends RecyclerView.ViewHolder {
@@ -116,4 +116,5 @@ public class SkillListAdapter extends LoadMoreBaseAdapter<Keyword> {
     public interface KeywordListener {
         void onKeywordSelected(int position);
     }
+
 }

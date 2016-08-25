@@ -91,4 +91,5 @@ public class TeamListAdapter extends RecyclerView.Adapter<TeamListAdapter.ViewHo
             fullname = (TextView) itemView.findViewById(R.id.full_name);
         }
     }
+
 }

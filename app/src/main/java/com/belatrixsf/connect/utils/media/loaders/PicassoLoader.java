@@ -120,4 +120,5 @@ public class PicassoLoader implements ImageLoader {
             load.into(imageView);
         }
     }
+
 }

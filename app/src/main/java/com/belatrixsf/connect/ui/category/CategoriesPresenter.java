@@ -40,7 +40,7 @@ public class CategoriesPresenter extends BelatrixConnectPresenter<CategoriesView
     private CategoryService categoryService;
     private EmployeeService employeeService;
     private EmployeeManager employeeManager;
-    private List<Category> categories;
+    private List<Category> categoriesList;
     private Category category;
 
     public CategoriesPresenter(CategoriesView view, CategoryService categoryService, Category category) {
@@ -64,7 +64,7 @@ public class CategoriesPresenter extends BelatrixConnectPresenter<CategoriesView
     }
 
     public void getCategories() {
-        if (categories == null || categories.isEmpty()) {
+        if (categoriesList == null || categoriesList.isEmpty()) {
             if (viewPresentsCategories()) {
                 if (employeeManager != null && employeeService != null) {
                     view.showProgressIndicator();
@@ -87,8 +87,8 @@ public class CategoriesPresenter extends BelatrixConnectPresenter<CategoriesView
     }
 
     public void categorySelected(int position) {
-        if (position >= 0 && position < categories.size()) {
-            Category category = categories.get(position);
+        if (position >= 0 && position < categoriesList.size()) {
+            Category category = categoriesList.get(position);
             if (!viewPresentsCategories()) {
                 SubCategory subCategory = (SubCategory) category;
                 subCategory.setParentCategory(this.category);
@@ -100,15 +100,15 @@ public class CategoriesPresenter extends BelatrixConnectPresenter<CategoriesView
     }
 
     public List<Category> forSavingCategories() {
-        return categories;
+        return categoriesList;
     }
 
-    public void loadSavedCategories(List<Category> categories) {
-        this.categories = categories;
+    public void loadPresenterState(List<Category> categories) {
+        this.categoriesList = categories;
     }
 
     private void showItemsAndNotifyIfAreSubcategories() {
-        view.showCategories(categories);
+        view.showCategories(categoriesList);
         view.notifyAreSubcategories(category != null);
     }
 
@@ -119,7 +119,7 @@ public class CategoriesPresenter extends BelatrixConnectPresenter<CategoriesView
     private BelatrixConnectCallback<List<Category>> categoriesCallback = new PresenterCallback<List<Category>>() {
         @Override
         public void onSuccess(List<Category> categories) {
-            CategoriesPresenter.this.categories = categories;
+            CategoriesPresenter.this.categoriesList = categories;
             showItemsAndNotifyIfAreSubcategories();
             view.hideProgressIndicator();
         }
@@ -134,4 +134,5 @@ public class CategoriesPresenter extends BelatrixConnectPresenter<CategoriesView
             employeeService.cancelAll();
         }
     }
+
 }

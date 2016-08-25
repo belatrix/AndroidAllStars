@@ -62,10 +62,10 @@ import butterknife.Bind;
  */
 public class SearchingKeywordsFragment extends BelatrixConnectFragment implements SearchingKeywordsView, KeywordsListAdapter.KeywordListener {
 
-    private static final String KEYWORDS_KEY = "keywords_key";
-    private static final String SEARCH_TEXT_KEY = "search_text_key";
-    private static final String PAGING_KEY = "paging_key";
-    private static final String SEARCHING_KEY = "searching_key";
+    private static final String KEYWORDS_KEY = "_keywords_key";
+    private static final String SEARCH_TEXT_KEY = "_search_text_key";
+    private static final String PAGING_KEY = "_paging_key";
+    private static final String SEARCHING_KEY = "_searching_key";
 
     private KeywordsListAdapter keywordsListAdapter;
     private EndlessRecyclerOnScrollListener endlessRecyclerOnScrollListener;
@@ -96,7 +96,7 @@ public class SearchingKeywordsFragment extends BelatrixConnectFragment implement
         super.onViewCreated(view, savedInstanceState);
         initViews();
         if (savedInstanceState != null) {
-            restorePresenterState(savedInstanceState);
+            restoreState(savedInstanceState);
         }
         keywordsPresenter.getKeywords();
     }
@@ -120,19 +120,19 @@ public class SearchingKeywordsFragment extends BelatrixConnectFragment implement
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        savePresenterState(outState);
+        saveState(outState);
         super.onSaveInstanceState(outState);
     }
 
-    private void restorePresenterState(Bundle savedInstanceState) {
+    private void restoreState(Bundle savedInstanceState) {
         List<Keyword> keywords = savedInstanceState.getParcelableArrayList(KEYWORDS_KEY);
         PaginatedResponse paging = savedInstanceState.getParcelable(PAGING_KEY);
         String searchText = savedInstanceState.getString(SEARCH_TEXT_KEY, null);
         boolean searching = savedInstanceState.getBoolean(SEARCHING_KEY, false);
-        keywordsPresenter.load(keywords, paging, searchText, searching);
+        keywordsPresenter.loadPresenterState(keywords, paging, searchText, searching);
     }
 
-    private void savePresenterState(Bundle outState) {
+    private void saveState(Bundle outState) {
         outState.putString(SEARCH_TEXT_KEY, keywordsPresenter.getSearchText());
         outState.putParcelable(PAGING_KEY, keywordsPresenter.getKeywordsPaging());
         outState.putBoolean(SEARCHING_KEY, keywordsPresenter.isSearching());

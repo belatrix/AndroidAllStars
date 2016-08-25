@@ -42,11 +42,11 @@ public class ContactsListActivity extends BelatrixConnectActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+        setNavigationToolbar();
         if (savedInstanceState == null) {
             boolean profileEnabled = getIntent().getBooleanExtra(PROFILE_ENABLED_KEY, true);
             replaceFragment(ContactsListFragment.newInstance(profileEnabled), false);
         }
-        setNavigationToolbar();
     }
 
     public static Intent makeIntent(Context context) {
@@ -58,4 +58,5 @@ public class ContactsListActivity extends BelatrixConnectActivity {
         super.onBackPressed();
         AccountActivity.PARENT_ACTIVITY_INDEX = UserActivity.PARENT_INDEX;
     }
+
 }

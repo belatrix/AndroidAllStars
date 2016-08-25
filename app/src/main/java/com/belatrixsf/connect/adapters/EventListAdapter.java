@@ -128,4 +128,5 @@ public class EventListAdapter extends LoadMoreBaseAdapter<Event> {
             }
         }
     }
+
 }
