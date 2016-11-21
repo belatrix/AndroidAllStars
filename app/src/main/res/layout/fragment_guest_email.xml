@@ -20,8 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/dimen_8_6"
-            android:paddingRight="@dimen/dimen_8_6">
+            android:paddingLeft="@dimen/pre_session_fragment_margin"
+            android:paddingRight="@dimen/pre_session_fragment_margin">
 
             <ImageView
                 android:layout_width="wrap_content"
