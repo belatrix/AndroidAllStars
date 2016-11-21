@@ -19,7 +19,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/activity_margin">
+                android:paddingLeft="@dimen/dimen_8_6"
+                android:paddingRight="@dimen/dimen_8_6">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -34,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/dimen_3_5"
-                    android:text="@string/log_in_as_guest"
+                    android:text="@string/log_in_as_guest_subtitle"
                     android:textStyle="bold"
                     android:textSize="@dimen/text_16" />
 
@@ -43,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_marginTop="@dimen/dimen_5"
-                    android:text="@string/guest_message"
+                    android:text="@string/log_in_as_guest_description"
                     android:textSize="@dimen/text_12"/>
 
                 <Button

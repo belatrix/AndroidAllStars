@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/dimen_3_5"
-                android:text="@string/let_s_get_started"
+                android:text="@string/sign_up_subtitle"
                 android:textStyle="bold"
                 android:textSize="@dimen/text_16" />
 
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginTop="@dimen/dimen_5"
-                android:text="@string/enter_your_email_address_to_receive_your_temporary_password"
+                android:text="@string/sign_up_description"
                 android:textSize="@dimen/text_12" />
 
             <android.support.design.widget.TextInputLayout

@@ -20,7 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/activity_margin">
+            android:paddingLeft="@dimen/dimen_8_6"
+            android:paddingRight="@dimen/dimen_8_6">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -35,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/dimen_3_5"
-                android:text="@string/get_guest_email_title"
+                android:text="@string/get_guest_email_subtitle"
                 android:textStyle="bold"
                 android:textSize="@dimen/text_16" />
 
@@ -44,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginTop="@dimen/dimen_5"
-                android:text="@string/get_guest_email_message"
+                android:text="@string/get_guest_email_description"
                 android:textSize="@dimen/text_12" />
 
             <android.support.design.widget.TextInputLayout
@@ -68,7 +69,7 @@
 
             <Button
                 android:id="@+id/send_email"
-                style="@style/Button.Accent"
+                style="@style/Button.Primary"
                 android:layout_marginTop="@dimen/dimen_8_6"
                 android:text="@string/button_continue_twitter_login"/>
 

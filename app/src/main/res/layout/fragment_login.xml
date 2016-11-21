@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/dimen_3_5"
-            android:text="@string/title_login"
+            android:text="@string/login_subtitle"
             android:textColor="@color/belatrix"
             android:textSize="@dimen/text_28" />
 
