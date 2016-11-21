@@ -32,11 +32,11 @@
     <!-- Button -->
     <string name="button_log_in">Log In</string>
     <string name="button_log_in_as_guest">Log In As Guest</string>
-    <string name="button_sign_up">New user? <b>Sign Up!</b></string>
+    <string name="button_create_account">Create New Account</string>
     <string name="button_forgot_password">Forgot Password</string>
-    <string name="button_sign_up_action">Register</string>
-    <string name="button_new_password">Request new password</string>
-    <string name="button_reset">Reset</string>
+    <string name="button_sign_up">Sign Up</string>
+    <string name="button_request_new_password">Request new password</string>
+    <string name="button_change_password">Change Password</string>
     <string name="button_continue_twitter_login">Continue</string>
     <string name="button_facebook">Login with Facebook</string>
     <string name="button_twitter">Login with Twitter</string>
@@ -68,24 +68,28 @@
     <string name="tab_events_title">Events</string>
     <string name="settings_main_title">Settings</string>
 
-    <!-- Login and Register -->
-    <string name="title_login">Belatrix Connect</string>
-    <string name="let_s_get_started">Let\'s get started</string>
-    <string name="enter_your_email_address_to_receive_your_temporary_password">Enter your email address to receive your temporary password</string>
-    <string name="log_in_as_guest">Log In as Guest</string>
-    <string name="guest_message">Use your favorite social network account to login as guest.</string>
+    <!-- Login -->
+    <string name="login_subtitle">Belatrix Connect</string>
 
+    <!-- Sign Up -->
+    <string name="sign_up_subtitle">Let\'s get started</string>
+    <string name="sign_up_description">Enter your email address to receive your temporary password.</string>
 
-    <string name="get_guest_email_title">Almost done!</string>
-    <string name="get_guest_email_message">We couldn\'t get your email from your social network account. Enter your email to start using the app!</string>
+    <!-- Login as Guest -->
+    <string name="log_in_as_guest_subtitle">Log In as Guest</string>
+    <string name="log_in_as_guest_description">Use your favorite social network account to login as guest.</string>
+
+    <!-- Guest Email -->
+    <string name="get_guest_email_subtitle">Almost done!</string>
+    <string name="get_guest_email_description">We couldn\'t get your email from your social network account. Enter your email to start using the app!</string>
+
+    <!-- Request New Password -->
+    <string name="request_new_password_subtitle">New password</string>
+    <string name="request_new_password_description">Enter your email address to request your new password.</string>
 
     <!-- Reset Password -->
-    <string name="new_password">New password</string>
-    <string name="enter_your_email_address_to_request_your_new_password">Enter your email address to request your new password</string>
-
-    <!-- Reset Password -->
-    <string name="secure_your_account">Secure you account</string>
-    <string name="change_your_password">Change your password so you can remember it</string>
+    <string name="reset_password_subtitle">Secure you account</string>
+    <string name="reset_password_description">Change your password, so you can remember it.</string>
     <string name="new_password_length_error">At least %s characters</string>
     <string name="new_password_repeat_error">Must be the same</string>
 

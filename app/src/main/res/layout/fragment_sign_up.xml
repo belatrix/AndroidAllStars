@@ -20,7 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/activity_margin">
+            android:paddingLeft="@dimen/pre_session_fragment_margin"
+            android:paddingRight="@dimen/pre_session_fragment_margin">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -28,6 +29,7 @@
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/email_content_desc"
+                android:layout_marginTop="@dimen/dimen_5_5"
                 android:src="@drawable/ic_mail" />
 
             <TextView
@@ -35,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/dimen_3_5"
-                android:text="@string/let_s_get_started"
+                android:text="@string/sign_up_subtitle"
                 android:textStyle="bold"
                 android:textSize="@dimen/text_16" />
 
@@ -44,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginTop="@dimen/dimen_5"
-                android:text="@string/enter_your_email_address_to_receive_your_temporary_password"
+                android:text="@string/sign_up_description"
                 android:textSize="@dimen/text_12" />
 
             <android.support.design.widget.TextInputLayout
@@ -68,9 +70,10 @@
 
             <Button
                 android:id="@+id/send"
-                style="@style/Button.Accent"
-                android:layout_marginTop="@dimen/dimen_9_5"
-                android:text="@string/button_sign_up_action"/>
+                style="@style/Button.Primary"
+                android:layout_marginTop="@dimen/dimen_8_6"
+                android:text="@string/button_sign_up"
+                android:layout_marginBottom="@dimen/dimen_5_5"/>
 
         </LinearLayout>
 

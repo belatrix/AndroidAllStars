@@ -11,8 +11,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:paddingLeft="@dimen/activity_margin"
-        android:paddingRight="@dimen/activity_margin">
+        android:paddingLeft="@dimen/pre_session_fragment_margin"
+        android:paddingRight="@dimen/pre_session_fragment_margin">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/dimen_3_5"
-            android:text="@string/title_login"
+            android:text="@string/login_subtitle"
             android:textColor="@color/belatrix"
             android:textSize="@dimen/text_28" />
 
@@ -73,6 +73,12 @@
             android:id="@+id/log_in"
             android:layout_marginTop="@dimen/dimen_6_5"
             android:text="@string/button_log_in"
+            style="@style/Button.Primary"/>
+
+        <Button
+            android:id="@+id/sign_up"
+            android:layout_marginTop="@dimen/dimen_2_5"
+            android:text="@string/button_create_account"
             style="@style/Button.Accent"/>
 
         <Button
@@ -89,17 +95,8 @@
             android:gravity="center"
             android:text="@string/button_forgot_password"
             android:layout_marginTop="@dimen/dimen_5_5"
-            android:textColor="@color/colorPrimary"/>
-
-        <TextView
-            android:id="@+id/sign_up"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="@string/button_sign_up"
-            android:layout_marginTop="@dimen/dimen_6_5"
-            android:gravity="center"
-            android:layout_marginBottom="@dimen/dimen_6_5"
-            android:textColor="@color/colorPrimary"/>
+            android:layout_marginBottom="@dimen/dimen_5_5"
+            android:textColor="@color/grey"/>
 
     </LinearLayout>
 

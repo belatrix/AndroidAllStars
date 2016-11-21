@@ -59,7 +59,7 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     @Bind(R.id.log_in) Button logInButton;
     @Bind(R.id.log_in_as_guest) Button logInAsGuestButton;
     @Bind(R.id.forgot_password) TextView forgotPasswordButton;
-    @Bind(R.id.sign_up) TextView signUpButton;
+    @Bind(R.id.sign_up) Button signUpButton;
 
     public LoginFragment() {
         // Required empty public constructor
