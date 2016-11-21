@@ -36,7 +36,7 @@
 
     <style name="EditText">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/dimen_9_5</item>
+        <item name="android:layout_height">@dimen/dimen_8_6</item>
         <item name="android:paddingLeft">@dimen/dimen_2_5</item>
         <item name="android:paddingRight">@dimen/dimen_2_5</item>
         <item name="android:background">@drawable/selector_edittext</item>
@@ -45,7 +45,8 @@
 
     <style name="Button">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/dimen_8_5</item>
+        <item name="android:layout_height">@dimen/dimen_8_6</item>
+        <item name="android:textSize">@dimen/text_16</item>
     </style>
 
     <style name="Button.Accent">
