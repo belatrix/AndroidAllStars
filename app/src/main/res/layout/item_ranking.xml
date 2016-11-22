@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textSize="@dimen/text_16"
-        android:singleLine="true"
+        android:maxLines="1"
         android:paddingLeft="@dimen/activity_margin"
         tools:text="@string/title_full_name" />
 
