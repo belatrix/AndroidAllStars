@@ -23,6 +23,7 @@ package com.belatrixsf.connect.ui.home;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -121,7 +122,6 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
     private void setupTabs() {
         UserNavigationViewPagerAdapter userNavigationViewPagerAdapter = new UserNavigationViewPagerAdapter(this, getSupportFragmentManager());
         mainViewPager.setAdapter(userNavigationViewPagerAdapter);
-        mainViewPager.setOffscreenPageLimit(3);
         mainViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -161,6 +161,8 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
         bottomNavigation.addItem(item3);
 
         bottomNavigation.hideBottomNavigation();
+        bottomNavigation.setAccentColor(Color.parseColor("#448AFF"));
+        bottomNavigation.setBehaviorTranslationEnabled(false);
 
         switch (tabSelected){
             case ACCOUNT_TAB:
@@ -258,7 +260,7 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RQ_GIVE_STAR && resultCode == Activity.RESULT_OK && data != null) {
-            SnackbarUtils.createInformationSnackBar(data.getStringExtra(GiveStarFragment.MESSAGE_KEY), getString(R.string.dialog_option_confirm), coordinatorLayout,new View.OnClickListener() {
+            SnackbarUtils.createInformationSnackBar(data.getStringExtra(GiveStarFragment.MESSAGE_KEY), getString(R.string.dialog_option_confirm), toolbar, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //nothing
