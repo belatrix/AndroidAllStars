@@ -165,11 +165,6 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
             }
         }
         accountPresenter.setUserInfo(userId, userImg);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
         loadData();
     }
 

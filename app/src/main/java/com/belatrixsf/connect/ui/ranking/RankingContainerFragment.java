@@ -58,14 +58,21 @@ public class RankingContainerFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         rankingFragmentListener.setBottomTabListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
-            public void onTabSelected(int position, boolean wasSelected) {
-                if (position == TAB_LAST_MONTH && !wasSelected) {
-                    replaceChildFragment(RankingFragment.newInstance(Constants.KIND_LAST_MONTH_SCORE));
-                } else if (position == TAB_CURRENT_MONTH && !wasSelected) {
-                    replaceChildFragment(RankingFragment.newInstance(Constants.KIND_CURRENT_MONTH));
-                } else if (position == TAB_ALL_TIME && !wasSelected) {
-                    replaceChildFragment(RankingFragment.newInstance(Constants.KIND_TOTAL_SCORE));
+            public boolean onTabSelected(int position, boolean wasSelected) {
+                if (!wasSelected) {
+                    switch (position) {
+                        case TAB_LAST_MONTH:
+                            replaceChildFragment(RankingFragment.newInstance(Constants.KIND_LAST_MONTH_SCORE));
+                            break;
+                        case TAB_CURRENT_MONTH:
+                            replaceChildFragment(RankingFragment.newInstance(Constants.KIND_CURRENT_MONTH));
+                            break;
+                        case TAB_ALL_TIME:
+                            replaceChildFragment(RankingFragment.newInstance(Constants.KIND_TOTAL_SCORE));
+                            break;
+                    }
                 }
+                return true;
             }
         });
     }

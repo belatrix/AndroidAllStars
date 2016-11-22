@@ -25,6 +25,7 @@ import com.belatrixsf.connect.networking.retrofit.responses.AuthenticationRespon
 import com.belatrixsf.connect.services.contracts.EmployeeService;
 import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 import com.belatrixsf.connect.utils.ServiceError;
+import com.belatrixsf.connect.utils.di.components.ApplicationComponent;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.io.File;

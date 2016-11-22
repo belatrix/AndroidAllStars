@@ -48,6 +48,7 @@ import com.belatrixsf.connect.ui.account.AccountFragmentListener;
 import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
 import com.belatrixsf.connect.ui.contacts.ContactsListActivity;
 import com.belatrixsf.connect.ui.event.EventListActivity;
+import com.belatrixsf.connect.ui.notifications.NotificationListActivity;
 import com.belatrixsf.connect.ui.ranking.RankingFragmentListener;
 import com.belatrixsf.connect.ui.settings.SettingsActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarActivity;
@@ -64,9 +65,9 @@ import butterknife.Bind;
  */
 public class UserActivity extends MainActivity implements RankingFragmentListener, AccountFragmentListener {
 
-    public static final int RANKING_TAB = 1;
+    public static final int RANKING_TAB = 3;
     public static final int RQ_GIVE_STAR = 99;
-    public static final int PARENT_INDEX = 1;
+    public static final int PARENT_INDEX = 3;
     private ConnectFirebaseMessagingService.TargetTab tabSelected;
 
     @Bind(R.id.main_view_pager) ViewPager mainViewPager;
@@ -130,13 +131,14 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
             @Override
             public void onPageSelected(int position) {
                 if (position == RANKING_TAB) {
-                    bottomNavigation.setVisibility(View.VISIBLE);
-                    bottomNavigation.setCurrentItem(1);
                     startRecommendationButton.hide();
-
+                    bottomNavigation.restoreBottomNavigation();
+                    bottomNavigation.setBehaviorTranslationEnabled(true);
+                    bottomNavigation.setCurrentItem(1);
                 } else {
-                    bottomNavigation.setVisibility(View.GONE);
                     startRecommendationButton.show();
+                    bottomNavigation.hideBottomNavigation();
+                    bottomNavigation.setBehaviorTranslationEnabled(false);
                 }
             }
 
@@ -151,26 +153,26 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
         }
 
         AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_last_month, R.drawable.ic_event, R.color.colorAccent);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_current_month, R.drawable.ic_whatshot, R.color.colorActiveSmall);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.tab_all_time, R.drawable.ic_star, R.color.colorPrimary);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_current_month, R.drawable.ic_whatshot, R.color.colorAccent);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.tab_all_time, R.drawable.ic_star, R.color.colorAccent);
 
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);
         bottomNavigation.addItem(item3);
 
-        bottomNavigation.setBehaviorTranslationEnabled(false);
+        bottomNavigation.hideBottomNavigation();
 
         switch (tabSelected){
             case ACCOUNT_TAB:
                 mainViewPager.setCurrentItem(0);
                 break;
-            case RANKING_TAB:
+            case EVENTS_TAB:
                 mainViewPager.setCurrentItem(1);
                 break;
-            case ACTIVITY_TAB:
+            case CONTACTS_TAB:
                 mainViewPager.setCurrentItem(2);
                 break;
-            case TAG_TAB:
+            case RANKING_TAB:
                 mainViewPager.setCurrentItem(3);
                 break;
         }
@@ -188,22 +190,20 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
                 switch (item.getItemId()) {
                     case R.id.menu_home:
                         break;
-                    case R.id.menu_contacts:
-                        Intent intent = new Intent(UserActivity.this, ContactsListActivity.class);
+                    case R.id.menu_activities:
+                        Intent intent = new Intent(UserActivity.this, NotificationListActivity.class);
                         startActivity(intent);
-                        AccountActivity.PARENT_ACTIVITY_INDEX = ContactsListActivity.PARENT_INDEX;
                         break;
-                    case R.id.menu_event:
-                        intent = new Intent(UserActivity.this, EventListActivity.class);
+                    case R.id.menu_settings:
+                        intent = new Intent(UserActivity.this, SettingsActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.menu_about:
                         intent = new Intent(UserActivity.this, AboutActivity.class);
                         startActivity(intent);
                         break;
-                    case R.id.menu_settings:
-                        Intent settingsIntent = new Intent(UserActivity.this, SettingsActivity.class);
-                        startActivity(settingsIntent);
+                    case R.id.menu_help:
+                        //TODO: HelpActivity
                         break;
                 }
                 return true;

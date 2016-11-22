@@ -90,7 +90,7 @@
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"/>
         <activity android:name=".ui.settings.SettingsActivity"
-        android:label="@string/settings_main_title"/>
+        android:label="@string/title_settings_activity"/>
         <activity android:name=".ui.skills.SkillsListActivity"
             android:label="@string/skills_main_label"/>
         <activity android:name=".ui.skills.Add.AddSkillActivity"
