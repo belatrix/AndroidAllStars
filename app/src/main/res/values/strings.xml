@@ -92,6 +92,9 @@
     <string name="new_password_length_error">At least %s characters</string>
     <string name="new_password_repeat_error">Must be the same</string>
 
+    <!-- Home -->
+    <string name="bottom_navigation_color">#448AFF</string>
+
     <!-- Menu -->
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>

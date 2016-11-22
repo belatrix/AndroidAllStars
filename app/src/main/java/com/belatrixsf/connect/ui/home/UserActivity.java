@@ -161,7 +161,7 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
         bottomNavigation.addItem(item3);
 
         bottomNavigation.hideBottomNavigation();
-        bottomNavigation.setAccentColor(Color.parseColor("#448AFF"));
+        bottomNavigation.setAccentColor(Color.parseColor(getResources().getString(R.string.bottom_navigation_color)));
         bottomNavigation.setBehaviorTranslationEnabled(false);
 
         switch (tabSelected){
