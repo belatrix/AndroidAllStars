@@ -60,11 +60,9 @@
     <string name="title_event_list_activity">Events</string>
     <string name="title_event_detail_activity">Event Detail</string>
     <string name="title_about_activity">About</string>
-    <string name="tab_account_title">Account</string>
+    <string name="tab_account_title">Profile</string>
     <string name="tab_ranking_title">Ranking</string>
-    <string name="tab_notifications_title">Activity</string>
     <string name="tab_contacts_title">Contacts</string>
-    <string name="tab_keywords_title">Top Tags</string>
     <string name="tab_events_title">Events</string>
     <string name="settings_main_title">Settings</string>
 
