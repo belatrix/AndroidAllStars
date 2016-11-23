@@ -28,9 +28,9 @@ import android.view.View;
  */
 public class SnackbarUtils {
 
-    public static Snackbar createInformationSnackBar(String message, String actionLabel, View view, View.OnClickListener positiveListener) {
-        return Snackbar.make(view, message, Snackbar.LENGTH_LONG)
-                .setAction(actionLabel, positiveListener);
+    public static Snackbar createInformationSnackBar(View view, String message, String action, int duration, View.OnClickListener positiveListener) {
+        return Snackbar.make(view, message, duration)
+                .setAction(action, positiveListener);
     }
 
 }

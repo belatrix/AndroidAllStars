@@ -19,13 +19,13 @@ repositories {
 }
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '23.0.3'
+    compileSdkVersion 24
+    buildToolsVersion '24.0.3'
 
     defaultConfig {
         applicationId "com.belatrixsf.connect"
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 24
         versionCode 3
         versionName "1.2"
     }
@@ -53,7 +53,7 @@ android {
     }
 
     def firebaseLibrariesVersion = "9.0.2"
-    def supportLibrariesVersion = "23.4.0"
+    def supportLibrariesVersion = "24.2.0"
 
     dependencies {
         compile fileTree(dir: 'libs', include: ['*.jar'])

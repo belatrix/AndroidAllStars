@@ -73,7 +73,6 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
 
     @Bind(R.id.main_view_pager) ViewPager mainViewPager;
     @Bind(R.id.start_recommendation) FloatingActionButton startRecommendationButton;
-    @Bind(R.id.main_coordinator) CoordinatorLayout coordinatorLayout;
     @Nullable @Bind(R.id.tab_layout) TabLayout tabLayout;
     @Bind(R.id.bottom_navigation) AHBottomNavigation bottomNavigation;
 
@@ -260,12 +259,7 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RQ_GIVE_STAR && resultCode == Activity.RESULT_OK && data != null) {
-            SnackbarUtils.createInformationSnackBar(data.getStringExtra(GiveStarFragment.MESSAGE_KEY), getString(R.string.dialog_option_confirm), toolbar, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //nothing
-                }
-            }).show();
+            showSnackBar(data.getStringExtra(GiveStarFragment.MESSAGE_KEY));
         } else if (requestCode == EditAccountFragment.RQ_EDIT_ACCOUNT && resultCode == Activity.RESULT_OK && data != null) {
             ((UserHomePresenter) homePresenter).refreshEmployee();
         }

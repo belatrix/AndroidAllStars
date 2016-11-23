@@ -21,6 +21,7 @@
 package com.belatrixsf.connect.ui.common;
 
 import android.app.AlertDialog;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.app.ProgressDialog;
@@ -33,6 +34,7 @@ import android.view.View;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.utils.DialogUtils;
+import com.belatrixsf.connect.utils.SnackbarUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -107,6 +109,27 @@ public class BelatrixConnectActivity extends AppCompatActivity implements Fragme
     public void dismissProgressDialog() {
         if (progressDialog != null) {
             progressDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void showSnackBar(String message) {
+        if (toolbar != null) {
+            SnackbarUtils.createInformationSnackBar(toolbar, message, null, Snackbar.LENGTH_LONG, null).show();
+        }
+    }
+
+    @Override
+    public void showSnackBar(View view, String message) {
+        if (toolbar != null) {
+            SnackbarUtils.createInformationSnackBar(view, message, null, Snackbar.LENGTH_LONG, null).show();
+        }
+    }
+
+    @Override
+    public void showSnackBar(View view, String message, String action, View.OnClickListener onClickListener) {
+        if (toolbar != null) {
+            SnackbarUtils.createInformationSnackBar(toolbar, message, action, Snackbar.LENGTH_LONG, onClickListener).show();
         }
     }
 

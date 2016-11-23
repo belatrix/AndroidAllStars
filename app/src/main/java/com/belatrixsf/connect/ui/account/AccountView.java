@@ -32,7 +32,6 @@ import java.util.List;
 public interface AccountView extends BelatrixConnectView {
 
     void goSubCategoryDetail(Integer categoryId, Integer employeeId);
-    void showCurrentMonthScore(String skypeId);
     void showScore(String score);
     void showLocation(String locationIcon);
     void showSubCategories(List<SubCategory> subCategories);
