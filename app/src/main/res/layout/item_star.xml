@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_16"
                     android:textColor="@android:color/black"
-                    android:singleLine="true"
+                    android:maxLines="1"
                     tools:text="Full Name" />
 
                 <TextView

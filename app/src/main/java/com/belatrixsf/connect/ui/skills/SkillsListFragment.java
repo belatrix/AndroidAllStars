@@ -228,12 +228,7 @@ public class SkillsListFragment extends BelatrixConnectFragment implements Skill
     @Override
     public void showDeletedInformation(String skillName) {
         String message = skillName + " " + getString(R.string.dialog_confirmation_deleted);
-        SnackbarUtils.createInformationSnackBar(message, getString(R.string.dialog_option_confirm), skillsCoordinatorLayout, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //nothing
-            }
-        }).show();
+        fragmentListener.showSnackBar(message);
     }
 
     public static void refreshFromAddSkill(){

@@ -21,6 +21,7 @@
 package com.belatrixsf.connect.ui.common;
 
 import android.content.Context;
+import android.view.View;
 
 /**
  * @author Pedro Carrillo
@@ -32,6 +33,9 @@ public interface BelatrixConnectView {
     void showProgressDialog();
     void showProgressDialog(String message);
     void dismissProgressDialog();
+    void showSnackBar(String message);
+    void showSnackBar(View view, String messag);
+    void showSnackBar(View view, String message, String action, View.OnClickListener onClickListener);
     void setTitle(String title);
     void showError(String message);
     Context getContext();

@@ -51,9 +51,9 @@ public class ConnectFirebaseMessagingService extends FirebaseMessagingService {
 
     public enum TargetTab {
         ACCOUNT_TAB,
-        RANKING_TAB,
-        ACTIVITY_TAB,
-        TAG_TAB
+        EVENTS_TAB,
+        CONTACTS_TAB,
+        RANKING_TAB
     }
 
     @Override
@@ -71,7 +71,7 @@ public class ConnectFirebaseMessagingService extends FirebaseMessagingService {
 
     private void sendNotification(String messageTitle, String messageBody) {
         Intent intent = new Intent(this, UserActivity.class);
-        intent.putExtra(ACTIVITY_TAB_BUNDLE_KEY, TargetTab.ACTIVITY_TAB);
+        intent.putExtra(ACTIVITY_TAB_BUNDLE_KEY, TargetTab.ACCOUNT_TAB);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,

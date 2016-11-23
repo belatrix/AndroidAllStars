@@ -8,20 +8,20 @@
                     android:title="@string/menu_title_home"
                     android:checked="true"/>
                 <item
-                    android:id="@+id/menu_contacts"
-                    android:icon="@drawable/ic_contact"
-                    android:title="@string/menu_title_contacts"/>
+                    android:id="@+id/menu_activities"
+                    android:icon="@drawable/ic_activity"
+                    android:title="@string/menu_title_activities"/>
                 <item
-                    android:id="@+id/menu_event"
-                    android:icon="@drawable/ic_event"
-                    android:title="@string/menu_title_events"/>
+                    android:id="@+id/menu_settings"
+                    android:icon="@drawable/ic_settings"
+                    android:title="@string/title_settings_activity" />
                 <item
                     android:id="@+id/menu_about"
                     android:icon="@drawable/ic_about"
                     android:title="@string/menu_title_about"/>
                 <item
-                    android:id="@+id/menu_settings"
-                    android:icon="@drawable/ic_settings"
-                    android:title="@string/settings_main_title" />
+                    android:id="@+id/menu_help"
+                    android:icon="@drawable/ic_help"
+                    android:title="@string/menu_title_help"/>
         </group>
 </menu>

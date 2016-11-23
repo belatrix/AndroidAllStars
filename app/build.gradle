@@ -19,13 +19,13 @@ repositories {
 }
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '23.0.3'
+    compileSdkVersion 24
+    buildToolsVersion '24.0.3'
 
     defaultConfig {
         applicationId "com.belatrixsf.connect"
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 24
         versionCode 3
         versionName "1.2"
     }
@@ -52,8 +52,8 @@ android {
         }
     }
 
-    def firebaseLibrariesVersion = "9.0.0"
-    def supportLibrariesVersion = "23.4.0"
+    def firebaseLibrariesVersion = "9.0.2"
+    def supportLibrariesVersion = "24.2.0"
 
     dependencies {
         compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -65,6 +65,7 @@ android {
         compile "com.android.support:support-v13:$supportLibrariesVersion"
         compile "com.android.support:gridlayout-v7:$supportLibrariesVersion"
         compile 'com.theartofdev.edmodo:android-image-cropper:2.1.4'
+        compile "com.google.firebase:firebase-core:$firebaseLibrariesVersion"
         compile "com.google.firebase:firebase-messaging:$firebaseLibrariesVersion"
         apt 'com.google.dagger:dagger-compiler:2.0'
         provided 'javax.annotation:jsr250-api:1.0'
@@ -76,7 +77,7 @@ android {
         compile 'com.google.dagger:dagger:2.0'
         compile 'javax.inject:javax.inject:1'
         compile 'com.github.bumptech.glide:glide:3.7.0'
-        compile 'com.aurelhubert:ahbottomnavigation:1.1.8'
+        compile 'com.aurelhubert:ahbottomnavigation:2.0.1'
         compile 'com.squareup.picasso:picasso:2.5.2'
         compile 'com.facebook.android:facebook-android-sdk:4.0.1'
         compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {

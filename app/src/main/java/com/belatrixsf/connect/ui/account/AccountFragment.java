@@ -66,6 +66,7 @@ import com.belatrixsf.connect.utils.di.modules.presenters.AccountPresenterModule
 import com.belatrixsf.connect.utils.media.ImageFactory;
 import com.belatrixsf.connect.utils.media.loaders.ImageLoader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -75,6 +76,9 @@ import butterknife.OnClick;
  * Created by pedrocarrillo on 4/9/16.
  */
 public class AccountFragment extends BelatrixConnectFragment implements AccountView, RecyclerOnItemClickListener {
+
+    public static final String SUB_CATEGORY_LIST_KEY = "_sub_category_list_key";
+    public static final String EMPLOYEE_KEY = "_employee_key";
 
     public static final int RQ_GIVE_STAR = 99;
 
@@ -88,7 +92,6 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
 
     @Bind(R.id.account_recommendations) RecyclerView recommendationRecyclerView;
     @Bind(R.id.skype_id) TextView skypeIdTextView;
-    @Bind(R.id.current_month_score) TextView currentMonthScoreTextView;
     @Bind(R.id.level) TextView levelTextView;
     @Bind(R.id.score) TextView scoreTextView;
     @Bind(R.id.profile_name) TextView nameTextView;
@@ -98,7 +101,6 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     @Bind(R.id.account_swipe_refresh) SwipeRefreshLayout accountSwipeRefresh;
     @Bind(R.id.subcategories_progress_bar) ProgressBar subCategoriesProgressBar;
     @Bind(R.id.no_data_textview) TextView noDataTextView;
-    @Bind(R.id.main_coordinator) CoordinatorLayout coordinatorLayout;
 
     public static AccountFragment newInstance(Integer userId, byte[] imgBitmap) {
         Bundle bundle = new Bundle();
@@ -154,23 +156,20 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setupViews();
-        Integer userId = null;
-        byte [] userImg = null;
-        if (getArguments() != null) {
+        if (savedInstanceState != null) {
+            restoreState(savedInstanceState);
+        }else if (getArguments() != null) {
+            Integer userId = null;
+            byte [] userImg = null;
             if (getArguments().containsKey(AccountActivity.USER_ID_KEY)) {
                 userId = getArguments().getInt(AccountActivity.USER_ID_KEY);
             }
             if(getArguments().containsKey(AccountActivity.USER_IMG_PROFILE_KEY)){
                 userImg = getArguments().getByteArray(AccountActivity.USER_IMG_PROFILE_KEY);
             }
+            accountPresenter.setUserInfo(userId, userImg);
         }
-        accountPresenter.setUserInfo(userId, userImg);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        loadData();
+        accountPresenter.loadEmployeeAccount(false);
     }
 
     @Override
@@ -211,8 +210,8 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
         accountSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                accountPresenter.refreshEmployee();
-                loadData();
+                accountCategoriesAdapter.clear();
+                accountPresenter.loadEmployeeAccount(true);
             }
         });
         accountSwipeRefresh.setColorSchemeResources(R.color.swipe_refresh);
@@ -226,18 +225,33 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        saveState(outState);
+        super.onSaveInstanceState(outState);
+    }
+
+    private void restoreState(Bundle savedInstanceState) {
+        List<SubCategory> subCategoryList = savedInstanceState.getParcelableArrayList(SUB_CATEGORY_LIST_KEY);
+        Employee employee = savedInstanceState.getParcelable(EMPLOYEE_KEY);
+        byte [] employeeImg = savedInstanceState.getByteArray(AccountActivity.USER_IMG_PROFILE_KEY);
+        accountPresenter.loadPresenterState(subCategoryList, employee, employeeImg);
+    }
+
+    private void saveState(Bundle outState) {
+        outState.putParcelable(EMPLOYEE_KEY, accountPresenter.getEmployee());
+        outState.putByteArray(AccountActivity.USER_IMG_PROFILE_KEY, accountPresenter.getEmployeeImg());
+        List<SubCategory> subCategoryList = accountPresenter.getSubCategoriesListSync();
+        if (subCategoryList != null && subCategoryList instanceof ArrayList) {
+            outState.putParcelableArrayList(SUB_CATEGORY_LIST_KEY, (ArrayList<SubCategory>) subCategoryList);
+        }
+    }
+
+    @Override
     public void goSubCategoryDetail(Integer categoryId, Integer employeeId) {
         Intent intent = new Intent(getActivity(), StarsListActivity.class);
         intent.putExtra(StarsListActivity.USER_ID, employeeId);
         intent.putExtra(StarsListActivity.SUBCATEGORY_ID, categoryId);
         startActivity(intent);
-    }
-
-    @Override
-    public void showCurrentMonthScore(String currentMonthScore) {
-        if (currentMonthScoreTextView != null) {
-            currentMonthScoreTextView.setText(String.valueOf(currentMonthScore));
-        }
     }
 
     @Override
@@ -400,38 +414,21 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RQ_GIVE_STAR && resultCode == Activity.RESULT_OK && data != null) {
-            SnackbarUtils.createInformationSnackBar(data.getStringExtra(GiveStarFragment.MESSAGE_KEY), getString(R.string.dialog_option_confirm), coordinatorLayout,new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //nothing
-                }
-            }).show();
+            fragmentListener.showSnackBar(data.getStringExtra(GiveStarFragment.MESSAGE_KEY));
         } else if (requestCode == EditAccountFragment.RQ_EDIT_ACCOUNT) {
             accountPresenter.refreshEmployee();
         }
     }
 
     @Override
-    public void showProgressDialog() {
-        if (accountSwipeRefresh != null) {
-            accountSwipeRefresh.setRefreshing(true);
-        }
-    }
-
-    @Override
     public void showProgressIndicator() {
+        accountSwipeRefresh.setRefreshing(true);
         setProgressViewVisibility(View.VISIBLE);
     }
 
     @Override
-    public void dismissProgressDialog() {
-        if (accountSwipeRefresh != null) {
-            accountSwipeRefresh.setRefreshing(false);
-        }
-    }
-
-    @Override
     public void hideProgressIndicator() {
+        accountSwipeRefresh.setRefreshing(false);
         setProgressViewVisibility(View.GONE);
     }
 
@@ -471,11 +468,6 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
         if (subCategoriesProgressBar != null) {
             subCategoriesProgressBar.setVisibility(visibility);
         }
-    }
-
-    public void loadData() {
-        accountCategoriesAdapter.clear();
-        accountPresenter.loadEmployeeAccount();
     }
 
     @Override

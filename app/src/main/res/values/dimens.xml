@@ -27,6 +27,7 @@
     <dimen name="dimen_10_8">80dp</dimen>
     <dimen name="dimen_10_9">90dp</dimen>
     <dimen name="dimen_10_10">100dp</dimen>
+    <dimen name="dimen_13_10">130dp</dimen>
     <dimen name="dimen_15_10">150dp</dimen>
     <dimen name="dimen_18_10">180dp</dimen>
     <dimen name="dimen_22_10">220dp</dimen>

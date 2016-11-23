@@ -23,6 +23,7 @@ package com.belatrixsf.connect.ui.common;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 /**
  * Created by PedroCarrillo on 4/8/16.
@@ -35,6 +36,9 @@ public interface FragmentListener {
     void showProgressDialog();
     void showProgressDialog(String message);
     void dismissProgressDialog();
+    void showSnackBar(String message);
+    void showSnackBar(View view, String message);
+    void showSnackBar(View view, String message, String action, View.OnClickListener onClickListener);
     void closeActivity();
     void setActivityResult(int resultCode);
     void setActivityResult(int resultCode, Intent resultIntent);

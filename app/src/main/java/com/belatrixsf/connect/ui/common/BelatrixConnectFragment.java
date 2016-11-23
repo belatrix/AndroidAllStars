@@ -106,6 +106,27 @@ public abstract class BelatrixConnectFragment extends Fragment implements Belatr
     }
 
     @Override
+    public void showSnackBar(String message) {
+        if (fragmentListener != null) {
+            fragmentListener.showSnackBar(message);
+        }
+    }
+
+    @Override
+    public void showSnackBar(View view, String message) {
+        if (fragmentListener != null) {
+            fragmentListener.showSnackBar(view, message);
+        }
+    }
+
+    @Override
+    public void showSnackBar(View view, String message, String action, View.OnClickListener onClickListener) {
+        if (fragmentListener != null) {
+            fragmentListener.showSnackBar(view, message, action, onClickListener);
+        }
+    }
+
+    @Override
     public void showError(String message) {
         if (fragmentListener != null) {
             fragmentListener.showError(message);

@@ -32,6 +32,9 @@ import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 import com.belatrixsf.connect.utils.ServiceError;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 /**
@@ -40,11 +43,13 @@ import javax.inject.Inject;
 public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
 
     private EmployeeManager employeeManager;
+    private Integer employeeId;
     private Employee employee;
+    private List<SubCategory> subCategoriesList;
+    private byte[] employeeImg;
+
     private StarService starService;
     private EmployeeService employeeService;
-    private Integer employeeId;
-    private byte[] employeeImg;
 
     @Inject
     public AccountPresenter(AccountView view, EmployeeManager employeeManager, EmployeeService employeeService, StarService starService) {
@@ -54,37 +59,44 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
         this.employeeService = employeeService;
     }
 
-    public void loadEmployeeAccount() {
-        view.showProgressDialog();
-        BelatrixConnectCallback<Employee> employeeBelatrixConnectCallback = new PresenterCallback<Employee>() {
-            @Override
-            public void onSuccess(Employee employee) {
-                AccountPresenter.this.employee = employee;
-                loadSubCategoriesStar();
-                showEmployeeData();
-                view.notifyNavigationRefresh();
-                view.dismissProgressDialog();
-            }
-
-            @Override
-            public void onFailure(ServiceError serviceError) {
-                view.dismissProgressDialog();
-                if (serviceError.getResponseCode() == ServiceError.INVALID_TOKEN) {
-                    view.showInformativeDialog(serviceError.getDetail());
+    public void loadEmployeeAccount(final boolean force) {
+        if (employeeId == null || force) {
+            view.showProgressIndicator();
+            BelatrixConnectCallback<Employee> employeeBelatrixConnectCallback = new PresenterCallback<Employee>() {
+                @Override
+                public void onSuccess(Employee employee) {
+                    AccountPresenter.this.employeeId = employee.getPk();
+                    AccountPresenter.this.employee = employee;
+                    loadSubCategoriesStar(true);
+                    showEmployeeData();
+                    view.notifyNavigationRefresh();
+                    view.hideProgressIndicator();
                 }
+
+                @Override
+                public void onFailure(ServiceError serviceError) {
+                    view.hideProgressIndicator();
+                    if (serviceError.getResponseCode() == ServiceError.INVALID_TOKEN) {
+                        view.showInformativeDialog(serviceError.getDetail());
+                    }
+                }
+            };
+            if (employeeId == null) {
+                employeeManager.getLoggedInEmployee(employeeBelatrixConnectCallback);
+            } else {
+                employeeService.getEmployee(employeeId, employeeBelatrixConnectCallback);
             }
-        };
-        if (employeeId == null) {
-            employeeManager.getLoggedInEmployee(employeeBelatrixConnectCallback);
         } else {
-            employeeService.getEmployee(employeeId, employeeBelatrixConnectCallback);
+            loadSubCategoriesStar(false);
+            showEmployeeData();
         }
     }
 
-    private void loadSubCategoriesStar() {
-        view.showProgressIndicator();
+    private void loadSubCategoriesStar(boolean force) {
         view.hideNoDataView();
-        starService.getEmployeeSubCategoriesStars(
+        if (subCategoriesList == null || force) {
+            view.showProgressIndicator();
+            starService.getEmployeeSubCategoriesStars(
                 employee.getPk(),
                 new PresenterCallback<PaginatedResponse<SubCategory>>() {
                     @Override
@@ -96,16 +108,25 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
                             view.showNoDataView();
                         }
                     }
+
+                    @Override
+                    public void onFailure(ServiceError serviceError) {
+                        view.hideProgressIndicator();
+                        super.onFailure(serviceError);
+                    }
                 });
+        } else {
+            if(!subCategoriesList.isEmpty()) {
+                view.showSubCategories(subCategoriesList);
+            } else {
+                view.showNoDataView();
+            }
+        }
     }
 
     public void setUserInfo(Integer employeeId, byte[] employeeByteImg) {
         this.employeeId = employeeId;
         this.employeeImg = employeeByteImg;
-    }
-
-    public byte[] getEmployeeImg(){
-        return this.employeeImg;
     }
 
     private void showEmployeeData() {
@@ -114,18 +135,9 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
         }
         if (employee.getLevel() != null) {
             view.showLevel(String.valueOf(employee.getLevel()));
-        } else {
-            view.showCurrentMonthScore(getString(R.string.no_data_option));
         }
         if (employee.getTotalScore() != null) {
             view.showScore(String.valueOf(employee.getTotalScore()));
-        } else {
-            view.showCurrentMonthScore(getString(R.string.no_data_option));
-        }
-        if (employee.getCurrentMonthScore() != null) {
-            view.showCurrentMonthScore(String.valueOf(employee.getCurrentMonthScore()));
-        } else {
-            view.showCurrentMonthScore(getString(R.string.no_data_option));
         }
         if (employee.getFirstName() != null || employee.getLastName() != null || !employee.getFullName().isEmpty()) {
             view.showEmployeeName(employee.getFullName());
@@ -157,7 +169,7 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
                 view.showRecommendMenu(true);
             } else {
                 view.showEditProfileButton(true);
-                view.showEditSkillsButton(true);
+                view.showEditSkillsButton(false);
             }
         }
     }
@@ -182,6 +194,24 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
         if (employee != null && employee.getAvatar() != null) {
             view.goToExpandPhoto(employee.getAvatar());
         }
+    }
+
+    public List<SubCategory> getSubCategoriesListSync() {
+        return subCategoriesList;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public byte[] getEmployeeImg(){
+        return this.employeeImg;
+    }
+
+    public void loadPresenterState(List<SubCategory> subCategoriesList, Employee employee, byte[] employeeImg) {
+        this.subCategoriesList = subCategoriesList;
+        this.employee = employee;
+        this.employeeImg = employeeImg;
     }
 
     public void confirmEndSession() {

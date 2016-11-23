@@ -283,12 +283,7 @@ public class AddSkillFragment extends BelatrixConnectFragment implements AddSkil
     @Override
     public void showAddedConfirmation(String skillName) {
         String message = skillName + " " + getString(R.string.dialog_confirmation_added);
-        SnackbarUtils.createInformationSnackBar(message, getString(R.string.dialog_option_confirm), keywordscoordinatorLayout,new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //nothing
-            }
-        }).show();
+        fragmentListener.showSnackBar(message);
     }
 
     @Override
