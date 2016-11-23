@@ -232,14 +232,12 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
 
     private void restoreState(Bundle savedInstanceState) {
         List<SubCategory> subCategoryList = savedInstanceState.getParcelableArrayList(SUB_CATEGORY_LIST_KEY);
-        Integer employeeId = savedInstanceState.getInt(AccountActivity.USER_ID_KEY);
         Employee employee = savedInstanceState.getParcelable(EMPLOYEE_KEY);
         byte [] employeeImg = savedInstanceState.getByteArray(AccountActivity.USER_IMG_PROFILE_KEY);
-        accountPresenter.loadPresenterState(subCategoryList, employeeId, employee, employeeImg);
+        accountPresenter.loadPresenterState(subCategoryList, employee, employeeImg);
     }
 
     private void saveState(Bundle outState) {
-        outState.putInt(AccountActivity.USER_ID_KEY, accountPresenter.getEmployeeId());
         outState.putParcelable(EMPLOYEE_KEY, accountPresenter.getEmployee());
         outState.putByteArray(AccountActivity.USER_IMG_PROFILE_KEY, accountPresenter.getEmployeeImg());
         List<SubCategory> subCategoryList = accountPresenter.getSubCategoriesListSync();

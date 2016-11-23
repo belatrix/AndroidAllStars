@@ -43,13 +43,13 @@ import javax.inject.Inject;
 public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
 
     private EmployeeManager employeeManager;
+    private Integer employeeId;
     private Employee employee;
     private List<SubCategory> subCategoriesList;
+    private byte[] employeeImg;
 
     private StarService starService;
     private EmployeeService employeeService;
-    private Integer employeeId;
-    private byte[] employeeImg;
 
     @Inject
     public AccountPresenter(AccountView view, EmployeeManager employeeManager, EmployeeService employeeService, StarService starService) {
@@ -60,7 +60,7 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
     }
 
     public void loadEmployeeAccount(final boolean force) {
-        if (employee == null || force) {
+        if (employeeId == null || force) {
             view.showProgressIndicator();
             BelatrixConnectCallback<Employee> employeeBelatrixConnectCallback = new PresenterCallback<Employee>() {
                 @Override
@@ -200,10 +200,6 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
         return subCategoriesList;
     }
 
-    public Integer getEmployeeId() {
-        return employeeId;
-    }
-
     public Employee getEmployee() {
         return employee;
     }
@@ -212,9 +208,8 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
         return this.employeeImg;
     }
 
-    public void loadPresenterState(List<SubCategory> subCategoriesList, Integer employeeId, Employee employee, byte[] employeeImg) {
+    public void loadPresenterState(List<SubCategory> subCategoriesList, Employee employee, byte[] employeeImg) {
         this.subCategoriesList = subCategoriesList;
-        this.employeeId = employeeId;
         this.employee = employee;
         this.employeeImg = employeeImg;
     }
