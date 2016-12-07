@@ -61,6 +61,7 @@
     <string name="title_event_detail_activity">Event Detail</string>
     <string name="title_about_activity">About</string>
     <string name="title_settings_activity">Settings</string>
+    <string name="title_notification_list_activity">Activities</string>
     <string name="title_help_activity">Help</string>
     <string name="tab_account_title">Profile</string>
     <string name="tab_events_title">Events</string>

@@ -169,7 +169,7 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
             }
             accountPresenter.setUserInfo(userId, userImg);
         }
-        accountPresenter.loadEmployeeAccount(false);
+        accountPresenter.loadEmployeeAccount(true);
     }
 
     @Override
