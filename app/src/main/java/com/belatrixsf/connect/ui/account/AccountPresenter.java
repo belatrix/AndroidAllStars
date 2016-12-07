@@ -97,7 +97,7 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
         if (subCategoriesList == null || force) {
             view.showProgressIndicator();
             starService.getEmployeeSubCategoriesStars(
-                employee.getPk(),
+                employeeId,
                 new PresenterCallback<PaginatedResponse<SubCategory>>() {
                     @Override
                     public void onSuccess(PaginatedResponse<SubCategory> starSubCategoryResponse) {
