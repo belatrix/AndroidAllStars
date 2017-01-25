@@ -29,11 +29,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
+import com.belatrixsf.connect.utils.CustomDomainEditText;
 import com.belatrixsf.connect.utils.DialogUtils;
 import com.belatrixsf.connect.utils.di.modules.presenters.SignUpPresenterModule;
 
@@ -47,7 +47,9 @@ public class SignUpFragment extends BelatrixConnectFragment implements SignUpVie
 
     private SignUpPresenter signUpPresenter;
 
-    @Bind(R.id.email) EditText emailEditText;
+    private final String DEFAULT_DOMAIN_ID = "default_domain_id";
+
+    @Bind(R.id.email) CustomDomainEditText emailEditText;
     @Bind(R.id.send) Button sendButton;
     @Bind(R.id.toolbar) Toolbar toolbar;
 
@@ -73,6 +75,8 @@ public class SignUpFragment extends BelatrixConnectFragment implements SignUpVie
 
     private void initViews() {
         emailEditText.addTextChangedListener(formFieldWatcher);
+        emailEditText.setDefaultDomain(getActivity().getIntent().getExtras().getString(DEFAULT_DOMAIN_ID));
+        emailEditText.setDefaultUsername(getString(R.string.hint_username));
         fragmentListener.setToolbar(toolbar);
         fragmentListener.setTitle("");
     }
@@ -102,7 +106,7 @@ public class SignUpFragment extends BelatrixConnectFragment implements SignUpVie
 
     @OnClick(R.id.send)
     public void sendClicked() {
-        String email = emailEditText.getText().toString();
+        String email = emailEditText.getText().toString().trim();
         signUpPresenter.signUp(email);
     }
 
@@ -126,7 +130,10 @@ public class SignUpFragment extends BelatrixConnectFragment implements SignUpVie
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            String email = emailEditText.getText().toString();
+            String email = emailEditText.getUserName().trim();
+            if (email.contains(emailEditText.getDefaultUsername())) {
+                email = email.replace(emailEditText.getDefaultUsername(), "");
+            }
             signUpPresenter.checkIfEmailIsValid(email);
         }
 

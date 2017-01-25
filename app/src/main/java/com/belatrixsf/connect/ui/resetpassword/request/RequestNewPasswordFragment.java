@@ -29,11 +29,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
+import com.belatrixsf.connect.utils.CustomDomainEditText;
 import com.belatrixsf.connect.utils.DialogUtils;
 import com.belatrixsf.connect.utils.di.modules.presenters.RequestNewPasswordPresenterModule;
 
@@ -47,7 +47,9 @@ public class RequestNewPasswordFragment extends BelatrixConnectFragment implemen
 
     private RequestNewPasswordPresenter requestNewPasswordPresenter;
 
-    @Bind(R.id.email) EditText emailEditText;
+    private final String DEFAULT_DOMAIN_ID = "default_domain_id";
+
+    @Bind(R.id.email) CustomDomainEditText emailEditText;
     @Bind(R.id.new_password) Button requestButton;
     @Bind(R.id.toolbar) Toolbar toolbar;
 
@@ -74,6 +76,8 @@ public class RequestNewPasswordFragment extends BelatrixConnectFragment implemen
     private void initViews() {
         fragmentListener.setToolbar(toolbar);
         fragmentListener.setTitle("");
+        emailEditText.setDefaultDomain(getActivity().getIntent().getExtras().getString(DEFAULT_DOMAIN_ID));
+        emailEditText.setDefaultUsername(getString(R.string.hint_username));
         emailEditText.addTextChangedListener(formFieldWatcher);
     }
 
@@ -114,7 +118,7 @@ public class RequestNewPasswordFragment extends BelatrixConnectFragment implemen
 
     @OnClick(R.id.new_password)
     public void requestClicked() {
-        String email = emailEditText.getText().toString();
+        String email = emailEditText.getText().toString().trim();
         requestNewPasswordPresenter.requestNewPassword(email);
     }
 
@@ -127,7 +131,10 @@ public class RequestNewPasswordFragment extends BelatrixConnectFragment implemen
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            String email = emailEditText.getText().toString();
+            String email = emailEditText.getUserName().trim();
+            if (email.contains(emailEditText.getDefaultUsername())) {
+                email = email.replace(emailEditText.getDefaultUsername(), "");
+            }
             requestNewPasswordPresenter.checkIfInputsIsValid(email);
         }
 

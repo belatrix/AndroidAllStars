@@ -24,6 +24,7 @@ import com.belatrixsf.connect.entities.Category;
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.Location;
 import com.belatrixsf.connect.entities.Notification;
+import com.belatrixsf.connect.entities.SiteInfo;
 import com.belatrixsf.connect.managers.PreferencesManager;
 import com.belatrixsf.connect.networking.retrofit.api.EmployeeAPI;
 import com.belatrixsf.connect.networking.retrofit.requests.AuthenticationRequest;
@@ -176,6 +177,14 @@ public class EmployeeServerService extends BelatrixConnectBaseService implements
     public ServiceRequest logout(BelatrixConnectCallback<Void> callback) {
         Call<Void> call = employeeAPI.logout();
         ServiceRequest<Void> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
+    @Override
+    public ServiceRequest getSiteInfo(BelatrixConnectCallback<SiteInfo> callback) {
+        Call<SiteInfo> call = employeeAPI.getSiteInfo();
+        ServiceRequest<SiteInfo> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
         return serviceRequest;
     }
