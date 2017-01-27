@@ -37,7 +37,8 @@ public class CustomDomainEditText extends TextInputEditText {
     private String defaultDomain;
     private String defaultUsername;
     private boolean isInitialized = false;
-    private int hintColor = getResources().getColor(R.color.grey);
+    private final int hintColor = getResources().getColor(R.color.grey);
+    private final char atChar = '@';
 
     public CustomDomainEditText(Context context) {
         super(context);
@@ -54,7 +55,7 @@ public class CustomDomainEditText extends TextInputEditText {
     @Override
     protected void onSelectionChanged(int selStart, int selEnd) {
         if (isInitialized) {
-            int atIndex = getText().toString().indexOf('@');
+            int atIndex = getText().toString().indexOf(atChar);
             if (atIndex > -1) {
                 String username = getUserName();
                 if (username.equals(defaultUsername)) {
@@ -83,7 +84,7 @@ public class CustomDomainEditText extends TextInputEditText {
                 setTextWithDomain(defaultUsername);
                 setFormat(hintColor);
             } else if (!userText.equals(defaultUsername) && userText.contains(defaultUsername)) {
-                setTextWithDomain(userText.replace("Username", ""));
+                setTextWithDomain(userText.replace(defaultUsername, ""));
                 setFormat(Color.BLACK);
             }
         }
@@ -108,7 +109,7 @@ public class CustomDomainEditText extends TextInputEditText {
     }
 
     public String getUserName() {
-        int atIndex = getText().toString().indexOf('@');
+        int atIndex = getText().toString().indexOf(atChar);
         return (atIndex > -1) ? getText().toString().substring(0, atIndex) : "";
     }
 
@@ -122,7 +123,7 @@ public class CustomDomainEditText extends TextInputEditText {
     }
 
     private void setFormat(int color) {
-        int atIndex = getText().toString().indexOf('@');
+        int atIndex = getText().toString().indexOf(atChar);
         if (atIndex > -1) {
             ForegroundColorSpan colorSpan = new ForegroundColorSpan(color);
             getText().setSpan(colorSpan, 0, atIndex, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
