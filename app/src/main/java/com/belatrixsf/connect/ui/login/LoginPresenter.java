@@ -21,6 +21,7 @@
 package com.belatrixsf.connect.ui.login;
 
 import com.belatrixsf.connect.R;
+import com.belatrixsf.connect.entities.SiteInfo;
 import com.belatrixsf.connect.managers.EmployeeManager;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 
@@ -80,4 +81,14 @@ public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
     public void cancelRequests() {
     }
 
+    public void getDefaultDomain() {
+        view.showProgressDialog();
+        employeeManager.getSiteInfo(new PresenterCallback<SiteInfo>() {
+            @Override
+            public void onSuccess(SiteInfo siteInfo) {
+                view.setDefaultDomain("@" + siteInfo.getEmail_domain());
+                view.dismissProgressDialog();
+            }
+        });
+    }
 }

@@ -24,6 +24,7 @@ import com.belatrixsf.connect.entities.Category;
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.Location;
 import com.belatrixsf.connect.entities.Notification;
+import com.belatrixsf.connect.entities.SiteInfo;
 import com.belatrixsf.connect.networking.retrofit.requests.AuthenticationRequest;
 import com.belatrixsf.connect.networking.retrofit.requests.CreateEmployeeRequest;
 import com.belatrixsf.connect.networking.retrofit.requests.RegisterDeviceRequest;
@@ -95,4 +96,6 @@ public interface EmployeeAPI {
     @GET(ServerPaths.EMPLOYEE_LOGOUT)
     Call<Void> logout();
 
+    @GET(ServerPaths.EMPLOYEE_SITE_INFO)
+    Call<SiteInfo> getSiteInfo();
 }

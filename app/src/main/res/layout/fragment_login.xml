@@ -36,13 +36,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_4_5"
-            app:hintTextAppearance="@style/TextInputLayout">
+            android:focusableInTouchMode="true">
 
-                <android.support.design.widget.TextInputEditText
+                <com.belatrixsf.connect.utils.CustomDomainEditText
                 android:id="@+id/username"
                 android:drawableLeft="@drawable/ic_person_outline"
                 android:drawablePadding="@dimen/dimen_3_5"
-                android:hint="@string/hint_username"
                 android:imeOptions="actionNext"
                 android:background="@drawable/selector_edittext"
                 android:paddingLeft="0dp"

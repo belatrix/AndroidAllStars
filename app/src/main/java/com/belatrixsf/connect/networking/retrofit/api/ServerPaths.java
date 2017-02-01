@@ -89,4 +89,5 @@ public interface ServerPaths {
     String GUEST_BY_ID = EVENT + "/participant/{" + GUEST_ID + "}";
     String NOTIFICATION_LIST = NOTIFICATION + "/list/";
 
+    String EMPLOYEE_SITE_INFO = "admin/site/info/";
 }

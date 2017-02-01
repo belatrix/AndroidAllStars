@@ -24,6 +24,7 @@ import com.belatrixsf.connect.entities.Category;
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.Location;
 import com.belatrixsf.connect.entities.Notification;
+import com.belatrixsf.connect.entities.SiteInfo;
 import com.belatrixsf.connect.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.CreateEmployeeResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
@@ -67,4 +68,5 @@ public interface EmployeeService extends BelatrixConnectService {
 
     ServiceRequest logout(BelatrixConnectCallback<Void> callback);
 
+    ServiceRequest getSiteInfo(BelatrixConnectCallback<SiteInfo> callback);
 }

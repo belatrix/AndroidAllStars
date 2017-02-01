@@ -44,6 +44,7 @@ import com.belatrixsf.connect.ui.resetpassword.ResetPasswordActivity;
 import com.belatrixsf.connect.ui.resetpassword.request.RequestNewPasswordActivity;
 import com.belatrixsf.connect.ui.signup.SignUpActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
+import com.belatrixsf.connect.utils.CustomDomainEditText;
 import com.belatrixsf.connect.utils.di.components.DaggerLoginComponent;
 import com.belatrixsf.connect.utils.di.modules.presenters.LoginPresenterModule;
 
@@ -54,7 +55,10 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
 
     private LoginPresenter loginPresenter;
 
-    @Bind(R.id.username) EditText usernameEditText;
+    private String defaultDomain;
+    private final String DEFAULT_DOMAIN_ID = "default_domain_id";
+
+    @Bind(R.id.username) CustomDomainEditText usernameEditText;
     @Bind(R.id.password) EditText passwordEditText;
     @Bind(R.id.log_in) Button logInButton;
     @Bind(R.id.log_in_as_guest) Button logInAsGuestButton;
@@ -83,6 +87,7 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
 
     private void initViews() {
         passwordEditText.setTransformationMethod(new PasswordTransformationMethod());
+        loginPresenter.getDefaultDomain();
         usernameEditText.addTextChangedListener(formFieldWatcher);
         passwordEditText.addTextChangedListener(formFieldWatcher);
         passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -143,8 +148,8 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
 
     @OnClick(R.id.log_in)
     public void logInClicked() {
-        String username = usernameEditText.getText().toString();
-        String password = passwordEditText.getText().toString();
+        String username = usernameEditText.getUserName().trim();
+        String password = passwordEditText.getText().toString().trim();
         loginPresenter.login(username, password);
     }
 
@@ -157,13 +162,22 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     @OnClick(R.id.sign_up)
     public void signUpClicked() {
         Intent intent = new Intent(getActivity(), SignUpActivity.class);
+        intent.putExtra(DEFAULT_DOMAIN_ID, defaultDomain);
         startActivity(intent);
     }
 
     @OnClick(R.id.forgot_password)
     public void forgotPasswordClicked() {
         Intent intent = new Intent(getActivity(), RequestNewPasswordActivity.class);
+        intent.putExtra(DEFAULT_DOMAIN_ID, defaultDomain);
         startActivity(intent);
+    }
+
+    @Override
+    public void setDefaultDomain(String domain) {
+        defaultDomain = domain;
+        usernameEditText.setDefaultDomain(domain);
+        usernameEditText.setDefaultUsername(getString(R.string.hint_username));
     }
 
     private TextWatcher formFieldWatcher = new TextWatcher() {
@@ -175,8 +189,11 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            String username = usernameEditText.getText().toString();
-            String password = passwordEditText.getText().toString();
+            String username = usernameEditText.getUserName().trim();
+            if (username.contains(usernameEditText.getDefaultUsername())) {
+               username = username.replace(usernameEditText.getDefaultUsername(), "");
+            }
+            String password = passwordEditText.getText().toString().trim();
             loginPresenter.checkIfInputsAreValid(username, password);
         }
 

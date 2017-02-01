@@ -42,7 +42,7 @@ public class SignUpPresenter extends BelatrixConnectPresenter<SignUpView> {
     }
 
     public void checkIfEmailIsValid(String email) {
-        view.enableSend(!TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches());
+        view.enableSend(!TextUtils.isEmpty(email));
     }
 
     public void init() {

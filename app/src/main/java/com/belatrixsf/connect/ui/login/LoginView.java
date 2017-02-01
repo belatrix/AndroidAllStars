@@ -31,5 +31,6 @@ public interface LoginView extends BelatrixConnectView {
     void goResetPassword();
     void goEditProfile();
     void enableLogin(boolean enable);
+    void setDefaultDomain(String domain);
 
 }

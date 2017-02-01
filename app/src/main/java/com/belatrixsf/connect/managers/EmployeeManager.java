@@ -21,11 +21,11 @@
 package com.belatrixsf.connect.managers;
 
 import com.belatrixsf.connect.entities.Employee;
+import com.belatrixsf.connect.entities.SiteInfo;
 import com.belatrixsf.connect.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.connect.services.contracts.EmployeeService;
 import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 import com.belatrixsf.connect.utils.ServiceError;
-import com.belatrixsf.connect.utils.di.components.ApplicationComponent;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.io.File;
@@ -188,6 +188,20 @@ public class EmployeeManager {
             @Override
             public void onFailure(ServiceError serviceError) {
                 belatrixConnectCallback.onFailure(serviceError);
+            }
+        });
+    }
+
+    public void getSiteInfo(final BelatrixConnectCallback<SiteInfo> callback) {
+        employeeService.getSiteInfo(new BelatrixConnectCallback<SiteInfo>() {
+            @Override
+            public void onSuccess(SiteInfo siteInfo) {
+                callback.onSuccess(siteInfo);
+            }
+
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                callback.onFailure(serviceError);
             }
         });
     }
