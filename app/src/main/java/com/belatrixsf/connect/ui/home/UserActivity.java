@@ -64,8 +64,9 @@ import butterknife.Bind;
 /**
  * Created by PedroCarrillo on 7/4/16.
  */
-public class UserActivity extends MainActivity implements RankingFragmentListener, AccountFragmentListener {
+public class UserActivity extends MainActivity implements AccountFragmentListener {
 
+    public static final int PROFILE_TAB = 0;
     public static final int RANKING_TAB = 3;
     public static final int RQ_GIVE_STAR = 99;
     public static final int PARENT_INDEX = 3;
@@ -74,7 +75,6 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
     @Bind(R.id.main_view_pager) ViewPager mainViewPager;
     @Bind(R.id.start_recommendation) FloatingActionButton startRecommendationButton;
     @Nullable @Bind(R.id.tab_layout) TabLayout tabLayout;
-    @Bind(R.id.bottom_navigation) AHBottomNavigation bottomNavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,13 +131,14 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
             public void onPageSelected(int position) {
                 if (position == RANKING_TAB) {
                     startRecommendationButton.hide();
-                    bottomNavigation.restoreBottomNavigation();
-                    bottomNavigation.setBehaviorTranslationEnabled(true);
-                    bottomNavigation.setCurrentItem(1);
-                } else {
+
+                }
+                else if (position == PROFILE_TAB) {
+                    startRecommendationButton.hide();
+
+                }
+                else {
                     startRecommendationButton.show();
-                    bottomNavigation.hideBottomNavigation();
-                    bottomNavigation.setBehaviorTranslationEnabled(false);
                 }
             }
 
@@ -151,17 +152,8 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
             tabLayout.setupWithViewPager(mainViewPager);
         }
 
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_last_month, R.drawable.ic_event, R.color.colorAccent);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_current_month, R.drawable.ic_whatshot, R.color.colorAccent);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.tab_all_time, R.drawable.ic_star, R.color.colorAccent);
 
-        bottomNavigation.addItem(item1);
-        bottomNavigation.addItem(item2);
-        bottomNavigation.addItem(item3);
 
-        bottomNavigation.hideBottomNavigation();
-        bottomNavigation.setAccentColor(Color.parseColor(getResources().getString(R.string.bottom_navigation_color)));
-        bottomNavigation.setBehaviorTranslationEnabled(false);
 
         switch (tabSelected){
             case ACCOUNT_TAB:
@@ -212,10 +204,6 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
         });
     }
 
-    @Override
-    public void setBottomTabListener(AHBottomNavigation.OnTabSelectedListener onTabSelectedListener) {
-        bottomNavigation.setOnTabSelectedListener(onTabSelectedListener);
-    }
 
     @Override
     public void refreshNavigationDrawer() {
