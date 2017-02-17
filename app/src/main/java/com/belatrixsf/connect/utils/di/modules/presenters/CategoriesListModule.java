@@ -37,20 +37,14 @@ import dagger.Provides;
 public class CategoriesListModule {
 
     private CategoriesView categoriesView;
-    private Category category;
 
-    public CategoriesListModule(CategoriesView categoriesView, Category category) {
+    public CategoriesListModule(CategoriesView categoriesView) {
         this.categoriesView = categoriesView;
-        this.category = category;
     }
 
     @Provides
-    public CategoriesPresenter provideCategoriesPresenter(EmployeeManager employeeManager, EmployeeService employeeService, CategoryService categoryService) {
-        if (category == null) {
-            return new CategoriesPresenter(categoriesView, employeeManager, employeeService);
-        } else {
-            return new CategoriesPresenter(categoriesView, categoryService, category);
-        }
+    public CategoriesPresenter provideCategoriesPresenter(CategoryService categoryService) {
+        return new CategoriesPresenter(categoriesView, categoryService);
     }
 
 }

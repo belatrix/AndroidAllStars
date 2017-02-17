@@ -32,7 +32,7 @@ import java.util.List;
 public interface CategoriesView extends BelatrixConnectView {
 
     void notifyAreSubcategories(boolean areSubcategories);
-    void notifySelection(SubCategory subcategory);
+    void notifySelection(Category subcategory);
     void showCategories(List<Category> categories);
     void showSubcategories(Category category);
 

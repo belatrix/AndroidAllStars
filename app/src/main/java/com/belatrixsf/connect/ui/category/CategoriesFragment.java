@@ -147,7 +147,7 @@ public class CategoriesFragment extends BelatrixConnectFragment implements Categ
     protected void initDependencies(BelatrixConnectApplication belatrixConnectApplication) {
         belatrixConnectApplication
                 .getApplicationComponent()
-                .categoriesListComponent(new CategoriesListModule(this, getCategoryIfExists()))
+                .categoriesListComponent(new CategoriesListModule(this))
                 .inject(this);
     }
 
@@ -157,7 +157,7 @@ public class CategoriesFragment extends BelatrixConnectFragment implements Categ
     }
 
     @Override
-    public void notifySelection(SubCategory subcategory) {
+    public void notifySelection(Category subcategory) {
         subcategorySelectionListener.onSubcategorySelected(subcategory);
     }
 

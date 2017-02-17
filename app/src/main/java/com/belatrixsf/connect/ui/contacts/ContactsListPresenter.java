@@ -81,11 +81,16 @@ public class ContactsListPresenter extends BelatrixConnectPresenter<ContactsList
 
     public void getContacts() {
         view.resetList();
+
+        getContactsInternal();
+
+        /*
         if (contactsList.isEmpty()) {
             getContactsInternal();
         } else {
             view.addContacts(contactsList);
-        }
+            view.hideProgressIndicator();
+        }*/
     }
 
     public void getContacts(String searchText) {

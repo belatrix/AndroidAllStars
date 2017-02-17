@@ -41,7 +41,7 @@ public class GiveStarPresenter extends BelatrixConnectPresenter<GiveStarView> {
     private StarService starService;
     private EmployeeManager employeeManager;
     private Employee selectedEmployee;
-    private SubCategory selectedSubCategory;
+    private Category selectedSubCategory;
     private Keyword selectedKeyword;
     private String selectedComment;
     private boolean initWithUser = false;
@@ -120,7 +120,7 @@ public class GiveStarPresenter extends BelatrixConnectPresenter<GiveStarView> {
         }
     }
 
-    public void loadSelectedSubCategory(SubCategory subCategory) {
+    public void loadSelectedSubCategory(Category subCategory) {
         if (subCategory != null && subCategory.getName() != null && !subCategory.getName().isEmpty()) {
             selectedSubCategory = subCategory;
             view.showCategory(subCategory.getName());
@@ -149,7 +149,7 @@ public class GiveStarPresenter extends BelatrixConnectPresenter<GiveStarView> {
                 new PresenterCallback<Employee>() {
                     @Override
                     public void onSuccess(Employee fromEmployee) {
-                        StarRequest starRequest = new StarRequest(selectedSubCategory.getParentCategory().getId(), selectedSubCategory.getId(), selectedComment, selectedKeyword.getId());
+                        StarRequest starRequest = new StarRequest(selectedSubCategory.getId(), selectedSubCategory.getId(), selectedComment, selectedKeyword.getId());
                         starService.star(
                                 fromEmployee.getPk(),
                                 selectedEmployee.getPk(),
@@ -175,7 +175,7 @@ public class GiveStarPresenter extends BelatrixConnectPresenter<GiveStarView> {
 
     private boolean validateCategoryCommentRequired() {
         if (selectedSubCategory != null) {
-            boolean commentRequired = selectedSubCategory.getParentCategory().isCommentRequired();
+            boolean commentRequired = selectedSubCategory.isCommentRequired();
             if ((selectedComment == null || selectedComment.isEmpty()) && commentRequired) {
                 return false;
             }

@@ -34,6 +34,8 @@ import java.util.List;
  */
 public interface CategoryService extends BelatrixConnectService {
 
+    ServiceRequest getCategories(BelatrixConnectCallback<List<Category>> callback);
+
     ServiceRequest getSubcategories(int categoryId, BelatrixConnectCallback<List<Category>> callback);
 
     ServiceRequest getKeywords(BelatrixConnectCallback<List<Keyword>> callback);

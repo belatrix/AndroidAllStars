@@ -39,6 +39,9 @@ import retrofit2.http.Path;
  */
 public interface CategoryAPI {
 
+    @GET(ServerPaths.CATEGORY_LIST)
+    Call<List<Category>> getCategories();
+
     @GET(ServerPaths.EMPLOYEE_CATEGORY_LIST)
     Call<PaginatedResponse<SubCategory>> getCategoriesByEmployee(@Path(ServerPaths.EMPLOYEE_ID) int employeeId);
 

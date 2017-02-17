@@ -110,4 +110,11 @@ public class CategoryServerService extends BelatrixConnectBaseService implements
         return serviceRequest;
     }
 
+    @Override
+    public ServiceRequest getCategories(BelatrixConnectCallback<List<Category>> callback) {
+        Call<List<Category>> call = categoryAPI.getCategories();
+        ServiceRequest<List<Category>> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
 }
