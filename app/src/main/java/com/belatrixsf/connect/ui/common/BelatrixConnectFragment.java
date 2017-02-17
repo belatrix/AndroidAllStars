@@ -150,10 +150,10 @@ public abstract class BelatrixConnectFragment extends Fragment implements Belatr
     protected abstract void initDependencies(BelatrixConnectApplication belatrixConnectApplication);
 
 
-    protected void replaceChildFragment(Fragment fragment, int fragmentId) {
+    protected void replaceChildFragment(Fragment fragment, int fragmentReplacedId) {
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         String tag = fragment.getClass().getSimpleName();
-        transaction.replace(fragmentId, fragment, tag);
+        transaction.replace(fragmentReplacedId, fragment, tag);
         transaction.commit();
     }
 

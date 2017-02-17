@@ -18,32 +18,21 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.services.contracts;
+package com.belatrixsf.connect.networking.retrofit.api;
 
-import com.belatrixsf.connect.entities.Category;
-import com.belatrixsf.connect.entities.Keyword;
-import com.belatrixsf.connect.entities.SubCategory;
+import com.belatrixsf.connect.entities.EmployeeBadge;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
-import com.belatrixsf.connect.services.ServiceRequest;
-import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 
-import java.util.List;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 /**
- * Created by gyosida on 4/27/16.
+ * Created by dvelasquez on 17/2/17.
  */
-public interface CategoryService extends BelatrixConnectService {
+public interface BadgeAPI {
 
-    ServiceRequest getSubcategories(int categoryId, BelatrixConnectCallback<List<Category>> callback);
-
-    ServiceRequest getKeywords(BelatrixConnectCallback<List<Keyword>> callback);
-
-    ServiceRequest getKeywordsByEmployee(int employeeId, BelatrixConnectCallback<PaginatedResponse<Keyword>> callback);
-
-    ServiceRequest saveKeywordToEmployee(int employeeId, String keywordName, BelatrixConnectCallback<Keyword> callback);
-
-    ServiceRequest removeEmployeeKeyword(int employeeId, String keywordName, BelatrixConnectCallback<Keyword> callback);
-
-    ServiceRequest getCategoriesByEmployee(int employeeId, BelatrixConnectCallback<PaginatedResponse<SubCategory>> callback);
+    @GET(ServerPaths.EMPLOYEE_BADGE_LIST)
+    Call<PaginatedResponse<EmployeeBadge>> getBadgesByEmployee(@Path(ServerPaths.EMPLOYEE_ID) int employeeId);
 
 }

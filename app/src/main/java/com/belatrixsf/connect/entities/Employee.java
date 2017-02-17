@@ -63,6 +63,23 @@ public class Employee implements Parcelable {
     @SerializedName("num_stars")
     private Integer numStars;
     private Location location;
+    private Category position;
+
+    public Category getPosition() {
+        return position;
+    }
+
+    public void setPosition(Category position) {
+        this.position = position;
+    }
+
+    public String getCurrentPosition(){
+        if(position != null){
+            return position.getName();
+        } else {
+            return "Coworker";
+        }
+    }
 
     public Integer getPk() {
         return pk;
@@ -156,6 +173,7 @@ public class Employee implements Parcelable {
         firstName = in.readString();
         lastName = in.readString();
         skypeId = in.readString();
+        position = (Category) in.readValue(Category.class.getClassLoader());
         totalScore = in.readByte() == 0x00 ? null : in.readInt();
         lastMonthScore = in.readByte() == 0x00 ? null : in.readInt();
         currentMonthScore = in.readByte() == 0x00 ? null : in.readInt();
@@ -194,6 +212,7 @@ public class Employee implements Parcelable {
         dest.writeString(firstName);
         dest.writeString(lastName);
         dest.writeString(skypeId);
+        dest.writeValue(position);
         if (totalScore == null) {
             dest.writeByte((byte) (0x00));
         } else {

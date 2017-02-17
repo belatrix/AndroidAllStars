@@ -67,7 +67,10 @@ public interface ServerPaths {
     String STARS_BY_EMPLOYEE_AND_SUBCATEGORY = STAR + "/{" + EMPLOYEE_ID + "}/subcategory" + "/{" + SUBCATEGORY_ID + "}/list";
     String STARS_BY_KEYWORD = STAR + "/keyword/list";
     String STARS_KEYWORD_TOP = STAR + "/keyword/{" + KEYWORD_ID + "}/list/";
-    String RANKING_LIST = EMPLOYEE + "/list/top/{" + KIND + "}/{" + QUANTITY + "}/";
+    String RANKING_LIST = EMPLOYEE + "/list/top/10/{" + KIND + "}/";
+    String EMPLOYEE_CATEGORY_LIST = STAR + "/{" + EMPLOYEE_ID + "}/list/group/category";
+    String EMPLOYEE_BADGE_LIST = STAR + "/{" + EMPLOYEE_ID + "}/badge/list";
+    String EMPLOYEE_RECOMMENDATIONS_BY_CATEGORY_LIST = STAR + "/{" + EMPLOYEE_ID + "}/list/group/category/{" + CATEGORY_ID + "}/";
 
     String CATEGORY_KEYWORD_LIST = CATEGORY + "/keyword/list";
     String SUBCATEGORIES_BY_CATEGORY_ID = CATEGORY + "/{" + CATEGORY_ID + "}/subcategory/list";

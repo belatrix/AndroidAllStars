@@ -25,6 +25,7 @@ import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.Location;
 import com.belatrixsf.connect.entities.Notification;
 import com.belatrixsf.connect.entities.SiteInfo;
+import com.belatrixsf.connect.entities.Star;
 import com.belatrixsf.connect.networking.retrofit.requests.AuthenticationRequest;
 import com.belatrixsf.connect.networking.retrofit.requests.CreateEmployeeRequest;
 import com.belatrixsf.connect.networking.retrofit.requests.RegisterDeviceRequest;
@@ -72,7 +73,7 @@ public interface EmployeeAPI {
     Call<PaginatedResponse<Employee>> getEmployeeSearchList(@Query(ServerPaths.SEARCH_TERM) String searchTerm, @Query(ServerPaths.QUERY_PAGE) Integer page);
 
     @GET(ServerPaths.RANKING_LIST)
-    Call<List<Employee>> getRankingList(@Path(ServerPaths.KIND) String kind, @Path(ServerPaths.QUANTITY) int quantity);
+    Call<List<Employee>> getRankingList(@Path(ServerPaths.KIND) String kind);
 
     @GET(ServerPaths.EMPLOYEE_CATEGORIES)
     Call<List<Category>> getEmployeeCategories(@Path(ServerPaths.EMPLOYEE_ID) int employeeId);
@@ -98,4 +99,7 @@ public interface EmployeeAPI {
 
     @GET(ServerPaths.EMPLOYEE_SITE_INFO)
     Call<SiteInfo> getSiteInfo();
+
+    @GET(ServerPaths.EMPLOYEE_RECOMMENDATIONS_BY_CATEGORY_LIST)
+    Call<PaginatedResponse<Star>> getEmployeeRecommendationList(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Path(ServerPaths.CATEGORY_ID) Integer categoryId);
 }

@@ -28,8 +28,8 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
             android:src="@android:drawable/ic_input_add"
-            android:tint="@color/white"
-            app:layout_behavior="com.belatrixsf.connect.ui.common.ScrollAwareFABBehavior" />
+            android:visibility="gone"
+            android:tint="@color/white" />
 
     </android.support.design.widget.CoordinatorLayout>
 

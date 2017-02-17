@@ -32,13 +32,13 @@ import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 import com.belatrixsf.connect.utils.ServiceError;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 /**
  * Created by PedroCarrillo on 4/13/16.
+ * Modified by DVelasquez on 16/02/17
  */
 public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
 
@@ -67,7 +67,6 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
                 public void onSuccess(Employee employee) {
                     AccountPresenter.this.employeeId = employee.getPk();
                     AccountPresenter.this.employee = employee;
-                    loadSubCategoriesStar(true);
                     showEmployeeData();
                     view.notifyNavigationRefresh();
                     view.hideProgressIndicator();
@@ -87,11 +86,11 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
                 employeeService.getEmployee(employeeId, employeeBelatrixConnectCallback);
             }
         } else {
-            loadSubCategoriesStar(false);
             showEmployeeData();
         }
     }
 
+    /*
     private void loadSubCategoriesStar(boolean force) {
         view.hideNoDataView();
         if (subCategoriesList == null || force) {
@@ -120,14 +119,16 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
                 view.showSubCategories(subCategoriesList);
             } else {
                 view.showNoDataView();
+                view.showNoDataView();
             }
         }
-    }
+    }*/
 
     public void setUserInfo(Integer employeeId, byte[] employeeByteImg) {
         this.employeeId = employeeId;
         this.employeeImg = employeeByteImg;
     }
+
 
     private void showEmployeeData() {
         if (employee.getLocation() != null) {
@@ -153,6 +154,7 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
             view.showEmail(getString(R.string.no_data));
         }
         view.showProfilePicture(employee.getAvatar());
+        view.onEmployeeLoaded(employee.getPk());
         checkRecommendationEnabled();
     }
 
@@ -208,8 +210,7 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
         return this.employeeImg;
     }
 
-    public void loadPresenterState(List<SubCategory> subCategoriesList, Employee employee, byte[] employeeImg) {
-        this.subCategoriesList = subCategoriesList;
+    public void loadPresenterState(Employee employee, byte[] employeeImg) {
         this.employee = employee;
         this.employeeImg = employeeImg;
     }

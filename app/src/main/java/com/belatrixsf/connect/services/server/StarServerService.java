@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.connect.services.server;
 
+import com.belatrixsf.connect.entities.Category;
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.Keyword;
 import com.belatrixsf.connect.entities.Star;
@@ -54,6 +55,7 @@ public class StarServerService extends BelatrixConnectBaseService implements Sta
         enqueue(serviceRequest, callback);
         return serviceRequest;
     }
+
 
     @Override
     public ServiceRequest star(int fromEmployeeId, int toEmployeeId, StarRequest starRequest, BelatrixConnectCallback<StarResponse> callback) {

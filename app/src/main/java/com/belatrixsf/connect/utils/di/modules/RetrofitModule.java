@@ -22,6 +22,7 @@ package com.belatrixsf.connect.utils.di.modules;
 
 import com.belatrixsf.connect.BuildConfig;
 import com.belatrixsf.connect.managers.PreferencesManager;
+import com.belatrixsf.connect.networking.retrofit.api.BadgeAPI;
 import com.belatrixsf.connect.networking.retrofit.api.CategoryAPI;
 import com.belatrixsf.connect.networking.retrofit.api.EmployeeAPI;
 import com.belatrixsf.connect.networking.retrofit.api.EventAPI;
@@ -104,5 +105,11 @@ public class RetrofitModule {
     public GuestAPI provideGuestAPI(Retrofit retrofit) {
         return retrofit.create(GuestAPI.class);
     }
+
+    @Provides
+    public BadgeAPI provideBadgeAPI(Retrofit retrofit) {
+        return retrofit.create(BadgeAPI.class);
+    }
+
 
 }

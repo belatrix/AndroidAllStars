@@ -6,20 +6,12 @@
     android:orientation="horizontal"
     style="@style/LargeItemList">
 
-    <TextView
-        android:id="@+id/position_number"
-        android:layout_width="@dimen/dimen_6_5"
-        android:layout_height="@dimen/dimen_6_5"
-        tools:text="P"
-        android:textSize="@dimen/text_20"
-        android:gravity="center"/>
-
     <ImageView
         android:id="@+id/contact_photo"
         android:layout_width="@dimen/dimen_10_6"
         android:layout_height="@dimen/dimen_10_6"
         android:contentDescription="@string/profile_image_content_desc"
-        android:layout_marginLeft="@dimen/activity_margin"
+        android:layout_marginLeft="@dimen/dimen_2_5"
         tools:src="@drawable/contact_placeholder"/>
 
     <TextView
@@ -28,7 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textSize="@dimen/text_16"
-        android:maxLines="1"
+        android:maxLines="2"
+        android:textColor="@color/black"
         android:paddingLeft="@dimen/activity_margin"
         tools:text="@string/title_full_name" />
 
@@ -38,18 +31,13 @@
         android:orientation="vertical"
         android:gravity="center">
 
-        <ImageView
-            android:id="@+id/score_cup"
-            android:layout_width="@dimen/dimen_5_5"
-            android:layout_height="@dimen/dimen_5_5"
-            android:importantForAccessibility="no"
-            android:scaleType="centerCrop"/>
-
         <TextView
             android:id="@+id/score_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="0"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_20"
             android:gravity="center"/>
 
     </LinearLayout>

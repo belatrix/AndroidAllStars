@@ -70,6 +70,7 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
     @Override
     public void onBindViewHolder(EmployeeViewHolder holder, int position) {
         final Employee employee = rankingList.get(position);
+        /*
         int place = position + 1;
         int cupResourceId;
         switch (place) {
@@ -85,11 +86,8 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
             default:
                 cupResourceId = R.drawable.ic_cup;
                 break;
-        }
+        }*/
         Context context = holder.fullNameTextView.getContext();
-        holder.positionNumberTextView.setText(String.valueOf(place));
-        holder.positionNumberTextView.setVisibility(View.VISIBLE);
-        holder.scoreCupImageView.setBackgroundResource(cupResourceId);
         String fullName = employee.getFullName() != null && !employee.getFullName().isEmpty() ? employee.getFullName() : context.getString(R.string.fullname_placeholder);
         holder.fullNameTextView.setText(fullName);
         String stringScore = String.valueOf(employee.getValue());
@@ -120,10 +118,8 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
 
     static class EmployeeViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.position_number) public TextView positionNumberTextView;
         @Bind(R.id.contact_photo) public ImageView photoImageView;
         @Bind(R.id.contact_full_name) public TextView fullNameTextView;
-        @Bind(R.id.score_cup) public ImageView scoreCupImageView;
         @Bind(R.id.score_number) public TextView scoreTextView;
 
         private RankingListClickListener rankingListClickListener;

@@ -25,7 +25,9 @@ import com.belatrixsf.connect.managers.GuestManager;
 import com.belatrixsf.connect.utils.di.modules.RetrofitModule;
 import com.belatrixsf.connect.utils.di.modules.ServicesModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.AboutPresenterModule;
+import com.belatrixsf.connect.utils.di.modules.presenters.AccountBadgesPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.AccountPresenterModule;
+import com.belatrixsf.connect.utils.di.modules.presenters.AccountRecommendationsPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.AddSkillPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.CategoriesListModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.ContactsKeywordPresenterModule;
@@ -38,6 +40,7 @@ import com.belatrixsf.connect.utils.di.modules.presenters.GiveStarPresenterModul
 import com.belatrixsf.connect.utils.di.modules.presenters.KeywordsListModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.NotificationListPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.RankingPresenterModule;
+import com.belatrixsf.connect.utils.di.modules.presenters.RecommendationsPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.RequestNewPasswordPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.SignUpPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.SkillsListPresenterModule;
@@ -63,6 +66,9 @@ public interface ApplicationComponent {
     GuestManager guestManager();
     SignUpComponent signUpComponent(SignUpPresenterModule signUpPresenterModule);
     AccountComponent accountComponent(AccountPresenterModule accountPresenterModule);
+    AccountRecommendationsComponent accountRecommendationsComponent(AccountRecommendationsPresenterModule accountPresenterModule);
+    AccountBadgesComponent accountBadgesComponent(AccountBadgesPresenterModule accountBadgesPresenterModule);
+    RecommendationsComponent recommendationsComponent(RecommendationsPresenterModule accountPresenterModule);
     ExpandPictureComponent expandPictureComponent(ExpandPicturePresenterModule expandPicturePresenterModule);
     ContactsListComponent contactsListComponent(ContactsListPresenterModule contactsListPresenterModule);
     StarsListComponent starsListComponent(StarsListPresenterModule StarsListPresenterModule);

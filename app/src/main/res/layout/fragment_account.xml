@@ -7,13 +7,21 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+
     <android.support.v4.widget.NestedScrollView
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/lightGrey"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -30,7 +38,9 @@
                 <LinearLayout
                     android:id="@+id/white_divider"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_10_8"
+                    android:layout_height="@dimen/dimen_10_6"
+                    android:layout_marginLeft="@dimen/dimen_3_5"
+                    android:layout_marginRight="@dimen/dimen_3_5"
                     android:layout_below="@+id/primary_divider"
                     android:orientation="vertical"
                     android:background="@color/white"/>
@@ -50,6 +60,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
+                android:background="@color/white"
+                android:layout_marginRight="@dimen/dimen_3_5"
+                android:layout_marginLeft="@dimen/dimen_3_5"
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/dimen_8">
 
@@ -100,6 +113,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_3_5"
+                android:layout_marginRight="@dimen/dimen_3_5"
                 android:background="@color/white"
                 android:orientation="horizontal">
 
@@ -163,29 +178,24 @@
 
             <View style="@style/horizontalDivider" />
 
-            <ProgressBar
-                android:id="@+id/subcategories_progress_bar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:indeterminate="true" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/account_recommendations"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white" />
-
-            <TextView
-                android:id="@+id/no_data_textview"
-                android:layout_width="match_parent"
-                android:layout_height="?android:attr/listPreferredItemHeightSmall"
-                android:gravity="center"
-                android:text="@string/no_data_found"
-                android:visibility="gone"/>
+            <FrameLayout android:id="@+id/fragment_profile_container"
+                android:layout_marginTop="@dimen/dimen_3_5"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                />
 
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
+
+
+
+    <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"/>
+
+    </RelativeLayout>
 
 </android.support.v4.widget.SwipeRefreshLayout>

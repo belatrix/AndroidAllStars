@@ -129,6 +129,9 @@ public class UserActivity extends MainActivity implements AccountFragmentListene
 
             @Override
             public void onPageSelected(int position) {
+
+                startRecommendationButton.hide();
+                /*
                 if (position == RANKING_TAB) {
                     startRecommendationButton.hide();
 
@@ -139,7 +142,7 @@ public class UserActivity extends MainActivity implements AccountFragmentListene
                 }
                 else {
                     startRecommendationButton.show();
-                }
+                }*/
             }
 
             @Override

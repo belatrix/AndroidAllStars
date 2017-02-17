@@ -46,6 +46,7 @@
     <string name="title_select_category">Select Category</string>
     <string name="title_select_subcategory">Select Subcategory</string>
     <string name="title_account_activity">Profile</string>
+    <string name="title_recommendations_activity">Recommendations</string>
     <string name="title_expand_photo_activity"></string>
     <string name="title_main">Belatrix Connect</string>
     <string name="title_contact_activity">Select an user</string>
@@ -130,6 +131,10 @@
     <string name="option_select_a_user">Select a user</string>
     <string name="hint_comment">Add a comment (up to 100 characters)</string>
     <string name="success_recommendation">Recommendation completed</string>
+
+    <!--Profile-->
+    <string name="tab_recommendations">Recommendations</string>
+    <string name="tab_badges">Badges</string>
 
     <!--Contacts-->
     <string name="contact_list_level">Lvl. %s</string>

@@ -49,7 +49,6 @@ public class RankingPresenter extends BelatrixConnectPresenter<RankingView> {
         view.hideNoDataView();
         employeeService.getRankingList(
                 kind,
-                quantity,
                 new PresenterCallback<List<Employee>>() {
                     @Override
                     public void onSuccess(List<Employee> rankingResponse) {

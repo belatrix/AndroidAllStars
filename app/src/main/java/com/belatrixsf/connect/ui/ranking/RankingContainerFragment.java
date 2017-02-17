@@ -45,8 +45,8 @@ import butterknife.BindString;
  */
 public class RankingContainerFragment extends BelatrixConnectFragment {
 
-    public static final int TAB_LAST_MONTH = 0;
-    public static final int TAB_CURRENT_MONTH = 1;
+    public static final int TAB_LAST_MONTH = 1;
+    public static final int TAB_CURRENT_MONTH = 0;
     public static final int TAB_ALL_TIME = 2;
     @Bind(R.id.bottom_navigation) AHBottomNavigation bottomNavigation;
     @BindString(R.string.bottom_navigation_color) String navigationColor;
@@ -76,22 +76,24 @@ public class RankingContainerFragment extends BelatrixConnectFragment {
     }
 
     private void initViews() {
-        loadBottomNavigationData();
-        //bottomNavigation.restoreBottomNavigation();
-        //bottomNavigation.setBehaviorTranslationEnabled(true);
-        bottomNavigation.setCurrentItem(1);
+        setupViews();
         final int idFragmentContainer = R.id.fragment_ranking_container;
+        replaceChildFragment(RankingFragment.newInstance(Constants.KIND_CURRENT_MONTH),idFragmentContainer);
+        bottomNavigation.setCurrentItem(0);
         bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
                 if (!wasSelected) {
                     switch (position) {
-                        case TAB_LAST_MONTH:
-                            replaceChildFragment(RankingFragment.newInstance(Constants.KIND_LAST_MONTH_SCORE), idFragmentContainer);
-                            break;
+
                         case TAB_CURRENT_MONTH:
                             replaceChildFragment(RankingFragment.newInstance(Constants.KIND_CURRENT_MONTH),idFragmentContainer);
                             break;
+
+                        case TAB_LAST_MONTH:
+                            replaceChildFragment(RankingFragment.newInstance(Constants.KIND_LAST_MONTH_SCORE), idFragmentContainer);
+                            break;
+
                         case TAB_ALL_TIME:
                             replaceChildFragment(RankingFragment.newInstance(Constants.KIND_TOTAL_SCORE),idFragmentContainer);
                             break;
@@ -102,15 +104,15 @@ public class RankingContainerFragment extends BelatrixConnectFragment {
         });
     }
 
-    private void loadBottomNavigationData() {
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_last_month, R.drawable.ic_event, R.color.colorAccent);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_current_month, R.drawable.ic_whatshot, R.color.colorAccent);
+    private void setupViews() {
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_current_month, R.drawable.ic_whatshot, R.color.colorAccent);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_last_month, R.drawable.ic_event, R.color.colorAccent);
         AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.tab_all_time, R.drawable.ic_star, R.color.colorAccent);
 
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);
         bottomNavigation.addItem(item3);
-
+        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
         bottomNavigation.setAccentColor(Color.parseColor(navigationColor));
         bottomNavigation.setBehaviorTranslationEnabled(false);
     }

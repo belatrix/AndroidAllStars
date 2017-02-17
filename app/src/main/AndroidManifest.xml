@@ -58,6 +58,9 @@
             android:name=".ui.account.AccountActivity"
             android:label="@string/title_account_activity" />
         <activity
+            android:name=".ui.recommendations.RecommendationsActivity"
+            android:label="@string/title_recommendations_activity" />
+        <activity
             android:name=".ui.account.expanded.ExpandPictureActivity"
             android:label="@string/title_expand_photo_activity" />
         <activity

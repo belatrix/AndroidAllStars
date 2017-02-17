@@ -18,38 +18,20 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.ui.account;
+package com.belatrixsf.connect.ui.recommendations;
 
-import com.belatrixsf.connect.entities.Employee;
-import com.belatrixsf.connect.entities.SubCategory;
+import com.belatrixsf.connect.entities.Star;
 import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 
 import java.util.List;
 
 /**
- * Created by PedroCarrillo on 4/13/16.
+ * Created by dvelasquez on 17/2/17.
  */
-public interface AccountView extends BelatrixConnectView {
-
-    void goSubCategoryDetail(Integer categoryId, Integer employeeId);
-    void showScore(String score);
-    void showLocation(String locationIcon);
-    void showLevel(String level);
-    void showSkypeId(String skypeID);
-    void showEmployeeName(String employeName);
-    void showEmail(String role);
-    void showProfilePicture(String profilePicture);
-    void showRecommendMenu(boolean show);
-    void showEditProfileButton(boolean show);
-    void goToEditProfile(Employee employee);
-    void goToGiveStar(Employee employee);
+public interface RecommendationsView extends BelatrixConnectView {
+    void showRecommendations(List<Star> recommendations);
     void showNoDataView();
     void hideNoDataView();
-    void goToExpandPhoto(String url);
-    void notifyNavigationRefresh();
-    void showInformativeDialog(String information);
-    void goBackToLogin();
-    void goToEditSkills();
-    void showEditSkillsButton(boolean show);
-    void onEmployeeLoaded(int employeeId);
+
+
 }

@@ -18,32 +18,37 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.services.contracts;
+package com.belatrixsf.connect.services.server;
 
-import com.belatrixsf.connect.entities.Category;
-import com.belatrixsf.connect.entities.Keyword;
-import com.belatrixsf.connect.entities.SubCategory;
+import com.belatrixsf.connect.entities.EmployeeBadge;
+import com.belatrixsf.connect.networking.retrofit.api.BadgeAPI;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
+import com.belatrixsf.connect.services.BelatrixConnectBaseService;
+import com.belatrixsf.connect.services.ServerServiceRequest;
 import com.belatrixsf.connect.services.ServiceRequest;
+import com.belatrixsf.connect.services.contracts.BadgeService;
 import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 
-import java.util.List;
+
+import retrofit2.Call;
 
 /**
- * Created by gyosida on 4/27/16.
+ * Created by dvelasquez on 17/7/17.
  */
-public interface CategoryService extends BelatrixConnectService {
+public class BadgeServerService extends BelatrixConnectBaseService implements BadgeService {
 
-    ServiceRequest getSubcategories(int categoryId, BelatrixConnectCallback<List<Category>> callback);
+    private BadgeAPI badgeAPI;
 
-    ServiceRequest getKeywords(BelatrixConnectCallback<List<Keyword>> callback);
+    public BadgeServerService(BadgeAPI badgeAPI) {
+        this.badgeAPI = badgeAPI;
+    }
 
-    ServiceRequest getKeywordsByEmployee(int employeeId, BelatrixConnectCallback<PaginatedResponse<Keyword>> callback);
-
-    ServiceRequest saveKeywordToEmployee(int employeeId, String keywordName, BelatrixConnectCallback<Keyword> callback);
-
-    ServiceRequest removeEmployeeKeyword(int employeeId, String keywordName, BelatrixConnectCallback<Keyword> callback);
-
-    ServiceRequest getCategoriesByEmployee(int employeeId, BelatrixConnectCallback<PaginatedResponse<SubCategory>> callback);
+    @Override
+    public ServiceRequest getBadgesByEmployee(final int employeeId, BelatrixConnectCallback<PaginatedResponse<EmployeeBadge>> callback) {
+        Call<PaginatedResponse<EmployeeBadge>> call = badgeAPI.getBadgesByEmployee(employeeId);
+        ServiceRequest<PaginatedResponse<EmployeeBadge>> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
 
 }

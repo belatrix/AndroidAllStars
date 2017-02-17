@@ -18,32 +18,23 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.services.contracts;
+package com.belatrixsf.connect.ui.account.recommendations;
 
 import com.belatrixsf.connect.entities.Category;
-import com.belatrixsf.connect.entities.Keyword;
+import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.SubCategory;
-import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
-import com.belatrixsf.connect.services.ServiceRequest;
-import com.belatrixsf.connect.utils.BelatrixConnectCallback;
+import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 
 import java.util.List;
 
 /**
- * Created by gyosida on 4/27/16.
+ * Created by PedroCarrillo on 4/13/16.
  */
-public interface CategoryService extends BelatrixConnectService {
+public interface AccountRecommendationsView extends BelatrixConnectView {
+    void showCategories(List<SubCategory> subCategories);
+    void showNoDataView();
+    void hideNoDataView();
+    void goCategoryDetail(int categoryId, int employeeId);
 
-    ServiceRequest getSubcategories(int categoryId, BelatrixConnectCallback<List<Category>> callback);
-
-    ServiceRequest getKeywords(BelatrixConnectCallback<List<Keyword>> callback);
-
-    ServiceRequest getKeywordsByEmployee(int employeeId, BelatrixConnectCallback<PaginatedResponse<Keyword>> callback);
-
-    ServiceRequest saveKeywordToEmployee(int employeeId, String keywordName, BelatrixConnectCallback<Keyword> callback);
-
-    ServiceRequest removeEmployeeKeyword(int employeeId, String keywordName, BelatrixConnectCallback<Keyword> callback);
-
-    ServiceRequest getCategoriesByEmployee(int employeeId, BelatrixConnectCallback<PaginatedResponse<SubCategory>> callback);
 
 }
