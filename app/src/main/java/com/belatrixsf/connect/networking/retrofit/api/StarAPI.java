@@ -19,7 +19,6 @@
 * SOFTWARE.
 */
 package com.belatrixsf.connect.networking.retrofit.api;
-
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.Keyword;
 import com.belatrixsf.connect.entities.Star;

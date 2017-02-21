@@ -22,9 +22,6 @@ package com.belatrixsf.connect.ui.category;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Category;
-import com.belatrixsf.connect.entities.Employee;
-import com.belatrixsf.connect.entities.SubCategory;
-import com.belatrixsf.connect.managers.EmployeeManager;
 import com.belatrixsf.connect.services.contracts.CategoryService;
 import com.belatrixsf.connect.services.contracts.EmployeeService;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
@@ -34,29 +31,19 @@ import java.util.List;
 
 /**
  * Created by gyosida on 4/27/16.
+ * modified by dvelasquez on 17/02/17
  */
 public class CategoriesPresenter extends BelatrixConnectPresenter<CategoriesView> {
 
     private CategoryService categoryService;
     private EmployeeService employeeService;
-    private EmployeeManager employeeManager;
     private List<Category> categoriesList;
     private Category category;
 
-    public CategoriesPresenter(CategoriesView view, CategoryService categoryService, Category category) {
-        this(view, null, null, categoryService, category);
-    }
 
-    public CategoriesPresenter(CategoriesView view, EmployeeManager employeeManager, EmployeeService employeeService) {
-        this(view, employeeManager, employeeService, null, null);
-    }
-
-    private CategoriesPresenter(CategoriesView view, EmployeeManager employeeManager, EmployeeService employeeService, CategoryService categoryService, Category category) {
+    public CategoriesPresenter(CategoriesView view, CategoryService categoryService) {
         super(view);
         this.categoryService = categoryService;
-        this.employeeService = employeeService;
-        this.employeeManager = employeeManager;
-        this.category = category;
     }
 
     public void init() {
@@ -65,6 +52,7 @@ public class CategoriesPresenter extends BelatrixConnectPresenter<CategoriesView
 
     public void getCategories() {
         if (categoriesList == null || categoriesList.isEmpty()) {
+            /*
             if (viewPresentsCategories()) {
                 if (employeeManager != null && employeeService != null) {
                     view.showProgressIndicator();
@@ -78,25 +66,19 @@ public class CategoriesPresenter extends BelatrixConnectPresenter<CategoriesView
             } else {
                 if (categoryService != null) {
                     view.showProgressIndicator();
-                    categoryService.getSubcategories(category.getId(), categoriesCallback);
+                    categoryService.getCategories( categoriesCallback);
                 }
-            }
+            }*/
+            view.showProgressIndicator();
+            categoryService.getCategories( categoriesCallback);
         } else {
             showItemsAndNotifyIfAreSubcategories();
         }
     }
 
     public void categorySelected(int position) {
-        if (position >= 0 && position < categoriesList.size()) {
             Category category = categoriesList.get(position);
-            if (!viewPresentsCategories()) {
-                SubCategory subCategory = (SubCategory) category;
-                subCategory.setParentCategory(this.category);
-                view.notifySelection(subCategory);
-            } else {
-                view.showSubcategories(category);
-            }
-        }
+            view.notifySelection(category);
     }
 
     public List<Category> forSavingCategories() {

@@ -25,6 +25,7 @@ import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.Location;
 import com.belatrixsf.connect.entities.Notification;
 import com.belatrixsf.connect.entities.SiteInfo;
+import com.belatrixsf.connect.entities.Star;
 import com.belatrixsf.connect.managers.PreferencesManager;
 import com.belatrixsf.connect.networking.retrofit.api.EmployeeAPI;
 import com.belatrixsf.connect.networking.retrofit.requests.AuthenticationRequest;
@@ -96,8 +97,8 @@ public class EmployeeServerService extends BelatrixConnectBaseService implements
     }
 
     @Override
-    public ServiceRequest getRankingList(String kind, int quantity, BelatrixConnectCallback<List<Employee>> callback) {
-        Call<List<Employee>> call = employeeAPI.getRankingList(kind, quantity);
+    public ServiceRequest getRankingList(String kind, BelatrixConnectCallback<List<Employee>> callback) {
+        Call<List<Employee>> call = employeeAPI.getRankingList(kind);
         ServiceRequest<List<Employee>> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
         return serviceRequest;
@@ -188,5 +189,14 @@ public class EmployeeServerService extends BelatrixConnectBaseService implements
         enqueue(serviceRequest, callback);
         return serviceRequest;
     }
+
+    @Override
+    public ServiceRequest getEmployeeRecommendationList(int employeeId, int categoryId , BelatrixConnectCallback<PaginatedResponse<Star>> callback) {
+        Call<PaginatedResponse<Star>> call = employeeAPI.getEmployeeRecommendationList(employeeId,categoryId);
+        ServiceRequest<PaginatedResponse<Star>> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
 
 }

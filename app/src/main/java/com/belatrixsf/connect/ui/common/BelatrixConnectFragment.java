@@ -24,6 +24,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
@@ -146,5 +147,13 @@ public abstract class BelatrixConnectFragment extends Fragment implements Belatr
     }
 
     protected abstract void initDependencies(BelatrixConnectApplication belatrixConnectApplication);
+
+
+    protected void replaceChildFragment(Fragment fragment, int fragmentReplacedId) {
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        String tag = fragment.getClass().getSimpleName();
+        transaction.replace(fragmentReplacedId, fragment, tag);
+        transaction.commit();
+    }
 
 }

@@ -46,6 +46,7 @@
     <string name="title_select_category">Select Category</string>
     <string name="title_select_subcategory">Select Subcategory</string>
     <string name="title_account_activity">Profile</string>
+    <string name="title_recommendations_activity">Recommendations</string>
     <string name="title_expand_photo_activity"></string>
     <string name="title_main">Belatrix Connect</string>
     <string name="title_contact_activity">Select an user</string>
@@ -131,6 +132,10 @@
     <string name="hint_comment">Add a comment (up to 100 characters)</string>
     <string name="success_recommendation">Recommendation completed</string>
 
+    <!--Profile-->
+    <string name="tab_recommendations">Recommendations</string>
+    <string name="tab_badges">Badges</string>
+
     <!--Contacts-->
     <string name="contact_list_level">Lvl. %s</string>
     <string name="hint_search">Search Term</string>
@@ -162,6 +167,12 @@
     <string name="event_participants">Participants: %s</string>
     <string name="event_collaborators_no_data">Collaborators: No data</string>
     <string name="event_participants_no_data">Participants: No data</string>
+    <string name="event_button_more">More</string>
+    <string name="event_title_upcoming">My upcoming events</string>
+    <string name="event_title_local">Other local events</string>
+    <string name="event_title_other">Other locations events</string>
+    <string name="tab_event_about">About</string>
+    <string name="tab_event_news">News</string>
 
     <!--About-->
     <string name="about_what">What</string>

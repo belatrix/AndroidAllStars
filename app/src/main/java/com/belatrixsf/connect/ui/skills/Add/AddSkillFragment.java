@@ -50,7 +50,6 @@ import com.belatrixsf.connect.ui.common.views.searchingview.SearchingView;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.DialogUtils;
 import com.belatrixsf.connect.utils.KeyboardUtils;
-import com.belatrixsf.connect.utils.SnackbarUtils;
 import com.belatrixsf.connect.utils.di.modules.presenters.AddSkillPresenterModule;
 
 import java.util.ArrayList;

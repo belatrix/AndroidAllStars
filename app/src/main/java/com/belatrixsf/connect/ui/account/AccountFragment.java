@@ -24,15 +24,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,19 +38,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.adapters.AccountSubCategoriesAdapter;
 import com.belatrixsf.connect.entities.Employee;
-import com.belatrixsf.connect.entities.SubCategory;
+import com.belatrixsf.connect.ui.account.badges.AccountBadgesFragment;
 import com.belatrixsf.connect.ui.account.edit.EditAccountActivity;
 import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
 import com.belatrixsf.connect.ui.account.expanded.ExpandPictureActivity;
+import com.belatrixsf.connect.ui.account.recommendations.AccountRecommendationsFragment;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
-import com.belatrixsf.connect.ui.common.RecyclerOnItemClickListener;
-import com.belatrixsf.connect.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.connect.ui.login.LoginActivity;
 import com.belatrixsf.connect.ui.skills.SkillsListActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarActivity;
@@ -61,36 +57,30 @@ import com.belatrixsf.connect.ui.stars.GiveStarFragment;
 import com.belatrixsf.connect.ui.stars.StarsListActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.DialogUtils;
-import com.belatrixsf.connect.utils.SnackbarUtils;
 import com.belatrixsf.connect.utils.di.modules.presenters.AccountPresenterModule;
 import com.belatrixsf.connect.utils.media.ImageFactory;
 import com.belatrixsf.connect.utils.media.loaders.ImageLoader;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.Bind;
+import butterknife.BindString;
 import butterknife.OnClick;
 
 /**
  * Created by pedrocarrillo on 4/9/16.
  */
-public class AccountFragment extends BelatrixConnectFragment implements AccountView, RecyclerOnItemClickListener {
+public class AccountFragment extends BelatrixConnectFragment implements AccountView {
 
-    public static final String SUB_CATEGORY_LIST_KEY = "_sub_category_list_key";
     public static final String EMPLOYEE_KEY = "_employee_key";
 
     public static final int RQ_GIVE_STAR = 99;
 
     private AccountPresenter accountPresenter;
-    private AccountSubCategoriesAdapter accountCategoriesAdapter;
     private AccountFragmentListener accountFragmentListener;
 
     private MenuItem recommendMenuItem;
     private MenuItem editProfileMenuItem;
     private MenuItem editSkillsMenuItem;
 
-    @Bind(R.id.account_recommendations) RecyclerView recommendationRecyclerView;
     @Bind(R.id.skype_id) TextView skypeIdTextView;
     @Bind(R.id.level) TextView levelTextView;
     @Bind(R.id.score) TextView scoreTextView;
@@ -99,8 +89,11 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     @Bind(R.id.profile_picture) ImageView pictureImageView;
     @Bind(R.id.location_name) TextView profileLocationImageView;
     @Bind(R.id.account_swipe_refresh) SwipeRefreshLayout accountSwipeRefresh;
-    @Bind(R.id.subcategories_progress_bar) ProgressBar subCategoriesProgressBar;
-    @Bind(R.id.no_data_textview) TextView noDataTextView;
+    @Bind(R.id.bottom_navigation) AHBottomNavigation bottomNavigation;
+    @BindString(R.string.bottom_navigation_color) String navigationColor;
+
+    public static final int TAB_RECOMMENDATIONS = 0;
+    public static final int TAB_BADGES = 1;
 
     public static AccountFragment newInstance(Integer userId, byte[] imgBitmap) {
         Bundle bundle = new Bundle();
@@ -147,10 +140,6 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
         return inflater.inflate(R.layout.fragment_account, container, false);
     }
 
-    @Override
-    public void onClick(View v) {
-        accountPresenter.onSubCategoryClicked(v.getTag());
-    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -199,22 +188,47 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
         }
     }
 
+
+    @Override
+    public void onEmployeeLoaded(final int employeeId) {
+        bottomNavigation.setCurrentItem(0);
+        final int idFragmentContainer = R.id.fragment_profile_container;
+        replaceChildFragment(AccountRecommendationsFragment.newInstance(accountPresenter.getEmployee().getPk()), idFragmentContainer);
+        bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
+            @Override
+            public boolean onTabSelected(int position, boolean wasSelected) {
+                if (!wasSelected) {
+                    switch (position) {
+                        case TAB_RECOMMENDATIONS:
+                            replaceChildFragment(AccountRecommendationsFragment.newInstance(employeeId), idFragmentContainer);
+                            break;
+                        case TAB_BADGES:
+                            replaceChildFragment(AccountBadgesFragment.newInstance(employeeId), idFragmentContainer);
+                            break;
+                    }
+                }
+                return true;
+            }
+        });
+    }
+
     private void setupViews() {
-        accountCategoriesAdapter = new AccountSubCategoriesAdapter(this);
-        recommendationRecyclerView.setAdapter(accountCategoriesAdapter);
-        recommendationRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setAutoMeasureEnabled(true);
-        recommendationRecyclerView.setNestedScrollingEnabled(false);
-        recommendationRecyclerView.setLayoutManager(linearLayoutManager);
+        accountSwipeRefresh.setColorSchemeResources(R.color.swipe_refresh);
         accountSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                accountCategoriesAdapter.clear();
                 accountPresenter.loadEmployeeAccount(true);
             }
         });
-        accountSwipeRefresh.setColorSchemeResources(R.color.swipe_refresh);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_recommendations, R.drawable.ic_recommendations, R.color.colorAccent);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_badges, R.drawable.ic_badges, R.color.colorAccent);
+
+        bottomNavigation.addItem(item1);
+        bottomNavigation.addItem(item2);
+        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
+        bottomNavigation.setAccentColor(Color.parseColor(navigationColor));
+        bottomNavigation.setBehaviorTranslationEnabled(false);
+
     }
 
     @Override
@@ -231,19 +245,14 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     }
 
     private void restoreState(Bundle savedInstanceState) {
-        List<SubCategory> subCategoryList = savedInstanceState.getParcelableArrayList(SUB_CATEGORY_LIST_KEY);
         Employee employee = savedInstanceState.getParcelable(EMPLOYEE_KEY);
         byte [] employeeImg = savedInstanceState.getByteArray(AccountActivity.USER_IMG_PROFILE_KEY);
-        accountPresenter.loadPresenterState(subCategoryList, employee, employeeImg);
+        accountPresenter.loadPresenterState(employee, employeeImg);
     }
 
     private void saveState(Bundle outState) {
         outState.putParcelable(EMPLOYEE_KEY, accountPresenter.getEmployee());
         outState.putByteArray(AccountActivity.USER_IMG_PROFILE_KEY, accountPresenter.getEmployeeImg());
-        List<SubCategory> subCategoryList = accountPresenter.getSubCategoriesListSync();
-        if (subCategoryList != null && subCategoryList instanceof ArrayList) {
-            outState.putParcelableArrayList(SUB_CATEGORY_LIST_KEY, (ArrayList<SubCategory>) subCategoryList);
-        }
     }
 
     @Override
@@ -261,12 +270,6 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
         }
     }
 
-    @Override
-    public void showSubCategories(List<SubCategory> subCategories) {
-        if (accountCategoriesAdapter != null) {
-            accountCategoriesAdapter.update(subCategories);
-        }
-    }
 
     @Override
     public void showLevel(String level) {
@@ -423,23 +426,11 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     @Override
     public void showProgressIndicator() {
         accountSwipeRefresh.setRefreshing(true);
-        setProgressViewVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgressIndicator() {
         accountSwipeRefresh.setRefreshing(false);
-        setProgressViewVisibility(View.GONE);
-    }
-
-    @Override
-    public void showNoDataView() {
-        noDataTextView.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideNoDataView() {
-        noDataTextView.setVisibility(View.GONE);
     }
 
     @Override
@@ -464,11 +455,6 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
         fragmentListener.closeActivity();
     }
 
-    public void setProgressViewVisibility(int visibility) {
-        if (subCategoriesProgressBar != null) {
-            subCategoriesProgressBar.setVisibility(visibility);
-        }
-    }
 
     @Override
     public void onDestroyView() {

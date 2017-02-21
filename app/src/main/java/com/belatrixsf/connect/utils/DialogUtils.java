@@ -25,6 +25,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 
 import com.belatrixsf.connect.R;
+
 import static android.content.DialogInterface.OnClickListener;
 
 /**

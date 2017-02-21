@@ -21,10 +21,7 @@
 package com.belatrixsf.connect.ui.account;
 
 import com.belatrixsf.connect.entities.Employee;
-import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.ui.common.BelatrixConnectView;
-
-import java.util.List;
 
 /**
  * Created by PedroCarrillo on 4/13/16.
@@ -34,7 +31,6 @@ public interface AccountView extends BelatrixConnectView {
     void goSubCategoryDetail(Integer categoryId, Integer employeeId);
     void showScore(String score);
     void showLocation(String locationIcon);
-    void showSubCategories(List<SubCategory> subCategories);
     void showLevel(String level);
     void showSkypeId(String skypeID);
     void showEmployeeName(String employeName);
@@ -44,13 +40,11 @@ public interface AccountView extends BelatrixConnectView {
     void showEditProfileButton(boolean show);
     void goToEditProfile(Employee employee);
     void goToGiveStar(Employee employee);
-    void showNoDataView();
-    void hideNoDataView();
     void goToExpandPhoto(String url);
     void notifyNavigationRefresh();
     void showInformativeDialog(String information);
     void goBackToLogin();
     void goToEditSkills();
     void showEditSkillsButton(boolean show);
-
+    void onEmployeeLoaded(int employeeId);
 }

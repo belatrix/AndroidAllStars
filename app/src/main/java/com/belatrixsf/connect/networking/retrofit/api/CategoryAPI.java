@@ -20,8 +20,9 @@
 */
 package com.belatrixsf.connect.networking.retrofit.api;
 
-import com.belatrixsf.connect.entities.SubCategory;
+import com.belatrixsf.connect.entities.Category;
 import com.belatrixsf.connect.entities.Keyword;
+import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.networking.retrofit.requests.EmployeeKeywordRequest;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 
@@ -37,6 +38,12 @@ import retrofit2.http.Path;
  * Created by gyosida on 4/26/16.
  */
 public interface CategoryAPI {
+
+    @GET(ServerPaths.CATEGORY_LIST)
+    Call<List<Category>> getCategories();
+
+    @GET(ServerPaths.EMPLOYEE_CATEGORY_LIST)
+    Call<PaginatedResponse<SubCategory>> getCategoriesByEmployee(@Path(ServerPaths.EMPLOYEE_ID) int employeeId);
 
     @GET(ServerPaths.SUBCATEGORIES_BY_CATEGORY_ID)
     Call<List<SubCategory>> getSubcategories(@Path(ServerPaths.CATEGORY_ID) int categoryId);

@@ -33,7 +33,6 @@ import android.view.ViewGroup;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.CategoriesAdapter;
 import com.belatrixsf.connect.entities.Category;
-import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
@@ -147,7 +146,7 @@ public class CategoriesFragment extends BelatrixConnectFragment implements Categ
     protected void initDependencies(BelatrixConnectApplication belatrixConnectApplication) {
         belatrixConnectApplication
                 .getApplicationComponent()
-                .categoriesListComponent(new CategoriesListModule(this, getCategoryIfExists()))
+                .categoriesListComponent(new CategoriesListModule(this))
                 .inject(this);
     }
 
@@ -157,7 +156,7 @@ public class CategoriesFragment extends BelatrixConnectFragment implements Categ
     }
 
     @Override
-    public void notifySelection(SubCategory subcategory) {
+    public void notifySelection(Category subcategory) {
         subcategorySelectionListener.onSubcategorySelected(subcategory);
     }
 

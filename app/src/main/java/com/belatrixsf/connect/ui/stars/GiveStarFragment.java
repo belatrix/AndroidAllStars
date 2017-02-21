@@ -269,7 +269,7 @@ public class GiveStarFragment extends BelatrixConnectFragment implements GiveSta
             } else if (requestCode == RQ_COMMENT) {
                 giveStarPresenter.loadSelectedComment(data.getStringExtra(COMMENT_KEY));
             } else if (requestCode == RQ_SUBCATEGORY) {
-                giveStarPresenter.loadSelectedSubCategory((SubCategory) data.getParcelableExtra(CategoriesActivity.SUBCATEGORY_KEY));
+                giveStarPresenter.loadSelectedSubCategory((Category) data.getParcelableExtra(CategoriesActivity.SUBCATEGORY_KEY));
             } else if (requestCode == RQ_KEYWORD) {
                 giveStarPresenter.loadSelectedKeyword((Keyword) data.getParcelableExtra(KeywordsActivity.KEYWORD_KEY));
             }

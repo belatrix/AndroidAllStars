@@ -24,15 +24,16 @@ import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Event;
 import com.belatrixsf.connect.networking.retrofit.responses.EventParticipantDetailResponse;
 import com.belatrixsf.connect.services.contracts.EventService;
-import com.belatrixsf.connect.services.contracts.GuestService;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 import com.belatrixsf.connect.utils.DateUtils;
+import com.belatrixsf.connect.utils.ServiceError;
 
 import javax.inject.Inject;
 
 /**
  * Created by icerrate on 27/06/2016.
+ * Modified by dvelasquez on 21/02/2017
  */
 public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailView> {
 
@@ -49,9 +50,6 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
         this.eventService = eventService;
     }
 
-    public void setGuestId(Integer guestId) {
-        this.guestId = guestId;
-    }
 
     public void setEmployeeId(Integer employeeId) {
         this.employeeId = employeeId;
@@ -62,6 +60,27 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
         showEventDetail();
     }
 
+
+    public void loadEventDetail(){
+        view.showProgressDialog();
+        eventService.getEventDetail(eventId, employeeId, new PresenterCallback<Event>() {
+            @Override
+            public void onSuccess(Event eventResponse) {
+                event = eventResponse;
+                showEventDetail();
+                view.dismissProgressDialog();
+            }
+
+
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                view.dismissProgressDialog();
+                super.onFailure(serviceError);
+            }
+        });
+    }
+
+    /*
     public void loadEventDetail() {
         view.showProgressDialog();
         if (guestId != null) {
@@ -69,7 +88,7 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
         } else {
             eventService.getEventCollaboratorDetail(eventId, employeeId, eventDetailCallback);
         }
-    }
+    }*/
 
     public void setEventId(Integer eventId) {
         this.eventId = eventId;
@@ -78,14 +97,12 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
     private void showEventDetail() {
         String date = event.getDatetime();
         String formattedDate = date != null && !date.isEmpty() ? DateUtils.formatDate(date, DateUtils.DATE_FORMAT_3, DateUtils.DATE_FORMAT_4) : getString(R.string.no_data_option);
-        String location = event.getLocation() != null && !event.getLocation().isEmpty() ? event.getLocation() : getString(R.string.no_data_option);
         String title = event.getTitle() != null && !event.getTitle().isEmpty() ? event.getTitle() : getString(R.string.no_data_option);
         String description = event.getDescription() != null && !event.getDescription().isEmpty() ? event.getDescription() : getString(R.string.no_data_option);
         String collaboratorsCount = event.getCollaborators() != null ? String.format(getString(R.string.event_collaborators), String.valueOf(event.getCollaborators())) : getString(R.string.event_collaborators_no_data);
         String participantsCount = event.getParticipants() != null ? String.format(getString(R.string.event_participants), String.valueOf(event.getParticipants())) : getString(R.string.event_participants_no_data);
 
         view.showDateTime(formattedDate);
-        view.showLocation(location);
         view.showTitle(title);
         view.showDescription(description);
         view.showCollaboratorsCount(collaboratorsCount);
@@ -152,9 +169,6 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
         return employeeId;
     }
 
-    public Integer getGuestId() {
-        return guestId;
-    }
 
     public void requestUnregister() {
         view.showProgressDialog();

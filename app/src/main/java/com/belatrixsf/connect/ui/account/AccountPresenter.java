@@ -25,20 +25,19 @@ import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.managers.EmployeeManager;
 import com.belatrixsf.connect.managers.PreferencesManager;
-import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.services.contracts.EmployeeService;
 import com.belatrixsf.connect.services.contracts.StarService;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 import com.belatrixsf.connect.utils.ServiceError;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 /**
  * Created by PedroCarrillo on 4/13/16.
+ * Modified by DVelasquez on 16/02/17
  */
 public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
 
@@ -67,7 +66,6 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
                 public void onSuccess(Employee employee) {
                     AccountPresenter.this.employeeId = employee.getPk();
                     AccountPresenter.this.employee = employee;
-                    loadSubCategoriesStar(true);
                     showEmployeeData();
                     view.notifyNavigationRefresh();
                     view.hideProgressIndicator();
@@ -87,47 +85,16 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
                 employeeService.getEmployee(employeeId, employeeBelatrixConnectCallback);
             }
         } else {
-            loadSubCategoriesStar(false);
             showEmployeeData();
         }
     }
 
-    private void loadSubCategoriesStar(boolean force) {
-        view.hideNoDataView();
-        if (subCategoriesList == null || force) {
-            view.showProgressIndicator();
-            starService.getEmployeeSubCategoriesStars(
-                employeeId,
-                new PresenterCallback<PaginatedResponse<SubCategory>>() {
-                    @Override
-                    public void onSuccess(PaginatedResponse<SubCategory> starSubCategoryResponse) {
-                        view.hideProgressIndicator();
-                        if(!starSubCategoryResponse.getResults().isEmpty()) {
-                            view.showSubCategories(starSubCategoryResponse.getResults());
-                        } else {
-                            view.showNoDataView();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(ServiceError serviceError) {
-                        view.hideProgressIndicator();
-                        super.onFailure(serviceError);
-                    }
-                });
-        } else {
-            if(!subCategoriesList.isEmpty()) {
-                view.showSubCategories(subCategoriesList);
-            } else {
-                view.showNoDataView();
-            }
-        }
-    }
 
     public void setUserInfo(Integer employeeId, byte[] employeeByteImg) {
         this.employeeId = employeeId;
         this.employeeImg = employeeByteImg;
     }
+
 
     private void showEmployeeData() {
         if (employee.getLocation() != null) {
@@ -153,15 +120,10 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
             view.showEmail(getString(R.string.no_data));
         }
         view.showProfilePicture(employee.getAvatar());
+        view.onEmployeeLoaded(employee.getPk());
         checkRecommendationEnabled();
     }
 
-    public void onSubCategoryClicked(Object object) {
-        if (object != null && object instanceof SubCategory) {
-            SubCategory subCategory = (SubCategory) object;
-            view.goSubCategoryDetail(subCategory.getId(), employee.getPk());
-        }
-    }
 
     public void checkRecommendationEnabled() {
         if (employee != null) {
@@ -208,8 +170,7 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
         return this.employeeImg;
     }
 
-    public void loadPresenterState(List<SubCategory> subCategoriesList, Employee employee, byte[] employeeImg) {
-        this.subCategoriesList = subCategoriesList;
+    public void loadPresenterState(Employee employee, byte[] employeeImg) {
         this.employee = employee;
         this.employeeImg = employeeImg;
     }

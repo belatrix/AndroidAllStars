@@ -20,6 +20,8 @@
 */
 package com.belatrixsf.connect.ui.event;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -28,8 +30,12 @@ import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 
 /**
  * Created by icerrate on 13/06/2016.
+ * modified by dvelasquez on 21/02/2017
  */
 public class EventListActivity extends BelatrixConnectActivity {
+
+    public static String EVENT_TYPE_KEY = "_event_type_key";
+    public static String EVENT_TITLE_KEY = "_event_title_key";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,8 +43,18 @@ public class EventListActivity extends BelatrixConnectActivity {
         setContentView(R.layout.activity_base);
         setNavigationToolbar();
         if (savedInstanceState == null) {
-            replaceFragment(EventListFragment.newInstance(), false);
+            String eventType = getIntent().getStringExtra(EVENT_TYPE_KEY);
+            String eventTitle = getIntent().getStringExtra(EVENT_TITLE_KEY);
+            replaceFragment(EventListFragment.newInstance(eventType, eventTitle), false);
         }
+    }
+
+
+    public static void startActivity(Activity activity, String eventType, String title) {
+        Intent intent = new Intent(activity, EventListActivity.class);
+        intent.putExtra(EventListActivity.EVENT_TYPE_KEY, eventType);
+        intent.putExtra(EventListActivity.EVENT_TITLE_KEY, title);
+        activity.startActivity(intent);
     }
 
 }

@@ -23,13 +23,11 @@ package com.belatrixsf.connect.ui.home;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -38,24 +36,17 @@ import android.support.v7.view.ActionMode;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.UserNavigationViewPagerAdapter;
 import com.belatrixsf.connect.services.fcm.ConnectFirebaseMessagingService;
 import com.belatrixsf.connect.ui.about.AboutActivity;
-import com.belatrixsf.connect.ui.account.AccountActivity;
 import com.belatrixsf.connect.ui.account.AccountFragmentListener;
 import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
-import com.belatrixsf.connect.ui.contacts.ContactsListActivity;
-import com.belatrixsf.connect.ui.event.EventListActivity;
 import com.belatrixsf.connect.ui.notifications.NotificationListActivity;
-import com.belatrixsf.connect.ui.ranking.RankingFragmentListener;
 import com.belatrixsf.connect.ui.settings.SettingsActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarFragment;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
-import com.belatrixsf.connect.utils.SnackbarUtils;
 import com.belatrixsf.connect.utils.di.components.DaggerUserHomeComponent;
 import com.belatrixsf.connect.utils.di.modules.presenters.UserHomePresenterModule;
 
@@ -64,8 +55,9 @@ import butterknife.Bind;
 /**
  * Created by PedroCarrillo on 7/4/16.
  */
-public class UserActivity extends MainActivity implements RankingFragmentListener, AccountFragmentListener {
+public class UserActivity extends MainActivity implements AccountFragmentListener {
 
+    public static final int PROFILE_TAB = 0;
     public static final int RANKING_TAB = 3;
     public static final int RQ_GIVE_STAR = 99;
     public static final int PARENT_INDEX = 3;
@@ -74,7 +66,6 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
     @Bind(R.id.main_view_pager) ViewPager mainViewPager;
     @Bind(R.id.start_recommendation) FloatingActionButton startRecommendationButton;
     @Nullable @Bind(R.id.tab_layout) TabLayout tabLayout;
-    @Bind(R.id.bottom_navigation) AHBottomNavigation bottomNavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,16 +120,20 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
 
             @Override
             public void onPageSelected(int position) {
+
+                startRecommendationButton.hide();
+                /*
                 if (position == RANKING_TAB) {
                     startRecommendationButton.hide();
-                    bottomNavigation.restoreBottomNavigation();
-                    bottomNavigation.setBehaviorTranslationEnabled(true);
-                    bottomNavigation.setCurrentItem(1);
-                } else {
-                    startRecommendationButton.show();
-                    bottomNavigation.hideBottomNavigation();
-                    bottomNavigation.setBehaviorTranslationEnabled(false);
+
                 }
+                else if (position == PROFILE_TAB) {
+                    startRecommendationButton.hide();
+
+                }
+                else {
+                    startRecommendationButton.show();
+                }*/
             }
 
             @Override
@@ -151,17 +146,8 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
             tabLayout.setupWithViewPager(mainViewPager);
         }
 
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_last_month, R.drawable.ic_event, R.color.colorAccent);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_current_month, R.drawable.ic_whatshot, R.color.colorAccent);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.tab_all_time, R.drawable.ic_star, R.color.colorAccent);
 
-        bottomNavigation.addItem(item1);
-        bottomNavigation.addItem(item2);
-        bottomNavigation.addItem(item3);
 
-        bottomNavigation.hideBottomNavigation();
-        bottomNavigation.setAccentColor(Color.parseColor(getResources().getString(R.string.bottom_navigation_color)));
-        bottomNavigation.setBehaviorTranslationEnabled(false);
 
         switch (tabSelected){
             case ACCOUNT_TAB:
@@ -212,10 +198,6 @@ public class UserActivity extends MainActivity implements RankingFragmentListene
         });
     }
 
-    @Override
-    public void setBottomTabListener(AHBottomNavigation.OnTabSelectedListener onTabSelectedListener) {
-        bottomNavigation.setOnTabSelectedListener(onTabSelectedListener);
-    }
 
     @Override
     public void refreshNavigationDrawer() {

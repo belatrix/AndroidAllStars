@@ -19,7 +19,6 @@
 * SOFTWARE.
 */
 package com.belatrixsf.connect.services.contracts;
-
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.Keyword;
 import com.belatrixsf.connect.entities.Star;

@@ -27,17 +27,24 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by icerrate on 13/06/2016.
+ * Modified by dvelasquez on 20/02/2017
  */
 public class Event implements Parcelable {
 
     @SerializedName("pk")
     private Integer id;
     private String title;
-    private String description;
+    private String name;
     private String datetime;
-    private String location;
+    private Location location;
     private Integer collaborators;
     private Integer participants;
+    private String address;
+    private String description;
+    @SerializedName("is_active")
+    private boolean isActive;
+    @SerializedName("is_upcoming")
+    private boolean isUpcoming;
     @SerializedName("image")
     private String picture;
     @SerializedName("is_registration_open")
@@ -46,6 +53,22 @@ public class Event implements Parcelable {
     private boolean isRegistered;
 
     public Event() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public boolean isUpcoming() {
+        return isUpcoming;
     }
 
     public Integer getId() {
@@ -64,7 +87,7 @@ public class Event implements Parcelable {
         return datetime;
     }
 
-    public String getLocation() {
+    public Location getLocation() {
         return location;
     }
 
@@ -97,12 +120,16 @@ public class Event implements Parcelable {
         title = in.readString();
         description = in.readString();
         datetime = in.readString();
-        location = in.readString();
+        address = in.readString();
+        name = in.readString();
         collaborators = in.readByte() == 0x00 ? null : in.readInt();
         participants = in.readByte() == 0x00 ? null : in.readInt();
         picture = in.readString();
         isRegistrationAvailable = in.readByte() != 0x00;
         isRegistered = in.readByte() != 0x00;
+        isActive = in.readByte() != 0x00;
+        isUpcoming = in.readByte() != 0x00;
+        location = (Location) in.readValue(Location.class.getClassLoader());
     }
 
     @Override
@@ -121,7 +148,7 @@ public class Event implements Parcelable {
         dest.writeString(title);
         dest.writeString(description);
         dest.writeString(datetime);
-        dest.writeString(location);
+        dest.writeValue(location);
         if (collaborators == null) {
             dest.writeByte((byte) (0x00));
         } else {
@@ -134,9 +161,13 @@ public class Event implements Parcelable {
             dest.writeByte((byte) (0x01));
             dest.writeInt(participants);
         }
+        dest.writeString(name);
         dest.writeString(picture);
         dest.writeByte((byte) (isRegistrationAvailable ? 0x01 : 0x00));
         dest.writeByte((byte) (isRegistered ? 0x01 : 0x00));
+        dest.writeByte((byte) (isActive ? 0x01 : 0x00));
+        dest.writeByte((byte) (isUpcoming ? 0x01 : 0x00));
+
     }
 
     @SuppressWarnings("unused")

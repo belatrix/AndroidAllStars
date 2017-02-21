@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:paddingBottom="@dimen/dimen_7_8"
-    android:tag="@string/ranking_tag">
+    xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <FrameLayout
-        android:id="@+id/fragment_ranking_container"
+    <android.support.v4.widget.NestedScrollView
+        android:layout_above="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:paddingBottom="@dimen/dimen_7_8"
+        android:tag="@string/ranking_tag">
 
-</android.support.v4.widget.NestedScrollView>
+        <FrameLayout
+            android:id="@+id/fragment_ranking_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"/>
+
+</RelativeLayout>

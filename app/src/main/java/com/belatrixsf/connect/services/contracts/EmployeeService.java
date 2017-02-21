@@ -25,6 +25,7 @@ import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.Location;
 import com.belatrixsf.connect.entities.Notification;
 import com.belatrixsf.connect.entities.SiteInfo;
+import com.belatrixsf.connect.entities.Star;
 import com.belatrixsf.connect.networking.retrofit.responses.AuthenticationResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.CreateEmployeeResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
@@ -48,7 +49,7 @@ public interface EmployeeService extends BelatrixConnectService {
 
     ServiceRequest getEmployeeSearchList(String searchTerm, Integer page, BelatrixConnectCallback<PaginatedResponse<Employee>> callback);
 
-    ServiceRequest getRankingList(String kind, int quantity, BelatrixConnectCallback<List<Employee>> callback);
+    ServiceRequest getRankingList(String kind, BelatrixConnectCallback<List<Employee>> callback);
 
     ServiceRequest getEmployeeCategories(int employeeId, BelatrixConnectCallback<List<Category>> callback);
 
@@ -69,4 +70,6 @@ public interface EmployeeService extends BelatrixConnectService {
     ServiceRequest logout(BelatrixConnectCallback<Void> callback);
 
     ServiceRequest getSiteInfo(BelatrixConnectCallback<SiteInfo> callback);
+
+    ServiceRequest getEmployeeRecommendationList(int employeeId, int categoryId, BelatrixConnectCallback<PaginatedResponse<Star>> callback);
 }

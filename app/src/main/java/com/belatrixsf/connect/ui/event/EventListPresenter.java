@@ -21,6 +21,7 @@
 package com.belatrixsf.connect.ui.event;
 
 import com.belatrixsf.connect.entities.Event;
+import com.belatrixsf.connect.managers.PreferencesManager;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.services.ServiceRequest;
 import com.belatrixsf.connect.services.contracts.EventService;
@@ -40,8 +41,16 @@ public class EventListPresenter extends BelatrixConnectPresenter<EventListView> 
     private List<Event> eventsList = new ArrayList<>();
     private PaginatedResponse eventsPaging = new PaginatedResponse();
     private ServiceRequest searchingServiceRequest;
-    private String searchText;
-    private boolean searching = false;
+    private String eventType;
+    private String eventTitle;
+
+    public String getEventTitle() {
+        return eventTitle;
+    }
+
+    public String getEventType() {
+        return eventType;
+    }
 
     @Inject
     public EventListPresenter(EventListView view, EventService eventsService) {
@@ -56,17 +65,7 @@ public class EventListPresenter extends BelatrixConnectPresenter<EventListView> 
         }
     }
 
-    public void searchEvents() {
-        view.showSearchActionMode();
-        searching = true;
-    }
 
-    public void stopSearchingEvents() {
-        searchText = null;
-        searching = false;
-        reset();
-        getEventsInternal();
-    }
 
     public void callNextPage() {
         if (eventsPaging.getNext() != null) {
@@ -74,6 +73,8 @@ public class EventListPresenter extends BelatrixConnectPresenter<EventListView> 
         }
     }
 
+
+    /*
     public void getEvents() {
         view.resetList();
         if (eventsList.isEmpty()) {
@@ -82,12 +83,11 @@ public class EventListPresenter extends BelatrixConnectPresenter<EventListView> 
             view.addEvents(eventsList);
         }
     }
-
-    public void getEvents(String searchText) {
+*/
+    public void getEvents() {
         if (searchingServiceRequest != null) {
             searchingServiceRequest.cancel();
         }
-        this.searchText = searchText;
         reset();
         getEventsInternal();
     }
@@ -95,8 +95,10 @@ public class EventListPresenter extends BelatrixConnectPresenter<EventListView> 
     private void getEventsInternal() {
         view.showProgressIndicator();
         view.hideNoDataView();
-        searchingServiceRequest = eventService.getEventSearchList(
-                searchText,
+        int storedEmployeeId = PreferencesManager.get().getEmployeeId();
+        searchingServiceRequest = eventService.getEventList(
+                eventType,
+                storedEmployeeId,
                 eventsPaging.getNextPage(),
                 new PresenterCallback<PaginatedResponse<Event>>() {
                     @Override
@@ -119,6 +121,13 @@ public class EventListPresenter extends BelatrixConnectPresenter<EventListView> 
         eventService.cancelAll();
     }
 
+
+    public void setEventInfo(String eventType, String eventTitle){
+        this.eventType = eventType;
+        this.eventTitle = eventTitle;
+        view.showEventTitle(eventTitle);
+    }
+
     private void reset() {
         eventsList.clear();
         view.resetList();
@@ -127,21 +136,13 @@ public class EventListPresenter extends BelatrixConnectPresenter<EventListView> 
 
     // saving state stuff
 
-    public void loadPresenterState(List<Event> events, PaginatedResponse contactsPaging, String searchText, boolean searching) {
+    public void loadPresenterState(List<Event> events, PaginatedResponse contactsPaging) {
         if (events != null) {
             this.eventsList.addAll(events);
         }
         this.eventsPaging = contactsPaging;
-        this.searchText = searchText;
-        this.searching = searching;
-        if (searching) {
-            searchEvents();
-        }
     }
 
-    public String getSearchText() {
-        return searchText;
-    }
 
     public PaginatedResponse getEventsPaging() {
         return eventsPaging;
@@ -151,8 +152,5 @@ public class EventListPresenter extends BelatrixConnectPresenter<EventListView> 
         return eventsList;
     }
 
-    public boolean isSearching() {
-        return searching;
-    }
 
 }

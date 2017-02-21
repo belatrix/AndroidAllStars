@@ -32,6 +32,7 @@ public interface ServerPaths {
     String NOTIFICATION = "notification";
     String SKILLS = "skills";
 
+    String EVENT_TYPE = "event_type";
     String EMPLOYEE_ID = "employee_id";
     String EMPLOYEE_EMAIL = "employee_email";
     String KEYWORD_ID = "keyword_id";
@@ -67,7 +68,11 @@ public interface ServerPaths {
     String STARS_BY_EMPLOYEE_AND_SUBCATEGORY = STAR + "/{" + EMPLOYEE_ID + "}/subcategory" + "/{" + SUBCATEGORY_ID + "}/list";
     String STARS_BY_KEYWORD = STAR + "/keyword/list";
     String STARS_KEYWORD_TOP = STAR + "/keyword/{" + KEYWORD_ID + "}/list/";
-    String RANKING_LIST = EMPLOYEE + "/list/top/{" + KIND + "}/{" + QUANTITY + "}/";
+    String RANKING_LIST = EMPLOYEE + "/list/top/10/{" + KIND + "}/";
+    String CATEGORY_LIST = CATEGORY + "/list/";
+    String EMPLOYEE_CATEGORY_LIST = STAR + "/{" + EMPLOYEE_ID + "}/list/group/category";
+    String EMPLOYEE_BADGE_LIST = STAR + "/{" + EMPLOYEE_ID + "}/badge/list";
+    String EMPLOYEE_RECOMMENDATIONS_BY_CATEGORY_LIST = STAR + "/{" + EMPLOYEE_ID + "}/list/group/category/{" + CATEGORY_ID + "}/";
 
     String CATEGORY_KEYWORD_LIST = CATEGORY + "/keyword/list";
     String SUBCATEGORIES_BY_CATEGORY_ID = CATEGORY + "/{" + CATEGORY_ID + "}/subcategory/list";
@@ -76,6 +81,7 @@ public interface ServerPaths {
     String EMPLOYEE_ADD_SKILL = EMPLOYEE + "/{" + EMPLOYEE_ID + "}/" + SKILLS + "/add/";
     String EMPLOYEE_REMOVE_SKILL = EMPLOYEE + "/{" + EMPLOYEE_ID + "}/" + SKILLS + "/remove/";
 
+    String EVENT_LIST_BY_TYPE = EVENT + "/{" + EVENT_TYPE + "}/" + EMPLOYEE + "/{" + EMPLOYEE_ID + "}/";
     String EVENT_LIST = EVENT + "/list/";
     String EVENT_DETAIL = EVENT + "/{" + EVENT_ID + "}/";
     String EVENT_PARTICIPANT_DETAIL = EVENT_DETAIL + "participant/{" + GUEST_ID + "}/detail/";
@@ -84,6 +90,7 @@ public interface ServerPaths {
     String EVENT_REGISTER_PARTICIPANT = EVENT_DETAIL + "register/participant/{" + GUEST_ID + "}/";
     String EVENT_UNREGISTER_COLLABORATOR = EVENT_DETAIL + "unregister/collaborator/{" + EMPLOYEE_ID + "}/";
     String EVENT_UNREGISTER_PARTICIPANT = EVENT_DETAIL + "unregister/participant/{" + GUEST_ID + "}/";
+    String EVENT_LIST_DETAIL = EVENT_DETAIL + "employee/{" + EMPLOYEE_ID + "}/";
 
     String GUEST_AUTHENTICATE = EVENT + "/participant/";
     String GUEST_BY_ID = EVENT + "/participant/{" + GUEST_ID + "}";

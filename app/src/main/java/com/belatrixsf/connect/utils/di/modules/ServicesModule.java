@@ -20,16 +20,19 @@
 */
 package com.belatrixsf.connect.utils.di.modules;
 
+import com.belatrixsf.connect.networking.retrofit.api.BadgeAPI;
 import com.belatrixsf.connect.networking.retrofit.api.CategoryAPI;
 import com.belatrixsf.connect.networking.retrofit.api.EmployeeAPI;
 import com.belatrixsf.connect.networking.retrofit.api.EventAPI;
 import com.belatrixsf.connect.networking.retrofit.api.GuestAPI;
 import com.belatrixsf.connect.networking.retrofit.api.StarAPI;
+import com.belatrixsf.connect.services.contracts.BadgeService;
 import com.belatrixsf.connect.services.contracts.CategoryService;
 import com.belatrixsf.connect.services.contracts.EmployeeService;
 import com.belatrixsf.connect.services.contracts.EventService;
 import com.belatrixsf.connect.services.contracts.GuestService;
 import com.belatrixsf.connect.services.contracts.StarService;
+import com.belatrixsf.connect.services.server.BadgeServerService;
 import com.belatrixsf.connect.services.server.CategoryServerService;
 import com.belatrixsf.connect.services.server.EmployeeServerService;
 import com.belatrixsf.connect.services.server.EventServerService;
@@ -68,6 +71,11 @@ public class ServicesModule {
     @Provides
     public GuestService provideGuestService(GuestAPI guestAPI) {
         return new GuestServerService(guestAPI);
+    }
+
+    @Provides
+    public BadgeService provideBadgeService(BadgeAPI badgeAPI) {
+        return new BadgeServerService(badgeAPI);
     }
 
 }

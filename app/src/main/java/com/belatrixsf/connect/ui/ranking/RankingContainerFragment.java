@@ -20,28 +20,32 @@
 */
 package com.belatrixsf.connect.ui.ranking;
 
-import android.app.Activity;
-import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.belatrixsf.connect.R;
+import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
+import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.Constants;
+
+import butterknife.Bind;
+import butterknife.BindString;
 
 /**
  * Created by pedrocarrillo on 4/28/16.
  */
-public class RankingContainerFragment extends Fragment {
+public class RankingContainerFragment extends BelatrixConnectFragment {
 
-    private RankingFragmentListener rankingFragmentListener;
-    public static final int TAB_LAST_MONTH = 0;
-    public static final int TAB_CURRENT_MONTH = 1;
+    public static final int TAB_LAST_MONTH = 1;
+    public static final int TAB_CURRENT_MONTH = 0;
     public static final int TAB_ALL_TIME = 2;
+    @Bind(R.id.bottom_navigation) AHBottomNavigation bottomNavigation;
+    @BindString(R.string.bottom_navigation_color) String navigationColor;
 
     public static RankingContainerFragment newInstance() {
         return new RankingContainerFragment();
@@ -54,21 +58,40 @@ public class RankingContainerFragment extends Fragment {
     }
 
     @Override
+    protected void initDependencies(BelatrixConnectApplication belatrixConnectApplication) {
+        //rankingPresenter = belatrixConnectApplication.getApplicationComponent()
+          //      .rankingComponent(new RankingPresenterModule(this))
+            //    .rankingPresenter();
+    }
+
+    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rankingFragmentListener.setBottomTabListener(new AHBottomNavigation.OnTabSelectedListener() {
+        initViews();
+
+    }
+
+    private void initViews() {
+        setupViews();
+        final int idFragmentContainer = R.id.fragment_ranking_container;
+        replaceChildFragment(RankingFragment.newInstance(Constants.KIND_CURRENT_MONTH),idFragmentContainer);
+        bottomNavigation.setCurrentItem(0);
+        bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
                 if (!wasSelected) {
                     switch (position) {
-                        case TAB_LAST_MONTH:
-                            replaceChildFragment(RankingFragment.newInstance(Constants.KIND_LAST_MONTH_SCORE));
-                            break;
+
                         case TAB_CURRENT_MONTH:
-                            replaceChildFragment(RankingFragment.newInstance(Constants.KIND_CURRENT_MONTH));
+                            replaceChildFragment(RankingFragment.newInstance(Constants.KIND_CURRENT_MONTH),idFragmentContainer);
                             break;
+
+                        case TAB_LAST_MONTH:
+                            replaceChildFragment(RankingFragment.newInstance(Constants.KIND_LAST_MONTH_SCORE), idFragmentContainer);
+                            break;
+
                         case TAB_ALL_TIME:
-                            replaceChildFragment(RankingFragment.newInstance(Constants.KIND_TOTAL_SCORE));
+                            replaceChildFragment(RankingFragment.newInstance(Constants.KIND_TOTAL_SCORE),idFragmentContainer);
                             break;
                     }
                 }
@@ -77,31 +100,18 @@ public class RankingContainerFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        castOrThrowException(activity);
+    private void setupViews() {
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_current_month, R.drawable.ic_whatshot, R.color.colorAccent);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_last_month, R.drawable.ic_event, R.color.colorAccent);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.tab_all_time, R.drawable.ic_star, R.color.colorAccent);
+
+        bottomNavigation.addItem(item1);
+        bottomNavigation.addItem(item2);
+        bottomNavigation.addItem(item3);
+        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
+        bottomNavigation.setAccentColor(Color.parseColor(navigationColor));
+        bottomNavigation.setBehaviorTranslationEnabled(false);
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        castOrThrowException(context);
-    }
-
-    private void castOrThrowException(Context context) {
-        try {
-            rankingFragmentListener = (RankingFragmentListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement RankingFragmentListener");
-        }
-    }
-
-    public void replaceChildFragment(Fragment fragment) {
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        String tag = fragment.getClass().getSimpleName();
-        transaction.replace(R.id.fragment_ranking_container, fragment, tag);
-        transaction.commit();
-    }
 
 }

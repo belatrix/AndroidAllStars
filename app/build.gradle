@@ -19,7 +19,7 @@ repositories {
 }
 
 android {
-    compileSdkVersion 24
+    compileSdkVersion 25
     buildToolsVersion '24.0.3'
 
     defaultConfig {
@@ -53,7 +53,7 @@ android {
     }
 
     def firebaseLibrariesVersion = "9.0.2"
-    def supportLibrariesVersion = "24.2.0"
+    def supportLibrariesVersion = "25.0.1"
 
     dependencies {
         compile fileTree(dir: 'libs', include: ['*.jar'])

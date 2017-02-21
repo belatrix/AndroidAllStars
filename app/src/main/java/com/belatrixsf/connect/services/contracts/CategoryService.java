@@ -22,6 +22,7 @@ package com.belatrixsf.connect.services.contracts;
 
 import com.belatrixsf.connect.entities.Category;
 import com.belatrixsf.connect.entities.Keyword;
+import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.services.ServiceRequest;
 import com.belatrixsf.connect.utils.BelatrixConnectCallback;
@@ -33,6 +34,8 @@ import java.util.List;
  */
 public interface CategoryService extends BelatrixConnectService {
 
+    ServiceRequest getCategories(BelatrixConnectCallback<List<Category>> callback);
+
     ServiceRequest getSubcategories(int categoryId, BelatrixConnectCallback<List<Category>> callback);
 
     ServiceRequest getKeywords(BelatrixConnectCallback<List<Keyword>> callback);
@@ -42,5 +45,7 @@ public interface CategoryService extends BelatrixConnectService {
     ServiceRequest saveKeywordToEmployee(int employeeId, String keywordName, BelatrixConnectCallback<Keyword> callback);
 
     ServiceRequest removeEmployeeKeyword(int employeeId, String keywordName, BelatrixConnectCallback<Keyword> callback);
+
+    ServiceRequest getCategoriesByEmployee(int employeeId, BelatrixConnectCallback<PaginatedResponse<SubCategory>> callback);
 
 }

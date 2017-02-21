@@ -24,6 +24,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
@@ -77,6 +78,7 @@ public class ContactsListFragment extends BelatrixConnectFragment implements Con
 
     @Bind(R.id.employees) RecyclerView contactsRecyclerView;
     @Bind(R.id.no_data_textview) TextView noDataTextView;
+    @Bind(R.id.contacts_swipe_refresh) SwipeRefreshLayout contactSwipeRefresh;
 
     public static ContactsListFragment newInstance(boolean profileEnabled) {
         Bundle bundle = new Bundle();
@@ -175,6 +177,14 @@ public class ContactsListFragment extends BelatrixConnectFragment implements Con
         contactsRecyclerView.setAdapter(contactsListAdapter);
         contactsRecyclerView.setLayoutManager(linearLayoutManager);
         contactsRecyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
+
+        contactSwipeRefresh.setColorSchemeResources(R.color.swipe_refresh);
+        contactSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                contactsListPresenter.getContacts();
+            }
+        });
     }
 
     @Override
@@ -194,6 +204,10 @@ public class ContactsListFragment extends BelatrixConnectFragment implements Con
         }
         if (endlessRecyclerOnScrollListener != null) {
             endlessRecyclerOnScrollListener.setLoading(false);
+        }
+
+        if (contactSwipeRefresh != null){
+            contactSwipeRefresh.setRefreshing(false);
         }
     }
 

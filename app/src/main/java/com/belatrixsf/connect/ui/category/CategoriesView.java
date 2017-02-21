@@ -21,7 +21,6 @@
 package com.belatrixsf.connect.ui.category;
 
 import com.belatrixsf.connect.entities.Category;
-import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 
 import java.util.List;
@@ -32,7 +31,7 @@ import java.util.List;
 public interface CategoriesView extends BelatrixConnectView {
 
     void notifyAreSubcategories(boolean areSubcategories);
-    void notifySelection(SubCategory subcategory);
+    void notifySelection(Category subcategory);
     void showCategories(List<Category> categories);
     void showSubcategories(Category category);
 

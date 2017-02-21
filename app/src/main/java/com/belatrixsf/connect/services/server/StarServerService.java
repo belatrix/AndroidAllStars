@@ -55,6 +55,7 @@ public class StarServerService extends BelatrixConnectBaseService implements Sta
         return serviceRequest;
     }
 
+
     @Override
     public ServiceRequest star(int fromEmployeeId, int toEmployeeId, StarRequest starRequest, BelatrixConnectCallback<StarResponse> callback) {
         Call<StarResponse> call = starAPI.star(fromEmployeeId, toEmployeeId, starRequest);
