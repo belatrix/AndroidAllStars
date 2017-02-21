@@ -18,33 +18,23 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.ui.account;
+package com.belatrixsf.connect.ui.event.main;
 
-import com.belatrixsf.connect.entities.Employee;
+import com.belatrixsf.connect.entities.Event;
 import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 
-/**
- * Created by PedroCarrillo on 4/13/16.
- */
-public interface AccountView extends BelatrixConnectView {
+import java.util.List;
 
-    void goSubCategoryDetail(Integer categoryId, Integer employeeId);
-    void showScore(String score);
-    void showLocation(String locationIcon);
-    void showLevel(String level);
-    void showSkypeId(String skypeID);
-    void showEmployeeName(String employeName);
-    void showEmail(String role);
-    void showProfilePicture(String profilePicture);
-    void showRecommendMenu(boolean show);
-    void showEditProfileButton(boolean show);
-    void goToEditProfile(Employee employee);
-    void goToGiveStar(Employee employee);
-    void goToExpandPhoto(String url);
-    void notifyNavigationRefresh();
-    void showInformativeDialog(String information);
-    void goBackToLogin();
-    void goToEditSkills();
-    void showEditSkillsButton(boolean show);
-    void onEmployeeLoaded(int employeeId);
+/**
+ * Created by icerrate on 13/06/2016.
+ *  modified by dvelasquez on 20/02/2017
+ */
+public interface EventItemView extends BelatrixConnectView {
+
+
+    void goEventDetail(Integer id);
+    void showEventList(List<Event> eventList);
+    void hideRefreshData();
+    void showNoDataView();
+    void hideNoDataView();
 }

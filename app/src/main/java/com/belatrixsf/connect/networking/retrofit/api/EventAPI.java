@@ -59,4 +59,12 @@ public interface EventAPI {
     @PUT(ServerPaths.EVENT_UNREGISTER_PARTICIPANT)
     Call<Event> unregisterParticipant(@Path(ServerPaths.EVENT_ID) int eventId, @Path(ServerPaths.GUEST_ID) int guestId);
 
+    //new API
+    @GET(ServerPaths.EVENT_LIST_BY_TYPE)
+    Call<PaginatedResponse<Event>> getEventList(@Path(ServerPaths.EVENT_TYPE) String eventType, @Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Query(ServerPaths.QUERY_PAGE) Integer page);
+
+    @GET(ServerPaths.EVENT_LIST_DETAIL)
+    Call<Event> getEventDetail(@Path(ServerPaths.EVENT_ID) int eventId, @Path(ServerPaths.EMPLOYEE_ID) int employeeId);
+
+
 }

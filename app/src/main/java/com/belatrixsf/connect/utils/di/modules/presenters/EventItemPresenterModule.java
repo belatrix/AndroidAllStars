@@ -18,33 +18,28 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.ui.account;
+package com.belatrixsf.connect.utils.di.modules.presenters;
 
-import com.belatrixsf.connect.entities.Employee;
-import com.belatrixsf.connect.ui.common.BelatrixConnectView;
+import com.belatrixsf.connect.ui.event.main.EventItemView;
+
+import dagger.Module;
+import dagger.Provides;
 
 /**
- * Created by PedroCarrillo on 4/13/16.
+ * Created by icerrate on 15/04/2016.
  */
-public interface AccountView extends BelatrixConnectView {
+@Module
+public class EventItemPresenterModule {
 
-    void goSubCategoryDetail(Integer categoryId, Integer employeeId);
-    void showScore(String score);
-    void showLocation(String locationIcon);
-    void showLevel(String level);
-    void showSkypeId(String skypeID);
-    void showEmployeeName(String employeName);
-    void showEmail(String role);
-    void showProfilePicture(String profilePicture);
-    void showRecommendMenu(boolean show);
-    void showEditProfileButton(boolean show);
-    void goToEditProfile(Employee employee);
-    void goToGiveStar(Employee employee);
-    void goToExpandPhoto(String url);
-    void notifyNavigationRefresh();
-    void showInformativeDialog(String information);
-    void goBackToLogin();
-    void goToEditSkills();
-    void showEditSkillsButton(boolean show);
-    void onEmployeeLoaded(int employeeId);
+    private EventItemView view;
+
+    public EventItemPresenterModule(EventItemView view) {
+        this.view = view;
+    }
+
+    @Provides
+    public EventItemView providesView() {
+        return view;
+    }
+
 }

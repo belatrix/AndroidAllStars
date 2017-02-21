@@ -33,7 +33,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.belatrixsf.connect.utils.ServiceError.*;
+import static com.belatrixsf.connect.utils.ServiceError.CANCELLED;
+import static com.belatrixsf.connect.utils.ServiceError.UNKNOWN;
 
 /**
  * Created by gyosida on 4/12/16.

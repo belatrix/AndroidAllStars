@@ -20,8 +20,6 @@
 */
 package com.belatrixsf.connect.ui.account.recommendations;
 
-import com.belatrixsf.connect.entities.Category;
-import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 

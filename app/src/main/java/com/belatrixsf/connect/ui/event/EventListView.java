@@ -31,10 +31,10 @@ import java.util.List;
 public interface EventListView extends BelatrixConnectView {
 
     void addEvents(List<Event> events);
-    void showSearchActionMode();
     void resetList();
     void goEventDetail(Integer id);
     void showNoDataView();
     void hideNoDataView();
+    void showEventTitle(String title);
 
 }

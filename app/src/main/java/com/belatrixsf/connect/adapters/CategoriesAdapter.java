@@ -29,7 +29,6 @@ import android.widget.TextView;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Category;
-import com.belatrixsf.connect.entities.SubCategory;
 
 import java.util.ArrayList;
 import java.util.List;

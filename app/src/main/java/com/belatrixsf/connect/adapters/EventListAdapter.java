@@ -31,7 +31,6 @@ import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Event;
 import com.belatrixsf.connect.ui.common.LoadMoreBaseAdapter;
 import com.belatrixsf.connect.ui.common.RecyclerOnItemClickListener;
-import com.belatrixsf.connect.utils.DateUtils;
 import com.belatrixsf.connect.utils.media.ImageFactory;
 import com.belatrixsf.connect.utils.media.loaders.ImageLoader;
 
@@ -43,6 +42,7 @@ import butterknife.ButterKnife;
 
 /**
  * Created by icerrate on 13/06/2016.
+ * modified by dvelasquez on 20/02/2017
  */
 public class EventListAdapter extends LoadMoreBaseAdapter<Event> {
 
@@ -70,18 +70,15 @@ public class EventListAdapter extends LoadMoreBaseAdapter<Event> {
         if (holder instanceof EventViewHolder) {
             EventViewHolder eventViewHolder = (EventViewHolder) holder;
             Event event = data.get(position);
-            String title = event.getTitle() != null && !event.getTitle().isEmpty() ? event.getTitle() : eventViewHolder.eventTitleTextView.getContext().getString(R.string.title_title_placeholder);
-            String date = event.getDatetime();
-            String formattedDate = date != null && !date.isEmpty() ? DateUtils.formatDate(date, DateUtils.DATE_FORMAT_3, DateUtils.DATE_FORMAT_2) : eventViewHolder.eventDateTextView.getContext().getString(R.string.title_date_placeholder);
+            String title = event.getName() != null && !event.getName().isEmpty() ? event.getName() : eventViewHolder.eventTitleTextView.getContext().getString(R.string.title_title_placeholder);
             eventViewHolder.eventTitleTextView.setText(title);
-            eventViewHolder.eventDateTextView.setText(formattedDate);
             eventViewHolder.itemView.setTag(event);
             ImageFactory.getLoader().loadFromUrl(
                     event.getPicture(),
                     eventViewHolder.pictureImageView,
-                    ImageLoader.ImageTransformation.BORDERED_CIRCLE,
                     null,
-                    eventViewHolder.pictureImageView.getResources().getDrawable(R.drawable.contact_placeholder),
+                    null,
+                    eventViewHolder.pictureImageView.getResources().getDrawable(R.drawable.event_placeholder),
                     ImageLoader.ScaleType.CENTER_CROP
             );
         }
@@ -111,7 +108,6 @@ public class EventListAdapter extends LoadMoreBaseAdapter<Event> {
 
         @Bind(R.id.event_picture) public ImageView pictureImageView;
         @Bind(R.id.event_title) public TextView eventTitleTextView;
-        @Bind(R.id.event_date) public TextView eventDateTextView;
         protected RecyclerOnItemClickListener recyclerOnItemClickListener;
 
         public EventViewHolder(View view, RecyclerOnItemClickListener recyclerOnItemClickListener) {

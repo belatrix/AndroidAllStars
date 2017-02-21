@@ -25,8 +25,6 @@ import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.services.ServiceRequest;
 import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 
-import java.util.List;
-
 /**
  * Created by dvelasquez on 17/7/17.
  */

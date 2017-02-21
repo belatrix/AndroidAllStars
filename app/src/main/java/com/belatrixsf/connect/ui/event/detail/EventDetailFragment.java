@@ -41,13 +41,13 @@ import butterknife.Bind;
 
 /**
  * Created by icerrate on 27/06/2016.
+ * modified by dvelasquez on 21/02/2017
  */
 public class EventDetailFragment extends BelatrixConnectFragment implements EventDetailView {
 
     public static final String EVENT_ID_KEY = "_event_id_key";
     public static final String EVENT_KEY = "_event_key";
     public static final String EMPLOYEE_ID_KEY = "_employee_id_key";
-    public static final String GUEST_ID_KEY = "_guest_id_key";
 
     private EventDetailPresenter eventDetailPresenter;
     private EventDetailFragmentListener eventDetailFragmentListener;
@@ -92,11 +92,6 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
         }
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -114,13 +109,7 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
         } else if (hasArguments) {
             eventId = getArguments().getInt(EventDetailActivity.EVENT_ID_KEY);
             eventDetailPresenter.setEventId(eventId);
-            boolean userHasPermission = PreferencesManager.get().getEmployeeId() != 0 && PreferencesManager.get().getToken() != null && PreferencesManager.get().isResetPassword() && PreferencesManager.get().isEditProfile();
-            boolean guestHasPermission = PreferencesManager.get().getGuestId() != 0;
-            if (userHasPermission) {
-                eventDetailPresenter.setEmployeeId(PreferencesManager.get().getEmployeeId());
-            } else if (guestHasPermission) {
-                eventDetailPresenter.setGuestId(PreferencesManager.get().getGuestId());
-            }
+            eventDetailPresenter.setEmployeeId(PreferencesManager.get().getEmployeeId());
             eventDetailPresenter.loadEventDetail();
         }
     }
@@ -132,11 +121,6 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
                 .eventDetailPresenter();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        loadData();
-    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -147,14 +131,8 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
     private void restoreState(Bundle savedInstanceState) {
         Event event = savedInstanceState.getParcelable(EVENT_KEY);
         Integer eventId = savedInstanceState.getInt(EVENT_ID_KEY, 0);
-        if (savedInstanceState.containsKey(GUEST_ID_KEY)) {
-            Integer guestId = savedInstanceState.getInt(GUEST_ID_KEY, 0);
-            eventDetailPresenter.setGuestId(guestId);
-        }
-        if (savedInstanceState.containsKey(EMPLOYEE_ID_KEY)) {
-            Integer employeeId = savedInstanceState.getInt(EMPLOYEE_ID_KEY, 0);
-            eventDetailPresenter.setEmployeeId(employeeId);
-        }
+        Integer employeeId = savedInstanceState.getInt(EMPLOYEE_ID_KEY, 0);
+        eventDetailPresenter.setEmployeeId(employeeId);
         eventDetailPresenter.setEventId(eventId);
         eventDetailPresenter.loadPresenterState(event);
     }
@@ -162,12 +140,7 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
     private void saveState(Bundle outState) {
         outState.putInt(EVENT_ID_KEY, eventDetailPresenter.getEventId());
         outState.putParcelable(EVENT_KEY, eventDetailPresenter.getEvent());
-        if (eventDetailPresenter.getGuestId() != null) {
-            outState.putInt(GUEST_ID_KEY, eventDetailPresenter.getGuestId());
-        }
-        if (eventDetailPresenter.getEmployeeId() != null) {
-            outState.putInt(EMPLOYEE_ID_KEY, eventDetailPresenter.getEmployeeId());
-        }
+        outState.putInt(EMPLOYEE_ID_KEY, eventDetailPresenter.getEmployeeId());
     }
 
     @Override
@@ -209,10 +182,6 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
     @Override
     public void showPicture(final String profilePicture) {
         eventDetailFragmentListener.showPicture(profilePicture);
-    }
-
-    public void loadData() {
-        eventDetailPresenter.loadEventDetail();
     }
 
     @Override

@@ -33,4 +33,8 @@ public class Constants {
     public static final int MIN_PASSWORD_LENGTH = 4;
     public static final int DEFAULT_QUANTITY = 15;
 
+    public static final String KIND_EVENT_UPCOMING = "upcoming";
+    public static final String KIND_EVENT_LOCAL = "local";
+    public static final String KIND_EVENT_OTHER = "others";
+
 }

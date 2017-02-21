@@ -21,9 +21,7 @@
 package com.belatrixsf.connect.utils.di.components;
 
 import com.belatrixsf.connect.ui.account.badges.AccountBadgesPresenter;
-import com.belatrixsf.connect.ui.account.recommendations.AccountRecommendationsPresenter;
 import com.belatrixsf.connect.utils.di.modules.presenters.AccountBadgesPresenterModule;
-import com.belatrixsf.connect.utils.di.modules.presenters.AccountRecommendationsPresenterModule;
 import com.belatrixsf.connect.utils.di.scopes.UIScope;
 
 import dagger.Subcomponent;

@@ -22,6 +22,7 @@ package com.belatrixsf.connect.ui.event.detail;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -31,12 +32,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 import com.belatrixsf.connect.utils.media.ImageFactory;
 import com.belatrixsf.connect.utils.media.loaders.ImageLoader;
 
 import butterknife.Bind;
+import butterknife.BindString;
 
 /**
  * Created by icerrate on 27/06/2016.
@@ -46,6 +50,11 @@ public class EventDetailActivity extends BelatrixConnectActivity implements Even
     public static final String EVENT_ID_KEY = "_event_id";
 
     @Bind(R.id.event_picture) ImageView pictureImageView;
+    @Bind(R.id.bottom_navigation) AHBottomNavigation bottomNavigation;
+    @BindString(R.string.bottom_navigation_color) String navigationColor;
+    private int eventId;
+    public static final int TAB_NEWS = 1;
+    public static final int TAB_ABOUT = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,9 +65,44 @@ public class EventDetailActivity extends BelatrixConnectActivity implements Even
         setToolbar(toolbar);
         setNavigationToolbar();
         if (savedInstanceState == null) {
-            Integer eventId = getIntent().getIntExtra(EVENT_ID_KEY, -1);
-            replaceFragment(EventDetailFragment.newInstance(eventId), false);
+            eventId = getIntent().getIntExtra(EVENT_ID_KEY, -1);
         }
+        initViews();
+    }
+
+    private void initViews() {
+        setupViews();
+        replaceFragment(EventDetailFragment.newInstance(eventId),false);
+        bottomNavigation.setCurrentItem(0);
+        bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
+            @Override
+            public boolean onTabSelected(int position, boolean wasSelected) {
+                if (!wasSelected) {
+                    switch (position) {
+
+                        case TAB_ABOUT:
+                            replaceFragment(EventDetailFragment.newInstance(eventId),false);
+                            break;
+
+                        case TAB_NEWS:
+                            replaceFragment(EventDetailFragment.newInstance(eventId),false);
+                            break;
+
+                    }
+                }
+                return true;
+            }
+        });
+    }
+
+    private void setupViews() {
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_event_about, R.drawable.ic_whatshot, R.color.colorAccent);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_event_news, R.drawable.ic_event, R.color.colorAccent);
+        bottomNavigation.addItem(item1);
+        bottomNavigation.addItem(item2);
+        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
+        bottomNavigation.setAccentColor(Color.parseColor(navigationColor));
+        bottomNavigation.setBehaviorTranslationEnabled(false);
     }
 
     public static void startActivityAnimatingPic(Activity activity, ImageView photoImageView, Integer eventId) {

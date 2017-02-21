@@ -20,7 +20,6 @@
 */
 package com.belatrixsf.connect.services.server;
 
-import com.belatrixsf.connect.entities.Category;
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.Keyword;
 import com.belatrixsf.connect.entities.Star;

@@ -20,8 +20,8 @@
 */
 package com.belatrixsf.connect.ui.common;
 
-import android.support.v4.app.Fragment;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 

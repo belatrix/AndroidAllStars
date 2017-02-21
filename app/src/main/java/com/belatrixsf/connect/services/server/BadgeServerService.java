@@ -29,7 +29,6 @@ import com.belatrixsf.connect.services.ServiceRequest;
 import com.belatrixsf.connect.services.contracts.BadgeService;
 import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 
-
 import retrofit2.Call;
 
 /**

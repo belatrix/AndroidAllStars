@@ -25,7 +25,6 @@ import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.managers.EmployeeManager;
 import com.belatrixsf.connect.managers.PreferencesManager;
-import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.services.contracts.EmployeeService;
 import com.belatrixsf.connect.services.contracts.StarService;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
@@ -90,39 +89,6 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
         }
     }
 
-    /*
-    private void loadSubCategoriesStar(boolean force) {
-        view.hideNoDataView();
-        if (subCategoriesList == null || force) {
-            view.showProgressIndicator();
-            starService.getEmployeeSubCategoriesStars(
-                employeeId,
-                new PresenterCallback<PaginatedResponse<SubCategory>>() {
-                    @Override
-                    public void onSuccess(PaginatedResponse<SubCategory> starSubCategoryResponse) {
-                        view.hideProgressIndicator();
-                        if(!starSubCategoryResponse.getResults().isEmpty()) {
-                            view.showSubCategories(starSubCategoryResponse.getResults());
-                        } else {
-                            view.showNoDataView();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(ServiceError serviceError) {
-                        view.hideProgressIndicator();
-                        super.onFailure(serviceError);
-                    }
-                });
-        } else {
-            if(!subCategoriesList.isEmpty()) {
-                view.showSubCategories(subCategoriesList);
-            } else {
-                view.showNoDataView();
-                view.showNoDataView();
-            }
-        }
-    }*/
 
     public void setUserInfo(Integer employeeId, byte[] employeeByteImg) {
         this.employeeId = employeeId;
@@ -158,12 +124,6 @@ public class AccountPresenter extends BelatrixConnectPresenter<AccountView> {
         checkRecommendationEnabled();
     }
 
-    public void onSubCategoryClicked(Object object) {
-        if (object != null && object instanceof SubCategory) {
-            SubCategory subCategory = (SubCategory) object;
-            view.goSubCategoryDetail(subCategory.getId(), employee.getPk());
-        }
-    }
 
     public void checkRecommendationEnabled() {
         if (employee != null) {

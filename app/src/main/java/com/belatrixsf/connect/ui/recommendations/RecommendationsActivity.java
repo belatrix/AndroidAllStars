@@ -22,21 +22,13 @@ package com.belatrixsf.connect.ui.recommendations;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.view.ViewCompat;
-import android.widget.ImageView;
 
 import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.ui.account.AccountFragment;
 import com.belatrixsf.connect.ui.account.AccountFragmentListener;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
-import com.belatrixsf.connect.ui.contacts.ContactsListActivity;
-import com.belatrixsf.connect.ui.home.UserActivity;
-import com.belatrixsf.connect.utils.MediaUtils;
 
 /**
  * Created by dvelasquez on 17/2/17.

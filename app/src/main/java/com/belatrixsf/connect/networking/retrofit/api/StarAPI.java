@@ -19,8 +19,6 @@
 * SOFTWARE.
 */
 package com.belatrixsf.connect.networking.retrofit.api;
-
-import com.belatrixsf.connect.entities.Category;
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.Keyword;
 import com.belatrixsf.connect.entities.Star;
@@ -38,7 +36,6 @@ import retrofit2.http.Query;
 
 /**
  * Created by PedroCarrillo on 4/26/16.
- * modified by dvelasquez
  */
 public interface StarAPI {
 

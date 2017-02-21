@@ -21,14 +21,10 @@
 package com.belatrixsf.connect.ui.account.badges;
 
 import com.belatrixsf.connect.entities.Badge;
-import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.EmployeeBadge;
-import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.managers.EmployeeManager;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.services.contracts.BadgeService;
-import com.belatrixsf.connect.services.contracts.CategoryService;
-import com.belatrixsf.connect.ui.account.recommendations.AccountRecommendationsView;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 import com.belatrixsf.connect.utils.ServiceError;
 

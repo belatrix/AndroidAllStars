@@ -21,7 +21,6 @@
 package com.belatrixsf.connect.adapters;
 
 import android.content.Context;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -29,9 +28,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.account.AccountFragment;
 import com.belatrixsf.connect.ui.contacts.ContactsListFragment;
-import com.belatrixsf.connect.ui.event.EventListFragment;
-import com.belatrixsf.connect.ui.keywords.SearchingKeywordsFragment;
-import com.belatrixsf.connect.ui.notifications.NotificationListFragment;
+import com.belatrixsf.connect.ui.event.main.EventContainerFragment;
 import com.belatrixsf.connect.ui.ranking.RankingContainerFragment;
 
 import java.lang.ref.WeakReference;
@@ -55,7 +52,7 @@ public class UserNavigationViewPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return AccountFragment.newInstance(null, null);
             case 1:
-                return EventListFragment.newInstance();
+                return EventContainerFragment.newInstance();
             case 2:
                 return ContactsListFragment.newInstance(true);
             default:

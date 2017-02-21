@@ -22,7 +22,6 @@ package com.belatrixsf.connect.ui.account.badges;
 
 import com.belatrixsf.connect.entities.Badge;
 import com.belatrixsf.connect.entities.EmployeeBadge;
-import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 
 import java.util.List;

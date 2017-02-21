@@ -32,6 +32,7 @@ public interface ServerPaths {
     String NOTIFICATION = "notification";
     String SKILLS = "skills";
 
+    String EVENT_TYPE = "event_type";
     String EMPLOYEE_ID = "employee_id";
     String EMPLOYEE_EMAIL = "employee_email";
     String KEYWORD_ID = "keyword_id";
@@ -80,6 +81,7 @@ public interface ServerPaths {
     String EMPLOYEE_ADD_SKILL = EMPLOYEE + "/{" + EMPLOYEE_ID + "}/" + SKILLS + "/add/";
     String EMPLOYEE_REMOVE_SKILL = EMPLOYEE + "/{" + EMPLOYEE_ID + "}/" + SKILLS + "/remove/";
 
+    String EVENT_LIST_BY_TYPE = EVENT + "/{" + EVENT_TYPE + "}/" + EMPLOYEE + "/{" + EMPLOYEE_ID + "}/";
     String EVENT_LIST = EVENT + "/list/";
     String EVENT_DETAIL = EVENT + "/{" + EVENT_ID + "}/";
     String EVENT_PARTICIPANT_DETAIL = EVENT_DETAIL + "participant/{" + GUEST_ID + "}/detail/";
@@ -88,6 +90,7 @@ public interface ServerPaths {
     String EVENT_REGISTER_PARTICIPANT = EVENT_DETAIL + "register/participant/{" + GUEST_ID + "}/";
     String EVENT_UNREGISTER_COLLABORATOR = EVENT_DETAIL + "unregister/collaborator/{" + EMPLOYEE_ID + "}/";
     String EVENT_UNREGISTER_PARTICIPANT = EVENT_DETAIL + "unregister/participant/{" + GUEST_ID + "}/";
+    String EVENT_LIST_DETAIL = EVENT_DETAIL + "employee/{" + EMPLOYEE_ID + "}/";
 
     String GUEST_AUTHENTICATE = EVENT + "/participant/";
     String GUEST_BY_ID = EVENT + "/participant/{" + GUEST_ID + "}";

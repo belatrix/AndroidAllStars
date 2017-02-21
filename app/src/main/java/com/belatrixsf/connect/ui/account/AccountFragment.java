@@ -26,14 +26,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -42,40 +38,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.adapters.AccountSubCategoriesAdapter;
 import com.belatrixsf.connect.entities.Employee;
-import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.ui.account.badges.AccountBadgesFragment;
 import com.belatrixsf.connect.ui.account.edit.EditAccountActivity;
 import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
 import com.belatrixsf.connect.ui.account.expanded.ExpandPictureActivity;
 import com.belatrixsf.connect.ui.account.recommendations.AccountRecommendationsFragment;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
-import com.belatrixsf.connect.ui.common.RecyclerOnItemClickListener;
-import com.belatrixsf.connect.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.connect.ui.login.LoginActivity;
-import com.belatrixsf.connect.ui.ranking.RankingFragment;
 import com.belatrixsf.connect.ui.skills.SkillsListActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarFragment;
 import com.belatrixsf.connect.ui.stars.StarsListActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
-import com.belatrixsf.connect.utils.Constants;
 import com.belatrixsf.connect.utils.DialogUtils;
-import com.belatrixsf.connect.utils.LoggerUtil;
-import com.belatrixsf.connect.utils.SnackbarUtils;
 import com.belatrixsf.connect.utils.di.modules.presenters.AccountPresenterModule;
 import com.belatrixsf.connect.utils.media.ImageFactory;
 import com.belatrixsf.connect.utils.media.loaders.ImageLoader;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.BindString;
@@ -156,11 +140,6 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
         return inflater.inflate(R.layout.fragment_account, container, false);
     }
 
-    /*
-    @Override
-    public void onClick(View v) {
-        accountPresenter.onSubCategoryClicked(v.getTag());
-    }*/
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -447,23 +426,11 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     @Override
     public void showProgressIndicator() {
         accountSwipeRefresh.setRefreshing(true);
-        setProgressViewVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgressIndicator() {
         accountSwipeRefresh.setRefreshing(false);
-        setProgressViewVisibility(View.GONE);
-    }
-
-    @Override
-    public void showNoDataView() {
-        //noDataTextView.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideNoDataView() {
-        //noDataTextView.setVisibility(View.GONE);
     }
 
     @Override
@@ -488,11 +455,6 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
         fragmentListener.closeActivity();
     }
 
-    public void setProgressViewVisibility(int visibility) {
-        //if (subCategoriesProgressBar != null) {
-         //   subCategoriesProgressBar.setVisibility(visibility);
-        //∫}
-    }
 
     @Override
     public void onDestroyView() {

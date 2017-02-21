@@ -21,8 +21,8 @@
 package com.belatrixsf.connect.networking.retrofit.api;
 
 import com.belatrixsf.connect.entities.Category;
-import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.entities.Keyword;
+import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.networking.retrofit.requests.EmployeeKeywordRequest;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 

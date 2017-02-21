@@ -42,6 +42,7 @@ import com.belatrixsf.connect.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.di.modules.presenters.RecommendationsPresenterModule;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -168,7 +169,7 @@ public class RecommendationsFragment extends BelatrixConnectFragment implements 
     }
 
     private void saveState(Bundle outState) {
-        //outState.putParcelable(EMPLOYEE_KEY, accountRecommendationsPresenter.getEmployee());
+        outState.putParcelableArrayList(_RECOMMENDATION_LIST_KEY, (ArrayList<Star>) recommendationsPresenter.getListSync());
     }
 
 

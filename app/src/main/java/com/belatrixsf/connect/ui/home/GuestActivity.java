@@ -32,7 +32,6 @@ import android.webkit.CookieSyncManager;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.about.AboutActivity;
-import com.belatrixsf.connect.ui.event.EventListFragment;
 import com.belatrixsf.connect.ui.login.LoginActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.di.components.DaggerGuestHomeComponent;
@@ -48,6 +47,8 @@ import butterknife.Bind;
 /**
  * Created by PedroCarrillo on 7/4/16.
  */
+
+//TODO: Remove this class
 public class GuestActivity extends MainActivity {
 
     @Bind(R.id.main_coordinator) CoordinatorLayout coordinatorLayout;
@@ -57,7 +58,7 @@ public class GuestActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guest);
         if (savedInstanceState == null) {
-            replaceFragment(EventListFragment.newInstance(), false);
+            //replaceFragment(EventListFragment.newInstance(), false);
         }
         setToolbar();
         setupViews();

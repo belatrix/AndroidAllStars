@@ -18,12 +18,10 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.ui.event;
+package com.belatrixsf.connect.ui.event.main;
 
 import com.belatrixsf.connect.entities.Event;
-import com.belatrixsf.connect.managers.PreferencesManager;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
-import com.belatrixsf.connect.services.ServiceRequest;
 import com.belatrixsf.connect.services.contracts.EventService;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 
@@ -34,28 +32,22 @@ import javax.inject.Inject;
 
 /**
  * Created by icerrate on 13/06/2016.
+ * modified by dvelasquez on 20/02/2017
  */
-public class EventListPresenter extends BelatrixConnectPresenter<EventListView> {
+public class EventItemPresenter extends BelatrixConnectPresenter<EventItemView> {
 
     private EventService eventService;
-    private List<Event> eventsList = new ArrayList<>();
-    private PaginatedResponse eventsPaging = new PaginatedResponse();
-    private ServiceRequest searchingServiceRequest;
-    private String eventType;
-    private String eventTitle;
-
-    public String getEventTitle() {
-        return eventTitle;
-    }
-
-    public String getEventType() {
-        return eventType;
-    }
+    private List<Event> eventList = new ArrayList<>();
+    private int employeeId;
 
     @Inject
-    public EventListPresenter(EventListView view, EventService eventsService) {
+    public EventItemPresenter(EventItemView view, EventService eventsService) {
         super(view);
         this.eventService = eventsService;
+    }
+
+    public List<Event> getEventsListSync() {
+        return eventList;
     }
 
     public void onEventClicked(Object object) {
@@ -66,48 +58,32 @@ public class EventListPresenter extends BelatrixConnectPresenter<EventListView> 
     }
 
 
-
-    public void callNextPage() {
-        if (eventsPaging.getNext() != null) {
-            getEventsInternal();
-        }
-    }
-
-
-    /*
-    public void getEvents() {
-        view.resetList();
-        if (eventsList.isEmpty()) {
-            getEventsInternal();
+    public void getEvents(String eventType) {
+        if (eventList.isEmpty()) {
+            getEventsInternal(eventType);
         } else {
-            view.addEvents(eventsList);
+            view.showEventList(eventList);
         }
-    }
-*/
-    public void getEvents() {
-        if (searchingServiceRequest != null) {
-            searchingServiceRequest.cancel();
-        }
-        reset();
-        getEventsInternal();
     }
 
-    private void getEventsInternal() {
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    private void getEventsInternal(String eventType) {
         view.showProgressIndicator();
         view.hideNoDataView();
-        int storedEmployeeId = PreferencesManager.get().getEmployeeId();
-        searchingServiceRequest = eventService.getEventList(
-                eventType,
-                storedEmployeeId,
-                eventsPaging.getNextPage(),
+        eventService.getEventList(
+                eventType,employeeId,1,
                 new PresenterCallback<PaginatedResponse<Event>>() {
                     @Override
                     public void onSuccess(PaginatedResponse<Event> eventListResponse) {
-                        eventsPaging.setCount(eventListResponse.getCount());
-                        eventsPaging.setNext(eventListResponse.getNext());
-                        eventsList.addAll(eventListResponse.getResults());
                         if (!eventListResponse.getResults().isEmpty()) {
-                            view.addEvents(eventListResponse.getResults());
+                            view.showEventList(eventListResponse.getResults());
                         } else {
                             view.showNoDataView();
                         }
@@ -121,36 +97,17 @@ public class EventListPresenter extends BelatrixConnectPresenter<EventListView> 
         eventService.cancelAll();
     }
 
-
-    public void setEventInfo(String eventType, String eventTitle){
-        this.eventType = eventType;
-        this.eventTitle = eventTitle;
-        view.showEventTitle(eventTitle);
-    }
-
     private void reset() {
-        eventsList.clear();
-        view.resetList();
-        eventsPaging.reset();
+        eventList.clear();
     }
 
     // saving state stuff
 
-    public void loadPresenterState(List<Event> events, PaginatedResponse contactsPaging) {
-        if (events != null) {
-            this.eventsList.addAll(events);
+    public void loadPresenterState(List<Event> eventList) {
+        if (eventList != null) {
+            this.eventList.addAll(eventList);
         }
-        this.eventsPaging = contactsPaging;
+
     }
-
-
-    public PaginatedResponse getEventsPaging() {
-        return eventsPaging;
-    }
-
-    public List<Event> getEventsSync() {
-        return eventsList;
-    }
-
 
 }

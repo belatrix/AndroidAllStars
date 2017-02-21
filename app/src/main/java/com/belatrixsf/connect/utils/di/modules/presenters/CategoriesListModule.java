@@ -20,10 +20,7 @@
 */
 package com.belatrixsf.connect.utils.di.modules.presenters;
 
-import com.belatrixsf.connect.entities.Category;
-import com.belatrixsf.connect.managers.EmployeeManager;
 import com.belatrixsf.connect.services.contracts.CategoryService;
-import com.belatrixsf.connect.services.contracts.EmployeeService;
 import com.belatrixsf.connect.ui.category.CategoriesPresenter;
 import com.belatrixsf.connect.ui.category.CategoriesView;
 

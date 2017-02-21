@@ -45,7 +45,6 @@ import com.belatrixsf.connect.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.connect.ui.skills.Add.AddSkillActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.DialogUtils;
-import com.belatrixsf.connect.utils.SnackbarUtils;
 import com.belatrixsf.connect.utils.di.modules.presenters.SkillsListPresenterModule;
 
 import java.util.ArrayList;

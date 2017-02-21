@@ -20,19 +20,11 @@
 */
 package com.belatrixsf.connect.ui.account.recommendations;
 
-import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.entities.Category;
-import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.managers.EmployeeManager;
-import com.belatrixsf.connect.managers.PreferencesManager;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.services.contracts.CategoryService;
-import com.belatrixsf.connect.services.contracts.EmployeeService;
-import com.belatrixsf.connect.services.contracts.StarService;
-import com.belatrixsf.connect.ui.account.AccountView;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
-import com.belatrixsf.connect.utils.BelatrixConnectCallback;
 import com.belatrixsf.connect.utils.ServiceError;
 
 import java.util.List;

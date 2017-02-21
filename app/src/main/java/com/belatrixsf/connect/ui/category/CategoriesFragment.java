@@ -33,7 +33,6 @@ import android.view.ViewGroup;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.CategoriesAdapter;
 import com.belatrixsf.connect.entities.Category;
-import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;

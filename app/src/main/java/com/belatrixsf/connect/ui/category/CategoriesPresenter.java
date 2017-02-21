@@ -22,10 +22,6 @@ package com.belatrixsf.connect.ui.category;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Category;
-import com.belatrixsf.connect.entities.Employee;
-import com.belatrixsf.connect.entities.SubCategory;
-import com.belatrixsf.connect.managers.EmployeeManager;
-import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.services.contracts.CategoryService;
 import com.belatrixsf.connect.services.contracts.EmployeeService;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;

@@ -27,7 +27,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
-import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 
 import butterknife.ButterKnife;
