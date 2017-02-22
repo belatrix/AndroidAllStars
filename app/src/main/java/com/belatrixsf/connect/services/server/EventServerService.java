@@ -21,6 +21,7 @@
 package com.belatrixsf.connect.services.server;
 
 import com.belatrixsf.connect.entities.Event;
+import com.belatrixsf.connect.entities.Notification;
 import com.belatrixsf.connect.networking.retrofit.api.EventAPI;
 import com.belatrixsf.connect.networking.retrofit.responses.EventParticipantDetailResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
@@ -120,6 +121,24 @@ public class EventServerService extends BelatrixConnectBaseService implements Ev
     public ServiceRequest getEventDetail(int eventId, int employeeId, BelatrixConnectCallback<Event> callback) {
         Call<Event> call = eventAPI.getEventDetail(eventId, employeeId);
         ServiceRequest<Event> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
+
+    @Override
+    public ServiceRequest registerActionEvent(int eventId, int employeeId, String action, BelatrixConnectCallback<Event> callback) {
+        Call<Event> call = eventAPI.registerActionEvent(eventId,employeeId,action);
+        ServiceRequest<Event> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
+
+    @Override
+    public ServiceRequest getEventNews(int eventId, Integer page, BelatrixConnectCallback<PaginatedResponse<Notification>> callback) {
+        Call<PaginatedResponse<Notification>> call = eventAPI.getEventNews(eventId,page);
+        ServiceRequest<PaginatedResponse<Notification>> serviceRequest = new ServerServiceRequest<>(call);
         enqueue(serviceRequest, callback);
         return serviceRequest;
     }

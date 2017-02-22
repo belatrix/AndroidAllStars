@@ -25,6 +25,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
@@ -36,6 +37,8 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
+import com.belatrixsf.connect.ui.common.FragmentListener;
+import com.belatrixsf.connect.ui.event.notification.EventNewsFragment;
 import com.belatrixsf.connect.utils.media.ImageFactory;
 import com.belatrixsf.connect.utils.media.loaders.ImageLoader;
 
@@ -45,7 +48,7 @@ import butterknife.BindString;
 /**
  * Created by icerrate on 27/06/2016.
  */
-public class EventDetailActivity extends BelatrixConnectActivity implements EventDetailFragmentListener {
+public class EventDetailActivity extends BelatrixConnectActivity implements EventDetailFragmentListener, FragmentListener{
 
     public static final String EVENT_ID_KEY = "_event_id";
 
@@ -53,8 +56,11 @@ public class EventDetailActivity extends BelatrixConnectActivity implements Even
     @Bind(R.id.bottom_navigation) AHBottomNavigation bottomNavigation;
     @BindString(R.string.bottom_navigation_color) String navigationColor;
     private int eventId;
-    public static final int TAB_NEWS = 1;
     public static final int TAB_ABOUT = 0;
+    public static final int TAB_NEWS = 1;
+    @Bind(R.id.collapsing) CollapsingToolbarLayout collapsingToolbarLayout;
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,6 +83,9 @@ public class EventDetailActivity extends BelatrixConnectActivity implements Even
         bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
+
+                System.out.println("position: " + position);
+
                 if (!wasSelected) {
                     switch (position) {
 
@@ -85,7 +94,7 @@ public class EventDetailActivity extends BelatrixConnectActivity implements Even
                             break;
 
                         case TAB_NEWS:
-                            replaceFragment(EventDetailFragment.newInstance(eventId),false);
+                            replaceFragment(EventNewsFragment.newInstance(eventId),false);
                             break;
 
                     }
@@ -96,8 +105,8 @@ public class EventDetailActivity extends BelatrixConnectActivity implements Even
     }
 
     private void setupViews() {
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_event_about, R.drawable.ic_whatshot, R.color.colorAccent);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_event_news, R.drawable.ic_event, R.color.colorAccent);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_event_about, R.drawable.ic_about, R.color.colorAccent);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_event_news, R.drawable.ic_activity, R.color.colorAccent);
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);
         bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
@@ -111,6 +120,11 @@ public class EventDetailActivity extends BelatrixConnectActivity implements Even
         ViewCompat.setTransitionName(photoImageView, activity.getString(R.string.transition_photo));
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, photoImageView, activity.getString(R.string.transition_photo));
         activity.startActivity(intent, options.toBundle());
+    }
+
+    @Override
+    public void setTitle(String title) {
+        collapsingToolbarLayout.setTitle(title);
     }
 
     @Override

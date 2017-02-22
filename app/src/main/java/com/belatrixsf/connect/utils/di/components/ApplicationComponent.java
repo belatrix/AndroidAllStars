@@ -36,6 +36,7 @@ import com.belatrixsf.connect.utils.di.modules.presenters.EditAccountPresenterMo
 import com.belatrixsf.connect.utils.di.modules.presenters.EventDetailPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.EventItemPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.EventListPresenterModule;
+import com.belatrixsf.connect.utils.di.modules.presenters.EventNewsPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.ExpandPicturePresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.GiveStarPresenterModule;
 import com.belatrixsf.connect.utils.di.modules.presenters.KeywordsListModule;
@@ -80,6 +81,7 @@ public interface ApplicationComponent {
     KeywordsComponent keywordsListComponent(KeywordsListModule keywordsListModule);
     EditAccountComponent editAccountComponent(EditAccountPresenterModule editAccountPresenterModule);
     EventListComponent eventListComponent(EventListPresenterModule EventListPresenterModule);
+    EventNewsComponent eventNewsComponent(EventNewsPresenterModule eventNewsPresenterModule);
     EventItemComponent eventContainerComponent(EventItemPresenterModule eventItemPresenterModule);
     EventDetailComponent eventDetailComponent(EventDetailPresenterModule eventDetailPresenterModule);
     AboutComponent aboutComponent(AboutPresenterModule aboutPresenterModule);

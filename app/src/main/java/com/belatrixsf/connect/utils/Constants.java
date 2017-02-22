@@ -37,4 +37,6 @@ public class Constants {
     public static final String KIND_EVENT_LOCAL = "local";
     public static final String KIND_EVENT_OTHER = "others";
 
+    public static final String EVENT_REGISTER_ACTION = "true";
+    public static final String EVENT_UNREGISTER_ACTION = "false";
 }
