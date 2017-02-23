@@ -37,7 +37,6 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
-import com.belatrixsf.connect.ui.common.FragmentListener;
 import com.belatrixsf.connect.ui.event.notification.EventNewsFragment;
 import com.belatrixsf.connect.utils.media.ImageFactory;
 import com.belatrixsf.connect.utils.media.loaders.ImageLoader;
@@ -48,7 +47,7 @@ import butterknife.BindString;
 /**
  * Created by icerrate on 27/06/2016.
  */
-public class EventDetailActivity extends BelatrixConnectActivity implements EventDetailFragmentListener, FragmentListener{
+public class EventDetailActivity extends BelatrixConnectActivity implements EventDetailFragmentListener{
 
     public static final String EVENT_ID_KEY = "_event_id";
 
@@ -59,8 +58,6 @@ public class EventDetailActivity extends BelatrixConnectActivity implements Even
     public static final int TAB_ABOUT = 0;
     public static final int TAB_NEWS = 1;
     @Bind(R.id.collapsing) CollapsingToolbarLayout collapsingToolbarLayout;
-
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,8 +80,6 @@ public class EventDetailActivity extends BelatrixConnectActivity implements Even
         bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
-
-                System.out.println("position: " + position);
 
                 if (!wasSelected) {
                     switch (position) {

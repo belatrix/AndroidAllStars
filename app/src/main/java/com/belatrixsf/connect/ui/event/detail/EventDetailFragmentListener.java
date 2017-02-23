@@ -24,6 +24,5 @@ package com.belatrixsf.connect.ui.event.detail;
  * Created by icerrate on 28/06/2016.
  */
 public interface EventDetailFragmentListener {
-
     void showPicture(String profilePicture);
 }
