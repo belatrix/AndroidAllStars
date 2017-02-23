@@ -42,7 +42,6 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
     protected Integer eventId;
 
     private Integer employeeId;
-    private Integer guestId;
 
     @Inject
     public EventDetailPresenter(EventDetailView view, EventService eventService) {
@@ -97,32 +96,23 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
     private void showEventDetail() {
         String date = event.getDatetime();
         String formattedDate = date != null && !date.isEmpty() ? DateUtils.formatDate(date, DateUtils.DATE_FORMAT_3, DateUtils.DATE_FORMAT_4) : getString(R.string.no_data_option);
-        String title = event.getTitle() != null && !event.getTitle().isEmpty() ? event.getTitle() : getString(R.string.no_data_option);
+        String title = event.getName() != null && !event.getName().isEmpty() ? event.getName() : getString(R.string.no_data_option);
         String description = event.getDescription() != null && !event.getDescription().isEmpty() ? event.getDescription() : getString(R.string.no_data_option);
-        String collaboratorsCount = event.getCollaborators() != null ? String.format(getString(R.string.event_collaborators), String.valueOf(event.getCollaborators())) : getString(R.string.event_collaborators_no_data);
-        String participantsCount = event.getParticipants() != null ? String.format(getString(R.string.event_participants), String.valueOf(event.getParticipants())) : getString(R.string.event_participants_no_data);
-
         view.showDateTime(formattedDate);
         view.showTitle(title);
         view.showDescription(description);
-        view.showCollaboratorsCount(collaboratorsCount);
-        view.showParticipantsCount(participantsCount);
         view.showPicture(event.getPicture());
+        refreshRegisterEvent();
+    }
 
-
-        //TODO: future implementation
-
-        /*if (event.isRegistrationAvailable()) {
-            view.showRegister();
-            if (event.isRegistered()) {
+    private void refreshRegisterEvent() {
+        if (event.isRegistered()) {
                 view.enableUnregister();
             } else {
                 view.enableRegister();
-            }
-        } else {
-            view.hideRegister();
-        }*/
+        }
     }
+
 
     @Override
     public void cancelRequests() {
@@ -137,46 +127,33 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
         return eventId;
     }
 
-    public void requestRegister() {
+    public void requestRegister(final String action) {
         view.showProgressDialog();
-        if (employeeId != null) {
-            eventService.registerCollaborator(eventId, employeeId, eventDetailCallback);
-        } else {
-            eventService.registerParticipant(eventId, guestId, participantDetailResponseBelatrixConnectCallback);
-        }
+        eventService.registerActionEvent(eventId, employeeId, action, new PresenterCallback<Event>() {
+            @Override
+            public void onSuccess(Event event) {
+                view.dismissProgressDialog();
+                EventDetailPresenter.this.event = event;
+                refreshRegisterEvent();
+                if (event.isRegistered()){
+                     view.showRegisterResult();
+                } else {
+                    view.showUnregisterResult();
+                }
+            }
+
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                view.dismissProgressDialog();
+                super.onFailure(serviceError);
+            }
+        });
     }
 
-    private PresenterCallback<Event> eventDetailCallback = new PresenterCallback<Event>() {
-        @Override
-        public void onSuccess(Event event) {
-            view.dismissProgressDialog();
-            EventDetailPresenter.this.event = event;
-            showEventDetail();
-        }
-    };
-
-    private BelatrixConnectCallback<EventParticipantDetailResponse> participantDetailResponseBelatrixConnectCallback =  new PresenterCallback<EventParticipantDetailResponse>() {
-        @Override
-        public void onSuccess(EventParticipantDetailResponse eventParticipantDetailResponse) {
-            view.dismissProgressDialog();
-            EventDetailPresenter.this.event = eventParticipantDetailResponse.getEvent();
-            EventDetailPresenter.this.event.setIsRegistered(eventParticipantDetailResponse.isRegistered());
-            showEventDetail();
-        }
-    };
 
     public Integer getEmployeeId() {
         return employeeId;
     }
 
-
-    public void requestUnregister() {
-        view.showProgressDialog();
-        if (employeeId != null) {
-            eventService.unregisterCollaborator(eventId, employeeId, eventDetailCallback);
-        } else {
-            eventService.unregisterParticipant(eventId, guestId, eventDetailCallback);
-        }
-    }
 
 }

@@ -59,6 +59,11 @@
         <item name="android:background">@drawable/selector_primary_button</item>
     </style>
 
+    <style name="Button.Primary.Inverse">
+        <item name="android:textColor">@color/selector_text_primary_button_inverse</item>
+        <item name="android:background">@drawable/selector_primary_button_inverse</item>
+    </style>
+
     <style name="ItemList">
         <item name="android:layout_height">?attr/listPreferredItemHeight</item>
         <item name="android:layout_width">match_parent</item>

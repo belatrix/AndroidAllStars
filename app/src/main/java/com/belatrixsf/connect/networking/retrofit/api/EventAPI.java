@@ -21,17 +21,20 @@
 package com.belatrixsf.connect.networking.retrofit.api;
 
 import com.belatrixsf.connect.entities.Event;
+import com.belatrixsf.connect.entities.Notification;
 import com.belatrixsf.connect.networking.retrofit.responses.EventParticipantDetailResponse;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
  * Created by icerrate on 13/06/2016.
+ * modified by dvelasquez on 22/02/2017
  */
 public interface EventAPI {
 
@@ -66,5 +69,9 @@ public interface EventAPI {
     @GET(ServerPaths.EVENT_LIST_DETAIL)
     Call<Event> getEventDetail(@Path(ServerPaths.EVENT_ID) int eventId, @Path(ServerPaths.EMPLOYEE_ID) int employeeId);
 
+    @PATCH(ServerPaths.EVENT_REGISTER_ACTION)
+    Call<Event> registerActionEvent(@Path(ServerPaths.EVENT_ID) int eventId, @Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Path(ServerPaths.ACTION) String action);
 
+    @GET(ServerPaths.EVENT_NEWS)
+    Call<PaginatedResponse<Notification>> getEventNews(@Path(ServerPaths.EVENT_ID) int eventId, @Query(ServerPaths.QUERY_PAGE) Integer page);
 }

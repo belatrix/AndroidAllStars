@@ -22,12 +22,13 @@ package com.belatrixsf.connect.ui.event.detail;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.widget.TextViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.belatrixsf.connect.R;
@@ -35,9 +36,12 @@ import com.belatrixsf.connect.entities.Event;
 import com.belatrixsf.connect.managers.PreferencesManager;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
+import com.belatrixsf.connect.utils.Constants;
+import com.belatrixsf.connect.utils.DialogUtils;
 import com.belatrixsf.connect.utils.di.modules.presenters.EventDetailPresenterModule;
 
 import butterknife.Bind;
+import butterknife.BindString;
 
 /**
  * Created by icerrate on 27/06/2016.
@@ -52,7 +56,6 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
     private EventDetailPresenter eventDetailPresenter;
     private EventDetailFragmentListener eventDetailFragmentListener;
 
-    private ImageView pictureImageView;
 
     @Bind(R.id.date) TextView dateTextView;
     @Bind(R.id.location) TextView locationTextView;
@@ -61,6 +64,11 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
     @Bind(R.id.collaborators) TextView collaboratorsCountTextView;
     @Bind(R.id.participants) TextView participantsCountTextView;
     @Bind(R.id.btn_register) Button eventRegisterButton;
+    @BindString(R.string.event_dialog_confirm_register) String eventConfirmRegister;
+    @BindString(R.string.event_dialog_confirm_unregister) String eventConfirmUnregister;
+    @BindString(R.string.event_dialog_result_registered) String eventResultRegistered;
+    @BindString(R.string.event_dialog_result_unregistered) String eventResultUnregistered;
+    @BindString(R.string.title_main) String dialogTitle;
 
     public static EventDetailFragment newInstance(Integer eventId) {
         Bundle bundle = new Bundle();
@@ -143,19 +151,11 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
         outState.putInt(EMPLOYEE_ID_KEY, eventDetailPresenter.getEmployeeId());
     }
 
-    @Override
-    public void showComments() {
-        //TODO: future implementation
-    }
+
 
     @Override
     public void showDateTime(String dateTime) {
         dateTextView.setText(dateTime);
-    }
-
-    @Override
-    public void showLocation(String location) {
-        locationTextView.setText(location);
     }
 
     @Override
@@ -167,16 +167,6 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
     @Override
     public void showDescription(String description) {
         descriptionTextView.setText(description);
-    }
-
-    @Override
-    public void showCollaboratorsCount(String collaboratorsCount) {
-        collaboratorsCountTextView.setText(collaboratorsCount);
-    }
-
-    @Override
-    public void showParticipantsCount(String participantsCount) {
-        participantsCountTextView.setText(participantsCount);
     }
 
     @Override
@@ -192,35 +182,68 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
 
     @Override
     public void enableRegister() {
+        eventRegisterButton.setBackgroundResource(R.drawable.selector_primary_button_inverse);
+        TextViewCompat.setTextAppearance(eventRegisterButton, R.style.Button_Primary_Inverse);
         eventRegisterButton.setText(getString(R.string.string_register));
         eventRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                eventDetailPresenter.requestRegister();
+                DialogUtils.createConfirmationDialogWithTitle(getActivity(),dialogTitle,eventConfirmRegister, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                eventDetailPresenter.requestRegister(Constants.EVENT_REGISTER_ACTION);
+                            }
+                        },
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                            }
+                        }
+                ).show();
+
+
             }
         });
         eventRegisterButton.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void showRegister() {
-        eventRegisterButton.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideRegister() {
-        eventRegisterButton.setVisibility(View.GONE);
-    }
 
     @Override
     public void enableUnregister() {
+        //TODO: improve button style for registration
+        eventRegisterButton.setBackgroundResource(R.drawable.selector_primary_button);
+        TextViewCompat.setTextAppearance(eventRegisterButton, R.style.Button_Primary);
+        eventRegisterButton.setBackgroundResource(R.drawable.selector_primary_button);
         eventRegisterButton.setText(getString(R.string.string_unregister));
         eventRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                eventDetailPresenter.requestUnregister();
+                DialogUtils.createConfirmationDialogWithTitle(getActivity(),dialogTitle, eventConfirmUnregister, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                eventDetailPresenter.requestRegister(Constants.EVENT_UNREGISTER_ACTION);
+                            }
+                        },
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }
+                ).show();
             }
         });
     }
 
+
+    @Override
+    public void showRegisterResult() {
+            DialogUtils.createInformationDialog(getActivity(),eventResultRegistered,dialogTitle ,null).show();
+    }
+
+    @Override
+    public void showUnregisterResult() {
+        DialogUtils.createInformationDialog(getActivity(),eventResultUnregistered, dialogTitle,null).show();
+    }
 }

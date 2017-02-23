@@ -18,11 +18,23 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.ui.event.detail;
+package com.belatrixsf.connect.utils.di.components;
+
+import com.belatrixsf.connect.ui.event.notification.EventNewsPresenter;
+import com.belatrixsf.connect.utils.di.modules.presenters.EventNewsPresenterModule;
+import com.belatrixsf.connect.utils.di.scopes.UIScope;
+
+import dagger.Subcomponent;
 
 /**
- * Created by icerrate on 28/06/2016.
+ * Created by dvelasquez on 21/02/2017.
  */
-public interface EventDetailFragmentListener {
-    void showPicture(String profilePicture);
+@UIScope
+@Subcomponent(
+        modules = EventNewsPresenterModule.class
+)
+public interface EventNewsComponent {
+
+    EventNewsPresenter eventNewsPresenter();
+
 }

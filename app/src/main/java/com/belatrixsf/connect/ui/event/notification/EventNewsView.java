@@ -18,11 +18,20 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.ui.event.detail;
+package com.belatrixsf.connect.ui.event.notification;
+
+import com.belatrixsf.connect.entities.Notification;
+import com.belatrixsf.connect.ui.common.BelatrixConnectView;
+
+import java.util.List;
 
 /**
- * Created by icerrate on 28/06/2016.
+ * Created by dvelasquez on 22/02/2017.
  */
-public interface EventDetailFragmentListener {
-    void showPicture(String profilePicture);
+public interface EventNewsView extends BelatrixConnectView {
+
+    void showNotificationList(List<Notification> list);
+    void showNoDataView();
+    void hideNoDataView();
+    void resetList();
 }

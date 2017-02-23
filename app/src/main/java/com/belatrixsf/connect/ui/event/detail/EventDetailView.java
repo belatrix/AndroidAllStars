@@ -28,16 +28,12 @@ import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 public interface EventDetailView extends BelatrixConnectView {
 
     void showDateTime(String dateTime);
-    void showLocation(String location);
     void showTitle(String title);
     void showDescription(String description);
-    void showCollaboratorsCount(String collaboratorsCount);
-    void showParticipantsCount(String participantsCount);
     void showPicture(String profilePicture);
     void enableRegister();
-    void showRegister();
-    void hideRegister();
     void enableUnregister();
-    void showComments();
+    void showRegisterResult();
+    void showUnregisterResult();
 
 }

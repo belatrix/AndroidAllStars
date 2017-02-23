@@ -32,6 +32,7 @@ public interface ServerPaths {
     String NOTIFICATION = "notification";
     String SKILLS = "skills";
 
+    String ACTION = "action";
     String EVENT_TYPE = "event_type";
     String EMPLOYEE_ID = "employee_id";
     String EMPLOYEE_EMAIL = "employee_email";
@@ -91,6 +92,8 @@ public interface ServerPaths {
     String EVENT_UNREGISTER_COLLABORATOR = EVENT_DETAIL + "unregister/collaborator/{" + EMPLOYEE_ID + "}/";
     String EVENT_UNREGISTER_PARTICIPANT = EVENT_DETAIL + "unregister/participant/{" + GUEST_ID + "}/";
     String EVENT_LIST_DETAIL = EVENT_DETAIL + "employee/{" + EMPLOYEE_ID + "}/";
+    String EVENT_REGISTER_ACTION= EVENT_DETAIL+ EMPLOYEE + "/{" + EMPLOYEE_ID + "}/registration/"+ "{" + ACTION + "}/";
+    String EVENT_NEWS = EVENT_DETAIL + "activity/list/";
 
     String GUEST_AUTHENTICATE = EVENT + "/participant/";
     String GUEST_BY_ID = EVENT + "/participant/{" + GUEST_ID + "}";
