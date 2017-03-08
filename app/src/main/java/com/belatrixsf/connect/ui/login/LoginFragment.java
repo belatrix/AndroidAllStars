@@ -21,6 +21,7 @@
 package com.belatrixsf.connect.ui.login;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -49,6 +50,7 @@ import com.belatrixsf.connect.utils.di.components.DaggerLoginComponent;
 import com.belatrixsf.connect.utils.di.modules.presenters.LoginPresenterModule;
 
 import butterknife.Bind;
+import butterknife.BindString;
 import butterknife.OnClick;
 
 public class LoginFragment extends BelatrixConnectFragment implements LoginView {
@@ -64,6 +66,7 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     @Bind(R.id.log_in_as_guest) Button logInAsGuestButton;
     @Bind(R.id.forgot_password) TextView forgotPasswordButton;
     @Bind(R.id.sign_up) Button signUpButton;
+    @BindString(R.string.privacy_policy_url) String privacyPolicyURL;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -170,6 +173,12 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     public void forgotPasswordClicked() {
         Intent intent = new Intent(getActivity(), RequestNewPasswordActivity.class);
         intent.putExtra(DEFAULT_DOMAIN_ID, defaultDomain);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.privacy_policy)
+    public void privacyPolicyClicked() {
+        Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse(privacyPolicyURL));
         startActivity(intent);
     }
 

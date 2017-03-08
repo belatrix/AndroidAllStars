@@ -94,6 +94,17 @@
             android:gravity="center"
             android:text="@string/button_forgot_password"
             android:layout_marginTop="@dimen/dimen_5_5"
+            android:padding="@dimen/dimen_5"
+            android:layout_marginBottom="@dimen/dimen_5"
+            android:textColor="@color/grey"/>
+
+        <TextView
+            android:id="@+id/privacy_policy"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/dimen_5"
+            android:text="@string/button_privacy_policy"
             android:layout_marginBottom="@dimen/dimen_5_5"
             android:textColor="@color/grey"/>
 
