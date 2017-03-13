@@ -21,6 +21,7 @@
 package com.belatrixsf.connect.ui.event.main;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.Constants;
 
+import butterknife.Bind;
 import butterknife.BindString;
 
 /**
@@ -40,6 +42,8 @@ public class EventContainerFragment extends BelatrixConnectFragment {
     @BindString(R.string.event_title_upcoming) String stringEventUpcoming;
     @BindString(R.string.event_title_local) String stringEventLocal;
     @BindString(R.string.event_title_other) String stringEventOther;
+    @Bind(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
 
     public static EventContainerFragment newInstance() {
@@ -66,6 +70,13 @@ public class EventContainerFragment extends BelatrixConnectFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initViews();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
         initViews();
     }
 
