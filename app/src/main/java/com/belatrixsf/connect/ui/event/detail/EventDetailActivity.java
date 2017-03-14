@@ -128,7 +128,7 @@ public class EventDetailActivity extends BelatrixConnectActivity implements Even
             ImageFactory.getLoader().loadFromUrl(
                     profilePicture,
                     pictureImageView,
-                    ImageLoader.ImageTransformation.BORDERED_CIRCLE,
+                    null,
                     new ImageLoader.Callback() {
                         @Override
                         public void onSuccess() {

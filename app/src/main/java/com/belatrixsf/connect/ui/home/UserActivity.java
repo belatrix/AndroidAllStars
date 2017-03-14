@@ -189,9 +189,11 @@ public class UserActivity extends MainActivity implements AccountFragmentListene
                         intent = new Intent(UserActivity.this, AboutActivity.class);
                         startActivity(intent);
                         break;
+                    //TODO: Help section
+                    /*
                     case R.id.menu_help:
-                        //TODO: HelpActivity
                         break;
+                    */
                 }
                 return true;
             }
