@@ -125,7 +125,6 @@ public class EmployeeManager {
                 @Override
                 public void onSuccess(Employee employee) {
                     EmployeeManager.this.employee = employee;
-                    registerDevice();
                     callback.onSuccess(employee);
                 }
 
@@ -140,6 +139,23 @@ public class EmployeeManager {
     }
 
     private void registerDevice() {
+        String deviceToken = PreferencesManager.get().getDeviceToken();
+        if (deviceToken != null) {
+            employeeService.registerDevice(employee.getPk(), deviceToken, new BelatrixConnectCallback<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+
+                }
+
+                @Override
+                public void onFailure(ServiceError serviceError) {
+
+                }
+            });
+        }
+    }
+
+    public void registerDevice(Employee employee) {
         String deviceToken = PreferencesManager.get().getDeviceToken();
         if (deviceToken != null) {
             employeeService.registerDevice(employee.getPk(), deviceToken, new BelatrixConnectCallback<Void>() {

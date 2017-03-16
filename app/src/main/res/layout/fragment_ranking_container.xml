@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        android:paddingBottom="@dimen/dimen_7_8"
         android:tag="@string/ranking_tag">
 
         <FrameLayout
