@@ -24,8 +24,10 @@ import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.Location;
 import com.belatrixsf.connect.managers.EmployeeManager;
+import com.belatrixsf.connect.managers.PreferencesManager;
 import com.belatrixsf.connect.services.contracts.EmployeeService;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.io.File;
 import java.util.List;
@@ -118,6 +120,8 @@ public class EditAccountPresenter extends BelatrixConnectPresenter<EditAccountVi
                 public void onSuccess(Employee employee) {
                     view.dismissProgressDialog();
                     if (isNewUser) {
+                        PreferencesManager.get().saveDeviceToken(FirebaseInstanceId.getInstance().getToken());
+                        employeeManager.registerDevice(employee);
                         employeeManager.refreshEmployee();
                         view.endSuccessfulCreation();
                     } else {

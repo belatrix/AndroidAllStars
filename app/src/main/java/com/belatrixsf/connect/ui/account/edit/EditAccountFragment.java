@@ -31,6 +31,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -51,6 +52,7 @@ import android.widget.TextView;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.Location;
+import com.belatrixsf.connect.managers.PreferencesManager;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.home.UserActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
@@ -370,7 +372,7 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
             if (photoFile != null) {
                 editAccountPresenter.setSelectedFile(photoFile);
                 cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-                        Uri.fromFile(photoFile));
+                        FileProvider.getUriForFile(getActivity(), getActivity().getApplicationContext().getPackageName() + ".provider", photoFile));
                 profilePicturePath = photoFile.getAbsolutePath();
                 startActivityForResult(cameraIntent, RQ_CAMERA);
             }

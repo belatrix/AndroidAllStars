@@ -146,9 +146,6 @@ public class UserActivity extends MainActivity implements AccountFragmentListene
             tabLayout.setupWithViewPager(mainViewPager);
         }
 
-
-
-
         switch (tabSelected){
             case ACCOUNT_TAB:
                 mainViewPager.setCurrentItem(0);
