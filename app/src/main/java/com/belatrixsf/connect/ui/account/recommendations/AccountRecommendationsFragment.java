@@ -119,11 +119,11 @@ public class AccountRecommendationsFragment extends BelatrixConnectFragment impl
             if (getArguments().containsKey(AccountActivity.USER_ID_KEY)) {
                 userId = getArguments().getInt(AccountActivity.USER_ID_KEY);
             }
-
             accountRecommendationsPresenter.setUserInfo(userId);
         }
        accountRecommendationsPresenter.loadCategoriesByEmployee(true);
     }
+
 
 
     private void setupViews() {

@@ -3,39 +3,41 @@
     android:id="@+id/swipeRefreshLayout"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-
-        <FrameLayout
-            android:id="@+id/event_container_upcoming"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        </FrameLayout>
+            <FrameLayout
+                android:id="@+id/event_container_upcoming"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
 
+            </FrameLayout>
 
-        <FrameLayout
-            android:id="@+id/event_container_local"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            <FrameLayout
+                android:id="@+id/event_container_local"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
 
+            </FrameLayout>
 
-        </FrameLayout>
+            <FrameLayout
+                android:id="@+id/event_container_other"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
 
+            </FrameLayout>
 
-        <FrameLayout
-            android:id="@+id/event_container_other"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+        </LinearLayout>
 
-        </FrameLayout>
+    </ScrollView>
 
-
-    </LinearLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

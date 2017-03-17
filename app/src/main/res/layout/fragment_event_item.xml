@@ -3,7 +3,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <TextView
             android:layout_marginLeft="@dimen/dimen_4_5"
             android:layout_alignParentTop="true"
@@ -15,7 +14,6 @@
             android:gravity="center"
             android:id="@+id/event_title_textview"
             android:text="@string/event_title_upcoming"/>
-
 
         <Button
             android:layout_marginRight="@dimen/dimen_4_5"
@@ -29,7 +27,6 @@
             style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
             android:layout_height="wrap_content" />
 
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/events_recycler_view"
             android:layout_marginLeft="@dimen/dimen_4_5"
@@ -41,13 +38,12 @@
 
         <TextView
             android:id="@+id/no_data_textview"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
-            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/no_data_found"
-            android:visibility="gone"/>
-
+            android:layout_below="@+id/event_title_textview"
+            android:layout_marginTop="@dimen/dimen_2_5"/>
 
         <ProgressBar
             android:id="@+id/progressBar"

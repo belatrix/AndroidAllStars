@@ -50,7 +50,7 @@ public class AccountRecommendationsPresenter extends BelatrixConnectPresenter<Ac
 
     public void loadCategoriesByEmployee(boolean force) {
         view.hideNoDataView();
-        if (subCategoryList == null || force) {
+        if ((subCategoryList == null || force) && employeeId != null) {
             view.showProgressIndicator();
             categoryService.getCategoriesByEmployee(
                 employeeId,
@@ -72,7 +72,7 @@ public class AccountRecommendationsPresenter extends BelatrixConnectPresenter<Ac
                     }
                 });
         } else {
-            if(!subCategoryList.isEmpty()) {
+            if(subCategoryList != null && !subCategoryList.isEmpty()) {
                 view.showCategories(subCategoryList);
             } else {
                 view.showNoDataView();
