@@ -199,9 +199,6 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             String username = usernameEditText.getUserName().trim();
-            if (username.contains(usernameEditText.getDefaultUsername())) {
-               username = username.replace(usernameEditText.getDefaultUsername(), "");
-            }
             String password = passwordEditText.getText().toString().trim();
             loginPresenter.checkIfInputsAreValid(username, password);
         }
