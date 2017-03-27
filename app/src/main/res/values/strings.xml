@@ -41,7 +41,7 @@
     <string name="button_facebook">Login with Facebook</string>
     <string name="button_twitter">Login with Twitter</string>
     <string name="button_privacy_policy">Privacy Policy</string>
-
+    <string name="button_share">Share</string>
     <!-- Title -->
     <string name="title_reset_password_activity">Reset Password</string>
     <string name="title_select_category">Select Category</string>
@@ -187,7 +187,7 @@
     <string name="about_why_message">Because we want to take action and improve our working environment. Because we can. Because we believe in technology and mobile world.</string>
     <string name="about_who_message">Belatrix Connect was created by people really motivated doing geeky stuff and living passionated about mobile technology.</string>
     <string name="support_tittle">Support</string>
-    <string name="support_email">crash.allbelatrix@neosergio.net</string>
+    <string name="support_email">mobilelab@belatrixsf.com</string>
     <string name="license_title">License</string>
     <string name="license">The MIT License (MIT)
 \nCopyright &#169; 2016 BELATRIX

@@ -36,12 +36,15 @@ public class Badge implements Parcelable {
     private String name;
     private String icon;
     private String description;
+    @SerializedName(value = "sharing_text")
+    private String sharingText;
 
     protected Badge(Parcel in) {
         id = in.readByte() == 0x00 ? null : in.readInt();
         name = in.readString();
         icon = in.readString();
         description = in.readString();
+        sharingText = in.readString();
     }
 
     @Override
@@ -60,6 +63,7 @@ public class Badge implements Parcelable {
         dest.writeString(name);
         dest.writeString(icon);
         dest.writeString(description);
+        dest.writeString(sharingText);
     }
 
     public Integer getId() {
@@ -93,6 +97,14 @@ public class Badge implements Parcelable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getSharingText() {
+        return sharingText;
+    }
+
+    public void setSharingText(String sharingText) {
+        this.sharingText = sharingText;
     }
 
     @SuppressWarnings("unused")

@@ -69,6 +69,10 @@
             android:name=".ui.account.AccountActivity"
             android:label="@string/title_account_activity" />
         <activity
+            android:name=".ui.account.badges.AccountBadgeDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/tab_badges" />
+        <activity
             android:name=".ui.recommendations.RecommendationsActivity"
             android:label="@string/title_recommendations_activity" />
         <activity

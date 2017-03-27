@@ -43,6 +43,14 @@ public class AccountBadgesPresenter extends BelatrixConnectPresenter<AccountBadg
 
     private BadgeService badgeService;
 
+    public Integer getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(Integer employeeId) {
+        this.employeeId = employeeId;
+    }
+
     @Inject
     public AccountBadgesPresenter(AccountBadgesView view, EmployeeManager employeeManager, BadgeService badgeService) {
         super(view);
