@@ -47,7 +47,7 @@ public class CategoriesPresenter extends BelatrixConnectPresenter<CategoriesView
     }
 
     public void init() {
-        view.setTitle(viewPresentsCategories() ? getString(R.string.title_select_category) : getString(R.string.title_select_subcategory));
+        view.setTitle(viewPresentsCategories() ? getString(R.string.title_select_action) : getString(R.string.title_select_subcategory));
     }
 
     public void getCategories() {
