@@ -86,6 +86,17 @@ import butterknife.ButterKnife;
         return TYPE_SUB_CATEGORY;
     }
 
+    public int getPositionByItemId(int id) {
+        if (this.data !=  null ){
+            for(int i=0;i<this.data.size();i++){
+                if (this.data.get(i).getBadge().getId().intValue() == id){
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
     public static class AccountBadgesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @Bind(R.id.badge_title) public TextView titleTextView;

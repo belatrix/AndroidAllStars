@@ -41,7 +41,7 @@
     <string name="button_facebook">Login with Facebook</string>
     <string name="button_twitter">Login with Twitter</string>
     <string name="button_privacy_policy">Privacy Policy</string>
-
+    <string name="button_share">Share</string>
     <!-- Title -->
     <string name="title_reset_password_activity">Reset Password</string>
     <string name="title_select_category">Select Category</string>

@@ -1,0 +1,76 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <Button
+        android:id="@+id/close_button"
+        android:layout_marginLeft="@dimen/dimen_2_5"
+        android:layout_marginTop="@dimen/dimen_2_5"
+        android:padding="@dimen/dimen_2_5"
+        android:layout_width="@dimen/dimen_6_5"
+        android:layout_height="@dimen/dimen_6_5"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="left|top"
+        android:background="@drawable/ic_close"
+        android:textAllCaps="true"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:layout_marginLeft="@dimen/dimen_6_5"
+        android:layout_marginRight="@dimen/dimen_6_5"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/badge_icon"
+            android:layout_width="@dimen/dimen_18_10"
+            android:layout_height="@dimen/dimen_18_10"
+            android:layout_marginBottom="@dimen/dimen_2_5"
+            android:contentDescription="@string/profile_image_content_desc"
+            tools:src="@drawable/contact_placeholder" />
+
+        <TextView
+            android:id="@+id/badge_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_16"
+            tools:text="@string/title_full_name" />
+
+        <TextView
+            android:id="@+id/badge_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_5_5"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_16"
+            tools:text="@string/title_full_name" />
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/share_button"
+        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_4_5"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/button_share"
+        android:textAllCaps="true"
+        android:textSize="@dimen/text_18"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold" />
+</RelativeLayout>

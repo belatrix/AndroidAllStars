@@ -25,14 +25,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -47,8 +44,6 @@ import com.belatrixsf.connect.ui.common.RecyclerOnItemClickListener;
 import com.belatrixsf.connect.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.di.modules.presenters.AccountBadgesPresenterModule;
-import com.belatrixsf.connect.utils.media.ImageFactory;
-import com.belatrixsf.connect.utils.media.loaders.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -161,10 +156,12 @@ public class AccountBadgesFragment extends BelatrixConnectFragment implements Ac
     private void restoreState(Bundle savedInstanceState) {
         List<EmployeeBadge> list = savedInstanceState.getParcelableArrayList(_EMPLOYEE_BADGE_LIST_KEY);
         accountBadgesPresenter.loadPresenterState(list);
+        accountBadgesPresenter.setUserInfo(savedInstanceState.getInt(AccountActivity.USER_ID_KEY));
     }
 
     private void saveState(Bundle outState) {
         outState.putParcelableArrayList(_EMPLOYEE_BADGE_LIST_KEY, (ArrayList<? extends Parcelable>) accountBadgesPresenter.getBadges());
+        outState.putInt(AccountActivity.USER_ID_KEY, accountBadgesPresenter.getEmployeeId());
     }
 
 
@@ -210,33 +207,11 @@ public class AccountBadgesFragment extends BelatrixConnectFragment implements Ac
 
     @Override
     public void goBadgeDetail(Badge badge) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_badge_detail, null);
-        ImageView badgeImageView = (ImageView)view.findViewById(R.id.badge_icon);
-        TextView badgeTitleTextView = (TextView)view.findViewById(R.id.badge_title);
-        TextView badgeDescriptionTextView= (TextView)view.findViewById(R.id.badge_description);
-        Button badgeButton = (Button) view.findViewById(R.id.badge_button);
-        badgeTitleTextView.setText(badge.getName());
-        badgeDescriptionTextView.setText(badge.getDescription());
-        ImageFactory.getLoader().loadFromUrl(badge.getIcon(),
-                badgeImageView,
-                ImageLoader.ImageTransformation.BORDERED_CIRCLE,
-                badgeImageView.getResources().getDrawable(R.drawable.contact_placeholder),
-                ImageLoader.ScaleType.CENTER_CROP
-        );
-
-        builder.setView(view);
-        builder.setCancelable(false);
-        final AlertDialog alertDialog = builder.create();
-        badgeButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                alertDialog.dismiss();
-            }
-        });
-
-        alertDialog.show();
-
+        int position = accountBadgesAdapter.getPositionByItemId(badge.getId());
+        if (position >= 0){
+            AccountBadgesAdapter.AccountBadgesViewHolder viewHolder = (AccountBadgesAdapter.AccountBadgesViewHolder) mRecyclerView.findViewHolderForAdapterPosition(position);
+            AccountBadgeDetailActivity.startActivityAnimatingPic(getActivity(),viewHolder.badgeImageView,badge);
+        }
     }
 
 
