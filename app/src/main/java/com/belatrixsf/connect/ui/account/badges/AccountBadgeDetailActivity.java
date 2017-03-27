@@ -24,7 +24,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
 import android.widget.ImageView;
@@ -45,17 +44,13 @@ import butterknife.OnClick;
 public class AccountBadgeDetailActivity extends BelatrixConnectActivity{
 
     public static final String BADGE = "_badge_";
-
     @Bind(R.id.badge_icon)
     ImageView badgeImageView;
     @Bind(R.id.badge_title)
     TextView badgeTitleTextView;
     @Bind(R.id.badge_description)
     TextView badgeDescriptionTextView;
-
-
     private Badge badge;
-
 
     @OnClick(R.id.close_button)
     public void onClickClose(){

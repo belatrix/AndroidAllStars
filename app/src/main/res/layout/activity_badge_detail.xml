@@ -8,15 +8,15 @@
 
     <Button
         android:id="@+id/close_button"
-        android:layout_marginLeft="@dimen/dimen_2_5"
-        android:layout_marginTop="@dimen/dimen_2_5"
-        android:padding="@dimen/dimen_2_5"
         android:layout_width="@dimen/dimen_6_5"
         android:layout_height="@dimen/dimen_6_5"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_gravity="left|top"
+        android:layout_marginLeft="@dimen/dimen_2_5"
+        android:layout_marginTop="@dimen/dimen_2_5"
         android:background="@drawable/ic_close"
+        android:padding="@dimen/dimen_2_5"
         android:textAllCaps="true"
         android:textColor="@color/colorAccent"
         android:textStyle="bold" />
@@ -25,9 +25,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:gravity="center"
         android:layout_marginLeft="@dimen/dimen_6_5"
         android:layout_marginRight="@dimen/dimen_6_5"
+        android:gravity="center"
         android:orientation="vertical">
 
         <ImageView
@@ -57,7 +57,6 @@
             android:textSize="@dimen/text_16"
             tools:text="@string/title_full_name" />
 
-
     </LinearLayout>
 
     <Button
@@ -65,12 +64,13 @@
         style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dimen_4_5"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/dimen_4_5"
         android:text="@string/button_share"
         android:textAllCaps="true"
-        android:textSize="@dimen/text_18"
         android:textColor="@color/colorAccent"
+        android:textSize="@dimen/text_18"
         android:textStyle="bold" />
+
 </RelativeLayout>
