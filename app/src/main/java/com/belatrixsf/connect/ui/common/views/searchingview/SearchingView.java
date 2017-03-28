@@ -23,7 +23,11 @@ package com.belatrixsf.connect.ui.common.views.searchingview;
 import android.app.Activity;
 import android.content.Context;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -58,6 +62,25 @@ public class SearchingView extends LinearLayout implements SearchableView {
     public SearchingView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initViews();
+    }
+
+    public void setCustomHint(String hint){
+        searchingEditText.setHint(hint);
+    }
+
+    public void setInputRegex(final String regex){
+        searchingEditText.setFilters(new InputFilter[] {
+                new InputFilter() {
+                    @Override
+                    public CharSequence filter(CharSequence cs, int start,
+                                               int end, Spanned spanned, int dStart, int dEnd) {
+                        if(cs.equals("") || cs.toString().matches(regex)){
+                            return cs;
+                        }
+                        return "";
+                    }
+                }
+        });
     }
 
     private void initViews() {

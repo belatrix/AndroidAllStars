@@ -21,12 +21,14 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:padding="@dimen/dimen_4_5"
+                android:textAllCaps="false"
                 android:text="@string/skills_button_add"
                 android:textColor="@color/colorAccent"
                 android:visibility="gone" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/keywords"
+                android:layout_below="@+id/button_add_new_skill"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 

@@ -142,10 +142,6 @@ public class KeywordsListFragment extends BelatrixConnectFragment implements Key
         keywordsListPresenter.onKeywordSelected(position);
     }
 
-    interface KeywordsListListener {
-        void onKeywordSelectedForDispatching(Keyword keyword);
-    }
-
     @Override
     public void showProgressIndicator() {
         if (keywordsListAdapter != null) {

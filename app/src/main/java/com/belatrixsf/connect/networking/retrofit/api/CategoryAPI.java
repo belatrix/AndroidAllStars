@@ -24,14 +24,14 @@ import com.belatrixsf.connect.entities.Category;
 import com.belatrixsf.connect.entities.Keyword;
 import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.networking.retrofit.requests.EmployeeKeywordRequest;
+import com.belatrixsf.connect.networking.retrofit.requests.KeywordRequest;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
-
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.PATCH;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 /**
@@ -59,5 +59,8 @@ public interface CategoryAPI {
 
     @PATCH(ServerPaths.EMPLOYEE_REMOVE_SKILL)
     Call<Keyword> removeEmployeeSkill(@Path(ServerPaths.EMPLOYEE_ID) int employeeId, @Body EmployeeKeywordRequest employeeKeywordRequest);
+
+    @POST(ServerPaths.CATEGORY_ADD_KEYWORD)
+    Call<Keyword> saveNewKeyword(@Body KeywordRequest request);
 
 }

@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/action_recommend"
-        android:title="@string/action_recommend"
+        android:title="@string/action_give_thanks"
         android:visible="false"
         app:showAsAction="always"/>
 

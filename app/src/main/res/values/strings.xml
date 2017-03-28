@@ -28,6 +28,7 @@
     <string name="hint_new_password">New Password</string>
     <string name="hint_repeat_new_password">Repeat New Password</string>
     <string name="hint_write_comment">Write a comment</string>
+    <string name="hint_write_tag">Write a Tag</string>
 
     <!-- Button -->
     <string name="button_log_in">Log In</string>
@@ -65,6 +66,9 @@
     <string name="title_settings_activity">Settings</string>
     <string name="title_notification_list_activity">Activities</string>
     <string name="title_help_activity">Help</string>
+    <string name="title_give_star">Give Thanks</string>
+    <string name="title_select_action">Select and action</string>
+    <string name="title_write_tag">Write a Tag</string>
     <string name="tab_account_title">Profile</string>
     <string name="tab_events_title">Events</string>
     <string name="tab_contacts_title">Contacts</string>
@@ -129,13 +133,17 @@
     <!--Give a star-->
     <string name="select_user">Select user</string>
     <string name="select_category">Select Category</string>
+    <string name="select_action">Select and action</string>
     <string name="option_select_a_user">Select a user</string>
     <string name="hint_comment">Add a comment (up to 100 characters)</string>
     <string name="success_recommendation">Recommendation completed</string>
+    <string name="hint_keyword_search">Find a tag</string>
 
     <!--Profile-->
     <string name="tab_recommendations">Recommendations</string>
     <string name="tab_badges">Badges</string>
+    <string name="tab_gratitudes">Gratitudes</string>
+    <string name="tab_achievements">Achievements</string>
 
     <!--Contacts-->
     <string name="contact_list_level">Lvl. %s</string>
@@ -215,6 +223,7 @@ SOFTWARE.</string>
     <string name="action_search">Search</string>
     <string name="done">DONE</string>
     <string name="ranking_tag">ranking_tag</string>
+    <string name="action_give_thanks">Give Thanks</string>
 
     <!-- Transition names -->
     <string name="transition_photo">transition_photo</string>
@@ -246,6 +255,7 @@ SOFTWARE.</string>
     <string name="dialog_confirmation_deleted">removed</string>
     <string name="dialog_confirmation_already_exists">already exists in your skills</string>
     <string name="skills_button_add_new_first">Add</string>
+    <string name="skills_button_create_new_first">+ Create a new \"%1$s\" tag </string>
     <string name="skills_button_add_new_second">as new skill</string>
 
     <string name="privacy_policy_url" translatable="false">https://bxconnect-privacy-policy.herokuapp.com/privacy.html</string>

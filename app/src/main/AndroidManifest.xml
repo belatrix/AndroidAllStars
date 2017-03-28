@@ -64,7 +64,7 @@
             android:label="@string/title_recommendation_activity" />
         <activity
             android:name=".ui.stars.GiveStarActivity"
-            android:label="@string/title_give_star_activity" />
+            android:label="@string/title_give_star" />
         <activity
             android:name=".ui.account.AccountActivity"
             android:label="@string/title_account_activity" />
@@ -89,7 +89,7 @@
         <activity android:name=".ui.category.CategoriesActivity" />
         <activity
             android:name=".ui.stars.keyword.KeywordsActivity"
-            android:label="@string/title_keywords_activity" />
+            android:label="@string/title_write_tag" />
         <activity
             android:name=".ui.contacts.keyword.ContactsKeywordListActivity"
             android:label="@string/title_contacts_keyword_activity" />

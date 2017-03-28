@@ -56,7 +56,6 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     public void onBindViewHolder(CategoryViewHolder holder, int position) {
         Category category = categoriesList.get(position);
         holder.categoryName.setText(category.getName());
-        holder.chevronRight.setVisibility(areSubcategories ? View.INVISIBLE : View.VISIBLE);
     }
 
     @Override

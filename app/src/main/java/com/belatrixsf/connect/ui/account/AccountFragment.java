@@ -220,8 +220,8 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
                 accountPresenter.loadEmployeeAccount(true);
             }
         });
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_recommendations, R.drawable.ic_recommendations, R.color.colorAccent);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_badges, R.drawable.ic_badges, R.color.colorAccent);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_gratitudes, R.drawable.ic_recommendations, R.color.colorAccent);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_achievements, R.drawable.ic_badges, R.color.colorAccent);
 
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);

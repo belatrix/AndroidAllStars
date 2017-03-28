@@ -30,11 +30,14 @@ import java.util.List;
  */
 public interface SearchingKeywordsView extends BelatrixConnectView {
 
-    void addKeywords(List<Keyword> keywords);
+    void showKeywords(List<Keyword> keywords);
     void showKeywordDetail(Keyword keyword);
     void showSearchActionMode();
     void resetList();
     void showNoDataView();
     void hideNoDataView();
+    void showAddedConfirmation(Keyword keyword);
+    void showErrorConfirmation(String tagName);
+    void showAlreadyExistsConfirmation(String tagName);
 
 }

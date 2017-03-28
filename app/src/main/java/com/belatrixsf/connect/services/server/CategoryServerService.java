@@ -25,6 +25,7 @@ import com.belatrixsf.connect.entities.Keyword;
 import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.networking.retrofit.api.CategoryAPI;
 import com.belatrixsf.connect.networking.retrofit.requests.EmployeeKeywordRequest;
+import com.belatrixsf.connect.networking.retrofit.requests.KeywordRequest;
 import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
 import com.belatrixsf.connect.services.BelatrixConnectBaseService;
 import com.belatrixsf.connect.services.ServerServiceRequest;
@@ -114,6 +115,15 @@ public class CategoryServerService extends BelatrixConnectBaseService implements
     public ServiceRequest getCategories(BelatrixConnectCallback<List<Category>> callback) {
         Call<List<Category>> call = categoryAPI.getCategories();
         ServiceRequest<List<Category>> serviceRequest = new ServerServiceRequest<>(call);
+        enqueue(serviceRequest, callback);
+        return serviceRequest;
+    }
+
+    @Override
+    public ServiceRequest saveNewKeyword(String keywordName, BelatrixConnectCallback<Keyword> callback) {
+        KeywordRequest keywordRequest = new KeywordRequest(keywordName);
+        Call<Keyword> keywordCall = categoryAPI.saveNewKeyword(keywordRequest);
+        ServiceRequest<Keyword> serviceRequest = new ServerServiceRequest<>(keywordCall);
         enqueue(serviceRequest, callback);
         return serviceRequest;
     }
