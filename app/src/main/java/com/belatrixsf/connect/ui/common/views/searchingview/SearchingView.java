@@ -74,10 +74,7 @@ public class SearchingView extends LinearLayout implements SearchableView {
                     @Override
                     public CharSequence filter(CharSequence cs, int start,
                                                int end, Spanned spanned, int dStart, int dEnd) {
-                        if(cs.equals("")){ // for backspace
-                            return cs;
-                        }
-                        if(cs.toString().matches(regex)){
+                        if(cs.equals("") || cs.toString().matches(regex)){
                             return cs;
                         }
                         return "";
