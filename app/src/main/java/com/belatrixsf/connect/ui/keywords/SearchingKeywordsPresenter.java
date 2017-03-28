@@ -21,12 +21,14 @@
 package com.belatrixsf.connect.ui.keywords;
 
 import com.belatrixsf.connect.entities.Keyword;
-import com.belatrixsf.connect.networking.retrofit.responses.PaginatedResponse;
-import com.belatrixsf.connect.services.ServiceRequest;
-import com.belatrixsf.connect.services.contracts.StarService;
+import com.belatrixsf.connect.services.contracts.CategoryService;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
+import com.belatrixsf.connect.utils.BelatrixConnectCallback;
+import com.belatrixsf.connect.utils.ServiceError;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -36,108 +38,105 @@ import javax.inject.Inject;
  */
 public class SearchingKeywordsPresenter extends BelatrixConnectPresenter<SearchingKeywordsView> {
 
-    private StarService starService;
+    private CategoryService categoryService;
     private List<Keyword> keywordsList = new ArrayList<>();
-    private PaginatedResponse keywordsPaging = new PaginatedResponse();
-    private ServiceRequest searchingServiceRequest;
     private String searchText;
-    private boolean searching = false;
+    private boolean searching;
 
-    @Inject
-    public SearchingKeywordsPresenter(SearchingKeywordsView searchingKeywordsView, StarService starService) {
-        super(searchingKeywordsView);
-        this.starService = starService;
+    public boolean isSearching() {
+        return searching;
     }
 
-    public void onKeywordSelected(int position) {
-        if (position >= 0 && position < keywordsList.size()) {
-            Keyword keyword = keywordsList.get(position);
+    @Inject
+    public SearchingKeywordsPresenter(SearchingKeywordsView searchingKeywordsView, CategoryService categoryService) {
+        super(searchingKeywordsView);
+        this.categoryService = categoryService;
+    }
+
+    public void onKeywordSelected(Keyword keyword) {
             view.showKeywordDetail(keyword);
+    }
+
+    public void addNewKeyword(final String keywordName){
+        view.showProgressIndicator();
+        if(!exists(keywordName, keywordsList)) {
+            categoryService.saveNewKeyword(
+                    keywordName,
+                    new BelatrixConnectCallback<Keyword>() {
+                        @Override
+                        public void onSuccess(Keyword keyword) {
+                            keywordsList.add(keyword);
+                            orderKeywordList();
+                            view.showKeywords(keywordsList);
+                            view.showAddedConfirmation(keyword);
+                            view.hideProgressIndicator();
+                        }
+
+                        @Override
+                        public void onFailure(ServiceError serviceError) {
+                            view.showErrorConfirmation(keywordName);
+                            view.hideProgressIndicator();
+                        }
+                    });
+        } else {
+            view.showAlreadyExistsConfirmation(keywordName);
+            view.hideProgressIndicator();
         }
+    }
+
+    private void orderKeywordList(){
+        // Sorting
+        Collections.sort(keywordsList, new Comparator<Keyword>() {
+            @Override
+            public int compare(Keyword keyword2, Keyword keyword1)
+            {
+                return  keyword2.getName().toLowerCase().compareTo(keyword1.getName().toLowerCase());
+            }
+        });
+    }
+
+    private boolean exists(String keywordName, List<Keyword> list){
+        for(Keyword k:list){
+            if(k.getName().equalsIgnoreCase(keywordName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void searchKeywords() {
         view.showSearchActionMode();
-        searching = true;
-    }
-
-    public void stopSearchingKeywords() {
-        searchText = null;
-        searching = false;
-        reset();
-        getKeywordsInternal();
-    }
-
-    public void callNextPage() {
-        if (keywordsPaging.getNext() != null) {
-            getKeywordsInternal();
-        }
     }
 
     public void getKeywords() {
-        view.resetList();
-        if (keywordsList.isEmpty()) {
-            getKeywordsInternal();
-        } else {
-            view.addKeywords(keywordsList);
-        }
-    }
-
-    public void getKeywords(String searchText) {
-        if (searchingServiceRequest != null) {
-            searchingServiceRequest.cancel();
-        }
-        this.searchText = searchText;
-        refreshKeywords();
-    }
-
-    public void refreshKeywords() {
-        reset();
-        getKeywordsInternal();
-    }
-
-    private void getKeywordsInternal() {
         view.showProgressIndicator();
         view.hideNoDataView();
-        searchingServiceRequest = starService.getStarsByKeywords(
-                searchText,
-                keywordsPaging.getNextPage(),
-                new PresenterCallback<PaginatedResponse<Keyword>>() {
-                    @Override
-                    public void onSuccess(PaginatedResponse<Keyword> starsByKeywordsResponse) {
-                        keywordsPaging.setCount(starsByKeywordsResponse.getCount());
-                        keywordsPaging.setNext(starsByKeywordsResponse.getNext());
-                        keywordsList.addAll(starsByKeywordsResponse.getResults());
-                        if(!starsByKeywordsResponse.getResults().isEmpty()) {
-                            view.addKeywords(starsByKeywordsResponse.getResults());
-                        } else {
-                            view.showNoDataView();
-                        }
-                        view.hideProgressIndicator();
-                    }
-                });
+        categoryService.getKeywords(new PresenterCallback<List<Keyword>>() {
+            @Override
+            public void onSuccess(List<Keyword> keywords) {
+                keywordsList.clear();
+                keywordsList.addAll(keywords);
+                if(keywordsList.isEmpty()) {
+                    view.showNoDataView();
+                } else {
+                    view.showKeywords(keywords);
+                }
+                view.hideProgressIndicator();
+            }
+        });
     }
 
     @Override
     public void cancelRequests() {
-        starService.cancelAll();
-    }
-
-    private void reset() {
-        keywordsList.clear();
-        view.resetList();
-        keywordsPaging.reset();
+        categoryService.cancelAll();
     }
 
     // saving state stuff
-
-    public void loadPresenterState(List<Keyword> keywords, PaginatedResponse keywordsPaging, String searchText, boolean searching) {
+    public void loadPresenterState(List<Keyword> keywords, String searchText, boolean searching) {
         if (keywords != null) {
             this.keywordsList.addAll(keywords);
         }
-        this.keywordsPaging = keywordsPaging;
         this.searchText = searchText;
-        this.searching = searching;
         if (searching) {
             searchKeywords();
         }
@@ -147,16 +146,11 @@ public class SearchingKeywordsPresenter extends BelatrixConnectPresenter<Searchi
         return searchText;
     }
 
-    public PaginatedResponse getKeywordsPaging() {
-        return keywordsPaging;
-    }
-
     public List<Keyword> getKeywordsSync() {
         return keywordsList;
     }
 
-    public boolean isSearching() {
-        return searching;
+    public void stopSearchingKeywords() {
+        view.showKeywords(keywordsList);
     }
-
 }

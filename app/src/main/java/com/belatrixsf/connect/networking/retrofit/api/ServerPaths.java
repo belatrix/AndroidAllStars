@@ -76,6 +76,7 @@ public interface ServerPaths {
     String EMPLOYEE_RECOMMENDATIONS_BY_CATEGORY_LIST = STAR + "/{" + EMPLOYEE_ID + "}/list/group/category/{" + CATEGORY_ID + "}/";
 
     String CATEGORY_KEYWORD_LIST = CATEGORY + "/keyword/list";
+    String CATEGORY_ADD_KEYWORD = CATEGORY + "/keyword/create/";
     String SUBCATEGORIES_BY_CATEGORY_ID = CATEGORY + "/{" + CATEGORY_ID + "}/subcategory/list";
 
     String EMPLOYEE_SKILLS = EMPLOYEE + "/{" + EMPLOYEE_ID + "}/" + SKILLS + "/list";

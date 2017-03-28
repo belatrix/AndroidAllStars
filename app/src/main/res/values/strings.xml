@@ -137,6 +137,7 @@
     <string name="option_select_a_user">Select a user</string>
     <string name="hint_comment">Add a comment (up to 100 characters)</string>
     <string name="success_recommendation">Recommendation completed</string>
+    <string name="hint_keyword_search">Find a tag</string>
 
     <!--Profile-->
     <string name="tab_recommendations">Recommendations</string>
@@ -254,6 +255,7 @@ SOFTWARE.</string>
     <string name="dialog_confirmation_deleted">removed</string>
     <string name="dialog_confirmation_already_exists">already exists in your skills</string>
     <string name="skills_button_add_new_first">Add</string>
+    <string name="skills_button_create_new_first">+ Create a new \"%1$s\" tag </string>
     <string name="skills_button_add_new_second">as new skill</string>
 
     <string name="privacy_policy_url" translatable="false">https://bxconnect-privacy-policy.herokuapp.com/privacy.html</string>

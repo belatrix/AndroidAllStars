@@ -48,4 +48,5 @@ public interface CategoryService extends BelatrixConnectService {
 
     ServiceRequest getCategoriesByEmployee(int employeeId, BelatrixConnectCallback<PaginatedResponse<SubCategory>> callback);
 
+    ServiceRequest saveNewKeyword(String keywordName, BelatrixConnectCallback<Keyword> callback);
 }

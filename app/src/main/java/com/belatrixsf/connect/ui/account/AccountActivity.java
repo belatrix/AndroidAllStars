@@ -72,11 +72,13 @@ public class AccountActivity extends BelatrixConnectActivity implements AccountF
     protected void navigateBack() {
         // both activities are single Task, instead of create a new instance
         // with startActivity it returns to the existing instance
-        if (PARENT_ACTIVITY_INDEX == UserActivity.PARENT_INDEX) {
+
+        //TODO: review this condition, is causing a weird behavior on the first time that select a contact and try to back
+        //if (PARENT_ACTIVITY_INDEX == UserActivity.PARENT_INDEX) {
             startActivity(UserActivity.makeIntent(this));
-        } else{
-            startActivity(ContactsListActivity.makeIntent(this));
-        }
+        //} else{
+        //    startActivity(ContactsListActivity.makeIntent(this));
+        //}
     }
 
     @Override

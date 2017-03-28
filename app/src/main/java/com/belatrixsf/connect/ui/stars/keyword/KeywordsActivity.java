@@ -22,12 +22,12 @@ package com.belatrixsf.connect.ui.stars.keyword;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Keyword;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
+import com.belatrixsf.connect.ui.keywords.SearchingKeywordsFragment;
 
-public class KeywordsActivity extends BelatrixConnectActivity implements KeywordsListFragment.KeywordsListListener {
+public class KeywordsActivity extends BelatrixConnectActivity implements KeywordsListListener {
 
     public static final String KEYWORD_KEY = "_keyword_key";
 
@@ -37,7 +37,7 @@ public class KeywordsActivity extends BelatrixConnectActivity implements Keyword
         setContentView(R.layout.activity_base);
         setNavigationToolbar();
         if (savedInstanceState == null) {
-            replaceFragment(KeywordsListFragment.newInstance(), false);
+            replaceFragment(SearchingKeywordsFragment.newInstance(), false);
         }
     }
 
@@ -48,5 +48,4 @@ public class KeywordsActivity extends BelatrixConnectActivity implements Keyword
         setResult(RESULT_OK, intent);
         finish();
     }
-
 }
