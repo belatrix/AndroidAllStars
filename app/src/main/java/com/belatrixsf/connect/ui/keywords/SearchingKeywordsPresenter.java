@@ -85,11 +85,9 @@ public class SearchingKeywordsPresenter extends BelatrixConnectPresenter<Searchi
     }
 
     private void orderKeywordList(){
-        // Sorting
         Collections.sort(keywordsList, new Comparator<Keyword>() {
             @Override
-            public int compare(Keyword keyword2, Keyword keyword1)
-            {
+            public int compare(Keyword keyword2, Keyword keyword1) {
                 return  keyword2.getName().toLowerCase().compareTo(keyword1.getName().toLowerCase());
             }
         });

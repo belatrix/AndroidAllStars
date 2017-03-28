@@ -40,7 +40,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by gyosida on 5/10/16.
+ * Created by dvelasquez on 28/03/17.
  */
 public class KeywordsFilterListAdapter extends LoadMoreBaseAdapter<Keyword> implements Filterable{
 
