@@ -28,7 +28,7 @@
     <string name="hint_new_password">New Password</string>
     <string name="hint_repeat_new_password">Repeat New Password</string>
     <string name="hint_write_comment">Write a comment</string>
-    <string name="hint_write_tag">Write a Tag</string>
+    <string name="hint_write_tag">Select a Tag</string>
 
     <!-- Button -->
     <string name="button_log_in">Log In</string>
@@ -67,8 +67,8 @@
     <string name="title_notification_list_activity">Activities</string>
     <string name="title_help_activity">Help</string>
     <string name="title_give_star">Give Thanks</string>
-    <string name="title_select_action">Select and action</string>
-    <string name="title_write_tag">Write a Tag</string>
+    <string name="title_select_action">Select an action</string>
+    <string name="title_write_tag">Select a Tag</string>
     <string name="tab_account_title">Profile</string>
     <string name="tab_events_title">Events</string>
     <string name="tab_contacts_title">Contacts</string>
@@ -178,7 +178,7 @@
     <string name="event_participants_no_data">Participants: No data</string>
     <string name="event_button_more">More</string>
     <string name="event_title_upcoming">My upcoming events</string>
-    <string name="event_title_local">Other local events</string>
+    <string name="event_title_local">Local events</string>
     <string name="event_title_other">Other locations events</string>
     <string name="tab_event_about">About</string>
     <string name="tab_event_news">News</string>
