@@ -158,7 +158,6 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
             }
             accountPresenter.setUserInfo(userId, userImg);
         }
-        accountPresenter.loadEmployeeAccount(true);
     }
 
     @Override
@@ -462,4 +461,9 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
         super.onDestroyView();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        accountPresenter.loadEmployeeAccount(true);
+    }
 }
