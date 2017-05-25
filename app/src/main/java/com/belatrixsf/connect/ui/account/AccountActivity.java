@@ -32,7 +32,6 @@ import android.widget.ImageView;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
-import com.belatrixsf.connect.ui.contacts.ContactsListActivity;
 import com.belatrixsf.connect.ui.home.UserActivity;
 import com.belatrixsf.connect.utils.MediaUtils;
 
@@ -51,8 +50,8 @@ public class AccountActivity extends BelatrixConnectActivity implements AccountF
         setContentView(R.layout.activity_base);
         ActivityCompat.postponeEnterTransition(this);
         setNavigationToolbar();
-        if (savedInstanceState == null) {
-            Integer userId = getIntent().getIntExtra(USER_ID_KEY, -1);
+        int userId = getIntent().getIntExtra(USER_ID_KEY, -1);
+        if (userId != -1) {
             byte[] bytesImg = getIntent().getExtras().getByteArray(USER_IMG_PROFILE_KEY);
             replaceFragment(AccountFragment.newInstance(userId, bytesImg), false);
         }
