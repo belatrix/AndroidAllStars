@@ -122,7 +122,12 @@ public class EventItemFragment extends BelatrixConnectFragment implements EventI
         eventItemPresenter.getEvents(kindEvent);
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        eventItemPresenter.setEmployeeId(PreferencesManager.get().getEmployeeId());
+        eventItemPresenter.getEvents(kindEvent);
+    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -170,7 +175,7 @@ public class EventItemFragment extends BelatrixConnectFragment implements EventI
 
     @Override
     public void showEventList(List<Event> eventList) {
-        eventListAdapter.setData(eventList);
+        eventListAdapter.update(eventList);
     }
 
     @Override
@@ -181,6 +186,7 @@ public class EventItemFragment extends BelatrixConnectFragment implements EventI
     @Override
     public void showNoDataView() {
         noDataTextView.setVisibility(View.VISIBLE);
+        eventListAdapter.update(new ArrayList<Event>());
     }
 
     @Override

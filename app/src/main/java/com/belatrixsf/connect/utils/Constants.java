@@ -41,4 +41,5 @@ public class Constants {
     public static final String EVENT_UNREGISTER_ACTION = "false";
 
     public static final String REGEX_ONLY_LETTERS = "[a-zA-Z]+";
+    public static final String DEFAULT_DOMAIN_KEY = "default_domain_key";
 }

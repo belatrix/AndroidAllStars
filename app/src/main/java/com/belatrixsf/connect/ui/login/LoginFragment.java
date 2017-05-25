@@ -53,6 +53,8 @@ import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.OnClick;
 
+import static com.belatrixsf.connect.utils.Constants.DEFAULT_DOMAIN_KEY;
+
 public class LoginFragment extends BelatrixConnectFragment implements LoginView {
 
     private LoginPresenter loginPresenter;
@@ -83,14 +85,24 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews();
+        usernameEditText.initEditText(getString(R.string.hint_username));
         if (savedInstanceState == null) {
             loginPresenter.init();
+            loginPresenter.getDefaultDomain();
         }
+        if(savedInstanceState != null){
+            usernameEditText.setDefaultDomain(savedInstanceState.getString(DEFAULT_DOMAIN_KEY));
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString(DEFAULT_DOMAIN_KEY,usernameEditText.getDefaultDomain());
+        super.onSaveInstanceState(outState);
     }
 
     private void initViews() {
         passwordEditText.setTransformationMethod(new PasswordTransformationMethod());
-        loginPresenter.getDefaultDomain();
         usernameEditText.addTextChangedListener(formFieldWatcher);
         passwordEditText.addTextChangedListener(formFieldWatcher);
         passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {

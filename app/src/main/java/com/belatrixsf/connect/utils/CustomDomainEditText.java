@@ -104,6 +104,11 @@ public class CustomDomainEditText extends TextInputEditText {
         isInitialized = true;
     }
 
+    public void initEditText(String defaultUsername){
+        this.defaultUsername = defaultUsername;
+        isInitialized = true;
+    }
+
     public String getDefaultUsername() {
         return defaultUsername;
     }
