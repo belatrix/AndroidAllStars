@@ -145,7 +145,6 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     public void goResetPassword() {
         Intent intent = new Intent(getActivity(), ResetPasswordActivity.class);
         startActivity(intent);
-        fragmentListener.closeActivity();
     }
 
     @Override

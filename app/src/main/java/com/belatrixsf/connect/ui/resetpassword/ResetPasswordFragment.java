@@ -109,6 +109,7 @@ public class ResetPasswordFragment extends BelatrixConnectFragment implements Re
     @Override
     public void goHome() {
         Intent intent = new Intent(getActivity(), UserActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         fragmentListener.closeActivity();
     }
