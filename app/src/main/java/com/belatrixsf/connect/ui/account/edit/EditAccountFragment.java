@@ -26,7 +26,9 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -52,7 +54,6 @@ import android.widget.TextView;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.Location;
-import com.belatrixsf.connect.managers.PreferencesManager;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.home.UserActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
@@ -370,9 +371,16 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
                 ex.printStackTrace();
             }
             if (photoFile != null) {
+                Uri uri = FileProvider.getUriForFile(getActivity(), getActivity().getApplicationContext().getPackageName() + ".provider", photoFile);
                 editAccountPresenter.setSelectedFile(photoFile);
-                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-                        FileProvider.getUriForFile(getActivity(), getActivity().getApplicationContext().getPackageName() + ".provider", photoFile));
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M){
+                    List<ResolveInfo> resInfoList = getActivity().getPackageManager().queryIntentActivities(cameraIntent, PackageManager.MATCH_DEFAULT_ONLY);
+                    for (ResolveInfo resolveInfo : resInfoList) {
+                        String packageName = resolveInfo.activityInfo.packageName;
+                        getActivity().grantUriPermission(packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    }
+                }
                 profilePicturePath = photoFile.getAbsolutePath();
                 startActivityForResult(cameraIntent, RQ_CAMERA);
             }
