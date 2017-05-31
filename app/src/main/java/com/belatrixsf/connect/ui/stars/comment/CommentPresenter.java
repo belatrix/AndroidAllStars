@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.connect.ui.stars.comment;
 
+import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 
 import javax.inject.Inject;
@@ -35,11 +36,11 @@ public class CommentPresenter extends BelatrixConnectPresenter<CommentView> {
     }
 
     public void validateComment(String comment) {
-//        if (comment.isEmpty()) {
-//            view.showError(getString(R.string.comment_no_empty_error));
-//        } else {
-        view.selectComment(comment);
-//        }
+        if (comment == null || comment.trim().isEmpty()) {
+            view.showError(getString(R.string.comment_no_empty_error));
+        } else {
+            view.selectComment(comment);
+        }
     }
 
     public void init(String comment) {
