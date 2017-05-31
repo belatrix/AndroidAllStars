@@ -69,8 +69,8 @@ public class EventDetailActivity extends BelatrixConnectActivity implements Even
         setNavigationToolbar();
         if (savedInstanceState == null) {
             eventId = getIntent().getIntExtra(EVENT_ID_KEY, -1);
+            initViews();
         }
-        initViews();
     }
 
     private void initViews() {
