@@ -162,7 +162,7 @@
     <string name="message_placeholder"></string>
     <string name="fullname_placeholder">Anonimo</string>
     <string name="level_placeholder">No existe datos</string>
-    <string name="comment_no_empty_error">no puede ser vacio</string>
+    <string name="comment_no_empty_error">No puede ser vacio</string>
 
     <!--Notifications-->
     <string name="notification_datetime_placeholder">Sin fecha</string>
