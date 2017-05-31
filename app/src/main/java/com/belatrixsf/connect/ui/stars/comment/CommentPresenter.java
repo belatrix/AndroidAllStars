@@ -36,7 +36,7 @@ public class CommentPresenter extends BelatrixConnectPresenter<CommentView> {
     }
 
     public void validateComment(String comment) {
-        if (comment!= null && comment.trim().isEmpty()) {
+        if (comment == null || comment.trim().isEmpty()) {
             view.showError(getString(R.string.comment_no_empty_error));
         } else {
             view.selectComment(comment);
