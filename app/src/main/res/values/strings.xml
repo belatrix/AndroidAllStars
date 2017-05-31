@@ -162,6 +162,7 @@
     <string name="message_placeholder"></string>
     <string name="fullname_placeholder">Anonymous</string>
     <string name="level_placeholder">No data</string>
+    <string name="comment_no_empty_error">cannot be empty</string>
 
     <!--Notifications-->
     <string name="notification_datetime_placeholder">No Date</string>
