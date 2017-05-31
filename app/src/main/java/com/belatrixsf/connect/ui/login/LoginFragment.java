@@ -109,9 +109,7 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    String username = usernameEditText.getText().toString();
-                    String password = passwordEditText.getText().toString();
-                    loginPresenter.login(username, password);
+                    logInClicked();
                     return true;
                 }
                 return false;
