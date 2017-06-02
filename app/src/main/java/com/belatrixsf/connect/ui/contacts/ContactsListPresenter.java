@@ -27,7 +27,11 @@ import com.belatrixsf.connect.services.contracts.EmployeeService;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -37,7 +41,7 @@ import javax.inject.Inject;
 public class ContactsListPresenter extends BelatrixConnectPresenter<ContactsListView> {
 
     private EmployeeService employeeService;
-    private List<Employee> contactsList = new ArrayList<>();
+    private Set<Employee> contactsList = new HashSet<>();
     private PaginatedResponse contactsPaging = new PaginatedResponse();
     private ServiceRequest searchingServiceRequest;
     private String searchText;
@@ -115,7 +119,10 @@ public class ContactsListPresenter extends BelatrixConnectPresenter<ContactsList
                         contactsPaging.setNext(contactsKeywordsResponse.getNext());
                         contactsList.addAll(contactsKeywordsResponse.getResults());
                         if(!contactsKeywordsResponse.getResults().isEmpty()) {
-                            view.addContacts(contactsKeywordsResponse.getResults());
+                            view.resetList();
+                            List<Employee> list = new ArrayList<Employee>(contactsList);
+                            Collections.sort(list,getEmployeeComparator());
+                            view.addContacts(list);
                         } else {
                             view.showNoDataView();
                         }
@@ -166,11 +173,20 @@ public class ContactsListPresenter extends BelatrixConnectPresenter<ContactsList
     }
 
     public List<Employee> getContactsSync() {
-        return contactsList;
+        return new ArrayList<>(contactsList);
     }
 
     public boolean isSearching() {
         return searching;
+    }
+
+    private Comparator<Employee> getEmployeeComparator (){
+        return new Comparator<Employee>() {
+            @Override
+            public int compare(Employee o1, Employee o2) {
+                return o1.getFirstName().compareToIgnoreCase(o2.getFirstName());
+            }
+        };
     }
 
 }
