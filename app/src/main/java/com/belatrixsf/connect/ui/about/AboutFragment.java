@@ -20,12 +20,15 @@
 */
 package com.belatrixsf.connect.ui.about;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.TeamListAdapter;
@@ -50,6 +53,7 @@ public class AboutFragment extends BelatrixConnectFragment implements AboutView 
     private TeamListAdapter collaboratorListAdapter;
 
     @Bind(R.id.collaborators) RecyclerView collaboratorsRecyclerView;
+    @Bind(R.id.support_email) TextView supportEmailTextView;
 
     public static AboutFragment newInstance() {
         AboutFragment aboutFragment = new AboutFragment();
@@ -109,6 +113,18 @@ public class AboutFragment extends BelatrixConnectFragment implements AboutView 
         collaboratorsRecyclerView.setAdapter(collaboratorListAdapter);
         collaboratorsRecyclerView.setNestedScrollingEnabled(false);
         collaboratorsRecyclerView.setLayoutManager(gridLayoutManager);
+        supportEmailTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String uriText = "mailto:" + getActivity().getResources()
+                        .getString(R.string.support_email) ;
+                Uri uri = Uri.parse(uriText);
+                Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
+                sendIntent.setData(uri);
+                startActivity(Intent.createChooser(sendIntent,
+                        getActivity().getResources().getString(R.string.email_chooser)));
+            }
+        });
     }
 
     @Override

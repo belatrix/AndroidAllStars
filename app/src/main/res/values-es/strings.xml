@@ -9,7 +9,8 @@
     <string name="dialog_confirmation_logout">¿Estas seguro que quieres salir?</string>
     <string name="dialog_option_positive">Si</string>
     <string name="dialog_option_negative">No</string>
-    <string name="dialog_option_confirm">Got it!</string>
+    <string name="dialog_option_confirm">Entendido!</string>
+    <string name="email_chooser">Enviar email</string>
 
     <!-- Error -->
     <string name="error_incorrect_fields">Asegurate que estos campos esten correctos</string>
