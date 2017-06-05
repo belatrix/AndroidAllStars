@@ -286,4 +286,20 @@ public class Employee implements Parcelable {
         }
     };
 
+
+    @Override
+    public int hashCode() {
+        return (this.pk ^ (this.pk >>> 32));
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Employee){
+            return this.pk == ((Employee) obj).pk;
+        }
+        else{
+            return super.equals(obj);
+        }
+    }
+
 }

@@ -91,6 +91,15 @@ public class RankingFragment extends BelatrixConnectFragment implements RankingV
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (getArguments() != null && getArguments().containsKey(RANKING_KIND_KEY)) {
+            String kind = getArguments().getString(RANKING_KIND_KEY);
+            rankingPresenter.getRankingList(kind, Constants.DEFAULT_QUANTITY, false);
+        }
+    }
+
+    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (getArguments() != null && getArguments().containsKey(RANKING_KIND_KEY)) {

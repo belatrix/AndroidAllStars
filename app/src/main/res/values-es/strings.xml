@@ -72,7 +72,7 @@
     <string name="tab_account_title">Perfil</string>
     <string name="tab_events_title">Eventos</string>
     <string name="tab_contacts_title">Contactos</string>
-    <string name="tab_ranking_title">Clasificación</string>
+    <string name="tab_ranking_title">Rango</string>
 
     <!-- Login -->
     <string name="login_subtitle">Belatrix Connect</string>
