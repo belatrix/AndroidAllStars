@@ -115,7 +115,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight=".7"
                     android:fontFamily="serif"
-                    android:text="@string/support_email" />
+                    android:text="@string/support_email"
+                    android:autoLink="email"/>
 
             </LinearLayout>
 
