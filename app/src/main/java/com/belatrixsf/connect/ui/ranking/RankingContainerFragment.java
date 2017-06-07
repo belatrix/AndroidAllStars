@@ -44,6 +44,9 @@ public class RankingContainerFragment extends BelatrixConnectFragment {
     public static final int TAB_LAST_MONTH = 1;
     public static final int TAB_CURRENT_MONTH = 0;
     public static final int TAB_ALL_TIME = 2;
+
+    private int tabPosition = 0;
+
     @Bind(R.id.bottom_navigation) AHBottomNavigation bottomNavigation;
     @BindString(R.string.bottom_navigation_color) String navigationColor;
 
@@ -54,6 +57,9 @@ public class RankingContainerFragment extends BelatrixConnectFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if(savedInstanceState != null){
+            tabPosition = savedInstanceState.getInt("tabPosition");
+        }
         return inflater.inflate(R.layout.fragment_ranking_container, container, false);
     }
 
@@ -73,27 +79,14 @@ public class RankingContainerFragment extends BelatrixConnectFragment {
 
     private void initViews() {
         setupViews();
-        final int idFragmentContainer = R.id.fragment_ranking_container;
-        replaceChildFragment(RankingFragment.newInstance(Constants.KIND_CURRENT_MONTH),idFragmentContainer);
-        bottomNavigation.setCurrentItem(0);
+        selectFragmentBySelectedPosition(tabPosition);
+        bottomNavigation.setCurrentItem(tabPosition);
         bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
                 if (!wasSelected) {
-                    switch (position) {
-
-                        case TAB_CURRENT_MONTH:
-                            replaceChildFragment(RankingFragment.newInstance(Constants.KIND_CURRENT_MONTH),idFragmentContainer);
-                            break;
-
-                        case TAB_LAST_MONTH:
-                            replaceChildFragment(RankingFragment.newInstance(Constants.KIND_LAST_MONTH_SCORE), idFragmentContainer);
-                            break;
-
-                        case TAB_ALL_TIME:
-                            replaceChildFragment(RankingFragment.newInstance(Constants.KIND_TOTAL_SCORE),idFragmentContainer);
-                            break;
-                    }
+                    tabPosition = position;
+                    selectFragmentBySelectedPosition(tabPosition);
                 }
                 return true;
             }
@@ -113,5 +106,28 @@ public class RankingContainerFragment extends BelatrixConnectFragment {
         bottomNavigation.setBehaviorTranslationEnabled(false);
     }
 
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt("tabPosition",tabPosition);
+        super.onSaveInstanceState(outState);
+    }
+
+    private void selectFragmentBySelectedPosition(int tabPosition){
+        final int idFragmentContainer = R.id.fragment_ranking_container;
+        switch (tabPosition) {
+            case TAB_CURRENT_MONTH:
+                replaceChildFragment(RankingFragment.newInstance(Constants.KIND_CURRENT_MONTH),idFragmentContainer);
+                break;
+
+            case TAB_LAST_MONTH:
+                replaceChildFragment(RankingFragment.newInstance(Constants.KIND_LAST_MONTH_SCORE), idFragmentContainer);
+                break;
+
+            case TAB_ALL_TIME:
+                replaceChildFragment(RankingFragment.newInstance(Constants.KIND_TOTAL_SCORE),idFragmentContainer);
+                break;
+        }
+    }
 
 }
