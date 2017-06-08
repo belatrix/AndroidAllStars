@@ -10,7 +10,7 @@
     <string name="dialog_option_positive">Yes</string>
     <string name="dialog_option_negative">No</string>
     <string name="dialog_option_confirm">Got it!</string>
-
+    <string name="dialog_confirmation_exit">Are you sure you want to logout?</string>
     <!-- Error -->
     <string name="error_incorrect_fields">Make sure the fields are filled correctly</string>
     <string name="error_facebook">Can\'t connect with Facebook Service</string>

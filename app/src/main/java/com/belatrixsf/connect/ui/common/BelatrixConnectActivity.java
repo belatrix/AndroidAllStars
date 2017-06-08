@@ -22,6 +22,7 @@ package com.belatrixsf.connect.ui.common;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -187,4 +188,20 @@ public class BelatrixConnectActivity extends AppCompatActivity implements Fragme
         onBackPressed();
     }
 
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this).setTitle(getResources().getString(R.string.app_name))
+                .setMessage(getResources().getString(R.string.dialog_confirmation_exit))
+                .setPositiveButton(getResources().getString(R.string.dialog_option_positive), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+               BelatrixConnectActivity.super.onBackPressed();
+            }
+        }).setNegativeButton(getResources().getString(R.string.dialog_option_negative), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        }).create().show();
+    }
 }

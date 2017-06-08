@@ -10,6 +10,7 @@
     <string name="dialog_option_positive">Si</string>
     <string name="dialog_option_negative">No</string>
     <string name="dialog_option_confirm">Entendido!</string>
+    <string name="dialog_confirmation_exit">¿Estas seguro que quieres salir?</string>
 
     <!-- Error -->
     <string name="error_incorrect_fields">Asegurate que estos campos esten correctos</string>
