@@ -190,18 +190,22 @@ public class BelatrixConnectActivity extends AppCompatActivity implements Fragme
 
     @Override
     public void onBackPressed() {
-        new AlertDialog.Builder(this).setTitle(getResources().getString(R.string.app_name))
-                .setMessage(getResources().getString(R.string.dialog_confirmation_exit))
-                .setPositiveButton(getResources().getString(R.string.dialog_option_positive), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-               BelatrixConnectActivity.super.onBackPressed();
-            }
-        }).setNegativeButton(getResources().getString(R.string.dialog_option_negative), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        }).create().show();
+        if (isTaskRoot()){
+            new AlertDialog.Builder(this).setTitle(getResources().getString(R.string.app_name))
+                    .setMessage(getResources().getString(R.string.dialog_confirmation_exit))
+                    .setPositiveButton(getResources().getString(R.string.dialog_option_positive), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            BelatrixConnectActivity.super.onBackPressed();
+                        }
+                    }).setNegativeButton(getResources().getString(R.string.dialog_option_negative), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            }).create().show();
+        }else{
+            super.onBackPressed();
+        }
     }
 }
