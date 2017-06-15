@@ -10,7 +10,7 @@
         android:id="@+id/contact_photo"
         android:layout_width="@dimen/dimen_10_6"
         android:layout_height="@dimen/dimen_10_6"
-        tools:src="@drawable/ic_user"
+        tools:src="@drawable/contact_placeholder"
         android:contentDescription="@string/profile_image_content_desc"/>
 
     <LinearLayout
@@ -18,7 +18,7 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/activity_horizontal_margin">
+        android:paddingLeft="@dimen/activity_margin">
 
         <TextView
             android:id="@+id/contact_full_name"

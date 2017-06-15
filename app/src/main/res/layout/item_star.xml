@@ -8,7 +8,7 @@
     android:layout_marginLeft="@dimen/dimen_8"
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="true"
-    app:contentPadding="@dimen/activity_horizontal_margin">
+    app:contentPadding="@dimen/activity_margin">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,15 +19,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="@dimen/dimen_2_5">
+            android:layout_marginBottom="@dimen/dimen_3_5">
 
             <ImageView
                 android:id="@+id/employee_photo"
-                android:layout_width="@dimen/dimen_9_5"
-                android:layout_height="@dimen/dimen_9_5"
+                android:layout_width="@dimen/dimen_8_6"
+                android:layout_height="@dimen/dimen_8_6"
                 android:layout_marginRight="@dimen/dimen_2_5"
                 android:contentDescription="@string/profile_image_content_desc"
-                tools:src="@drawable/ic_user" />
+                tools:src="@drawable/contact_placeholder" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -43,24 +43,23 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_16"
                     android:textColor="@android:color/black"
-                    android:singleLine="true"
-                    tools:text="Tony Stark" />
+                    android:maxLines="1"
+                    tools:text="Full Name" />
+
+                <TextView
+                    android:id="@+id/star_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    tools:text="Category" />
 
                 <TextView
                     android:id="@+id/star_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="12/05/2016" />
-                
-            </LinearLayout>
+                    tools:text="Date" />
 
-            <TextView
-                android:id="@+id/star_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:gravity="right"
-                tools:text="Management" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -68,11 +67,10 @@
             android:id="@+id/star_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dictum, felis vel vulputate laoreet, ante lectus fringilla risus, ac ullamcorper est quam eleifend purus. Aenean eu urna aliquet, posuere lorem nec, laoreet libero. Class aptent taciti sociosqu ad litora torquent per " />
+            android:layout_marginBottom="@dimen/dimen_2_5"/>
 
-        <com.belatrixsf.allstars.ui.common.views.KeywordView
+        <com.belatrixsf.connect.ui.common.views.KeywordView
             android:id="@+id/star_keyword"
-            android:layout_marginTop="@dimen/dimen_3_5"
             android:layout_height="match_parent"
             android:layout_width="wrap_content"
             app:key_text="@string/title_keyword"/>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/belatrix</color>
-    <color name="colorPrimaryDark">#F57C00</color>
-    <color name="colorAccent">#1B67BD</color>
-    <color name="colorPrimaryLight">#fcae4e</color>
-    <color name="darkAccent">#105CB3</color>
-    <color name="lightAccent">#3985DB</color>
+    <color name="colorPrimary">#F3743E</color>
+    <color name="colorPrimaryLight">#F89937</color>
+    <color name="colorPrimaryDark">#c96033</color>
+    <color name="colorAccent">#448AFF</color>
+    <color name="lightAccent">#68a1ff</color>
+    <color name="darkAccent">#306aca</color>
 
     <color name="subTitle">#C0C7CA</color>
     <color name="divider">#E6ECEF</color>
@@ -13,12 +13,18 @@
     <color name="white">#FFFFFF</color>
     <color name="softGrey">#DDDDDD</color>
     <color name="belatrix">#FF8F03</color>
-    <color name="darkerBelatrix">#F28905</color>
-    <color name="lightBelatrix">#FFA12B</color>
     <color name="grey">#9E9E9E</color>
-    <color name="red">#ff4040</color>
+    <color name="lightGrey">#EFEFEF</color>
+    <color name="black">#CC000000</color>
 
     <color name="recycler_view_normal">#ffffff</color>
     <color name="recycler_view_press">#20424242</color>
+
+    <color name="swipe_refresh">@color/colorAccent</color>
+
+    <color name="facebook">#3B5998</color>
+    <color name="facebookDark">#1d2c4c</color>
+    <color name="twitter">#00aced</color>
+    <color name="twitterDark">#005676</color>
 
 </resources>

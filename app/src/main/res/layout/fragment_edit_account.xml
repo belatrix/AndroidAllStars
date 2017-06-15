@@ -26,12 +26,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingEnd="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingLeft="@dimen/activity_margin"
+                android:paddingStart="@dimen/activity_margin"
+                android:paddingEnd="@dimen/activity_margin"
+                android:paddingRight="@dimen/activity_margin"
                 android:layout_marginTop="@dimen/dimen_10_9"
-                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:layout_marginBottom="@dimen/activity_margin"
                 android:orientation="vertical">
 
                 <android.support.design.widget.TextInputLayout
@@ -51,7 +51,7 @@
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_1_5"
+                    android:layout_marginTop="@dimen/dimen_5"
                     app:hintTextAppearance="@style/TextInputLayout">
 
                     <android.support.design.widget.TextInputEditText
@@ -66,7 +66,7 @@
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_1_5"
+                    android:layout_marginTop="@dimen/dimen_5"
                     app:hintTextAppearance="@style/TextInputLayout">
 
                     <android.support.design.widget.TextInputEditText
@@ -80,7 +80,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_3_5"
+                    android:layout_marginTop="@dimen/dimen_2_5"
                     android:layout_marginLeft="@dimen/dimen_12"
                     android:layout_marginStart="@dimen/dimen_12"
                     android:text="@string/location_head"

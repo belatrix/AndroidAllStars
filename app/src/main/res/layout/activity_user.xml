@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.UserActivity"
+    android:fitsSystemWindows="false">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/main_toolbar" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/main_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.belatrixsf.connect.utils.FixScrollingFooterBehavior" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/start_recommendation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@android:drawable/ic_input_add"
+            android:visibility="gone"
+            android:tint="@color/white" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start">
+
+        <android.support.design.widget.NavigationView
+            android:id="@+id/navigation"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/linearOptions"
+            android:background="@color/white"
+            app:elevation="0dp"
+            app:headerLayout="@layout/header_navigation"/>
+
+        <LinearLayout
+            android:id="@+id/linearOptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/navigation"
+            android:layout_gravity="bottom"
+            android:clickable="true"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider" />
+
+            <TextView
+                android:id="@+id/menu_logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_default_item"
+                android:drawableLeft="@drawable/ic_exit"
+                android:drawablePadding="@dimen/dimen_6_5"
+                android:padding="@dimen/dimen_16"
+                android:text="@string/menu_title_logout"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</android.support.v4.widget.DrawerLayout>

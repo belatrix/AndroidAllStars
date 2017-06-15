@@ -1,77 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.belatrixsf.allstars">
+    package="com.belatrixsf.connect">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:name=".utils.AllStarsApplication"
+        android:name=".utils.BelatrixConnectApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".ui.login.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.signup.SignUpActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.login.guest.LoginAsGuestActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.login.guest.email.GuestEmailActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.resetpassword.ResetPasswordActivity"
-            android:label="@string/title_reset_password_activity"/>
+            android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".ui.home.MainActivity"/>
+            android:name=".ui.resetpassword.request.RequestNewPasswordActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.home.UserActivity"
+            android:label="@string/title_main"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.home.GuestActivity"
+            android:label="@string/title_main" />
         <activity
             android:name=".ui.stars.StarsListActivity"
-            android:label="@string/title_recommendation_activity"/>
+            android:label="@string/title_recommendation_activity" />
         <activity
             android:name=".ui.stars.GiveStarActivity"
-            android:label="@string/title_give_star_activity"/>
+            android:label="@string/title_give_star" />
         <activity
             android:name=".ui.account.AccountActivity"
-            android:label="@string/title_account_activity"/>
+            android:label="@string/title_account_activity" />
+        <activity
+            android:name=".ui.account.badges.AccountBadgeDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/tab_badges" />
+        <activity
+            android:name=".ui.recommendations.RecommendationsActivity"
+            android:label="@string/title_recommendations_activity" />
         <activity
             android:name=".ui.account.expanded.ExpandPictureActivity"
-            android:label="@string/title_expand_photo_activity"/>
+            android:label="@string/title_expand_photo_activity" />
         <activity
             android:name=".ui.contacts.ContactsListActivity"
-            android:label="@string/title_contact_activity"/>
+            android:label="@string/title_contact_activity"
+            android:launchMode="singleTask" />
         <activity
             android:name=".ui.stars.comment.CommentActivity"
             android:label="@string/title_comment_activity"
-            android:windowSoftInputMode="stateAlwaysVisible"/>
-        <activity
-            android:name=".ui.category.CategoriesActivity"/>
+            android:windowSoftInputMode="stateAlwaysVisible" />
+        <activity android:name=".ui.category.CategoriesActivity" />
         <activity
             android:name=".ui.stars.keyword.KeywordsActivity"
-            android:label="@string/title_keywords_activity" />
-
+            android:label="@string/title_write_tag" />
         <activity
             android:name=".ui.contacts.keyword.ContactsKeywordListActivity"
-            android:label="@string/title_contacts_keyword_activity"/>
-
-        <activity android:name=".ui.account.edit.EditAccountActivity"
-            android:label="@string/title_edit_profile_activity"/>
-
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" />
-
+            android:label="@string/title_contacts_keyword_activity" />
         <activity
-            android:name=".ui.LauncherActivity">
+            android:name=".ui.account.edit.EditAccountActivity"
+            android:label="@string/title_edit_profile_activity" />
+        <activity
+            android:name=".ui.about.AboutActivity"
+            android:label="@string/title_about_activity"
+            android:theme="@style/Translucent" />
+        <activity
+            android:name=".ui.event.EventListActivity"
+            android:label="@string/title_event_list_activity" />
+        <activity
+            android:name=".ui.event.detail.EventDetailActivity"
+            android:label="@string/title_event_detail_activity"
+            android:theme="@style/Translucent" />
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+        <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:label="@string/title_settings_activity" />
+        <activity
+            android:name=".ui.skills.SkillsListActivity"
+            android:label="@string/skills_main_label" />
+        <activity
+            android:name=".ui.skills.Add.AddSkillActivity"
+            android:label="@string/add_skill_main_label" />
+        <activity android:name=".ui.LauncherActivity" />
+        <activity
+            android:name=".ui.notifications.NotificationListActivity"
+            android:label="@string/title_notification_list_activity" />
+        <activity
+            android:name=".ui.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="${fabric_io_api_key}"
-            />
+            android:value="${fabric_io_api_key}" />
+
+        <service android:name=".services.fcm.ConnectFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".services.fcm.ConnectFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
 
     </application>
 

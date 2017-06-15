@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:layout_marginTop="@dimen/dimen_6_5"
+        android:id="@+id/badge_icon"
+        android:layout_width="@dimen/dimen_10_6"
+        android:layout_height="@dimen/dimen_10_6"
+        tools:src="@drawable/contact_placeholder"
+        android:contentDescription="@string/profile_image_content_desc"/>
+
+    <TextView
+        android:id="@+id/badge_title"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_12"
+        tools:text="@string/title_full_name" />
+
+    <TextView
+        android:layout_margin="@dimen/dimen_5_5"
+        android:id="@+id/badge_description"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_16"
+        android:textColor="@color/black"
+        tools:text="@string/title_full_name" />
+
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:id="@+id/badge_button"
+        android:textStyle="bold"
+        android:text="@string/dialog_option_confirm"
+        android:textColor="@color/colorAccent"
+        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+        android:layout_height="wrap_content" />
+
+
+
+</LinearLayout>
