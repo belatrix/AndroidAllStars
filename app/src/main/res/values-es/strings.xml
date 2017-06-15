@@ -106,7 +106,7 @@
     <!-- Menu -->
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
-    <string name="menu_title_home">Home</string>
+    <string name="menu_title_home">Principal</string>
     <string name="menu_title_activities">Actividades</string>
     <string name="menu_title_settings">Ajustes</string>
     <string name="menu_title_about">Acerca</string>
@@ -186,8 +186,8 @@
     <string name="tab_event_news">Noticias</string>
     <string name="event_dialog_confirm_register">¿Quieres registrarte en este evento?</string>
     <string name="event_dialog_confirm_unregister">¿Quieres anular el registro de este evento?</string>
-    <string name="event_dialog_result_registered">Event registration confirmed</string>
-    <string name="event_dialog_result_unregistered">Event unregistration confirmed</string>
+    <string name="event_dialog_result_registered">Registro al evento confirmado</string>
+    <string name="event_dialog_result_unregistered">Anulacion de registro al evento confirmado</string>
 
     <!--About-->
     <string name="about_what">Que</string>
