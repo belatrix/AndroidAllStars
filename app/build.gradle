@@ -20,7 +20,7 @@ repositories {
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '24.0.3'
+    buildToolsVersion '25.0.3'
 
     lintOptions {
         disable "ResourceType"
@@ -90,6 +90,7 @@ android {
         compile('com.twitter.sdk.android:twitter:1.13.1@aar') {
             transitive = true;
         }
+        compile 'com.cleveroad:slidingtutorial:1.0.8'
     }
 }
 
