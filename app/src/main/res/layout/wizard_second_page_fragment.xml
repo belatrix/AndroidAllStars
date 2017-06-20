@@ -1,21 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/ivFirstImage"
-        android:layout_width="wrap_content"
+    <TextView
+
+        android:id="@+id/textView2"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:background="@drawable/circular_shape_orange"
+        android:gravity="center"
+        android:text="@string/tutorial_title_2"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp" />
+
+    <android.support.v7.widget.GridLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_connect"/>
+        app:columnCount="2"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="75dp"
+        android:id="@+id/gridLayout">
 
 
-    <ImageView
-        android:id="@+id/ivSecondImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_belatrix"/>
+        <ImageView
+            app:layout_columnWeight="1"
+            android:id="@+id/ivFirstImage"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/icon_01"/>
+
+        <ImageView
+            app:layout_columnWeight="1"
+            android:id="@+id/ivSecondImage"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/icon_02"/>
+
+        <TextView
+            android:textAlignment="center"
+            android:gravity="center"
+            android:id="@+id/ivFirstText"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:textSize="10sp"
+            android:text="Create your personal profile"
+            app:layout_columnWeight="1"
+            />
+
+        <TextView
+            android:textAlignment="center"
+            android:gravity="center"
+            android:id="@+id/ivSecondText"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:textSize="10sp"
+            android:text="Be aware of future events in your office"
+            app:layout_columnWeight="1"
+            />
+
+        <ImageView
+            app:layout_columnWeight="1"
+            android:id="@+id/ivThirdImage"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/icon_03"/>
+
+        <ImageView
+            app:layout_columnWeight="1"
+            android:id="@+id/ivFourthImage"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/icon_04"/>
+
+        <TextView
+            android:textAlignment="center"
+            android:gravity="center"
+            android:id="@+id/ivThirdText"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:textSize="10sp"
+            android:text="Search your contacts that are currently using the app and to acknowledge their contributions"
+            app:layout_columnWeight="1"
+            />
+
+        <TextView
+            android:textAlignment="center"
+            android:gravity="center"
+            android:id="@+id/ivFourthText"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:textSize="10sp"
+            android:text="See who are the ranking contribution leaders in your office"
+            app:layout_columnWeight="1"/>
+
+    </android.support.v7.widget.GridLayout>
 
 
-</LinearLayout>
+</RelativeLayout>

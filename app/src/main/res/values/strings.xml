@@ -260,5 +260,8 @@ SOFTWARE.</string>
     <string name="skills_button_add_new_second">as new skill</string>
 
     <string name="privacy_policy_url" translatable="false">https://bxconnect-privacy-policy.herokuapp.com/privacy.html</string>
+    <string name="tutorial_title">Belatrix Connect is an app \n created to promote internal collaboration and mutual recognition between Belatrix employees, you will be able to give kudos for remarkable actions that your colleagues do.</string>
+    <string name="tutorial_title_2">With Belatrix Connect you will be able to:</string>
+    <!-- \n - Create your personal profile\n - Be aware of future events in your office\n - Search your contacts that are currently using the app and to acknowledge their contributions\n - See who are the ranking contribution leaders in your office -->
 
 </resources>

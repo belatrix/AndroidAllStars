@@ -3,7 +3,6 @@ package com.belatrixsf.connect.ui.wizard;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -13,13 +12,7 @@ import android.view.View;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 import com.belatrixsf.connect.ui.home.UserActivity;
-import com.cleveroad.slidingtutorial.Direction;
-import com.cleveroad.slidingtutorial.IndicatorOptions;
 import com.cleveroad.slidingtutorial.OnTutorialPageChangeListener;
-import com.cleveroad.slidingtutorial.PageOptions;
-import com.cleveroad.slidingtutorial.TransformItem;
-import com.cleveroad.slidingtutorial.TutorialOptions;
-import com.cleveroad.slidingtutorial.TutorialPageOptionsProvider;
 import com.cleveroad.slidingtutorial.TutorialSupportFragment;
 
 /**
@@ -30,20 +23,23 @@ public class WizardMainActivity extends BelatrixConnectActivity {
 
     private int[] mPagesColors;
 
+    private int PAGE_COUNT = 2;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wizard_main_activity);
 
         mPagesColors = new int[]{
-                ContextCompat.getColor(this, R.color.colorPrimaryLight),
-                ContextCompat.getColor(this, R.color.colorPrimaryDark)
+                ContextCompat.getColor(this, R.color.subTitle),
+                ContextCompat.getColor(this, R.color.subTitle),
+                ContextCompat.getColor(this, R.color.subTitle)
         };
 
-        final IndicatorOptions indicatorOptions = IndicatorOptions.newBuilder(this)
+        /*final IndicatorOptions indicatorOptions = IndicatorOptions.newBuilder(this)
                 .build();
         TutorialOptions.Builder options = TutorialSupportFragment.newTutorialOptionsBuilder(this);
-        options.setPagesCount(2).setTutorialPageProvider(new TutorialPageOptionsProvider() {
+        options.setPagesCount(PAGE_COUNT).setTutorialPageProvider(new TutorialPageOptionsProvider() {
             @NonNull
             @Override
             public PageOptions provide(int position) {
@@ -53,12 +49,24 @@ public class WizardMainActivity extends BelatrixConnectActivity {
                     case 0:
                         pageLayoutResId = R.layout.wizard_first_page_fragment;
                         tutorialItems = new TransformItem[]{
-                                TransformItem.create(R.id.ivFirstImage, Direction.LEFT_TO_RIGHT, 0.2f),
-                                TransformItem.create(R.id.ivSecondImage, Direction.RIGHT_TO_LEFT, 0.06f)
+                                TransformItem.create(R.id.ivFirstImage, Direction.LEFT_TO_RIGHT, 0.2f)
                         };
                         break;
                     case 1:
                         pageLayoutResId = R.layout.wizard_second_page_fragment;
+                        tutorialItems = new TransformItem[]{
+                                TransformItem.create(R.id.ivFirstImage, Direction.LEFT_TO_RIGHT, 0.8f),
+                                TransformItem.create(R.id.ivSecondImage, Direction.RIGHT_TO_LEFT, 0.75f),
+                                TransformItem.create(R.id.ivThirdImage, Direction.LEFT_TO_RIGHT, 0.2f),
+                                TransformItem.create(R.id.ivFourthImage, Direction.RIGHT_TO_LEFT, 0.06f),
+                                TransformItem.create(R.id.ivFirstText, Direction.LEFT_TO_RIGHT, 0.06f),
+                                TransformItem.create(R.id.ivSecondText, Direction.RIGHT_TO_LEFT, 0.7f),
+                                TransformItem.create(R.id.ivThirdText, Direction.LEFT_TO_RIGHT, 0.06f),
+                                TransformItem.create(R.id.ivFourthText, Direction.RIGHT_TO_LEFT, 0.4f)
+                        };
+                        break;
+                    /*case 2:
+                        pageLayoutResId = R.layout.wizard_third_page_fragment;
                         tutorialItems = new TransformItem[]{
                                 TransformItem.create(R.id.ivFirstImage, Direction.LEFT_TO_RIGHT, 0.2f),
                                 TransformItem.create(R.id.ivSecondImage, Direction.RIGHT_TO_LEFT, 0.06f)
@@ -73,9 +81,9 @@ public class WizardMainActivity extends BelatrixConnectActivity {
                 .setUseInfiniteScroll(false)
                 .setIndicatorOptions(indicatorOptions)
                 .setOnSkipClickListener(new OnSkipClickListener(this));
-        //.setPagesColors(mPagesColors);
+                //.setPagesColors(mPagesColors);*/
 
-        TutorialSupportFragment tutorialFragment = TutorialSupportFragment.newInstance(options.build());
+        TutorialSupportFragment tutorialFragment = new WizardCustomFragment();
         tutorialFragment.addOnTutorialPageChangeListener(new OnTutorialPageChangeListener() {
             @Override
             public void onPageChanged(int position) {
