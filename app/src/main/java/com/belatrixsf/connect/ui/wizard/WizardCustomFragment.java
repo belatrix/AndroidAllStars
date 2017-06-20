@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.home.UserActivity;
+import com.cleveroad.slidingtutorial.Direction;
 import com.cleveroad.slidingtutorial.IndicatorOptions;
 import com.cleveroad.slidingtutorial.OnTutorialPageChangeListener;
 import com.cleveroad.slidingtutorial.PageOptions;
@@ -26,7 +27,7 @@ public class WizardCustomFragment extends TutorialSupportFragment
 
 
     private static final String TAG = "CustomTutorialSFragment";
-    private static final int TOTAL_PAGES = 2;
+    private static final int TOTAL_PAGES = 3;
     private static final int ACTUAL_PAGES_COUNT = 3;
 
     private final View.OnClickListener mOnSkipClickListener = new View.OnClickListener() {
@@ -46,15 +47,21 @@ public class WizardCustomFragment extends TutorialSupportFragment
             switch (position) {
                 case 0:
                     pageLayoutResId = R.layout.wizard_first_page_fragment;
-                    tutorialItems = new TransformItem[]{};
+                    tutorialItems = new TransformItem[]{
+                            TransformItem.create(R.id.ivFirstImage, Direction.LEFT_TO_RIGHT, 0.2f)
+                    };
                     break;
                 case 1:
                     pageLayoutResId = R.layout.wizard_second_page_fragment;
-                    tutorialItems = new TransformItem[]{};
+                    tutorialItems = new TransformItem[]{
+                            TransformItem.create(R.id.ivFirstImage, Direction.LEFT_TO_RIGHT, 0.2f)
+                    };
                     break;
                 case 2:
                     pageLayoutResId = R.layout.wizard_third_page_fragment;
-                    tutorialItems = new TransformItem[]{};
+                    tutorialItems = new TransformItem[]{
+                            TransformItem.create(R.id.ivFirstImage, Direction.LEFT_TO_RIGHT, 0.2f)
+                    };
                     break;
                 default:
                     throw new IllegalArgumentException("Unknown position: " + position);
@@ -64,40 +71,12 @@ public class WizardCustomFragment extends TutorialSupportFragment
         }
     };
 
-    /*private final TutorialPageProvider<Fragment> mTutorialPageProvider = new TutorialPageProvider<Fragment>() {
-        @NonNull
-        @Override
-        public Fragment providePage(int position) {
-            position %= ACTUAL_PAGES_COUNT;
-            switch (position) {
-                case 0:
-                    return new FirstCustomPageSupportFragment();
-                case 1:
-                    return new SecondCustomPageSupportFragment();
-                case 2:
-                    return new ThirdCustomPageSupportFragment();
-                default: {
-                    throw new IllegalArgumentException("Unknown position: " + position);
-                }
-            }
-        }
-    };*/
 
     private int[] pagesColors;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*if (pagesColors == null) {
-            pagesColors = new int[]{
-                    ContextCompat.getColor(getContext(), android.R.color.holo_orange_dark),
-                    ContextCompat.getColor(getContext(), android.R.color.holo_green_dark),
-                    ContextCompat.getColor(getContext(), android.R.color.holo_blue_dark),
-                    ContextCompat.getColor(getContext(), android.R.color.holo_red_dark),
-                    ContextCompat.getColor(getContext(), android.R.color.holo_purple),
-                    ContextCompat.getColor(getContext(), android.R.color.darker_gray)
-            };
-        }*/
         addOnTutorialPageChangeListener(this);
     }
 
@@ -110,15 +89,7 @@ public class WizardCustomFragment extends TutorialSupportFragment
                 .setPagesCount(TOTAL_PAGES)
                 .setTutorialPageProvider(mTutorialPageOptionsProvider)
                 .setIndicatorOptions(IndicatorOptions.newBuilder(getContext()).build())
-//                .setIndicatorOptions(IndicatorOptions.newBuilder(getContext())
-//                        .setElementSizeRes(R.dimen.indicator_size)
-//                        .setElementSpacingRes(R.dimen.indicator_spacing)
-//                        .setElementColorRes(android.R.color.darker_gray)
-//                        .setSelectedElementColor(Color.LTGRAY)
-//                        .setRenderer(RhombusRenderer.create())
-//                        .build())
                 .setOnSkipClickListener(mOnSkipClickListener)
-                //.setTutorialPageProvider(mTutorialPageProvider)
                 .build();
     }
 

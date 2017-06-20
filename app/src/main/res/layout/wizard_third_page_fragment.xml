@@ -1,58 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    >
 
-    <TextView
-
-        android:id="@+id/textView2"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:background="@drawable/circular_shape_orange"
+    <ImageView
         android:gravity="center"
-        android:text="@string/tutorial_title_2"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="48dp" />
-
-    <android.support.v7.widget.GridLayout
+        android:id="@+id/ivFirstImage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="75dp"
-        android:id="@+id/gridLayout"
-        app:columnCount="2">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_columnWeight="1"
-            app:layout_gravity="center">
-
-            <TextView
-                android:layout_gravity=""
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="prueba"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="prueba"/>
-        </LinearLayout>
-
-        <ImageView
-            app:layout_columnWeight="1"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/cell_01"/>
-    </android.support.v7.widget.GridLayout>
+        android:layout_height="match_parent"
+        android:src="@drawable/screen_04"/>
 
 
-</RelativeLayout>
+</LinearLayout>

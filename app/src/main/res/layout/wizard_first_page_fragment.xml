@@ -5,15 +5,12 @@
     android:gravity="center"
     >
 
-    <TextView
+    <ImageView
         android:gravity="center"
         android:id="@+id/ivFirstImage"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:textSize="16sp"
-        android:textColor="@color/white"
-        android:text="@string/tutorial_title"
-        android:background="@drawable/circular_shape_orange"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/screen_02"/>
 
 
 </LinearLayout>
