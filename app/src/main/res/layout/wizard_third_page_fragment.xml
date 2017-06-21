@@ -6,6 +6,8 @@
     >
 
     <ImageView
+        android:paddingTop="40dp"
+        android:scaleType="centerCrop"
         android:gravity="center"
         android:id="@+id/ivFirstImage"
         android:layout_width="match_parent"
