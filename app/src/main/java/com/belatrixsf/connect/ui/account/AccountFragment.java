@@ -348,7 +348,7 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
         profileLocationImageView.setText(location);
     }
 
-    private void startPostponedEnterTransition() {
+    public void startPostponedEnterTransition() {
         if (pictureImageView == null) {
             return;
         }

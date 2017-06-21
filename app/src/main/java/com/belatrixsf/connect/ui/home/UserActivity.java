@@ -46,6 +46,7 @@ import com.belatrixsf.connect.ui.notifications.NotificationListActivity;
 import com.belatrixsf.connect.ui.settings.SettingsActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarFragment;
+import com.belatrixsf.connect.ui.wizard.WizardMainActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.di.components.DaggerUserHomeComponent;
 import com.belatrixsf.connect.utils.di.modules.presenters.UserHomePresenterModule;
@@ -186,11 +187,9 @@ public class UserActivity extends MainActivity implements AccountFragmentListene
                         intent = new Intent(UserActivity.this, AboutActivity.class);
                         startActivity(intent);
                         break;
-                    //TODO: Help section
-                    /*
                     case R.id.menu_help:
+                        startActivity(WizardMainActivity.makeIntent(UserActivity.this));
                         break;
-                    */
                 }
                 return true;
             }

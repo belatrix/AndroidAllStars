@@ -58,9 +58,8 @@ public class RankingPresenter extends BelatrixConnectPresenter<RankingView> {
                         } else {
                             view.showNoDataView();
                         }
-                        if (!isRefresh) {
-                            view.hideProgressIndicator();
-                        } else {
+                        view.hideProgressIndicator();
+                        if (isRefresh) {
                             view.hideRefreshData();
                         }
                     }

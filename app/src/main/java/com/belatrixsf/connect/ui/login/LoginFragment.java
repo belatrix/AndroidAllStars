@@ -39,11 +39,11 @@ import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.account.edit.EditAccountActivity;
 import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
-import com.belatrixsf.connect.ui.home.UserActivity;
 import com.belatrixsf.connect.ui.login.guest.LoginAsGuestActivity;
 import com.belatrixsf.connect.ui.resetpassword.ResetPasswordActivity;
 import com.belatrixsf.connect.ui.resetpassword.request.RequestNewPasswordActivity;
 import com.belatrixsf.connect.ui.signup.SignUpActivity;
+import com.belatrixsf.connect.ui.wizard.WizardMainActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.CustomDomainEditText;
 import com.belatrixsf.connect.utils.di.components.DaggerLoginComponent;
@@ -134,8 +134,9 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
 
     @Override
     public void goHome() {
-        Intent intent = new Intent(getActivity(), UserActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent(getActivity(), UserActivity.class);
+        //startActivity(intent);
+        startActivity(WizardMainActivity.makeIntent(getActivity()));
         fragmentListener.closeActivity();
     }
 
