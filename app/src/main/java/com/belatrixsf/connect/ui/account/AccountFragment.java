@@ -429,7 +429,8 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
 
     @Override
     public void hideProgressIndicator() {
-        accountSwipeRefresh.setRefreshing(false);
+        if(accountSwipeRefresh != null)
+            accountSwipeRefresh.setRefreshing(false);
     }
 
     @Override
