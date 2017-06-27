@@ -121,6 +121,11 @@ public class SignUpFragment extends BelatrixConnectFragment implements SignUpVie
         }).show();
     }
 
+    @Override
+    public void showErrorMessage(String message){
+        DialogUtils.createSimpleDialog(getActivity(),getString(R.string.app_name),message).show();
+    }
+
     private TextWatcher formFieldWatcher = new TextWatcher() {
 
         @Override

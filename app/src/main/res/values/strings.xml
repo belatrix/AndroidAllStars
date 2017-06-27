@@ -80,6 +80,7 @@
     <!-- Sign Up -->
     <string name="sign_up_subtitle">Let\'s get started</string>
     <string name="sign_up_description">Enter your email address to receive your temporary password.</string>
+    <string name="sign_up_invalid_mail">Email entered is not valid.</string>
 
     <!-- Login as Guest -->
     <string name="log_in_as_guest_subtitle">Log In as Guest</string>
