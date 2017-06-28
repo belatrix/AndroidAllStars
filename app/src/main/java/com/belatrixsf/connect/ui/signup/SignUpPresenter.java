@@ -49,7 +49,7 @@ public class SignUpPresenter extends BelatrixConnectPresenter<SignUpView> {
     }
 
     public void init() {
-        view.enableSend(false);
+        view.enableSend(true);
     }
 
     public void signUp(final String email) {
@@ -69,7 +69,7 @@ public class SignUpPresenter extends BelatrixConnectPresenter<SignUpView> {
                 }
             });
         } else {
-            view.showErrorMessage(getString(R.string.sign_up_invalid_mail));
+            view.showErrorMessage(view.getContext().getString(R.string.sign_up_invalid_mail));
         }
     }
 

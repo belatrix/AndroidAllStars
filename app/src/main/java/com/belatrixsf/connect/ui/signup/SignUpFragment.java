@@ -24,6 +24,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,11 +76,12 @@ public class SignUpFragment extends BelatrixConnectFragment implements SignUpVie
     }
 
     private void initViews() {
-        emailEditText.addTextChangedListener(formFieldWatcher);
+        emailEditText.setFilters(new InputFilter[] { filter });
         emailEditText.setDefaultDomain(getActivity().getIntent().getExtras().getString(DEFAULT_DOMAIN_ID));
         emailEditText.setDefaultUsername(getString(R.string.hint_username));
         fragmentListener.setToolbar(toolbar);
         fragmentListener.setTitle("");
+        enableSend(true);
     }
 
     @Override
@@ -126,26 +129,19 @@ public class SignUpFragment extends BelatrixConnectFragment implements SignUpVie
         DialogUtils.createSimpleDialog(getActivity(),getString(R.string.app_name),message).show();
     }
 
-    private TextWatcher formFieldWatcher = new TextWatcher() {
+    private String blockCharacterSet = "~#^|$%&*!@";
+
+    private InputFilter filter = new InputFilter() {
 
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
 
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            String email = emailEditText.getUserName().trim();
-            if (email.contains(emailEditText.getDefaultUsername())) {
-                email = email.replace(emailEditText.getDefaultUsername(), "");
+            if (source != null && blockCharacterSet.contains(("" + source))) {
+                return "";
             }
-            signUpPresenter.checkIfEmailIsValid(email);
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
+            return null;
         }
     };
+
 
 }
