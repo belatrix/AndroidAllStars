@@ -31,7 +31,7 @@ import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 /**
  * Created by echuquilin on 4/08/16.
  */
-public class SkillsListActivity extends BelatrixConnectActivity{
+public class SkillsListActivity extends BelatrixConnectActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
