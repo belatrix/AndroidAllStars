@@ -47,6 +47,7 @@ public class LauncherActivity extends AppCompatActivity {
             } else {
                 PreferencesManager.get().clearGuestSession();
                 startActivity(LoginActivity.makeIntent(this));
+                //startActivity(WizardMainActivity.makeIntent(this));
             }
         }
         finish();

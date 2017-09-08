@@ -22,9 +22,12 @@ package com.belatrixsf.connect.ui.signup;
 
 import android.text.TextUtils;
 
+import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.networking.retrofit.responses.CreateEmployeeResponse;
 import com.belatrixsf.connect.services.contracts.EmployeeService;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
+import com.belatrixsf.connect.utils.ServiceError;
+import com.belatrixsf.connect.utils.Utils;
 
 import javax.inject.Inject;
 
@@ -46,18 +49,28 @@ public class SignUpPresenter extends BelatrixConnectPresenter<SignUpView> {
     }
 
     public void init() {
-        view.enableSend(false);
+        view.enableSend(true);
     }
 
-    public void signUp(String email) {
-        view.showProgressDialog();
-        employeeService.createEmployee(email, new PresenterCallback<CreateEmployeeResponse>() {
-            @Override
-            public void onSuccess(CreateEmployeeResponse response) {
-                view.dismissProgressDialog();
-                view.showMessage(response.getDetail());
-            }
-        });
+    public void signUp(final String email) {
+        if (Utils.isValidEmail(email)) {
+            view.showProgressDialog();
+            employeeService.createEmployee(email, new PresenterCallback<CreateEmployeeResponse>() {
+                @Override
+                public void onSuccess(CreateEmployeeResponse response) {
+                    view.dismissProgressDialog();
+                    view.showMessage(response.getDetail());
+                }
+
+                @Override
+                public void onFailure(ServiceError serviceError) {
+                    view.dismissProgressDialog();
+                    view.showErrorMessage(String.format(serviceError.getDetail(), email));
+                }
+            });
+        } else {
+            view.showErrorMessage(view.getContext().getString(R.string.sign_up_invalid_mail));
+        }
     }
 
     public void confirmMessage(){
