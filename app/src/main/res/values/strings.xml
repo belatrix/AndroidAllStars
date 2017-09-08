@@ -34,7 +34,7 @@
     <string name="button_log_in">Log In</string>
     <string name="button_log_in_as_guest">Log In As Guest</string>
     <string name="button_create_account">Create New Account</string>
-    <string name="button_forgot_password">Forgot Password</string>
+    <string name="button_forgot_password">Forgot Password?</string>
     <string name="button_sign_up">Sign Up</string>
     <string name="button_request_new_password">Request new password</string>
     <string name="button_change_password">Change Password</string>
