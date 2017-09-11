@@ -8,6 +8,7 @@
     <color name="darkAccent">#306aca</color>
     <color name="colorPrimaryDisabled">#c4a091</color>
     <color name="colorAccentDisabled">#b5d1ff</color>
+    <color name="splashBackground">#f2753f</color>
 
     <color name="subTitle">#C0C7CA</color>
     <color name="divider">#E6ECEF</color>

@@ -21,19 +21,51 @@
 package com.belatrixsf.connect.ui;
 
 import android.content.Intent;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+
+import com.belatrixsf.connect.R;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Created by echuquilin on 11/08/16.
  */
 public class SplashActivity extends AppCompatActivity {
 
+    @Bind(R.id.logoImageView) ImageView logo;
+    @Bind(R.id.splashBackground) RelativeLayout background;
+    public static final int ANIMATION_DURATION = 300;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = new Intent(this, LauncherActivity.class);
-        startActivity(intent);
-        finish();
+        setContentView(R.layout.activity_splash);
+        ButterKnife.bind(this);
+        startAnimation();
     }
+
+    private void startAnimation() {
+        this.setTheme(R.style.SplashThemeFinished);
+        Handler animationHandler = new Handler();
+        TransitionDrawable bgTransition = (TransitionDrawable) background.getBackground();
+        TransitionDrawable logoTransition = (TransitionDrawable) logo.getBackground();
+        bgTransition.startTransition(ANIMATION_DURATION);
+        logoTransition.startTransition(ANIMATION_DURATION);
+        animationHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(SplashActivity.this, LauncherActivity.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+                finish();
+            }
+        }, ANIMATION_DURATION);
+    }
+
 }

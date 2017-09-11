@@ -33,19 +33,47 @@ import javax.inject.Inject;
 public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
 
     private EmployeeManager employeeManager;
+    private boolean callNeeded;
+
+    public static final float SCALE_ANIMATION = 0.5f;
+    public static final int SCALE_ANIMATION_DURATION = 300;
+
+    private Runnable logoRunnable = new Runnable() {
+        @Override
+        public void run() {
+            float logoNewY = view.getLogoNewY();
+            view.animateViews(logoNewY, SCALE_ANIMATION, view.getTitleNewY(logoNewY), SCALE_ANIMATION_DURATION);
+        }
+    };
+
+    public void setCallNeeded(boolean callNeeded) {
+        this.callNeeded = callNeeded;
+    }
+
+    public void checkForCallNeeded() {
+        if (callNeeded) {
+            getDefaultDomain();
+        }
+    }
 
     @Inject
     public LoginPresenter(LoginView view, EmployeeManager employeeManager) {
         super(view);
         this.employeeManager = employeeManager;
+        this.callNeeded = false;
     }
 
     public void checkIfInputsAreValid(String username, String password) {
         view.enableLogin(areFieldsFilled(username, password));
     }
 
+    public void startAnimations() {
+        view.startLogoAnimation(logoRunnable, SCALE_ANIMATION_DURATION*2);
+    }
+
     public void init() {
         view.enableLogin(false);
+        view.enableFields(false);
     }
 
     public void login(String username, String password) {
@@ -88,6 +116,7 @@ public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
             public void onSuccess(SiteInfo siteInfo) {
                 view.setDefaultDomain("@" + siteInfo.getEmail_domain());
                 view.dismissProgressDialog();
+                view.enableFields(true);
             }
         });
     }

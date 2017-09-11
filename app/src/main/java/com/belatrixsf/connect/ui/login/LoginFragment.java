@@ -23,6 +23,7 @@ package com.belatrixsf.connect.ui.login;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
@@ -30,9 +31,14 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.BounceInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.belatrixsf.connect.R;
@@ -68,6 +74,9 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     @Bind(R.id.log_in_as_guest) Button logInAsGuestButton;
     @Bind(R.id.forgot_password) TextView forgotPasswordButton;
     @Bind(R.id.sign_up) Button signUpButton;
+    @Bind(R.id.fields_container) LinearLayout fieldsContainer;
+    @Bind(R.id.bx_logo) ImageView bxLogo;
+    @Bind(R.id.bx_title) TextView bxTitle;
     @BindString(R.string.privacy_policy_url) String privacyPolicyURL;
 
     public LoginFragment() {
@@ -84,13 +93,15 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        loginPresenter.startAnimations();
         initViews();
         usernameEditText.initEditText(getString(R.string.hint_username));
         if (savedInstanceState == null) {
+            loginPresenter.setCallNeeded(true);
             loginPresenter.init();
-            loginPresenter.getDefaultDomain();
         }
         if(savedInstanceState != null){
+            loginPresenter.setCallNeeded(false);
             usernameEditText.setDefaultDomain(savedInstanceState.getString(DEFAULT_DOMAIN_KEY));
         }
     }
@@ -197,6 +208,58 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
         defaultDomain = domain;
         usernameEditText.setDefaultDomain(domain);
         usernameEditText.setDefaultUsername(getString(R.string.hint_username));
+    }
+
+    @Override
+    public float getLogoNewY() {
+        return bxLogo.getY() - bxLogo.getHeight();
+    }
+
+    @Override
+    public float getTitleNewY(float logoY) {
+        return logoY + bxLogo.getHeight() - getResources().getDimension(R.dimen.dimen_6_5);
+    }
+
+    @Override
+    public void animateViews(float newLogoY, float logoScale, float newTitleY, int fieldsDuration) {
+        bxTitle.setVisibility(View.VISIBLE);
+        bxTitle.animate().y(newTitleY);
+
+        bxLogo.animate().y(newLogoY);
+        bxLogo.animate().scaleXBy(logoScale);
+        bxLogo.animate().scaleYBy(logoScale);
+
+        TranslateAnimation translation;
+        translation = new TranslateAnimation(0f, 0f, fieldsContainer.getHeight(), 0f);
+        translation.setDuration(fieldsDuration);
+        translation.setFillAfter(true);
+        //translation.setInterpolator(new BounceInterpolator());
+        translation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                loginPresenter.checkForCallNeeded();
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+        fieldsContainer.setVisibility(View.VISIBLE);
+        fieldsContainer.startAnimation(translation);
+    }
+
+    @Override
+    public void startLogoAnimation(Runnable runnable, int duration) {
+        Handler logoHandler = new Handler();
+        logoHandler.postDelayed(runnable, duration);
+    }
+
+    @Override
+    public void enableFields(boolean enable) {
+        if (usernameEditText != null && passwordEditText != null) {
+            usernameEditText.setEnabled(enable);
+            passwordEditText.setEnabled(enable);
+        }
     }
 
     private TextWatcher formFieldWatcher = new TextWatcher() {

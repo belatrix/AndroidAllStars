@@ -21,4 +21,12 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:background">@drawable/background_splash</item>
+    </style>
+
+    <style name="SplashThemeFinished" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:background">@color/white</item>
+    </style>
+
 </resources>
