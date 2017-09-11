@@ -50,6 +50,7 @@ public class LauncherActivity extends AppCompatActivity {
                 //startActivity(WizardMainActivity.makeIntent(this));
             }
         }
+        overridePendingTransition(0, 0);
         finish();
     }
 

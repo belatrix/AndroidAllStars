@@ -35,7 +35,7 @@ public interface LoginView extends BelatrixConnectView {
     void enableFields(boolean enable);
 
     void startLogoAnimation(Runnable runnable, int duration);
-    void animateViews(float newLogoY, float newLogoScale, float newTitleY, int fieldsDuration);
+    void animateViews(float newLogoY, float newLogoScale, float newTitleY, int duration);
 
     float getLogoNewY();
     float getTitleNewY(float logoY);

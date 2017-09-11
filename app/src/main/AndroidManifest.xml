@@ -131,7 +131,9 @@
         <activity
             android:name=".ui.skills.Add.AddSkillActivity"
             android:label="@string/add_skill_main_label" />
-        <activity android:name=".ui.LauncherActivity" />
+        <activity android:name=".ui.LauncherActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashThemeFinished"/>
         <activity
             android:name=".ui.notifications.NotificationListActivity"
             android:label="@string/title_notification_list_activity" />

@@ -36,13 +36,14 @@ public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
     private boolean callNeeded;
 
     public static final float SCALE_ANIMATION = 0.5f;
-    public static final int SCALE_ANIMATION_DURATION = 300;
+    public static final int ANIMATIONS_DURATION = 400;
+    public static final int WAIT_DURATION = 200;
 
     private Runnable logoRunnable = new Runnable() {
         @Override
         public void run() {
             float logoNewY = view.getLogoNewY();
-            view.animateViews(logoNewY, SCALE_ANIMATION, view.getTitleNewY(logoNewY), SCALE_ANIMATION_DURATION);
+            view.animateViews(logoNewY, SCALE_ANIMATION, view.getTitleNewY(logoNewY), ANIMATIONS_DURATION);
         }
     };
 
@@ -68,7 +69,7 @@ public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
     }
 
     public void startAnimations() {
-        view.startLogoAnimation(logoRunnable, SCALE_ANIMATION_DURATION*2);
+        view.startLogoAnimation(logoRunnable, WAIT_DURATION);
     }
 
     public void init() {

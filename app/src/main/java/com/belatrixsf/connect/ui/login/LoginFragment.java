@@ -221,17 +221,17 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     }
 
     @Override
-    public void animateViews(float newLogoY, float logoScale, float newTitleY, int fieldsDuration) {
+    public void animateViews(float newLogoY, float logoScale, float newTitleY, int duration) {
         bxTitle.setVisibility(View.VISIBLE);
-        bxTitle.animate().y(newTitleY);
+        bxTitle.animate().y(newTitleY).setDuration(duration);
 
-        bxLogo.animate().y(newLogoY);
-        bxLogo.animate().scaleXBy(logoScale);
-        bxLogo.animate().scaleYBy(logoScale);
+        bxLogo.animate().y(newLogoY).setDuration(duration);
+        bxLogo.animate().scaleXBy(logoScale).setDuration(duration);
+        bxLogo.animate().scaleYBy(logoScale).setDuration(duration);
 
         TranslateAnimation translation;
         translation = new TranslateAnimation(0f, 0f, fieldsContainer.getHeight(), 0f);
-        translation.setDuration(fieldsDuration);
+        translation.setDuration(duration);
         translation.setFillAfter(true);
         //translation.setInterpolator(new BounceInterpolator());
         translation.setAnimationListener(new Animation.AnimationListener() {
