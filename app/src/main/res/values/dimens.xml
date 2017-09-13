@@ -3,6 +3,8 @@
     <dimen name="activity_margin">16dp</dimen>
     <dimen name="pre_session_fragment_margin">15dp</dimen>
 
+    <dimen name="initial_logo">66dp</dimen>
+
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="dimen_6">6dp</dimen>

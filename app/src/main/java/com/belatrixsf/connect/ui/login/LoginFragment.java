@@ -32,7 +32,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.BounceInterpolator;
+import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -95,7 +95,7 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
         super.onViewCreated(view, savedInstanceState);
         loginPresenter.startAnimations();
         initViews();
-        usernameEditText.initEditText(getString(R.string.hint_username));
+        usernameEditText.setDefaultUsername(getString(R.string.hint_username));
         if (savedInstanceState == null) {
             loginPresenter.setCallNeeded(true);
             loginPresenter.init();
@@ -192,9 +192,7 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
 
     @OnClick(R.id.forgot_password)
     public void forgotPasswordClicked() {
-        Intent intent = new Intent(getActivity(), RequestNewPasswordActivity.class);
-        intent.putExtra(DEFAULT_DOMAIN_ID, defaultDomain);
-        startActivity(intent);
+        loginPresenter.onForgotPasswordClicked();
     }
 
     @OnClick(R.id.privacy_policy)
@@ -212,17 +210,20 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
 
     @Override
     public float getLogoNewY() {
-        return bxLogo.getY() - bxLogo.getHeight();
+        return bxLogo.getY() - (fieldsContainer.getHeight() / 2);
     }
 
     @Override
     public float getTitleNewY(float logoY) {
-        return logoY + bxLogo.getHeight() - getResources().getDimension(R.dimen.dimen_6_5);
+        return logoY + (bxLogo.getHeight() * 2) - getResources().getDimension(R.dimen.dimen_8_5);
     }
 
     @Override
-    public void animateViews(float newLogoY, float logoScale, float newTitleY, int duration) {
+    public void initialAnimations(float newLogoY, float logoScale, float newTitleY, int duration) {
         bxTitle.setVisibility(View.VISIBLE);
+        Animation scaleAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.scale_from_center);
+        scaleAnimation.setDuration(duration / 2);
+        bxTitle.startAnimation(scaleAnimation);
         bxTitle.animate().y(newTitleY).setDuration(duration);
 
         bxLogo.animate().y(newLogoY).setDuration(duration);
@@ -232,8 +233,8 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
         TranslateAnimation translation;
         translation = new TranslateAnimation(0f, 0f, fieldsContainer.getHeight(), 0f);
         translation.setDuration(duration);
+        translation.setInterpolator(getActivity(), android.R.interpolator.accelerate_decelerate);
         translation.setFillAfter(true);
-        //translation.setInterpolator(new BounceInterpolator());
         translation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {}
@@ -249,9 +250,36 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     }
 
     @Override
-    public void startLogoAnimation(Runnable runnable, int duration) {
-        Handler logoHandler = new Handler();
-        logoHandler.postDelayed(runnable, duration);
+    public void outAnimations(int duration) {
+        TranslateAnimation translation;
+        translation = new TranslateAnimation(0f, 0f, 0f, fieldsContainer.getHeight());
+        translation.setDuration(duration);
+        translation.setFillAfter(true);
+        translation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                Intent intent = new Intent(getActivity(), RequestNewPasswordActivity.class);
+                intent.putExtra(DEFAULT_DOMAIN_ID, defaultDomain);
+                startActivity(intent);
+                getActivity().overridePendingTransition(0, 0);
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+        fieldsContainer.setVisibility(View.INVISIBLE);
+        fieldsContainer.startAnimation(translation);
+    }
+
+    @Override
+    public void returnAnimations(int duration) {
+
+    }
+
+    @Override
+    public void startAnimations(Runnable runnable, int duration) {
+        new Handler().postDelayed(runnable, duration);
     }
 
     @Override

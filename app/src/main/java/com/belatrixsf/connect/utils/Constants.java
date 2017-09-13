@@ -42,4 +42,8 @@ public class Constants {
 
     public static final String REGEX_ONLY_LETTERS = "[a-zA-Z]+";
     public static final String DEFAULT_DOMAIN_KEY = "default_domain_key";
+
+    public static final String DEFAULT_BX_DOMAIN = "@belatrixsf.com";
+    public static final String DEFAULT_BX_USERNAME_HINT = "Username";
+
 }

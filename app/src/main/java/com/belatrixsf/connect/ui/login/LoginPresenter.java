@@ -36,14 +36,21 @@ public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
     private boolean callNeeded;
 
     public static final float SCALE_ANIMATION = 0.5f;
-    public static final int ANIMATIONS_DURATION = 400;
-    public static final int WAIT_DURATION = 200;
+    public static final int ANIMATIONS_DURATION = 500;
+    public static final int WAIT_DURATION = 100;
 
     private Runnable logoRunnable = new Runnable() {
         @Override
         public void run() {
             float logoNewY = view.getLogoNewY();
-            view.animateViews(logoNewY, SCALE_ANIMATION, view.getTitleNewY(logoNewY), ANIMATIONS_DURATION);
+            view.initialAnimations(logoNewY, SCALE_ANIMATION, view.getTitleNewY(logoNewY), ANIMATIONS_DURATION);
+        }
+    };
+
+    private Runnable outRunnable = new Runnable() {
+        @Override
+        public void run() {
+            view.outAnimations(ANIMATIONS_DURATION);
         }
     };
 
@@ -69,7 +76,11 @@ public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
     }
 
     public void startAnimations() {
-        view.startLogoAnimation(logoRunnable, WAIT_DURATION);
+        view.startAnimations(logoRunnable, WAIT_DURATION);
+    }
+
+    public void onForgotPasswordClicked() {
+        view.startAnimations(outRunnable, WAIT_DURATION);
     }
 
     public void init() {
@@ -111,12 +122,12 @@ public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
     }
 
     public void getDefaultDomain() {
-        view.showProgressDialog();
+        //view.showProgressDialog();
         employeeManager.getSiteInfo(new PresenterCallback<SiteInfo>() {
             @Override
             public void onSuccess(SiteInfo siteInfo) {
                 view.setDefaultDomain("@" + siteInfo.getEmail_domain());
-                view.dismissProgressDialog();
+                //view.dismissProgressDialog();
                 view.enableFields(true);
             }
         });

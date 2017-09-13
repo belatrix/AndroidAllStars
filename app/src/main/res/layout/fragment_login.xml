@@ -7,25 +7,25 @@
     android:focusableInTouchMode="true"
     android:paddingLeft="@dimen/pre_session_fragment_margin"
     android:paddingRight="@dimen/pre_session_fragment_margin"
-    android:background="@android:color/white"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".ui.login.LoginActivity">
 
     <ImageView
         android:id="@+id/bx_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
         android:layout_marginTop="@dimen/dimen_10_7"
         android:layout_centerInParent="true"
         android:contentDescription="@string/profile_image_content_desc"
-        android:src="@drawable/bx_launcher_finished" />
+        android:src="@drawable/bx_logo" />
 
     <TextView
         android:id="@+id/bx_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="-30dp"
+        android:layout_marginTop="@dimen/dimen_2_5"
         android:layout_below="@+id/bx_logo"
         android:text="@string/login_subtitle"
         android:textColor="@color/belatrix"

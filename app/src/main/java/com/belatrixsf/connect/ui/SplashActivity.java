@@ -23,12 +23,14 @@ package com.belatrixsf.connect.ui;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.managers.PreferencesManager;
+import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 import com.belatrixsf.connect.ui.home.GuestActivity;
 import com.belatrixsf.connect.ui.home.UserActivity;
 import com.belatrixsf.connect.ui.login.LoginActivity;
@@ -39,13 +41,14 @@ import butterknife.ButterKnife;
 /**
  * Created by echuquilin on 11/08/16.
  */
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BelatrixConnectActivity {
 
+    @Bind(R.id.launcherImageView) ImageView launcher;
     @Bind(R.id.logoImageView) ImageView logo;
     @Bind(R.id.splashBackground) RelativeLayout background;
 
     public static final int WAIT_DURATION = 800;
-    public static final int ANIMATION_DURATION = 350;
+    public static final int ANIMATION_DURATION = 500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,16 +59,18 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void startAnimation() {
-        this.setTheme(R.style.SplashThemeFinished);
         Handler waitHandler = new Handler();
         final Handler animationHandler = new Handler();
-        final TransitionDrawable bgTransition = (TransitionDrawable) background.getBackground();
-        final TransitionDrawable logoTransition = (TransitionDrawable) logo.getBackground();
+        final TransitionDrawable generalBgTransition = (TransitionDrawable) background.getBackground();
+        final TransitionDrawable launcherBgTransition = (TransitionDrawable) launcher.getBackground();
+        final TransitionDrawable logoBgTransition = (TransitionDrawable) logo.getBackground();
         waitHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                bgTransition.startTransition(ANIMATION_DURATION);
-                logoTransition.startTransition(ANIMATION_DURATION);
+                generalBgTransition.startTransition(ANIMATION_DURATION);
+                launcherBgTransition.startTransition(ANIMATION_DURATION);
+                logoBgTransition.startTransition(ANIMATION_DURATION);
+                animateLogo();
                 animationHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -74,6 +79,36 @@ public class SplashActivity extends AppCompatActivity {
                 }, ANIMATION_DURATION);
             }
         }, WAIT_DURATION);
+    }
+
+    private void animateLogo() {
+        AlphaAnimation launcherAnim = new AlphaAnimation(1f, 0f);
+        launcherAnim.setDuration(ANIMATION_DURATION / 2);
+        launcherAnim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                launcher.setAlpha(0f);
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+        launcher.startAnimation(launcherAnim);
+
+        AlphaAnimation logoAnim = new AlphaAnimation(0f, 1f);
+        logoAnim.setDuration(ANIMATION_DURATION / 2);
+        logoAnim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                logo.setAlpha(1f);
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+        logo.startAnimation(logoAnim);
     }
 
     private void continueFlow() {

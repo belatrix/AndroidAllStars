@@ -3,8 +3,9 @@
 
     <item android:drawable="@color/splashBackground"/>
 
-    <item
-        android:gravity="center"
-        android:drawable="@drawable/bx_launcher"/>
+    <item>
+        <bitmap android:src="@drawable/bx_launcher"
+            android:gravity="center"/>
+    </item>
 
 </layer-list>
