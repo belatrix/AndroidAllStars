@@ -47,7 +47,7 @@ public class SplashActivity extends BelatrixConnectActivity {
     @Bind(R.id.logoImageView) ImageView logo;
     @Bind(R.id.splashBackground) RelativeLayout background;
 
-    public static final int WAIT_DURATION = 800;
+    public static final int WAIT_DURATION = 1000;
     public static final int ANIMATION_DURATION = 500;
 
     @Override

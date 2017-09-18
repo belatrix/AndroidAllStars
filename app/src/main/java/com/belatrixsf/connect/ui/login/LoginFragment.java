@@ -32,19 +32,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.TranslateAnimation;
+import android.view.animation.Animation.AnimationListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.account.edit.EditAccountActivity;
 import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
-import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
+import com.belatrixsf.connect.ui.common.BaseAnimationsFragment;
 import com.belatrixsf.connect.ui.login.guest.LoginAsGuestActivity;
 import com.belatrixsf.connect.ui.resetpassword.ResetPasswordActivity;
 import com.belatrixsf.connect.ui.resetpassword.request.RequestNewPasswordActivity;
@@ -61,7 +61,7 @@ import butterknife.OnClick;
 
 import static com.belatrixsf.connect.utils.Constants.DEFAULT_DOMAIN_KEY;
 
-public class LoginFragment extends BelatrixConnectFragment implements LoginView {
+public class LoginFragment extends BaseAnimationsFragment implements LoginView {
 
     private LoginPresenter loginPresenter;
 
@@ -75,6 +75,7 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     @Bind(R.id.forgot_password) TextView forgotPasswordButton;
     @Bind(R.id.sign_up) Button signUpButton;
     @Bind(R.id.fields_container) LinearLayout fieldsContainer;
+    @Bind(R.id.logo_container) RelativeLayout logoContainer;
     @Bind(R.id.bx_logo) ImageView bxLogo;
     @Bind(R.id.bx_title) TextView bxTitle;
     @BindString(R.string.privacy_policy_url) String privacyPolicyURL;
@@ -209,6 +210,14 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (loginPresenter.isInitialAnimationEnded()) {
+            slideInAnimation();
+        }
+    }
+
+    @Override
     public float getLogoNewY() {
         return bxLogo.getY() - (fieldsContainer.getHeight() / 2);
     }
@@ -219,43 +228,29 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     }
 
     @Override
-    public void initialAnimations(float newLogoY, float logoScale, float newTitleY, int duration) {
-        bxTitle.setVisibility(View.VISIBLE);
-        Animation scaleAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.scale_from_center);
-        scaleAnimation.setDuration(duration / 2);
-        bxTitle.startAnimation(scaleAnimation);
-        bxTitle.animate().y(newTitleY).setDuration(duration);
+    public void initialAnimations(float logoScale , float initialLogoY, float initialTitleY) {
+        animateViewScaleFromCenter(bxTitle, null);
+        animateViewVerticalTranslation(bxTitle, initialTitleY, null);
 
-        bxLogo.animate().y(newLogoY).setDuration(duration);
-        bxLogo.animate().scaleXBy(logoScale).setDuration(duration);
-        bxLogo.animate().scaleYBy(logoScale).setDuration(duration);
+        animateViewSquareScale(bxLogo, logoScale, null);
+        animateViewVerticalTranslation(bxLogo, initialLogoY, null);
 
-        TranslateAnimation translation;
-        translation = new TranslateAnimation(0f, 0f, fieldsContainer.getHeight(), 0f);
-        translation.setDuration(duration);
-        translation.setInterpolator(getActivity(), android.R.interpolator.accelerate_decelerate);
-        translation.setFillAfter(true);
-        translation.setAnimationListener(new Animation.AnimationListener() {
+        animateViewVerticalOutInTranslation(fieldsContainer, AnimationDirection.SHOW_UP, new AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {}
             @Override
             public void onAnimationEnd(Animation animation) {
+                loginPresenter.endInitialAnimations();
                 loginPresenter.checkForCallNeeded();
             }
             @Override
             public void onAnimationRepeat(Animation animation) {}
         });
-        fieldsContainer.setVisibility(View.VISIBLE);
-        fieldsContainer.startAnimation(translation);
     }
 
     @Override
-    public void outAnimations(int duration) {
-        TranslateAnimation translation;
-        translation = new TranslateAnimation(0f, 0f, 0f, fieldsContainer.getHeight());
-        translation.setDuration(duration);
-        translation.setFillAfter(true);
-        translation.setAnimationListener(new Animation.AnimationListener() {
+    public void slideOutAnimation() {
+        animateViewVerticalOutInTranslation(fieldsContainer, AnimationDirection.HIDE_DOWN, new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {}
             @Override
@@ -268,18 +263,18 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
             @Override
             public void onAnimationRepeat(Animation animation) {}
         });
-        fieldsContainer.setVisibility(View.INVISIBLE);
-        fieldsContainer.startAnimation(translation);
+        animateViewVerticalOutInTranslation(logoContainer, AnimationDirection.HIDE_UP, null);
     }
 
     @Override
-    public void returnAnimations(int duration) {
-
+    public void slideInAnimation() {
+        animateViewVerticalOutInTranslation(fieldsContainer, AnimationDirection.SHOW_UP, null);
+        animateViewVerticalOutInTranslation(logoContainer, AnimationDirection.SHOW_DOWN, null);
     }
 
     @Override
-    public void startAnimations(Runnable runnable, int duration) {
-        new Handler().postDelayed(runnable, duration);
+    public void startAnimations(Runnable runnable) {
+        new Handler().postDelayed(runnable, WAIT_DURATION);
     }
 
     @Override

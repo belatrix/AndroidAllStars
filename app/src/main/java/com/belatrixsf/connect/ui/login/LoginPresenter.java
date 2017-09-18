@@ -34,25 +34,32 @@ public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
 
     private EmployeeManager employeeManager;
     private boolean callNeeded;
+    private boolean initialAnimationsEnded;
 
     public static final float SCALE_ANIMATION = 0.5f;
-    public static final int ANIMATIONS_DURATION = 500;
-    public static final int WAIT_DURATION = 100;
 
     private Runnable logoRunnable = new Runnable() {
         @Override
         public void run() {
             float logoNewY = view.getLogoNewY();
-            view.initialAnimations(logoNewY, SCALE_ANIMATION, view.getTitleNewY(logoNewY), ANIMATIONS_DURATION);
+            view.initialAnimations(logoNewY, SCALE_ANIMATION, view.getTitleNewY(logoNewY));
         }
     };
 
     private Runnable outRunnable = new Runnable() {
         @Override
         public void run() {
-            view.outAnimations(ANIMATIONS_DURATION);
+            view.slideOutAnimation();
         }
     };
+
+    public void endInitialAnimations() {
+        initialAnimationsEnded = true;
+    }
+
+    public boolean isInitialAnimationEnded() {
+        return initialAnimationsEnded;
+    }
 
     public void setCallNeeded(boolean callNeeded) {
         this.callNeeded = callNeeded;
@@ -69,6 +76,7 @@ public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
         super(view);
         this.employeeManager = employeeManager;
         this.callNeeded = false;
+        this.initialAnimationsEnded = false;
     }
 
     public void checkIfInputsAreValid(String username, String password) {
@@ -76,11 +84,11 @@ public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
     }
 
     public void startAnimations() {
-        view.startAnimations(logoRunnable, WAIT_DURATION);
+        view.startAnimations(logoRunnable);
     }
 
     public void onForgotPasswordClicked() {
-        view.startAnimations(outRunnable, WAIT_DURATION);
+        view.startAnimations(outRunnable);
     }
 
     public void init() {

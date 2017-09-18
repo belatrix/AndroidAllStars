@@ -4,6 +4,7 @@
     <dimen name="pre_session_fragment_margin">15dp</dimen>
 
     <dimen name="initial_logo">66dp</dimen>
+    <dimen name="login_logo">99dp</dimen>
 
     <dimen name="fab_margin">16dp</dimen>
 
