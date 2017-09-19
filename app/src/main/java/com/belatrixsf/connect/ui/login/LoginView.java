@@ -32,5 +32,16 @@ public interface LoginView extends BelatrixConnectView {
     void goEditProfile();
     void enableLogin(boolean enable);
     void setDefaultDomain(String domain);
+    void enableFields(boolean enable);
+
+    void startAnimations(Runnable runnable);
+    void initialAnimations(float newLogoScale, float initialLogoY, float initialTitleY);
+    void slideOutAnimation();
+    void slideInAnimation();
+
+    float getScreenCenterY();
+    float getLogoY();
+    float getTitleY();
+    float getLogoHeight();
 
 }

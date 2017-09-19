@@ -17,8 +17,10 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowBackground">@drawable/background_splash</item>
+    <style name="InitialTheme" parent="AppTheme.NoActionBar"/>
+
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:background">@drawable/background_splash</item>
     </style>
 
     <style name="Translucent" parent="AppTheme">
@@ -43,10 +45,20 @@
         <item name="android:singleLine">true</item>
     </style>
 
+    <style name="LoginFields" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/dimen_5</item>
+        <item name="android:paddingRight">@dimen/dimen_5</item>
+        <item name="android:background">@drawable/selector_edittext</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
     <style name="Button">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/dimen_8_6</item>
-        <item name="android:textSize">@dimen/text_16</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_18</item>
+        <item name="android:textAllCaps">false</item>
     </style>
 
     <style name="Button.Accent">
@@ -57,6 +69,16 @@
     <style name="Button.Primary">
         <item name="android:textColor">@color/selector_text_primary_button</item>
         <item name="android:background">@drawable/selector_primary_button</item>
+    </style>
+
+    <style name="Button.LoginAccent">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/selector_login_accent_button</item>
+    </style>
+
+    <style name="Button.LoginPrimary">
+        <item name="android:textColor">@color/selector_text_primary_button</item>
+        <item name="android:background">@drawable/selector_login_primary_button</item>
     </style>
 
     <style name="Button.Primary.Inverse">

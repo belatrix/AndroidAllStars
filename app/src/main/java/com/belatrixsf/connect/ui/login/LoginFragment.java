@@ -23,6 +23,7 @@ package com.belatrixsf.connect.ui.login;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
@@ -30,15 +31,20 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.account.edit.EditAccountActivity;
 import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
-import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
+import com.belatrixsf.connect.ui.common.BaseAnimationsFragment;
 import com.belatrixsf.connect.ui.login.guest.LoginAsGuestActivity;
 import com.belatrixsf.connect.ui.resetpassword.ResetPasswordActivity;
 import com.belatrixsf.connect.ui.resetpassword.request.RequestNewPasswordActivity;
@@ -55,7 +61,7 @@ import butterknife.OnClick;
 
 import static com.belatrixsf.connect.utils.Constants.DEFAULT_DOMAIN_KEY;
 
-public class LoginFragment extends BelatrixConnectFragment implements LoginView {
+public class LoginFragment extends BaseAnimationsFragment implements LoginView {
 
     private LoginPresenter loginPresenter;
 
@@ -68,6 +74,12 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     @Bind(R.id.log_in_as_guest) Button logInAsGuestButton;
     @Bind(R.id.forgot_password) TextView forgotPasswordButton;
     @Bind(R.id.sign_up) Button signUpButton;
+    @Bind(R.id.fields_container) LinearLayout fieldsContainer;
+    @Bind(R.id.logo_container) RelativeLayout logoContainer;
+    @Bind(R.id.tempLogo) ImageView tempLogo;
+    @Bind(R.id.bx_title) TextView tempTitle;
+    @Bind(R.id.bx_logo) ImageView bxLogo;
+    @Bind(R.id.bx_title) TextView bxTitle;
     @BindString(R.string.privacy_policy_url) String privacyPolicyURL;
 
     public LoginFragment() {
@@ -84,13 +96,15 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        loginPresenter.startAnimations();
         initViews();
-        usernameEditText.initEditText(getString(R.string.hint_username));
+        usernameEditText.setDefaultUsername(getString(R.string.hint_username));
         if (savedInstanceState == null) {
+            loginPresenter.setCallNeeded(true);
             loginPresenter.init();
-            loginPresenter.getDefaultDomain();
         }
         if(savedInstanceState != null){
+            loginPresenter.setCallNeeded(false);
             usernameEditText.setDefaultDomain(savedInstanceState.getString(DEFAULT_DOMAIN_KEY));
         }
     }
@@ -181,9 +195,7 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
 
     @OnClick(R.id.forgot_password)
     public void forgotPasswordClicked() {
-        Intent intent = new Intent(getActivity(), RequestNewPasswordActivity.class);
-        intent.putExtra(DEFAULT_DOMAIN_ID, defaultDomain);
-        startActivity(intent);
+        loginPresenter.onForgotPasswordClicked();
     }
 
     @OnClick(R.id.privacy_policy)
@@ -199,12 +211,101 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
         usernameEditText.setDefaultUsername(getString(R.string.hint_username));
     }
 
-    private TextWatcher formFieldWatcher = new TextWatcher() {
+    @Override
+    public void onResume() {
+        super.onResume();
+        loginPresenter.onFragmentResume();
+    }
+
+    @Override
+    public float getTitleY() {
+        return bxTitle.getY();
+    }
+
+    @Override
+    public float getLogoY() {
+        return bxLogo.getY();
+    }
+
+    @Override
+    public float getLogoHeight() {
+        return bxLogo.getHeight();
+    }
+
+    @Override
+    public float getScreenCenterY() {
+        return (getScreenHeight() / 2);
+    }
+
+    @Override
+    public void initialAnimations(float logoScale , float initialLogoY, float initialTitleY) {
+        startInitialLogoAnimation(logoScale, initialLogoY, initialTitleY);
+        animateViewVerticalOutInTranslation(fieldsContainer, AnimationDirection.SHOW_UP, initialAnimationListener);
+    }
+
+    private void startInitialLogoAnimation(float logoScale , float initialLogoY, float initialTitleY) {
+        tempLogo.animate().y(bxLogo.getY()).setDuration(ANIMATIONS_DURATION);
+        tempTitle.animate().y(bxTitle.getY()).setDuration(ANIMATIONS_DURATION);
+    }
+
+    @Override
+    public void slideOutAnimation() {
+        animateViewVerticalOutInTranslation(fieldsContainer, AnimationDirection.HIDE_DOWN, slideOutAnimationListener);
+        animateViewVerticalOutInTranslation(logoContainer, AnimationDirection.HIDE_UP, null);
+    }
+
+    @Override
+    public void slideInAnimation() {
+        animateViewVerticalOutInTranslation(fieldsContainer, AnimationDirection.SHOW_UP, null);
+        animateViewVerticalOutInTranslation(logoContainer, AnimationDirection.SHOW_DOWN, null);
+    }
+
+    @Override
+    public void startAnimations(Runnable runnable) {
+        new Handler().postDelayed(runnable, WAIT_DURATION);
+    }
+
+    @Override
+    public void enableFields(boolean enable) {
+        if (usernameEditText != null && passwordEditText != null) {
+            usernameEditText.setEnabled(enable);
+            passwordEditText.setEnabled(enable);
+        }
+    }
+
+    private AnimationListener initialAnimationListener = new AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {}
 
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+        public void onAnimationEnd(Animation animation) {
+            loginPresenter.endInitialAnimations();
+            loginPresenter.checkForCallNeeded();
         }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {}
+    };
+
+    private AnimationListener slideOutAnimationListener = new AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {}
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            Intent intent = new Intent(getActivity(), RequestNewPasswordActivity.class);
+            intent.putExtra(DEFAULT_DOMAIN_ID, defaultDomain);
+            startActivity(intent);
+            getActivity().overridePendingTransition(0, 0);
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {}
+    };
+
+    private TextWatcher formFieldWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -214,10 +315,7 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
         }
 
         @Override
-        public void afterTextChanged(Editable s) {
-
-        }
-
+        public void afterTextChanged(Editable s) {}
     };
 
 }
