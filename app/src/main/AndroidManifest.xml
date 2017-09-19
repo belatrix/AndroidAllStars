@@ -133,7 +133,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".ui.wizard.WizardMainActivity"
+            android:label="Wizard"/>
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="${fabric_io_api_key}" />

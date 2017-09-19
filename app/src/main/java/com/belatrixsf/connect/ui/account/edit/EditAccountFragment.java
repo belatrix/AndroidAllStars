@@ -200,7 +200,7 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
         }
     }
 
-    private void startPostponedEnterTransition() {
+    public void startPostponedEnterTransition() {
         pictureImageView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {

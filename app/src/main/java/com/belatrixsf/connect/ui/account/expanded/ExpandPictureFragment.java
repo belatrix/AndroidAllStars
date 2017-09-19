@@ -123,7 +123,7 @@ public class ExpandPictureFragment extends BelatrixConnectFragment implements Ex
         }
     }
 
-    private void startPostponedEnterTransition() {
+    public void startPostponedEnterTransition() {
         if (pictureImageView == null) {
             return;
         }

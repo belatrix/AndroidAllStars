@@ -30,5 +30,5 @@ public interface SignUpView extends BelatrixConnectView {
     void backToLogin();
     void enableSend(boolean enable);
     void showMessage(String message);
-
+    void showErrorMessage(String message);
 }
