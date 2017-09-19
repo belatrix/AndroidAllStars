@@ -36,13 +36,13 @@ public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
     private boolean callNeeded;
     private boolean initialAnimationsEnded;
 
-    public static final float SCALE_ANIMATION = 0.5f;
-
     private Runnable logoRunnable = new Runnable() {
         @Override
         public void run() {
-            float logoNewY = view.getLogoNewY();
-            view.initialAnimations(logoNewY, SCALE_ANIMATION, view.getTitleNewY(logoNewY));
+            float initialLogoScale = getInitialLogoScale();
+            float initialLogoY = getInitialLogoY();
+            float initialTitleY = getInitialTitleY(initialLogoY);
+            view.initialAnimations(initialLogoScale, initialLogoY, initialTitleY);
         }
     };
 
@@ -53,12 +53,40 @@ public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
         }
     };
 
-    public void endInitialAnimations() {
-        initialAnimationsEnded = true;
+    @Inject
+    public LoginPresenter(LoginView view, EmployeeManager employeeManager) {
+        super(view);
+        this.employeeManager = employeeManager;
+        this.callNeeded = false;
+        this.initialAnimationsEnded = false;
     }
 
-    public boolean isInitialAnimationEnded() {
-        return initialAnimationsEnded;
+    public void onFragmentResume() {
+        if (initialAnimationsEnded) {
+            view.slideInAnimation();
+        }
+    }
+
+    private float getInitialLogoScale() {
+        float logoSize = view.getLogoHeight();
+        float scale = ((logoSize / 3) * 2) / logoSize;
+        return scale;
+    }
+
+    private float getInitialLogoY() {
+        float initialScaledY = view.getScreenCenterY() - ((view.getLogoY() / 3));
+        float initialY = initialScaledY - view.getLogoY();
+        return initialY;
+    }
+
+    private float getInitialTitleY(float logoY) {
+        float alterY = logoY + ((view.getLogoHeight() / 3) * 2);
+        float initialY = alterY - view.getTitleY();
+        return initialY;
+    }
+
+    public void endInitialAnimations() {
+        initialAnimationsEnded = true;
     }
 
     public void setCallNeeded(boolean callNeeded) {
@@ -69,14 +97,6 @@ public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
         if (callNeeded) {
             getDefaultDomain();
         }
-    }
-
-    @Inject
-    public LoginPresenter(LoginView view, EmployeeManager employeeManager) {
-        super(view);
-        this.employeeManager = employeeManager;
-        this.callNeeded = false;
-        this.initialAnimationsEnded = false;
     }
 
     public void checkIfInputsAreValid(String username, String password) {
@@ -121,14 +141,6 @@ public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
         }
     }
 
-    private boolean areFieldsFilled(String username, String password) {
-        return username != null && password != null && !username.isEmpty() && !password.isEmpty();
-    }
-
-    @Override
-    public void cancelRequests() {
-    }
-
     public void getDefaultDomain() {
         //view.showProgressDialog();
         employeeManager.getSiteInfo(new PresenterCallback<SiteInfo>() {
@@ -140,4 +152,13 @@ public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
             }
         });
     }
+
+    private boolean areFieldsFilled(String username, String password) {
+        return username != null && password != null && !username.isEmpty() && !password.isEmpty();
+    }
+
+    @Override
+    public void cancelRequests() {
+    }
+
 }

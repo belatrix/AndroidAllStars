@@ -39,7 +39,9 @@ public interface LoginView extends BelatrixConnectView {
     void slideOutAnimation();
     void slideInAnimation();
 
-    float getLogoNewY();
-    float getTitleNewY(float logoY);
+    float getScreenCenterY();
+    float getLogoY();
+    float getTitleY();
+    float getLogoHeight();
 
 }

@@ -76,6 +76,8 @@ public class LoginFragment extends BaseAnimationsFragment implements LoginView {
     @Bind(R.id.sign_up) Button signUpButton;
     @Bind(R.id.fields_container) LinearLayout fieldsContainer;
     @Bind(R.id.logo_container) RelativeLayout logoContainer;
+    @Bind(R.id.tempLogo) ImageView tempLogo;
+    @Bind(R.id.bx_title) TextView tempTitle;
     @Bind(R.id.bx_logo) ImageView bxLogo;
     @Bind(R.id.bx_title) TextView bxTitle;
     @BindString(R.string.privacy_policy_url) String privacyPolicyURL;
@@ -212,57 +214,43 @@ public class LoginFragment extends BaseAnimationsFragment implements LoginView {
     @Override
     public void onResume() {
         super.onResume();
-        if (loginPresenter.isInitialAnimationEnded()) {
-            slideInAnimation();
-        }
+        loginPresenter.onFragmentResume();
     }
 
     @Override
-    public float getLogoNewY() {
-        return bxLogo.getY() - (fieldsContainer.getHeight() / 2);
+    public float getTitleY() {
+        return bxTitle.getY();
     }
 
     @Override
-    public float getTitleNewY(float logoY) {
-        return logoY + (bxLogo.getHeight() * 2) - getResources().getDimension(R.dimen.dimen_8_5);
+    public float getLogoY() {
+        return bxLogo.getY();
+    }
+
+    @Override
+    public float getLogoHeight() {
+        return bxLogo.getHeight();
+    }
+
+    @Override
+    public float getScreenCenterY() {
+        return (getScreenHeight() / 2);
     }
 
     @Override
     public void initialAnimations(float logoScale , float initialLogoY, float initialTitleY) {
-        animateViewScaleFromCenter(bxTitle, null);
-        animateViewVerticalTranslation(bxTitle, initialTitleY, null);
+        startInitialLogoAnimation(logoScale, initialLogoY, initialTitleY);
+        animateViewVerticalOutInTranslation(fieldsContainer, AnimationDirection.SHOW_UP, initialAnimationListener);
+    }
 
-        animateViewSquareScale(bxLogo, logoScale, null);
-        animateViewVerticalTranslation(bxLogo, initialLogoY, null);
-
-        animateViewVerticalOutInTranslation(fieldsContainer, AnimationDirection.SHOW_UP, new AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {}
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                loginPresenter.endInitialAnimations();
-                loginPresenter.checkForCallNeeded();
-            }
-            @Override
-            public void onAnimationRepeat(Animation animation) {}
-        });
+    private void startInitialLogoAnimation(float logoScale , float initialLogoY, float initialTitleY) {
+        tempLogo.animate().y(bxLogo.getY()).setDuration(ANIMATIONS_DURATION);
+        tempTitle.animate().y(bxTitle.getY()).setDuration(ANIMATIONS_DURATION);
     }
 
     @Override
     public void slideOutAnimation() {
-        animateViewVerticalOutInTranslation(fieldsContainer, AnimationDirection.HIDE_DOWN, new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {}
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                Intent intent = new Intent(getActivity(), RequestNewPasswordActivity.class);
-                intent.putExtra(DEFAULT_DOMAIN_ID, defaultDomain);
-                startActivity(intent);
-                getActivity().overridePendingTransition(0, 0);
-            }
-            @Override
-            public void onAnimationRepeat(Animation animation) {}
-        });
+        animateViewVerticalOutInTranslation(fieldsContainer, AnimationDirection.HIDE_DOWN, slideOutAnimationListener);
         animateViewVerticalOutInTranslation(logoContainer, AnimationDirection.HIDE_UP, null);
     }
 
@@ -285,12 +273,39 @@ public class LoginFragment extends BaseAnimationsFragment implements LoginView {
         }
     }
 
-    private TextWatcher formFieldWatcher = new TextWatcher() {
+    private AnimationListener initialAnimationListener = new AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {}
 
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+        public void onAnimationEnd(Animation animation) {
+            loginPresenter.endInitialAnimations();
+            loginPresenter.checkForCallNeeded();
         }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {}
+    };
+
+    private AnimationListener slideOutAnimationListener = new AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {}
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            Intent intent = new Intent(getActivity(), RequestNewPasswordActivity.class);
+            intent.putExtra(DEFAULT_DOMAIN_ID, defaultDomain);
+            startActivity(intent);
+            getActivity().overridePendingTransition(0, 0);
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {}
+    };
+
+    private TextWatcher formFieldWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -300,10 +315,7 @@ public class LoginFragment extends BaseAnimationsFragment implements LoginView {
         }
 
         @Override
-        public void afterTextChanged(Editable s) {
-
-        }
-
+        public void afterTextChanged(Editable s) {}
     };
 
 }
