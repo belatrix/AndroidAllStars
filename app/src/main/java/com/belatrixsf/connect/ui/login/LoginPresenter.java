@@ -36,13 +36,14 @@ public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
     private boolean callNeeded;
     private boolean initialAnimationsEnded;
 
+    public static final float LOGO_SCALE = 1.5f;
+
     private Runnable logoRunnable = new Runnable() {
         @Override
         public void run() {
-            float initialLogoScale = getInitialLogoScale();
-            float initialLogoY = getInitialLogoY();
-            float initialTitleY = getInitialTitleY(initialLogoY);
-            view.initialAnimations(initialLogoScale, initialLogoY, initialTitleY);
+            float logoY = view.getLogoY();
+            float titleY = view.getTitleY();
+            view.initialAnimations(logoY, titleY, LOGO_SCALE);
         }
     };
 
@@ -65,24 +66,6 @@ public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
         if (initialAnimationsEnded) {
             view.slideInAnimation();
         }
-    }
-
-    private float getInitialLogoScale() {
-        float logoSize = view.getLogoHeight();
-        float scale = ((logoSize / 3) * 2) / logoSize;
-        return scale;
-    }
-
-    private float getInitialLogoY() {
-        float initialScaledY = view.getScreenCenterY() - ((view.getLogoY() / 3));
-        float initialY = initialScaledY - view.getLogoY();
-        return initialY;
-    }
-
-    private float getInitialTitleY(float logoY) {
-        float alterY = logoY + ((view.getLogoHeight() / 3) * 2);
-        float initialY = alterY - view.getTitleY();
-        return initialY;
     }
 
     public void endInitialAnimations() {

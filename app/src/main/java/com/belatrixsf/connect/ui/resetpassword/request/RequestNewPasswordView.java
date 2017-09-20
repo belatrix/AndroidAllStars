@@ -20,15 +20,18 @@
 */
 package com.belatrixsf.connect.ui.resetpassword.request;
 
-import com.belatrixsf.connect.ui.common.BelatrixConnectView;
+import com.belatrixsf.connect.ui.common.BaseInitialAnimationsView;
 
 /**
  * Created by icerrate on 15/07/2016.
  */
-public interface RequestNewPasswordView extends BelatrixConnectView {
+public interface RequestNewPasswordView extends BaseInitialAnimationsView {
 
     void enableRequestButton(boolean enable);
     void goBacktoLogin();
     void showMessage(String message);
+    void removeEmailFocus();
+
+    boolean getEmailFocus();
 
 }

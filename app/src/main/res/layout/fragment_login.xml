@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:clipChildren="false"
-    android:focusableInTouchMode="true"
     android:paddingLeft="@dimen/pre_session_fragment_margin"
     android:paddingRight="@dimen/pre_session_fragment_margin"
     tools:context=".ui.login.LoginActivity">
@@ -16,15 +15,16 @@
         android:layout_width="@dimen/initial_logo"
         android:layout_height="@dimen/initial_logo"
         android:layout_centerInParent="true"
-        android:src="@drawable/bx_logo"/>
+        android:src="@drawable/bx_logo"
+        android:transitionName="@string/transition_splash_logo"/>
 
     <TextView
         android:id="@+id/tempTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dimen_2_5"
         android:layout_below="@+id/tempLogo"
+        android:layout_marginTop="@dimen/dimen_5"
         android:text="@string/login_subtitle"
         android:textColor="@color/belatrix"
         android:textAppearance="@android:style/TextAppearance.Large"
@@ -34,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipChildren="false"
+        android:focusableInTouchMode="true"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -47,8 +48,9 @@
                 android:id="@+id/bx_logo"
                 android:layout_width="@dimen/login_logo"
                 android:layout_height="@dimen/login_logo"
-                android:layout_marginTop="@dimen/dimen_10_7"
-                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
+                android:layout_above="@+id/bx_title"
+                android:layout_marginBottom="@dimen/dimen_5"
                 android:contentDescription="@string/profile_image_content_desc"
                 android:src="@drawable/bx_logo"
                 android:visibility="invisible"/>
@@ -58,8 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/dimen_2_5"
-                android:layout_below="@+id/bx_logo"
+                android:layout_alignParentBottom="true"
                 android:text="@string/login_subtitle"
                 android:textColor="@color/belatrix"
                 android:textAppearance="@android:style/TextAppearance.Large"

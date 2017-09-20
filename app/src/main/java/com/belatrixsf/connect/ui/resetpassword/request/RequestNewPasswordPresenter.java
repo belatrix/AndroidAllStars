@@ -20,6 +20,8 @@
 */
 package com.belatrixsf.connect.ui.resetpassword.request;
 
+import android.os.SystemClock;
+
 import com.belatrixsf.connect.networking.retrofit.responses.RequestNewPasswordResponse;
 import com.belatrixsf.connect.services.contracts.EmployeeService;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
@@ -32,12 +34,35 @@ import javax.inject.Inject;
  */
 public class RequestNewPasswordPresenter extends BelatrixConnectPresenter<RequestNewPasswordView> {
 
+    private long lastClickTime = 0; // to handle fast double click
     private EmployeeService employeeService;
+
+    private Runnable inRunnable = new Runnable() {
+        @Override
+        public void run() {
+            view.slideInAnimation();
+        }
+    };
 
     @Inject
     public RequestNewPasswordPresenter(RequestNewPasswordView view, EmployeeService employeeService) {
         super(view);
         this.employeeService = employeeService;
+    }
+
+    public void onBackClicked() {
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000) {
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
+        if (view.getEmailFocus()) {
+            view.removeEmailFocus();
+        }
+        view.slideOutAnimation();
+    }
+
+    public void startAnimations() {
+        view.startAnimations(inRunnable);
     }
 
     public void checkIfInputsIsValid(String email) {
@@ -69,7 +94,7 @@ public class RequestNewPasswordPresenter extends BelatrixConnectPresenter<Reques
         return email != null && !email.isEmpty();
     }
 
-    public void confirmMessage(){
+    public void endFlow(){
         view.goBacktoLogin();
     }
 

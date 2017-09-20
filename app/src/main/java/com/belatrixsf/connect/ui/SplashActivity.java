@@ -20,9 +20,14 @@
 */
 package com.belatrixsf.connect.ui;
 
+import android.annotation.TargetApi;
+import android.content.Intent;
 import android.graphics.drawable.TransitionDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
@@ -118,7 +123,7 @@ public class SplashActivity extends BelatrixConnectActivity {
                 PreferencesManager.get().isEditProfile();
         if (userHasPermission) {
             //Restore Employee session
-            startActivity(UserActivity.makeIntent(this));
+            animateIntent();
         } else {
             PreferencesManager.get().clearUserSession();
 
@@ -134,6 +139,16 @@ public class SplashActivity extends BelatrixConnectActivity {
         }
         overridePendingTransition(0, 0);
         finish();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void animateIntent() {
+        setTheme(R.style.BlankTheme); // to reset the splash background
+
+        Intent intent = UserActivity.makeIntent(this);
+        String transitionName = getString(R.string.transition_splash_logo);
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, logo, transitionName);
+        ActivityCompat.startActivity(this, intent, options.toBundle());
     }
 
 }

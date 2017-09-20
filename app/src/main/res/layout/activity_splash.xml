@@ -23,6 +23,7 @@
         android:layout_centerInParent="true"
         android:alpha="0"
         android:background="@drawable/transition_splash_background"
-        android:src="@drawable/bx_logo"/>
+        android:src="@drawable/bx_logo"
+        android:transitionName="@string/transition_splash_logo"/>
 
 </RelativeLayout>

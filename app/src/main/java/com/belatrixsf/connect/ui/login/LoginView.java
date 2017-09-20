@@ -20,12 +20,12 @@
 */
 package com.belatrixsf.connect.ui.login;
 
-import com.belatrixsf.connect.ui.common.BelatrixConnectView;
+import com.belatrixsf.connect.ui.common.BaseInitialAnimationsView;
 
 /**
  * Created by gyosida on 4/11/16.
  */
-public interface LoginView extends BelatrixConnectView {
+public interface LoginView extends BaseInitialAnimationsView {
 
     void goHome();
     void goResetPassword();
@@ -33,15 +33,9 @@ public interface LoginView extends BelatrixConnectView {
     void enableLogin(boolean enable);
     void setDefaultDomain(String domain);
     void enableFields(boolean enable);
+    void initialAnimations(float logoY, float titleY, float scale);
 
-    void startAnimations(Runnable runnable);
-    void initialAnimations(float newLogoScale, float initialLogoY, float initialTitleY);
-    void slideOutAnimation();
-    void slideInAnimation();
-
-    float getScreenCenterY();
     float getLogoY();
     float getTitleY();
-    float getLogoHeight();
 
 }

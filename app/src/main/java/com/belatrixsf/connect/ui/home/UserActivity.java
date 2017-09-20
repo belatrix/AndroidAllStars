@@ -20,9 +20,11 @@
 */
 package com.belatrixsf.connect.ui.home;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -33,8 +35,12 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.view.ActionMode;
+import android.transition.ChangeBounds;
+import android.transition.ChangeImageTransform;
+import android.transition.TransitionSet;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.UserNavigationViewPagerAdapter;
@@ -81,6 +87,7 @@ public class UserActivity extends MainActivity implements AccountFragmentListene
         }
         setToolbar();
         setupViews();
+        setupEnterSharedAnimation();
     }
 
     @Override
@@ -90,6 +97,16 @@ public class UserActivity extends MainActivity implements AccountFragmentListene
                 .applicationComponent(belatrixConnectApplication.getApplicationComponent())
                 .userHomePresenterModule(new UserHomePresenterModule(this))
                 .build().inject(this);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void setupEnterSharedAnimation() {
+        Window window = getWindow();
+        TransitionSet set = new TransitionSet();
+        set.addTransition(new ChangeImageTransform());
+        set.addTransition(new ChangeBounds());
+        set.setDuration(500);
+        window.setSharedElementEnterTransition(set);
     }
 
     protected void setupViews() {

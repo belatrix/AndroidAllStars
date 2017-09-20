@@ -77,13 +77,17 @@ public class LoginFragment extends BaseAnimationsFragment implements LoginView {
     @Bind(R.id.fields_container) LinearLayout fieldsContainer;
     @Bind(R.id.logo_container) RelativeLayout logoContainer;
     @Bind(R.id.tempLogo) ImageView tempLogo;
-    @Bind(R.id.bx_title) TextView tempTitle;
+    @Bind(R.id.tempTitle) TextView tempTitle;
     @Bind(R.id.bx_logo) ImageView bxLogo;
     @Bind(R.id.bx_title) TextView bxTitle;
     @BindString(R.string.privacy_policy_url) String privacyPolicyURL;
 
     public LoginFragment() {
         // Required empty public constructor
+    }
+
+    public static LoginFragment newInstance() {
+        return new LoginFragment();
     }
 
     @Override
@@ -96,12 +100,12 @@ public class LoginFragment extends BaseAnimationsFragment implements LoginView {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        loginPresenter.startAnimations();
-        initViews();
-        usernameEditText.setDefaultUsername(getString(R.string.hint_username));
         if (savedInstanceState == null) {
+            initViews();
+            usernameEditText.setDefaultUsername(getString(R.string.hint_username));
             loginPresenter.setCallNeeded(true);
             loginPresenter.init();
+            loginPresenter.startAnimations();
         }
         if(savedInstanceState != null){
             loginPresenter.setCallNeeded(false);
@@ -212,12 +216,6 @@ public class LoginFragment extends BaseAnimationsFragment implements LoginView {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        loginPresenter.onFragmentResume();
-    }
-
-    @Override
     public float getTitleY() {
         return bxTitle.getY();
     }
@@ -228,36 +226,33 @@ public class LoginFragment extends BaseAnimationsFragment implements LoginView {
     }
 
     @Override
-    public float getLogoHeight() {
-        return bxLogo.getHeight();
+    public void initialAnimations(float logoY, float titleY, float scale) {
+        startInitialLogoAnimation(logoY, titleY, scale);
+
+        Animation appearFieldsAnim = customTranslateAnimation(fieldsContainer, OutInAnimDirection.IN_UP);
+        appearFieldsAnim.setAnimationListener(initialAnimationListener);
+        fieldsContainer.startAnimation(appearFieldsAnim);
     }
 
-    @Override
-    public float getScreenCenterY() {
-        return (getScreenHeight() / 2);
-    }
-
-    @Override
-    public void initialAnimations(float logoScale , float initialLogoY, float initialTitleY) {
-        startInitialLogoAnimation(logoScale, initialLogoY, initialTitleY);
-        animateViewVerticalOutInTranslation(fieldsContainer, AnimationDirection.SHOW_UP, initialAnimationListener);
-    }
-
-    private void startInitialLogoAnimation(float logoScale , float initialLogoY, float initialTitleY) {
-        tempLogo.animate().y(bxLogo.getY()).setDuration(ANIMATIONS_DURATION);
-        tempTitle.animate().y(bxTitle.getY()).setDuration(ANIMATIONS_DURATION);
+    private void startInitialLogoAnimation(float logoY, float titleY, float scale) {
+        tempLogo.startAnimation(initialLogoAnimation(logoY - tempLogo.getY(), scale));
+        tempTitle.animate().y(titleY).setDuration(ANIMATIONS_DURATION);
+        tempTitle.startAnimation(scaleFromCenterAnimation(null));
     }
 
     @Override
     public void slideOutAnimation() {
-        animateViewVerticalOutInTranslation(fieldsContainer, AnimationDirection.HIDE_DOWN, slideOutAnimationListener);
-        animateViewVerticalOutInTranslation(logoContainer, AnimationDirection.HIDE_UP, null);
+        logoContainer.startAnimation(customTranslateAnimation(logoContainer, OutInAnimDirection.OUT_UP));
+
+        Animation slideOutAnim = customTranslateAnimation(fieldsContainer, OutInAnimDirection.OUT_DOWN);
+        slideOutAnim.setAnimationListener(slideOutAnimationListener);
+        fieldsContainer.startAnimation(slideOutAnim);
     }
 
     @Override
     public void slideInAnimation() {
-        animateViewVerticalOutInTranslation(fieldsContainer, AnimationDirection.SHOW_UP, null);
-        animateViewVerticalOutInTranslation(logoContainer, AnimationDirection.SHOW_DOWN, null);
+        fieldsContainer.startAnimation(customTranslateAnimation(fieldsContainer, OutInAnimDirection.IN_UP));
+        logoContainer.startAnimation(customTranslateAnimation(logoContainer, OutInAnimDirection.IN_DOWN));
     }
 
     @Override
@@ -273,6 +268,15 @@ public class LoginFragment extends BaseAnimationsFragment implements LoginView {
         }
     }
 
+    private void replaceLogo() {
+        bxLogo.setVisibility(View.VISIBLE);
+        bxTitle.setVisibility(View.VISIBLE);
+        tempLogo.clearAnimation();
+        tempTitle.clearAnimation();
+        tempLogo.setVisibility(View.GONE);
+        tempTitle.setVisibility(View.GONE);
+    }
+
     private AnimationListener initialAnimationListener = new AnimationListener() {
         @Override
         public void onAnimationStart(Animation animation) {}
@@ -281,6 +285,7 @@ public class LoginFragment extends BaseAnimationsFragment implements LoginView {
         public void onAnimationEnd(Animation animation) {
             loginPresenter.endInitialAnimations();
             loginPresenter.checkForCallNeeded();
+            replaceLogo();
         }
 
         @Override

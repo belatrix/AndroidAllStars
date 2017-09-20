@@ -18,33 +18,15 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.ui.resetpassword.request;
-
-import android.os.Bundle;
-
-import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
+package com.belatrixsf.connect.ui.common;
 
 /**
- * Created by icerrate on 15/07/2016.
+ * Created by echuquilin on 9/20/17.
  */
-public class RequestNewPasswordActivity extends BelatrixConnectActivity {
+public interface BaseInitialAnimationsView extends BelatrixConnectView {
 
-    private RequestNewPasswordFragment fragment;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_request_new_password);
-        if (savedInstanceState == null) {
-            fragment = RequestNewPasswordFragment.newInstance();
-            replaceFragment(fragment, false);
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        fragment.slideOutAnimation();
-    }
+    void startAnimations(Runnable runnable);
+    void slideInAnimation();
+    void slideOutAnimation();
 
 }
