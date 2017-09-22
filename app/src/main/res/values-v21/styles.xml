@@ -29,7 +29,7 @@
     </style>
 
     <style name="BlankTheme" parent="AppTheme">
-        <item name="android:background">@drawable/background_blank</item>
+        <item name="android:windowBackground">@drawable/background_blank</item>
 
     </style>
 

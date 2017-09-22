@@ -138,4 +138,8 @@ public class GuestActivity extends MainActivity {
         }
     }
 
+    @Override
+    public void animateEndSession(Runnable runnable, int duration) {
+        //TODO: animation for guest session
+    }
 }

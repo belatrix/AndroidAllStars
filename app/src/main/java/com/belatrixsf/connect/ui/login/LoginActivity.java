@@ -30,7 +30,6 @@ import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 public class LoginActivity extends BelatrixConnectActivity {
 
     public static LoginFragment fragment;
-    public static boolean returnedFromHome = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

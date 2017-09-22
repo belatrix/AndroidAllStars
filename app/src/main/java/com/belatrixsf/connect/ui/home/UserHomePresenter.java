@@ -35,6 +35,15 @@ public class UserHomePresenter extends BelatrixConnectPresenter<HomeView> implem
 
     private EmployeeManager employeeManager;
 
+    private final int WAIT_DURATION = 300;
+
+    private Runnable endSessionRunnable = new Runnable() {
+        @Override
+        public void run() {
+            view.endSession();
+        }
+    };
+
     @Inject
     public UserHomePresenter(HomeView view, EmployeeManager employeeManager) {
         super(view);
@@ -53,13 +62,13 @@ public class UserHomePresenter extends BelatrixConnectPresenter<HomeView> implem
             @Override
             public void onSuccess(Void aVoid) {
                 view.dismissProgressDialog();
-                view.endSession();
+                view.animateEndSession(endSessionRunnable, WAIT_DURATION);
             }
 
             @Override
             public void onFailure(ServiceError serviceError) {
                 view.dismissProgressDialog();
-                view.endSession();
+                view.animateEndSession(endSessionRunnable, WAIT_DURATION);
             }
         });
     }

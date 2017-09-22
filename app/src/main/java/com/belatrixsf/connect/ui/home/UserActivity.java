@@ -20,9 +20,11 @@
 */
 package com.belatrixsf.connect.ui.home;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -35,16 +37,21 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.view.ActionMode;
+import android.transition.ChangeBounds;
+import android.transition.ChangeImageTransform;
+import android.transition.Transition;
+import android.transition.TransitionSet;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.UserNavigationViewPagerAdapter;
 import com.belatrixsf.connect.services.fcm.ConnectFirebaseMessagingService;
+import com.belatrixsf.connect.ui.IntermediaryLogoActivity;
 import com.belatrixsf.connect.ui.about.AboutActivity;
 import com.belatrixsf.connect.ui.account.AccountFragmentListener;
 import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
-import com.belatrixsf.connect.ui.login.LoginActivity;
 import com.belatrixsf.connect.ui.notifications.NotificationListActivity;
 import com.belatrixsf.connect.ui.settings.SettingsActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarActivity;
@@ -65,6 +72,10 @@ public class UserActivity extends MainActivity implements AccountFragmentListene
     public static final int RANKING_TAB = 3;
     public static final int RQ_GIVE_STAR = 99;
     public static final int PARENT_INDEX = 3;
+    private final String INTERMEDIARY_EXTRA_KEY = "intermediary_key";
+
+    public static Activity previousActivity;
+
     private ConnectFirebaseMessagingService.TargetTab tabSelected;
 
     @Bind(R.id.main_view_pager) ViewPager mainViewPager;
@@ -83,8 +94,39 @@ public class UserActivity extends MainActivity implements AccountFragmentListene
         } else {
             tabSelected = ConnectFirebaseMessagingService.TargetTab.ACCOUNT_TAB;
         }
+        setupEnterSharedAnimation();
         setToolbar();
         setupViews();
+    }
+
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void setupEnterSharedAnimation() {
+        Window window = getWindow();
+        TransitionSet set = new TransitionSet();
+        set.addTransition(new ChangeImageTransform());
+        set.addTransition(new ChangeBounds());
+        set.addListener(new Transition.TransitionListener() {
+            @Override
+            public void onTransitionStart(Transition transition) {}
+
+            @Override
+            public void onTransitionEnd(Transition transition) {
+                if (previousActivity != null) {
+                    previousActivity.finish();
+                }
+            }
+
+            @Override
+            public void onTransitionCancel(Transition transition) {}
+
+            @Override
+            public void onTransitionPause(Transition transition) {}
+
+            @Override
+            public void onTransitionResume(Transition transition) {}
+        });
+        window.setSharedElementEnterTransition(set);
     }
 
     @Override
@@ -255,13 +297,18 @@ public class UserActivity extends MainActivity implements AccountFragmentListene
 
     @Override
     public void endSession() {
-        Intent intent = new Intent(this, LoginActivity.class);
+        IntermediaryLogoActivity.nextActivity = null;
+        IntermediaryLogoActivity.previousActivity = this;
+        Intent intent = IntermediaryLogoActivity.makeIntent(this);
+        intent.putExtra(INTERMEDIARY_EXTRA_KEY, true);
         String transitionName = getString(R.string.transition_splash_logo);
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, mainContainer, transitionName);
         ActivityCompat.startActivity(this, intent, options.toBundle());
-        LoginActivity.returnedFromHome = true;
         overridePendingTransition(0, 0);
-        finish();
     }
 
+    @Override
+    public void animateEndSession(Runnable runnable, int duration) {
+        new Handler().postDelayed(runnable, duration);
+    }
 }

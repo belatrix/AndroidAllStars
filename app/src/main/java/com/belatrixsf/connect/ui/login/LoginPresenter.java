@@ -153,13 +153,13 @@ public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
     public void continueFlow() {
         switch (userState) {
             case PROFILE_COMPLETE:
-                view.startAnimatedActivity(view.homeIntent());
+                view.goToNextActivity(view.homeIntent());
                 break;
             case PROFILE_INCOMPLETE:
-                view.startAnimatedActivity(view.editProfileIntent());
+                view.goToNextActivity(view.editProfileIntent());
                 break;
             case PASSWORD_RESET_INCOMPLETE:
-                view.startAnimatedActivity(view.resetPassIntent());
+                view.goToNextActivity(view.resetPassIntent());
                 break;
         }
     }

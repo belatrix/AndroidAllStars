@@ -36,7 +36,7 @@ public interface LoginView extends BaseInitialAnimationsView {
     void loggedAnimations(float scale);
     void replaceLogo();
     void startLoggedHandler(Runnable runnable, int duration);
-    void startAnimatedActivity(Intent intent);
+    void goToNextActivity(Intent intent);
 
     Intent homeIntent();
     Intent editProfileIntent();

@@ -24,8 +24,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
@@ -44,6 +42,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.belatrixsf.connect.R;
+import com.belatrixsf.connect.ui.IntermediaryLogoActivity;
 import com.belatrixsf.connect.ui.account.edit.EditAccountActivity;
 import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
@@ -76,6 +75,8 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
 
     private String defaultDomain;
     private final String DEFAULT_DOMAIN_ID = "default_domain_id";
+    private final String INTERMEDIARY_EXTRA_KEY = "intermediary_key";
+    private final int LOGGED_ANIMATION_DURATION = 800;
 
     @Bind(R.id.username) CustomDomainEditText usernameEditText;
     @Bind(R.id.password) EditText passwordEditText;
@@ -232,6 +233,7 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
 
         Animation hideFieldsAnim = customTranslateAnimation(getActivity(), fieldsContainer, OutInAnimDirection.OUT_DOWN);
         hideFieldsAnim.setAnimationListener(loggedAnimationListener);
+        hideFieldsAnim.setDuration(LOGGED_ANIMATION_DURATION);
         fieldsContainer.startAnimation(hideFieldsAnim);
     }
 
@@ -242,8 +244,13 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     }
 
     private void loggedLogoAnimation(float scale) {
-        bxLogo.startAnimation(moveLogoAnimation(getActivity(), StraightAnimDirection.DOWN, tempLogo.getY() - bxLogo.getY(), scale));
-        bxTitle.startAnimation(scaleCenterAnimation(getActivity(), null, false));
+        Animation bxLogoReverseAnim = moveLogoAnimation(getActivity(), StraightAnimDirection.DOWN, tempLogo.getY() - bxLogo.getY(), scale);
+        Animation bxTitleReverseAnim = scaleCenterAnimation(getActivity(), null, false);
+        bxLogoReverseAnim.setDuration(LOGGED_ANIMATION_DURATION);
+        bxTitleReverseAnim.setDuration(LOGGED_ANIMATION_DURATION);
+
+        bxLogo.startAnimation(bxLogoReverseAnim);
+        bxTitle.startAnimation(bxTitleReverseAnim);
     }
 
     @Override
@@ -263,16 +270,12 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
 
     @Override
     public void startAnimations(Runnable runnable) {
-        if (LoginActivity.returnedFromHome) {
-            new Handler().postDelayed(runnable, ANIMATIONS_DURATION);
-        } else {
-            new Handler().postDelayed(runnable, WAIT_DURATION);
-        }
+        new Handler().postDelayed(runnable, WAIT_DURATION);
     }
 
     @Override
     public void startLoggedHandler(Runnable runnable, int duration) {
-        new Handler().postDelayed(runnable, ANIMATIONS_DURATION);
+        new Handler().postDelayed(runnable, duration);
     }
 
     @Override
@@ -353,11 +356,11 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     };
 
     @Override
-    public void startAnimatedActivity(Intent intent) {
-        String transitionName = getString(R.string.transition_splash_logo);
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), tempLogo, transitionName);
-        ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
-
+    public void goToNextActivity(Intent intent) {
+        IntermediaryLogoActivity.nextActivity = intent;
+        Intent intermediaryIntent = IntermediaryLogoActivity.makeIntent(getActivity());
+        intermediaryIntent.putExtra(INTERMEDIARY_EXTRA_KEY, false);
+        startActivity(intermediaryIntent);
         getActivity().overridePendingTransition(0, 0);
         fragmentListener.closeActivity();
     }
