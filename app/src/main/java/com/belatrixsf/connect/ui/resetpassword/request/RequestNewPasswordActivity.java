@@ -44,7 +44,7 @@ public class RequestNewPasswordActivity extends BelatrixConnectActivity {
 
     @Override
     public void onBackPressed() {
-        fragment.slideOutAnimation();
+        fragment.onBackClicked();
     }
 
 }

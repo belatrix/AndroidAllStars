@@ -24,6 +24,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
@@ -44,12 +46,12 @@ import android.widget.TextView;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.account.edit.EditAccountActivity;
 import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
-import com.belatrixsf.connect.ui.common.BaseAnimationsFragment;
+import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
+import com.belatrixsf.connect.ui.home.UserActivity;
 import com.belatrixsf.connect.ui.login.guest.LoginAsGuestActivity;
 import com.belatrixsf.connect.ui.resetpassword.ResetPasswordActivity;
 import com.belatrixsf.connect.ui.resetpassword.request.RequestNewPasswordActivity;
 import com.belatrixsf.connect.ui.signup.SignUpActivity;
-import com.belatrixsf.connect.ui.wizard.WizardMainActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.CustomDomainEditText;
 import com.belatrixsf.connect.utils.di.components.DaggerLoginComponent;
@@ -59,9 +61,16 @@ import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.OnClick;
 
+import static com.belatrixsf.connect.utils.AnimationsUtils.ANIMATIONS_DURATION;
+import static com.belatrixsf.connect.utils.AnimationsUtils.OutInAnimDirection;
+import static com.belatrixsf.connect.utils.AnimationsUtils.StraightAnimDirection;
+import static com.belatrixsf.connect.utils.AnimationsUtils.WAIT_DURATION;
+import static com.belatrixsf.connect.utils.AnimationsUtils.customTranslateAnimation;
+import static com.belatrixsf.connect.utils.AnimationsUtils.moveLogoAnimation;
+import static com.belatrixsf.connect.utils.AnimationsUtils.scaleCenterAnimation;
 import static com.belatrixsf.connect.utils.Constants.DEFAULT_DOMAIN_KEY;
 
-public class LoginFragment extends BaseAnimationsFragment implements LoginView {
+public class LoginFragment extends BelatrixConnectFragment implements LoginView {
 
     private LoginPresenter loginPresenter;
 
@@ -115,7 +124,7 @@ public class LoginFragment extends BaseAnimationsFragment implements LoginView {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putString(DEFAULT_DOMAIN_KEY,usernameEditText.getDefaultDomain());
+        outState.putString(DEFAULT_DOMAIN_KEY, usernameEditText.getDefaultDomain());
         super.onSaveInstanceState(outState);
     }
 
@@ -151,25 +160,20 @@ public class LoginFragment extends BaseAnimationsFragment implements LoginView {
     }
 
     @Override
-    public void goHome() {
-        //Intent intent = new Intent(getActivity(), UserActivity.class);
-        //startActivity(intent);
-        startActivity(WizardMainActivity.makeIntent(getActivity()));
-        fragmentListener.closeActivity();
+    public Intent homeIntent() {
+        return UserActivity.makeIntent(getActivity());
     }
 
     @Override
-    public void goResetPassword() {
-        Intent intent = new Intent(getActivity(), ResetPasswordActivity.class);
-        startActivity(intent);
-    }
-
-    @Override
-    public void goEditProfile() {
+    public Intent editProfileIntent() {
         Intent intent = new Intent(getActivity(), EditAccountActivity.class);
         intent.putExtra(EditAccountFragment.IS_NEW_USER, true);
-        startActivity(intent);
-        fragmentListener.closeActivity();
+        return intent;
+    }
+
+    @Override
+    public Intent resetPassIntent() {
+        return new Intent(getActivity(), ResetPasswordActivity.class);
     }
 
     @Override
@@ -192,9 +196,7 @@ public class LoginFragment extends BaseAnimationsFragment implements LoginView {
 
     @OnClick(R.id.sign_up)
     public void signUpClicked() {
-        Intent intent = new Intent(getActivity(), SignUpActivity.class);
-        intent.putExtra(DEFAULT_DOMAIN_ID, defaultDomain);
-        startActivity(intent);
+        loginPresenter.onSignUpClicked();
     }
 
     @OnClick(R.id.forgot_password)
@@ -216,48 +218,61 @@ public class LoginFragment extends BaseAnimationsFragment implements LoginView {
     }
 
     @Override
-    public float getTitleY() {
-        return bxTitle.getY();
-    }
+    public void initialAnimations(float scale) {
+        startInitialLogoAnimation(scale);
 
-    @Override
-    public float getLogoY() {
-        return bxLogo.getY();
-    }
-
-    @Override
-    public void initialAnimations(float logoY, float titleY, float scale) {
-        startInitialLogoAnimation(logoY, titleY, scale);
-
-        Animation appearFieldsAnim = customTranslateAnimation(fieldsContainer, OutInAnimDirection.IN_UP);
+        Animation appearFieldsAnim = customTranslateAnimation(getActivity(), fieldsContainer, OutInAnimDirection.IN_UP);
         appearFieldsAnim.setAnimationListener(initialAnimationListener);
         fieldsContainer.startAnimation(appearFieldsAnim);
     }
 
-    private void startInitialLogoAnimation(float logoY, float titleY, float scale) {
-        tempLogo.startAnimation(initialLogoAnimation(logoY - tempLogo.getY(), scale));
-        tempTitle.animate().y(titleY).setDuration(ANIMATIONS_DURATION);
-        tempTitle.startAnimation(scaleFromCenterAnimation(null));
+    @Override
+    public void loggedAnimations(float scale) {
+        loggedLogoAnimation(scale);
+
+        Animation hideFieldsAnim = customTranslateAnimation(getActivity(), fieldsContainer, OutInAnimDirection.OUT_DOWN);
+        hideFieldsAnim.setAnimationListener(loggedAnimationListener);
+        fieldsContainer.startAnimation(hideFieldsAnim);
+    }
+
+    private void startInitialLogoAnimation(float scale) {
+        tempLogo.startAnimation(moveLogoAnimation(getActivity(), StraightAnimDirection.UP, tempLogo.getY() - bxLogo.getY(), scale));
+        tempTitle.animate().y(bxTitle.getY()).setDuration(ANIMATIONS_DURATION);
+        tempTitle.startAnimation(scaleCenterAnimation(getActivity(), null, true));
+    }
+
+    private void loggedLogoAnimation(float scale) {
+        bxLogo.startAnimation(moveLogoAnimation(getActivity(), StraightAnimDirection.DOWN, tempLogo.getY() - bxLogo.getY(), scale));
+        bxTitle.startAnimation(scaleCenterAnimation(getActivity(), null, false));
     }
 
     @Override
     public void slideOutAnimation() {
-        logoContainer.startAnimation(customTranslateAnimation(logoContainer, OutInAnimDirection.OUT_UP));
+        logoContainer.startAnimation(customTranslateAnimation(getActivity(), logoContainer, OutInAnimDirection.OUT_UP));
 
-        Animation slideOutAnim = customTranslateAnimation(fieldsContainer, OutInAnimDirection.OUT_DOWN);
+        Animation slideOutAnim = customTranslateAnimation(getActivity(), fieldsContainer, OutInAnimDirection.OUT_DOWN);
         slideOutAnim.setAnimationListener(slideOutAnimationListener);
         fieldsContainer.startAnimation(slideOutAnim);
     }
 
     @Override
     public void slideInAnimation() {
-        fieldsContainer.startAnimation(customTranslateAnimation(fieldsContainer, OutInAnimDirection.IN_UP));
-        logoContainer.startAnimation(customTranslateAnimation(logoContainer, OutInAnimDirection.IN_DOWN));
+        fieldsContainer.startAnimation(customTranslateAnimation(getActivity(), fieldsContainer, OutInAnimDirection.IN_UP));
+        logoContainer.startAnimation(customTranslateAnimation(getActivity(), logoContainer, OutInAnimDirection.IN_DOWN));
     }
 
     @Override
     public void startAnimations(Runnable runnable) {
-        new Handler().postDelayed(runnable, WAIT_DURATION);
+        if (LoginActivity.returnedFromHome) {
+            new Handler().postDelayed(runnable, ANIMATIONS_DURATION);
+        } else {
+            new Handler().postDelayed(runnable, WAIT_DURATION);
+        }
+    }
+
+    @Override
+    public void startLoggedHandler(Runnable runnable, int duration) {
+        new Handler().postDelayed(runnable, ANIMATIONS_DURATION);
     }
 
     @Override
@@ -268,13 +283,14 @@ public class LoginFragment extends BaseAnimationsFragment implements LoginView {
         }
     }
 
-    private void replaceLogo() {
+    @Override
+    public void replaceLogo() {
         bxLogo.setVisibility(View.VISIBLE);
         bxTitle.setVisibility(View.VISIBLE);
+        tempLogo.setVisibility(View.INVISIBLE);
+        tempTitle.setVisibility(View.INVISIBLE);
         tempLogo.clearAnimation();
         tempTitle.clearAnimation();
-        tempLogo.setVisibility(View.GONE);
-        tempTitle.setVisibility(View.GONE);
     }
 
     private AnimationListener initialAnimationListener = new AnimationListener() {
@@ -283,9 +299,7 @@ public class LoginFragment extends BaseAnimationsFragment implements LoginView {
 
         @Override
         public void onAnimationEnd(Animation animation) {
-            loginPresenter.endInitialAnimations();
             loginPresenter.checkForCallNeeded();
-            replaceLogo();
         }
 
         @Override
@@ -298,10 +312,25 @@ public class LoginFragment extends BaseAnimationsFragment implements LoginView {
 
         @Override
         public void onAnimationEnd(Animation animation) {
-            Intent intent = new Intent(getActivity(), RequestNewPasswordActivity.class);
+            Class toActivityClass = (loginPresenter.isGoingToSignUp()) ? SignUpActivity.class :
+                                                                    RequestNewPasswordActivity.class;
+            Intent intent = new Intent(getActivity(), toActivityClass);
             intent.putExtra(DEFAULT_DOMAIN_ID, defaultDomain);
             startActivity(intent);
             getActivity().overridePendingTransition(0, 0);
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {}
+    };
+
+    private AnimationListener loggedAnimationListener = new AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {}
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            loginPresenter.continueFlow();
         }
 
         @Override
@@ -322,5 +351,15 @@ public class LoginFragment extends BaseAnimationsFragment implements LoginView {
         @Override
         public void afterTextChanged(Editable s) {}
     };
+
+    @Override
+    public void startAnimatedActivity(Intent intent) {
+        String transitionName = getString(R.string.transition_splash_logo);
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), tempLogo, transitionName);
+        ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
+
+        getActivity().overridePendingTransition(0, 0);
+        fragmentListener.closeActivity();
+    }
 
 }

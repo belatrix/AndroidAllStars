@@ -20,11 +20,9 @@
 */
 package com.belatrixsf.connect.ui.home;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -33,14 +31,12 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.view.ActionMode;
-import android.transition.ChangeBounds;
-import android.transition.ChangeImageTransform;
-import android.transition.TransitionSet;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.UserNavigationViewPagerAdapter;
@@ -48,6 +44,7 @@ import com.belatrixsf.connect.services.fcm.ConnectFirebaseMessagingService;
 import com.belatrixsf.connect.ui.about.AboutActivity;
 import com.belatrixsf.connect.ui.account.AccountFragmentListener;
 import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
+import com.belatrixsf.connect.ui.login.LoginActivity;
 import com.belatrixsf.connect.ui.notifications.NotificationListActivity;
 import com.belatrixsf.connect.ui.settings.SettingsActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarActivity;
@@ -72,6 +69,7 @@ public class UserActivity extends MainActivity implements AccountFragmentListene
 
     @Bind(R.id.main_view_pager) ViewPager mainViewPager;
     @Bind(R.id.start_recommendation) FloatingActionButton startRecommendationButton;
+    @Bind(R.id.main_container) View mainContainer;
     @Nullable @Bind(R.id.tab_layout) TabLayout tabLayout;
 
     @Override
@@ -87,7 +85,6 @@ public class UserActivity extends MainActivity implements AccountFragmentListene
         }
         setToolbar();
         setupViews();
-        setupEnterSharedAnimation();
     }
 
     @Override
@@ -97,16 +94,6 @@ public class UserActivity extends MainActivity implements AccountFragmentListene
                 .applicationComponent(belatrixConnectApplication.getApplicationComponent())
                 .userHomePresenterModule(new UserHomePresenterModule(this))
                 .build().inject(this);
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void setupEnterSharedAnimation() {
-        Window window = getWindow();
-        TransitionSet set = new TransitionSet();
-        set.addTransition(new ChangeImageTransform());
-        set.addTransition(new ChangeBounds());
-        set.setDuration(500);
-        window.setSharedElementEnterTransition(set);
     }
 
     protected void setupViews() {
@@ -264,6 +251,17 @@ public class UserActivity extends MainActivity implements AccountFragmentListene
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, UserActivity.class);
+    }
+
+    @Override
+    public void endSession() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        String transitionName = getString(R.string.transition_splash_logo);
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, mainContainer, transitionName);
+        ActivityCompat.startActivity(this, intent, options.toBundle());
+        LoginActivity.returnedFromHome = true;
+        overridePendingTransition(0, 0);
+        finish();
     }
 
 }

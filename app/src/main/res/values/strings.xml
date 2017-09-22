@@ -230,6 +230,7 @@ SOFTWARE.</string>
     <!-- Transition names -->
     <string name="transition_photo">transition_photo</string>
     <string name="transition_splash_logo">transition_splash_logo</string>
+    <string name="transition_tag_toolbar">transition_tag_toolbar</string>
 
     <!--Content description-->
     <string name="location_content_desc">Location icon</string>

@@ -22,6 +22,8 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
+    <style name="InitialTheme" parent="AppTheme"/>
+
     <style name="SplashTheme" parent="AppTheme">
         <item name="android:background">@drawable/background_splash</item>
     </style>

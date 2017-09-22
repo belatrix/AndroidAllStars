@@ -20,10 +20,14 @@
 */
 package com.belatrixsf.connect.ui.login;
 
+import android.os.SystemClock;
+
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.SiteInfo;
 import com.belatrixsf.connect.managers.EmployeeManager;
+import com.belatrixsf.connect.managers.EmployeeManager.AccountState;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
+import com.belatrixsf.connect.utils.ServiceError;
 
 import javax.inject.Inject;
 
@@ -32,25 +36,28 @@ import javax.inject.Inject;
  */
 public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
 
+    private long lastClickTime = 0; // to handle fast double click
+
     private EmployeeManager employeeManager;
+    private AccountState userState;
     private boolean callNeeded;
-    private boolean initialAnimationsEnded;
+    private boolean toSignUp;
 
     public static final float LOGO_SCALE = 1.5f;
+    public static final float INITIAL_SCALE = 0.66f;
+    public static final int LOGGED_HANDLER_WAIT = 300;
 
     private Runnable logoRunnable = new Runnable() {
         @Override
         public void run() {
-            float logoY = view.getLogoY();
-            float titleY = view.getTitleY();
-            view.initialAnimations(logoY, titleY, LOGO_SCALE);
+            view.initialAnimations(LOGO_SCALE);
         }
     };
 
-    private Runnable outRunnable = new Runnable() {
+    private Runnable loggedRunnable = new Runnable() {
         @Override
         public void run() {
-            view.slideOutAnimation();
+            view.loggedAnimations(INITIAL_SCALE);
         }
     };
 
@@ -59,22 +66,13 @@ public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
         super(view);
         this.employeeManager = employeeManager;
         this.callNeeded = false;
-        this.initialAnimationsEnded = false;
-    }
-
-    public void onFragmentResume() {
-        if (initialAnimationsEnded) {
-            view.slideInAnimation();
-        }
-    }
-
-    public void endInitialAnimations() {
-        initialAnimationsEnded = true;
     }
 
     public void setCallNeeded(boolean callNeeded) {
         this.callNeeded = callNeeded;
     }
+
+
 
     public void checkForCallNeeded() {
         if (callNeeded) {
@@ -90,8 +88,26 @@ public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
         view.startAnimations(logoRunnable);
     }
 
+    public boolean isGoingToSignUp() {
+        return toSignUp;
+    }
+
     public void onForgotPasswordClicked() {
-        view.startAnimations(outRunnable);
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000) {
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
+        toSignUp = false;
+        view.slideOutAnimation();
+    }
+
+    public void onSignUpClicked() {
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000) {
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
+        toSignUp = true;
+        view.slideOutAnimation();
     }
 
     public void init() {
@@ -104,19 +120,10 @@ public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
             view.showProgressDialog();
             employeeManager.login(username, password, new PresenterCallback<EmployeeManager.AccountState>() {
                 @Override
-                public void onSuccess(EmployeeManager.AccountState accountState) {
+                public void onSuccess(AccountState accountState) {
+                    userState = accountState;
                     view.dismissProgressDialog();
-                    switch (accountState) {
-                        case PROFILE_COMPLETE:
-                            view.goHome();
-                            break;
-                        case PROFILE_INCOMPLETE:
-                            view.goEditProfile();
-                            break;
-                        case PASSWORD_RESET_INCOMPLETE:
-                            view.goResetPassword();
-                            break;
-                    }
+                    view.startLoggedHandler(loggedRunnable, LOGGED_HANDLER_WAIT);
                 }
             });
         } else {
@@ -127,13 +134,34 @@ public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
     public void getDefaultDomain() {
         //view.showProgressDialog();
         employeeManager.getSiteInfo(new PresenterCallback<SiteInfo>() {
+
             @Override
             public void onSuccess(SiteInfo siteInfo) {
                 view.setDefaultDomain("@" + siteInfo.getEmail_domain());
                 //view.dismissProgressDialog();
                 view.enableFields(true);
+                view.replaceLogo();
+            }
+
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                view.replaceLogo();
             }
         });
+    }
+
+    public void continueFlow() {
+        switch (userState) {
+            case PROFILE_COMPLETE:
+                view.startAnimatedActivity(view.homeIntent());
+                break;
+            case PROFILE_INCOMPLETE:
+                view.startAnimatedActivity(view.editProfileIntent());
+                break;
+            case PASSWORD_RESET_INCOMPLETE:
+                view.startAnimatedActivity(view.resetPassIntent());
+                break;
+        }
     }
 
     private boolean areFieldsFilled(String username, String password) {
@@ -142,6 +170,7 @@ public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
 
     @Override
     public void cancelRequests() {
+
     }
 
 }

@@ -20,14 +20,9 @@
 */
 package com.belatrixsf.connect.ui;
 
-import android.annotation.TargetApi;
-import android.content.Intent;
 import android.graphics.drawable.TransitionDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
@@ -52,7 +47,7 @@ public class SplashActivity extends BelatrixConnectActivity {
     @Bind(R.id.logoImageView) ImageView logo;
     @Bind(R.id.splashBackground) RelativeLayout background;
 
-    public static final int WAIT_DURATION = 1000;
+    public static final int WAIT_DURATION = 500;
     public static final int ANIMATION_DURATION = 500;
 
     @Override
@@ -123,10 +118,9 @@ public class SplashActivity extends BelatrixConnectActivity {
                 PreferencesManager.get().isEditProfile();
         if (userHasPermission) {
             //Restore Employee session
-            animateIntent();
+            startActivity(UserActivity.makeIntent(this));
         } else {
             PreferencesManager.get().clearUserSession();
-
             boolean guestHasPermission = PreferencesManager.get().getGuestId() != 0;
             if (guestHasPermission) {
                 //Restore Guest session
@@ -134,21 +128,10 @@ public class SplashActivity extends BelatrixConnectActivity {
             } else {
                 PreferencesManager.get().clearGuestSession();
                 startActivity(LoginActivity.makeIntent(this));
-                //startActivity(WizardMainActivity.makeIntent(this));
             }
         }
         overridePendingTransition(0, 0);
         finish();
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void animateIntent() {
-        setTheme(R.style.BlankTheme); // to reset the splash background
-
-        Intent intent = UserActivity.makeIntent(this);
-        String transitionName = getString(R.string.transition_splash_logo);
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, logo, transitionName);
-        ActivityCompat.startActivity(this, intent, options.toBundle());
     }
 
 }

@@ -20,6 +20,8 @@
 */
 package com.belatrixsf.connect.ui.login;
 
+import android.content.Intent;
+
 import com.belatrixsf.connect.ui.common.BaseInitialAnimationsView;
 
 /**
@@ -27,15 +29,17 @@ import com.belatrixsf.connect.ui.common.BaseInitialAnimationsView;
  */
 public interface LoginView extends BaseInitialAnimationsView {
 
-    void goHome();
-    void goResetPassword();
-    void goEditProfile();
     void enableLogin(boolean enable);
     void setDefaultDomain(String domain);
     void enableFields(boolean enable);
-    void initialAnimations(float logoY, float titleY, float scale);
+    void initialAnimations(float scale);
+    void loggedAnimations(float scale);
+    void replaceLogo();
+    void startLoggedHandler(Runnable runnable, int duration);
+    void startAnimatedActivity(Intent intent);
 
-    float getLogoY();
-    float getTitleY();
+    Intent homeIntent();
+    Intent editProfileIntent();
+    Intent resetPassIntent();
 
 }

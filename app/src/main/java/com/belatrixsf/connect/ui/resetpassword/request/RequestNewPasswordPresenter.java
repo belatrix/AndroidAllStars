@@ -35,6 +35,7 @@ import javax.inject.Inject;
 public class RequestNewPasswordPresenter extends BelatrixConnectPresenter<RequestNewPasswordView> {
 
     private long lastClickTime = 0; // to handle fast double click
+
     private EmployeeService employeeService;
 
     private Runnable inRunnable = new Runnable() {

@@ -33,7 +33,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.ui.common.BaseAnimationsFragment;
+import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.login.LoginActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.CustomDomainEditText;
@@ -44,10 +44,14 @@ import com.belatrixsf.connect.utils.di.modules.presenters.RequestNewPasswordPres
 import butterknife.Bind;
 import butterknife.OnClick;
 
+import static com.belatrixsf.connect.utils.AnimationsUtils.OutInAnimDirection;
+import static com.belatrixsf.connect.utils.AnimationsUtils.WAIT_DURATION;
+import static com.belatrixsf.connect.utils.AnimationsUtils.customTranslateAnimation;
+
 /**
  * Created by icerrate on 15/07/2016.
  */
-public class RequestNewPasswordFragment extends BaseAnimationsFragment implements RequestNewPasswordView {
+public class RequestNewPasswordFragment extends BelatrixConnectFragment implements RequestNewPasswordView {
 
     private RequestNewPasswordPresenter requestNewPasswordPresenter;
 
@@ -143,20 +147,20 @@ public class RequestNewPasswordFragment extends BaseAnimationsFragment implement
 
     @Override
     public void slideInAnimation() {
-        Animation fieldsAnimation = customTranslateAnimation(fieldsContainer, OutInAnimDirection.IN_UP);
+        Animation fieldsAnimation = customTranslateAnimation(getActivity(), fieldsContainer, OutInAnimDirection.IN_UP);
         fieldsAnimation.setAnimationListener(initialAnimationListener);
         fieldsContainer.startAnimation(fieldsAnimation);
 
-        titleContainer.startAnimation(customTranslateAnimation(titleContainer, OutInAnimDirection.IN_DOWN));
+        titleContainer.startAnimation(customTranslateAnimation(getActivity(), titleContainer, OutInAnimDirection.IN_DOWN));
     }
 
     @Override
     public void slideOutAnimation() {
-        Animation fieldsAnimation = customTranslateAnimation(fieldsContainer, OutInAnimDirection.OUT_DOWN);
+        Animation fieldsAnimation = customTranslateAnimation(getActivity(), fieldsContainer, OutInAnimDirection.OUT_DOWN);
         fieldsAnimation.setAnimationListener(slideOutAnimationListener);
         fieldsContainer.startAnimation(fieldsAnimation);
 
-        titleContainer.startAnimation(customTranslateAnimation(titleContainer, OutInAnimDirection.OUT_UP));
+        titleContainer.startAnimation(customTranslateAnimation(getActivity(), titleContainer, OutInAnimDirection.OUT_UP));
     }
 
     @Override
