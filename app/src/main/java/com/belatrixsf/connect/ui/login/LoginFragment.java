@@ -53,6 +53,7 @@ import com.belatrixsf.connect.ui.resetpassword.request.RequestNewPasswordActivit
 import com.belatrixsf.connect.ui.signup.SignUpActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.CustomDomainEditText;
+import com.belatrixsf.connect.utils.KeyboardUtils;
 import com.belatrixsf.connect.utils.di.components.DaggerLoginComponent;
 import com.belatrixsf.connect.utils.di.modules.presenters.LoginPresenterModule;
 
@@ -132,12 +133,29 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     private void initViews() {
         passwordEditText.setTransformationMethod(new PasswordTransformationMethod());
         usernameEditText.addTextChangedListener(formFieldWatcher);
+        usernameEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                    usernameEditText.clearFocus();
+                    passwordEditText.requestFocus();
+                    return true;
+                }
+                return false;
+            }
+        });
         passwordEditText.addTextChangedListener(formFieldWatcher);
         passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    logInClicked();
+                    KeyboardUtils.hideKeyboard(getActivity(), passwordEditText);
+                    passwordEditText.clearFocus();
+                    String username = usernameEditText.getUserName().trim();
+                    String password = passwordEditText.getText().toString().trim();
+                    if (loginPresenter.areFieldsFilled(username, password)) {
+                        logInClicked();
+                    }
                     return true;
                 }
                 return false;
@@ -247,7 +265,7 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
         Animation bxLogoReverseAnim = moveLogoAnimation(getActivity(), StraightAnimDirection.DOWN, tempLogo.getY() - bxLogo.getY(), scale);
         Animation bxTitleReverseAnim = scaleCenterAnimation(getActivity(), null, false);
         bxLogoReverseAnim.setDuration(LOGGED_ANIMATION_DURATION);
-        bxTitleReverseAnim.setDuration(LOGGED_ANIMATION_DURATION);
+        bxTitleReverseAnim.setDuration(LOGGED_ANIMATION_DURATION / 4);
 
         bxLogo.startAnimation(bxLogoReverseAnim);
         bxTitle.startAnimation(bxTitleReverseAnim);
@@ -356,7 +374,7 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     };
 
     @Override
-    public void goToNextActivity(Intent intent) {
+    public void goToIntermediaryActivity(Intent intent) {
         IntermediaryLogoActivity.nextActivity = intent;
         Intent intermediaryIntent = IntermediaryLogoActivity.makeIntent(getActivity());
         intermediaryIntent.putExtra(INTERMEDIARY_EXTRA_KEY, false);

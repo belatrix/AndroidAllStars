@@ -153,18 +153,18 @@ public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
     public void continueFlow() {
         switch (userState) {
             case PROFILE_COMPLETE:
-                view.goToNextActivity(view.homeIntent());
+                view.goToIntermediaryActivity(view.homeIntent());
                 break;
             case PROFILE_INCOMPLETE:
-                view.goToNextActivity(view.editProfileIntent());
+                view.goToIntermediaryActivity(view.editProfileIntent());
                 break;
             case PASSWORD_RESET_INCOMPLETE:
-                view.goToNextActivity(view.resetPassIntent());
+                view.goToIntermediaryActivity(view.resetPassIntent());
                 break;
         }
     }
 
-    private boolean areFieldsFilled(String username, String password) {
+    public boolean areFieldsFilled(String username, String password) {
         return username != null && password != null && !username.isEmpty() && !password.isEmpty();
     }
 
