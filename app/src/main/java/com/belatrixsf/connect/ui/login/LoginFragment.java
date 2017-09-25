@@ -22,6 +22,7 @@ package com.belatrixsf.connect.ui.login;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -61,6 +62,7 @@ import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.OnClick;
 
+import static com.belatrixsf.connect.ui.common.BelatrixConnectActivity.supportSharedElements;
 import static com.belatrixsf.connect.utils.AnimationsUtils.ANIMATIONS_DURATION;
 import static com.belatrixsf.connect.utils.AnimationsUtils.OutInAnimDirection;
 import static com.belatrixsf.connect.utils.AnimationsUtils.StraightAnimDirection;
@@ -351,7 +353,7 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
 
         @Override
         public void onAnimationEnd(Animation animation) {
-            loginPresenter.continueFlow();
+            loginPresenter.continueFlow(supportSharedElements());
         }
 
         @Override
@@ -374,12 +376,16 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     };
 
     @Override
-    public void goToIntermediaryActivity(Intent intent) {
-        IntermediaryLogoActivity.nextActivity = intent;
-        Intent intermediaryIntent = IntermediaryLogoActivity.makeIntent(getActivity());
-        intermediaryIntent.putExtra(INTERMEDIARY_EXTRA_KEY, false);
-        startActivity(intermediaryIntent);
-        getActivity().overridePendingTransition(0, 0);
+    public void goToNextActivity(Intent intent, boolean supportSharedElements) {
+        if (supportSharedElements) {
+            IntermediaryLogoActivity.nextActivity = intent;
+            Intent intermediaryIntent = IntermediaryLogoActivity.makeIntent(getActivity());
+            intermediaryIntent.putExtra(INTERMEDIARY_EXTRA_KEY, false);
+            startActivity(intermediaryIntent);
+            getActivity().overridePendingTransition(0, 0);
+        } else {
+            startActivity(intent);
+        }
         fragmentListener.closeActivity();
     }
 

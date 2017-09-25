@@ -91,6 +91,7 @@ android {
             transitive = true;
         }
         compile 'com.cleveroad:slidingtutorial:1.0.8'
+        compile 'de.hdodenhof:circleimageview:2.1.0'
     }
 }
 

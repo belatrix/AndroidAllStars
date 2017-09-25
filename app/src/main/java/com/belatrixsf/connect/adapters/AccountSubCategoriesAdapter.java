@@ -20,6 +20,8 @@
 */
 package com.belatrixsf.connect.adapters;
 
+import android.os.Build;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,13 +31,15 @@ import android.widget.TextView;
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.SubCategory;
 import com.belatrixsf.connect.ui.common.LoadMoreBaseAdapter;
-import com.belatrixsf.connect.ui.common.RecyclerOnItemClickListener;
+import com.belatrixsf.connect.ui.common.RecyclerSharedClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import static com.belatrixsf.connect.ui.common.BelatrixConnectActivity.supportSharedElements;
 
 /**
  * Created by pedrocarrillo on 4/9/16.
@@ -44,30 +48,39 @@ import butterknife.ButterKnife;
 
     public static final int TYPE_SUB_CATEGORY = 1;
 
-    private RecyclerOnItemClickListener recyclerOnItemClickListener;
+    private RecyclerSharedClickListener itemClickListener;
 
-    public AccountSubCategoriesAdapter(RecyclerOnItemClickListener recyclerOnItemClickListener) {
-        this(new ArrayList<SubCategory>(), recyclerOnItemClickListener);
+    public AccountSubCategoriesAdapter(RecyclerSharedClickListener itemClickListener) {
+        this(new ArrayList<SubCategory>(), itemClickListener);
     }
 
-    public AccountSubCategoriesAdapter(List<SubCategory> subCategories, RecyclerOnItemClickListener recyclerOnItemClickListener) {
+    public AccountSubCategoriesAdapter(List<SubCategory> subCategories, RecyclerSharedClickListener itemClickListener) {
         this.data = subCategories;
-        this.recyclerOnItemClickListener = recyclerOnItemClickListener;
+        this.itemClickListener = itemClickListener;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateDataViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sub_category_account_item, parent, false);
-        return new AccountSubCategoriesViewHolder(view, recyclerOnItemClickListener);
+        return new AccountSubCategoriesViewHolder(view);
     }
 
     @Override
-    public void onBindDataViewHolder(RecyclerView.ViewHolder holder, int position) {
-        AccountSubCategoriesViewHolder accountSubCategoriesViewHolder = (AccountSubCategoriesViewHolder) holder;
+    public void onBindDataViewHolder(final RecyclerView.ViewHolder holder, int position) {
+        final AccountSubCategoriesViewHolder accountSubCategoriesViewHolder = (AccountSubCategoriesViewHolder) holder;
         final SubCategory subCategory = data.get(position);
         holder.itemView.setTag(subCategory);
         accountSubCategoriesViewHolder.titleTextView.setText(subCategory.getName());
         accountSubCategoriesViewHolder.valueTextView.setText(String.valueOf(subCategory.getNumStars()));
+        if (supportSharedElements()) {
+            ViewCompat.setTransitionName(accountSubCategoriesViewHolder.containter, subCategory.getName());
+        }
+        accountSubCategoriesViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                itemClickListener.onClick(holder.itemView, accountSubCategoriesViewHolder.containter, subCategory.getName());
+            }
+        });
     }
 
     @Override
@@ -75,26 +88,15 @@ import butterknife.ButterKnife;
         return TYPE_SUB_CATEGORY;
     }
 
-    public static class AccountSubCategoriesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class AccountSubCategoriesViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.title) public TextView titleTextView;
         @Bind(R.id.value) public TextView valueTextView;
-        private RecyclerOnItemClickListener recyclerOnItemClickListener;
+        @Bind(R.id.sub_category_container) public View containter;
 
-        public AccountSubCategoriesViewHolder(View itemView, RecyclerOnItemClickListener recyclerOnItemClickListener) {
+        public AccountSubCategoriesViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            this.titleTextView = (TextView) itemView.findViewById(R.id.title);
-            this.valueTextView = (TextView) itemView.findViewById(R.id.value);
-            this.recyclerOnItemClickListener = recyclerOnItemClickListener;
-            this.itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            if (recyclerOnItemClickListener != null){
-                recyclerOnItemClickListener.onClick(this.itemView);
-            }
         }
 
     }

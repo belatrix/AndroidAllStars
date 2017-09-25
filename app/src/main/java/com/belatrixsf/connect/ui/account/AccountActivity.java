@@ -28,6 +28,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.belatrixsf.connect.R;
@@ -48,7 +49,6 @@ public class AccountActivity extends BelatrixConnectActivity implements AccountF
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-        ActivityCompat.postponeEnterTransition(this);
         setNavigationToolbar();
         int userId = getIntent().getIntExtra(USER_ID_KEY, -1);
         if (userId != -1) {
@@ -62,12 +62,16 @@ public class AccountActivity extends BelatrixConnectActivity implements AccountF
         Intent intent = new Intent(activity, AccountActivity.class);
         intent.putExtra(AccountActivity.USER_ID_KEY, employeeId);
         intent.putExtra(AccountActivity.USER_IMG_PROFILE_KEY, MediaUtils.compressDrawable(drawable));
-        ViewCompat.setTransitionName(photoImageView, activity.getString(R.string.transition_photo));
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, photoImageView, activity.getString(R.string.transition_photo));
-        activity.startActivity(intent, options.toBundle());
+        if (supportSharedElements()) {
+            ViewCompat.setTransitionName(photoImageView, activity.getString(R.string.transition_photo));
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, photoImageView, activity.getString(R.string.transition_photo));
+            ActivityCompat.startActivity(activity, intent, options.toBundle());
+        } else {
+            activity.startActivity(intent);
+        }
     }
 
-    @Override
+   /* @Override
     protected void navigateBack() {
         // both activities are single Task, instead of create a new instance
         // with startActivity it returns to the existing instance
@@ -78,7 +82,7 @@ public class AccountActivity extends BelatrixConnectActivity implements AccountF
         //} else{
         //    startActivity(ContactsListActivity.makeIntent(this));
         //}
-    }
+    }*/
 
     @Override
     public void refreshNavigationDrawer() {

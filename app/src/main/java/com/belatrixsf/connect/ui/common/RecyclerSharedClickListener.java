@@ -18,21 +18,13 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.ui.account.recommendations;
+package com.belatrixsf.connect.ui.common;
 
-import com.belatrixsf.connect.entities.SubCategory;
-import com.belatrixsf.connect.ui.common.BelatrixConnectView;
-
-import java.util.List;
+import android.view.View;
 
 /**
- * Created by PedroCarrillo on 4/13/16.
+ * Created by echuquilin on 9/24/17.
  */
-public interface AccountRecommendationsView extends BelatrixConnectView {
-    void showCategories(List<SubCategory> subCategories);
-    void showNoDataView();
-    void hideNoDataView();
-    void goCategoryDetail(int categoryId, int employeeId, Object view, String transitionName);
-
-
+public interface RecyclerSharedClickListener {
+    void onClick(View itemView, View sharedElement, String transitionName);
 }

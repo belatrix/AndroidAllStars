@@ -150,16 +150,16 @@ public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
         });
     }
 
-    public void continueFlow() {
+    public void continueFlow(boolean supportSharedElements) {
         switch (userState) {
             case PROFILE_COMPLETE:
-                view.goToIntermediaryActivity(view.homeIntent());
+                view.goToNextActivity(view.homeIntent(), supportSharedElements);
                 break;
             case PROFILE_INCOMPLETE:
-                view.goToIntermediaryActivity(view.editProfileIntent());
+                view.goToNextActivity(view.editProfileIntent(), supportSharedElements);
                 break;
             case PASSWORD_RESET_INCOMPLETE:
-                view.goToIntermediaryActivity(view.resetPassIntent());
+                view.goToNextActivity(view.resetPassIntent(), supportSharedElements);
                 break;
         }
     }

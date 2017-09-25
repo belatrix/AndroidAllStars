@@ -52,6 +52,7 @@ import com.belatrixsf.connect.ui.IntermediaryLogoActivity;
 import com.belatrixsf.connect.ui.about.AboutActivity;
 import com.belatrixsf.connect.ui.account.AccountFragmentListener;
 import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
+import com.belatrixsf.connect.ui.login.LoginActivity;
 import com.belatrixsf.connect.ui.notifications.NotificationListActivity;
 import com.belatrixsf.connect.ui.settings.SettingsActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarActivity;
@@ -94,9 +95,11 @@ public class UserActivity extends MainActivity implements AccountFragmentListene
         } else {
             tabSelected = ConnectFirebaseMessagingService.TargetTab.ACCOUNT_TAB;
         }
-        setupEnterSharedAnimation();
         setToolbar();
         setupViews();
+        if (supportSharedElements()) {
+            setupEnterSharedAnimation();
+        }
     }
 
 
@@ -297,14 +300,20 @@ public class UserActivity extends MainActivity implements AccountFragmentListene
 
     @Override
     public void endSession() {
-        IntermediaryLogoActivity.nextActivity = null;
-        IntermediaryLogoActivity.previousActivity = this;
-        Intent intent = IntermediaryLogoActivity.makeIntent(this);
-        intent.putExtra(INTERMEDIARY_EXTRA_KEY, true);
-        String transitionName = getString(R.string.transition_splash_logo);
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, mainContainer, transitionName);
-        ActivityCompat.startActivity(this, intent, options.toBundle());
-        overridePendingTransition(0, 0);
+        if (supportSharedElements()) {
+            IntermediaryLogoActivity.nextActivity = null;
+            IntermediaryLogoActivity.previousActivity = this;
+            Intent intent = IntermediaryLogoActivity.makeIntent(this);
+            intent.putExtra(INTERMEDIARY_EXTRA_KEY, true);
+            String transitionName = getString(R.string.transition_splash_logo);
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, mainContainer, transitionName);
+            ActivityCompat.startActivity(this, intent, options.toBundle());
+            overridePendingTransition(0, 0);
+        } else {
+            Intent intent = LoginActivity.makeIntent(this);
+            startActivity(intent);
+            finish();
+        }
     }
 
     @Override

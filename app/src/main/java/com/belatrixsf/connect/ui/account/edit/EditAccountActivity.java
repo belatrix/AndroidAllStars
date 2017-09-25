@@ -38,7 +38,7 @@ public class EditAccountActivity extends BelatrixConnectActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-        ActivityCompat.postponeEnterTransition(this);
+        //ActivityCompat.postponeEnterTransition(this);
         setNavigationToolbar();
         if (savedInstanceState == null) {
             boolean isCreation = getIntent().getBooleanExtra(EditAccountFragment.IS_NEW_USER, false);

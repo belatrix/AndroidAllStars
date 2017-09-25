@@ -60,10 +60,13 @@ import com.belatrixsf.connect.utils.DialogUtils;
 import com.belatrixsf.connect.utils.di.modules.presenters.AccountPresenterModule;
 import com.belatrixsf.connect.utils.media.ImageFactory;
 import com.belatrixsf.connect.utils.media.loaders.ImageLoader;
+import com.bumptech.glide.Glide;
 
 import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.OnClick;
+
+import static com.belatrixsf.connect.ui.common.BelatrixConnectActivity.supportSharedElements;
 
 /**
  * Created by pedrocarrillo on 4/9/16.
@@ -84,7 +87,6 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     @Bind(R.id.skype_id) TextView skypeIdTextView;
     @Bind(R.id.level) TextView levelTextView;
     @Bind(R.id.score) TextView scoreTextView;
-    @Bind(R.id.profile_name) TextView nameTextView;
     @Bind(R.id.profile_email) TextView emailTextView;
     @Bind(R.id.profile_picture) ImageView pictureImageView;
     @Bind(R.id.location_name) TextView profileLocationImageView;
@@ -144,10 +146,9 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setupViews();
         if (savedInstanceState != null) {
             restoreState(savedInstanceState);
-        }else if (getArguments() != null) {
+        } else if (getArguments() != null) {
             Integer userId = null;
             byte [] userImg = null;
             if (getArguments().containsKey(AccountActivity.USER_ID_KEY)) {
@@ -158,6 +159,8 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
             }
             accountPresenter.setUserInfo(userId, userImg);
         }
+        setupViews();
+        accountPresenter.loadEmployeeAccount(true);
     }
 
     @Override
@@ -279,9 +282,7 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
 
     @Override
     public void showEmployeeName(String employeName) {
-        if (nameTextView != null) {
-            nameTextView.setText(employeName);
-        }
+        fragmentListener.setTitle(employeName);
     }
 
     @Override
@@ -301,7 +302,8 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     @Override
     public void showProfilePicture(final String profilePicture) {
         if (pictureImageView != null) {
-            if (accountPresenter.getEmployeeImg() == null) {
+            Glide.with(getActivity()).load(profilePicture).into(pictureImageView);
+            /*if (accountPresenter.getEmployeeImg() == null) {
                 ImageFactory.getLoader().loadFromUrl(
                         profilePicture,
                         pictureImageView,
@@ -339,7 +341,7 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
                         getResources().getDrawable(R.drawable.contact_placeholder),
                         ImageLoader.ScaleType.CENTER_CROP
                 );
-            }
+            }*/
         }
     }
 
@@ -395,9 +397,13 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     public void goToEditProfile(Employee employee) {
         Intent intent = new Intent(getActivity(), EditAccountActivity.class);
         intent.putExtra(EditAccountFragment.IS_NEW_USER, false);
-        ViewCompat.setTransitionName(pictureImageView, getActivity().getString(R.string.transition_photo));
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), pictureImageView, getActivity().getString(R.string.transition_photo));
-        getActivity().startActivityForResult(intent, EditAccountFragment.RQ_EDIT_ACCOUNT, options.toBundle());
+        if (supportSharedElements()) {
+            ViewCompat.setTransitionName(pictureImageView, getActivity().getString(R.string.transition_photo));
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), pictureImageView, getActivity().getString(R.string.transition_photo));
+            startActivityForResult(intent, EditAccountFragment.RQ_EDIT_ACCOUNT, options.toBundle());
+        } else {
+            startActivityForResult(intent, EditAccountFragment.RQ_EDIT_ACCOUNT);
+        }
     }
 
     @Override
@@ -419,6 +425,7 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
             fragmentListener.showSnackBar(data.getStringExtra(GiveStarFragment.MESSAGE_KEY));
         } else if (requestCode == EditAccountFragment.RQ_EDIT_ACCOUNT) {
             accountPresenter.refreshEmployee();
+            accountPresenter.loadEmployeeAccount(true);
         }
     }
 
@@ -465,6 +472,6 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     @Override
     public void onResume() {
         super.onResume();
-        accountPresenter.loadEmployeeAccount(true);
+        //accountPresenter.loadEmployeeAccount(true);
     }
 }
