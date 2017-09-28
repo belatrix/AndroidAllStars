@@ -20,6 +20,8 @@
 */
 package com.belatrixsf.connect.ui.home;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
@@ -43,6 +45,7 @@ import android.transition.Transition;
 import android.transition.TransitionSet;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.Window;
 
 import com.belatrixsf.connect.R;
@@ -64,6 +67,8 @@ import com.belatrixsf.connect.utils.di.modules.presenters.UserHomePresenterModul
 
 import butterknife.Bind;
 
+import static com.belatrixsf.connect.ui.IntermediaryLogoActivity.INTERMEDIARY_EXTRA_KEY;
+
 /**
  * Created by PedroCarrillo on 7/4/16.
  */
@@ -73,9 +78,10 @@ public class UserActivity extends MainActivity implements AccountFragmentListene
     public static final int RANKING_TAB = 3;
     public static final int RQ_GIVE_STAR = 99;
     public static final int PARENT_INDEX = 3;
-    private final String INTERMEDIARY_EXTRA_KEY = "intermediary_key";
+    public static final String ANIMATION_KEY = "_animation_key";
 
-    public static Activity previousActivity;
+    private final int REVEAL_DURATION = 800;
+    private final int WAIT_DURATION = 100;
 
     private ConnectFirebaseMessagingService.TargetTab tabSelected;
 
@@ -97,39 +103,65 @@ public class UserActivity extends MainActivity implements AccountFragmentListene
         }
         setToolbar();
         setupViews();
-        if (supportSharedElements()) {
-            setupEnterSharedAnimation();
+        if (checkForAnimation(getIntent().getExtras()) && supportSharedElements()) {
+            mainContainer.setVisibility(View.INVISIBLE);
+            startAnimation();
         }
     }
 
+    private boolean checkForAnimation(Bundle extras) {
+        return (extras != null && extras.containsKey(ANIMATION_KEY) && extras.getBoolean(ANIMATION_KEY));
+    }
+
+    private void startAnimation() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Animator animator = showViewCircleRevealAnimator();
+                animator.setDuration(REVEAL_DURATION);
+                animator.start();
+            }
+        }, WAIT_DURATION);
+    }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void setupEnterSharedAnimation() {
-        Window window = getWindow();
-        TransitionSet set = new TransitionSet();
-        set.addTransition(new ChangeImageTransform());
-        set.addTransition(new ChangeBounds());
-        set.addListener(new Transition.TransitionListener() {
-            @Override
-            public void onTransitionStart(Transition transition) {}
+    private Animator showViewCircleRevealAnimator() {
+        int cx = mainContainer.getWidth() / 2;
+        int cy = mainContainer.getHeight() / 2;
 
+        float finalRadius = (float) Math.hypot(cx, cy);
+        Animator anim = ViewAnimationUtils.createCircularReveal(mainContainer, cx, cy, 0, finalRadius);
+        mainContainer.setVisibility(View.VISIBLE);
+
+        return anim;
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private Animator hideViewCircleRevealAnimator() {
+        int cx = mainContainer.getWidth() / 2;
+        int cy = mainContainer.getHeight() / 2;
+
+        float initialRadius = (float) Math.hypot(cx, cy);
+        Animator anim = ViewAnimationUtils.createCircularReveal(mainContainer, cx, cy, initialRadius, 0);
+        anim.addListener(new AnimatorListenerAdapter() {
             @Override
-            public void onTransitionEnd(Transition transition) {
-                if (previousActivity != null) {
-                    previousActivity.finish();
-                }
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                mainContainer.setVisibility(View.INVISIBLE);
+                continueFlow();
             }
-
-            @Override
-            public void onTransitionCancel(Transition transition) {}
-
-            @Override
-            public void onTransitionPause(Transition transition) {}
-
-            @Override
-            public void onTransitionResume(Transition transition) {}
         });
-        window.setSharedElementEnterTransition(set);
+
+        return anim;
+    }
+
+    private void continueFlow() {
+        IntermediaryLogoActivity.nextActivity = null;
+        Intent intent = IntermediaryLogoActivity.makeIntent(this);
+        intent.putExtra(INTERMEDIARY_EXTRA_KEY, true);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
+        finish();
     }
 
     @Override
@@ -301,14 +333,9 @@ public class UserActivity extends MainActivity implements AccountFragmentListene
     @Override
     public void endSession() {
         if (supportSharedElements()) {
-            IntermediaryLogoActivity.nextActivity = null;
-            IntermediaryLogoActivity.previousActivity = this;
-            Intent intent = IntermediaryLogoActivity.makeIntent(this);
-            intent.putExtra(INTERMEDIARY_EXTRA_KEY, true);
-            String transitionName = getString(R.string.transition_splash_logo);
-            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, mainContainer, transitionName);
-            ActivityCompat.startActivity(this, intent, options.toBundle());
-            overridePendingTransition(0, 0);
+            Animator animator = hideViewCircleRevealAnimator();
+            animator.setDuration(REVEAL_DURATION);
+            animator.start();
         } else {
             Intent intent = LoginActivity.makeIntent(this);
             startActivity(intent);

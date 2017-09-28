@@ -20,29 +20,26 @@
 */
 package com.belatrixsf.connect.ui;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.transition.ChangeBounds;
-import android.transition.ChangeImageTransform;
-import android.transition.Transition;
-import android.transition.TransitionSet;
-import android.view.Window;
+import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.widget.ImageView;
 
 import com.belatrixsf.connect.R;
-import com.belatrixsf.connect.ui.home.UserActivity;
 import com.belatrixsf.connect.ui.login.LoginActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import static com.belatrixsf.connect.ui.home.UserActivity.ANIMATION_KEY;
 
 /**
  * Created by echuquilin on 9/22/17.
@@ -50,14 +47,32 @@ import butterknife.ButterKnife;
 public class IntermediaryLogoActivity extends AppCompatActivity {
 
     public static Intent nextActivity;
-    public static Activity previousActivity;
 
-    private final String INTERMEDIARY_EXTRA_KEY = "intermediary_key";
-    private final int WAIT_DURATION = 1000;
+    public static final String INTERMEDIARY_EXTRA_KEY = "intermediary_key";
+    private final int REVEAL_DURATION = 600;
+    private final int WAIT_DURATION = 100;
 
     private boolean toLogin;
 
     @Bind(R.id.logoImageView) ImageView logo;
+
+    private Runnable enterRunnable = new Runnable() {
+        @Override
+        public void run() {
+            Animator animator = showViewCircleRevealAnimator();
+            animator.setDuration(REVEAL_DURATION);
+            animator.start();
+        }
+    };
+
+    private Runnable exitRunnable = new Runnable() {
+        @Override
+        public void run() {
+            Animator animator = hideViewCircleRevealAnimator();
+            animator.setDuration(REVEAL_DURATION);
+            animator.start();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,64 +80,72 @@ public class IntermediaryLogoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_intermediary);
         ButterKnife.bind(this);
         toLogin = getIntent().getBooleanExtra(INTERMEDIARY_EXTRA_KEY, true);
-        setupEnterSharedAnimation();
-        continueFlow(toLogin ? WAIT_DURATION : (WAIT_DURATION / 2));
+        if (toLogin) {
+            logo.setVisibility(View.INVISIBLE);
+            startAnimation(enterRunnable);
+        } else {
+            logo.setVisibility(View.VISIBLE);
+            startAnimation(exitRunnable);
+        }
     }
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, IntermediaryLogoActivity.class);
     }
 
+    private void startAnimation(Runnable runnable) {
+        new Handler().postDelayed(runnable, WAIT_DURATION);
+    }
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void setupEnterSharedAnimation() {
-        Window window = getWindow();
-        TransitionSet set = new TransitionSet();
-        set.addTransition(new ChangeImageTransform());
-        set.addTransition(new ChangeBounds());
-        set.addListener(new Transition.TransitionListener() {
-            @Override
-            public void onTransitionStart(Transition transition) {}
+    private Animator showViewCircleRevealAnimator() {
+        int cx = logo.getWidth() / 2;
+        int cy = logo.getHeight() / 2;
 
+        float finalRadius = (float) Math.hypot(cx, cy);
+        Animator anim = ViewAnimationUtils.createCircularReveal(logo, cx, cy, 0, finalRadius);
+        anim.addListener(new AnimatorListenerAdapter() {
             @Override
-            public void onTransitionEnd(Transition transition) {
-                if (previousActivity != null) {
-                    previousActivity.finish();
-                }
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                continueFlow();
             }
-
-            @Override
-            public void onTransitionCancel(Transition transition) {}
-
-            @Override
-            public void onTransitionPause(Transition transition) {}
-
-            @Override
-            public void onTransitionResume(Transition transition) {}
         });
-        window.setSharedElementEnterTransition(set);
+        logo.setVisibility(View.VISIBLE);
+
+        return anim;
     }
 
-    private void continueFlow(int duration) {
-        new Handler().postDelayed(new Runnable() {
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private Animator hideViewCircleRevealAnimator() {
+        int cx = logo.getWidth() / 2;
+        int cy = logo.getHeight() / 2;
+
+        float initialRadius = (float) Math.hypot(cx, cy);
+        Animator anim = ViewAnimationUtils.createCircularReveal(logo, cx, cy, initialRadius, 0);
+        anim.addListener(new AnimatorListenerAdapter() {
             @Override
-            public void run() {
-                if (toLogin) {
-                    startActivity(LoginActivity.makeIntent(IntermediaryLogoActivity.this));
-                    overridePendingTransition(0, 0);
-                    finish();
-                } else {
-                    startAnimatedActivity();
-                    overridePendingTransition(0, 0);
-                }
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                logo.setVisibility(View.INVISIBLE);
+                continueFlow();
             }
-        }, duration);
+        });
+
+        return anim;
     }
 
-    public void startAnimatedActivity() {
-        UserActivity.previousActivity = this;
-        String transitionName = getString(R.string.transition_splash_logo);
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, logo, transitionName);
-        ActivityCompat.startActivity(this, nextActivity, options.toBundle());
+    private void continueFlow() {
+        Intent intent;
+        if (toLogin) {
+            intent = LoginActivity.makeIntent(IntermediaryLogoActivity.this);
+        } else {
+            intent = nextActivity;
+            intent.putExtra(ANIMATION_KEY, true);
+        }
+        startActivity(intent);
+        overridePendingTransition(0, 0);
+        finish();
     }
 
 }
