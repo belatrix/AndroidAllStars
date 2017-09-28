@@ -1,15 +1,20 @@
 package com.belatrixsf.connect.utils;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.view.animation.OvershootInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 
 import com.belatrixsf.connect.R;
 
@@ -214,6 +219,36 @@ public class AnimationsUtils {
         }
 
         return animationSet;
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public static Animator showViewCircleRevealAnimator(View view) {
+        int cx = view.getWidth() / 2;
+        int cy = view.getHeight() / 2;
+
+        float finalRadius = (float) Math.hypot(cx, cy);
+        Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, 0, finalRadius);
+        view.setVisibility(View.VISIBLE);
+
+        return anim;
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public static Animator hideViewCircleRevealAnimator(final View view) {
+        int cx = view.getWidth() / 2;
+        int cy = view.getHeight() / 2;
+
+        float initialRadius = (float) Math.hypot(cx, cy);
+        Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, initialRadius, 0);
+        anim.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                view.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        return anim;
     }
 
 }

@@ -20,22 +20,21 @@
 */
 package com.belatrixsf.connect.ui.account.expanded;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
+import com.belatrixsf.connect.utils.MediaUtils;
 import com.belatrixsf.connect.utils.di.modules.presenters.ExpandPicturePresenterModule;
-import com.belatrixsf.connect.utils.media.ImageFactory;
-import com.belatrixsf.connect.utils.media.loaders.ImageLoader;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 import static com.belatrixsf.connect.ui.account.expanded.ExpandPictureActivity.USER_AVATAR_KEY;
 
@@ -47,11 +46,12 @@ public class ExpandPictureFragment extends BelatrixConnectFragment implements Ex
     private ExpandPicturePresenter expandPicturePresenter;
 
     @Bind(R.id.profile_picture) ImageView pictureImageView;
+    @Bind(R.id.expand_background_relative) View background;
 
-    public static ExpandPictureFragment newInstance(String avatarUrl) {
+    public static ExpandPictureFragment newInstance(byte[] bytesImg) {
         Bundle bundle = new Bundle();
-        if (avatarUrl != null) {
-            bundle.putString(USER_AVATAR_KEY, avatarUrl);
+        if (bytesImg != null) {
+            bundle.putByteArray(USER_AVATAR_KEY, bytesImg);
         }
         ExpandPictureFragment accountFragment = new ExpandPictureFragment();
         accountFragment.setArguments(bundle);
@@ -73,23 +73,10 @@ public class ExpandPictureFragment extends BelatrixConnectFragment implements Ex
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initViews();
-        String avatarUrl = null;
-        if (getArguments() != null) {
-            if (getArguments().containsKey(USER_AVATAR_KEY)) {
-                avatarUrl = getArguments().getString(USER_AVATAR_KEY);
-            }
+        if (savedInstanceState == null) {
+            byte[] avatarUrl = getArguments().getByteArray(USER_AVATAR_KEY);
+            loadPicture(MediaUtils.get().getBitmapFromByteArray(avatarUrl));
         }
-        expandPicturePresenter.setAvatarUrl(avatarUrl);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        loadPicture();
-    }
-
-    private void initViews() {
     }
 
     @Override
@@ -97,44 +84,6 @@ public class ExpandPictureFragment extends BelatrixConnectFragment implements Ex
         expandPicturePresenter = belatrixConnectApplication.getApplicationComponent()
                 .expandPictureComponent(new ExpandPicturePresenterModule(this))
                 .expandPicturePresenter();
-    }
-
-    @Override
-    public void showProfilePicture(final String profilePicture) {
-        if (pictureImageView != null) {
-            ImageFactory.getLoader().loadFromUrl(
-                    profilePicture,
-                    pictureImageView,
-                    null,
-                    new ImageLoader.Callback() {
-                        @Override
-                        public void onSuccess() {
-                            startPostponedEnterTransition();
-                        }
-
-                        @Override
-                        public void onFailure() {
-                            startPostponedEnterTransition();
-                        }
-                    },
-                    null,
-                    ImageLoader.ScaleType.FIT_CENTER
-            );
-        }
-    }
-
-    public void startPostponedEnterTransition() {
-        if (pictureImageView == null) {
-            return;
-        }
-        pictureImageView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-            @Override
-            public boolean onPreDraw() {
-                pictureImageView.getViewTreeObserver().removeOnPreDrawListener(this);
-                ActivityCompat.startPostponedEnterTransition(getActivity());
-                return false;
-            }
-        });
     }
 
     @Override
@@ -156,8 +105,15 @@ public class ExpandPictureFragment extends BelatrixConnectFragment implements Ex
 
     }
 
-    private void loadPicture() {
-        expandPicturePresenter.loadPicture();
+    @OnClick(R.id.expand_background_relative)
+    public void onPictureClicked() {
+        fragmentListener.fragmentBackPressed();
+    }
+
+    private void loadPicture(Bitmap bitmap) {
+        if (pictureImageView != null) {
+            pictureImageView.setImageBitmap(bitmap);
+        }
     }
 
 }

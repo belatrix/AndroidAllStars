@@ -20,6 +20,8 @@
 */
 package com.belatrixsf.connect.ui.account;
 
+import android.graphics.drawable.Drawable;
+
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 
@@ -35,16 +37,19 @@ public interface AccountView extends BelatrixConnectView {
     void showSkypeId(String skypeID);
     void showEmployeeName(String employeName);
     void showEmail(String role);
-    void showProfilePicture(String profilePicture);
+    void showProfilePicture(Object profilePicture);
     void showRecommendMenu(boolean show);
     void showEditProfileButton(boolean show);
+    void resetProfilePicture();
     void goToEditProfile(Employee employee);
     void goToGiveStar(Employee employee);
-    void goToExpandPhoto(String url);
     void notifyNavigationRefresh();
     void showInformativeDialog(String information);
     void goBackToLogin();
     void goToEditSkills();
     void showEditSkillsButton(boolean show);
     void onEmployeeLoaded(int employeeId);
+
+    Drawable getProfilePicture();
+
 }

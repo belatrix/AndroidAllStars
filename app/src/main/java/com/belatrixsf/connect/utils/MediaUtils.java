@@ -52,7 +52,20 @@ public class MediaUtils {
         return ourInstance;
     }
 
-    private MediaUtils() {
+    private MediaUtils() {}
+
+    public Bitmap getBitmapFromByteArray(byte[] array) {
+        return array != null ? BitmapFactory.decodeByteArray(array, 0, array.length) : null;
+    }
+
+    public byte[] getByteArrayFromBitmap(Bitmap bitmap) {
+        byte[] byteArray = null;
+        if (bitmap != null) {
+            ByteArrayOutputStream blob = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 0, blob);
+            byteArray = blob.toByteArray();
+        }
+        return byteArray;
     }
 
     private Bitmap getResizedBitmap(String imagePath){

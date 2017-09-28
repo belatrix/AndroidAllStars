@@ -22,7 +22,6 @@ package com.belatrixsf.connect.ui.login;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -39,6 +38,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -79,7 +79,7 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     private String defaultDomain;
     private final String DEFAULT_DOMAIN_ID = "default_domain_id";
     private final String INTERMEDIARY_EXTRA_KEY = "intermediary_key";
-    private final int LOGGED_ANIMATION_DURATION = 800;
+    private final int LOGGED_ANIMATION_DURATION = 600;
 
     @Bind(R.id.username) CustomDomainEditText usernameEditText;
     @Bind(R.id.password) EditText passwordEditText;
@@ -93,6 +93,7 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     @Bind(R.id.tempTitle) TextView tempTitle;
     @Bind(R.id.bx_logo) ImageView bxLogo;
     @Bind(R.id.bx_title) TextView bxTitle;
+    @Bind(R.id.login_progress_bar) ProgressBar loginProgressBar;
     @BindString(R.string.privacy_policy_url) String privacyPolicyURL;
 
     public LoginFragment() {
@@ -124,6 +125,12 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
             loginPresenter.setCallNeeded(false);
             usernameEditText.setDefaultDomain(savedInstanceState.getString(DEFAULT_DOMAIN_KEY));
         }
+    }
+
+    @Override
+    public void recreateFragment() {
+        LoginActivity.fragment = newInstance();
+        fragmentListener.replaceFragment(LoginActivity.fragment, false);
     }
 
     @Override
@@ -198,15 +205,23 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     }
 
     @Override
+    public String getUsername() {
+        return usernameEditText != null ? usernameEditText.getUserName() : "";
+    }
+
+    @Override
+    public String getPassword() {
+        return passwordEditText != null ? passwordEditText.getText().toString().trim() : "";
+    }
+
+    @Override
     public void enableLogin(boolean enable) {
         logInButton.setEnabled(enable);
     }
 
     @OnClick(R.id.log_in)
     public void logInClicked() {
-        String username = usernameEditText.getUserName().trim();
-        String password = passwordEditText.getText().toString().trim();
-        loginPresenter.login(username, password);
+        loginPresenter.onLoginButtonClicked(getUsername(), getPassword());
     }
 
     @OnClick(R.id.log_in_as_guest)
@@ -294,16 +309,12 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     }
 
     @Override
-    public void startLoggedHandler(Runnable runnable, int duration) {
-        new Handler().postDelayed(runnable, duration);
-    }
-
-    @Override
     public void enableFields(boolean enable) {
-        if (usernameEditText != null && passwordEditText != null) {
-            usernameEditText.setEnabled(enable);
-            passwordEditText.setEnabled(enable);
-        }
+        usernameEditText.setEnabled(enable);
+        passwordEditText.setEnabled(enable);
+        logInButton.setEnabled(enable);
+        signUpButton.setEnabled(enable);
+        forgotPasswordButton.setEnabled(enable);
     }
 
     @Override
@@ -353,7 +364,7 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
 
         @Override
         public void onAnimationEnd(Animation animation) {
-            loginPresenter.continueFlow(supportSharedElements());
+            loginPresenter.login(getUsername(), getPassword());
         }
 
         @Override
@@ -376,8 +387,18 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     };
 
     @Override
-    public void goToNextActivity(Intent intent, boolean supportSharedElements) {
-        if (supportSharedElements) {
+    public void showProgressIndicator() {
+        loginProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressIndicator() {
+        loginProgressBar.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void goToNextActivity(Intent intent) {
+        if (supportSharedElements()) {
             IntermediaryLogoActivity.nextActivity = intent;
             Intent intermediaryIntent = IntermediaryLogoActivity.makeIntent(getActivity());
             intermediaryIntent.putExtra(INTERMEDIARY_EXTRA_KEY, false);

@@ -18,31 +18,55 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.connect.ui.login;
+package com.belatrixsf.connect.data;
 
-import android.content.Intent;
-
-import com.belatrixsf.connect.ui.common.BaseInitialAnimationsView;
+import com.belatrixsf.connect.entities.Employee;
 
 /**
- * Created by gyosida on 4/11/16.
+ * Created by echuquilin on 9/25/17.
  */
-public interface LoginView extends BaseInitialAnimationsView {
+public class BelatrixConnectUser {
 
-    void enableLogin(boolean enable);
-    void setDefaultDomain(String domain);
-    void enableFields(boolean enable);
-    void initialAnimations(float scale);
-    void loggedAnimations(float scale);
-    void replaceLogo();
-    void goToNextActivity(Intent intent);
-    void recreateFragment();
+    private Object userPicture;
+    private Employee userInfo;
 
-    Intent homeIntent();
-    Intent editProfileIntent();
-    Intent resetPassIntent();
+    private static BelatrixConnectUser instance;
 
-    String getUsername();
-    String getPassword();
+    public BelatrixConnectUser() {
+        userPicture = null;
+        userInfo = null;
+    }
+
+    public static BelatrixConnectUser get() {
+        if (instance == null) {
+            instance = new BelatrixConnectUser();
+        }
+        return instance;
+    }
+
+    public Object getUserPicture() {
+        return userPicture;
+    }
+
+    public void setUserPicture(Object userPicture) {
+        this.userPicture = userPicture;
+    }
+
+    public Employee getUserInfo() {
+        return userInfo;
+    }
+
+    public void registerUser(Employee userInfo) {
+        this.userInfo = userInfo;
+        if (userPicture == null) {
+            userPicture = userInfo.getAvatar();
+        }
+    }
+
+    public void clear() {
+        userInfo = null;
+        userPicture = null;
+        instance = null;
+    }
 
 }

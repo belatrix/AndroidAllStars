@@ -22,15 +22,20 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
-    <style name="InitialTheme" parent="AppTheme"/>
+    <style name="InitialTheme" parent="AppTheme">
+        <item name="colorAccent">@color/colorPrimaryLight</item>
+    </style>
 
     <style name="SplashTheme" parent="AppTheme">
         <item name="android:background">@drawable/background_splash</item>
     </style>
 
-    <style name="BlankTheme" parent="AppTheme">
-        <item name="android:windowBackground">@drawable/background_blank</item>
-
+    <style name="Transparent" parent="AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
     </style>
 
 </resources>

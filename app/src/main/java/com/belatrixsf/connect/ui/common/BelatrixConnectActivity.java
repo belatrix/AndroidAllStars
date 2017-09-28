@@ -191,6 +191,11 @@ public class BelatrixConnectActivity extends AppCompatActivity implements Fragme
         }
     }
 
+    @Override
+    public void fragmentBackPressed() {
+        onBackPressed();
+    }
+
     protected void navigateBack() {
         onBackPressed();
     }

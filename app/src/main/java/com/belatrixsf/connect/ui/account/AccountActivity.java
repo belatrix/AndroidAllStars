@@ -28,12 +28,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
-import com.belatrixsf.connect.ui.home.UserActivity;
 import com.belatrixsf.connect.utils.MediaUtils;
 
 /**
@@ -49,10 +47,11 @@ public class AccountActivity extends BelatrixConnectActivity implements AccountF
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-        setNavigationToolbar();
-        int userId = getIntent().getIntExtra(USER_ID_KEY, -1);
-        if (userId != -1) {
-            byte[] bytesImg = getIntent().getExtras().getByteArray(USER_IMG_PROFILE_KEY);
+        if (savedInstanceState == null) {
+            setNavigationToolbar();
+            Bundle extras = getIntent().getExtras();
+            Integer userId = (extras != null && extras.containsKey(USER_ID_KEY)) ? extras.getInt(USER_ID_KEY) : null;
+            byte[] bytesImg = (extras != null && extras.containsKey(USER_IMG_PROFILE_KEY)) ? extras.getByteArray(USER_IMG_PROFILE_KEY) : null;
             replaceFragment(AccountFragment.newInstance(userId, bytesImg), false);
         }
     }
