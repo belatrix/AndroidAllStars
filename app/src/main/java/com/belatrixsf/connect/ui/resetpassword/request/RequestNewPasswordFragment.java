@@ -119,7 +119,7 @@ public class RequestNewPasswordFragment extends BelatrixConnectFragment implemen
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                requestNewPasswordPresenter.endFlow();
+                onBackClicked();
             }
         }).show();
     }

@@ -169,7 +169,8 @@ public class SignUpFragment extends BelatrixConnectFragment implements SignUpVie
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                signUpPresenter.confirmMessage();
+                //signUpPresenter.confirmMessage();
+                onBackClicked();
             }
         }).show();
     }

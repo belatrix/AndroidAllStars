@@ -108,6 +108,7 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        System.out.println("start animationssssss");
         return inflater.inflate(R.layout.fragment_login, container, false);
     }
 
@@ -299,6 +300,7 @@ public class LoginFragment extends BelatrixConnectFragment implements LoginView 
 
     @Override
     public void slideInAnimation() {
+        System.out.println("slideInAnimation slideInAnimation slideInAnimation");
         fieldsContainer.startAnimation(customTranslateAnimation(getActivity(), fieldsContainer, OutInAnimDirection.IN_UP));
         logoContainer.startAnimation(customTranslateAnimation(getActivity(), logoContainer, OutInAnimDirection.IN_DOWN));
     }

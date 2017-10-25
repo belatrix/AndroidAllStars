@@ -90,7 +90,7 @@ public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
         view.enableLogin(areFieldsFilled(username, password));
     }
 
-    public void startAnimations() {
+    public void startAnimations() {;
         view.startAnimations(logoRunnable);
     }
 

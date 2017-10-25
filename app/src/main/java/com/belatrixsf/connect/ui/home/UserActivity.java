@@ -317,13 +317,13 @@ public class UserActivity extends MainActivity implements AccountFragmentListene
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    protected void onActivityResult(final int requestCode, final int resultCode,final Intent data) {
         if (requestCode == RQ_GIVE_STAR && resultCode == Activity.RESULT_OK && data != null) {
             showSnackBar(data.getStringExtra(GiveStarFragment.MESSAGE_KEY));
         } else if (requestCode == EditAccountFragment.RQ_EDIT_ACCOUNT && resultCode == Activity.RESULT_OK && data != null) {
             ((UserHomePresenter) homePresenter).refreshEmployee();
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     public static Intent makeIntent(Context context) {

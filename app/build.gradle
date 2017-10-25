@@ -30,8 +30,8 @@ android {
         applicationId "com.belatrixsf.connect"
         minSdkVersion 16
         targetSdkVersion 24
-        versionCode 11
-        versionName "2.0.4"
+        versionCode 12
+        versionName "2.0.5"
     }
     buildTypes {
         def Properties serverProps = new Properties()

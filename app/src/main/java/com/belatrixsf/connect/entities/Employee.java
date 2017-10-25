@@ -64,6 +64,8 @@ public class Employee implements Parcelable {
     private Integer numStars;
     private Location location;
     private Category position;
+    @SerializedName("emergency_phone_contact")
+    private String emergencyPhoneContact;
 
     public Category getPosition() {
         return position;
@@ -192,6 +194,7 @@ public class Employee implements Parcelable {
         avatar = in.readString();
         numStars = in.readByte() == 0x00 ? null : in.readInt();
         location = (Location) in.readValue(Location.class.getClassLoader());
+        emergencyPhoneContact = in.readString();
     }
 
     @Override
@@ -271,6 +274,7 @@ public class Employee implements Parcelable {
             dest.writeInt(numStars);
         }
         dest.writeValue(location);
+        dest.writeValue(emergencyPhoneContact);
     }
 
     @SuppressWarnings("unused")

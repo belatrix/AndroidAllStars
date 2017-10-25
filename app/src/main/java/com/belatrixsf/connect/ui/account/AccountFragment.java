@@ -28,6 +28,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -65,6 +66,7 @@ import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.OnClick;
 
+import static android.app.Activity.RESULT_OK;
 import static com.belatrixsf.connect.ui.common.BelatrixConnectActivity.supportSharedElements;
 
 /**
@@ -432,15 +434,24 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
         startActivityForResult(intent, RQ_GIVE_STAR);
     }
 
+    Handler handler =  new Handler();
+
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(final int requestCode, final int resultCode,final  Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RQ_GIVE_STAR && resultCode == Activity.RESULT_OK && data != null) {
-            fragmentListener.showSnackBar(data.getStringExtra(GiveStarFragment.MESSAGE_KEY));
-        } else if (requestCode == EditAccountFragment.RQ_EDIT_ACCOUNT) {
-            accountPresenter.refreshEmployee();
-            accountPresenter.showEmployeeData();
-        }
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (requestCode == RQ_GIVE_STAR && resultCode == Activity.RESULT_OK && data != null) {
+                    fragmentListener.showSnackBar(data.getStringExtra(GiveStarFragment.MESSAGE_KEY));
+                    accountPresenter.loadUserData();
+                } else if (requestCode == EditAccountFragment.RQ_EDIT_ACCOUNT && resultCode == RESULT_OK) {
+                    accountPresenter.refreshEmployee();
+                    accountPresenter.getUserDataFromServer();
+                }
+            }
+        });
+
     }
 
     @Override

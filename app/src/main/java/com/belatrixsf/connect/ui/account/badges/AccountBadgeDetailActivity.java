@@ -54,7 +54,7 @@ public class AccountBadgeDetailActivity extends BelatrixConnectActivity{
 
     @OnClick(R.id.close_button)
     public void onClickClose(){
-        finish();
+        onBackPressed();
     }
 
     @OnClick(R.id.share_button)
@@ -70,6 +70,9 @@ public class AccountBadgeDetailActivity extends BelatrixConnectActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_badge_detail);
+        if (supportSharedElements())
+            postponeEnterTransition();
+
         if (savedInstanceState == null) {
             badge = getIntent().getParcelableExtra(BADGE);
         }
@@ -82,6 +85,19 @@ public class AccountBadgeDetailActivity extends BelatrixConnectActivity{
         ImageFactory.getLoader().loadFromUrl(badge.getIcon(),
                 badgeImageView,
                 ImageLoader.ImageTransformation.BORDERED_CIRCLE,
+                new ImageLoader.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        if(supportSharedElements())
+                            startPostponedEnterTransition();
+                    }
+
+                    @Override
+                    public void onFailure() {
+                        if(supportSharedElements())
+                            startPostponedEnterTransition();
+                    }
+                },
                 badgeImageView.getResources().getDrawable(R.drawable.contact_placeholder),
                 ImageLoader.ScaleType.CENTER_CROP
         );
@@ -91,8 +107,7 @@ public class AccountBadgeDetailActivity extends BelatrixConnectActivity{
     public static void startActivityAnimatingPic(Activity activity, ImageView photoImageView, Badge badge) {
         Intent intent = new Intent(activity, AccountBadgeDetailActivity.class);
         intent.putExtra(AccountBadgeDetailActivity.BADGE, badge);
-        ViewCompat.setTransitionName(photoImageView, activity.getString(R.string.transition_photo));
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, photoImageView, activity.getString(R.string.transition_photo));
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, photoImageView, ViewCompat.getTransitionName(photoImageView));
         activity.startActivity(intent, options.toBundle());
     }
 }
