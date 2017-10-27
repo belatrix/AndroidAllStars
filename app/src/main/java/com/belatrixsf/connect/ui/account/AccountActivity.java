@@ -60,8 +60,8 @@ public class AccountActivity extends BelatrixConnectActivity implements AccountF
         Drawable drawable = photoImageView.getDrawable();
         Intent intent = new Intent(activity, AccountActivity.class);
         intent.putExtra(AccountActivity.USER_ID_KEY, employeeId);
-        intent.putExtra(AccountActivity.USER_IMG_PROFILE_KEY, MediaUtils.compressDrawable(drawable));
-        if (supportSharedElements()) {
+        if (supportSharedElements() && drawable != null) {
+            intent.putExtra(AccountActivity.USER_IMG_PROFILE_KEY, MediaUtils.compressDrawable(drawable));
             ViewCompat.setTransitionName(photoImageView, activity.getString(R.string.transition_photo));
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, photoImageView, activity.getString(R.string.transition_photo));
             ActivityCompat.startActivity(activity, intent, options.toBundle());

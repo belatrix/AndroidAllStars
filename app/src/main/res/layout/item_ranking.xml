@@ -6,12 +6,13 @@
     android:orientation="horizontal"
     style="@style/LargeItemList">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/contact_photo"
         android:layout_width="@dimen/dimen_10_6"
         android:layout_height="@dimen/dimen_10_6"
         android:contentDescription="@string/profile_image_content_desc"
         android:layout_marginLeft="@dimen/dimen_2_5"
+        android:transitionName="@string/transition_photo"
         tools:src="@drawable/contact_placeholder"/>
 
     <TextView

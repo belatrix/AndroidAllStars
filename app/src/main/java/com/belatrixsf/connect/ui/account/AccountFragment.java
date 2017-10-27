@@ -60,6 +60,8 @@ import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.DialogUtils;
 import com.belatrixsf.connect.utils.MediaUtils;
 import com.belatrixsf.connect.utils.di.modules.presenters.AccountPresenterModule;
+import com.belatrixsf.connect.utils.media.ImageFactory;
+import com.belatrixsf.connect.utils.media.loaders.ImageLoader;
 import com.bumptech.glide.Glide;
 
 import butterknife.Bind;
@@ -303,60 +305,40 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     }
 
     @Override
-    public void showProfilePicture(Object profilePicture) {
+    public void showProfilePicture(final Object profilePicture) {
         if (pictureImageView != null) {
-            if (profilePicture instanceof String) {
-                Glide.with(getActivity()).load((String) profilePicture).into(pictureImageView);
-            } else if (profilePicture instanceof Bitmap) {
-                pictureImageView.setImageBitmap((Bitmap) profilePicture);
-            }
-            /*if (accountPresenter.getEmployeeImg() == null) {
-                ImageFactory.getLoader().loadFromUrl(
-                        profilePicture,
-                        pictureImageView,
-                        ImageLoader.ImageTransformation.BORDERED_CIRCLE,
-                        new ImageLoader.Callback() {
-                            @Override
-                            public void onSuccess() {
-                                startPostponedEnterTransition();
-                            }
+            pictureImageView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                @Override
+                public boolean onPreDraw() {
+                    pictureImageView.getViewTreeObserver().removeOnPreDrawListener(this);
+                    System.out.println("profilePicture:" + profilePicture);
+                    System.out.println("pictureImageView.getDrawable():" + pictureImageView.getDrawable());
+                    if (profilePicture instanceof String && pictureImageView.getDrawable() == null) {
+                        ImageFactory.getLoader().loadFromUrl(
+                                (String) profilePicture,
+                                pictureImageView,
+                                ImageLoader.ImageTransformation.BORDERED_CIRCLE,
+                                getResources().getDrawable(R.drawable.placeholder_user),
+                                ImageLoader.ScaleType.CENTER_CROP
+                        );
 
-                            @Override
-                            public void onFailure() {
-                                startPostponedEnterTransition();
-                            }
-                        },
-                        getResources().getDrawable(R.drawable.contact_placeholder),
-                        ImageLoader.ScaleType.CENTER_CROP
-                );
-            } else {
-                ImageFactory.getLoader().loadFromBitmap(
-                        accountPresenter.getEmployeeImg(),
-                        pictureImageView,
-                        ImageLoader.ImageTransformation.BORDERED_CIRCLE,
-                        new ImageLoader.Callback() {
-                            @Override
-                            public void onSuccess() {
-                                startPostponedEnterTransition();
-                            }
 
-                            @Override
-                            public void onFailure() {
-                                startPostponedEnterTransition();
-                            }
-                        },
-                        getResources().getDrawable(R.drawable.contact_placeholder),
-                        ImageLoader.ScaleType.CENTER_CROP
-                );
-            }*/
+                    } else if (profilePicture instanceof Bitmap) {
+                        if (profilePicture != null ) {
+                            pictureImageView.setImageBitmap((Bitmap) profilePicture);
+                        }
+                    }
+                    return false;
+                }
+            });
         }
     }
 
     @Override
     public void resetProfilePicture() {
-        if (pictureImageView != null) {
-            pictureImageView.setImageDrawable(getResources().getDrawable(R.drawable.placeholder_user));
-        }
+        //if (pictureImageView != null) {
+           // pictureImageView.setImageDrawable(getResources().getDrawable(R.drawable.placeholder_user));
+        //}
     }
 
     @Override
@@ -413,8 +395,8 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     public void profilePictureClicked() {
         Drawable drawable = pictureImageView.getDrawable();
         Intent intent = ExpandPictureActivity.makeIntent(getActivity());
-        intent.putExtra(ExpandPictureActivity.USER_AVATAR_KEY, MediaUtils.compressDrawable(drawable));
-        if (supportSharedElements()) {
+        if (supportSharedElements() && drawable != null) {
+            intent.putExtra(ExpandPictureActivity.USER_AVATAR_KEY, MediaUtils.compressDrawable(drawable));
             String transitionName = getActivity().getString(R.string.transition_photo);
             startAnimatedActivity(intent, transitionName, pictureImageView);
         } else {
