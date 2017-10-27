@@ -84,7 +84,7 @@ public class ContactsListPresenter extends BelatrixConnectPresenter<ContactsList
     }
 
     public void getContacts() {
-        view.resetList();
+        reset();
 
         getContactsInternal();
 
