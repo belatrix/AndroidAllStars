@@ -1,0 +1,5 @@
+<resources>
+
+    <string name="privacy_policy_url" translatable="false">https://bxconnect-privacy-policy.herokuapp.com/privacy.html</string>
+
+</resources>
