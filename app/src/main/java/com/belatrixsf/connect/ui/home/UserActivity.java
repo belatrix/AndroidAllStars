@@ -20,9 +20,13 @@
 */
 package com.belatrixsf.connect.ui.home;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -31,17 +35,27 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.view.ActionMode;
+import android.transition.ChangeBounds;
+import android.transition.ChangeImageTransform;
+import android.transition.Transition;
+import android.transition.TransitionSet;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.Window;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.adapters.UserNavigationViewPagerAdapter;
 import com.belatrixsf.connect.services.fcm.ConnectFirebaseMessagingService;
+import com.belatrixsf.connect.ui.IntermediaryLogoActivity;
 import com.belatrixsf.connect.ui.about.AboutActivity;
 import com.belatrixsf.connect.ui.account.AccountFragmentListener;
 import com.belatrixsf.connect.ui.account.edit.EditAccountFragment;
+import com.belatrixsf.connect.ui.login.LoginActivity;
 import com.belatrixsf.connect.ui.notifications.NotificationListActivity;
 import com.belatrixsf.connect.ui.settings.SettingsActivity;
 import com.belatrixsf.connect.ui.stars.GiveStarActivity;
@@ -53,6 +67,8 @@ import com.belatrixsf.connect.utils.di.modules.presenters.UserHomePresenterModul
 
 import butterknife.Bind;
 
+import static com.belatrixsf.connect.ui.IntermediaryLogoActivity.INTERMEDIARY_EXTRA_KEY;
+
 /**
  * Created by PedroCarrillo on 7/4/16.
  */
@@ -62,10 +78,16 @@ public class UserActivity extends MainActivity implements AccountFragmentListene
     public static final int RANKING_TAB = 3;
     public static final int RQ_GIVE_STAR = 99;
     public static final int PARENT_INDEX = 3;
+    public static final String ANIMATION_KEY = "_animation_key";
+
+    private final int REVEAL_DURATION = 800;
+    private final int WAIT_DURATION = 100;
+
     private ConnectFirebaseMessagingService.TargetTab tabSelected;
 
     @Bind(R.id.main_view_pager) ViewPager mainViewPager;
     @Bind(R.id.start_recommendation) FloatingActionButton startRecommendationButton;
+    @Bind(R.id.main_container) View mainContainer;
     @Nullable @Bind(R.id.tab_layout) TabLayout tabLayout;
 
     @Override
@@ -81,6 +103,65 @@ public class UserActivity extends MainActivity implements AccountFragmentListene
         }
         setToolbar();
         setupViews();
+        if (checkForAnimation(getIntent().getExtras()) && supportSharedElements()) {
+            mainContainer.setVisibility(View.INVISIBLE);
+            startAnimation();
+        }
+    }
+
+    private boolean checkForAnimation(Bundle extras) {
+        return (extras != null && extras.containsKey(ANIMATION_KEY) && extras.getBoolean(ANIMATION_KEY));
+    }
+
+    private void startAnimation() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Animator animator = showViewCircleRevealAnimator();
+                animator.setDuration(REVEAL_DURATION);
+                animator.start();
+            }
+        }, WAIT_DURATION);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private Animator showViewCircleRevealAnimator() {
+        int cx = mainContainer.getWidth() / 2;
+        int cy = mainContainer.getHeight() / 2;
+
+        float finalRadius = (float) Math.hypot(cx, cy);
+        Animator anim = ViewAnimationUtils.createCircularReveal(mainContainer, cx, cy, 0, finalRadius);
+        mainContainer.setVisibility(View.VISIBLE);
+
+        return anim;
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private Animator hideViewCircleRevealAnimator() {
+        int cx = mainContainer.getWidth() / 2;
+        int cy = mainContainer.getHeight() / 2;
+
+        float initialRadius = (float) Math.hypot(cx, cy);
+        Animator anim = ViewAnimationUtils.createCircularReveal(mainContainer, cx, cy, initialRadius, 0);
+        anim.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                mainContainer.setVisibility(View.INVISIBLE);
+                continueFlow();
+            }
+        });
+
+        return anim;
+    }
+
+    private void continueFlow() {
+        IntermediaryLogoActivity.nextActivity = null;
+        Intent intent = IntermediaryLogoActivity.makeIntent(this);
+        intent.putExtra(INTERMEDIARY_EXTRA_KEY, true);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
+        finish();
     }
 
     @Override
@@ -236,17 +317,34 @@ public class UserActivity extends MainActivity implements AccountFragmentListene
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    protected void onActivityResult(final int requestCode, final int resultCode,final Intent data) {
         if (requestCode == RQ_GIVE_STAR && resultCode == Activity.RESULT_OK && data != null) {
             showSnackBar(data.getStringExtra(GiveStarFragment.MESSAGE_KEY));
         } else if (requestCode == EditAccountFragment.RQ_EDIT_ACCOUNT && resultCode == Activity.RESULT_OK && data != null) {
             ((UserHomePresenter) homePresenter).refreshEmployee();
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, UserActivity.class);
     }
 
+    @Override
+    public void endSession() {
+        if (supportSharedElements()) {
+            Animator animator = hideViewCircleRevealAnimator();
+            animator.setDuration(REVEAL_DURATION);
+            animator.start();
+        } else {
+            Intent intent = LoginActivity.makeIntent(this);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    @Override
+    public void animateEndSession(Runnable runnable, int duration) {
+        new Handler().postDelayed(runnable, duration);
+    }
 }

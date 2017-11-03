@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.connect.managers;
 
+import com.belatrixsf.connect.data.BelatrixConnectUser;
 import com.belatrixsf.connect.entities.Employee;
 import com.belatrixsf.connect.entities.SiteInfo;
 import com.belatrixsf.connect.networking.retrofit.responses.AuthenticationResponse;
@@ -65,6 +66,7 @@ public class EmployeeManager {
                         @Override
                         public void onSuccess(Employee employee) {
                             EmployeeManager.this.employee = employee;
+                            BelatrixConnectUser.get().registerUser(employee);
                             PreferencesManager.get().saveDeviceToken(FirebaseInstanceId.getInstance().getToken());
                             registerDevice();
                             if (authenticationResponse.isBaseProfileComplete()){

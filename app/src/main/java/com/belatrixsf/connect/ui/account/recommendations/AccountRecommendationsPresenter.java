@@ -47,7 +47,6 @@ public class AccountRecommendationsPresenter extends BelatrixConnectPresenter<Ac
         this.categoryService = categoryService;
     }
 
-
     public void loadCategoriesByEmployee(boolean force) {
         view.hideNoDataView();
         if ((subCategoryList == null || force) && employeeId != null) {
@@ -84,24 +83,16 @@ public class AccountRecommendationsPresenter extends BelatrixConnectPresenter<Ac
         this.employeeId = employeeId;
     }
 
-
-
-    public void onCategoryClicked(Object object) {
-        if (object != null && object instanceof SubCategory) {
-            SubCategory subCategory = (SubCategory) object;
-            view.goCategoryDetail(subCategory.getId(), this.employeeId );
+    public void onCategoryClicked(Object subcategory, Object sharedView, String transitionName) {
+        if (subcategory != null && subcategory instanceof SubCategory) {
+            SubCategory subCategory = (SubCategory) subcategory;
+            view.goCategoryDetail(subCategory.getId(), this.employeeId, sharedView, transitionName);
         }
     }
-
-
-
-
 
     public void loadPresenterState(List<SubCategory> subCategoryList) {
         this.subCategoryList = subCategoryList;
     }
-
-
 
     @Override
     public void cancelRequests() {

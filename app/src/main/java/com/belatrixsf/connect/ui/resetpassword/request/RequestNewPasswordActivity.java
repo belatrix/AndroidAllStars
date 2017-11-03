@@ -30,11 +30,21 @@ import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
  */
 public class RequestNewPasswordActivity extends BelatrixConnectActivity {
 
+    private RequestNewPasswordFragment fragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_new_password);
-        setNavigationToolbar();
+        if (savedInstanceState == null) {
+            fragment = RequestNewPasswordFragment.newInstance();
+            replaceFragment(fragment, false);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        fragment.onBackClicked();
     }
 
 }

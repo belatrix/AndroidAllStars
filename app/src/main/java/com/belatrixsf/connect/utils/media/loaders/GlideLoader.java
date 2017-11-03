@@ -74,7 +74,7 @@ public class GlideLoader implements ImageLoader {
     @Override
     public void loadFromUrl(String url, ImageView imageView, ImageTransformation transformation, Callback callback, Drawable placeholder, ImageLoader.ScaleType scaleType) {
         Context context = imageView.getContext();
-        load(context, Glide.with(context).load(url), transformation, callback, placeholder, scaleType).into(imageView);
+        load(context, Glide.with(context).load(url), transformation, callback, placeholder, scaleType).dontAnimate().into(imageView);
     }
 
     @Override

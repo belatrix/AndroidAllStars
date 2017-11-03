@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.connect.adapters;
 
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +41,8 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import static com.belatrixsf.connect.ui.common.BelatrixConnectActivity.supportSharedElements;
 
 /**
  * Created by dvelasquez on 17/02/17.

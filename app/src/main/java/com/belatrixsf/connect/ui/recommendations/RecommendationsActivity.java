@@ -20,11 +20,15 @@
 */
 package com.belatrixsf.connect.ui.recommendations;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
+import android.transition.ChangeBounds;
+import android.transition.ChangeImageTransform;
+import android.transition.Transition;
+import android.transition.TransitionSet;
+import android.view.Window;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.account.AccountFragmentListener;
@@ -37,25 +41,47 @@ public class RecommendationsActivity extends BelatrixConnectActivity implements 
 
     public static final String USER_ID_KEY = "_user_id";
     public static final String CATEGORY_ID_KEY = "_category_id";
+    public static final String SHARED_NAME_KEY = "_shared_name";
+
+    private final int TOOLBAR_ANIMATION_DURATION = 450;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-        ActivityCompat.postponeEnterTransition(this);
         setNavigationToolbar();
         if (savedInstanceState == null) {
             Integer userId = getIntent().getIntExtra(USER_ID_KEY, -1);
             Integer categoryId = getIntent().getIntExtra(CATEGORY_ID_KEY, -1);
+            String categoryName = getIntent().getStringExtra(SHARED_NAME_KEY);
+            setTitle(categoryName);
+            if (supportSharedElements()) {
+                toolbar.setTransitionName(categoryName);
+                setupEnterSharedAnimation();
+                setupExitSharedAnimation();
+            }
             replaceFragment(RecommendationsFragment.newInstance(userId, categoryId), false);
         }
     }
 
-    public static void startActivity(Activity activity, Integer employeeId, Integer categoryId) {
-        Intent intent = new Intent(activity, RecommendationsActivity.class);
-        intent.putExtra(RecommendationsActivity.USER_ID_KEY, employeeId);
-        intent.putExtra(RecommendationsActivity.CATEGORY_ID_KEY, categoryId);
-        activity.startActivity(intent);
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void setupEnterSharedAnimation() {
+        Window window = getWindow();
+        TransitionSet set = new TransitionSet();
+        set.addTransition(new ChangeImageTransform());
+        set.addTransition(new ChangeBounds());
+        set.setDuration(TOOLBAR_ANIMATION_DURATION);
+        window.setSharedElementEnterTransition(set);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void setupExitSharedAnimation() {
+        Window window = getWindow();
+        TransitionSet set = new TransitionSet();
+        set.addTransition(new ChangeImageTransform());
+        set.addTransition(new ChangeBounds());
+        set.setDuration(TOOLBAR_ANIMATION_DURATION);
+        window.setSharedElementEnterTransition(set);
     }
 
     @Override

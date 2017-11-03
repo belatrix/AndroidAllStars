@@ -10,6 +10,7 @@
         android:id="@+id/badge_icon"
         android:layout_width="@dimen/dimen_10_5"
         android:layout_height="@dimen/dimen_10_5"
+        android:transitionName="@string/transition_badge"
         tools:src="@drawable/contact_placeholder"
         android:contentDescription="@string/profile_image_content_desc"/>
 

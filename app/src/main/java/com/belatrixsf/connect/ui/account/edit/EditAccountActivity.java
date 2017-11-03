@@ -22,7 +22,6 @@ package com.belatrixsf.connect.ui.account.edit;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
@@ -38,7 +37,7 @@ public class EditAccountActivity extends BelatrixConnectActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-        ActivityCompat.postponeEnterTransition(this);
+        //ActivityCompat.postponeEnterTransition(this);
         setNavigationToolbar();
         if (savedInstanceState == null) {
             boolean isCreation = getIntent().getBooleanExtra(EditAccountFragment.IS_NEW_USER, false);

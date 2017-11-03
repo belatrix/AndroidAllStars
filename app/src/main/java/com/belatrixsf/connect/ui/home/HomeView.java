@@ -28,6 +28,7 @@ import com.belatrixsf.connect.ui.common.BelatrixConnectView;
 public interface HomeView extends BelatrixConnectView {
 
     void endSession();
+    void animateEndSession(Runnable runnable, int duration);
     void showLogoutConfirmationDialog(String message);
     void setNavigationDrawerData(String photoUrl, String fullName, String email);
 

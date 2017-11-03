@@ -29,24 +29,12 @@ import javax.inject.Inject;
  */
 public class ExpandPicturePresenter extends BelatrixConnectPresenter<ExpandPictureView> {
 
-    private String avatarUrl;
-
     @Inject
     public ExpandPicturePresenter(ExpandPictureView view) {
         super(view);
     }
 
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
-    }
-
-    public void loadPicture() {
-        view.showProfilePicture(avatarUrl);
-    }
-
     @Override
-    public void cancelRequests() {
-
-    }
+    public void cancelRequests() {}
 
 }

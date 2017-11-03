@@ -30,10 +30,21 @@ import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
  */
 public class SignUpActivity extends BelatrixConnectActivity {
 
+    private SignUpFragment fragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        if (savedInstanceState == null) {
+            fragment = SignUpFragment.newInstance();
+            replaceFragment(fragment, false);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        fragment.slideOutAnimation();
     }
 
 }

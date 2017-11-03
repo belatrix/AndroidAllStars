@@ -42,14 +42,20 @@ public class CustomDomainEditText extends TextInputEditText {
 
     public CustomDomainEditText(Context context) {
         super(context);
+        defaultDomain = Constants.DEFAULT_BX_DOMAIN;
+        setDefaultUsername(Constants.DEFAULT_BX_USERNAME_HINT);
     }
 
     public CustomDomainEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
+        defaultDomain = Constants.DEFAULT_BX_DOMAIN;
+        setDefaultUsername(Constants.DEFAULT_BX_USERNAME_HINT);
     }
 
     public CustomDomainEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        defaultDomain = Constants.DEFAULT_BX_DOMAIN;
+        setDefaultUsername(Constants.DEFAULT_BX_USERNAME_HINT);
     }
 
     @Override
@@ -101,11 +107,6 @@ public class CustomDomainEditText extends TextInputEditText {
     public void setDefaultUsername(String defaultUsername) {
         this.defaultUsername = defaultUsername;
         setTextWithDomain(defaultUsername);
-        isInitialized = true;
-    }
-
-    public void initEditText(String defaultUsername){
-        this.defaultUsername = defaultUsername;
         isInitialized = true;
     }
 

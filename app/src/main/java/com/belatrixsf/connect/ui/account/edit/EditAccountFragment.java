@@ -64,6 +64,7 @@ import com.belatrixsf.connect.utils.PermissionHelper;
 import com.belatrixsf.connect.utils.di.modules.presenters.EditAccountPresenterModule;
 import com.belatrixsf.connect.utils.media.ImageFactory;
 import com.belatrixsf.connect.utils.media.loaders.ImageLoader;
+import com.bumptech.glide.Glide;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -200,7 +201,7 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
         }
     }
 
-    public void startPostponedEnterTransition() {
+    /*public void startPostponedEnterTransition() {
         pictureImageView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {
@@ -209,7 +210,7 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
                 return false;
             }
         });
-    }
+    }*/
 
     @Override
     protected void initDependencies(BelatrixConnectApplication belatrixConnectApplication) {
@@ -219,7 +220,8 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
     @Override
     public void showProfileImage(String imageUrl) {
         if (pictureImageView != null) {
-            ImageFactory.getLoader().loadFromUrl(
+            Glide.with(getActivity()).load(imageUrl).into(pictureImageView);
+            /*ImageFactory.getLoader().loadFromUrl(
                     imageUrl,
                     pictureImageView,
                     ImageLoader.ImageTransformation.BORDERED_CIRCLE,
@@ -236,7 +238,7 @@ public class EditAccountFragment extends BelatrixConnectFragment implements Edit
                     },
                     getResources().getDrawable(R.drawable.contact_placeholder),
                     ImageLoader.ScaleType.CENTER_CROP
-            );
+            );*/
         }
     }
 

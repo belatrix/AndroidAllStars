@@ -29,10 +29,16 @@ import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 
 public class LoginActivity extends BelatrixConnectActivity {
 
+    public static LoginFragment fragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        if (savedInstanceState == null) {
+            fragment = LoginFragment.newInstance();
+            replaceFragment(fragment, false);
+        }
     }
 
     public static Intent makeIntent(Context context) {

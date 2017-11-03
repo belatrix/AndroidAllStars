@@ -36,6 +36,7 @@
             android:layout_height="@dimen/dimen_18_10"
             android:layout_marginBottom="@dimen/dimen_2_5"
             android:contentDescription="@string/profile_image_content_desc"
+            android:transitionName="@string/transition_badge"
             tools:src="@drawable/contact_placeholder" />
 
         <TextView

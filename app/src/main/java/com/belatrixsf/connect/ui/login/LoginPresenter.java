@@ -20,10 +20,14 @@
 */
 package com.belatrixsf.connect.ui.login;
 
+import android.os.SystemClock;
+
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.entities.SiteInfo;
 import com.belatrixsf.connect.managers.EmployeeManager;
+import com.belatrixsf.connect.managers.EmployeeManager.AccountState;
 import com.belatrixsf.connect.ui.common.BelatrixConnectPresenter;
+import com.belatrixsf.connect.utils.ServiceError;
 
 import javax.inject.Inject;
 
@@ -32,63 +36,141 @@ import javax.inject.Inject;
  */
 public class LoginPresenter extends BelatrixConnectPresenter<LoginView> {
 
+    private long lastClickTime = 0; // to handle fast double click
+
     private EmployeeManager employeeManager;
+    private boolean callNeeded;
+    private boolean toSignUp;
+
+    public static final float LOGO_SCALE = 1.5f;
+    public static final float INITIAL_SCALE = 0.66f;
+
+    private Runnable logoRunnable = new Runnable() {
+        @Override
+        public void run() {
+            view.initialAnimations(LOGO_SCALE);
+        }
+    };
+
+    private PresenterCallback<AccountState> loginCallBack = new PresenterCallback<AccountState>() {
+        @Override
+        public void onSuccess(AccountState accountState) {
+            view.hideProgressIndicator();
+            continueFlow(accountState);
+        }
+
+        @Override
+        public void onFailure(ServiceError serviceError) {
+            view.hideProgressIndicator();
+            view.showError(serviceError.getDetail());
+            view.recreateFragment(); // reset
+        }
+    };
 
     @Inject
     public LoginPresenter(LoginView view, EmployeeManager employeeManager) {
         super(view);
         this.employeeManager = employeeManager;
+        this.callNeeded = false;
+    }
+
+    public void setCallNeeded(boolean callNeeded) {
+        this.callNeeded = callNeeded;
+    }
+
+
+
+    public void checkForCallNeeded() {
+        if (callNeeded) {
+            getDefaultDomain();
+        }
     }
 
     public void checkIfInputsAreValid(String username, String password) {
         view.enableLogin(areFieldsFilled(username, password));
     }
 
-    public void init() {
-        view.enableLogin(false);
+    public void startAnimations() {;
+        view.startAnimations(logoRunnable);
     }
 
-    public void login(String username, String password) {
+    public boolean isGoingToSignUp() {
+        return toSignUp;
+    }
+
+    public void onForgotPasswordClicked() {
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000) {
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
+        toSignUp = false;
+        view.slideOutAnimation();
+    }
+
+    public void onSignUpClicked() {
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000) {
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
+        toSignUp = true;
+        view.slideOutAnimation();
+    }
+
+    public void init() {
+        view.enableLogin(false);
+        view.enableFields(false);
+    }
+
+    public void onLoginButtonClicked(String username, String password) {
         if (areFieldsFilled(username, password)) {
-            view.showProgressDialog();
-            employeeManager.login(username, password, new PresenterCallback<EmployeeManager.AccountState>() {
-                @Override
-                public void onSuccess(EmployeeManager.AccountState accountState) {
-                    view.dismissProgressDialog();
-                    switch (accountState) {
-                        case PROFILE_COMPLETE:
-                            view.goHome();
-                            break;
-                        case PROFILE_INCOMPLETE:
-                            view.goEditProfile();
-                            break;
-                        case PASSWORD_RESET_INCOMPLETE:
-                            view.goResetPassword();
-                            break;
-                    }
-                }
-            });
+            view.loggedAnimations(INITIAL_SCALE);
         } else {
             showError(R.string.error_incorrect_fields);
         }
     }
 
-    private boolean areFieldsFilled(String username, String password) {
+    public void login(String username, String password) {
+        view.showProgressIndicator();
+        employeeManager.login(username, password, loginCallBack);
+    }
+
+    public void getDefaultDomain() {
+        employeeManager.getSiteInfo(new PresenterCallback<SiteInfo>() {
+            @Override
+            public void onSuccess(SiteInfo siteInfo) {
+                view.setDefaultDomain("@" + siteInfo.getEmail_domain());
+                view.enableFields(true);
+                view.replaceLogo();
+            }
+
+            @Override
+            public void onFailure(ServiceError serviceError) {
+                view.replaceLogo();
+            }
+        });
+    }
+
+    public void continueFlow(AccountState userState) {
+        switch (userState) {
+            case PROFILE_COMPLETE:
+                view.goToNextActivity(view.homeIntent());
+                break;
+            case PROFILE_INCOMPLETE:
+                view.goToNextActivity(view.editProfileIntent());
+                break;
+            case PASSWORD_RESET_INCOMPLETE:
+                view.goToNextActivity(view.resetPassIntent());
+                break;
+        }
+    }
+
+    public boolean areFieldsFilled(String username, String password) {
         return username != null && password != null && !username.isEmpty() && !password.isEmpty();
     }
 
     @Override
     public void cancelRequests() {
+
     }
 
-    public void getDefaultDomain() {
-        view.showProgressDialog();
-        employeeManager.getSiteInfo(new PresenterCallback<SiteInfo>() {
-            @Override
-            public void onSuccess(SiteInfo siteInfo) {
-                view.setDefaultDomain("@" + siteInfo.getEmail_domain());
-                view.dismissProgressDialog();
-            }
-        });
-    }
 }

@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.connect.ui.signup;
 
+import android.os.SystemClock;
 import android.text.TextUtils;
 
 import com.belatrixsf.connect.R;
@@ -36,7 +37,16 @@ import javax.inject.Inject;
  */
 public class SignUpPresenter extends BelatrixConnectPresenter<SignUpView> {
 
+    private long lastClickTime = 0; // to handle fast double click
+
     private EmployeeService employeeService;
+
+    private Runnable inRunnable = new Runnable() {
+        @Override
+        public void run() {
+            view.slideInAnimation();
+        }
+    };
 
     @Inject
     public SignUpPresenter(SignUpView view, EmployeeService employeeService) {
@@ -50,6 +60,21 @@ public class SignUpPresenter extends BelatrixConnectPresenter<SignUpView> {
 
     public void init() {
         view.enableSend(true);
+    }
+
+    public void startAnimations() {
+        view.startAnimations(inRunnable);
+    }
+
+    public void onBackClicked() {
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000) {
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
+        if (view.getEmailFocus()) {
+            view.removeEmailFocus();
+        }
+        view.slideOutAnimation();
     }
 
     public void signUp(final String email) {
@@ -71,6 +96,10 @@ public class SignUpPresenter extends BelatrixConnectPresenter<SignUpView> {
         } else {
             view.showErrorMessage(view.getContext().getString(R.string.sign_up_invalid_mail));
         }
+    }
+
+    public void endFlow(){
+        view.backToLogin();
     }
 
     public void confirmMessage(){

@@ -22,25 +22,31 @@ package com.belatrixsf.connect.ui.signup;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.text.Editable;
+import android.os.Handler;
 import android.text.InputFilter;
 import android.text.Spanned;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
+import com.belatrixsf.connect.ui.login.LoginActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.CustomDomainEditText;
 import com.belatrixsf.connect.utils.DialogUtils;
+import com.belatrixsf.connect.utils.KeyboardUtils;
 import com.belatrixsf.connect.utils.di.modules.presenters.SignUpPresenterModule;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+
+import static com.belatrixsf.connect.utils.AnimationsUtils.OutInAnimDirection;
+import static com.belatrixsf.connect.utils.AnimationsUtils.WAIT_DURATION;
+import static com.belatrixsf.connect.utils.AnimationsUtils.customTranslateAnimation;
 
 /**
  * Created by icerrate on 16/05/16.
@@ -53,7 +59,13 @@ public class SignUpFragment extends BelatrixConnectFragment implements SignUpVie
 
     @Bind(R.id.email) CustomDomainEditText emailEditText;
     @Bind(R.id.send) Button sendButton;
-    @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.back_button) ImageView backButton;
+    @Bind(R.id.fields_container) View fieldsContainer;
+    @Bind(R.id.title_container) View titleContainer;
+
+    public static SignUpFragment newInstance() {
+        return new SignUpFragment();
+    }
 
     public SignUpFragment() {
         // Required empty public constructor
@@ -69,8 +81,9 @@ public class SignUpFragment extends BelatrixConnectFragment implements SignUpVie
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initViews();
         if (savedInstanceState == null) {
+            initViews();
+            signUpPresenter.startAnimations();
             signUpPresenter.init();
         }
     }
@@ -79,8 +92,6 @@ public class SignUpFragment extends BelatrixConnectFragment implements SignUpVie
         emailEditText.setFilters(new InputFilter[] { filter });
         emailEditText.setDefaultDomain(getActivity().getIntent().getExtras().getString(DEFAULT_DOMAIN_ID));
         emailEditText.setDefaultUsername(getString(R.string.hint_username));
-        fragmentListener.setToolbar(toolbar);
-        fragmentListener.setTitle("");
         enableSend(true);
     }
 
@@ -113,13 +124,53 @@ public class SignUpFragment extends BelatrixConnectFragment implements SignUpVie
         signUpPresenter.signUp(email);
     }
 
+    @OnClick(R.id.back_button)
+    public void onBackClicked() {
+        signUpPresenter.onBackClicked();
+    }
+
+    @Override
+    public void startAnimations(Runnable runnable) {
+        new Handler().postDelayed(runnable, WAIT_DURATION);
+    }
+
+    @Override
+    public void slideInAnimation() {
+        Animation fieldsAnimation = customTranslateAnimation(getActivity(), fieldsContainer, OutInAnimDirection.IN_UP);
+        fieldsAnimation.setAnimationListener(initialAnimationListener);
+        fieldsContainer.startAnimation(fieldsAnimation);
+
+        titleContainer.startAnimation(customTranslateAnimation(getActivity(), titleContainer, OutInAnimDirection.IN_DOWN));
+    }
+
+    @Override
+    public void slideOutAnimation() {
+        Animation fieldsAnimation = customTranslateAnimation(getActivity(), fieldsContainer, OutInAnimDirection.OUT_DOWN);
+        fieldsAnimation.setAnimationListener(slideOutAnimationListener);
+        fieldsContainer.startAnimation(fieldsAnimation);
+
+        titleContainer.startAnimation(customTranslateAnimation(getActivity(), titleContainer, OutInAnimDirection.OUT_UP));
+    }
+
+    @Override
+    public boolean getEmailFocus() {
+        return (emailEditText != null) && emailEditText.hasFocus();
+    }
+
+    @Override
+    public void removeEmailFocus() {
+        KeyboardUtils.hideKeyboard(getActivity(), emailEditText);
+        emailEditText.clearFocus();
+    }
+
     @Override
     public void showMessage(String message){
         DialogUtils.createInformationDialog(getActivity(), message, getString(R.string.app_name), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                signUpPresenter.confirmMessage();
+                //signUpPresenter.confirmMessage();
+                onBackClicked();
             }
         }).show();
     }
@@ -128,6 +179,34 @@ public class SignUpFragment extends BelatrixConnectFragment implements SignUpVie
     public void showErrorMessage(String message){
         DialogUtils.createSimpleDialog(getActivity(),getString(R.string.app_name),message).show();
     }
+
+    private Animation.AnimationListener initialAnimationListener = new Animation.AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {}
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            emailEditText.setEnabled(true);
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {}
+    };
+
+    private Animation.AnimationListener slideOutAnimationListener = new Animation.AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {}
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            signUpPresenter.endFlow();
+            getActivity().overridePendingTransition(0, 0);
+            LoginActivity.fragment.slideInAnimation();
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {}
+    };
 
     private String blockCharacterSet = "~#^|$%&*!@";
 
