@@ -20,17 +20,29 @@
 */
 package com.belatrixsf.connect.ui.login;
 
-import com.belatrixsf.connect.ui.common.BelatrixConnectView;
+import android.content.Intent;
+
+import com.belatrixsf.connect.ui.common.BaseInitialAnimationsView;
 
 /**
  * Created by gyosida on 4/11/16.
  */
-public interface LoginView extends BelatrixConnectView {
+public interface LoginView extends BaseInitialAnimationsView {
 
-    void goHome();
-    void goResetPassword();
-    void goEditProfile();
     void enableLogin(boolean enable);
     void setDefaultDomain(String domain);
+    void enableFields(boolean enable);
+    void initialAnimations(float scale);
+    void loggedAnimations(float scale);
+    void replaceLogo();
+    void goToNextActivity(Intent intent);
+    void recreateFragment();
+
+    Intent homeIntent();
+    Intent editProfileIntent();
+    Intent resetPassIntent();
+
+    String getUsername();
+    String getPassword();
 
 }

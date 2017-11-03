@@ -32,7 +32,7 @@ public interface AccountRecommendationsView extends BelatrixConnectView {
     void showCategories(List<SubCategory> subCategories);
     void showNoDataView();
     void hideNoDataView();
-    void goCategoryDetail(int categoryId, int employeeId);
+    void goCategoryDetail(int categoryId, int employeeId, Object view, String transitionName);
 
 
 }

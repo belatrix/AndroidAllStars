@@ -1,63 +1,101 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/white"
+    android:clipChildren="false"
+    android:paddingLeft="@dimen/pre_session_fragment_margin"
+    android:paddingRight="@dimen/pre_session_fragment_margin"
     tools:context=".ui.login.LoginActivity">
+
+    <ImageView
+        android:id="@+id/tempLogo"
+        android:layout_width="@dimen/initial_logo"
+        android:layout_height="@dimen/initial_logo"
+        android:layout_centerInParent="true"
+        android:src="@drawable/bx_logo"/>
+
+    <TextView
+        android:id="@+id/tempTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tempLogo"
+        android:layout_marginTop="@dimen/dimen_5"
+        android:text="@string/login_subtitle"
+        android:textColor="@color/belatrix"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:visibility="invisible"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:paddingLeft="@dimen/pre_session_fragment_margin"
-        android:paddingRight="@dimen/pre_session_fragment_margin">
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:scaleType="center"
-            android:layout_marginTop="@dimen/dimen_10_6"
-            android:contentDescription="@string/profile_image_content_desc"
-            android:src="@drawable/ic_belatrix" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/dimen_3_5"
-            android:text="@string/login_subtitle"
-            android:textColor="@color/belatrix"
-            android:textSize="@dimen/text_28" />
-
-        <android.support.design.widget.TextInputLayout
+        <RelativeLayout
+            android:id="@+id/logo_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_4_5"
-            android:focusableInTouchMode="true">
+            android:layout_height="0dp"
+            android:layout_weight="0.4"
+            android:clipChildren="false">
 
-                <com.belatrixsf.connect.utils.CustomDomainEditText
+            <ImageView
+                android:id="@+id/bx_logo"
+                android:layout_width="@dimen/login_logo"
+                android:layout_height="@dimen/login_logo"
+                android:layout_centerHorizontal="true"
+                android:layout_above="@+id/bx_title"
+                android:layout_marginBottom="@dimen/dimen_5"
+                android:contentDescription="@string/profile_image_content_desc"
+                android:src="@drawable/bx_logo"
+                android:visibility="invisible"/>
+
+            <TextView
+                android:id="@+id/bx_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:text="@string/login_subtitle"
+                android:textColor="@color/belatrix"
+                android:textAppearance="@android:style/TextAppearance.Large"
+                android:visibility="invisible"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/fields_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.6"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:visibility="invisible">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <com.belatrixsf.connect.utils.CustomDomainEditText
                 android:id="@+id/username"
                 android:drawableLeft="@drawable/ic_person_outline"
                 android:drawablePadding="@dimen/dimen_3_5"
                 android:imeOptions="actionNext"
+                android:inputType="textVisiblePassword"
                 android:background="@drawable/selector_edittext"
                 android:paddingLeft="0dp"
-                style="@style/EditText" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_2_5"
-            app:hintTextAppearance="@style/TextInputLayout"
-            app:passwordToggleEnabled="true">
+                android:paddingTop="@dimen/dimen_5"
+                android:paddingBottom="@dimen/dimen_5"
+                style="@style/LoginFields" />
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/password"
+                android:layout_marginTop="@dimen/dimen_2_5"
                 android:drawableLeft="@drawable/ic_lock_outline"
                 android:drawablePadding="@dimen/dimen_3_5"
                 android:hint="@string/hint_password"
@@ -65,50 +103,64 @@
                 android:inputType="textVisiblePassword"
                 android:background="@drawable/selector_edittext"
                 android:paddingLeft="0dp"
-                style="@style/EditText"/>
+                android:paddingTop="@dimen/dimen_5"
+                android:paddingBottom="@dimen/dimen_5"
+                android:textColor="@color/black"
+                style="@style/LoginFields"/>
 
-        </android.support.design.widget.TextInputLayout>
+            <Button
+                android:id="@+id/log_in"
+                android:layout_marginTop="@dimen/dimen_3_5"
+                android:text="@string/button_log_in"
+                android:stateListAnimator="@null"
+                style="@style/Button.LoginPrimary"/>
 
-        <Button
-            android:id="@+id/log_in"
-            android:layout_marginTop="@dimen/dimen_6_5"
-            android:text="@string/button_log_in"
-            style="@style/Button.Primary"/>
+            <Button
+                android:id="@+id/sign_up"
+                android:layout_marginTop="@dimen/dimen_2_5"
+                android:text="@string/button_create_account"
+                android:stateListAnimator="@null"
+                style="@style/Button.LoginAccent"/>
 
-        <Button
-            android:id="@+id/sign_up"
-            android:layout_marginTop="@dimen/dimen_2_5"
-            android:text="@string/button_create_account"
-            style="@style/Button.Accent"/>
+            <Button
+                android:id="@+id/log_in_as_guest"
+                android:layout_marginTop="@dimen/dimen_4_5"
+                android:text="@string/button_log_in_as_guest"
+                android:visibility="gone"
+                style="@style/Button.Accent"/>
 
-        <Button
-            android:id="@+id/log_in_as_guest"
-            android:layout_marginTop="@dimen/dimen_4_5"
-            android:text="@string/button_log_in_as_guest"
-            style="@style/Button.Accent"
-            android:visibility="gone"/>
+            <TextView
+                android:id="@+id/forgot_password"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dimen_2_5"
+                android:text="@string/button_forgot_password"
+                android:textColor="@color/darkAccent"
+                android:textAppearance="@android:style/TextAppearance.Small"/>
 
-        <TextView
-            android:id="@+id/forgot_password"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:gravity="center"
-            android:text="@string/button_forgot_password"
-            android:layout_marginTop="@dimen/dimen_5_5"
-            android:padding="@dimen/dimen_5"
-            android:layout_marginBottom="@dimen/dimen_5"
-            android:textColor="@color/grey"/>
+            <TextView
+                android:id="@+id/privacy_policy"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dimen_2_5"
+                android:layout_marginBottom="@dimen/dimen_5_5"
+                android:text="@string/button_privacy_policy"
+                android:textColor="@color/grey"
+                android:textAppearance="@android:style/TextAppearance.Small"/>
 
-        <TextView
-            android:id="@+id/privacy_policy"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:gravity="center"
-            android:padding="@dimen/dimen_5"
-            android:text="@string/button_privacy_policy"
-            android:layout_marginBottom="@dimen/dimen_5_5"
-            android:textColor="@color/grey"/>
+        </LinearLayout>
 
     </LinearLayout>
 
-</ScrollView>
+    <ProgressBar
+        android:id="@+id/login_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/dimen_8_5"
+        android:visibility="invisible"/>
+
+</RelativeLayout>

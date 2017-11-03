@@ -1,80 +1,92 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
+    android:orientation="vertical"
     tools:context=".ui.signup.SignUpActivity">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/title_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:visibility="invisible">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize" />
+        <ImageView
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/pre_session_fragment_margin"
+            android:src="@drawable/ic_arrow_back"
+            android:tint="@color/belatrix"/>
 
-        <LinearLayout
+        <ImageView
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_above="@+id/sign_up_subtitle"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_mail" />
+
+        <TextView
+            android:id="@+id/sign_up_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/sign_up_description"
+            android:layout_centerHorizontal="true"
+            android:text="@string/sign_up_subtitle"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_16" />
+
+        <TextView
+            android:id="@+id/sign_up_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/pre_session_fragment_margin"
-            android:paddingRight="@dimen/pre_session_fragment_margin">
+            android:layout_marginTop="@dimen/dimen_5"
+            android:layout_marginBottom="@dimen/dimen_10_5"
+            android:layout_marginRight="@dimen/pre_session_fragment_margin"
+            android:layout_marginLeft="@dimen/pre_session_fragment_margin"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:text="@string/sign_up_description"
+            android:textSize="@dimen/text_12" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/email_content_desc"
-                android:layout_marginTop="@dimen/dimen_5_5"
-                android:src="@drawable/ic_mail" />
+    </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/dimen_3_5"
-                android:text="@string/sign_up_subtitle"
-                android:textStyle="bold"
-                android:textSize="@dimen/text_16" />
+    <LinearLayout
+        android:id="@+id/fields_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/pre_session_fragment_margin"
+        android:paddingRight="@dimen/pre_session_fragment_margin"
+        android:visibility="invisible">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginTop="@dimen/dimen_5"
-                android:text="@string/sign_up_description"
-                android:textSize="@dimen/text_12" />
+        <com.belatrixsf.connect.utils.CustomDomainEditText
+            android:id="@+id/email"
+            android:layout_marginTop="@dimen/dimen_6_5"
+            android:drawableLeft="@drawable/ic_person_outline"
+            android:drawablePadding="@dimen/dimen_3_5"
+            android:enabled="false"
+            android:imeOptions="actionDone"
+            android:inputType="textVisiblePassword"
+            android:background="@drawable/selector_edittext"
+            android:paddingLeft="0dp"
+            android:paddingTop="@dimen/dimen_5"
+            android:paddingBottom="@dimen/dimen_5"
+            style="@style/LoginFields" />
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_5_5"
-                android:focusableInTouchMode="true">
-
-                <com.belatrixsf.connect.utils.CustomDomainEditText
-                    android:id="@+id/email"
-                    android:drawableLeft="@drawable/ic_person_outline"
-                    android:drawablePadding="@dimen/dimen_3_5"
-                    android:background="@drawable/selector_edittext"
-                    android:inputType="textEmailAddress"
-                    android:imeOptions="actionDone"
-                    android:paddingLeft="0dp"
-                    style="@style/EditText" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <Button
-                android:id="@+id/send"
-                style="@style/Button.Primary"
-                android:layout_marginTop="@dimen/dimen_8_6"
-                android:text="@string/button_sign_up"
-                android:layout_marginBottom="@dimen/dimen_5_5"/>
-
-        </LinearLayout>
+        <Button
+            android:id="@+id/send"
+            android:layout_marginTop="@dimen/dimen_3_5"
+            android:text="@string/button_sign_up"
+            android:stateListAnimator="@null"
+            style="@style/Button.LoginPrimary"/>
 
     </LinearLayout>
 
-</ScrollView>
+</LinearLayout>

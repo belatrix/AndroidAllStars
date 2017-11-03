@@ -20,14 +20,10 @@
 */
 package com.belatrixsf.connect.ui.account.expanded;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.view.ViewCompat;
-import android.widget.ImageView;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
@@ -38,25 +34,20 @@ import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
 public class ExpandPictureActivity extends BelatrixConnectActivity {
 
     public static final String USER_AVATAR_KEY = "_user_avatar";
+    public static final String AVATAR_URL_KEY = "_avatar_url";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expand_picture);
-        ActivityCompat.postponeEnterTransition(this);
-        setNavigationToolbar();
         if (savedInstanceState == null) {
-            String avatarUrl = getIntent().getStringExtra(USER_AVATAR_KEY);
-            replaceFragment(ExpandPictureFragment.newInstance(avatarUrl), false);
+            byte[] bytesImg = getIntent().getExtras().getByteArray(USER_AVATAR_KEY);
+            replaceFragment(ExpandPictureFragment.newInstance(bytesImg), false);
         }
     }
 
-    public static void startActivityAnimatingProfilePic(Activity activity, ImageView photoImageView, String url) {
-        Intent intent = new Intent(activity, ExpandPictureActivity.class);
-        intent.putExtra(ExpandPictureActivity.USER_AVATAR_KEY, url);
-        ViewCompat.setTransitionName(photoImageView, activity.getString(R.string.transition_photo));
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, photoImageView, activity.getString(R.string.transition_photo));
-        activity.startActivity(intent, options.toBundle());
+    public static Intent makeIntent(Context context) {
+        return new Intent(context, ExpandPictureActivity.class);
     }
 
 }

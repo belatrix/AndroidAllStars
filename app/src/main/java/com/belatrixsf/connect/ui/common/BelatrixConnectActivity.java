@@ -24,6 +24,8 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -53,6 +55,11 @@ public class BelatrixConnectActivity extends AppCompatActivity implements Fragme
     public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(layoutResID);
         ButterKnife.bind(this);
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -184,6 +191,11 @@ public class BelatrixConnectActivity extends AppCompatActivity implements Fragme
         }
     }
 
+    @Override
+    public void fragmentBackPressed() {
+        onBackPressed();
+    }
+
     protected void navigateBack() {
         onBackPressed();
     }
@@ -208,4 +220,9 @@ public class BelatrixConnectActivity extends AppCompatActivity implements Fragme
             super.onBackPressed();
         }
     }
+
+    public static boolean supportSharedElements() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+    }
+
 }

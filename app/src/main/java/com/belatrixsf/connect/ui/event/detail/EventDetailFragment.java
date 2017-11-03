@@ -23,6 +23,8 @@ package com.belatrixsf.connect.ui.event.detail;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.TextViewCompat;
 import android.view.LayoutInflater;
@@ -188,6 +190,8 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
         eventRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                /*
                 DialogUtils.createConfirmationDialogWithTitle(getActivity(),dialogTitle,eventConfirmRegister, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -201,6 +205,15 @@ public class EventDetailFragment extends BelatrixConnectFragment implements Even
                             }
                         }
                 ).show();
+               */
+                String url = eventDetailPresenter.getEvent().getRegistrationURL();
+                Uri webpage = Uri.parse(url);
+                Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivity(intent);
+                } else {
+                    DialogUtils.createSimpleDialog(getActivity(),getString(R.string.app_name),"You don't have any app that could open this links");
+                }
 
 
             }

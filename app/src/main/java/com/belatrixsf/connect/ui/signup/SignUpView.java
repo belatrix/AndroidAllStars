@@ -20,15 +20,19 @@
 */
 package com.belatrixsf.connect.ui.signup;
 
-import com.belatrixsf.connect.ui.common.BelatrixConnectView;
+import com.belatrixsf.connect.ui.common.BaseInitialAnimationsView;
 
 /**
  * Created by icerrate on 16/05/16.
  */
-public interface SignUpView extends BelatrixConnectView {
+public interface SignUpView extends BaseInitialAnimationsView {
 
     void backToLogin();
     void enableSend(boolean enable);
     void showMessage(String message);
     void showErrorMessage(String message);
+    void removeEmailFocus();
+
+    boolean getEmailFocus();
+
 }

@@ -51,6 +51,9 @@ public class Event implements Parcelable {
     private boolean isRegistrationAvailable;
     @SerializedName("is_registered")
     private boolean isRegistered;
+    @SerializedName("registration_url")
+    private String registrationURL;
+
 
     public Event() {
     }
@@ -115,21 +118,30 @@ public class Event implements Parcelable {
         this.isRegistered = isRegistered;
     }
 
+    public String getRegistrationURL() {
+        return registrationURL;
+    }
+
+    public void setRegistrationURL(String registrationURL) {
+        this.registrationURL = registrationURL;
+    }
+
     protected Event(Parcel in) {
         id = in.readByte() == 0x00 ? null : in.readInt();
         title = in.readString();
-        description = in.readString();
-        datetime = in.readString();
-        address = in.readString();
         name = in.readString();
+        datetime = in.readString();
+        location = (Location) in.readValue(Location.class.getClassLoader());
         collaborators = in.readByte() == 0x00 ? null : in.readInt();
         participants = in.readByte() == 0x00 ? null : in.readInt();
+        address = in.readString();
+        description = in.readString();
+        isActive = in.readByte() != 0x00;
+        isUpcoming = in.readByte() != 0x00;
         picture = in.readString();
         isRegistrationAvailable = in.readByte() != 0x00;
         isRegistered = in.readByte() != 0x00;
-        isActive = in.readByte() != 0x00;
-        isUpcoming = in.readByte() != 0x00;
-        location = (Location) in.readValue(Location.class.getClassLoader());
+        registrationURL = in.readString();
     }
 
     @Override
@@ -145,8 +157,9 @@ public class Event implements Parcelable {
             dest.writeByte((byte) (0x01));
             dest.writeInt(id);
         }
+
         dest.writeString(title);
-        dest.writeString(description);
+        dest.writeString(name);
         dest.writeString(datetime);
         dest.writeValue(location);
         if (collaborators == null) {
@@ -161,13 +174,14 @@ public class Event implements Parcelable {
             dest.writeByte((byte) (0x01));
             dest.writeInt(participants);
         }
-        dest.writeString(name);
+        dest.writeString(address);
+        dest.writeString(description);
+        dest.writeByte((byte) (isActive ? 0x01 : 0x00));
+        dest.writeByte((byte) (isUpcoming ? 0x01 : 0x00));
         dest.writeString(picture);
         dest.writeByte((byte) (isRegistrationAvailable ? 0x01 : 0x00));
         dest.writeByte((byte) (isRegistered ? 0x01 : 0x00));
-        dest.writeByte((byte) (isActive ? 0x01 : 0x00));
-        dest.writeByte((byte) (isUpcoming ? 0x01 : 0x00));
-
+        dest.writeString(registrationURL);
     }
 
     @SuppressWarnings("unused")

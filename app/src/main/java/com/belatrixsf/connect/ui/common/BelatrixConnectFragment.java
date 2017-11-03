@@ -22,9 +22,13 @@ package com.belatrixsf.connect.ui.common;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewCompat;
 import android.view.View;
 
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
@@ -154,6 +158,18 @@ public abstract class BelatrixConnectFragment extends Fragment implements Belatr
         String tag = fragment.getClass().getSimpleName();
         transaction.replace(fragmentReplacedId, fragment, tag);
         transaction.commit();
+    }
+
+    protected void startAnimatedActivity(Intent intent, String transitionName, View sharedView) {
+        ViewCompat.setTransitionName(sharedView, transitionName);
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), sharedView, transitionName);
+        ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
+    }
+
+    protected void startAnimatedActivity(Intent intent, String transitionName, View sharedView, int code) {
+        ViewCompat.setTransitionName(sharedView, transitionName);
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), sharedView, transitionName);
+        startActivityForResult(intent, code, options.toBundle());
     }
 
 }

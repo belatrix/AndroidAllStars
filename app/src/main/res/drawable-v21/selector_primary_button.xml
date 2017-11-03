@@ -5,7 +5,6 @@
         android:drawable="@color/colorPrimary"
         android:state_enabled="false"/>
 
-    <item
-        android:drawable="@drawable/ripple_primary"/>
+    <item android:drawable="@drawable/ripple_primary"/>
 
 </selector>

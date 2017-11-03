@@ -22,7 +22,11 @@ package com.belatrixsf.connect.ui.account.recommendations;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -39,6 +43,7 @@ import com.belatrixsf.connect.ui.account.AccountActivity;
 import com.belatrixsf.connect.ui.account.AccountFragmentListener;
 import com.belatrixsf.connect.ui.common.BelatrixConnectFragment;
 import com.belatrixsf.connect.ui.common.RecyclerOnItemClickListener;
+import com.belatrixsf.connect.ui.common.RecyclerSharedClickListener;
 import com.belatrixsf.connect.ui.common.views.DividerItemDecoration;
 import com.belatrixsf.connect.ui.recommendations.RecommendationsActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
@@ -49,10 +54,12 @@ import java.util.List;
 
 import butterknife.Bind;
 
+import static com.belatrixsf.connect.ui.common.BelatrixConnectActivity.supportSharedElements;
+
 /**
  * Created by dvelasquez on 16/2/17.
  */
-public class AccountRecommendationsFragment extends BelatrixConnectFragment implements AccountRecommendationsView, RecyclerOnItemClickListener {
+public class AccountRecommendationsFragment extends BelatrixConnectFragment implements AccountRecommendationsView, RecyclerSharedClickListener {
 
     public static final String _CATEGORY_LIST_KEY = "_category_list_key";
 
@@ -194,13 +201,22 @@ public class AccountRecommendationsFragment extends BelatrixConnectFragment impl
     }
 
     @Override
-    public void onClick(View v) {
-        accountRecommendationsPresenter.onCategoryClicked(v.getTag());
+    public void onClick(View itemView, View sharedElement, String transitionName) {
+        accountRecommendationsPresenter.onCategoryClicked(itemView.getTag(), sharedElement, transitionName);
     }
 
     @Override
-    public void goCategoryDetail(int categoryId, int employeeId) {
-        RecommendationsActivity.startActivity(getActivity(), employeeId, categoryId);
+    public void goCategoryDetail(int categoryId, int employeeId, Object view, String transitionName) {
+        Intent intent = new Intent(getActivity(), RecommendationsActivity.class);
+        intent.putExtra(RecommendationsActivity.USER_ID_KEY, employeeId);
+        intent.putExtra(RecommendationsActivity.CATEGORY_ID_KEY, categoryId);
+        intent.putExtra(RecommendationsActivity.SHARED_NAME_KEY, transitionName);
+        if (supportSharedElements()){
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), (View) view, transitionName);
+            ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
+        } else{
+            startActivity(intent);
+        }
     }
 
     @Override

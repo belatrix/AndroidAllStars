@@ -27,6 +27,4 @@ import com.belatrixsf.connect.ui.common.BelatrixConnectView;
  */
 public interface ExpandPictureView extends BelatrixConnectView {
 
-    void showProfilePicture(String profilePicture);
-
 }

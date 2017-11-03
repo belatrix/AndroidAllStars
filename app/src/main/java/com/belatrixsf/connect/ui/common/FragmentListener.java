@@ -44,5 +44,6 @@ public interface FragmentListener {
     void setActivityResult(int resultCode, Intent resultIntent);
     void setTitle(String title);
     void setToolbar(Toolbar toolbar);
+    void fragmentBackPressed();
 
 }

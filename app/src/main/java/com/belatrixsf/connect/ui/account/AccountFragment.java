@@ -24,11 +24,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -57,13 +58,18 @@ import com.belatrixsf.connect.ui.stars.GiveStarFragment;
 import com.belatrixsf.connect.ui.stars.StarsListActivity;
 import com.belatrixsf.connect.utils.BelatrixConnectApplication;
 import com.belatrixsf.connect.utils.DialogUtils;
+import com.belatrixsf.connect.utils.MediaUtils;
 import com.belatrixsf.connect.utils.di.modules.presenters.AccountPresenterModule;
 import com.belatrixsf.connect.utils.media.ImageFactory;
 import com.belatrixsf.connect.utils.media.loaders.ImageLoader;
+import com.bumptech.glide.Glide;
 
 import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.OnClick;
+
+import static android.app.Activity.RESULT_OK;
+import static com.belatrixsf.connect.ui.common.BelatrixConnectActivity.supportSharedElements;
 
 /**
  * Created by pedrocarrillo on 4/9/16.
@@ -84,7 +90,6 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     @Bind(R.id.skype_id) TextView skypeIdTextView;
     @Bind(R.id.level) TextView levelTextView;
     @Bind(R.id.score) TextView scoreTextView;
-    @Bind(R.id.profile_name) TextView nameTextView;
     @Bind(R.id.profile_email) TextView emailTextView;
     @Bind(R.id.profile_picture) ImageView pictureImageView;
     @Bind(R.id.location_name) TextView profileLocationImageView;
@@ -101,7 +106,7 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
             bundle.putInt(AccountActivity.USER_ID_KEY, userId);
         }
         if(imgBitmap != null){
-            bundle.putByteArray(AccountActivity.USER_IMG_PROFILE_KEY,imgBitmap);
+            bundle.putByteArray(AccountActivity.USER_IMG_PROFILE_KEY, imgBitmap);
         }
         AccountFragment accountFragment = new AccountFragment();
         accountFragment.setArguments(bundle);
@@ -128,9 +133,19 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
         }
     }
 
+    private void getUserInputData() {
+        Bundle arguments = getArguments();
+        Integer userId = (arguments != null && arguments.containsKey(AccountActivity.USER_ID_KEY)) ?
+                                               arguments.getInt(AccountActivity.USER_ID_KEY) : null;
+        byte [] userImg = (arguments != null && arguments.containsKey(AccountActivity.USER_IMG_PROFILE_KEY)) ?
+                                                arguments.getByteArray(AccountActivity.USER_IMG_PROFILE_KEY) : null;
+        accountPresenter.setUserInfo(userId, MediaUtils.get().getBitmapFromByteArray(userImg));
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getUserInputData();
         setHasOptionsMenu(true);
     }
 
@@ -144,19 +159,11 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setupViews();
         if (savedInstanceState != null) {
-            restoreState(savedInstanceState);
-        }else if (getArguments() != null) {
-            Integer userId = null;
-            byte [] userImg = null;
-            if (getArguments().containsKey(AccountActivity.USER_ID_KEY)) {
-                userId = getArguments().getInt(AccountActivity.USER_ID_KEY);
-            }
-            if(getArguments().containsKey(AccountActivity.USER_IMG_PROFILE_KEY)){
-                userImg = getArguments().getByteArray(AccountActivity.USER_IMG_PROFILE_KEY);
-            }
-            accountPresenter.setUserInfo(userId, userImg);
+            //restoreState(savedInstanceState);
+        } else {
+            setupViews();
+            accountPresenter.loadUserData();
         }
     }
 
@@ -166,7 +173,7 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
         recommendMenuItem = menu.findItem(R.id.action_recommend);
         editProfileMenuItem = menu.findItem(R.id.action_edit_profile);
         editSkillsMenuItem = menu.findItem(R.id.action_edit_skills);
-        accountPresenter.checkRecommendationEnabled();
+        accountPresenter.checkForMenuItemsEnabled();
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -192,7 +199,7 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     public void onEmployeeLoaded(final int employeeId) {
         bottomNavigation.setCurrentItem(0);
         final int idFragmentContainer = R.id.fragment_profile_container;
-        replaceChildFragment(AccountRecommendationsFragment.newInstance(accountPresenter.getEmployee().getPk()), idFragmentContainer);
+        replaceChildFragment(AccountRecommendationsFragment.newInstance(employeeId), idFragmentContainer);
         bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
@@ -216,7 +223,7 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
         accountSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                accountPresenter.loadEmployeeAccount(true);
+                accountPresenter.loadUserData();
             }
         });
         AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_gratitudes, R.drawable.ic_recommendations, R.color.colorAccent);
@@ -239,7 +246,7 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        saveState(outState);
+        //saveState(outState);
         super.onSaveInstanceState(outState);
     }
 
@@ -251,7 +258,8 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
 
     private void saveState(Bundle outState) {
         outState.putParcelable(EMPLOYEE_KEY, accountPresenter.getEmployee());
-        outState.putByteArray(AccountActivity.USER_IMG_PROFILE_KEY, accountPresenter.getEmployeeImg());
+        outState.putByteArray(AccountActivity.USER_IMG_PROFILE_KEY,
+                MediaUtils.get().getByteArrayFromBitmap((Bitmap) accountPresenter.getEmployeeImg()));
     }
 
     @Override
@@ -279,9 +287,7 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
 
     @Override
     public void showEmployeeName(String employeName) {
-        if (nameTextView != null) {
-            nameTextView.setText(employeName);
-        }
+        fragmentListener.setTitle(employeName);
     }
 
     @Override
@@ -299,48 +305,40 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     }
 
     @Override
-    public void showProfilePicture(final String profilePicture) {
+    public void showProfilePicture(final Object profilePicture) {
         if (pictureImageView != null) {
-            if (accountPresenter.getEmployeeImg() == null) {
-                ImageFactory.getLoader().loadFromUrl(
-                        profilePicture,
-                        pictureImageView,
-                        ImageLoader.ImageTransformation.BORDERED_CIRCLE,
-                        new ImageLoader.Callback() {
-                            @Override
-                            public void onSuccess() {
-                                startPostponedEnterTransition();
-                            }
+            pictureImageView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                @Override
+                public boolean onPreDraw() {
+                    pictureImageView.getViewTreeObserver().removeOnPreDrawListener(this);
+                    System.out.println("profilePicture:" + profilePicture);
+                    System.out.println("pictureImageView.getDrawable():" + pictureImageView.getDrawable());
+                    if (profilePicture instanceof String && pictureImageView.getDrawable() == null) {
+                        ImageFactory.getLoader().loadFromUrl(
+                                (String) profilePicture,
+                                pictureImageView,
+                                ImageLoader.ImageTransformation.BORDERED_CIRCLE,
+                                getResources().getDrawable(R.drawable.placeholder_user),
+                                ImageLoader.ScaleType.CENTER_CROP
+                        );
 
-                            @Override
-                            public void onFailure() {
-                                startPostponedEnterTransition();
-                            }
-                        },
-                        getResources().getDrawable(R.drawable.contact_placeholder),
-                        ImageLoader.ScaleType.CENTER_CROP
-                );
-            } else {
-                ImageFactory.getLoader().loadFromBitmap(
-                        accountPresenter.getEmployeeImg(),
-                        pictureImageView,
-                        ImageLoader.ImageTransformation.BORDERED_CIRCLE,
-                        new ImageLoader.Callback() {
-                            @Override
-                            public void onSuccess() {
-                                startPostponedEnterTransition();
-                            }
 
-                            @Override
-                            public void onFailure() {
-                                startPostponedEnterTransition();
-                            }
-                        },
-                        getResources().getDrawable(R.drawable.contact_placeholder),
-                        ImageLoader.ScaleType.CENTER_CROP
-                );
-            }
+                    } else if (profilePicture instanceof Bitmap) {
+                        if (profilePicture != null ) {
+                            pictureImageView.setImageBitmap((Bitmap) profilePicture);
+                        }
+                    }
+                    return false;
+                }
+            });
         }
+    }
+
+    @Override
+    public void resetProfilePicture() {
+        //if (pictureImageView != null) {
+           // pictureImageView.setImageDrawable(getResources().getDrawable(R.drawable.placeholder_user));
+        //}
     }
 
     @Override
@@ -360,16 +358,6 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
                 return false;
             }
         });
-    }
-
-    @OnClick(R.id.profile_picture)
-    public void profilePictureClicked() {
-        accountPresenter.profilePictureClicked();
-    }
-
-    @Override
-    public void goToExpandPhoto(String url) {
-        ExpandPictureActivity.startActivityAnimatingProfilePic(getActivity(), pictureImageView, url);
     }
 
     @Override
@@ -395,9 +383,25 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
     public void goToEditProfile(Employee employee) {
         Intent intent = new Intent(getActivity(), EditAccountActivity.class);
         intent.putExtra(EditAccountFragment.IS_NEW_USER, false);
-        ViewCompat.setTransitionName(pictureImageView, getActivity().getString(R.string.transition_photo));
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), pictureImageView, getActivity().getString(R.string.transition_photo));
-        getActivity().startActivityForResult(intent, EditAccountFragment.RQ_EDIT_ACCOUNT, options.toBundle());
+        if (supportSharedElements()) {
+            String transitionName = getActivity().getString(R.string.transition_photo);
+            startAnimatedActivity(intent, transitionName, pictureImageView, EditAccountFragment.RQ_EDIT_ACCOUNT);
+        } else {
+            startActivityForResult(intent, EditAccountFragment.RQ_EDIT_ACCOUNT);
+        }
+    }
+
+    @OnClick(R.id.profile_picture)
+    public void profilePictureClicked() {
+        Drawable drawable = pictureImageView.getDrawable();
+        Intent intent = ExpandPictureActivity.makeIntent(getActivity());
+        if (supportSharedElements() && drawable != null) {
+            intent.putExtra(ExpandPictureActivity.USER_AVATAR_KEY, MediaUtils.compressDrawable(drawable));
+            String transitionName = getActivity().getString(R.string.transition_photo);
+            startAnimatedActivity(intent, transitionName, pictureImageView);
+        } else {
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -412,14 +416,29 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
         startActivityForResult(intent, RQ_GIVE_STAR);
     }
 
+    Handler handler =  new Handler();
+
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(final int requestCode, final int resultCode,final  Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RQ_GIVE_STAR && resultCode == Activity.RESULT_OK && data != null) {
-            fragmentListener.showSnackBar(data.getStringExtra(GiveStarFragment.MESSAGE_KEY));
-        } else if (requestCode == EditAccountFragment.RQ_EDIT_ACCOUNT) {
-            accountPresenter.refreshEmployee();
-        }
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (requestCode == RQ_GIVE_STAR && resultCode == Activity.RESULT_OK && data != null) {
+                    fragmentListener.showSnackBar(data.getStringExtra(GiveStarFragment.MESSAGE_KEY));
+                    accountPresenter.loadUserData();
+                } else if (requestCode == EditAccountFragment.RQ_EDIT_ACCOUNT && resultCode == RESULT_OK) {
+                    accountPresenter.refreshEmployee();
+                    accountPresenter.getUserDataFromServer();
+                }
+            }
+        });
+
+    }
+
+    @Override
+    public Drawable getProfilePicture() {
+        return pictureImageView != null ? pictureImageView.getDrawable() : null;
     }
 
     @Override
@@ -462,9 +481,4 @@ public class AccountFragment extends BelatrixConnectFragment implements AccountV
         super.onDestroyView();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        accountPresenter.loadEmployeeAccount(true);
-    }
 }

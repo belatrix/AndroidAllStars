@@ -32,7 +32,6 @@ import android.widget.ImageView;
 
 import com.belatrixsf.connect.R;
 import com.belatrixsf.connect.ui.common.BelatrixConnectActivity;
-import com.belatrixsf.connect.ui.home.UserActivity;
 import com.belatrixsf.connect.utils.MediaUtils;
 
 /**
@@ -48,11 +47,11 @@ public class AccountActivity extends BelatrixConnectActivity implements AccountF
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-        ActivityCompat.postponeEnterTransition(this);
-        setNavigationToolbar();
-        int userId = getIntent().getIntExtra(USER_ID_KEY, -1);
-        if (userId != -1) {
-            byte[] bytesImg = getIntent().getExtras().getByteArray(USER_IMG_PROFILE_KEY);
+        if (savedInstanceState == null) {
+            setNavigationToolbar();
+            Bundle extras = getIntent().getExtras();
+            Integer userId = (extras != null && extras.containsKey(USER_ID_KEY)) ? extras.getInt(USER_ID_KEY) : null;
+            byte[] bytesImg = (extras != null && extras.containsKey(USER_IMG_PROFILE_KEY)) ? extras.getByteArray(USER_IMG_PROFILE_KEY) : null;
             replaceFragment(AccountFragment.newInstance(userId, bytesImg), false);
         }
     }
@@ -61,13 +60,17 @@ public class AccountActivity extends BelatrixConnectActivity implements AccountF
         Drawable drawable = photoImageView.getDrawable();
         Intent intent = new Intent(activity, AccountActivity.class);
         intent.putExtra(AccountActivity.USER_ID_KEY, employeeId);
-        intent.putExtra(AccountActivity.USER_IMG_PROFILE_KEY, MediaUtils.compressDrawable(drawable));
-        ViewCompat.setTransitionName(photoImageView, activity.getString(R.string.transition_photo));
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, photoImageView, activity.getString(R.string.transition_photo));
-        activity.startActivity(intent, options.toBundle());
+        if (supportSharedElements() && drawable != null) {
+            intent.putExtra(AccountActivity.USER_IMG_PROFILE_KEY, MediaUtils.compressDrawable(drawable));
+            ViewCompat.setTransitionName(photoImageView, activity.getString(R.string.transition_photo));
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, photoImageView, activity.getString(R.string.transition_photo));
+            ActivityCompat.startActivity(activity, intent, options.toBundle());
+        } else {
+            activity.startActivity(intent);
+        }
     }
 
-    @Override
+   /* @Override
     protected void navigateBack() {
         // both activities are single Task, instead of create a new instance
         // with startActivity it returns to the existing instance
@@ -78,7 +81,7 @@ public class AccountActivity extends BelatrixConnectActivity implements AccountF
         //} else{
         //    startActivity(ContactsListActivity.makeIntent(this));
         //}
-    }
+    }*/
 
     @Override
     public void refreshNavigationDrawer() {

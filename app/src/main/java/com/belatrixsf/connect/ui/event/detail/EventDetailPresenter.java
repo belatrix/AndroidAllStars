@@ -106,11 +106,13 @@ public class EventDetailPresenter extends BelatrixConnectPresenter<EventDetailVi
     }
 
     private void refreshRegisterEvent() {
+        /*
         if (event.isRegistered()) {
                 view.enableUnregister();
             } else {
                 view.enableRegister();
-        }
+        }*/
+        view.enableRegister();
     }
 
 
